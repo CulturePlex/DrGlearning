@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/accounts.css" />
+{% endblock %}
+
+{% block content_title %}<h2>{% blocktrans with user.username as username %}Cuenta &raquo; {{ username }}{% endblocktrans %}
+{% if user.get_full_name %}({{ user.get_full_name }}){% endif %}</h2>{% endblock %}
+
+{% block content %}
+
+<div class="white-box">
+
+<div class="content2-first">
+  <ul id="box-nav">
+    <img class="mugshot" src="{{ user.get_profile.get_mugshot_url }}" alt="{% trans "Your mugshot" %}" />
+    <li><a href="{% url userena_profile_detail user.username %}">{% trans "View profile" %} &raquo;</a></li>
+    <li><a href="{% url userena_profile_edit user.username %}">{% trans "Edit details" %} &raquo;</a></li>
+    <li><a href="{% url userena_password_change user.username %}">{% trans "Change password" %} &raquo;</a></li>
+    <li><a href="{% url userena_email_change user.username %}">{% trans "Change email" %} &raquo;</a></li>
+  </ul>
+</div>
+
+<div class="content2-second">
+
+{% block profile_content %}{% endblock %}
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'accounts/base_profile.html' %}
+{% load i18n %}
+
+{% block profile_content %}
+
+<form action="" enctype="multipart/form-data" method="post">
+  {% csrf_token %}
+  <fieldset>
+    <legend>{% trans "Edit Profile" %}</legend>
+<table id="content_table">
+    {{ form.as_table }}
+</table>
+  </fieldset>
+  <input type="submit" value="{% trans "Guardar Cambios" %}" />
+</form>
+
+
+{% endblock %}

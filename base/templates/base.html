@@ -1,0 +1,107 @@
+{% load i18n thumbnail static %}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% get_static_prefix as STATIC_PREFIX %}
+<html xml:lang="{{ LANGUAGE_CODE|slice:":2" }}"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:v="urn:schemas-microsoft-com:vml"
+      version="-//W3C//DTD XHTML 1.0 Strict//EN">
+
+<head>
+    <title>{{ PROJECT_NAME }} - {% block title %}{% trans "Welcome to Virtual Language Learning Lab" %}{% endblock %}</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="The CulturePlex Lab.">
+    <meta name="resource-type" content="document">
+    <meta name="distribution" content="global">
+    <meta name="rating" content="general">
+    <meta name="robots" content="ALL">
+    <meta name="copyright" content="Copyright {{ CURRENT_DATE|date:"Y" }} CulturePlex Lab."> 
+    <meta name="description" content="A Relaxed-Schema Graph Database Management System"> 
+    <meta name="keywords" content="virtual, language, learning, laboratory, dialogue, natural language, vl3">
+    <link rel="icon" href="{{ STATIC_PREFIX }}img/favicon.ico"> 
+    {% block css %}<link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/base.css" />    {% endblock %}
+    <!--[if lt IE 7]>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}css/iefixes.css" />
+    <![endif]-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_PREFIX }}js/jquery.simplemodal.1.4.1.min.js"></script>
+    {% block extra_metas %}{% endblock %}
+    {% block extra_links %}{% endblock %}
+    {% block extra_scripts %}{% endblock %}
+</head>
+
+<body {% block body_attrs %}{% endblock %}>
+{% block body %}
+
+  <div id="main">
+    <header class="global">
+      {% block menu_navigation %}
+      <nav class="menu">
+        <ul>
+<!--          <li><a href="{% url userena.views.profile_detail request.user %}" class="text">{{ request.user }}</a></li>-->
+          {% block menu_buttons %}
+<!--          <li><a href="{% url dashboard %}" class="link"><span>{% trans "Dashboard" %}</span></a></li>-->
+          {% endblock %}
+<!--          <li><a href="{{ LOGOUT_URL }}" class="link"><span>{% trans "Sign out" %}</span></a></li>-->
+        </ul>
+      </nav>
+      {% endblock %}
+      {% block content_title %}
+      {% endblock %}
+      <div class="nav-wrapper">
+
+        <div class="inside clearfix">
+        {% block contact_navigation %}
+        {% endblock %}
+
+    {% block main_navigation %}
+      <nav class="main">
+        <ul>
+          {% if request.user.is_authenticated %}
+          <li><a href="{% url userena.views.profile_detail request.user %}" class="text">{{ request.user }}</a></li>
+          {% block navigation_buttons %}
+          <li><a href="{% url dashboard %}" class="link"><span>{% trans "Dashboard" %}</span></a></li>
+          {% endblock %}
+          <li><a href="{{ LOGOUT_URL }}" class="link"><span>{% trans "Sign out" %}</span></a></li>
+          {% else %}
+          <li><a href="{% url index %}" class="link-home" id="loginFormButton"><span>{% trans "Home" %}</span></a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endblock %}
+        </div><!-- end .inside -->
+      </div><!-- end .nav-wrapper -->
+    </header>
+
+  <div id="body">
+    <div class="body-inside">
+    {% block content %}
+    {% endblock %}
+    </div><!-- end .body-inside -->
+  </div><!-- end #body -->
+    <div id="footer" class="global">
+      <div class="inside">
+        <div class="copyright">
+      {% block footer %}
+        <p>{{ CURRENT_DATE|date:"Y" }} &copy; {% trans "Copyright" %} by {{ PROJECT_NAME }} & <a href="http://www.cultureplex.ca/">CulturePlex Lab</a> and Natural Language. {% trans "All rights reserved" %}.
+        </p>
+        <p><a href="#">{% trans "Terms" %}</a> | <a href="#">{% trans "FAQ" %}</a> | <a href="#" >{% trans "Contact us" %}</a>
+        </p>
+      {% endblock %}
+            </div><!-- end .copyright -->
+        <div class="top">
+          <a href="#">Top ↑</a>
+        </div><!-- end .top -->
+      </div><!-- end .inside -->
+
+    </div>
+  </div><!-- end #main -->
+
+{% endblock %}
+</body>
+<!--
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+<script type="text/javascript">
+    _uacct = "{{ GOOGLE_ANALYTICS_CODE }}";
+    urchinTracker();
+</script>
+-->
+</html>
