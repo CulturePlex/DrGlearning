@@ -21,6 +21,9 @@ urlpatterns = patterns('',
     # messaging
     url(r'^messages/', include('userena.contrib.umessages.urls')),
 
+    # knowledge
+    url(r'^knowledge/', include('knowledge.urls')),
+
     # admin_media
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^admin/', include(admin_site.urls)),
