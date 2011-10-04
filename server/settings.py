@@ -151,6 +151,8 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'base',
     'accounts',
+    'activities',
+    'knowledges',
 )
 
 AUTHENTICATION_BACKENDS = (

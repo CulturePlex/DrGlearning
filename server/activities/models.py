@@ -8,13 +8,11 @@ from django.utils.translation import gettext as _
 
 from knowledges.models import Career
 
+
 class Activity(models.Model):
     name = models.CharField(_('name'), max_length=255)
     career = models.ManyToManyField(Career, related_name="careers",
                                     through="Level")
-
-    class Meta:
-        abstract = True
 
 
 class Level(models.Model):
@@ -36,7 +34,7 @@ class Level(models.Model):
                                             choices=TYPE_CHOICES)
 
     class Meta:
-        ordering = ['type']
+        ordering = ['career', 'activity', 'type']
 
 
 class RelationalActivity(Activity):

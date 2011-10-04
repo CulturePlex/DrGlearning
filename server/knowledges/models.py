@@ -12,7 +12,6 @@ class Knowledge(models.Model):
 
     class Meta:
         verbose_name = _("knowledge field")
-        verbose_plural_name = _("knowledge fields")
 
     def __unicode__(self):
         return u"%s" % self.name
@@ -21,9 +20,9 @@ class Knowledge(models.Model):
 class Career(models.Model):
     name = models.CharField(_('name'), max_length=255)
     user = models.ForeignKey(User, verbose_name="user")
-    knowledge_field = models.ManyToManyField(KnowledgeField,
+    knowledge_field = models.ManyToManyField(Knowledge,
                                              verbose_name="knowledge field",
-                                             related_name"knowledge_fields")
+                                             related_name="knowledge_fields")
 
     def __unicode__(self):
         return u"%s" % self.name

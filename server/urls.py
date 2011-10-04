@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^messages/', include('userena.contrib.umessages.urls')),
 
     # knowledge
-    url(r'^knowledge/', include('knowledge.urls')),
+    # url(r'^knowledges/', include('knowledges.urls')),
 
     # admin_media
     url(r'^admin/', include(admin.site.urls)),
