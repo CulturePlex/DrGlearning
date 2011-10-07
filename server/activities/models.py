@@ -10,72 +10,59 @@ from knowledges.models import Career
 
 
 class Activity(models.Model):
-    name = models.CharField(_('name'), max_length=255)
-    career = models.ManyToManyField(Career, related_name="careers",
+    name = models.CharField(_("name"), max_length=255)
+    career = models.ManyToManyField(Career, related_name="activities",
                                     through="Level")
+    language_code = models.CharField(_("language code"), max_length=20)
+
+    @classmethod
+    def serialize(cls):
+        return NotImplemented
 
 
 class Level(models.Model):
     activity = models.ForeignKey(Activity)
     career = models.ForeignKey(Career)
     TYPE_CHOICES = (
-        (1, _('Illetratum')),
-        (2, _('Primary')),
-        (3, _('Secondary')),
-        (4, _('High School')),
-        (5, _('College')),
-        (6, _('Master')),
-        (7, _('PhD.')),
-        (8, _('Post-Doc')),
-        (9, _('Professor')),
-        (10, _('Emeritus')),
+        (1, _("Illetratum")),
+        (2, _("Primary")),
+        (3, _("Secondary")),
+        (4, _("High School")),
+        (5, _("College")),
+        (6, _("Master")),
+        (7, _("PhD.")),
+        (8, _("Post-Doc")),
+        (9, _("Professor")),
+        (10, _("Emeritus")),
     )
-    type = models.PositiveSmallIntegerField(_('type'),
+    type = models.PositiveSmallIntegerField(_("type"),
                                             choices=TYPE_CHOICES)
+    order = models.IntegerField(_("order"), null=True, blank=True)
 
     class Meta:
-        ordering = ['career', 'activity', 'type']
+        ordering = ["order"]
 
 
-class RelationalActivity(Activity):
-
-    class Meta:
-        abstract = True
-
+class Relational(Activity):
+    graph = models.FileField(upload_to="graphs")
+    queries = models.TextField(_("queries"))
 
 
-class VisualActivity(Activity):
-
-    class Meta:
-        abstract = True
-
-
-
-class GeospatialActivity(Activity):
-
-    class Meta:
-        abstract = True
+class VisualMemory(Activity):
+    image = models.ImageField(upload_to="images")
+    right_options = models.TextField(_("right options"))
+    wrong_options = models.TextField(_("wrong options"))
 
 
-class TemporalActivity(Activity):
-
-    class Meta:
-        abstract = True
-
-
-
-class MultimediaActivity(Activity):
-
-    class Meta:
-        abstract = True
-
-
-
-class LinguisticActivity(Activity):
-
-    class Meta:
-        abstract = True
-
-
-class Wordsearch(LinguisticActivity):
+class GeospatialAreas(Activity):
     pass
+
+
+class AfterBefore(Activity):
+    pass
+
+
+class HangmanPuzzle(Activity):
+    image = models.ImageField(upload_to="images")
+    question = models.TextField(_("question"))
+    answer = models.TextField(_("answer"))
