@@ -38,6 +38,7 @@ class Level(models.Model):
     type = models.PositiveSmallIntegerField(_("type"),
                                             choices=TYPE_CHOICES)
     order = models.IntegerField(_("order"), null=True, blank=True)
+    required = models.BooleanField(_("required"), default=True)
 
     class Meta:
         ordering = ["order"]
