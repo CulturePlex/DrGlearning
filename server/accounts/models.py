@@ -59,7 +59,9 @@ class UserProfile(UserenaLanguageBaseProfile):
                            max_length=150)
     user = models.OneToOneField(User, verbose_name=_('user'))
     account = models.ForeignKey(Account, verbose_name=_('account'),
-                                   related_name="users")
+                                related_name="users")
+    trusted = models.BooleanField(_('trusted'), default=False, editable=False,
+                                  help_text=_('It the user is trusted'))
 
     @property
     def age(self):
