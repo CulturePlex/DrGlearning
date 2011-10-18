@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'accounts',
     'activities',
     'knowledges',
+    'south',
 )
 
 AUTHENTICATION_BACKENDS = (
