@@ -11,4 +11,5 @@ psycopg2==2.4.2
 pycrypto==2.3
 sorl-thumbnail==11.09
 wsgiref==0.1.2
+django-tastypie==0.9.9
 
