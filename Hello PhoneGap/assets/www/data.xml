@@ -1,0 +1,139 @@
+<seoData>
+	<familias>
+		<familia>
+			<id>1</id>
+			<nombre>Carroñeros</nombre>
+			<descripcion></descripcion>
+		</familia>
+		<familia>
+			<id>2</id>
+			<nombre>Rapaces</nombre>
+			<descripcion></descripcion>
+		</familia>
+		<familia>
+			<id>3</id>
+			<nombre>Corcovados</nombre>
+			<descripcion></descripcion>
+		</familia>
+	</familias>
+	
+	<birds>
+	     <bird>
+	 		  <id>0</id>
+	          <name>Busardo Ratonero</name>
+			  <latin>Buteo buteo</latin>
+	          <idFamilia>2</idFamilia>
+			  <imagen>120.jpg</imagen>
+			  <texto>Rapaz de silueta compacta y plumaje castaño. Es frecuente observarlo en su posadero, cerca de las carreteras o sobrevolando campos y bosques. Residente.</texto>
+			 
+	     </bird>
+	     <bird>
+			  <id>1</id>
+	          <name>Halcón Peregrino</name>
+			  <latin>Halconipu Marindor</latin>
+	          <idFamilia>2</idFamilia>
+			  <imagen>rapaz.png</imagen>
+			  <texto>Rapaz de silueta compacta y plumaje castaño. Es frecuente observarlo en su posadero, cerca de las carreteras o sobrevolando campos y bosques. Residente.</texto>
+			  
+	     </bird>
+	 	 <bird>
+			  <id>2</id>
+	          <name>Buitre Leonado</name>
+			  <latin>Buitrus Tasticol</latin>
+	          <idFamilia>1</idFamilia>
+			  <imagen>buitrecomun.gif</imagen>
+			  <texto>Rapaz de silueta compacta y plumaje castaño. Es frecuente observarlo en su posadero, cerca de las carreteras o sobrevolando campos y bosques. Residente.</texto>
+	
+	     </bird>
+	 	 <bird>
+			  <id>3</id>
+	          <name>Aguila Imperial</name>
+			  <latin>Buyerti Kolem</latin>
+	          <idFamilia>1</idFamilia>
+			  <imagen>aguila_real4.jpg</imagen>
+			  <texto>Rapaz de silueta compacta y plumaje castaño. Es frecuente observarlo en su posadero, cerca de las carreteras o sobrevolando campos y bosques. Residente.</texto>		  
+	
+	
+	     </bird>
+		 <bird>
+			  <id>4</id>
+	          <name>Somormujo Lavanco</name>
+			  <latin>Podiceps cristatus</latin>
+	          <idFamilia>3</idFamilia>
+			  <imagen>somormujolavanco.gif</imagen>
+			  <texto>Ave de cuello largo y pico afilado. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+		 <bird>
+			  <id>5</id>
+	          <name>Zampullín Común</name>
+			  <latin>Tachybaptus ruficollis</latin>
+	          <idFamilia>3</idFamilia>
+			  <imagen>zampullinchico.gif</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+	 	 <bird>
+			  <id>6</id>
+	          <name>Azor</name>
+			  <latin>Accipiter Gentilis</latin>
+	          <idFamilia>3</idFamilia>
+			  <imagen>azor.jpg</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+		 <bird>
+			  <id>7</id>
+	          <name>Gavilán Común</name>
+			  <latin>Accipiter Nisus</latin>
+	          <idFamilia>2</idFamilia>
+			  <imagen>gavilan.jpg</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+		 <bird>
+			  <id>8</id>
+	          <name>Andarríos chico</name>
+			  <latin>Actitis Hypoleucos</latin>
+	          <idFamilia>2</idFamilia>
+			  <imagen>andarrios.jpg</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+	 	 <bird>
+			  <id>9</id>
+	          <name>Carricero Tordal</name>
+			  <latin>Acrocephalus Arundinaceus</latin>
+	          <idFamilia>1</idFamilia>
+			  <imagen>carricero.jpg</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+		 <bird>
+			  <id>10</id>
+	          <name>Carricerín Cejudo</name>
+			  <latin>Acrocephalus Paludicola</latin>
+	          <idFamilia>1</idFamilia>
+			  <imagen>carricerin.jpg</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+		 <bird>
+			  <id>11</id>
+	          <name>Carricero Poliglota</name>
+			  <latin>Acrocephalus Palustris</latin>
+	          <idFamilia>2</idFamilia>
+			  <imagen>poliglota.jpg</imagen>
+			  <texto>Pequeño y hábil buceador, de aspecto rechoncho, común en lagunas y caños con cobertura vegetal. Emite de forma persi. El plumaje de la cabeza, asemejando cuernos y largas patillas, da al adulto un aspecto inconfundible. Cada primavera realiza una vistosa parada nupcial en lagunas y marismas, Su principal alimento son los peces. Residente.</texto>		  
+	
+	
+	     </bird>
+	</birds>
+</seoData>
