@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'activities',
     'knowledges',
     'south',
+    'tastypie',
 )
 
 AUTHENTICATION_BACKENDS = (
