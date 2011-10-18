@@ -19,6 +19,9 @@ class Activity(models.Model):
     def serialize(cls):
         return NotImplemented
 
+    def __unicode__(self):
+        return u"%s" % self.name
+
 
 class Level(models.Model):
     activity = models.ForeignKey(Activity)
