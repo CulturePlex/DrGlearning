@@ -9,15 +9,28 @@ class ActivityResource(ModelResource):
     class Meta:
         queryset = Activity.objects.all()
 
-
-class RelationalResource(ModelResource):
-    class Meta:
-        queryset = Relational.objects.all()
+    def dehydrate(self, bundle):
+        if hasattr(bundle.obj, "relational"):
+            child_obj = bundle.obj.relational
+        elif hasattr(bundle.obj, "afterbefore"):
+            child_obj = bundle.obj.afterbefore
+        elif hasattr(bundle.obj, "visualmemory"):
+            child_obj = bundle.obj.visualmemory
+        elif hasattr(bundle.obj, "hangmanpuzzle"):
+            child_obj = bundle.obj.hangmanpuzzle
+        elif hasattr(bundle.obj, "geospatialareas"):
+            child_obj = bundle.obj.geospatialareas
+        else:
+            return bundle
+        fields = child_obj._meta.local_fields
+        for f in fields:
+            field_name = f.name
+            bundle.data[field_name] = getattr(child_obj, field_name)
+        return bundle
 
 
 class LevelResource(ModelResource):
     activity = fields.ForeignKey(ActivityResource, 'activity')
-    #relational_activity = fields.ForeignKey(RelationalResource, 'activity')
 
     class Meta:
         queryset = Level.objects.all()
