@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from activities.models import (Relational, VisualMemory, GeospatialAreas,
-                               AfterBefore, HangmanPuzzle, Level)
+from activities.models import (Relational, Visual, Geospatial,
+                               Temporal, Linguistic, Level)
 
 
 class LevelInline(admin.TabularInline):
@@ -19,24 +19,24 @@ class RelationalAdmin(ActivityAdmin):
     pass
 
 
-class VisualMemoryAdmin(ActivityAdmin):
+class VisualAdmin(ActivityAdmin):
     pass
 
 
-class GeospatialAreasAdmin(ActivityAdmin):
+class GeospatialAdmin(ActivityAdmin):
     pass
 
 
-class AfterBeforeAdmin(ActivityAdmin):
+class TemporalAdmin(ActivityAdmin):
     pass
 
 
-class HangmanPuzzleAdmin(ActivityAdmin):
+class LinguisticAdmin(ActivityAdmin):
     pass
 
 
 admin.site.register(Relational, RelationalAdmin)
-admin.site.register(VisualMemory, VisualMemoryAdmin)
-admin.site.register(GeospatialAreas, GeospatialAreasAdmin)
-admin.site.register(AfterBefore, AfterBeforeAdmin)
-admin.site.register(HangmanPuzzle, HangmanPuzzleAdmin)
+admin.site.register(Visual, VisualAdmin)
+admin.site.register(Geospatial, GeospatialAdmin)
+admin.site.register(Temporal, TemporalAdmin)
+admin.site.register(Linguistic, LinguisticAdmin)

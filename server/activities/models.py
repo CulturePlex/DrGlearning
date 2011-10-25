@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -13,7 +15,19 @@ class Activity(models.Model):
     name = models.CharField(_("name"), max_length=255)
     career = models.ManyToManyField(Career, related_name="activities",
                                     through="Level")
-    language_code = models.CharField(_("language code"), max_length=20)
+    LAN_CHOICES = (
+        ("en", _("English")),
+        ("es", _("Español")),
+        ("fr", _("Français")),
+        ("de", _("Deutsch")),
+        ("pt", _("Português")),
+        ("ch", _("中國")),
+        ("jp", _("日語")),
+    )
+    language_code = models.CharField(_("language code"), max_length=2,
+                                    choices=LAN_CHOICES)
+    timestamp = models.DateTimeField(auto_now=True)
+    query = models.TextField()
 
     @classmethod
     def serialize(cls):
@@ -48,25 +62,32 @@ class Level(models.Model):
 
 
 class Relational(Activity):
-    graph = models.FileField(upload_to="graphs")
-    queries = models.TextField(_("queries"))
+    graph_nodes = models.TextField()
+    graph_edges = models.TextField()
+    source_path = models.CharField(max_length=30)
+    target_path = models.CharField(max_length=30)
+    scored_nodes = models.TextField()
 
 
-class VisualMemory(Activity):
+class Visual(Activity):
     image = models.ImageField(upload_to="images")
-    right_options = models.TextField(_("right options"))
-    wrong_options = models.TextField(_("wrong options"))
+    obfuscated_image = models.ImageField(upload_to="images")
+    answers = models.TextField(help_text="['Answer 1', 'Answer 2', ...]")
+    correct_answer = models.CharField(max_length=30)
+    time = models.CharField(max_length=10, help_text="Milliseconds")
 
 
-class GeospatialAreas(Activity):
-    pass
+class Geospatial(Activity):
+    pass #TODO Add GIS
 
 
-class AfterBefore(Activity):
-    pass
+class Temporal(Activity):
+    image = models.ImageField(upload_to="images") 
+    image_datetime = models.DateTimeField()
+    query_datetime = models.DateTimeField()
 
 
-class HangmanPuzzle(Activity):
+class Linguistic(Activity):
+    locked_text = models.TextField()
     image = models.ImageField(upload_to="images")
-    question = models.TextField(_("question"))
-    answer = models.TextField(_("answer"))
+    answer = models.TextField()

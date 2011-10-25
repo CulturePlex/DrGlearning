@@ -11,8 +11,10 @@ class KnowledgeResource(ModelResource):
 
 
 class CareerResource(ModelResource):
+    #Poner id de la base de datos
     knowledges = fields.ManyToManyField(KnowledgeResource, 'knowledge_field')
-    levels = fields.ManyToManyField(LevelResource, 'level_set')
+    #Lista de las actividades
+    #levels = fields.ManyToManyField(LevelResource, 'level_set')
 
     class Meta:
         queryset = Career.objects.all()
