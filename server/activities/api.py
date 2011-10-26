@@ -1,3 +1,7 @@
+import base64
+
+from django.db.models.fields.files import ImageField
+
 from tastypie import fields
 from tastypie.resources import ModelResource
 
@@ -44,5 +48,11 @@ class ActivityResource(ModelResource):
         fields = child_obj._meta.local_fields
         for f in fields:
             field_name = f.name
-            bundle.data[field_name] = getattr(child_obj, field_name)
+            # If image convert to base64
+            if isinstance(f, ImageField):
+                image_path = getattr(child_obj, field_name).path
+                image_data = open(image_path,"rb").read()
+                bundle.data[field_name] = base64.encodestring(image_data)
+            else:
+                bundle.data[field_name] = getattr(child_obj, field_name)
         return bundle
