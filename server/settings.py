@@ -151,8 +151,8 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'base',
     'accounts',
-    'activities',
     'knowledges',
+    'activities',
     'south',
     'tastypie',
 )
@@ -209,3 +209,8 @@ ACCOUNT_FREE = {
     "storage": 10,
     "queries": 10,
 }
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
