@@ -51,8 +51,10 @@ class ActivityResource(ModelResource):
             # If image convert to base64
             if isinstance(f, ImageField):
                 image_path = getattr(child_obj, field_name).path
+                ext = image_path.split('.')[-1]
                 image_data = open(image_path,"rb").read()
-                bundle.data[field_name] = base64.encodestring(image_data)
+                bundle.data[field_name] = "data:image/%s;base64,%s" % (ext,
+                                            base64.encodestring(image_data))
             else:
                 bundle.data[field_name] = getattr(child_obj, field_name)
         return bundle
