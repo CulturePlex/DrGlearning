@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from django.db import models
+from django.contrib.gis.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -9,7 +9,10 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
 from knowledges.models import Career
+from south.modelsinspector import add_introspection_rules
 
+# South and PostGis integration patch
+add_introspection_rules([], ["^django\.contrib\.gis"])
 
 class Activity(models.Model):
     name = models.CharField(_("name"), max_length=255)
@@ -78,7 +81,9 @@ class Visual(Activity):
 
 
 class Geospatial(Activity):
-    pass #TODO Add GIS
+    point = models.PointField()
+    radius = models.FloatField(help_text="Meters")
+    area = models.PolygonField()
 
 
 class Temporal(Activity):
