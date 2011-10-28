@@ -9,9 +9,9 @@ Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
 	
 	views : [
-	        'MainBuena'	,
-			'CareerDetail',
-			'LevelDescription'     
+	        'Main'	,
+			'CareerFrame',
+			'CareersFrame'     
 	    ],
 		
 	stores: [
@@ -20,39 +20,55 @@ Ext.define('DrGlearning.controller.Careers', {
 	
 	refs: [
         {
-            ref     : 'mainbuena',
-            selector: 'mainbuenaview',
+            ref     : 'main',
+            selector: 'mainview',
             autoCreate: true,
-            xtype   : 'mainbuenaview'
+            xtype   : 'mainview'
         },
 		{
-            ref     : 'careerdetail',
-            selector: 'careerdetail',
+            ref     : 'careerframe',
+            selector: 'careerframe',
+			xtype: 'careerframe'
+        },
+		{
+            ref     : 'careersframe',
+            selector: 'careersframe',
+			xtype: 'careersframe'
         }
 		],
 	init: function(){
-		this.getMainBuenaView().create();
+		this.getMainView().create();
+		console.log(this.getMainView().create());
 		
 		this.control({
 			'careerslist': {
 				select: this.onListTap
 			},
-			'careerdetail': {
-              
-            },
+			'button[id=back]': {
+				tap: this.index
+			}
 		});
+		
+		this.getCareersFrameView().create();
+		var view = this.getCareersframe();
+        //view.setCareer(career);
+        view.show();
+	},
+	index: function(){
+		var view = this.getCareerframe();
+        //view.setCareer(career);
+        view.hide();
+		var view1 = this.getCareersframe();
+        //view.setCareer(career);
+        view1.show();
 	},
 	
 	onListTap: function(list, career) {
-		console.log("hola");
-		if (!this.getCareerdetail()) {
-			this.getCareerDetailView().create();
-		}
-        
-
-        var view = this.getCareerdetail();
+	
+		this.getCareerFrameView().create();
+		var view = this.getCareerframe();
         //view.setCareer(career);
-        
+		this.getCareersframe().hide();
         view.show();
     }
 

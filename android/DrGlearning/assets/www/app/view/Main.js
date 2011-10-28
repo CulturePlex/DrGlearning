@@ -1,21 +1,12 @@
-Ext.define('Kiva.view.Main', {
+Ext.define('DrGlearning.view.Main', {
     extend: 'Ext.Container',
     requires: [
-        'Kiva.view.LoansList',
-        'Kiva.view.LoanFilter'
+		'DrGlearning.view.CareersFrame',
+		'DrGlearning.view.CareerFrame'
     ],
 
     config: {
         fullscreen: true,
-        layout: 'fit',
-        items: [
-            {
-                xtype : 'loanfilter',
-                docked: 'top'
-            },
-            {
-                xtype: 'loanslist'
-            }
-        ]
+        layout: 'fit'
     }
 });

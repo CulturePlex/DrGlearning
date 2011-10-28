@@ -1,6 +1,6 @@
 Ext.define('DrGlearning.view.LevelDescription', {
     extend: 'Ext.Component',
-    xtype: 'levelDescription',
+    xtype: 'leveldescription',
     requires: ['Ext.XTemplate'],
 
     config: {
@@ -8,7 +8,7 @@ Ext.define('DrGlearning.view.LevelDescription', {
         styleHtmlContent: true,
 
         tpl: Ext.create('Ext.XTemplate',
-            '<h1>{name}</h1>',
+            '<h1>{name}fsdfds</h1>',
             '<h2><tpl if="location.town">{location.town}, </tpl>{location.country}</h2>',
             '<p class="overview">',
                 '<strong>Activity:</strong> {activity}<br />',
