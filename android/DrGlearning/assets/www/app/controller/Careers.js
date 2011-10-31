@@ -10,9 +10,9 @@ Ext.define('DrGlearning.controller.Careers', {
     requires: 'DrGlearning.store.Careers',
 	
 	views : [
-	        'MainBuena'	,
-			'CareerDetail',
-			'LevelDescription'     
+	        'Main'	,
+			'CareerFrame',
+			'CareersFrame'     
 	    ],
 		
 	stores: [
@@ -21,38 +21,59 @@ Ext.define('DrGlearning.controller.Careers', {
 	
 	refs: [
         {
-            ref     : 'mainbuena',
-            selector: 'mainbuenaview',
+            ref     : 'main',
+            selector: 'mainview',
             autoCreate: true,
-            xtype   : 'mainbuenaview'
+            xtype   : 'mainview'
         },
 		{
-            ref     : 'careerdetail',
-            selector: 'careerdetail',
+            ref     : 'careerframe',
+            selector: 'careerframe',
+			xtype: 'careerframe'
+        },
+		{
+            ref     : 'careersframe',
+            selector: 'careersframe',
+			xtype: 'careersframe'
         }
 		],
 	init: function(){
+<<<<<<< HEAD
 		this.getMainBuenaView().create();
+=======
+		this.getMainView().create();
+		console.log(this.getMainView().create());
+		
+>>>>>>> b4c695df622d2b0e2afb605b2321a71147daee36
 		this.control({
 			'careerslist': {
 				select: this.onListTap
 			},
-			'careerdetail': {
-              
-            },
+			'button[id=back]': {
+				tap: this.index
+			}
 		});
+		
+		this.getCareersFrameView().create();
+		var view = this.getCareersframe();
+        //view.setCareer(career);
+        view.show();
+	},
+	index: function(){
+		var view = this.getCareerframe();
+        //view.setCareer(career);
+        view.hide();
+		var view1 = this.getCareersframe();
+        //view.setCareer(career);
+        view1.show();
 	},
 	
 	onListTap: function(list, career) {
-		console.log("hola");
-		if (!this.getCareerdetail()) {
-			this.getCareerDetailView().create();
-		}
-        
-
-        var view = this.getCareerdetail();
+	
+		this.getCareerFrameView().create();
+		var view = this.getCareerframe();
         //view.setCareer(career);
-        
+		this.getCareersframe().hide();
         view.show();
     },
     onLaunch: function() {

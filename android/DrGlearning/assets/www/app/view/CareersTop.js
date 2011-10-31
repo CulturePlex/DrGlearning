@@ -17,21 +17,6 @@ Ext.define('DrGlearning.view.CareersTop', {
         items: [
             {
                 xtype: 'toolbar',
-                ui   : 'green',
-                docked: 'top',
-                items: [
-                    { xtype: 'spacer', width: 35 },
-                    { xtype: 'spacer' },
-                    {
-                        xtype: 'title',
-                        title: 'Dr. Glearning'
-                    },
-                    { xtype: 'spacer' }
-                  
-                ]
-            },
-            {
-                xtype: 'toolbar',
                 docked: 'top',
                 ui: 'gray',
                 items:[

@@ -12,11 +12,11 @@ Ext.define('DrGlearning.view.CareersList', {
     requires: [
         'DrGlearning.view.CareersListItem'
     ],
-	config: {
+
+    config: {
         ui   : 'careers',
         store: 'Careers',
         defaultType: 'careerslistitem',
         deselectOnContainerClick: false
-    },
-
+    }
 });
