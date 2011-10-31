@@ -7,6 +7,7 @@
  */
 Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
+    requires: 'DrGlearning.store.Careers',
 	
 	views : [
 	        'MainBuena'	,
@@ -32,7 +33,6 @@ Ext.define('DrGlearning.controller.Careers', {
 		],
 	init: function(){
 		this.getMainBuenaView().create();
-		
 		this.control({
 			'careerslist': {
 				select: this.onListTap
@@ -54,6 +54,11 @@ Ext.define('DrGlearning.controller.Careers', {
         //view.setCareer(career);
         
         view.show();
+    },
+    onLaunch: function() {
+        //var careersStore = this.getCareersStore();
+        //console.log(careersStore);
+        //careersStore.load();
     }
 
 });
