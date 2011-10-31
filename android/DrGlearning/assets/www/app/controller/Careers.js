@@ -42,7 +42,6 @@ Ext.define('DrGlearning.controller.Careers', {
 
 		this.getMainView().create();
 		this.getMainView().create();
-		console.log(this.getMainView().create());
 		this.control({
 			'careerslist': {
 				select: this.onListTap
@@ -70,7 +69,9 @@ Ext.define('DrGlearning.controller.Careers', {
 	
 		this.getCareerFrameView().create();
 		var view = this.getCareerframe();
-        view.setCareer(career);
+        var detail= view.down('careerdetail');
+		//detail.setCareer(career);
+		detail.updateCareer(career);
 		this.getCareersframe().hide();
         view.show();
     },

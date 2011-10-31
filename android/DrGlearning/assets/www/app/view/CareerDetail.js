@@ -24,9 +24,8 @@ Ext.define('DrGlearning.view.CareerDetail', {
 	'DrGlearning.view.CareerDescription'
 		
     ],
-	career:null,
     config: {
-    	
+    	career:null,
         layout: 'vbox',
         defaults: {
             flex: 1
@@ -39,5 +38,10 @@ Ext.define('DrGlearning.view.CareerDetail', {
         },
         carousel1	
 		]
-    }
+    },
+    updateCareer: function(newCareer) {
+        var description = this.down('careerdescription');
+        description.setData(newCareer.data);
+        
+    },
 });
