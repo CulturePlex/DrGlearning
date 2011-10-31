@@ -5,17 +5,20 @@ Ext.define('DrGlearning.view.CareerFrame', {
 		'DrGlearning.view.CareerDetail',	
     ],
 	config: {
-		career:null,
         items: [
             {
+				ref: 'toolbar',
                 xtype: 'toolbar',
                 ui   : 'green',
                 docked: 'top',
+				name: 'up',
                 items: [
                     { xtype: 'spacer', width: 35 },
                     { xtype: 'spacer' },
                     {
                         xtype: 'title',
+						id: 'title',
+						name: 'title',
                         title: 'Career Name'
                     },
                     { xtype: 'spacer' }
@@ -62,6 +65,10 @@ Ext.define('DrGlearning.view.CareerFrame', {
         ],
 
         layout: 'fit'
-    }
-	
+    },
+	updateCareer: function(newCareer) {
+		var detail= this.down('careerdetail');
+		detail.updateCareer(newCareer);
+		this.down('title[id=title]').setTitle(newCareer.data.name);
+    },
 });

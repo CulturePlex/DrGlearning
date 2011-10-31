@@ -14,6 +14,7 @@ Ext.define('DrGlearning.view.CareersList', {
     ],
 
     config: {
+		deselectOnContainerClick: true,
         ui   : 'careers',
         store: 'Careers',
         defaultType: 'careerslistitem',

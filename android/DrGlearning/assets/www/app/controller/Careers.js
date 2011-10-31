@@ -39,12 +39,10 @@ Ext.define('DrGlearning.controller.Careers', {
 		],
 	selectedcareer:null,
 	init: function(){
-
-		this.getMainView().create();
 		this.getMainView().create();
 		this.control({
-			'careerslist': {
-				select: this.onListTap
+			'careerslistitem': {
+				tap: this.onListTap
 			},
 			'button[id=back]': {
 				tap: this.index
@@ -53,15 +51,12 @@ Ext.define('DrGlearning.controller.Careers', {
 		
 		this.getCareersFrameView().create();
 		var view = this.getCareersframe();
-        //view.setCareer(career);
         view.show();
 	},
 	index: function(){
 		var view = this.getCareerframe();
-        //view.setCareer(career);
         view.hide();
 		var view1 = this.getCareersframe();
-        //view.setCareer(career);
         view1.show();
 	},
 	
@@ -69,9 +64,7 @@ Ext.define('DrGlearning.controller.Careers', {
 	
 		this.getCareerFrameView().create();
 		var view = this.getCareerframe();
-        var detail= view.down('careerdetail');
-		//detail.setCareer(career);
-		detail.updateCareer(career);
+		view.updateCareer(career);
 		this.getCareersframe().hide();
         view.show();
     },
