@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	            callback: function(records, operation, success) {
 	            	console.log("Cargada");
 	        		console.log(this.getCareersStore().data.items[0].data.activities);
-	        		this.getController('Careers').getMainBuenaView();
+	        		this.getController('Careers').getMainView();
 	            }
 	        });
 		//}

@@ -39,13 +39,10 @@ Ext.define('DrGlearning.controller.Careers', {
 		],
 	selectedcareer:null,
 	init: function(){
-<<<<<<< HEAD
-		this.getMainBuenaView().create();
-=======
+
+		this.getMainView().create();
 		this.getMainView().create();
 		console.log(this.getMainView().create());
-		
->>>>>>> b4c695df622d2b0e2afb605b2321a71147daee36
 		this.control({
 			'careerslist': {
 				select: this.onListTap
