@@ -36,6 +36,7 @@ Ext.define('DrGlearning.controller.Careers', {
 			xtype: 'careersframe'
         }
 		],
+	selectedcareer:null,
 	init: function(){
 		this.getMainView().create();
 		console.log(this.getMainView().create());
@@ -67,7 +68,7 @@ Ext.define('DrGlearning.controller.Careers', {
 	
 		this.getCareerFrameView().create();
 		var view = this.getCareerframe();
-        //view.setCareer(career);
+        view.setCareer(career);
 		this.getCareersframe().hide();
         view.show();
     }

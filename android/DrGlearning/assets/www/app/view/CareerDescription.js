@@ -1,14 +1,21 @@
 Ext.define('DrGlearning.view.CareerDescription', {
-    extend: 'Ext.Component',
-    xtype: 'careerdescription',
-    requires: ['Ext.XTemplate'],
+    extend: 'Ext.Panel',
+	xtype: 'careerdescription',
+    
 
     config: {
-        cls: 'detail-card',
-        styleHtmlContent: true,
-
-        tpl: Ext.create('Ext.XTemplate',
-            'Descripción de la carrera'
-        )
-    }
+        layout: 'fit',
+        defaults: {
+            flex: 1
+        },
+		html:'Aquí va a ir la descripción churrita'
+    },
+	updateWithRecord: function(record) {
+		Ext.each(this.items.items, function(item) {
+			item.update(record.data);
+		});
+		var toolbar = this.getDockedItems()[0];
+		//toolbar.setTitle(record.get('name') + ' ' + record.get('breed'));
+		//toolbar.getComponent('edit').record = record;
+	},
 });

@@ -3,10 +3,9 @@ Ext.define('DrGlearning.view.CareerFrame', {
 	xtype: 'careerframe',
     requires: [
 		'DrGlearning.view.CareerDetail',	
-		
-		'DrGlearning.view.CareerDescription'
     ],
 	config: {
+		career:null,
         items: [
             {
                 xtype: 'toolbar',
@@ -56,10 +55,13 @@ Ext.define('DrGlearning.view.CareerFrame', {
                 
             },
 			{
-				xtype: 'careerdetail'
+				xtype: 'careerdetail',
+				
+				
 			}
         ],
 
         layout: 'fit'
     }
+	
 });

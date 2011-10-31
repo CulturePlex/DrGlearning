@@ -3,20 +3,19 @@ var carousel1 = Ext.create('Ext.Carousel', {
                 cls: 'card'
             },
             items: [{
-                html: 'Nivel 1'
+                html: 'Nivel 1: Illetratum'
             }, {
-                html: 'Nivel 2'
+                html: 'Nivel 2: Primary'
             }, {
-                html: 'Nivel 3'
+                html: 'Nivel 3: Secondary'
             }, {
-                html: 'Nivel 4'
+                html: 'Nivel 4: High School'
             }, {
-                html: 'Nivel 5'
+                html: 'Nivel 5: College'
             }, {
-                html: 'Nivel 6'
+                html: 'Nivel 6: Master'
             }]
         });
-
 
 Ext.define('DrGlearning.view.CareerDetail', {
     extend: 'Ext.Panel',
@@ -25,15 +24,20 @@ Ext.define('DrGlearning.view.CareerDetail', {
 	'DrGlearning.view.CareerDescription'
 		
     ],
-
+	career:null,
     config: {
-        layout: 'fit',
+    	
+        layout: 'vbox',
         defaults: {
             flex: 1
         },
         items: [
-			carousel1
-		
+		{
+           xtype: 'careerdescription',
+           flex: 1,
+           
+        },
+        carousel1	
 		]
     }
 });
