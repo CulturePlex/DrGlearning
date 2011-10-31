@@ -49,7 +49,6 @@ Ext.define('DrGlearning.model.Career', {
 		reader: {
 			type: 'json',
 			root: 'objects',
-			
 		}
 	}
 });

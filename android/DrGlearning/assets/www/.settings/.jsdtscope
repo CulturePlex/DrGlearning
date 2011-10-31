@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="lib/sencha-jasmine/matchers/|app/controller/|resources/js/touch/pkgs/|lib/|resources/js/touch/|app/store/|app/view/detail/|lib/sencha-jasmine/|app/view/|app/model/|resources/js/|lib/jasmine/" kind="src" path=""/>
+	<classpathentry kind="src" path="app/controller"/>
+	<classpathentry kind="src" path="app/model"/>
+	<classpathentry kind="src" path="app/store"/>
+	<classpathentry excluding="detail/" kind="src" path="app/view"/>
+	<classpathentry kind="src" path="app/view/detail"/>
+	<classpathentry excluding="sencha-jasmine/matchers/|sencha-jasmine/|jasmine/" kind="src" path="lib"/>
+	<classpathentry kind="src" path="lib/jasmine"/>
+	<classpathentry excluding="matchers/" kind="src" path="lib/sencha-jasmine"/>
+	<classpathentry kind="src" path="lib/sencha-jasmine/matchers"/>
+	<classpathentry excluding="touch/pkgs/|touch/" kind="src" path="resources/js"/>
+	<classpathentry excluding="pkgs/" kind="src" path="resources/js/touch"/>
+	<classpathentry kind="src" path="resources/js/touch/pkgs"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.USER_LIBRARY/Sencha"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
