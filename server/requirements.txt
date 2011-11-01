@@ -3,6 +3,7 @@ pillow==1.7.5
 South==0.7.3
 distribute==0.6.10
 django-guardian==1.0.3
+django-jsonfield==0.6
 -e git+git://github.com/bread-and-pepper/django-userena.git#egg=userena
 easy-thumbnails==1.0-alpha-18
 ipdb==0.6
