@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import jsonfield
 
 from django.contrib.gis.db import models
 from django.db.models.signals import post_save
@@ -65,11 +66,11 @@ class Level(models.Model):
 
 
 class Relational(Activity):
-    graph_nodes = models.TextField()
-    graph_edges = models.TextField()
+    graph_nodes = jsonfield.JSONField()
+    graph_edges = jsonfield.JSONField()
     source_path = models.CharField(max_length=30)
     target_path = models.CharField(max_length=30)
-    scored_nodes = models.TextField()
+    scored_nodes = jsonfield.JSONField()
 
 
 class Visual(Activity):
