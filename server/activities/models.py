@@ -66,11 +66,11 @@ class Level(models.Model):
 
 
 class Relational(Activity):
-    graph_nodes = jsonfield.JSONField()
-    graph_edges = jsonfield.JSONField()
+    graph_nodes = jsonfield.JSONField(default="{}")
+    graph_edges = jsonfield.JSONField(default="[]")
     source_path = models.CharField(max_length=30)
     target_path = models.CharField(max_length=30)
-    scored_nodes = jsonfield.JSONField()
+    scored_nodes = jsonfield.JSONField(default="{}")
 
 
 class Visual(Activity):
