@@ -66,6 +66,7 @@ class Level(models.Model):
 
 
 class Relational(Activity):
+    constraints = jsonfield.JSONField(default="[]")
     graph_nodes = jsonfield.JSONField(default="{}")
     graph_edges = jsonfield.JSONField(default="[]")
     source_path = models.CharField(max_length=30)
