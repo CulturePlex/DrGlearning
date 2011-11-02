@@ -12,12 +12,14 @@ Ext.define('DrGlearning.controller.Careers', {
 	views : [
 	        'Main'	,
 			'CareerFrame',
-			'CareersFrame'     
+			'CareersFrame',
+			'LevelFrame'    
 	    ],
 		
 	stores: [
         'Careers'
     ],
+	selectedcareer: null,
 	
 	refs: [
         {
@@ -30,6 +32,11 @@ Ext.define('DrGlearning.controller.Careers', {
             ref     : 'careerframe',
             selector: 'careerframe',
 			xtype: 'careerframe'
+        },
+		{
+            ref     : 'levelframe',
+            selector: 'levelframe',
+			xtype: 'levelframe'
         },
 		{
             ref     : 'careersframe',
@@ -46,28 +53,72 @@ Ext.define('DrGlearning.controller.Careers', {
 			},
 			'button[id=back]': {
 				tap: this.index
+			},
+			'button[id=backtocareer]': {
+				tap: this.tocareer
+			},
+			'button[id=addCareer]': {
+				tap: this.addCareer
+			},
+			'button[id=startLevel]': {
+				tap: this.startLevel
 			}
 		});
 		
 		this.getCareersFrameView().create();
 		var view = this.getCareersframe();
-        view.show();
+		view.down('toolbar[id=toolbarbottomadd]').hide();
+		view.show();
 	},
 	index: function(){
 		var view = this.getCareerframe();
         view.hide();
 		var view1 = this.getCareersframe();
         view1.show();
+		view1.down('toolbar[id=toolbarbottomadd]').hide();
+	},
+	tocareer: function(){
+		if (this.getCareersframe()) {
+			this.getCareersframe().hide();
+		}
+		if (this.getLevelframe()) {
+			this.getLevelframe().hide();
+		}
+		var view1 = this.getCareerframe();
+        view1.show();	
 	},
 	
 	onListTap: function(list, career) {
-	
+		this.selectedcareer=career;
 		this.getCareerFrameView().create();
 		var view = this.getCareerframe();
 		view.updateCareer(career);
 		this.getCareersframe().hide();
         view.show();
     },
+	
+	addCareer: function(){
+		var view = this.getCareerframe();
+        if (view) {
+			view.hide();
+		}
+		var view1 = this.getCareersframe();
+		view1.down('toolbar[id=toolbarbottomnormal]').hide();
+		view1.down('toolbar[id=toolbarbottomadd]').show();
+        view1.show();
+	},
+	
+	startLevel: function(){
+		this.getLevelFrameView().create();
+		var view = this.getLevelframe();
+		console.log(this.selectedcareer);
+		view.updateCareerAndLevel(this.selectedcareer,4);
+		if (this.getCareerframe()) {
+			console.log("borrando");
+			this.getCareerframe().hide();
+		}
+        view.show();
+	},
     onLaunch: function() {
         //var careersStore = this.getCareersStore();
         //console.log(careersStore);

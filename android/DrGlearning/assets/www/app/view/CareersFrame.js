@@ -27,6 +27,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 xtype: 'toolbar',
                 docked: 'top',
                 ui: 'gray',
+				id: 'toolbarbottomnormal',
                 items:[
                     {
                         xtype: 'selectfield',
@@ -39,8 +40,33 @@ Ext.define('DrGlearning.view.CareersFrame', {
 					{ xtype: 'spacer' },
                     {
                         xtype: 'button',
-                        text: 'Add Career'
+                        text: 'Add Career',
+						id: 'addCareer'
                     }
+					]
+                
+            },
+			{
+                xtype: 'toolbar',
+                docked: 'top',
+                ui: 'gray',
+				id: 'toolbarbottomadd',
+                items:[
+					{
+                        xtype: 'searchfield',
+						placeHolder: 'Search',
+						name: 'searchfield',
+						id: 'searchbox',
+                    },
+					{ xtype: 'spacer' },
+                    {
+                        xtype: 'selectfield',
+                        name: 'knnowledge_field',
+                        options: [
+                            {text: 'Mathematics', value: 'both'},
+                            {text: 'Physics', value: 'male'}
+                        ]
+                    },
 					]
                 
             },
