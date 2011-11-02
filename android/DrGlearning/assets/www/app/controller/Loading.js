@@ -1,13 +1,7 @@
-/**
- * @class Kiva.controller.Loans
- * @extends Ext.app.Controller
- * 
- * The only controller in this simple application - this simply sets up the fullscreen viewport panel
- * and renders a detailed overlay whenever a Loan is tapped on.
- */
+//Ext.require('Phonegap');
 Ext.define('DrGlearning.controller.Loading', {
     extend: 'Ext.app.Controller',
-    //requires: 'DrGlearning.store.Careers',
+    //requires: 'Phonegap',
 	
 	views : [
 	        'Loading'	,
@@ -26,12 +20,36 @@ Ext.define('DrGlearning.controller.Loading', {
 		//if(navigator.network.connection.type==Connection.NONE){
 			//logica de desconexion
 		//}else{
+		//alert(Connection.type);
 			var careersStore = this.getCareersStore();
 	        careersStore.load({
 	            scope   : this,
 	            callback: function(records, operation, success) {
 	            	console.log("Cargada");
-	        		console.log(this.getCareersStore().data.items[0].data.activities);
+	        		//console.log(this.getCareersStore().data.items[0].data.activities);
+	        		this.getCareersStore().data.each(function(career) {
+	                    //console.log(career.get('name'));
+	        			var activities=career.get('activities').split(",");
+	        			for (cont in activities){
+	        				console.log(activities[cont]);
+	        				Ext.Ajax.request({
+	        				    url: "http://129.100.65.186:8000"+activities[cont]+"?format=json",
+	        				    success: function(response, opts) {
+	        				        var obj = Ext.decode(response.responseText);
+	        				        console.dir(obj);
+	        				    },
+	        				    failure: function(response, opts) {
+	        				        console.log('server-side failure with status code ' + response.status);
+	        				    }
+	        				});
+
+	        				
+	        			}
+	        			//activities.each(function(url) {
+	        			//	console.log(url);
+	        			//});
+	        					
+	        		});
 	        		this.getController('Careers').getMainView();
 	            }
 	        });

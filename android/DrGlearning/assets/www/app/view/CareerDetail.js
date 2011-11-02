@@ -3,7 +3,7 @@ Ext.define('DrGlearning.view.CareerDetail', {
 	xtype: 'careerdetail',
     requires: [
 		'DrGlearning.view.CareerDescription',
-		'DrGlearning.view.LevelsCarousel'
+		//'DrGlearning.view.LevelsCarousel'
     ],
     config: {
     	career:null,
