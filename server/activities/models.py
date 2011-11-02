@@ -83,7 +83,7 @@ class Visual(Activity):
 
 
 class Geospatial(Activity):
-    point = models.PointField()
+    points = models.MultiPointField()
     radius = models.FloatField(help_text="Meters")
     area = models.PolygonField()
 
