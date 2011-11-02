@@ -17,7 +17,6 @@ class ActivityUpdateResource(ModelResource):
         fields = ['timestamp']
 
     def dehydrate(self, bundle):
-        #import ipdb;ipdb.set_trace()
         activity_url = bundle.data["resource_uri"].replace("activityupdate",
                                                             "activity")
         bundle.data["full_activity_url"] = activity_url
