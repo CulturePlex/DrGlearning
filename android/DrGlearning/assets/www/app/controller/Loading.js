@@ -32,17 +32,14 @@ Ext.define('DrGlearning.controller.Loading', {
 	        			var activities=career.get('activities').split(",");
 	        			for (cont in activities){
 	        				console.log(activities[cont]);
-	        				Ext.Ajax.request({
-	        				    url: "http://129.100.65.186:8000"+activities[cont]+"?format=json",
-	        				    success: function(response, opts) {
-	        				        var obj = Ext.decode(response.responseText);
-	        				        console.dir(obj);
-	        				    },
-	        				    failure: function(response, opts) {
-	        				        console.log('server-side failure with status code ' + response.status);
-	        				    }
-	        				});
-
+	        				Ext.data.JsonP.request({
+	                            url:"http://129.100.65.186:8000"+activities[cont]+"?format=jsonp",
+	                            success:function(response, opts){
+	                            	console.log("ola");
+	                                console.log(response);
+	                                console.log(opts);
+	                            }
+	                        });
 	        				
 	        			}
 	        			//activities.each(function(url) {

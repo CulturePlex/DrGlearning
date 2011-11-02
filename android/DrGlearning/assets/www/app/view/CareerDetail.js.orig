@@ -2,8 +2,12 @@ Ext.define('DrGlearning.view.CareerDetail', {
     extend: 'Ext.Panel',
 	xtype: 'careerdetail',
     requires: [
+<<<<<<< HEAD
 		'DrGlearning.view.CareerDescription',
 		//'DrGlearning.view.LevelsCarousel'
+=======
+		'DrGlearning.view.CareerDescription'
+>>>>>>> 0972a38d42bb8375127b8b92515b0c9a1a8981ab
     ],
     config: {
     	career:null,
