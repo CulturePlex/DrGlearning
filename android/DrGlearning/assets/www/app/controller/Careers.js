@@ -62,20 +62,28 @@ Ext.define('DrGlearning.controller.Careers', {
 			},
 			'button[id=startLevel]': {
 				tap: this.startLevel
+			},
+			'searchfield[id=searchbox]': {
+				change: this.search
 			}
 		});
-		
 		this.getCareersFrameView().create();
 		var view = this.getCareersframe();
-		view.down('toolbar[id=toolbarbottomadd]').hide();
+		view.down('toolbar[id=toolbarTopAdd]').hide();
+		view.down('toolbar[id=toolbarBottomAdd]').hide();
 		view.show();
 	},
 	index: function(){
 		var view = this.getCareerframe();
-        view.hide();
+		if(view)
+		{
+        	view.hide();
+		}	
 		var view1 = this.getCareersframe();
         view1.show();
-		view1.down('toolbar[id=toolbarbottomadd]').hide();
+		view1.down('toolbar[id=toolbarTopNormal]').show();
+		view1.down('toolbar[id=toolbarTopAdd]').hide();
+		view1.down('toolbar[id=toolbarBottomAdd]').hide();
 	},
 	tocareer: function(){
 		if (this.getCareersframe()) {
@@ -103,8 +111,9 @@ Ext.define('DrGlearning.controller.Careers', {
 			view.hide();
 		}
 		var view1 = this.getCareersframe();
-		view1.down('toolbar[id=toolbarbottomnormal]').hide();
-		view1.down('toolbar[id=toolbarbottomadd]').show();
+		view1.down('toolbar[id=toolbarTopNormal]').hide();
+		view1.down('toolbar[id=toolbarTopAdd]').show();
+		view1.down('toolbar[id=toolbarBottomAdd]').show();
         view1.show();
 	},
 	
@@ -123,6 +132,23 @@ Ext.define('DrGlearning.controller.Careers', {
         //var careersStore = this.getCareersStore();
         //console.log(careersStore);
         //careersStore.load();
+    },
+	search: function(values, form) {
+		console.log(values);
+        var store   = this.getCareersStore(),
+            filters = [],
+            field;
+			console.log(store.data.length);        
+        //Ext.iterate(values, function(field, value) {
+            filters.push(new Ext.util.Filter({
+                property: 'name',
+                value   : 'asd'
+            }));
+        //});
+        
+        store.clearFilter();
+        store.filter(filters);
+		console.log(store.data.length);
     }
 
 });
