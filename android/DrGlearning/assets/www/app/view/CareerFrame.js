@@ -35,8 +35,6 @@ Ext.define('DrGlearning.view.CareerFrame', {
 						id: 'back',
                         text: 'Back',
 						ui:'back',
-						controller: 'DrGlearning.controller.Career',
-						action: 'index',
                         
                     },
 					{
