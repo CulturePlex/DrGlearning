@@ -6,7 +6,7 @@ from django.contrib import admin
 from tastypie.api import Api
 
 from knowledges.api import KnowledgeResource, CareerResource
-from activities.api import ActivityResource, LevelResource
+from activities.api import ActivityResource, LevelResource, ActivityUpdateResource
 # from django.contrib import admin
 # from admin import admin_site
 admin.autodiscover()
@@ -16,6 +16,7 @@ v1_api.register(KnowledgeResource())
 v1_api.register(CareerResource())
 v1_api.register(LevelResource())
 v1_api.register(ActivityResource())
+v1_api.register(ActivityUpdateResource())
 
 urlpatterns = patterns('',
     # base

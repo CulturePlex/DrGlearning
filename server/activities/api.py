@@ -19,8 +19,24 @@ class LevelResource(ModelResource):
         bundle.data["career_id"] = bundle.obj.career.id
         return bundle
 
+
+class ActivityUpdateResource(ModelResource):
+    activity = fields
+
+    class Meta:
+        queryset = Activity.objects.all()
+        fields = ['timestamp']
+
+    def dehydrate(self, bundle):
+        #import ipdb;ipdb.set_trace()
+        activity_url = bundle.data["resource_uri"].replace("activityupdate",
+                                                            "activity")
+        bundle.data["full_activity_url"] = activity_url
+        return bundle
+
+
 class ActivityResource(ModelResource):
-    levels = fields.ManyToManyField(LevelResource, 'level_set')
+    levels = fields.ManyToManyField(LevelResource, 'level_set',full=True)
 
     class Meta:
         queryset = Activity.objects.all()
