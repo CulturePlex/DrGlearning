@@ -40,6 +40,9 @@ Ext.define('DrGlearning.model.Career', {
 	},{
 		name: "timestamp",
 		type: "string"
+	},{
+		name: "installed",
+		type: "string"
 	}
 	
 	],

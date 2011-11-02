@@ -18,7 +18,8 @@
             "negative_votes": 0,
             "positive_votes": 0,
             "resource_uri": "/api/v1/career/1/",
-            "timestamp": "2011-10-26T12:43:42.717906"
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "true"
         },
         {
             "activities": [
@@ -38,7 +39,29 @@
             "negative_votes": 0,
             "positive_votes": 0,
             "resource_uri": "/api/v1/career/1/",
-            "timestamp": "2011-10-26T12:43:42.717906"
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "false"
+        },
+        {
+            "activities": [
+                "/api/v1/activity/3/",
+                "/api/v1/activity/5/",
+                "/api/v1/activity/6/",
+                "/api/v1/activity/7/",
+                "/api/v1/activity/4/"
+            ],
+            "creator": "Pedro Almagro Blanco",
+            "description": "Curso de prueba - Un curso para entender la estructura y la lógica de Sencha Tocuh 2 antes que los propios desarrolladores de Sencha",
+            "id": "3",
+            "knowledges": [
+                "/api/v1/knowledge/1/"
+            ],
+            "name": "Sencha Tocuh 22",
+            "negative_votes": 0,
+            "positive_votes": 0,
+            "resource_uri": "/api/v1/career/1/",
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "false"
         }
         
     ]

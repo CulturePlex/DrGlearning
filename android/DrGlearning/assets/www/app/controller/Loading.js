@@ -11,6 +11,14 @@ Ext.define('DrGlearning.controller.Loading', {
         'Careers'
     ],
 	
+	refs: [
+        {
+            ref     : 'loading',
+            selector: 'loading',
+            xtype   : 'loading'
+        }
+		],
+		
 	init: function(){
 		this.getLoadingView().create();
 		
@@ -47,7 +55,8 @@ Ext.define('DrGlearning.controller.Loading', {
 	        			//});
 	        					
 	        		});
-	        		this.getController('Careers').getMainView();
+					this.getLoading().hide();					
+					this.getController('Careers').initializate();
 	            }
 	        });
 		//}
