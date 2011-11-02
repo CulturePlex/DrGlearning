@@ -33,7 +33,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	        			for (cont in activities){
 	        				console.log(activities[cont]);
 	        				Ext.data.JsonP.request({
-	                            url:"http://129.100.65.186:8000"+activities[cont]+"?format=json",
+	                            url:"http://129.100.65.186:8000"+activities[cont]+"?format=jsonp",
 	                            success:function(response, opts){
 	                            	console.log("ola");
 	                                console.log(response);
