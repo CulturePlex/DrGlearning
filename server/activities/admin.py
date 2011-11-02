@@ -2,16 +2,10 @@
 from django.contrib import admin
 
 from activities.models import (Relational, Visual, Geospatial,
-                               Temporal, Linguistic, Level)
-
-
-class LevelInline(admin.TabularInline):
-    model = Level
-    extra = 1
+                               Temporal, Linguistic)
 
 
 class ActivityAdmin(admin.ModelAdmin):
-    inlines = (LevelInline,)
     list_filter = ['career']
 
 

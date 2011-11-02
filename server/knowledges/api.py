@@ -11,8 +11,12 @@ class KnowledgeResource(ModelResource):
 
 
 class CareerResource(ModelResource):
-    knowledges = fields.ManyToManyField(KnowledgeResource, 'knowledge_field', full=True)
-    activities = fields.ManyToManyField(ActivityUpdateResource, 'activities', full=True)
+    knowledges = fields.ManyToManyField(KnowledgeResource,
+                                        'knowledge_field',
+                                        full=True)
+    activities = fields.ManyToManyField(ActivityUpdateResource,
+                                        'activity_set',
+                                        full=True)
 
     class Meta:
         queryset = Career.objects.all()
