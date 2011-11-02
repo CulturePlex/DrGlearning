@@ -1,8 +1,8 @@
-Ext.define('DrGlearning.view.CareerFrame', {
+Ext.define('DrGlearning.view.LevelFrame', {
     extend: 'Ext.Container',
-	xtype: 'careerframe',
+	xtype: 'levelframe',
     requires: [
-		'DrGlearning.view.CareerDetail',	
+		'DrGlearning.view.LevelDetail',	
     ],
 	config: {
         items: [
@@ -32,7 +32,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
                 items:[
                     {
                         xtype: 'button',
-						id: 'back',
+						id: 'backtocareer',
                         text: 'Back',
 						ui:'back',
 						controller: 'DrGlearning.controller.Career',
@@ -47,20 +47,12 @@ Ext.define('DrGlearning.view.CareerFrame', {
                         text: 'Start',
 						id: 'startLevel'
                         
-                    },
-					{
-						xtype: 'spacer' 
-					},
-                    {
-                        xtype: 'button',
-                        text: 'Add Career',
-						id: 'addCareer'
-                    }
+                  	}
 					]
                 
             },
 			{
-				xtype: 'careerdetail',
+				xtype: 'leveldetail',
 				
 				
 			}
@@ -68,9 +60,9 @@ Ext.define('DrGlearning.view.CareerFrame', {
 
         layout: 'fit'
     },
-	updateCareer: function(newCareer) {
-		var detail= this.down('careerdetail');
-		detail.updateCareer(newCareer);
+	updateCareerAndLevel: function(newCareer,newLevel) {
+		var detail= this.down('leveldetail');
+		detail.updateLevel(newLevel);
 		this.down('title[id=title]').setTitle(newCareer.data.name);
     },
 });
