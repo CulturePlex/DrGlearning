@@ -14,6 +14,7 @@ Ext.define('DrGlearning.store.Careers', {
     requires: 'DrGlearning.model.Career',
     autoLoad: false,
 	autoSync:true,
+	sortOnFilter:true,
 //    load: {
 //    	scope: this,
 //    	callback: this.onStationsLoad,
