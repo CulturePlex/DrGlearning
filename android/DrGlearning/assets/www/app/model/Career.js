@@ -43,6 +43,9 @@ Ext.define('DrGlearning.model.Career', {
 	},{
 		name: "installed",
 		type: "string"
+	},{
+		name: "started",
+		type: "string"
 	}
 	
 	],

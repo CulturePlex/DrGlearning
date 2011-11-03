@@ -56,43 +56,57 @@ Ext.define('DrGlearning.controller.Careers', {
             },
             'searchfield[id=searchbox]': {
                 change: this.search
+            },
+            'selectfield[name=state]': {
+                change: this.filterCareers
             }
         });
         
         this.index();
     },
     index: function(){
-        /**var temp = this.getCareersframe();
-        if (temp) {
-			console.log(this.getCareersframe());
-            temp.destroy();
-			console.log(this.getCareersframe());
-        }*/
-       
+    
         var view = this.getCareerframe();
         if (view) {
             view.hide();
         }
-       
-		var store = this.getCareersStore();
+        
+        var store = this.getCareersStore();
         store.clearFilter();
-        store.filter("name", "Javascript");
-		store.load();
-		var store2=null;
-		console.log(store);
-		var view1 = this.getCareersframe();
-		if (view1) {
-			view1.hide();
-		}
-		this.getCareersFrameView().create();
-		var view1 = this.getCareersframe();
-		view1.down('careerslist').refresh();
+        store.filter("installed", "true");
+        
+        var store2 = null;
+        console.log(store);
+        var view1 = this.getCareersframe();
+        if (view1) {
+            view1.hide();
+        }
+        this.getCareersFrameView().create();
+        var view1 = this.getCareersframe();
+        
+        view1.down('careerslist').refresh();
+        this.filterCareers();
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
-		view1.show();
+        view1.show();
+    },
+    filterCareers: function(){
+        var store = this.getCareersStore();
+        store.clearFilter();
+        store.filter("installed", "true");
+        var view1 = this.getCareersframe();
+        if (view1.down('selectfield[name=state]').getValue() == 'notYet') {
+            store.filter("started", "false");
+        }
+        if (view1.down('selectfield[name=state]').getValue() == 'inProgress') {
+            store.filter("started", "true");
+        }
+        store.load();
+        view1.down('careerslist').refresh();
     },
     tocareer: function(){
+		
         if (this.getCareersframe()) {
             this.getCareersframe().hide();
         }
@@ -104,35 +118,38 @@ Ext.define('DrGlearning.controller.Careers', {
     },
     
     onListTap: function(list, career){
-        console.log("holas");
-        this.selectedcareer = career;
-        this.getCareerFrameView().create();
-        var view = this.getCareerframe();
-        view.updateCareer(career);
-        this.getCareersframe().hide();
-        view.show();
+		this.selectedcareer=career;
+		if (career.data.installed == "false") 
+		{
+			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",this.installCareer);
+		}
+		else 
+		{
+			this.getCareerFrameView().create();
+			var view = this.getCareerframe();
+			view.updateCareer(career);
+			this.getCareersframe().hide();
+			view.show();
+		}
     },
+	installCareer: function(){
+		
+	},
     
     addCareer: function(){
-		/**var temp = this.getCareersframe();
-        if (temp) {
-            console.log(this.getCareersframe());
-            temp.destroy();
-			console.log(this.getCareersframe());
-        }*/
         var store = this.getCareersStore();
         store.clearFilter();
-        store.filter('name', 'Sencha Tocuh 2');
-		store.load();
+        store.filter('installed', 'false');
+        
         var caca = this.getCareersFrameView().create();
-		caca.destroy();
-		var view12 = this.getCareersframe();
-		console.log(view12);
+        caca.destroy();
+        var view12 = this.getCareersframe();
+        console.log(view12);
         var view = this.getCareerframe();
         if (view) {
             view.hide();
         }
-		view12.down('careerslist').refresh();
+        view12.down('careerslist').refresh();
         view12.down('toolbar[id=toolbarTopNormal]').hide();
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();
@@ -151,17 +168,28 @@ Ext.define('DrGlearning.controller.Careers', {
         view.show();
     },
     onLaunch: function(){
-        //var careersStore = this.getCareersStore();
-        //console.log(careersStore);
-        //careersStore.load();
+     
     },
     search: function(values, form){
-    
+        form = form.toLowerCase();
         var store = this.getCareersStore();
+        var filters = [];
+        filters.push(new Ext.util.Filter({
+            filterFn: function(item){
+                return item.data.installed == 'false';
+            }
+        }));
+        filters.push(new Ext.util.Filter({
+            filterFn: function(item){
+                return item.data.name.toLowerCase().indexOf(form) != -1 || item.data.description.toLowerCase().indexOf(form) != -1;
+            }
+        }));
         store.clearFilter();
-        store.filter('name', form);
+        store.filter(filters);
+        store.load();
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
+        console.log(view12.down('careerslist'));
     }
     
 });

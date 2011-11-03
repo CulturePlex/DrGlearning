@@ -25,13 +25,19 @@ Ext.define('DrGlearning.view.CareersFrame', {
             id: 'toolbarTopNormal',
             items: [{
                 xtype: 'selectfield',
-                name: 'estado',
-                options: [{
+                name: 'state',
+				
+                options: [ {
+                    text: 'All',
+                    value: 'all'
+                },
+				{
                     text: 'In progress',
-                    value: 'both'
-                }, {
+                    value: 'inProgress'
+                }, 
+				{
                     text: 'Not Yet',
-                    value: 'male'
+                    value: 'notYet'
                 }]
             }, {
                 xtype: 'spacer'
