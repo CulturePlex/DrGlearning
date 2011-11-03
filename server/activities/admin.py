@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
                                Temporal, Linguistic)
@@ -17,7 +18,7 @@ class VisualAdmin(ActivityAdmin):
     pass
 
 
-class GeospatialAdmin(ActivityAdmin):
+class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
     pass
 
 

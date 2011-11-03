@@ -155,6 +155,7 @@ INSTALLED_APPS = (
     'activities',
     'south',
     'tastypie',
+    'olwidget',
 )
 
 AUTHENTICATION_BACKENDS = (
