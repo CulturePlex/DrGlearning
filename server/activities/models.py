@@ -45,7 +45,7 @@ class Activity(models.Model):
     query = models.TextField()
     level_type = models.PositiveSmallIntegerField(_("type"),
                                             choices=TYPE_CHOICES)
-    level_order = models.IntegerField(_("order"), null=True, blank=True)
+    level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
 
     @classmethod
