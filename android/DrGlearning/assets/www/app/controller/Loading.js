@@ -11,6 +11,14 @@ Ext.define('DrGlearning.controller.Loading', {
         'Careers'
     ],
 	
+	refs: [
+        {
+            ref     : 'loading',
+            selector: 'loading',
+            xtype   : 'loading'
+        }
+		],
+		
 	init: function(){
 		this.getLoadingView().create();
 		
@@ -33,7 +41,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	        			for (cont in activities){
 	        				console.log(activities[cont]);
 	        				Ext.data.JsonP.request({
-	                            url:"http://129.100.65.186:8000"+activities[cont]+"?format=json",
+	                            url:"http://129.100.65.186:8000"+activities[cont]+"?format=jsonp",
 	                            success:function(response, opts){
 	                            	console.log("ola");
 	                                console.log(response);
@@ -47,7 +55,8 @@ Ext.define('DrGlearning.controller.Loading', {
 	        			//});
 	        					
 	        		});
-	        		this.getController('Careers').getMainView();
+					this.getLoading().hide();					
+					this.getController('Careers').initializate();
 	            }
 	        });
 		//}

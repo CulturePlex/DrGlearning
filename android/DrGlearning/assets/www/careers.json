@@ -8,7 +8,7 @@
                 "/api/v1/activity/7/",
                 "/api/v1/activity/4/"
             ],
-            "creator": "Diego MuÃ±oz Escalante",
+            "creator": "Diego Muñoz Escalante",
             "description": "Curso de prueba - Un curso para sobrevivir a Javascript y no morir en el intento",
             "id": "1",
             "knowledges": [
@@ -18,7 +18,9 @@
             "negative_votes": 0,
             "positive_votes": 0,
             "resource_uri": "/api/v1/career/1/",
-            "timestamp": "2011-10-26T12:43:42.717906"
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "true",
+            "started": "false"
         },
         {
             "activities": [
@@ -29,7 +31,7 @@
                 "/api/v1/activity/4/"
             ],
             "creator": "Pedro Almagro Blanco",
-            "description": "Curso de prueba - Un curso para entender la estructura y la lÃ³gica de Sencha Tocuh 2 antes que los propios desarrolladores de Sencha",
+            "description": "Curso de prueba - Un curso para entender la estructura y la lógica de Sencha Tocuh 2 antes que los propios desarrolladores de Sencha",
             "id": "2",
             "knowledges": [
                 "/api/v1/knowledge/1/"
@@ -38,7 +40,53 @@
             "negative_votes": 0,
             "positive_votes": 0,
             "resource_uri": "/api/v1/career/1/",
-            "timestamp": "2011-10-26T12:43:42.717906"
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "false",
+            "started": "false"
+        },
+        {
+            "activities": [
+                "/api/v1/activity/3/",
+                "/api/v1/activity/5/",
+                "/api/v1/activity/6/",
+                "/api/v1/activity/7/",
+                "/api/v1/activity/4/"
+            ],
+            "creator": "Pedro Almagro Blanco",
+            "description": "Curso de prueba - Un curso para manejarse con Ubuntu",
+            "id": "3",
+            "knowledges": [
+                "/api/v1/knowledge/1/"
+            ],
+            "name": "Ubuntu 15",
+            "negative_votes": 0,
+            "positive_votes": 0,
+            "resource_uri": "/api/v1/career/1/",
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "false",
+            "started": "false"
+        },
+        {
+            "activities": [
+                "/api/v1/activity/3/",
+                "/api/v1/activity/5/",
+                "/api/v1/activity/6/",
+                "/api/v1/activity/7/",
+                "/api/v1/activity/4/"
+            ],
+            "creator": "Pedro Almagro Blanco",
+            "description": "Curso de prueba - Un curso para aprender Django, está instalada y empezada",
+            "id": "4",
+            "knowledges": [
+                "/api/v1/knowledge/1/"
+            ],
+            "name": "Django",
+            "negative_votes": 0,
+            "positive_votes": 0,
+            "resource_uri": "/api/v1/career/1/",
+            "timestamp": "2011-10-26T12:43:42.717906",
+            "installed": "true",
+            "started": "true"
         }
         
     ]
