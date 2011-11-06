@@ -5,22 +5,25 @@ from django.db.models.fields.files import ImageField
 from tastypie import fields
 from tastypie.resources import ModelResource
 
-from activities.models import Activity, Level, Relational
+from activities.models import Activity
 from knowledges.models import Career
 
 
-class LevelResource(ModelResource):
+class ActivityUpdateResource(ModelResource):
+    activity = fields
 
     class Meta:
-        queryset = Level.objects.all()
+        queryset = Activity.objects.all()
+        fields = ['timestamp']
 
     def dehydrate(self, bundle):
-        bundle.data["activity_id"] = bundle.obj.activity.id
-        bundle.data["career_id"] = bundle.obj.career.id
+        activity_url = bundle.data["resource_uri"].replace("activityupdate",
+                                                            "activity")
+        bundle.data["full_activity_url"] = activity_url
         return bundle
 
+
 class ActivityResource(ModelResource):
-    levels = fields.ManyToManyField(LevelResource, 'level_set')
 
     class Meta:
         queryset = Activity.objects.all()

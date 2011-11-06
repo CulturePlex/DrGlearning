@@ -10,6 +10,6 @@ echo "Processing postgis.sql"
 psql -d drglearning -f  /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
 echo "Procesing spatial_ref_sys.sql"
 psql -d drglearning -f  /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
-GRANT ALL ON geometry_columns TO PUBLIC;
-GRANT ALL ON spatial_ref_sys TO PUBLIC;
-GRANT ALL ON geography_columns TO PUBLIC;
+psql -c "GRANT ALL ON geometry_columns TO PUBLIC;" drglearning
+psql -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;" drglearning
+psql -c "GRANT ALL ON geography_columns TO PUBLIC;" drglearning

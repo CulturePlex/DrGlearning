@@ -13,6 +13,8 @@ Ext.define('DrGlearning.store.Careers', {
     model: 'DrGlearning.model.Career',
     requires: 'DrGlearning.model.Career',
     autoLoad: false,
+	autoSync:true,
+	sortOnFilter:true,
 //    load: {
 //    	scope: this,
 //    	callback: this.onStationsLoad,

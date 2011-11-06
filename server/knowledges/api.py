@@ -2,7 +2,7 @@ from tastypie import fields
 from tastypie.resources import ModelResource
 
 from knowledges.models import Knowledge, Career
-from activities.api import ActivityResource
+from activities.api import ActivityUpdateResource
 
 
 class KnowledgeResource(ModelResource):
@@ -11,8 +11,12 @@ class KnowledgeResource(ModelResource):
 
 
 class CareerResource(ModelResource):
-    knowledges = fields.ManyToManyField(KnowledgeResource, 'knowledge_field')
-    activities = fields.ManyToManyField(ActivityResource, 'activities')
+    knowledges = fields.ManyToManyField(KnowledgeResource,
+                                        'knowledge_field',
+                                        full=True)
+    activities = fields.ManyToManyField(ActivityUpdateResource,
+                                        'activity_set',
+                                        full=True)
 
     class Meta:
         queryset = Career.objects.all()
