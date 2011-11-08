@@ -137,10 +137,9 @@ Ext.define('DrGlearning.controller.Careers', {
         description.setData(newCareer.data);
 		var levelscarousel = detail.down('carousel');
 		var levelstemp = new Array();
-		for(var i=0;i<3;i++)
+		for(var i=1;i<this.getController('DaoController').getLevels(''+newCareer.data.id);i++)
 		{
 			var level=this.getLevelsStore().getAt(i);
-			console.log(level.data.name);
 			levelstemp.push({html:level.data.name});
 		}
 		levelscarousel.setItems(levelstemp);
@@ -158,7 +157,6 @@ Ext.define('DrGlearning.controller.Careers', {
 		console.log(scope);
 		if(scope.id!='Careers')
 		{
-			console.log('es el boton:'+scope);
 			scope=this;
 		}
 		console.log(scope);
@@ -189,9 +187,6 @@ Ext.define('DrGlearning.controller.Careers', {
             this.getCareerframe().hide();
         }
         view.show();
-    },
-    onLaunch: function(){
-     
     },
     search: function(values, form){
         form = form.toLowerCase();

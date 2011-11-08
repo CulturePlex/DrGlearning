@@ -53,8 +53,6 @@ Ext.define('DrGlearning.view.LevelFrame', {
             },
 			{
 				xtype: 'leveldetail',
-				
-				
 			}
         ],
 
