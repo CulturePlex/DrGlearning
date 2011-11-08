@@ -30,7 +30,13 @@ Ext.define('DrGlearning.model.Activity', {
 		name : "language_code",
 		type : "string"
 	}, {
-		name : "levels",
+		name : "level_type",
+		type : "string"
+	}, {
+		name : "level_order",
+		type : "string"
+	}, {
+		name : "level_required",
 		type : "string"
 	}, {
 		name : "query",

@@ -8,7 +8,7 @@ Ext.define('DrGlearning.controller.Loading', {
 		],
 		
 	stores: [
-        'Careers'
+        'Careers','Activities'
     ],
 	
 	refs: [
@@ -27,6 +27,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	onLaunch: function() {
 		var careersStore = this.getCareersStore();
 		careersStore.load();
+		this.getActivitiesStore().load();
 		//careersStore.sync();
 		//console.log(careersStore.count());
 		if(false){
@@ -77,8 +78,9 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		}
 	                    		
 	                    	}
-	                    	this.getLoading().hide();					
-        					this.getController('Careers').initializate();
+	                    	this.getLoading().hide();	
+	                    	this.getController('DaoController').getLevels(1);
+        					//this.getController('Careers').initializate();
 	                        
 	                    }
 	                });
