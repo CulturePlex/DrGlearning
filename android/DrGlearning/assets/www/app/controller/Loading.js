@@ -53,7 +53,6 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    			console.log("New Career found -> id="+career.id);
 	                    			var careerModel=new DrGlearning.model.Career({
 	                    					id : career.id,
-	                    					activities : career.activities,
 	                        				negative_votes : career.negative_votes,
 	                        				positive_votes : career.positive_votes,
 	                        				name : career.name,
@@ -65,6 +64,11 @@ Ext.define('DrGlearning.controller.Loading', {
 	                        				installed : false,
 	                    					started : false
 	                    			});
+	                    			var activities=new Array();
+	                    			for(cont in career.activities){
+	                    				activities[cont]=career.activities[cont].full_activity_url;
+	                    			}
+	                    			careerModel.set('activities',activities);
 	                    			careerModel.save();
 	                    			careersStore.sync();
 	                    			console.log("Careers stored after add = "+careersStore.count());
