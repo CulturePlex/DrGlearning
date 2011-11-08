@@ -47,7 +47,44 @@ Ext.define('DrGlearning.model.Activity', {
 	}, {
 		name : "resource_uri",
 		type : "string"
-	} ],
+	} 
+	/*-----------------------
+	Temporal Activities
+	-----------------------
+	ESPECIFICOS:
+	- image: El chorizo base64 de la imagen correspondiente en el formato http://en.wikipedia.org/wiki/Data_URI_scheme
+	- image_datetime. La fecha de lo que aparece en la imagen
+	- query_datatime: La fecha de lo que se pregunta
+	*/
+	, {
+		name : "image",
+		type : "string"
+	}
+	, {
+		name : "image_datetime",
+		type : "string"
+	}
+	, {
+		name : "query_datatime",
+		type : "string"
+	}
+	/*-------------------------
+		Linguistic Activities
+	-------------------------
+	ESPECIFICOS:
+	- image: El chorizo base64 de la imagen correspondiente en el formato http://en.wikipedia.org/wiki/Data_URI_scheme
+	- locked_text: el texto que comentamos de la ruleta de la fortuna
+	- answer: la respuesta
+	*/
+	, {
+		name : "locked_text",
+		type : "string"
+	}
+	, {
+		name : "answer",
+		type : "string"
+	}
+	],
 	proxy : {
 		type : 'localstorage',
 		id : 'DrGlearningActivity'

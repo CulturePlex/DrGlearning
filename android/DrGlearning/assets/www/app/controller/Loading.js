@@ -30,6 +30,12 @@ Ext.define('DrGlearning.controller.Loading', {
 		this.getActivitiesStore().load();
 		//careersStore.sync();
 		//console.log(careersStore.count());
+		if(this.getActivitiesStore().findExact('activity_type','linguistic')!=-1){
+			//var activity=this.getActivitiesStore().getById(""+this.getActivitiesStore().findExact('activity_type','linguistic'));
+			var activity=this.getActivitiesStore().getById(""+5);
+			this.getLoading().down('label').setText('<img alt="imagen" src="'+activity.data.image+'" />');
+			//this.getLoading().refresh();
+		}
 		if(false){
 			//if(navigator.network.connection.type==Connection.NONE){
 			//logica de desconexion
@@ -40,6 +46,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	        //    scope   : this,
 	        //    callback: function(records, operation, success) {
 	            	//Career request
+					
 	    			Ext.data.JsonP.request({
 	                    url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
 	                    scope   : this,

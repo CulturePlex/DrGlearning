@@ -26,7 +26,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 				scope: this,
                 url:'http://129.100.65.186:8000'+activities[cont]+'?format=jsonp',
                 success:function(response, opts){
-                	console.log(response);
                 	var activity=response;
                 	var activityModel=new DrGlearning.model.Activity({
                 		id : activity.id,
@@ -41,6 +40,11 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		timestamp : activity.timestamp,
                 		resource_uri : activity.resource_uri
                 	});
+                	if(activityModel.data.activity_type=='linguistic'){
+                		activityModel.data.image=activity.image;
+                		activityModel.data.locked_text=activity.locked_text;
+                		activityModel.data.answer=activity.answer;
+                	}
                 	activityModel.save();
                 	this.getActivitiesStore().sync();
                 }
