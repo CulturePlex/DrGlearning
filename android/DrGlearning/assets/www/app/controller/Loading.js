@@ -23,11 +23,12 @@ Ext.define('DrGlearning.controller.Loading', {
 		this.getLoadingView().create();
 		
 	},
+	
 	onLaunch: function() {
-		console.log("lanzada");
+		//console.log("lanzada");
 		var careersStore = this.getCareersStore();
 		careersStore.load();
-		careersStore2.sync();
+		//careersStore2.sync();
 		//console.log(careersStore2.count());
 		//careersStore2.load();
 		//careersStore2.add({id:1,pako:"hola"});
@@ -45,6 +46,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	            	//Career request
 	    			Ext.data.JsonP.request({
 	                    url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
+	                    scope   : this,
 	                    success:function(response, opts){
 	                    	console.log("Careers retrieved");
 	                    	var careers=response["objects"];
