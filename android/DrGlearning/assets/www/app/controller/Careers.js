@@ -120,7 +120,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",this.getController("DaoController").installCareer(career.data.id));
+			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){console.log(answer);});
 		}
 		else 
 		{
