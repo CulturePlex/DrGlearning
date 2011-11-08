@@ -65,7 +65,7 @@ Ext.define('DrGlearning.controller.Careers', {
         this.index();
     },
     index: function(){
-    
+    		
         var view = this.getCareerframe();
         if (view) {
             view.hide();
@@ -120,7 +120,13 @@ Ext.define('DrGlearning.controller.Careers', {
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){console.log(answer);});
+
+			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){
+																								if (answer == 'yes') {
+																									this.getController('DaoController').installCareer(career.data.id, this.addCareer,this);
+																								}
+																									},this);
+
 		}
 		else 
 		{
@@ -131,20 +137,28 @@ Ext.define('DrGlearning.controller.Careers', {
 			view.show();
 		}
     },
-	installCareer: function(){
+	installFinished: function(){
 		
+		var view1 = getCareersframe();
+        view1.down('careerslist').refresh();
+		console.log("terminao");
 	},
     
-    addCareer: function(){
-        var store = this.getCareersStore();
+    addCareer: function(scope){
+		console.log(scope);
+		if(scope.id!='Careers')
+		{
+			console.log('es el boton:'+scope);
+			scope=this;
+		}
+		console.log(scope);
+        var store = scope.getCareersStore();
         store.clearFilter();
         store.filter('installed', 'false');
-        
-        var caca = this.getCareersFrameView().create();
+        var caca = scope.getCareersFrameView().create();
         caca.destroy();
-        var view12 = this.getCareersframe();
-        console.log(view12);
-        var view = this.getCareerframe();
+        var view12 = scope.getCareersframe();
+        var view = scope.getCareerframe();
         if (view) {
             view.hide();
         }
