@@ -8,7 +8,7 @@ Ext.define('DrGlearning.controller.Loading', {
 		],
 		
 	stores: [
-        'Careers'
+        'Careers','Activities'
     ],
 	
 	refs: [
@@ -27,8 +27,15 @@ Ext.define('DrGlearning.controller.Loading', {
 	onLaunch: function() {
 		var careersStore = this.getCareersStore();
 		careersStore.load();
+		this.getActivitiesStore().load();
 		//careersStore.sync();
 		//console.log(careersStore.count());
+		if(this.getActivitiesStore().findExact('activity_type','linguistic')!=-1){
+			//var activity=this.getActivitiesStore().getById(""+this.getActivitiesStore().findExact('activity_type','linguistic'));
+			var activity=this.getActivitiesStore().getById(""+5);
+			this.getLoading().down('label').setText('<img alt="imagen" src="'+activity.data.image+'" />');
+			//this.getLoading().refresh();
+		}
 		if(false){
 			//if(navigator.network.connection.type==Connection.NONE){
 			//logica de desconexion
@@ -39,6 +46,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	        //    scope   : this,
 	        //    callback: function(records, operation, success) {
 	            	//Career request
+					
 	    			Ext.data.JsonP.request({
 	                    url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
 	                    scope   : this,
@@ -77,47 +85,15 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		}
 	                    		
 	                    	}
-	                    	this.getLoading().hide();					
+	                    	this.getLoading().hide();	
+	                    	//this.getController('DaoController').getLevels(1);
         					this.getController('Careers').initializate();
 	                        
 	                    }
 	                });
 	      }
-			//});
-			
-
-	        /*careersStore.load({
-	            scope   : this,
-	            callback: function(records, operation, success) {
-	            	console.log("Cargada");
-	        		//console.log(this.getCareersStore().data.items[0].data.activities);
-	        		this.getCareersStore().data.each(function(career) {
-	                    //console.log(career.get('name'));
-	        			var activities=career.get('activities').split(",");
-	        			for (cont in activities){
-	        				console.log(activities[cont]);
-	        				Ext.data.JsonP.request({
-	                            url:"http://129.100.65.186:8000"+activities[cont]+"?format=jsonp",
-	                            success:function(response, opts){
-	                            	console.log("ola");
-	                                console.log(response);
-	                                console.log(opts);
-	                            }
-	                        });
-	        				
-	        			}
-	        			//activities.each(function(url) {
-	        			//	console.log(url);
-	        			//});
-	        					
-	        		});
-					this.getLoading().hide();					
-					this.getController('Careers').initializate();
-	            }
-	        });*/
 	
 		}
-				//}
-//   },
+
 
 });
