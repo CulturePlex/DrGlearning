@@ -79,8 +79,8 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		
 	                    	}
 	                    	this.getLoading().hide();	
-	                    	this.getController('DaoController').getLevels(1);
-        					//this.getController('Careers').initializate();
+	                    	//this.getController('DaoController').getLevels(1);
+        					this.getController('Careers').initializate();
 	                        
 	                    }
 	                });
