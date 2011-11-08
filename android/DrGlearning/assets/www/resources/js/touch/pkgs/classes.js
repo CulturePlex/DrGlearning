@@ -17049,6 +17049,12 @@ Ext.define('Ext.data.Batch', {
 
         me.mixins.observable.constructor.call(me, config);
 
+        
+        // HACK start sdiprizio (brute force, probably a better/cleaner way to do that)
+        if (config.proxy)
+            this.proxy = config.proxy;
+        // HACK end
+
         /**
          * Ordered array of operations that will be executed by this batch
          * @property {Ext.data.Operation[]} operations

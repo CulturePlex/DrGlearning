@@ -22,6 +22,9 @@ Ext.define('DrGlearning.model.Activities', {
 		name: "id",
 		type: "int"
 	},{
+		name: "careerId",
+		type: "int"
+	},{
 		name: "activity_type",
 		type: "string"
 	},{
@@ -40,7 +43,7 @@ Ext.define('DrGlearning.model.Activities', {
 		name: "resource_uri",
 		type: "string"
 	}],
-	proxy: {
+	/*proxy: {
 		type: 'ajax',
 		url : 'careers.json',
 		reader: {
@@ -48,6 +51,6 @@ Ext.define('DrGlearning.model.Activities', {
 			root: 'objects',
 			
 		}
-	}
+	}*/
 });
 

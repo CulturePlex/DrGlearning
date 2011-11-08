@@ -25,12 +25,66 @@ Ext.define('DrGlearning.controller.Loading', {
 	},
 	onLaunch: function() {
 		console.log("lanzada");
-		//if(navigator.network.connection.type==Connection.NONE){
+		var careersStore = this.getCareersStore();
+		careersStore.load();
+		careersStore2.sync();
+		//console.log(careersStore2.count());
+		//careersStore2.load();
+		//careersStore2.add({id:1,pako:"hola"});
+		//careersStore2.sync();
+		//console.log(careersStore2.count());
+		if(false){
+			//if(navigator.network.connection.type==Connection.NONE){
 			//logica de desconexion
-		//}else{
-		//alert(Connection.type);
-			var careersStore = this.getCareersStore();
-	        careersStore.load({
+			//}else{
+		}else{
+			//alert(Connection.type);
+			//careersStore.load({
+	        //    scope   : this,
+	        //    callback: function(records, operation, success) {
+	            	//Career request
+	    			Ext.data.JsonP.request({
+	                    url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
+	                    success:function(response, opts){
+	                    	console.log("Careers retrieved");
+	                    	var careers=response["objects"];
+	                    	for (cont in careers) {
+	                    		var career=careers[cont];
+	                    		//its a new career?
+	                    		console.log("Careers stored "+careersStore.count());
+	                    		if(careersStore.findExact("id",career.id==-1)){
+	                    			console.log("New Career found -> id="+career.id);
+	                    			careersStore.add({
+	                    					id : career.id,
+	                    					activities : career.activities,
+	                        				negative_votes : career.negative_votes,
+	                        				positive_votes : career.positive_votes,
+	                        				name : career.name,
+	                        				description : career.description,
+	                        				creator : career.creator,
+	                        				resource_uri : career.resource_uri,
+	                        				knowledges : career.knowledges,
+	                        				timestamp : career.timestamp,
+	                        				installed : false,
+	                    					started : false
+	                    			});
+	                    			careersStore.sync();
+	                    			console.log("Careers stored after add = "+careersStore.count());
+	                    		}else{
+	                    			console.log("Career already exist -> id="+career.id);
+	                    		}
+	                    		
+	                    	}
+	                    	this.getLoading().hide();					
+        					this.getController('Careers').initializate();
+	                        
+	                    }
+	                });
+	      }
+			//});
+			
+
+	        /*careersStore.load({
 	            scope   : this,
 	            callback: function(records, operation, success) {
 	            	console.log("Cargada");
@@ -58,8 +112,10 @@ Ext.define('DrGlearning.controller.Loading', {
 					this.getLoading().hide();					
 					this.getController('Careers').initializate();
 	            }
-	        });
-		//}
-    },
+	        });*/
+	
+		}
+				//}
+//   },
 
 });

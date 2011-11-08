@@ -8,11 +8,11 @@ Ext.define('DrGlearning.model.Career', {
     extend: 'Ext.data.Model',
     fields: [
 	{
-		name: "activities",
-		type: "string"
-	},{
 		name: "id",
 		type: "int"
+	},{
+		name: "activities",
+		type: "string"
 	},{
 		name: "negative_votes",
 		type: "int"
@@ -35,9 +35,6 @@ Ext.define('DrGlearning.model.Career', {
 		name: "knowledges",
 		type: "string"
 	},{
-		name: "resource_uri",
-		type: "string"
-	},{
 		name: "timestamp",
 		type: "string"
 	},{
@@ -46,15 +43,17 @@ Ext.define('DrGlearning.model.Career', {
 	},{
 		name: "started",
 		type: "string"
+	}],
+   proxy: {
+		type: 'localstorage',
+		id  : 'DrGlearningCareers'
 	}
-	
-	],
-	proxy: {
+	/*proxy: {
 		type: 'ajax',
 		url : 'careers.json',
 		reader: {
 			type: 'json',
 			root: 'objects',
 		}
-	}
+	}*/
 });

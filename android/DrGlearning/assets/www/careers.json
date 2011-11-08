@@ -75,11 +75,7 @@
                 "/api/v1/activity/4/"
             ],
             "creator": "Pedro Almagro Blanco",
-<<<<<<< HEAD
             "description": "Curso de prueba - Un curso para aprender Django, está instalada y empezada",
-=======
-            "description": "Curso de prueba - Un curso para aprender Django, estÃ¡ instalada y empezada",
->>>>>>> 806297894e0716575a8a4478ccce2c1d0d5e3b2a
             "id": "4",
             "knowledges": [
                 "/api/v1/knowledge/1/"
