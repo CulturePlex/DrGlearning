@@ -27,7 +27,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	onLaunch: function() {
 		var careersStore = this.getCareersStore();
 		careersStore.load();
-		careersStore.sync();
+		//careersStore.sync();
 		//console.log(careersStore.count());
 		if(false){
 			//if(navigator.network.connection.type==Connection.NONE){
@@ -49,7 +49,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		var career=careers[cont];
 	                    		//its a new career?
 	                    		console.log("Careers stored "+careersStore.count());
-	                    		if(careersStore.findExact("id",career.id==-1)){
+	                    		if(careersStore.findExact("id",career.id)==-1){
 	                    			console.log("New Career found -> id="+career.id);
 	                    			var careerModel=new DrGlearning.model.Career({
 	                    					id : career.id,
@@ -62,7 +62,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                        				resource_uri : career.resource_uri,
 	                        				knowledges : career.knowledges,
 	                        				timestamp : career.timestamp,
-	                        				installed : true,
+	                        				installed : false,
 	                    					started : false
 	                    			});
 	                    			careerModel.save();

@@ -9,16 +9,16 @@ Ext.define('DrGlearning.model.Career', {
     fields: [
 	{
 		name: "id",
-		type: "int"
+		type: "string"
 	},{
 		name: "activities",
 		type: "string"
 	},{
 		name: "negative_votes",
-		type: "int"
+		type: "string"
 	},{
 		name: "positive_votes",
-		type: "int"
+		type: "string"
 	},{
 		name: "name",
 		type: "string"

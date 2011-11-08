@@ -15,7 +15,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 	getInstalled: function() {
 		return this.findExact('installed','true');
 	},
-    installCareer: function(id) {
+    installCareer: function(id,callback) {
     	var career=this.findExact('id',id);
     	var activities=career.get('activities').split(",");
 		for (cont in activities){
@@ -28,14 +28,14 @@ Ext.define('DrGlearning.controller.DaoController', {
                     console.log(opts);
                 }
             });
-			
 		}
-    	Ext.data.JsonP.request({
+		callback();
+    	/*Ext.data.JsonP.request({
             url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
             success:function(response, opts){
             	console.log("Activities retrieved");
             	
             }
-        });
+       // });*/
 	}
 });

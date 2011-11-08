@@ -13,44 +13,37 @@ COMUNES:
  */
 
 Ext.define('DrGlearning.model.Activities', {
-    extend: 'Ext.data.Model',
-    fields: [
-	{
-		name: "name",
-		type: "string"
-	},{
-		name: "id",
-		type: "int"
-	},{
-		name: "careerId",
-		type: "int"
-	},{
-		name: "activity_type",
-		type: "string"
-	},{
-		name: "language_code",
-		type: "string"
-	},{
-		name: "levels",
-		type: "string"
-	},{
-		name: "query",
-		type: "string"
-	},{
-		name: "timestamp",
-		type: "string"
-	},	{
-		name: "resource_uri",
-		type: "string"
-	}],
-	/*proxy: {
-		type: 'ajax',
-		url : 'careers.json',
-		reader: {
-			type: 'json',
-			root: 'objects',
-			
-		}
-	}*/
+	extend : 'Ext.data.Model',
+	fields : [ {
+		name : "name",
+		type : "string"
+	}, {
+		name : "id",
+		type : "string"
+	}, {
+		name : "careerId",
+		type : "string"
+	}, {
+		name : "activity_type",
+		type : "string"
+	}, {
+		name : "language_code",
+		type : "string"
+	}, {
+		name : "levels",
+		type : "string"
+	}, {
+		name : "query",
+		type : "string"
+	}, {
+		name : "timestamp",
+		type : "string"
+	}, {
+		name : "resource_uri",
+		type : "string"
+	} ],
+	proxy : {
+		type : 'localstorage',
+		id : 'DrGlearningActivity'
+	}
 });
-
