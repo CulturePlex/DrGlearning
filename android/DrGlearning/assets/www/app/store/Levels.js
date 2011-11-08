@@ -1,7 +1,7 @@
-Ext.define('DrGlearning.store.Careers', {
+Ext.define('DrGlearning.store.Levels', {
 	extend  : 'Ext.data.Store',
-    model: 'DrGlearning.model.Career',
-    requires: ['DrGlearning.model.Career'],
+    model: 'DrGlearning.model.Level',
+    requires: ['DrGlearning.model.Level'],
     autoLoad: true,
     autoSync:true,
 

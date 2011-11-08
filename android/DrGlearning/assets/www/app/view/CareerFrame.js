@@ -65,10 +65,5 @@ Ext.define('DrGlearning.view.CareerFrame', {
         ],
 
         layout: 'fit'
-    },
-	updateCareer: function(newCareer) {
-		var detail= this.down('careerdetail');
-		detail.updateCareer(newCareer);
-		this.down('title[id=title]').setTitle(newCareer.data.name);
-    },
+    }
 });

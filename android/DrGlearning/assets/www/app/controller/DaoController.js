@@ -28,7 +28,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	console.log(response);
                 	var activity=response["objects"];
                 	console.log("Careers stored "+careersStore.count());
-                	var activityModel=new DrGlearning.model.Activities({
+                	var activityModel=new DrGlearning.model.Activity({
                 		id : activity.id,
                 		name : activity.name,
                 		careerId : id,
@@ -44,9 +44,9 @@ Ext.define('DrGlearning.controller.DaoController', {
                 }
             });
 		}
-		var career=this.getStoreCareers().getById(id);
+		var career=this.getCareersStore().getById(id);
     	career.set({installed:true});
-    	this.getStoreCareers().sync();
+    	this.getCareersStore().sync();
     	callback(scope);
 
     	/*Ext.data.JsonP.request({

@@ -1,0 +1,37 @@
+<levelsData>
+		<level>
+			<customId>1</customId>
+			<name>Illetratum</name>
+			<description>
+				Este es el nivel de los mas matados...
+			</description>
+		</level>
+		<level>
+			<customId>2</customId>
+			<name>Primary</name>
+			<description>
+				Este es para la gente que va empe2zando y que no estan matada...
+			</description>
+		</level>
+		<level>
+			<customId>3</customId>
+			<name>Primary</name>
+			<description>
+				Este es para la gente que va empe3zando y que no estan matada...
+			</description>
+		</level>
+		<level>
+			<customId>4</customId>
+			<name>Primary</name>
+			<description>
+				Este es para la gente que va empe4zando y que no estan matada...
+			</description>
+		</level>
+		<level>
+			<customId>5</customId>
+			<name>Primary</name>
+			<description>
+				Este es para la gente que va empe5zando y que no estan matada...
+			</description>
+		</level>
+</levelsData>

@@ -7,11 +7,11 @@
  */
 Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
-    requires: 'DrGlearning.store.Careers',
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels'],
     
     views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList'],
     
-    stores: ['Careers'],
+    stores: ['Careers','Levels'],
     selectedcareer: null,
     
     refs: [{
@@ -65,24 +65,19 @@ Ext.define('DrGlearning.controller.Careers', {
         this.index();
     },
     index: function(){
-    		
         var view = this.getCareerframe();
         if (view) {
             view.hide();
         }
-        
         var store = this.getCareersStore();
         store.clearFilter();
         store.filter("installed", "true");
-        
-        console.log(store);
         var view1 = this.getCareersframe();
         if (view1) {
             view1.hide();
         }
         this.getCareersFrameView().create();
         var view1 = this.getCareersframe();
-        
         view1.down('careerslist').refresh();
         this.filterCareers();
         view1.down('toolbar[id=toolbarTopNormal]').show();
@@ -115,12 +110,10 @@ Ext.define('DrGlearning.controller.Careers', {
         var view1 = this.getCareerframe();
         view1.show();
     },
-    
     onListTap: function(list, career){
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-
 			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){
 																								if (answer == 'yes') {
 																									this.getController('DaoController').installCareer(career.data.id, this.addCareer,this);
@@ -132,11 +125,28 @@ Ext.define('DrGlearning.controller.Careers', {
 		{
 			this.getCareerFrameView().create();
 			var view = this.getCareerframe();
-			view.updateCareer(career);
+			this.updateCareer(career);
 			this.getCareersframe().hide();
 			view.show();
 		}
     },
+	updateCareer: function(newCareer){
+		var view = this.getCareerframe();
+		var detail= view.down('careerdetail');
+		var description = detail.down('careerdescription');
+        description.setData(newCareer.data);
+		var levelscarousel = detail.down('carousel');
+		var levelstemp = new Array();
+		for(var i=0;i<3;i++)
+		{
+			var level=this.getLevelsStore().getAt(i);
+			console.log(level.data.name);
+			levelstemp.push({html:level.data.name});
+		}
+		levelscarousel.setItems(levelstemp);
+		levelscarousel.refresh();
+    	view.down('title[id=title]').setTitle(newCareer.data.name);
+	},
 	installFinished: function(){
 		
 		var view1 = getCareersframe();
