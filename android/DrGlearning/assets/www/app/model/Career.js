@@ -48,12 +48,4 @@ Ext.define('DrGlearning.model.Career', {
 		type: 'localstorage',
 		id  : 'DrGlearningCareers'
 	}
-	/*proxy: {
-		type: 'ajax',
-		url : 'careers.json',
-		reader: {
-			type: 'json',
-			root: 'objects',
-		}
-	}*/
 });

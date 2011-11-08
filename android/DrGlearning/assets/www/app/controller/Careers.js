@@ -75,7 +75,6 @@ Ext.define('DrGlearning.controller.Careers', {
         store.clearFilter();
         store.filter("installed", "true");
         
-        var store2 = null;
         console.log(store);
         var view1 = this.getCareersframe();
         if (view1) {

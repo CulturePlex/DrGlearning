@@ -25,15 +25,10 @@ Ext.define('DrGlearning.controller.Loading', {
 	},
 	
 	onLaunch: function() {
-		//console.log("lanzada");
 		var careersStore = this.getCareersStore();
 		careersStore.load();
-		//careersStore2.sync();
-		//console.log(careersStore2.count());
-		//careersStore2.load();
-		//careersStore2.add({id:1,pako:"hola"});
-		//careersStore2.sync();
-		//console.log(careersStore2.count());
+		careersStore.sync();
+		//console.log(careersStore.count());
 		if(false){
 			//if(navigator.network.connection.type==Connection.NONE){
 			//logica de desconexion
@@ -56,7 +51,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		console.log("Careers stored "+careersStore.count());
 	                    		if(careersStore.findExact("id",career.id==-1)){
 	                    			console.log("New Career found -> id="+career.id);
-	                    			careersStore.add({
+	                    			var careerModel=new DrGlearning.model.Career({
 	                    					id : career.id,
 	                    					activities : career.activities,
 	                        				negative_votes : career.negative_votes,
@@ -67,9 +62,10 @@ Ext.define('DrGlearning.controller.Loading', {
 	                        				resource_uri : career.resource_uri,
 	                        				knowledges : career.knowledges,
 	                        				timestamp : career.timestamp,
-	                        				installed : false,
+	                        				installed : true,
 	                    					started : false
 	                    			});
+	                    			careerModel.save();
 	                    			careersStore.sync();
 	                    			console.log("Careers stored after add = "+careersStore.count());
 	                    		}else{
