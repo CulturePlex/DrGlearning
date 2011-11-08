@@ -62,7 +62,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                        				resource_uri : career.resource_uri,
 	                        				knowledges : career.knowledges,
 	                        				timestamp : career.timestamp,
-	                        				installed : true,
+	                        				installed : false,
 	                    					started : false
 	                    			});
 	                    			careerModel.save();
