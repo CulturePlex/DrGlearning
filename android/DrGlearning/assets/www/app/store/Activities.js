@@ -1,7 +1,7 @@
 Ext.define('DrGlearning.store.Activities', {
 	extend  : 'Ext.data.Store',
-    model: 'DrGlearning.model.Activities',
-    requires: ['DrGlearning.model.Activities'],
+    model: 'DrGlearning.model.Activity',
+    requires: ['DrGlearning.model.Activity'],
     autoLoad: true,
     autoSync:true,
 
