@@ -52,6 +52,10 @@ Ext.define('DrGlearning.controller.DaoController', {
     	callback(scope);
 
     },
+    
+    /* 
+     * Return the max level
+     */
 	getLevels: function(careerId){
 		var activities=this.getActivitiesStore().queryBy(function(record) {
 			return record.data.careerId==careerId;
@@ -64,6 +68,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 		});
 		return levels;
 	},
+	/*
+	 * Returns a MixedCollection 
+	 */
 	getActivitiesByLevel: function(careerId,level){
 		var activities=this.getActivitiesStore().queryBy(function(record) {
 			return record.data.careerId==careerId && record.data.level_type==level;
