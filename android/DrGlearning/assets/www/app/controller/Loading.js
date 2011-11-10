@@ -48,7 +48,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	            	//Career request
 					
 	    			Ext.data.JsonP.request({
-	                    url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
+	                    url:"http://drglearning.testing.cultureplex.ca/api/v1/career/?format=jsonp",
 	                    scope   : this,
 	                    success:function(response, opts){
 	                    	console.log("Careers retrieved");
