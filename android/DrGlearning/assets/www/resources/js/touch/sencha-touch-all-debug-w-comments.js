@@ -58957,7 +58957,7 @@ Ext.define('Ext.carousel.Carousel', {
 
         var indicator = this.getIndicator();
         if (indicator) {
-            indicator.addIndicator();
+            indicator.removeIndicator();
         }
     },
 

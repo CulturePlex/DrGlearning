@@ -24,7 +24,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 			console.log(activities[cont]);
 			Ext.data.JsonP.request({
 				scope: this,
-                url:'http://129.100.65.186:8000'+activities[cont]+'?format=jsonp',
+                url:'http://drglearning.testing.cultureplex.ca/'+activities[cont]+'?format=jsonp',
                 success:function(response, opts){
                 	var activity=response;
                 	var activityModel=new DrGlearning.model.Activity({

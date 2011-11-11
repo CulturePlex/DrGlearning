@@ -1,8 +1,8 @@
-Ext.define('DrGlearning.view.LevelFrame', {
+Ext.define('DrGlearning.view.ActivityFrame', {
     extend: 'Ext.Container',
-	xtype: 'levelframe',
+	xtype: 'activityframe',
     requires: [
-		'DrGlearning.view.LevelDetail',	
+		'DrGlearning.view.ActivityContent',	
     ],
 	config: {
         items: [
@@ -19,40 +19,28 @@ Ext.define('DrGlearning.view.LevelFrame', {
                         xtype: 'title',
 						id: 'title',
 						name: 'title',
-                        title: 'Career Name'
+                        title: 'Activity Name'
                     },
                     { xtype: 'spacer' }
                   
                 ]
-            },
-			{
+            },{
                 xtype: 'toolbar',
                 docked: 'bottom',
                 ui: 'gray',
                 items:[
                     {
-                        xtype: 'button',
-						id: 'backtocareer',
-                        text: 'Back',
-						ui:'back',
+						xtype: 'button',
+						id: 'backtolevel',
+						text: 'Back',
+						ui: 'back',
 						controller: 'DrGlearning.controller.Career',
 						action: 'index',
-                        
-                    },
-					{
-						 xtype: 'spacer' 
-					},
-					{
-                        xtype: 'button',
-                        text: 'Start',
-						id: 'startActivity'
-                        
-                  	}
-					]
+					}]
                 
             },
 			{
-				xtype: 'leveldetail',
+				xtype: 'activitycontent',
 			}
         ],
 

@@ -2,10 +2,9 @@ Ext.define('DrGlearning.view.LevelDetail', {
     extend: 'Ext.Panel',
 	xtype: 'leveldetail',
     requires: [
-		'DrGlearning.view.LevelDescription'
+		'DrGlearning.view.LevelDescription',
     ],
     config: {
-    	career:null,
         layout: 'vbox',
         defaults: {
             flex: 1
@@ -13,30 +12,13 @@ Ext.define('DrGlearning.view.LevelDetail', {
         items: [
 		{
            xtype: 'leveldescription',
-           flex: 1,
-           
         },
         {
         	xtype: 'carousel',
             ui: 'light',
             direction: 'horizontal',
-            items: [{
-		        html: 'Actividad 1: Geospatial'
-		    }, {
-		        html: 'Actividad 2: Relational'
-		    }, {
-		        html: 'Actividad 3: Linguistic'
-		    }, {
-		        html: 'Actividad 4: Visual'
-		    }, {
-		        html: 'Actividad 5: Temporal'
-		    }]
-        }	
+			items:[{ xtype: 'panel', name: 'bugfix' }]
+    	}	
 		]
-    },
-    updateLevel: function(newLevel) {
-        var description = this.down('leveldescription');
-        
-        
-    },
+    }
 });
