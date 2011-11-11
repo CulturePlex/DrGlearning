@@ -1,99 +1,85 @@
-//Ext.require('Phonegap');
-Ext.define('DrGlearning.controller.Loading', {
+
+Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
-    //requires: 'Phonegap',
-	
-	views : [
-	        'Loading'	,
-		],
-		
-	stores: [
+   stores: [
         'Careers','Activities'
     ],
 	
-	refs: [
-        {
-            ref     : 'loading',
-            selector: 'loading',
-            xtype   : 'loading'
-        }
-		],
-		
 	init: function(){
-		this.getLoadingView().create();
 		
 	},
 	
 	onLaunch: function() {
-		var careersStore = this.getCareersStore();
-		careersStore.load();
-		this.getActivitiesStore().load();
-		//careersStore.sync();
-		//console.log(careersStore.count());
-		if(this.getActivitiesStore().findExact('activity_type','linguistic')!=-1){
-			//var activity=this.getActivitiesStore().getById(""+this.getActivitiesStore().findExact('activity_type','linguistic'));
-			var activity=this.getActivitiesStore().getById(""+5);
-			this.getLoading().down('label').setText('<img alt="imagen" src="'+activity.data.image+'" />');
-			//this.getLoading().refresh();
+		
+	},
+	getInstalled: function() {
+		return this.getCareersStore().findExact('installed','true');
+	},
+    installCareer: function(id,callback,scope) {
+    	var career=this.getCareersStore().getById(id);
+    	var activities=career.data.activities;
+    	activities=activities.split(",")
+    	console.log("activity "+activities);
+		for (cont in activities){
+			console.log(activities[cont]);
+			Ext.data.JsonP.request({
+				scope: this,
+                url:'http://drglearning.testing.cultureplex.ca/'+activities[cont]+'?format=jsonp',
+                success:function(response, opts){
+                	var activity=response;
+                	var activityModel=new DrGlearning.model.Activity({
+                		id : activity.id,
+                		name : activity.name,
+                		careerId : id,
+                		activity_type : activity.activity_type,
+                		language_code : activity.language_code,
+                		level_type : activity.level_type,
+                		level_order : activity.level_order,
+                		level_required : activity.level_required,
+                		query : activity.query,
+                		timestamp : activity.timestamp,
+                		resource_uri : activity.resource_uri
+                	});
+                	if(activityModel.data.activity_type=='linguistic'){
+                		activityModel.data.image=activity.image;
+                		activityModel.data.locked_text=activity.locked_text;
+                		activityModel.data.answer=activity.answer;
+                	}
+                	activityModel.save();
+                	this.getActivitiesStore().sync();
+                }
+            });
 		}
-		if(false){
-			//if(navigator.network.connection.type==Connection.NONE){
-			//logica de desconexion
-			//}else{
-		}else{
-			//alert(Connection.type);
-			//careersStore.load({
-	        //    scope   : this,
-	        //    callback: function(records, operation, success) {
-	            	//Career request
-					
-	    			Ext.data.JsonP.request({
-	                    url:"http://129.100.65.186:8000/api/v1/career/?format=jsonp",
-	                    scope   : this,
-	                    success:function(response, opts){
-	                    	console.log("Careers retrieved");
-	                    	var careers=response["objects"];
-	                    	for (cont in careers) {
-	                    		var career=careers[cont];
-	                    		//its a new career?
-	                    		console.log("Careers stored "+careersStore.count());
-	                    		if(careersStore.findExact("id",career.id)==-1){
-	                    			console.log("New Career found -> id="+career.id);
-	                    			var careerModel=new DrGlearning.model.Career({
-	                    					id : career.id,
-	                        				negative_votes : career.negative_votes,
-	                        				positive_votes : career.positive_votes,
-	                        				name : career.name,
-	                        				description : career.description,
-	                        				creator : career.creator,
-	                        				resource_uri : career.resource_uri,
-	                        				knowledges : career.knowledges,
-	                        				timestamp : career.timestamp,
-	                        				installed : false,
-	                    					started : false
-	                    			});
-	                    			var activities=new Array();
-	                    			for(cont in career.activities){
-	                    				activities[cont]=career.activities[cont].full_activity_url;
-	                    			}
-	                    			careerModel.set('activities',activities);
-	                    			careerModel.save();
-	                    			careersStore.sync();
-	                    			console.log("Careers stored after add = "+careersStore.count());
-	                    		}else{
-	                    			console.log("Career already exist -> id="+career.id);
-	                    		}
-	                    		
-	                    	}
-	                    	this.getLoading().hide();	
-	                    	//this.getController('DaoController').getLevels(1);
-        					this.getController('Careers').initializate();
-	                        
-	                    }
-	                });
-	      }
+		var career=this.getCareersStore().getById(id);
+    	career.set({installed:true});
+    	this.getCareersStore().sync();
+    	callback(scope);
+
+    },
+    
+    /* 
+     * Return the max level
+     */
+	getLevels: function(careerId){
+		var activities=this.getActivitiesStore().queryBy(function(record) {
+			return record.data.careerId==careerId;
+		});
+		var levels=0;
+		activities.each(function(item) {
+			if(item.data.level_type>levels){
+				levels=item.data.level_type;
+			}
+		});
+		return levels;
+	},
+	/*
+	 * Returns a MixedCollection 
+	 */
+	getActivitiesByLevel: function(careerId,level){
+		var activities=this.getActivitiesStore().queryBy(function(record) {
+			return record.data.careerId==careerId && record.data.level_type==level;
+		});
+		return activities;
+	}
 	
-		}
-
-
 });
