@@ -12,12 +12,13 @@ Ext.define('DrGlearning.view.CareersList', {
     requires: [
         'DrGlearning.view.CareersListItem'
     ],
-
+	emptyText: 'No more careers to install',
     config: {
 		deselectOnContainerClick: true,
         ui   : 'careers',
         store: 'Careers',
         defaultType: 'careerslistitem',
+		emptyText: 'No more careers to install',
         deselectOnContainerClick: false
     }
 });

@@ -1,0 +1,29 @@
+{
+    "levels":[
+        {
+            "customId":"1",
+            "name":"Illetratum",
+            "description":"\n\t\t\t\tEste es el nivel de los mas matados...\n\t\t\t"
+        },
+        {
+            "customId":"2",
+            "name":"Primary",
+            "description":"\n\t\t\t\tEste es para la gente que va empe2zando y que no estan matada...\n\t\t\t"
+        },
+        {
+            "customId":3,
+            "name":"Primary",
+            "description":"\n\t\t\t\tEste es para la gente que va empe3zando y que no estan matada...\n\t\t\t"
+        },
+        {
+            "customId":"4",
+            "name":"Primary",
+            "description":"\n\t\t\t\tEste es para la gente que va empe4zando y que no estan matada...\n\t\t\t"
+        },
+        {
+            "customId":"5",
+            "name":"Primary",
+            "description":"\n\t\t\t\tEste es para la gente que va empe5zando y que no estan matada...\n\t\t\t"
+        }
+    ]
+}
