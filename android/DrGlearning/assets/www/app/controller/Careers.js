@@ -290,7 +290,7 @@ Ext.define('DrGlearning.controller.Careers', {
 			view.add(activityView);
 						
 		}
-		else
+		if(newActivity.data.activity_type != 'visual' || newActivity.data.activity_type != 'geospatial')
 		{
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
 			view.add(activityView);
