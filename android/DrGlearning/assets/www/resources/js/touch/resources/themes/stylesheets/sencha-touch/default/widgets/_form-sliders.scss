@@ -9,7 +9,7 @@
 
   .x-slider,
   .x-toggle {
-    .x-field-inner {
+    .x-component-outer {
       position: relative;
       height: $form-thumb-size;
       margin: $form-spacing;
@@ -32,7 +32,7 @@
     }
 
     // Create the slider track
-    .x-slider .x-field-inner:after {
+    .x-slider .x-component-outer:after {
       @include insertion(auto, $form-slider-size, $form-toggle-size / 2 - $form-slider-size/2 + $form-spacing/2 - $form-thumb-space / 2, 0);
       right: 0;
       margin: 0 $form-toggle-size/2;
@@ -66,7 +66,7 @@
     }
 
     // Create the slider track
-    .x-slider .x-field-inner:after {
+    .x-slider .x-component-outer:after {
       @include insertion(auto, $form-slider-size, $form-toggle-size / 2 - $form-slider-size/2 + $form-spacing/2 - $form-thumb-space / 2, 0);
       right: 0;
       margin: 0 $form-toggle-size/2;
@@ -78,13 +78,7 @@
     }
   }
 
-  .x-toggle,
-  .x-slider {
-    background-color: #fff;
-    @extend .x-input-el;
-  }
-
-  .x-toggle .x-field-inner {
+  .x-toggle .x-component-outer {
     margin: $form-spacing;
     width: $form-thumb-size * 2;
     @if $include-border-radius { @include border-radius($form-thumb-size/2); }
@@ -136,11 +130,9 @@
       //   -webkit-transition: left .2s ease-in-out;
       // }
     }
-
-
   }
 
-  .x-toggle-on .x-field-inner {
+  .x-toggle-on.x-component-outer {
     @include background-gradient($confirm-color, 'recessed');
   }
 

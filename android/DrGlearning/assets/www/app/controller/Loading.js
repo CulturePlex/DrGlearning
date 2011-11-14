@@ -87,7 +87,6 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		}
 	                    		
 	                    	}
-	                    		
 	                    	this.getLoading().hide();
         					this.getController('Careers').initializate();
 	                        
