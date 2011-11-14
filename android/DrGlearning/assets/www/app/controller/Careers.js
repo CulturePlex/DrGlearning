@@ -164,11 +164,8 @@ Ext.define('DrGlearning.controller.Careers', {
 		var description = detail.down('careerdescription');
         description.setData(newCareer.data);
 		var levelscarousel = detail.down('carousel');
-		console.log(levelscarousel);
 		var levelstemp = new Array();
 		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
-		console.log(levelstemp.length);
-		console.log(levelstemp);
 		levelscarousel.destroy();
 		levelscarousel=Ext.create('Ext.Carousel', {
     
@@ -176,7 +173,7 @@ Ext.define('DrGlearning.controller.Careers', {
             ui: 'light',
             direction: 'horizontal',
     	});
-		for(var i=0;i<levelstemp.length-1;i++)
+		for(var i=0;i<levelstemp.length;i++)
 		{
 			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
 			levelscarousel.add({html:level.data.name});
@@ -185,12 +182,10 @@ Ext.define('DrGlearning.controller.Careers', {
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 	},
     addCareer: function(scope){
-		console.log(scope);
 		if(scope.id!='Careers')
 		{
 			scope=this;
 		}
-		console.log(scope);
         var store = scope.getCareersStore();
         store.clearFilter();
         store.filter('installed', 'false');
@@ -213,10 +208,8 @@ Ext.define('DrGlearning.controller.Careers', {
 		var levelscarousel = detail.down('carousel');
         this.getLevelFrameView().create();
         var view = this.getLevelframe();
-		console.log(levelscarousel.getActiveIndex());
-        this.updateLevel(this.selectedcareer, levelscarousel.getActiveIndex());
+        this.updateLevel(this.selectedcareer, this.getController('DaoController').getLevels(this.selectedcareer.data.id)[levelscarousel.getActiveIndex()]);
         if (this.getCareerframe()) {
-            console.log("borrando");
             this.getCareerframe().hide();
         }
         view.show();
@@ -229,13 +222,14 @@ Ext.define('DrGlearning.controller.Careers', {
 		var level=this.getLevelsStore().getAt(newLevel);
 		description.setHtml('Nivel '+level.data.name+':'+level.data.description);
 		var activitiescarousel = detail.down('carousel');
-		var activities = this.getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+(newLevel+1));
+		var activities = this.getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+newLevel);
 		activitiescarousel.destroy();
 		activitiescarousel=Ext.create('Ext.Carousel', {
         	xtype: 'carousel',
             ui: 'light',
             direction: 'horizontal',
     	});
+		
 		for(var i=0;i<activities.length;i++)
 		{
 			var activity=activities.getAt(i);
@@ -263,7 +257,6 @@ Ext.define('DrGlearning.controller.Careers', {
         store.load();
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
-        console.log(view12.down('careerslist'));
     },
     startActivity: function(){
 		var view1 = this.getLevelframe();
@@ -271,11 +264,8 @@ Ext.define('DrGlearning.controller.Careers', {
 		var activitiescarousel = detail.down('carousel');
         this.getActivityFrameView().create();
         var view = this.getActivityframe();
-		console.log('en el carrusel:'+activitiescarousel.getActiveIndex());
-		
         this.updateActivity(activitiescarousel.getActiveIndex());
         if (this.getLevelframe()) {
-            console.log("borrando");
             this.getLevelframe().hide();
         }
         view.show();
@@ -285,10 +275,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		var temp = this.getActivitiesStore().queryBy(function(record) {
 			return record.data.level_type==this.selectedlevel+1 && record.data.careerId==this.selectedcareer.data.id ;
 		},this);
-		console.log(newActivityIndex);
-		console.log(temp);
 		newActivity = temp.items[newActivityIndex-1];
-		console.log(newActivity);
 		view.down('title[id=title]').setTitle(newActivity.data.name);
 		var activityView;
 		if (newActivity.data.activity_type == 'geospatial') {
