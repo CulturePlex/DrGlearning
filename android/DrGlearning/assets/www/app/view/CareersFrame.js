@@ -8,9 +8,6 @@ Ext.define('DrGlearning.view.CareersFrame', {
             ui: 'green',
             docked: 'top',
             items: [{
-                xtype: 'spacer',
-                width: 35
-            }, {
                 xtype: 'spacer'
             }, {
                 xtype: 'title',

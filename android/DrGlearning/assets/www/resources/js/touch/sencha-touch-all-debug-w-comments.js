@@ -29504,12 +29504,6 @@ Ext.define('Ext.data.Batch', {
          */
 
         me.mixins.observable.constructor.call(me, config);
-        
-     // HACK start sdiprizio (brute force, probably a better/cleaner way to do that)
-        if (config.proxy)
-            this.proxy = config.proxy;
-        // HACK end
-
 
         /**
          * Ordered array of operations that will be executed by this batch
@@ -58957,7 +58951,7 @@ Ext.define('Ext.carousel.Carousel', {
 
         var indicator = this.getIndicator();
         if (indicator) {
-            indicator.removeIndicator();
+            indicator.addIndicator();
         }
     },
 

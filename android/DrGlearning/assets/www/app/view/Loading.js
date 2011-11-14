@@ -4,9 +4,19 @@ Ext.define('DrGlearning.view.Loading', {
     config: {
         fullscreen: true,
         layout: 'fit',
-        //style: {backgroundimage:'url(resources/images/splash.jpg)'},
-        //style: {borderColor:'#000000', borderStyle:'solid', borderWidth:'1px'},
         items: [{
+            xtype: 'toolbar',
+            ui: 'green',
+            docked: 'top',
+            items: [{
+                xtype: 'spacer'
+            }, {
+                xtype: 'title',
+                title: 'Dr. Glearning'
+            }, {
+                xtype: 'spacer'
+            }]
+        },{
             xtype:'label',
             text: 'Loading'
         }]
