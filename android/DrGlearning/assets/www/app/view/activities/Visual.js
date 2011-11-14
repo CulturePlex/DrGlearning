@@ -50,9 +50,6 @@ Ext.define('DrGlearning.view.activities.Visual', {
             }
 		]
     },
-    initialize: function() {
-			
-    },
 	
 	
 });

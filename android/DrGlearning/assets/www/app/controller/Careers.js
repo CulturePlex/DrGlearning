@@ -7,7 +7,7 @@
  */
 Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController'],
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.VisualController'],
     views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList', 'ActivityFrame'],
     stores: ['Careers','Levels','Activities'],
     refs: [{
@@ -115,7 +115,6 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.down('careerslist').refresh();
     },
     tocareer: function(){
-		
         if (this.getCareersframe()) {
             this.getCareersframe().hide();
         }
@@ -126,7 +125,7 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.show();
     },
     tolevel: function(){
-		
+		console.log("ola");
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }
@@ -273,22 +272,16 @@ Ext.define('DrGlearning.controller.Careers', {
 	updateActivity: function(newActivityIndex) {
 		var view = this.getActivityframe();
 		var temp = this.getActivitiesStore().queryBy(function(record) {
-			return record.data.level_type==this.selectedlevel+1 && record.data.careerId==this.selectedcareer.data.id ;
+			return record.data.level_type==this.selectedlevel && record.data.careerId==this.selectedcareer.data.id ;
 		},this);
-		newActivity = temp.items[newActivityIndex-1];
+		newActivity = temp.items[newActivityIndex];
 		view.down('title[id=title]').setTitle(newActivity.data.name);
 		var activityView;
 		if (newActivity.data.activity_type == 'geospatial') {
-			activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-			activityView.down('title[id=query]').setTitle(newActivity.data.query);
-			view.add(activityView);
-						
+			this.getController('activities.GeospatialController').updateActivity(view,newActivity);
 		}
 		if (newActivity.data.activity_type == 'visual') {
-			activityView = Ext.create('DrGlearning.view.activities.Visual');
-			activityView.down('panel[id=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
-			view.add(activityView);
-						
+			this.getController('activities.VisualController').updateActivity(view,newActivity);
 		}
 		if(newActivity.data.activity_type != 'visual' || newActivity.data.activity_type != 'geospatial')
 		{

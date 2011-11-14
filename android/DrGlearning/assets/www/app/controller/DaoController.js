@@ -1,7 +1,7 @@
 
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
-   stores: [
+    stores: [
         'Careers','Activities'
     ],
 	
