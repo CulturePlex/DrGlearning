@@ -26,9 +26,11 @@ Ext.define('DrGlearning.controller.Loading', {
 	},
 	
 	onLaunch: function() {
+		console.log(Connection);
 		var careersStore = this.getCareersStore();
 		careersStore.load();
 		this.getActivitiesStore().load();
+		
 		//careersStore.sync();
 		//console.log(careersStore.count());
 		//if(this.getActivitiesStore().findExact('activity_type','linguistic')!=-1){

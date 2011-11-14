@@ -73,6 +73,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		levels.sort(function(a, b) {
 			return a - b;
 		});
+		console.log(levels.length);
 		return levels;
 	},
 	/*
