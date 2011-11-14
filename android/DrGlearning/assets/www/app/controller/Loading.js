@@ -22,9 +22,11 @@ Ext.define('DrGlearning.controller.Loading', {
 	init: function(){
 		this.getLoadingView().create();
 		
+		
 	},
 	
 	onLaunch: function() {
+		console.log("hola");
 		var careersStore = this.getCareersStore();
 		careersStore.load();
 		this.getActivitiesStore().load();

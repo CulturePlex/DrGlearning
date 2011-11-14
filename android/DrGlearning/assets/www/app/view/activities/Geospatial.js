@@ -3,6 +3,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
     extend: 'Ext.Panel',
     xtype : 'geospatial',
     marker:null,
+	bandera:null,
     config: {
         title: 'Map',
         iconCls: 'maps',
@@ -70,17 +71,30 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 		google.maps.event.addListener(map, "mouseup", function(e){
 				
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO
-				
-				console.log('Evento en el mapa mousedown');
-				if (this.marker) {
-					this.marker.setMap(null);
+				if (this.bandera == true) {
+					console.log('Evento en el mapa mousedown');
+					if (this.marker) {
+						this.marker.setMap(null);
+					}
+					this.marker = new google.maps.Marker({
+						map: map,
+						position: e.latLng,
+						flat: true
+					});
 				}
-				this.marker = new google.maps.Marker({
-					map: map,
-					position: e.latLng,
-					flat:true
-				});
-			});
+		});
+		google.maps.event.addListener(map, "mousemove", function(e){
+				console.log('Evento en el mapa mousemove');
+				this.bandera=false;
+    		
+		});
+		google.maps.event.addListener(map, "mousedown", function(e){
+				this.bandera=true;
+				
+    		
+		});
+			
     },
+	
 	
 });
