@@ -1,10 +1,7 @@
-Ext.define('DrGlearning.view.activities.Geospatial', {
+Ext.define('DrGlearning.view.activities.Visual', {
     
     extend: 'Ext.Panel',
-    xtype : 'geospatial',
-    marker:null,
-	circle:null,
-	bandera:null,
+    xtype : 'visual',
     config: {
         title: 'Map',
         iconCls: 'maps',
@@ -82,8 +79,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 					this.circle = new google.maps.Circle({
 		                center: e.latLng,
 		                radius: 2000,
-		                map: map,
-						clickable:false
+		                map: map
 		            });
 					this.marker = new google.maps.Marker({
 						map: map,
