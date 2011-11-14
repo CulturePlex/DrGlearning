@@ -284,6 +284,12 @@ Ext.define('DrGlearning.controller.Careers', {
 			view.add(activityView);
 						
 		}
+		if (newActivity.data.activity_type == 'visual') {
+			activityView = Ext.create('DrGlearning.view.activities.Visual');
+			activityView.down('panel[id=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+			view.add(activityView);
+						
+		}
 		else
 		{
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
