@@ -1,14 +1,7 @@
-/**
- * @class Kiva.controller.Loans
- * @extends Ext.app.Controller
- *
- * The only controller in this simple application - this simply sets up the fullscreen viewport panel
- * and renders a detailed overlay whenever a Loan is tapped on.
- */
-Ext.define('DrGlearning.controller.Careers', {
+Ext.define('DrGlearning.controller.activities.GeospatialController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController'],
-    views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList', 'ActivityFrame'],
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
+    views: ['ActivityFrame', 'Gesopatial'],
     stores: ['Careers','Levels','Activities'],
     refs: [{
         ref: 'main',
@@ -140,11 +133,10 @@ Ext.define('DrGlearning.controller.Careers', {
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
-				//TODO waiting for confirm fix
-												//												if (answer == 'yes') {
+			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){
+																								if (answer == 'yes') {
 																									this.getController('DaoController').installCareer(career.data.id, this.installFinished,this);
-												//											}
+																								}
 																									},this);
 
 		}
@@ -158,24 +150,21 @@ Ext.define('DrGlearning.controller.Careers', {
 		}
     },
 	updateCareer: function(newCareer){
-		
 		var view = this.getCareerframe();
 		var detail= view.down('careerdetail');
 		var description = detail.down('careerdescription');
         description.setData(newCareer.data);
 		var levelscarousel = detail.down('carousel');
-		console.log(levelscarousel);
+		levelscarousel.removeAt(0);
 		var levelstemp = new Array();
-		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
-		console.log(levelstemp.length);
-		console.log(levelstemp);
-		console.log(levelstemp.size);
-		for(var i=0;i<levelstemp.length-1;i++)
+		for(var i=0;i<this.getController('DaoController').getLevels(''+newCareer.data.id);i++)
 		{
-			console.log(levelstemp[i]);
-			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
-			levelscarousel.add({html:level.data.name,name:'a'});
+			console.log(this.getLevelsStore());
+			var level=this.getLevelsStore().getAt(i);
+			levelstemp.push({html:level.data.name,name:'a'});
 		}
+		levelscarousel.setItems(levelstemp);
+		levelscarousel.refresh();
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 	},
     addCareer: function(scope){

@@ -8,22 +8,43 @@
         {
             "customId":"2",
             "name":"Primary",
-            "description":"\n\t\t\t\tEste es para la gente que va empe2zando y que no estan matada...\n\t\t\t"
+            "description":"\n\t\t\t\tEste es primary...\n\t\t\t"
         },
         {
             "customId":3,
-            "name":"Primary",
-            "description":"\n\t\t\t\tEste es para la gente que va empe3zando y que no estan matada...\n\t\t\t"
+            "name":"High School",
+            "description":"\n\t\t\t\tEste es high school...\n\t\t\t"
         },
         {
             "customId":"4",
-            "name":"Primary",
-            "description":"\n\t\t\t\tEste es para la gente que va empe4zando y que no estan matada...\n\t\t\t"
+            "name":"College",
+            "description":"\n\t\t\t\tEste es college..\n\t\t\t"
         },
         {
             "customId":"5",
-            "name":"Primary",
-            "description":"\n\t\t\t\tEste es para la gente que va empe5zando y que no estan matada...\n\t\t\t"
+            "name":"Master",
+            "description":"\n\t\t\t\tEste es master...\n\t\t\t"
+        },
+        {
+            "customId":"6",
+            "name":"PhD",
+            "description":"\n\t\t\t\tEste es phd...\n\t\t\t"
+        },
+        {
+            "customId":"7",
+            "name":"Post-Doc",
+            "description":"\n\t\t\t\tEste es postdoc...\n\t\t\t"
+        },
+        {
+            "customId":"8",
+            "name":"Professor",
+            "description":"\n\t\t\t\tEste es professor...\n\t\t\t"
+        },
+        {
+            "customId":"9",
+            "name":"Emeritus",
+            "description":"\n\t\t\t\tEste es emeritus...\n\t\t\t"
         }
+       
     ]
 }
