@@ -72,6 +72,7 @@ Ext.define('DrGlearning.controller.Careers', {
         this.index();
     },
     index: function(){
+		this.getCareerFrameView().create();
         var view = this.getCareerframe();
         if (view) {
             view.hide();
@@ -91,6 +92,13 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
+    },
+	installFinished: function(scope){
+		if(scope.id!='Careers')
+		{
+			scope=this;
+		}
+		scope.index();
     },
     filterCareers: function(){
         var store = this.getCareersStore();
@@ -134,7 +142,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		{
 			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){
 																								if (answer == 'yes') {
-																									this.getController('DaoController').installCareer(career.data.id, this.addCareer,this);
+																									this.getController('DaoController').installCareer(career.data.id, this.installFinished,this);
 																								}
 																									},this);
 
@@ -158,18 +166,13 @@ Ext.define('DrGlearning.controller.Careers', {
 		var levelstemp = new Array();
 		for(var i=0;i<this.getController('DaoController').getLevels(''+newCareer.data.id);i++)
 		{
+			console.log(this.getLevelsStore());
 			var level=this.getLevelsStore().getAt(i);
 			levelstemp.push({html:level.data.name,name:'a'});
 		}
 		levelscarousel.setItems(levelstemp);
 		levelscarousel.refresh();
     	view.down('title[id=title]').setTitle(newCareer.data.name);
-	},
-	installFinished: function(){
-		
-		var view1 = getCareersframe();
-        view1.down('careerslist').refresh();
-		console.log("terminao");
 	},
     addCareer: function(scope){
 		console.log(scope);
@@ -274,28 +277,37 @@ Ext.define('DrGlearning.controller.Careers', {
 		newActivity = temp.items[newActivityIndex-1];
 		console.log(newActivity);
 		view.down('title[id=title]').setTitle(newActivity.data.name);
-		var content =view.down('activitycontent');
-		content.setHtml(
-			'id :'+newActivity.data.id+','+
-			'name :'+newActivity.data.name+','+
-			'careerId :'+newActivity.data.careerId+','+
-			'activity_type :'+newActivity.data.activity_type+','+
-			'languade_code :'+newActivity.data.landuade_code+','+
-			'level_type :'+newActivity.data.level_type+','+
-			'level_order :'+newActivity.data.level_order+','+
-			'level_required :'+newActivity.data.level_required+','+
-			'query :'+newActivity.data.query+','+
-			'timestamp :'+newActivity.data.timestamp+','+
-			'resource_uri :'+newActivity.data.resource_uri+','+
-			'image :'+newActivity.data.image+','+
-			'image_datetime :'+newActivity.data.image_datetime+','+
-			'query_datatime :'+newActivity.data.query_datatime+','+
-			'locked_text :'+newActivity.data.locked_text+','+
-			'answer :'+newActivity.data.answer+','+
-			'id :'+newActivity.data.id+',');
-		
-			
-	
-    }
+		var activityView;
+		if (newActivity.data.activity_type == 'geospatial') {
+			activityView = Ext.create('DrGlearning.view.activities.Geospatial');
+			activityView.down('title[id=query]').setTitle(newActivity.data.query);
+			view.add(activityView);
+						
+		}
+		else
+		{
+			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
+			view.add(activityView);
+			var content =view.down('activitycontent');
+			content.setHtml(
+				'id :'+newActivity.data.id+','+
+				'name :'+newActivity.data.name+','+
+				'careerId :'+newActivity.data.careerId+','+
+				'activity_type :'+newActivity.data.activity_type+','+
+				'languade_code :'+newActivity.data.landuade_code+','+
+				'level_type :'+newActivity.data.level_type+','+
+				'level_order :'+newActivity.data.level_order+','+
+				'level_required :'+newActivity.data.level_required+','+
+				'query :'+newActivity.data.query+','+
+				'timestamp :'+newActivity.data.timestamp+','+
+				'resource_uri :'+newActivity.data.resource_uri+','+
+				'image :'+newActivity.data.image+','+
+				'image_datetime :'+newActivity.data.image_datetime+','+
+				'query_datatime :'+newActivity.data.query_datatime+','+
+				'locked_text :'+newActivity.data.locked_text+','+
+				'answer :'+newActivity.data.answer+','+
+				'id :'+newActivity.data.id+',');
+			}
+	    }
     
 });

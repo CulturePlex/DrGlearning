@@ -6,5 +6,4 @@ Ext.application({
     name: 'DrGlearning',
     controllers: ['Loading','Careers'],
     models     : ['Career']
-
 });

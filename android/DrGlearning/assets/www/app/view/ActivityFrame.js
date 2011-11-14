@@ -2,7 +2,7 @@ Ext.define('DrGlearning.view.ActivityFrame', {
     extend: 'Ext.Container',
 	xtype: 'activityframe',
     requires: [
-		'DrGlearning.view.ActivityContent',	
+		'DrGlearning.view.activities.ActivityContent',	
     ],
 	config: {
         items: [
@@ -24,24 +24,8 @@ Ext.define('DrGlearning.view.ActivityFrame', {
                     { xtype: 'spacer' }
                   
                 ]
-            },{
-                xtype: 'toolbar',
-                docked: 'bottom',
-                ui: 'gray',
-                items:[
-                    {
-						xtype: 'button',
-						id: 'backtolevel',
-						text: 'Back',
-						ui: 'back',
-						controller: 'DrGlearning.controller.Career',
-						action: 'index',
-					}]
-                
-            },
-			{
-				xtype: 'activitycontent',
-			}
+            }
+			
         ],
 
         layout: 'fit'

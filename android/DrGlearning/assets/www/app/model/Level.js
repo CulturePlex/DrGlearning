@@ -8,9 +8,6 @@ Ext.define('DrGlearning.model.Level', {
     extend: 'Ext.data.Model',
     fields: [
 	{
-		name:"id",
-		type:"string"
-	},{
 		name: "customId",
 		type: "string"
 	},{
@@ -22,10 +19,10 @@ Ext.define('DrGlearning.model.Level', {
 	}],
    proxy: {
 		type: 'ajax',
-		url : 'resources/xml/levels.xml',
+		url : 'resources/json/levels.json',
 		reader: {
-			type: 'xml',
-			record: 'level'
+			type: 'json',
+			root: 'levels'
 		}
 	}
 });
