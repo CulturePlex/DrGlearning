@@ -169,13 +169,19 @@ Ext.define('DrGlearning.controller.Careers', {
 		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
 		console.log(levelstemp.length);
 		console.log(levelstemp);
-		console.log(levelstemp.size);
+		levelscarousel.destroy();
+		levelscarousel=Ext.create('Ext.Carousel', {
+    
+        	xtype: 'carousel',
+            ui: 'light',
+            direction: 'horizontal',
+    	});
 		for(var i=0;i<levelstemp.length-1;i++)
 		{
-			console.log(levelstemp[i]);
 			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
-			levelscarousel.add({html:level.data.name,name:'a'});
+			levelscarousel.add({html:level.data.name});
 		}
+		detail.add(levelscarousel);
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 	},
     addCareer: function(scope){
@@ -224,15 +230,18 @@ Ext.define('DrGlearning.controller.Careers', {
 		description.setHtml('Nivel '+level.data.name+':'+level.data.description);
 		var activitiescarousel = detail.down('carousel');
 		var activities = this.getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+(newLevel+1));
-		var activitiestemp = new Array();
+		activitiescarousel.destroy();
+		activitiescarousel=Ext.create('Ext.Carousel', {
+        	xtype: 'carousel',
+            ui: 'light',
+            direction: 'horizontal',
+    	});
 		for(var i=0;i<activities.length;i++)
 		{
 			var activity=activities.getAt(i);
-			activitiestemp.push({html:activity.data.name,name:'a'});
+			activitiescarousel.setItems({html:activity.data.name,name:'a'});
 		}
-		console.log(activitiestemp);
-		activitiescarousel.setItems(activitiestemp);
-		activitiescarousel.refresh();
+		detail.add(activitiescarousel);
 		view.down('title[id=title]').setTitle(newCareer.data.name);
     },
     search: function(values, form){
