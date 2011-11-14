@@ -193,3 +193,12 @@
   @if (lightness($bg-color) > 50) { @include background-gradient(darken($bg-color, $contrast), $style) }
   @else { @include background-gradient(lighten($bg-color, $contrast), $style) }
 }
+
+/**
+ * Makes the element text overflow to use ellipsis.
+ */
+@mixin ellipsis {
+  white-space: nowrap;                
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}

@@ -151,6 +151,8 @@ this.ExtBootstrapData = {
         "Ext.Img":["widget.image"
         ],
         "Ext.ItemCollection":[],
+        "Ext.Label":["widget.label"
+        ],
         "Ext.LoadMask":[],
         "Ext.Map":["widget.map"
         ],
@@ -276,13 +278,7 @@ this.ExtBootstrapData = {
         ],
         "Ext.field.Url":["widget.urlfield"
         ],
-        "Ext.field.slider.Thumb":["widget.thumb"
-        ],
-        "Ext.form.ClearIcon":["widget.clearicon"
-        ],
         "Ext.form.FieldSet":["widget.fieldset"
-        ],
-        "Ext.form.Label":["widget.label"
         ],
         "Ext.form.Panel":["widget.formpanel"
         ],
@@ -334,8 +330,6 @@ this.ExtBootstrapData = {
         "Ext.layout.HBox":["layout.hbox"
         ],
         "Ext.layout.Layout":[],
-        "Ext.layout.Navigation":["layout.navigation"
-        ],
         "Ext.layout.VBox":["layout.vbox"
         ],
         "Ext.log.Base":[],
@@ -377,6 +371,10 @@ this.ExtBootstrapData = {
         "Ext.scroll.scroller.CssTransform":[],
         "Ext.scroll.scroller.Infinite":[],
         "Ext.scroll.scroller.ScrollPosition":[],
+        "Ext.slider.Slider":["widget.slider"
+        ],
+        "Ext.slider.Thumb":["widget.thumb"
+        ],
         "Ext.tab.Bar":["widget.tabbar"
         ],
         "Ext.tab.Panel":["widget.tabpanel"
@@ -407,7 +405,6 @@ this.ExtBootstrapData = {
         "Ext.StoreMgr":"Ext.data.StoreManager",
         "Ext.data.StoreMgr":"Ext.data.StoreManager",
         "Ext.StoreManager":"Ext.data.StoreManager",
-        "Ext.data.XmlStore":"Ext.data.XmlStore",
         "Ext.data.Association":"Ext.data.association.Association",
         "Ext.data.BelongsToAssociation":"Ext.data.association.BelongsTo",
         "Ext.data.HasManyAssociation":"Ext.data.association.HasMany",

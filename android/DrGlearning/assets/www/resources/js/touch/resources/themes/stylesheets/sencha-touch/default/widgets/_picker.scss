@@ -118,15 +118,20 @@ $picker-bar-gradient: $base-gradient !default;
   }
 
   .x-picker-slot {
+    .x-dataview-inner {
+      width: 100%;
+    }
+
     .x-dataview-item {
       vertical-align: middle;
       height: $picker-row-height;
       line-height: $picker-row-height;
       font-weight: bold;
-      padding: 0 10px 0 10px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
+      padding: 0 10px;
+    }
+
+    .x-picker-item {
+      @include ellipsis;
     }
   }
 

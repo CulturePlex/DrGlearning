@@ -3,7 +3,7 @@ Ext.define('DrGlearning.store.Careers', {
     model: 'DrGlearning.model.Career',
     requires: ['DrGlearning.model.Career'],
     autoLoad: true,
-    autoSync:true,
+    autoSync: true,
 
     listeners: { 
         exception: function(){ 

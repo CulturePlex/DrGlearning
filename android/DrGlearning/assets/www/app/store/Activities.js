@@ -3,7 +3,7 @@ Ext.define('DrGlearning.store.Activities', {
     model: 'DrGlearning.model.Activity',
     requires: ['DrGlearning.model.Activity'],
     autoLoad: true,
-    autoSync:true,
+    autoSync: true,
 
     listeners: { 
         exception: function(){ 
