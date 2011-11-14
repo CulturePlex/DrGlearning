@@ -3,6 +3,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
     extend: 'Ext.Panel',
     xtype : 'geospatial',
     marker:null,
+	circle:null,
 	bandera:null,
     config: {
         title: 'Map',
@@ -54,7 +55,6 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
             }
 		]
     },
-    
     initialize: function() {
         this.callParent();
        
@@ -70,12 +70,20 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 		console.log(this);
 		google.maps.event.addListener(map, "mouseup", function(e){
 				
-				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO
+				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si seha movido el cursor mientras movíamos o no.
 				if (this.bandera == true) {
-					console.log('Evento en el mapa mousedown');
+					//console.log('Evento en el mapa mousedown');
 					if (this.marker) {
 						this.marker.setMap(null);
 					}
+					if (this.circle) {
+						this.circle.setMap(null);
+					}
+					this.circle = new google.maps.Circle({
+		                center: e.latLng,
+		                radius: 2000,
+		                map: map
+		            });
 					this.marker = new google.maps.Marker({
 						map: map,
 						position: e.latLng,
@@ -84,14 +92,11 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 				}
 		});
 		google.maps.event.addListener(map, "mousemove", function(e){
-				console.log('Evento en el mapa mousemove');
+				//console.log('Evento en el mapa mousemove');
 				this.bandera=false;
-    		
 		});
 		google.maps.event.addListener(map, "mousedown", function(e){
 				this.bandera=true;
-				
-    		
 		});
 			
     },
