@@ -47,12 +47,15 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	}
                 	activityModel.save();
                 	this.getActivitiesStore().sync();
+					this.getActivitiesStore().load();
+					console.log(this.getActivitiesStore());
                 }
             });
 		}
 		var career=this.getCareersStore().getById(id);
     	career.set('installed','true');
-    	this.getCareersStore().sync();
+    	this.getCareersStore().load();
+		
     	callback(scope);
 
     },
@@ -73,6 +76,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		levels.sort(function(a, b) {
 			return a - b;
 		});
+		console.log(levels.length);
 		return levels;
 	},
 	/*

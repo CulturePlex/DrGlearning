@@ -158,21 +158,24 @@ Ext.define('DrGlearning.controller.Careers', {
 		}
     },
 	updateCareer: function(newCareer){
+		
 		var view = this.getCareerframe();
 		var detail= view.down('careerdetail');
 		var description = detail.down('careerdescription');
         description.setData(newCareer.data);
 		var levelscarousel = detail.down('carousel');
-		levelscarousel.removeAt(0);
+		console.log(levelscarousel);
 		var levelstemp = new Array();
-		for(var i=0;i<this.getController('DaoController').getLevels(''+newCareer.data.id);i++)
+		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
+		console.log(levelstemp.length);
+		console.log(levelstemp);
+		console.log(levelstemp.size);
+		for(var i=0;i<levelstemp.length-1;i++)
 		{
-			console.log(this.getLevelsStore());
-			var level=this.getLevelsStore().getAt(i);
-			levelstemp.push({html:level.data.name,name:'a'});
+			console.log(levelstemp[i]);
+			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
+			levelscarousel.add({html:level.data.name,name:'a'});
 		}
-		levelscarousel.setItems(levelstemp);
-		levelscarousel.refresh();
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 	},
     addCareer: function(scope){
