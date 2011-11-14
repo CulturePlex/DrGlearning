@@ -69,14 +69,14 @@ Ext.define('DrGlearning.controller.DaoController', {
 			return record.data.careerId==careerId;
 		});
 		activities.each(function(item) {
+			console.log(levels[item.data.level_type]==undefined);
 			if(levels[item.data.level_type]==undefined){
-				levels[item.data.level_type]=item.data.level_type;
+				levels.push(item.data.level_type);
 			}
 		});
 		levels.sort(function(a, b) {
 			return a - b;
 		});
-		console.log(levels.length);
 		return levels;
 	},
 	/*
