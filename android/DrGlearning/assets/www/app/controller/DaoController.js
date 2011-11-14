@@ -51,7 +51,7 @@ Ext.define('DrGlearning.controller.DaoController', {
             });
 		}
 		var career=this.getCareersStore().getById(id);
-    	career.set({installed:true});
+    	career.set('installed','true');
     	this.getCareersStore().sync();
     	callback(scope);
 
@@ -61,14 +61,17 @@ Ext.define('DrGlearning.controller.DaoController', {
      * Return the max level
      */
 	getLevels: function(careerId){
+		var levels=new Array();
 		var activities=this.getActivitiesStore().queryBy(function(record) {
 			return record.data.careerId==careerId;
 		});
-		var levels=0;
 		activities.each(function(item) {
-			if(item.data.level_type>levels){
-				levels=item.data.level_type;
+			if(levels[item.data.level_type]==undefined){
+				levels[item.data.level_type]=item.data.level_type;
 			}
+		});
+		levels.sort(function(a, b) {
+			return a - b;
 		});
 		return levels;
 	},

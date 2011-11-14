@@ -7,7 +7,7 @@
  */
 Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController'],
     views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList', 'ActivityFrame'],
     stores: ['Careers','Levels','Activities'],
     refs: [{
@@ -140,10 +140,11 @@ Ext.define('DrGlearning.controller.Careers', {
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer){
-																								if (answer == 'yes') {
+			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
+				//TODO waiting for confirm fix
+												//												if (answer == 'yes') {
 																									this.getController('DaoController').installCareer(career.data.id, this.installFinished,this);
-																								}
+												//											}
 																									},this);
 
 		}

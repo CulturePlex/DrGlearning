@@ -3,7 +3,7 @@ Ext.define('DrGlearning.store.Levels', {
     model: 'DrGlearning.model.Level',
     requires: ['DrGlearning.model.Level'],
     autoLoad: true,
-    autoSync:true,
+    autoSync: true,
 
     listeners: { 
         exception: function(){ 
