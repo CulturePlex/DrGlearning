@@ -125,7 +125,6 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.show();
     },
     tolevel: function(){
-		console.log("ola");
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }
@@ -279,34 +278,22 @@ Ext.define('DrGlearning.controller.Careers', {
 		var activityView;
 		if (newActivity.data.activity_type == 'geospatial') {
 			this.getController('activities.GeospatialController').updateActivity(view,newActivity);
-		}
-		if (newActivity.data.activity_type == 'visual') {
+		}else if (newActivity.data.activity_type == 'visual') {
 			this.getController('activities.VisualController').updateActivity(view,newActivity);
-		}
-		if(newActivity.data.activity_type != 'visual' || newActivity.data.activity_type != 'geospatial')
-		{
+		}else if(newActivity.data.activity_type == 'relational'){
+			this.getController('activities.RelationalController').updateActivity(view,newActivity);
+		}else{
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
 			view.add(activityView);
 			var content =view.down('activitycontent');
-			content.setHtml(
-				'id :'+newActivity.data.id+','+
-				'name :'+newActivity.data.name+','+
-				'careerId :'+newActivity.data.careerId+','+
-				'activity_type :'+newActivity.data.activity_type+','+
-				'languade_code :'+newActivity.data.landuade_code+','+
-				'level_type :'+newActivity.data.level_type+','+
-				'level_order :'+newActivity.data.level_order+','+
-				'level_required :'+newActivity.data.level_required+','+
-				'query :'+newActivity.data.query+','+
-				'timestamp :'+newActivity.data.timestamp+','+
-				'resource_uri :'+newActivity.data.resource_uri+','+
-				'image :'+newActivity.data.image+','+
-				'image_datetime :'+newActivity.data.image_datetime+','+
-				'query_datatime :'+newActivity.data.query_datatime+','+
-				'locked_text :'+newActivity.data.locked_text+','+
-				'answer :'+newActivity.data.answer+','+
-				'id :'+newActivity.data.id+',');
-			}
+			content.setHtml(this.getData(newActivity));
 	    }
-    
+		},
+    getData:function(newActivity) {
+		var html="";
+		for(cont in newActivity.data){
+			html=html+" "+cont+":"+newActivity.data[cont]+"</br>"
+		}
+		return html;
+	}
 });

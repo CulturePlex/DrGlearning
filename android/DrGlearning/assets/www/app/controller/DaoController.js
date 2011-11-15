@@ -52,6 +52,13 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.obfuscated_image=activity.obfuscated_image;
                 		activityModel.data.time=activity.time;
                 	}
+                	if(activityModel.data.activity_type=='relational'){
+                		activityModel.data.graph_nodes=activity.graph_nodes;
+                		activityModel.data.graph_edges=activity.graph_edges;
+                		activityModel.data.scored_nodes=activity.scored_nodes;
+                		activityModel.data.source_path=activity.source_path;
+                		activityModel.data.target_path=activity.target_path;
+                	}
                 	activityModel.save();
                 	this.getActivitiesStore().sync();
 					this.getActivitiesStore().load();

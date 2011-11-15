@@ -110,6 +110,36 @@ Ext.define('DrGlearning.model.Activity', {
 		name : "time",
 		type : "string"
 	}
+	/*-------------------------
+	Relational Activities
+	-------------------------
+	ESPECIFICOS:
+	graph_nodes: El json con los nodos
+	graph_edges: El json con las aristas
+	scored_nodes: El json con las puntuaciones especiales 
+	source_path: El nodo de inicio
+	target_path: El nodo de fin
+	*/
+	, {
+		name : "graph_nodes",
+		type : "string"
+	}
+	, {
+		name : "graph_edges",
+		type : "string"
+	}
+	, {
+		name : "scored_nodes",
+		type : "string"
+	}
+	, {
+		name : "source_path",
+		type : "string"
+	}
+	, {
+		name : "target_path",
+		type : "string"
+	}
 
 	],
 	proxy : {
