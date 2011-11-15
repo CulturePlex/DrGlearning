@@ -45,6 +45,13 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.locked_text=activity.locked_text;
                 		activityModel.data.answer=activity.answer;
                 	}
+                	if(activityModel.data.activity_type=='visual'){
+                		activityModel.data.image=activity.image;
+                		activityModel.data.answers=activity.answers;
+                		activityModel.data.correct_answer=activity.correct_answer;
+                		activityModel.data.obfuscated_image=activity.obfuscated_image;
+                		activityModel.data.time=activity.time;
+                	}
                 	activityModel.save();
                 	this.getActivitiesStore().sync();
 					this.getActivitiesStore().load();
@@ -69,7 +76,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 			return record.data.careerId==careerId;
 		});
 		activities.each(function(item) {
-			console.log(levels[item.data.level_type]==undefined);
 			if(levels[item.data.level_type]==undefined){
 				levels.push(item.data.level_type);
 			}

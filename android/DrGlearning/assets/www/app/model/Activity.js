@@ -84,6 +84,33 @@ Ext.define('DrGlearning.model.Activity', {
 		name : "answer",
 		type : "string"
 	}
+	/*-------------------------
+	Visual Activities
+	-------------------------
+	ESPECIFICOS:
+	- answers: La lista json de las posibles respuestas (p. ej. "["Respuesta 1", "Res 2", "Res 3"]")
+	- correct_answer: La cadena con la respuesta correcta  (p. ej. "Res 2")
+	- image: El chorizo base64 de la imagen correspondiente en el formato http://en.wikipedia.org/wiki/Data_URI_scheme
+	-obfuscated_image: El chorizo base64 de la imagen correspondiente en el formato http://en.wikipedia.org/wiki/Data_URI_scheme
+	- time: El tiempo que se muestra la imagen buena
+	*/
+	, {
+		name : "answers",
+		type : "string"
+	}
+	, {
+		name : "correct_answer",
+		type : "string"
+	}
+	, {
+		name : "obfuscated_image",
+		type : "string"
+	}
+	, {
+		name : "time",
+		type : "string"
+	}
+
 	],
 	proxy : {
 		type : 'localstorage',
