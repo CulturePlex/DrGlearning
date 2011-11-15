@@ -40,11 +40,10 @@ Ext.define('DrGlearning.controller.Loading', {
 			//this.getLoading().refresh();
 		//}
 	
-		if(false){
+		if(navigator.network.connection.type!=Connection.NONE){
 			//if(navigator.network.connection.type==Connection.NONE){
 			//logica de desconexion
 			//}else{
-		}else{
 			//alert(Connection.type);
 			//careersStore.load({
 	        //    scope   : this,
@@ -89,12 +88,13 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		}
 	                    		
 	                    	}
-	                    	this.getLoading().hide();
-        					this.getController('Careers').initializate();
 	                        
 	                    }
 	                });
 	      }
+			this.getLoading().hide();
+			this.getController('Careers').initializate();
+
 	
 		}
 
