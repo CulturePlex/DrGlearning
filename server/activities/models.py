@@ -42,12 +42,12 @@ class Activity(models.Model):
     language_code = models.CharField(_("language code"), max_length=2,
                                     choices=LAN_CHOICES)
     timestamp = models.DateTimeField(auto_now=True)
-    query = models.TextField()
+    query = models.CharField(_("query"), max_length=255)
     level_type = models.PositiveSmallIntegerField(_("type"),
                                             choices=TYPE_CHOICES)
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
-    reward = models.CharField(_("name"), max_length=255, default="OK!")
+    reward = models.CharField(_("reward"), max_length=255, default="OK!")
 
     @classmethod
     def serialize(cls):
