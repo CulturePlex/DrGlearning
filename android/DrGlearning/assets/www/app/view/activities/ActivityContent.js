@@ -7,7 +7,23 @@ Ext.define('DrGlearning.view.activities.ActivityContent', {
         styleHtmlContent: true,
         tpl: Ext.create('Ext.XTemplate',
             '<p>Aquí ponemos los detalles de la actividad... {description}</p>'
-        )},
+        ),
+		items: [
+			{
+                xtype: 'toolbar',
+                docked: 'bottom',
+                ui: 'gray',
+                items:[
+                    {
+						xtype: 'button',
+						customId: 'backtolevel',
+						text: 'Back',
+						ui: 'back',
+					}]
+                
+            }
+		]
+    }
 	
     
 });

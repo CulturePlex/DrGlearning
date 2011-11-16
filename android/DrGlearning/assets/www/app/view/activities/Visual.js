@@ -4,10 +4,11 @@ Ext.define('DrGlearning.view.activities.Visual', {
     xtype : 'visual',
     config: {
         layout: 'fit',
+		id:'activity',
         fullscreen: true,
         items: [{
             xtype: 'panel',
-            id: 'image',
+            customId: 'image',
             layout: 'fit',
             fullscreen: true
         	},
@@ -31,7 +32,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
                 items:[
                     {
 						xtype: 'button',
-						id: 'backtolevel',
+						customId: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
 						controller: 'DrGlearning.controller.Career',

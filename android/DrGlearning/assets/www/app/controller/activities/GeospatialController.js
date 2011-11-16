@@ -11,14 +11,14 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         xtype: 'mainview'
     }],	
 	updateActivity: function(view,newActivity) {
+		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Geospatial');
 		activityView.down('title').setTitle(newActivity.data.query);
 		this.initialize(activityView);
 		view.add(activityView);
+		
 	},
 	initialize: function(view) {
-        //view.callParent();
-       
         var map = view.down('map').getMap();
         view.on({
             show: function(){
@@ -27,9 +27,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             }
         });
         // FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
-		console.log(map);
 		google.maps.event.addListener(map, "mouseup", function(e){
-				
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
 				if (view.bandera == true) {
 					//console.log('Evento en el mapa mousedown');
@@ -53,7 +51,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				}
 		});
 		google.maps.event.addListener(map, "mousemove", function(e){
-				//console.log('Evento en el mapa mousemove');
 				view.bandera=false;
 		});
 		google.maps.event.addListener(map, "mousedown", function(e){

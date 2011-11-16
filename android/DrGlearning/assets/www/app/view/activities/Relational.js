@@ -7,7 +7,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
         fullscreen: true,
         items: [{
             xtype: 'panel',
-            id: 'contentSencha',
+            customId: 'contentSencha',
             layout: 'fit',
             fullscreen: true
         	},
@@ -31,7 +31,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
                 items:[
                     {
 						xtype: 'button',
-						id: 'backtolevel',
+						customId: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
 						controller: 'DrGlearning.controller.Career',

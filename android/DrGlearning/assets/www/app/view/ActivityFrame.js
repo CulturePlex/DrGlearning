@@ -24,7 +24,11 @@ Ext.define('DrGlearning.view.ActivityFrame', {
                     { xtype: 'spacer' }
                   
                 ]
-            }
+            },
+			{
+				xtype:'component',
+				id:'activity'
+			}
 			
         ],
 
