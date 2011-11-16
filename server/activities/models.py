@@ -47,6 +47,7 @@ class Activity(models.Model):
                                             choices=TYPE_CHOICES)
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
+    reward = models.CharField(_("name"), max_length=255, default="OK!")
 
     @classmethod
     def serialize(cls):
