@@ -6,6 +6,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 	circle:null,
 	bandera:null,
     config: {
+		id:'activity',
         title: 'Map',
         iconCls: 'maps',
         layout: 'fit',
@@ -36,11 +37,9 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                 items:[
                     {
 						xtype: 'button',
-						id: 'backtolevel',
+						customId: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
-						controller: 'DrGlearning.controller.Career',
-						action: 'index',
 					},
 					{
 						 xtype: 'spacer' 

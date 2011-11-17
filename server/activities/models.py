@@ -42,18 +42,25 @@ class Activity(models.Model):
     language_code = models.CharField(_("language code"), max_length=2,
                                     choices=LAN_CHOICES)
     timestamp = models.DateTimeField(auto_now=True)
-    query = models.TextField()
+    query = models.CharField(_("query"), max_length=255)
     level_type = models.PositiveSmallIntegerField(_("type"),
                                             choices=TYPE_CHOICES)
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
+    reward = models.CharField(_("reward"), max_length=255, default="OK!")
 
     @classmethod
     def serialize(cls):
         return NotImplemented
 
     def __unicode__(self):
-        return u"%s" % self.name
+        return u"%s (Level:%s, Order:%s)" % (self.name,
+                                            self.level_type,
+                                            self.level_order)
+
+    class Meta:
+        verbose_name_plural = "Activities"
+        ordering = ['level_type', 'level_order']
 
 
 class Relational(Activity):

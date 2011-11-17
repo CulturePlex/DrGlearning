@@ -51,5 +51,4 @@ Ext.define('DrGlearning.view.activities.Relational', {
 
 		} ]
 	},
-
 });
