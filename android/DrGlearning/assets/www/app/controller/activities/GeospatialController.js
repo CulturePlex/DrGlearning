@@ -14,6 +14,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Geospatial');
 		activityView.down('title').setTitle(newActivity.data.query);
+		console.log(newActivity);
 		this.initialize(activityView);
 		view.add(activityView);
 		

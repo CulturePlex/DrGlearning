@@ -88,10 +88,15 @@ Ext.define('DrGlearning.controller.Careers', {
         var view1 = this.getCareersframe();
         view1.down('careerslist').refresh();
         this.filterCareers();
+		
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
+		if (store.getCount() == 0) {
+			console.log('lolo');
+            view1.down('careerslist').mask('No installed careers');
+        }
     },
 	installFinished: function(scope){
 		if(scope.id!='Careers')
@@ -125,7 +130,6 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.show();
     },
     tolevel: function(){
-		console.log('ola');
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }
@@ -188,6 +192,7 @@ Ext.define('DrGlearning.controller.Careers', {
         var store = scope.getCareersStore();
         store.clearFilter();
         store.filter('installed', 'false');
+		
         var caca = scope.getCareersFrameView().create();
         caca.destroy();
         var view12 = scope.getCareersframe();
@@ -196,6 +201,10 @@ Ext.define('DrGlearning.controller.Careers', {
             view.hide();
         }
         view12.down('careerslist').refresh();
+		if (store.getCount() == 0) {
+			console.log(store.getCount());
+            view12.down('careerslist').mask('No more careers to install');
+        }
         view12.down('toolbar[id=toolbarTopNormal]').hide();
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();
@@ -277,6 +286,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		newActivity = temp.items[newActivityIndex];
 		view.down('title[id=title]').setTitle(newActivity.data.name);
 		var activityView;
+		console.log(newActivity.data.activity_type);
 		if (newActivity.data.activity_type == 'geospatial') {
 			this.getController('activities.GeospatialController').updateActivity(view,newActivity);
 		}else if (newActivity.data.activity_type == 'visual') {
@@ -284,6 +294,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		}else if(newActivity.data.activity_type == 'relational'){
 			this.getController('activities.RelationalController').updateActivity(view,newActivity);
 		}else{
+			view.down('component[id=activity]').destroy();
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
 			view.add(activityView);
 			var content =view.down('activitycontent');
