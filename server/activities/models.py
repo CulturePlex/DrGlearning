@@ -54,7 +54,13 @@ class Activity(models.Model):
         return NotImplemented
 
     def __unicode__(self):
-        return u"%s" % self.name
+        return u"%s (Level:%s, Order:%s)" % (self.name,
+                                            self.level_type,
+                                            self.level_order)
+
+    class Meta:
+        verbose_name_plural = "Activities"
+        ordering = ['level_type', 'level_order']
 
 
 class Relational(Activity):
