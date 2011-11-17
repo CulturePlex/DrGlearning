@@ -50,6 +50,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         <input id="answer" size="8" type="text" onChange="setAnswer()"/> \
       </div> \
       <canvas id="sketch" data-processing-sources="resources/js/relational.pde"></canvas>';
+		html=html+'<script id="script1" type="text/javascript"> \
+					function prueba(){ \
+        			console.log("HURRA!!!"); \
+					}</script>';
 		activityView.down('panel[id=contentSencha]').setHtml(html);
 		activityView.down('title').setTitle(newActivity.data.query);
 		view.add(activityView);
