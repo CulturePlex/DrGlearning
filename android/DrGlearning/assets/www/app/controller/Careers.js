@@ -88,10 +88,15 @@ Ext.define('DrGlearning.controller.Careers', {
         var view1 = this.getCareersframe();
         view1.down('careerslist').refresh();
         this.filterCareers();
+		
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
+		if (store.getCount() == 0) {
+			console.log('lolo');
+            view1.down('careerslist').mask('No installed careers');
+        }
     },
 	installFinished: function(scope){
 		if(scope.id!='Careers')
@@ -188,6 +193,7 @@ Ext.define('DrGlearning.controller.Careers', {
         var store = scope.getCareersStore();
         store.clearFilter();
         store.filter('installed', 'false');
+		
         var caca = scope.getCareersFrameView().create();
         caca.destroy();
         var view12 = scope.getCareersframe();
@@ -196,6 +202,10 @@ Ext.define('DrGlearning.controller.Careers', {
             view.hide();
         }
         view12.down('careerslist').refresh();
+		if (store.getCount() == 0) {
+			console.log(store.getCount());
+            view12.down('careerslist').mask('No more careers to install');
+        }
         view12.down('toolbar[id=toolbarTopNormal]').hide();
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();

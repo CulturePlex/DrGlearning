@@ -2,6 +2,11 @@ Ext.define('DrGlearning.view.CareersListItem', {
     extend: 'Ext.dataview.DataItem',
     xtype: 'careerslistitem',
     config: {
+		renderTpl: new Ext.XTemplate(
+		'<tpl for=".">',
+		'<div>{name}</div>',
+		'</tpl>'
+		),
         dataMap: {
             getName: {
                 setHtml: 'name'
