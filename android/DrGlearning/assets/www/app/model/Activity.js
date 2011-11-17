@@ -140,7 +140,26 @@ Ext.define('DrGlearning.model.Activity', {
 		name : "target_path",
 		type : "string"
 	}
-
+	/*-------------------------
+	Geospatial Activities
+	-------------------------
+	ESPECIFICOS:
+	-area El poligono que se considera correcto (p. ej. "POLYGON ((30.0000000000000000 10.0000000000000000, 10.0000000000000000 20.0000000000000000, 20.0000000000000000 40.0000000000000000, 40.0000000000000000 40.0000000000000000, 30.0000000000000000 10.0000000000000000))")
+	-point: El punto a encontrar (p. ej. "POINT (-80.0202941894531250 40.4835150479630030)"
+	-radius: El radio alrededor del punto en metros
+	*/
+	, {
+		name : "area",
+		type : "string"
+	}
+	, {
+		name : "point",
+		type : "string"
+	}
+	, {
+		name : "radius",
+		type : "string"
+	}
 	],
 	proxy : {
 		type : 'localstorage',

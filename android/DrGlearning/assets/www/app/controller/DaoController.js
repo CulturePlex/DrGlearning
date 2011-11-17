@@ -59,6 +59,18 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.source_path=activity.source_path;
                 		activityModel.data.target_path=activity.target_path;
                 	}
+                	if(activityModel.data.activity_type=='geospatial'){
+                		activityModel.data.graph_nodes=activity.graph_nodes;
+                		activityModel.data.graph_edges=activity.graph_edges;
+                		activityModel.data.scored_nodes=activity.scored_nodes;
+                		activityModel.data.source_path=activity.source_path;
+                		activityModel.data.target_path=activity.target_path;
+                	}
+                	if(activityModel.data.activity_type=='temporal'){
+                		activityModel.data.area=activity.area;
+                		activityModel.data.point=activity.point;
+                		activityModel.data.radius=activity.radius;
+                	}
                 	activityModel.save();
                 	this.getActivitiesStore().sync();
 					this.getActivitiesStore().load();
