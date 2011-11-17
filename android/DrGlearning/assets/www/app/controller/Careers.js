@@ -130,7 +130,6 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.show();
     },
     tolevel: function(){
-		console.log('ola');
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }
@@ -287,6 +286,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		newActivity = temp.items[newActivityIndex];
 		view.down('title[id=title]').setTitle(newActivity.data.name);
 		var activityView;
+		console.log(newActivity.data.activity_type);
 		if (newActivity.data.activity_type == 'geospatial') {
 			this.getController('activities.GeospatialController').updateActivity(view,newActivity);
 		}else if (newActivity.data.activity_type == 'visual') {
@@ -294,6 +294,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		}else if(newActivity.data.activity_type == 'relational'){
 			this.getController('activities.RelationalController').updateActivity(view,newActivity);
 		}else{
+			view.down('component[id=activity]').destroy();
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
 			view.add(activityView);
 			var content =view.down('activitycontent');
