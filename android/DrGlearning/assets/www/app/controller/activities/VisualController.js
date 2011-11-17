@@ -11,9 +11,10 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         xtype: 'mainview'
     }],	
 	updateActivity: function(view,newActivity) {
+		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data);
-		activityView.down('panel[id=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('title').setTitle(newActivity.data.query);
 		view.add(activityView);
 	},

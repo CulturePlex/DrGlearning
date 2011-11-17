@@ -46,7 +46,7 @@ Ext.define('DrGlearning.controller.Careers', {
             'button[id=backtocareer]': {
                 tap: this.tocareer
             },
-            'button[id=backtolevel]': {
+            'button[customId=backtolevel]': {
                 tap: this.tolevel
             },
             'button[id=addCareer]': {
@@ -125,6 +125,7 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.show();
     },
     tolevel: function(){
+		console.log('ola');
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }
