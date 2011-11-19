@@ -4,6 +4,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
     config: {
 		
         dataMap: {
+			
             getName: {
                 setHtml: 'name',
             },
@@ -18,7 +19,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
 		baseCls: Ext.baseCSSPrefix + 'list-item',
 		
         name: {
-           cls:'<name',
+           cls:'name'	
         },
         description: {
             cls: 'use'
@@ -32,7 +33,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
         }
     },
     
-    applyName: function(config){
+    applyName: function(config){		
         return Ext.factory(config, Ext.Component, this.getName());
     },
     

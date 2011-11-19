@@ -92,6 +92,7 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
+		//console.log(view1.getItems());
         view1.show();
     },
 	installFinished: function(scope){
