@@ -22,7 +22,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                 docked: 'top',
                 ui: 'gray',
                 items:[{
-                        xtype: 'title',
+                        xtype: 'label',
 						id: 'query',
 						name: 'query',
                         title: '¿Donde se invento sencha?'

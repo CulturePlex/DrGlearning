@@ -13,7 +13,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	updateActivity: function(view,newActivity) {
 		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-		activityView.down('title').setTitle(newActivity.data.query);
+		activityView.down('label').setHtml(newActivity.data.query);
 		console.log(newActivity);
 		this.initialize(activityView);
 		view.add(activityView);
@@ -21,6 +21,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	},
 	initialize: function(view) {
         var map = view.down('map').getMap();
+		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
         view.on({
             show: function(){
                 google.maps.event.trigger(map, 'resize');

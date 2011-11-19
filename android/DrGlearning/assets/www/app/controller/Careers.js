@@ -93,10 +93,6 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
-		if (store.getCount() == 0) {
-			console.log('lolo');
-            view1.down('careerslist').mask('No installed careers');
-        }
     },
 	installFinished: function(scope){
 		if(scope.id!='Careers')
