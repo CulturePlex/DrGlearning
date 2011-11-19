@@ -291,8 +291,9 @@ Ext.define('DrGlearning.controller.Careers', {
 			this.getController('activities.RelationalController').updateActivity(view,newActivity);
 		}else{
 			view.down('component[id=activity]').destroy();
-			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
+			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');			
 			view.add(activityView);
+			console.log(activityView);
 			var content =view.down('activitycontent');
 			content.setHtml(this.getData(newActivity));
 	    }

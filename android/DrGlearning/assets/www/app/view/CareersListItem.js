@@ -5,7 +5,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
 		
         dataMap: {
             getName: {
-                setHtml: 'name'
+                setHtml: 'name',
             },
             getDescription: {
                 setHtml: 'description'
@@ -14,14 +14,17 @@ Ext.define('DrGlearning.view.CareersListItem', {
                 setHtml: 'creator'
             }
         },
+		
+		baseCls: Ext.baseCSSPrefix + 'list-item',
+		
         name: {
-           cls:'name',
+           cls:'<name',
         },
         description: {
             cls: 'use'
         },
         creator: {
-            cls: 'use'
+            cls: 'creator'
         },
         layout: {
             type: 'vbox',
