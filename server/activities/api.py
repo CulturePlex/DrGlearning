@@ -1,6 +1,7 @@
 import base64
 
 from django.db.models.fields.files import ImageField
+from django.contrib.gis.db.models import GeometryField
 
 from tastypie import fields
 from tastypie.resources import ModelResource
@@ -58,6 +59,10 @@ class ActivityResource(ModelResource):
                 image_data = open(image_path,"rb").read()
                 bundle.data[field_name] = "data:image/%s;base64,%s" % (ext,
                                             base64.encodestring(image_data))
+            # If geometry export to geojson
+            elif isinstance(f, GeometryField):
+                geo_object = getattr(child_obj, field_name)
+                bundle.data[field_name] = geo_object.geojson
             else:
                 bundle.data[field_name] = getattr(child_obj, field_name)
         return bundle
