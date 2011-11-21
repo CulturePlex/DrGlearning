@@ -68,7 +68,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	}
                 	if(activityModel.data.activity_type=='geospatial'){
                 		activityModel.data.area=activity.area;
-                		activityModel.data.point=activity.point;
+                		activityModel.data.point=activity.points;
                 		activityModel.data.radius=activity.radius;
                 	}
                 	activityModel.save();

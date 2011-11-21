@@ -2,6 +2,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
     
     extend: 'Ext.Panel',
     xtype : 'geospatial',
+	poligono: null,
     marker:null,
 	circle:null,
 	bandera:null,
