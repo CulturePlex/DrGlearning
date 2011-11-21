@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'accounts',
     'knowledges',
     'activities',
+    'players',
     'south',
     'tastypie',
     'olwidget',
