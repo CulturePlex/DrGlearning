@@ -52,6 +52,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             items: [{
                 xtype: 'searchfield',
                 placeHolder: 'Search',
+				width:110,
                 name: 'searchfield',
                 id: 'searchbox',
             }, {

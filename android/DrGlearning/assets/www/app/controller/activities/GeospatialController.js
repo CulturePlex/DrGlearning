@@ -13,14 +13,16 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	updateActivity: function(view,newActivity) {
 		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-		activityView.down('title').setTitle(newActivity.data.query);
+		activityView.down('label').setHtml(newActivity.data.query);
 		console.log(newActivity);
-		this.initialize(activityView);
+		this.initialize(activityView,newActivity);
 		view.add(activityView);
 		
+		
 	},
-	initialize: function(view) {
+	initialize: function(view,activity) {
         var map = view.down('map').getMap();
+		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
         view.on({
             show: function(){
                 google.maps.event.trigger(map, 'resize');
@@ -28,6 +30,19 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             }
         });
         // FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
+		//starting parameters...
+		/*view.poligono = new google.maps.Polygon({
+						map:map,
+						latlngs: activity.data.area,
+					});
+					console.log(activity);
+		view.solucion = new google.maps.Marker({
+						map: map,
+						position: activity.data.point,
+						flat: true,
+					});
+		*/
+		//Creando eventlisteners para colocar marker y circulo al pinchar
 		google.maps.event.addListener(map, "mouseup", function(e){
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
 				if (view.bandera == true) {
@@ -40,7 +55,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 					}
 					view.circle = new google.maps.Circle({
 		                center: e.latLng,
-		                radius: 2000,
+		                radius: 0+activity.data.radius,
 		                map: map,
 						clickable:false
 		            });

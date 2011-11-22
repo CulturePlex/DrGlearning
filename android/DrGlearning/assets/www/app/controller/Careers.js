@@ -92,11 +92,8 @@ Ext.define('DrGlearning.controller.Careers', {
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
+		//console.log(view1.getItems());
         view1.show();
-		if (store.getCount() == 0) {
-			console.log('lolo');
-            view1.down('careerslist').mask('No installed careers');
-        }
     },
 	installFinished: function(scope){
 		if(scope.id!='Careers')
@@ -296,8 +293,9 @@ Ext.define('DrGlearning.controller.Careers', {
 			this.getController('activities.RelationalController').updateActivity(view,newActivity);
 		}else{
 			view.down('component[id=activity]').destroy();
-			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');
+			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');			
 			view.add(activityView);
+			console.log(activityView);
 			var content =view.down('activitycontent');
 			content.setHtml(this.getData(newActivity));
 	    }

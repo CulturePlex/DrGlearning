@@ -84,6 +84,8 @@ class Geospatial(Activity):
     points = models.MultiPointField()
     radius = models.FloatField(help_text="Meters")
     area = models.PolygonField()
+    #overriding the default manager
+    objects = models.GeoManager()
 
 
 class Temporal(Activity):
