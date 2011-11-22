@@ -1,20 +1,14 @@
-Ext.define('DrGlearning.view.activities.Geospatial', {
+Ext.define('DrGlearning.view.activities.Temporal', {
     
     extend: 'Ext.Panel',
-    xtype : 'geospatial',
-	poligono: null,
-    marker:null,
-	circle:null,
-	bandera:null,
+    xtype : 'temporal',
     config: {
-		id:'activity',
-        title: 'Map',
-        iconCls: 'maps',
         layout: 'fit',
+		id:'activity',
         fullscreen: true,
         items: [{
-            xtype: 'map',
-            id: 'testMap',
+            xtype: 'panel',
+            customId: 'image',
             layout: 'fit',
             fullscreen: true
         	},
@@ -24,7 +18,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                 ui: 'gray',
                 items:[{
                         xtype: 'label',
-						id: 'query',
+						customId: 'query',
 						name: 'query',
                         title: 'Error'
                     }
@@ -41,20 +35,28 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 						customId: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
+						controller: 'DrGlearning.controller.Career',
+						action: 'index',
 					},
 					{
 						 xtype: 'spacer' 
 					},
 					{
                         xtype: 'button',
-                        text: 'Confirm',
-						id: 'confirmmapposition'
+                        text: 'Before',
+						customId: 'before'
+                        
+                    },
+					{
+                        xtype: 'button',
+                        text: 'After',
+						customId: 'after'
                         
                     }]
                 
             }
 		]
-    }
+    },
 	
 	
 });
