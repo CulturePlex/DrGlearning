@@ -5,6 +5,7 @@ Ext.define('DrGlearning.view.activities.Temporal', {
     config: {
         layout: 'fit',
 		id:'activity',
+		customId:'activity',
         fullscreen: true,
         items: [{
             xtype: 'panel',

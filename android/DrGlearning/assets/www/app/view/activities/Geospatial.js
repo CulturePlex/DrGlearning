@@ -8,6 +8,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 	bandera:null,
     config: {
 		id:'activity',
+		customId:'activity',
         title: 'Map',
         iconCls: 'maps',
         layout: 'fit',
