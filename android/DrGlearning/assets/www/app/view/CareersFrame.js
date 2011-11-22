@@ -3,7 +3,9 @@ Ext.define('DrGlearning.view.CareersFrame', {
     xtype: 'careersframe',
     requires: ['DrGlearning.view.CareersList', ],
     config: {
-        items: [{
+    	fullscreen: true,
+        items: [
+                {
             xtype: 'toolbar',
             ui: 'green',
             docked: 'top',
@@ -84,7 +86,51 @@ Ext.define('DrGlearning.view.CareersFrame', {
         
         }, {
             xtype: 'careerslist'
-        }],
+        },{
+            xtype: 'toolbar',
+            docked: 'bottom',
+            
+            layout: {
+                type: 'vbox',
+                pack:'center',
+                align: 'center'
+            },
+            ui: 'gray',
+            id: 'toolbarBottomSettings',
+            items: [{
+                id: 'settings',
+               	text: 'Settings',
+
+            }]
+        
+        }
+        
+        /*{
+        	xtype: 'tabpanel',
+        	docked: 'bottom',
+        	tabBar: {
+                docked: 'bottom',
+                layout: {
+                    pack: 'center'
+                }
+            },
+            defaults: {
+                scrollable: true
+            },
+            items: [
+                {
+                    title: 'About',
+                    iconCls: 'info',
+                    cls: 'card1'
+                },
+                {
+                    title: 'Favorites',
+                    iconCls: 'favorites',
+                    cls: 'card2'
+                }
+            ]
+        	
+        }*/],
         
         layout: 'fit'
     }

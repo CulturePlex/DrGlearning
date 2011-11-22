@@ -7,9 +7,9 @@
  */
 Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.VisualController'],
-    views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList', 'ActivityFrame'],
-    stores: ['Careers','Levels','Activities'],
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.VisualController','DrGlearning.view.Settings'],
+    views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList', 'ActivityFrame', 'Settings'],
+    stores: ['Careers','Levels','Activities','Users'],
     refs: [{
         ref: 'main',
         selector: 'mainview',
@@ -31,6 +31,10 @@ Ext.define('DrGlearning.controller.Careers', {
         ref: 'careersframe',
         selector: 'careersframe',
         xtype: 'careersframe'
+    }, {
+        ref: 'settings',
+        selector: 'settings',
+        xtype: 'settings'
     }],
     selectedcareer: null,
 	selectedlevel: null,
@@ -66,10 +70,19 @@ Ext.define('DrGlearning.controller.Careers', {
             },
             'selectfield[name=state]': {
                 change: this.filterCareers
+            },
+            'button[id=settings]': {
+                tap: this.settings
+                
+            },
+            'button[id=save]': {
+                tap: this.saveSettings
+                
             }
         });
         
         this.index();
+        
     },
     index: function(){
 		this.getCareerFrameView().create();
@@ -307,4 +320,34 @@ Ext.define('DrGlearning.controller.Careers', {
 		}
 		return html;
 	},
+	settings:function(){
+		var userStore=this.getUsersStore();
+		userStore.load();
+		this.getSettingsView().create();
+        var view = this.getSettings();
+        view.show();
+        var hashField=view.down('textfield[id=hash]');
+        var usernameField=view.down('textfield[id=username]');
+        var emailField=view.down('textfield[id=email]');
+        var user=userStore.first();
+        emailField.setValue(user.data.email);
+        usernameField.setValue(user.data.name);
+        hashField.setValue(user.data.uniqueid);
+    },
+    saveSettings:function(){
+    	var userStore=this.getUsersStore();
+		userStore.load();
+		var view = this.getSettings();
+		var hashField=view.down('textfield[id=hash]').getValue();
+        var usernameField=view.down('textfield[id=username]').getValue();
+        var emailField=view.down('textfield[id=email]').getValue();
+        var user=userStore.first();
+        user.set('uniqueid',hashField);
+        user.set('name',usernameField);
+        user.set('email',emailField);
+        user.save();
+		userStore.sync();
+		view.hide();
+		
+    }
 });
