@@ -66,7 +66,12 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.source_path=activity.source_path;
                 		activityModel.data.target_path=activity.target_path;
                 	}
-                	if(activityModel.data.activity_type=='geospatial'){
+                	if(activityModel.data.activity_type=='temporal'){
+                		activityModel.data.image=activity.image;
+                		activityModel.data.image_datetime=activity.image_datetime;
+                		activityModel.data.query_datetime=activity.query_datetime;
+                	}
+                	if(activityModel.data.activity_type=='temporal'){
                 		activityModel.data.area=activity.area;
                 		activityModel.data.point=activity.points;
                 		activityModel.data.radius=activity.radius;

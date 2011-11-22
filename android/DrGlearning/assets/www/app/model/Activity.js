@@ -54,7 +54,7 @@ Ext.define('DrGlearning.model.Activity', {
 	ESPECIFICOS:
 	- image: El chorizo base64 de la imagen correspondiente en el formato http://en.wikipedia.org/wiki/Data_URI_scheme
 	- image_datetime. La fecha de lo que aparece en la imagen
-	- query_datatime: La fecha de lo que se pregunta
+	- query_datetime: La fecha de lo que se pregunta
 	*/
 	, {
 		name : "image",
@@ -65,7 +65,7 @@ Ext.define('DrGlearning.model.Activity', {
 		type : "string"
 	}
 	, {
-		name : "query_datatime",
+		name : "query_datetime",
 		type : "string"
 	}
 	/*-------------------------
