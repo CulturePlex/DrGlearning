@@ -2,6 +2,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
 
 	extend : 'Ext.Panel',
 	xtype : 'relational',
+	customId:'activity',
 	config : {
 		layout : 'fit',
 		fullscreen : true,

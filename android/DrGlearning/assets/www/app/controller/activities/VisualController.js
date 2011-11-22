@@ -11,11 +11,27 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         xtype: 'mainview'
     }],	
 	updateActivity: function(view,newActivity) {
-		view.down('component[id=activity]').destroy();
+		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
-		activityView.down('title').setTitle(newActivity.data.query);
+		activityView.down('label[id=query]').setHtml(newActivity.data.query);
+		
+		console.log(newActivity.data);
+		
 		view.add(activityView);
-	},
+		
+		
+		var time=newActivity.data.time;
+		var increment=0;
+		while(time>0)
+		{
+				
+		var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time/1000+"s');",increment);
+		increment=increment+1000;
+		time=time-1000;
+		}
+		}
+		
+	
 });

@@ -5,6 +5,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
     config: {
         layout: 'fit',
 		id:'activity',
+		customId:'activity',
         fullscreen: true,
         items: [{
             xtype: 'panel',
@@ -17,10 +18,10 @@ Ext.define('DrGlearning.view.activities.Visual', {
                 docked: 'top',
                 ui: 'gray',
                 items:[{
-                        xtype: 'title',
+                        xtype: 'label',
 						id: 'query',
 						name: 'query',
-                        title: 'Pay attention to this image..'
+                        title: 'Error'
                     }
                     ]
                 
@@ -47,6 +48,20 @@ Ext.define('DrGlearning.view.activities.Visual', {
 						id: 'confirmmapposition'
                         
                     }]
+                
+            }
+			,
+			{
+                xtype: 'toolbar',
+                docked: 'bottom',
+                ui: 'gray',
+                items:[{
+                        xtype: 'label',
+						customId: 'time',
+						name: 'query',
+                        title: 'Error'
+                    }
+                    ]
                 
             }
 		]
