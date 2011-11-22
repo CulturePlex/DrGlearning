@@ -182,10 +182,19 @@ Ext.define('DrGlearning.controller.Careers', {
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 	},
     addCareer: function(scope){
+		
 		if(scope.id!='Careers')
 		{
 			scope=this;
 		}
+		var caca = scope.getCareersFrameView().create();
+        caca.destroy();
+        var view12 = scope.getCareersframe();
+        var view = scope.getCareerframe();
+        if (view) {
+            view.hide();
+        }
+        view12.down('careerslist').refresh();
         var store = scope.getCareersStore();
         store.clearFilter();
         store.filter('installed', 'false');

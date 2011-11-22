@@ -55,7 +55,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 					}
 					view.circle = new google.maps.Circle({
 		                center: e.latLng,
-		                radius: 0+activity.data.radius,
+		                radius: parseFloat(activity.data.radius),
 		                map: map,
 						clickable:false
 		            });
