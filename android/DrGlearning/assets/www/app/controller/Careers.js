@@ -201,7 +201,8 @@ Ext.define('DrGlearning.controller.Careers', {
             view.hide();
         }
         view12.down('careerslist').refresh();
-		if (store.getCount() == 0) {
+        console.log("Q pasa? "+this.loading);
+        if (store.getCount() == 0) {
 			console.log(store.getCount());
             view12.down('careerslist').mask('No more careers to install');
         }
@@ -307,5 +308,5 @@ Ext.define('DrGlearning.controller.Careers', {
 			html=html+" "+cont+":"+newActivity.data[cont]+"</br>"
 		}
 		return html;
-	}
+	},
 });

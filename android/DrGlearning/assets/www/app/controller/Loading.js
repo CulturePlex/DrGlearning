@@ -15,7 +15,9 @@ Ext.define('DrGlearning.controller.Loading', {
         {
             ref     : 'loading',
             selector: 'loading',
-            xtype   : 'loading'
+        },{
+        	ref     : 'loadingpanel',
+            selector: 'loadingpanel',
         }
 		],
 		
@@ -26,7 +28,10 @@ Ext.define('DrGlearning.controller.Loading', {
 	},
 	
 	onLaunch: function() {
-		console.log(Connection);
+		//var view=this.getLoading();
+		//view.mask("Loading..");
+		var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
+		myMask.show();
 		var careersStore = this.getCareersStore();
 		careersStore.load();
 		this.getActivitiesStore().load();
@@ -49,7 +54,6 @@ Ext.define('DrGlearning.controller.Loading', {
 	        //    scope   : this,
 	        //    callback: function(records, operation, success) {
 	            	//Career request
-					
 	    			Ext.data.JsonP.request({
 	                    url:"http://drglearning.testing.cultureplex.ca/api/v1/career/?format=jsonp",
 	                    scope   : this,
@@ -88,14 +92,16 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		}
 	                    		
 	                    	}
-	                        
+	                    	this.getLoading().hide();
+	            			this.getController('Careers').initializate();		
+
 	                    }
 	                });
+	    			
+	      }else{
+	          	this.getLoading().hide();
+    			this.getController('Careers').initializate();		
 	      }
-			this.getLoading().hide();
-			this.getController('Careers').initializate();
-
-	
 		}
 
 

@@ -17,8 +17,9 @@ Ext.define('DrGlearning.view.Loading', {
                 xtype: 'spacer'
             }]
         },{
-            xtype:'label',
-            text: 'Loading'
+            xtype:'panel',
+            html: '',
+            id: 'loadingpanel',
         }]
     }
 });
