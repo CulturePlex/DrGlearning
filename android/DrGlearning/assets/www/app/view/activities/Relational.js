@@ -14,6 +14,11 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			fullscreen : true,
 			onRender : function() {
 				var sketch=Ext.getCmp('contentSencha').getEl();
+				
+				//Initializing Canvas and sketch
+                var canvas = document.getElementById("sketch");
+                var p = new Processing(canvas, sketchProc);
+
 				//console.log("cargada!!!!!");
 				//console.log(this.element.dom);
 				//console.log(this.down("canvas"));
