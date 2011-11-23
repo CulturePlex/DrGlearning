@@ -11,6 +11,7 @@ class PlayerResource(ModelResource):
 
     class Meta:
         queryset = Player.objects.all()
+        authorization = Authorization()
 
 
 class HighScoreResource(ModelResource):
