@@ -12,6 +12,12 @@ class PlayerResource(ModelResource):
     class Meta:
         queryset = Player.objects.all()
         authorization = Authorization()
+        always_return_data = True
+
+    def obj_create(self, bundle, **kwargs):
+        super(PlayerResource, self).obj_create(bundle, **kwargs)
+        bundle.data["id"] = bundle.obj.id
+        return bundle
 
 
 class HighScoreResource(ModelResource):
