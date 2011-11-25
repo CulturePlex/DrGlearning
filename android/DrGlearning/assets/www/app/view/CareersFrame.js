@@ -62,7 +62,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             }, {
                 xtype: 'selectfield',
                 name: 'knnowledge_field',
-				width: '40%',
+				width: '40%', 
                 options: [{
                     text: 'Mathematics',
                     value: 'both'
