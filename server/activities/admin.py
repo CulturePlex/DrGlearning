@@ -11,7 +11,12 @@ class ActivityAdmin(admin.ModelAdmin):
 
 
 class RelationalAdmin(ActivityAdmin):
-    pass
+
+    class Media:
+        css = {
+            "all": ("css/relationalAdmin.css",)
+        }
+        js = ('js/processing-1.3.6.min.js', 'js/relationalAdmin.js',)
 
 
 class VisualAdmin(ActivityAdmin):
