@@ -31,8 +31,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				var jsonfromserver=eval("(" + activity.data.area + ')');
 				var googleOptions = {
 				    strokeColor: "#FFFF00",
-				    strokeWeight: 7,
-				    strokeOpacity: 0.75
+				    strokeWeight: 2,
+				    strokeOpacity: 0.5,
+					clickable:false
 				};
 				//var multipunto1={"type":"Feature", "properties":{}, "geometry":{"type":"Point", "coordinates":[37.265625, -16.5234375]}, "crs":{"type":"name", "properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}}};
 				var multipunto=eval("(" + activity.data.point + ')');
