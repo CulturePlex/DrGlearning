@@ -4,6 +4,6 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'DrGlearning',
-    controllers: ['Loading','Careers'],
+    controllers: ['Loading'],
     models     : ['Career']
 });

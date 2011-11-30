@@ -2,7 +2,7 @@ Ext.define('DrGlearning.view.activities.Temporal', {
     
     extend: 'Ext.Panel',
     xtype : 'temporal',
-    config: {
+	config: {
         layout: 'fit',
 		id:'activity',
 		customId:'activity',
@@ -36,8 +36,6 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 						customId: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
-						controller: 'DrGlearning.controller.Career',
-						action: 'index',
 					},
 					{
 						 xtype: 'spacer' 
@@ -45,14 +43,14 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 					{
                         xtype: 'button',
                         text: 'Before',
-						customId: 'before'
-                        
+						customId: 'before',
+						ui: 'normal',
                     },
 					{
                         xtype: 'button',
                         text: 'After',
-						customId: 'after'
-                        
+						customId: 'after',
+						ui: 'normal',
                     }]
                 
             }

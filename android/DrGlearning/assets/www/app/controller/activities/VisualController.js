@@ -31,7 +31,17 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		increment=increment+1000;
 		time=time-1000;
 		}
-		}
+		this.control({
+			'button[customId=confirm]': {
+				tap: this.confirm
+			}
+		});
+		},
+	confirm: function() {
+		Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){this.getController('Careers').tolevel();
+			},this);
+			
+	}
 		
 	
 });

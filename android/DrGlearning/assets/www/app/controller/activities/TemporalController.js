@@ -10,12 +10,47 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
         autoCreate: true,
         xtype: 'mainview'
     }],	
+	activity:null,
 	updateActivity: function(view,newActivity) {
+		this.activity=newActivity;
 		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
 		console.log(newActivity.data);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label').setHtml(newActivity.data.query);
 		view.add(activityView);
+		this.control({
+			'button[customId=after]': {
+				tap: this.after
+			},
+			'button[customId=before]': {
+				tap: this.before
+			}
+		});
 	},
+	before: function() {
+		console.log(this.activity);
+		if (this.activity.data.image_datetime < this.activity.data.image_datetime) {
+			Ext.Msg.alert('Success!', 'Nice, that was the right answer', function(){
+				this.getController('Careers').tolevel();
+			},this);
+		}else
+		{
+			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
+				this.getController('Careers').tolevel();
+			},this);
+		} 
+	},
+	after: function() {
+		if (this.activity.data.image_datetime > this.activity.data.image_datetime) {
+			Ext.Msg.alert('Success!', 'Nice, that was the right answer', function(){
+				this.getController('Careers').tolevel();
+			},this);
+		}else
+		{
+			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
+				this.getController('Careers').tolevel();
+			},this);
+		} 
+	}
 });
