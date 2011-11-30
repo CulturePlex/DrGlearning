@@ -13,6 +13,9 @@ Ext.define('DrGlearning.model.User', {
 	},{
 		name: "uniqueid",
 		type: "string"
+	},{
+		name: "serverid",
+		type: "string"
 	}],
    proxy: {
 		type: 'localstorage',

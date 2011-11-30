@@ -38,7 +38,8 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		level_required : activity.level_required,
                 		query : activity.query,
                 		timestamp : activity.timestamp,
-                		resource_uri : activity.resource_uri
+                		resource_uri : activity.resource_uri,
+                		reward: activity.reward,
                 	});
                 	if(activityModel.data.activity_type=='linguistic'){
                 		activityModel.data.image=activity.image;
@@ -110,6 +111,16 @@ Ext.define('DrGlearning.controller.DaoController', {
 			return record.data.careerId==careerId && record.data.level_type==level;
 		});
 		return activities;
+	},
+	getknowledgesFields:function(){
+		var knowledges=new Array();
+		var career=this.getCareersStore();
+		career.each(function() {
+			
+		},this);
+	},
+	getCarresByKnowledge:function(Knowledge){
+		
 	}
 	/*
 	 * 

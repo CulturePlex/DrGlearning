@@ -45,13 +45,17 @@ Ext.define('DrGlearning.view.Settings', {
                 id: 'email'
             },
             {
-                xtype: 'textfield',
-                label: 'Id',
-                name: 'id',
-                id: 'hash' 
+                xtype: 'spacer',
             },
             {
-                xtype: 'spacer',
+                xtype: 'button',
+                text: 'Import user',
+                id: 'import'	
+            },
+            {
+                xtype: 'button',
+                text: 'Export user',
+                id: 'export'	
             },
             {
                 xtype: 'button',

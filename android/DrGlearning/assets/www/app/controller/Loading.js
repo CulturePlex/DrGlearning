@@ -28,6 +28,10 @@ Ext.define('DrGlearning.controller.Loading', {
 	},
 	
 	onLaunch: function() {
+		
+		if(window.InternalApi != undefined){
+			console.log(window.InternalApi.getTest());
+		}
 		//var view=this.getLoading();
 		//view.mask("Loading..");
 		var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
@@ -37,6 +41,7 @@ Ext.define('DrGlearning.controller.Loading', {
 		this.getActivitiesStore().load();
 		var usersStore = this.getUsersStore();
 		usersStore.load();
+		//Create user if needed
 		if(usersStore.count()==0){
 			console.log("New user");
 			var digest=this.SHA1(device.uuid+" "+new Date().getTime());
@@ -47,25 +52,30 @@ Ext.define('DrGlearning.controller.Loading', {
 			userModel.save();
 			usersStore.sync();
 		}
-		
-		
-		//careersStore.sync();
-		//console.log(careersStore.count());
-		//if(this.getActivitiesStore().findExact('activity_type','linguistic')!=-1){
-			//var activity=this.getActivitiesStore().getById(""+this.getActivitiesStore().findExact('activity_type','linguistic'));
-		//	var activity=this.getActivitiesStore().getById(""+5);
-		//	this.getLoading().down('label').setText('<img alt="imagen" src="'+activity.data.image+'" />');
-			//this.getLoading().refresh();
-		//}
-	
 		if(navigator.network.connection.type!=Connection.NONE){
-			//if(navigator.network.connection.type==Connection.NONE){
-			//logica de desconexion
-			//}else{
-			//alert(Connection.type);
-			//careersStore.load({
-	        //    scope   : this,
-	        //    callback: function(records, operation, success) {
+				//Register user if needed
+				var user=usersStore.first();
+				if(user != undefined && user.data.serverid==""){
+					console.log("Registering user");
+					var HOST = "http://drglearning.testing.cultureplex.ca";
+					Ext.data.JsonP.request({
+						scope: this,
+					    url: HOST+"/api/v1/player/?format=jsonp",
+					    params: {
+					    	code: user.data.uniqueid,
+					    	display_name: user.data.name,
+					    	email: user.data.email
+					    },
+					    success: function(response){
+					    	console.log("User successfully registered");
+							console.log(response.id);
+					    	user.data.serverid=response.id;
+					    	user.save();
+					    	usersStore.sync();
+					    }
+					});
+					usersStore.sync();
+				}
 	            	//Career request
 	    			Ext.data.JsonP.request({
 	                    url:"http://drglearning.testing.cultureplex.ca/api/v1/career/?format=jsonp",

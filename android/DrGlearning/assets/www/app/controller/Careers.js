@@ -78,6 +78,14 @@ Ext.define('DrGlearning.controller.Careers', {
             'button[id=save]': {
                 tap: this.saveSettings
                 
+            },
+            'button[id=export]': {
+                tap: this.exportUser
+                
+            },
+            'button[id=import]': {
+                tap: this.importUser
+                
             }
         });
         
@@ -103,6 +111,7 @@ Ext.define('DrGlearning.controller.Careers', {
         this.filterCareers();
 		
         view1.down('toolbar[id=toolbarTopNormal]').show();
+        view1.down('toolbar[id=toolbarBottomSettings]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
 		//console.log(view1.getItems());
@@ -226,6 +235,7 @@ Ext.define('DrGlearning.controller.Careers', {
             view12.down('careerslist').mask('No more careers to install');
         }
         view12.down('toolbar[id=toolbarTopNormal]').hide();
+        view12.down('toolbar[id=toolbarBottomSettings]').hide();
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();
         view12.show();
@@ -337,28 +347,84 @@ Ext.define('DrGlearning.controller.Careers', {
 		this.getSettingsView().create();
         var view = this.getSettings();
         view.show();
-        var hashField=view.down('textfield[id=hash]');
         var usernameField=view.down('textfield[id=username]');
         var emailField=view.down('textfield[id=email]');
         var user=userStore.first();
         emailField.setValue(user.data.email);
         usernameField.setValue(user.data.name);
-        hashField.setValue(user.data.uniqueid);
     },
     saveSettings:function(){
     	var userStore=this.getUsersStore();
 		userStore.load();
 		var view = this.getSettings();
-		var hashField=view.down('textfield[id=hash]').getValue();
         var usernameField=view.down('textfield[id=username]').getValue();
         var emailField=view.down('textfield[id=email]').getValue();
         var user=userStore.first();
-        user.set('uniqueid',hashField);
         user.set('name',usernameField);
         user.set('email',emailField);
         user.save();
 		userStore.sync();
 		view.hide();
-		
-    }
+	},
+	exportUser:function(){
+		var userStore=this.getUsersStore();
+		userStore.load();
+		var user=userStore.first();
+		var view = this.getSettings();
+		view.hide();
+		var textField=Ext.create('Ext.field.Text', {
+		    value: user.data.uniqueid,
+		    readOnly:true,
+		    clearIcon:false,
+		});
+	    Ext.Msg.show({  
+	        title: 'Export user',  
+	        msg: 'Copy and paste in your new device:',  
+	        items:textField ,
+	        buttons: Ext.Msg.OK,  
+	        icon: Ext.Msg.INFO  
+	    });
+	    
+	},
+	importUser:function(){
+		var userStore=this.getUsersStore();
+		userStore.load();
+		var user=userStore.first();
+		var view = this.getSettings();
+		view.hide();
+		var textField=Ext.create('Ext.field.Text', {
+		    value: '',
+		    clearIcon:false,
+		});
+		var saveButton=Ext.create('Ext.Button', {
+			scope:this,
+			text: 'Save',
+		});
+		var cancelButton=Ext.create('Ext.Button', {
+			scope:this,
+		    text: 'Cancel',
+		});
+	    var show=Ext.Msg.show({  
+	    	id:'pako',
+	        title: 'Import user',  
+	        msg: 'Paste your previous ID:',  
+	        items:textField ,
+	        buttons: [cancelButton,saveButton],  
+	        icon: Ext.Msg.INFO,   
+	    });
+	    saveButton.setHandler(function(){
+	    	show.hide();
+	    	user.data.uniqueid=textField.getValue();
+	    	user.save();
+			userStore.sync();
+	    });
+	    cancelButton.setHandler(function(){
+	    	show.hide();
+	    });
+	},
+	importUserAction:function(ola,adios){
+		console.log("PATATON");
+    	console.log(ola);
+    	console.log(adios);
+    },
 });

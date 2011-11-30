@@ -47,6 +47,9 @@ Ext.define('DrGlearning.model.Activity', {
 	}, {
 		name : "resource_uri",
 		type : "string"
+	}, {
+		name : "reward",
+		type : "string"
 	} 
 	/*-----------------------
 	Temporal Activities

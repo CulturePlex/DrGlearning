@@ -9,11 +9,6 @@
       $.ajax({url: HOST+"/api/v1/player/",
                 dataType: "jsonp",
                 data: {"code": document.getElementById("player_name").value},
-                beforeSend: function(xhr) { xhr.setRequestHeader("pajaso", "pajaso"); },
-				headers: { 
-                    "pajaso": "pajaso"
-                },
-                
                 success: function(e){
                         console.log(e);
                         document.getElementById('log').innerHTML = JSON.stringify(e);
