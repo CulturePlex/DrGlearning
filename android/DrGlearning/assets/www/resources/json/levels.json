@@ -3,12 +3,12 @@
         {
             "customId":"1",
             "name":"Illetratum",
-            "description":"\n\t\t\t\tNeque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.\n\t\t\t"
+            "description":"Neque porro quisquam est qui dolorem ipsum quia dolor sit."
         },
         {
             "customId":"2",
             "name":"Primary",
-            "description":"\n\t\t\t\tQuisque id mi at lectus eleifend malesuada eget eget turpis. Proin facilisis consequat enim. Nam ultricies lorem ut enim dapibus commodo. Donec sit amet augue.\n\t\t\t"
+            "description":"\n\t\t\t\tQuisque id mi at lectus eleifend malesuada eget eget turpis.\n\t\t\t"
         },
         {
             "customId":"3",

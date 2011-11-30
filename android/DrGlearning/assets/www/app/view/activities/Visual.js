@@ -45,7 +45,8 @@ Ext.define('DrGlearning.view.activities.Visual', {
 					{
                         xtype: 'button',
                         text: 'Confirm',
-						id: 'confirmmapposition'
+						id: 'confirmmapposition',
+						
                         
                     }]
                 

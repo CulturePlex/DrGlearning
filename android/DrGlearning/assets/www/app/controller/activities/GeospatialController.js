@@ -21,6 +21,12 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		
 	},
 	initialize: function(view,activity) {
+		this.control({
+			'button[customId=confirm]': {
+				tap: this.confirm
+			}
+		});
+		
         var map = view.down('map').getMap();
 		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
         view.on({
@@ -45,7 +51,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.setMap(map);
 				map.panTo(new google.maps.LatLng(googlePuntos[0].position.Pa, googlePuntos[0].position.Qa));
-				map.setZoom(5);
+				map.setZoom(3);
             }
         });
         // FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
@@ -93,5 +99,10 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				view.bandera=true;
 		});
 			
-    }
+    },
+	confirm: function() {
+		Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){this.getController('Careers').tolevel();
+			},this);
+			
+	}
 });
