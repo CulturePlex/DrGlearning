@@ -25,7 +25,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             items: [{
                 xtype: 'selectfield',
                 name: 'state',
-				
+				width: '40%',
                 options: [ {
                     text: 'All',
                     value: 'all'
@@ -54,7 +54,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             items: [{
                 xtype: 'searchfield',
                 placeHolder: 'Search',
-				width:110,
+				width: '40%',
                 name: 'searchfield',
                 id: 'searchbox',
             }, {
@@ -62,6 +62,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             }, {
                 xtype: 'selectfield',
                 name: 'knnowledge_field',
+				width: '40%', 
                 options: [{
                     text: 'Mathematics',
                     value: 'both'
