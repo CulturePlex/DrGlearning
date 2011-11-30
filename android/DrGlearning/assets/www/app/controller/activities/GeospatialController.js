@@ -35,14 +35,16 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				    strokeOpacity: 0.75
 				};
 				//var multipunto1={"type":"Feature", "properties":{}, "geometry":{"type":"Point", "coordinates":[37.265625, -16.5234375]}, "crs":{"type":"name", "properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}}};
-				//var multipunto=eval("(" + activity.data.point + ')');
-				//var googlePuntos =new GeoJSON(multipunto, googleOptions);
-				//console.log(multipunto1);
+				var multipunto=eval("(" + activity.data.point + ')');
+				var googlePuntos=new GeoJSON(multipunto, googleOptions);
+				console.log(googlePuntos);
 				//console.log(multipunto);
 				//googlePuntos.setMap(map);
+			
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.setMap(map);
-				map.panTo(new google.maps.LatLng(0.71462, 12.496889));
+				map.panTo(new google.maps.LatLng(googlePuntos[0].position.Pa, googlePuntos[0].position.Qa));
+				map.setZoom(5);
             }
         });
         // FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
@@ -69,7 +71,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 					if (view.circle) {
 						view.circle.setMap(null);
 					}
-					console.log(activity.data);
+					
 					view.circle = new google.maps.Circle({
 		                center: e.latLng,
 		                radius: parseFloat(activity.data.radius),
