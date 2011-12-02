@@ -1,5 +1,13 @@
+if ($ == undefined) {
+  $ = django.jQuery;
+}
+
 var GraphEditor = {
   'DEBUG': false,
+
+  'USES_DRAWER': false,
+  'USES_TYPES': false,
+  'USES_SCORES': false,
 
   'graphNodesId': "id_graph_nodes",
   'graphEdgesId': "id_graph_edges",
@@ -20,11 +28,6 @@ var GraphEditor = {
     this.addElementToList(name, edgeList);
   },
 
-  'addScoreToList': function(name){
-    var scoreList = document.getElementById("score-list");
-    this.addElementToList(name, scoreList);
-  },
-
   'addElementToList': function(name, list){
     var item = document.createElement('li');
     var itemValue = document.createElement('span');
@@ -35,11 +38,21 @@ var GraphEditor = {
   },
 
   'addNode': function(){
-    var nodeName = prompt("Enter new node name");
     var json = this.getGraphNodesJSON();
-    json[nodeName] = {};
+    var nodeName = prompt("Enter new node name");
+    data = {};
+    if (this.USES_TYPES) {
+      var nodeType = prompt("Enter new node type");
+      data["type"] = nodeType;
+    }
+    if (this.USES_SCORES) {
+      data["score"] = 0;
+    }
+    json[nodeName] = data;
     this.setGraphNodesJSON(json);
-    this.setGraphScoresJSON(nodeName, 0);
+    if (this.USES_DRAWER) {
+      this.drawer.addNode(nodeName);
+    }
   },
 
   'deleteNode': function(name){
@@ -59,6 +72,9 @@ var GraphEditor = {
     var json = this.getGraphNodesJSON();
     delete json[nodeName];
     this.setGraphNodesJSON(json);
+    if (this.USES_DRAWER) {
+      this.drawer.deleteNode(nodeName);
+    }
   },
 
   'addEdge': function(){
@@ -81,6 +97,9 @@ var GraphEditor = {
     var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType};
     json.push(newEdge);
     this.setGraphEdgesJSON(json);
+    if (this.USES_DRAWER) {
+      this.drawer.addEdge(edgeSource, edgeType, edgeTarget);
+    }
   },
 
   'deleteEdge': function(number){
@@ -92,7 +111,15 @@ var GraphEditor = {
     }
     var newList = []
     for(var i=0;i<json.length;i++) {
-      if (i!=edgeNumber) newList.push(json[i]);
+      if (i!=edgeNumber) {
+        newList.push(json[i]);
+      } else {
+        if (this.USES_DRAWER) {
+          this.drawer.deleteEdge(json[i]["source"],
+                                      json[i]["type"],
+                                      json[i]["target"]);
+        }
+      }
     }
     this.setGraphEdgesJSON(newList);
   },
@@ -119,10 +146,6 @@ var GraphEditor = {
     return JSON.parse((document.getElementById(this.graphEdgesId)).value);
   },
 
-  'getGraphScoresJSON': function(){
-    return JSON.parse((document.getElementById(this.scoredNodesId)).value);
-  },
-
   'setGraphNodesJSON': function(json){
     document.getElementById(this.graphNodesId).value = JSON.stringify(json);
     this.refresh();
@@ -130,13 +153,6 @@ var GraphEditor = {
 
   'setGraphEdgesJSON': function(json){
     document.getElementById(this.graphEdgesId).value = JSON.stringify(json);
-    this.refresh();
-  },
-
-  'setGraphScoresJSON': function(name, score){
-    var json = JSON.parse(document.getElementById(this.scoredNodesId).value);
-    json[name] = parseFloat(score);
-    document.getElementById(this.scoredNodesId).value = JSON.stringify(json);
     this.refresh();
   },
 
@@ -153,9 +169,12 @@ var GraphEditor = {
       alert("ERROR: Unknown node: " + nodeName);
       return;
     }
-    document.getElementById(this.sourcePathId).value = nodeName;
     document.getElementById("_start_node").value = nodeName;
+    json = this.getGraphNodesJSON();
+    delete json[this.sourcePath]["start"];
     this.sourcePath = nodeName;
+    json[nodeName]["start"] = true;
+    this.setGraphNodesJSON(json);
   },
 
   'setFinish': function(){
@@ -164,9 +183,12 @@ var GraphEditor = {
       alert("ERROR: Unknown node: " + nodeName);
       return;
     }
-    document.getElementById(this.targetPathId).value = nodeName;
     document.getElementById("_end_node").value = nodeName;
+    json = this.getGraphNodesJSON();
+    delete json[this.targetPath]["end"];
     this.targetPath = nodeName;
+    json[nodeName]["end"] = true;
+    this.setGraphNodesJSON(json);
   },
 
   'setScore': function(){
@@ -176,20 +198,27 @@ var GraphEditor = {
       return;
     }
     var score = prompt("Enter new score")
-    this.setGraphScoresJSON(nodeName, score);
+    json = this.getGraphNodesJSON();
+    json[nodeName]["score"] = score;
+    this.setGraphNodesJSON(json);
   },
 
   'refresh': function(){
     //Clear everything
     this.clearLists();
-    this.sourcePath = document.getElementById(this.sourcePathId).value;
-    this.targetPath = document.getElementById(this.targetPathId).value;
-    document.getElementById('_start_node').value = this.sourcePath;
-    document.getElementById('_end_node').value = this.targetPath;
     //Set nodes
     var nodes = this.getGraphNodesJSON();
     for(var i in nodes){
+      console.log(i);
       this.addNodeToList(i);
+      if (nodes[i].hasOwnProperty('start')){
+        document.getElementById('_start_node').value = i;
+        this.sourcePath = i;
+      }
+      if (nodes[i].hasOwnProperty('end')){
+        document.getElementById('_end_node').value = i;
+        this.targetPath = i;
+      }
     }
     //Set edges
     var edges = this.getGraphEdgesJSON();
@@ -197,14 +226,10 @@ var GraphEditor = {
       var edgeText = edges[i].source + " -> " + edges[i].target + " (" + edges[i].type + ")";
       this.addEdgeToList(edgeText);
     }
-    var scores = this.getGraphScoresJSON();
-    for(var score in scores){
-      this.addScoreToList(score + ": " + scores[score]);
-    }
   },
 
   'init': function(){
-    var widgetsToHide = ['id_graph_nodes', 'id_graph_edges', 'id_scored_nodes'];
+    var widgetsToHide = ['id_graph_nodes', 'id_graph_edges'];
     for(var i=0;i<widgetsToHide.length;i++){
       widget = document.getElementById(widgetsToHide[i]);
       if (!this.DEBUG) widget.style.display = "none";
@@ -234,23 +259,45 @@ var GraphEditor = {
       <h4>Edges</h4> \
       <ol id="edge-list"></ol> \
       </td><td> \
-      <h4>Scores</h4> \
-      <ul id="score-list"></ul> \
       </td></tr></table> \
       </div>';
-    django.jQuery('.graph_nodes').hide();
+    django.jQuery('.graph_nodes').hide().after(editorWidget);;
     django.jQuery('.graph_edges').hide();
-    django.jQuery('.source_path').hide();
-    django.jQuery('.target_path').hide();
     django.jQuery('.constraints').hide();
-    django.jQuery('.scored_nodes').hide().after(editorWidget);
+    
+    // Black magic to have the Processing drawer ready to call the drawInitialData method
+    // The ajax petition is a straightforward copy from the Processing original code in
+    // its init method
+    if (GraphEditor.USES_DRAWER){
+      $.ajax({
+        url: "/static/js/graphdrawer.pde",
+        success: function(block, error){
+          GraphEditor.drawer = new Processing(document.getElementById('graphcanvas'), block);
+          GraphEditor.drawInitialData();
+        },
+        error: function(){console.log("error")}
+        }
+      );
+    }
+  },
+  
+  'drawInitialData': function(){
+    for(var i in this.getGraphNodesJSON()){
+      this.drawer.addNode(i);
+    }
+    var edges = this.getGraphEdgesJSON();
+    for(var i=0;i<edges.length;i++){
+      var edge = edges[i];
+      this.drawer.addEdge(edge["source"], edge["type"], edge["target"]);
+    }
   }
-
 }
 
-window.onload = function(){
+$(document).ready(function(){
+  GraphEditor.USES_DRAWER = true;
+  GraphEditor.USES_TYPES = true;
+  GraphEditor.USES_SCORES = true;
   GraphEditor.init();
   GraphEditor.refresh();
-  Processing.loadSketchFromSources(document.getElementById('graphcanvas'), ['/static/js/graphdrawer.pde']);
-}
+});
 

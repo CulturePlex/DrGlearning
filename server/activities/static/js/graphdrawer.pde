@@ -1,5 +1,3 @@
-var GE = GraphEditor;
-
 class Node{
   boolean visible, selected;
   float posx, posy;
@@ -7,7 +5,7 @@ class Node{
   float selectedExpansion = 1.5;
   boolean finalNode;
   String name;
-  Relation[] relations;
+  ArrayList<Relation> relations;
 
   Node(float x, float y, float r, String n){
     posx = x;
@@ -15,14 +13,14 @@ class Node{
     radius = r;
     name = n;
     visible = true;
-    relations = {};
+    relations = new ArrayList<Relation>();
   }
 
   void drawMe(){
     if (visible){
-      for(int i=0;i<relations.length;i++){
-        if (relations[i].getNode().isVisible()){
-          relations[i].drawMe();
+      for(int i=0;i<relations.size();i++){
+        if (relations.get(i).getNode().isVisible()){
+          relations.get(i).drawMe();
         }
       }
       stroke(#999999);
@@ -60,10 +58,10 @@ class Node{
   }
 
   void addRelation(Relation r){
-    relations = append(relations, r);
+    relations.add(r);
   }
 
-  void isVisible(){
+  boolean isVisible(){
     return visible;
   }
 
@@ -85,16 +83,16 @@ class Node{
 
   String[] getRelationshipTypes(){
     String[] buffer = {};
-    for(int i=0;i<relations.length;i++){
+    for(int i=0;i<relations.size();i++){
       //TODO Remove repeated ones
-      buffer = append(buffer, relations[i].getType());
+      buffer = append(buffer, relations.get(i).getType());
     }
     return buffer;
   }
 
-  boolean hasEdge(type, target){
-    for(int i=0;i<relations.length;i++){
-      if (relations[i].getType()==type && relations[i].getNode()==target){
+  boolean hasEdge(String type, String target){
+    for(int i=0;i<relations.size();i++){
+      if (relations.get(i).getType()==type && relations.get(i).getNode().getName()==target){
         return true;
       }
     }
@@ -108,8 +106,8 @@ class Node{
 
   Node getRelated(String n, String t){
     Relation r;
-    for(int i=0;i<relations.length;i++){
-      r = relations[i];
+    for(int i=0;i<relations.size();i++){
+      r = relations.get(i);
       if ((r.getType()==t) && (r.getNode().getName()==n)){
         return r.getNode();
       }
@@ -125,15 +123,16 @@ class Node{
     return finalNode;
   }
 
-  Relation[] getRelations(){
+  ArrayList<Relation> getRelations(){
     return relations;
   }
 
-  void removeRelation(int n){
-    Relation[] temp = {};
-    for(int i=0;i<relations;i++){
-      if (i!=n){
-        temp = append(temp, relations[i]);
+  void removeRelation(String type, String target){
+    ArrayList<Relation> temp = new ArrayList<Relation>();
+    for(int i=0;i<relations.size();i++){
+      if (type!=relations.get(i).getType() || target!=relations.get(i).getNode().getName()){
+        temp.add(relations.get(i));
+ //       temp = append(temp, (Relation)relations[i]);
       }
     }
     relations = temp;
@@ -172,135 +171,100 @@ class Relation{
 
 float nodeRadius;
 float scale = 2;
-Node[] _nodeList = {};
-Node[] _tempList = {};
-var graphNodes;
-var graphEdges;
+ArrayList<Node> _nodeList = new ArrayList<Node>();
 
-Node getNode(nodeName) {
-  for(int i=0;i<_nodeList.length;i++){
-    if (_nodeList[i].getName()==nodeName){
-      return _nodeList[i];
+Node getNode(String nodeName) {
+  for(int i=0;i<_nodeList.size();i++){
+    if (_nodeList.get(i).getName()==nodeName){
+      return _nodeList.get(i);
     }
   }
+  return null;
 }
 
 void setup() {
-  var GE = GraphEditor;
   float drawableWidth, drawableHeight;
   Node newNode;
   Relation newRelation;
-  drawableWidth = document.innerWidth*0.9;
-  drawableHeight = document.innerHeight*0.75;
   size(800,300);
+  smooth();
   stroke(0);
   noStroke();
   nodeRadius = 20;
   PFont fontA = loadFont("Courier New");  
   textFont(fontA, 16);  
   textAlign(CENTER);
-  graphNodes = GE.getGraphNodesJSON();
-  for (var i in graphNodes){
-    newNode = new Node(random(width), random(height), nodeRadius, i);
-    _nodeList = append(_nodeList, newNode);
-  }
-  graphEdges = GE.getGraphEdgesJSON();
-  for(var i=0;i<graphEdges.length;i++){
-    var edge = graphEdges[i];
-    newRelation = new Relation(getNode(edge["source"]), edge["type"], getNode(edge["target"]));
-    getNode(edge["source"]).addRelation(newRelation);
-  }
 }
 
 
 void draw(){
   background(#417690);
 
-  // Get nodes from form
-  graphNodes = GE.getGraphNodesJSON();
-
-  // Add new nodes if any
-  for (var i in graphNodes){
-    if (getNode(i)==null) {
-      newNode = new Node(random(width), random(height), nodeRadius, i);
-      _nodeList = append(_nodeList, newNode);
-    }
-  }
-
-  // Remove deleted nodes if any
-  _tempList = {};
-  for(int i=0;i<_nodeList.length;i++){
-    if (graphNodes.hasOwnProperty(_nodeList[i].getName())){
-      _tempList = append(_tempList, _nodeList[i]);
-    }
-  }
-  _nodeList = {};
-  for(int i=0;i<_tempList.length;i++){
-    _nodeList = append(_nodeList, _tempList[i]);
-  }
-
-  checkChanges();
+  //checkChanges();
 
   if (mousePressed) {
-    for(int i=0;i<_nodeList.length;i++){
-      if (_nodeList[i].touchingMe(mouseX, mouseY)){
+    for(int i=0;i<_nodeList.size();i++){
+      if (_nodeList.get(i).touchingMe(mouseX, mouseY)){
         unselectAll();
-        _nodeList[i].setSelected();
-        _nodeList[i].setX(mouseX);
-        _nodeList[i].setY(mouseY);
-        _nodeSelected = i;
+        _nodeList.get(i).setSelected();
+        _nodeList.get(i).setX(mouseX);
+        _nodeList.get(i).setY(mouseY);
         break;
       }
     }
   } else {
     unselectAll();
   }
-  for(int i=0;i<_nodeList.length;i++){
-    _nodeList[i].drawMe();
+  for(int i=0;i<_nodeList.size();i++){
+    _nodeList.get(i).drawMe();
   }
 }
 
 void unselectAll(){
-  for(int i=0;i<_nodeList.length;i++){
-    _nodeList[i].setUnselected();
+  for(int i=0;i<_nodeList.size();i++){
+    _nodeList.get(i).setUnselected();
   }
 }
 
-void checkChanges(){
-  // Get edges from form
-  graphEdges = GE.getGraphEdgesJSON();
+void addNode(String nodeName){
+  Node newNode;
+  newNode = new Node(random(width), random(height), nodeRadius, nodeName);
+  _nodeList.add(newNode);
+}
 
-  // Add new edges if any
-  Node _source, _target;
-  for(int i=0;i<graphEdges.length;i++){
-    var edge = graphEdges[i];
-    _source = getNode(edge["source"]);
-    _target = getNode(edge["target"]);
-    if (!_source.hasEdge(edge["type"], _target)){
-        Relation newRelation = new Relation(_source, edge["type"], _target);
-        _source.addRelation(newRelation);
+void deleteNode(String nodeName){
+  ArrayList<Node> tempList = new ArrayList<Node>();
+  for(int i=0;i<_nodeList.size();i++){
+    if (_nodeList.get(i).getName() != nodeName){
+      tempList.add(_nodeList.get(i));
     }
   }
+  _nodeList = tempList;
+}
 
-  //Remove edges if any
-  boolean found;
-  Relation[] tempTable;
-  for(int i=0;i<_nodeList.length;i++){
-    tempTable = _nodeList[i].getRelations();
-    for(int j=0;j<tempTable.length;j++){
-      found = false
-      for(int k=0;k<graphEdges.length;k++){
-        var edge = graphEdges[k];
-        if ((_nodeList[i].getName() == edge["source"]) &&
-                  (tempTable[j].getType() == edge["type"]) &&
-                  (tempTable[j].getNode().getName() == edge["target"])) {
-          found = true;
-        }
-      }
-      if (!found){
-        _nodeList[i].removeRelation(j);
-      }
-    }
-  }
+void addEdge(String source, String type, String target){
+  Relation newRelation = new Relation(getNode(source), type, getNode(target));
+  getNode(source).addRelation(newRelation);
+}
 
+void deleteEdge(String source, String type, String target){
+  Node sourceNode = getNode(source);
+  sourceNode.removeRelation(type, target);
+}
+
+void test(){
+  addNode("Tolkien");
+  addNode("LOTR");
+  addNode("Sam");
+  addNode("Frodo");
+  addNode("Mount Doom");
+  addEdge("Tolkien", "wrote", "LOTR");
+  addEdge("Frodo", "appears_in", "LOTR");
+  addEdge("Sam", "appears_in", "LOTR");
+  addEdge("Frodo", "goes_to", "Mount Doom");
+  addEdge("Sam", "goes_to", "Mount Doom");
+  addNode("Bambi");
+  addEdge("Bambi", "appears_in", "LOTR");
+  deleteEdge("Bambi", "appears_in", "LOTR");
+  deleteNode("Bambi");
 }
