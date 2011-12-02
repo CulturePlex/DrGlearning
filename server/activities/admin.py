@@ -10,6 +10,9 @@ class ActivityAdmin(admin.ModelAdmin):
     list_filter = ['career']
     save_as = True
 
+    class Media:
+        js = ('js/careerAutoselector.js',)
+
 
 class RelationalAdmin(ActivityAdmin):
 
