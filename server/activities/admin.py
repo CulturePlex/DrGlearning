@@ -8,6 +8,7 @@ from activities.models import (Relational, Visual, Geospatial,
 
 class ActivityAdmin(admin.ModelAdmin):
     list_filter = ['career']
+    save_as = True
 
 
 class RelationalAdmin(ActivityAdmin):
