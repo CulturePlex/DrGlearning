@@ -7,10 +7,9 @@ class Node{
   String name;
   ArrayList<Relation> relations;
 
-  Node(float x, float y, float r, String n){
+  Node(float x, float y, String n){
     posx = x;
     posy = y;
-    radius = r;
     name = n;
     visible = true;
     relations = new ArrayList<Relation>();
@@ -23,6 +22,7 @@ class Node{
           relations.get(i).drawMe();
         }
       }
+      radius = _nodeRadius;
       stroke(#999999);
       noFill();
       if (selected){
@@ -169,8 +169,8 @@ class Relation{
 }
 
 
-float nodeRadius;
-float scale = 2;
+float _nodeRadius;
+float scale = 4;
 ArrayList<Node> _nodeList = new ArrayList<Node>();
 
 Node getNode(String nodeName) {
@@ -186,21 +186,20 @@ void setup() {
   float drawableWidth, drawableHeight;
   Node newNode;
   Relation newRelation;
-  size(800,300);
+  size(900,800);
   smooth();
   stroke(0);
   noStroke();
-  nodeRadius = 20;
+  _nodeRadius = 20;
   PFont fontA = loadFont("Courier New");  
-  textFont(fontA, 16);  
+  textFont(fontA, 8);  
   textAlign(CENTER);
 }
 
 
 void draw(){
   background(#417690);
-
-  //checkChanges();
+  _nodeRadius = width/(scale*_nodeList.size());
 
   if (mousePressed) {
     for(int i=0;i<_nodeList.size();i++){
@@ -228,7 +227,15 @@ void unselectAll(){
 
 void addNode(String nodeName){
   Node newNode;
-  newNode = new Node(random(width), random(height), nodeRadius, nodeName);
+  newNode = new Node(random(width), random(height), nodeName);
+  _nodeList.add(newNode);
+}
+
+void addLocatedNode(String nodeName, float xpos, float ypos){
+  Node newNode;
+  float x = width*norm(xpos, -1400, 1400);
+  float y = height*norm(ypos, -1000, 1400);
+  newNode = new Node(x, y, nodeName);
   _nodeList.add(newNode);
 }
 

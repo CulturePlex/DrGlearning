@@ -2,6 +2,7 @@ if ($ == undefined) {
   $ = django.jQuery;
 }
 
+
 var GraphEditor = {
   'DEBUG': false,
 
@@ -37,21 +38,30 @@ var GraphEditor = {
     list.appendChild(item);
   },
 
-  'addNode': function(){
+  'addNode': function(_name, _properties){
+    // Only prompts if the parameter is not sent
+    var nodeName = typeof(_name) != 'undefined' ? _name : prompt("Enter new node name");
+    
     var json = this.getGraphNodesJSON();
-    var nodeName = prompt("Enter new node name");
-    data = {};
+    if (this.nodeExists(nodeName)){
+      alert("ERROR: That node already exists")
+      return;
+    }
+    var data = typeof(_properties) != 'undefined' ? _properties : {};
     if (this.USES_TYPES) {
-      var nodeType = prompt("Enter new node type");
-      data["type"] = nodeType;
+      data["type"] = data.hasOwnProperty('type') ? data["type"] : prompt("Enter new node type");
     }
     if (this.USES_SCORES) {
-      data["score"] = 0;
+      data["score"] = data.hasOwnProperty('score') ? data["score"] : 0;
     }
     json[nodeName] = data;
     this.setGraphNodesJSON(json);
     if (this.USES_DRAWER) {
-      this.drawer.addNode(nodeName);
+      if (data.hasOwnProperty('position')){
+        this.drawer.addLocatedNode(nodeName, _properties['position']['x'], _properties['position']['y'])
+      } else {
+        this.drawer.addNode(nodeName);
+      }
     }
   },
 
@@ -77,18 +87,20 @@ var GraphEditor = {
     }
   },
 
-  'addEdge': function(){
-    var edgeSource = prompt("Enter source node");
+  'addEdge': function(_source, _type, _target){
+    // Only prompts if the parameter is not sent
+    var edgeSource = typeof(_source) != 'undefined' ? _source : prompt("Enter source node");
+    var edgeType = typeof(_type) != 'undefined' ? _type: prompt("Enter relationship type");
+    var edgeTarget = typeof(_target) != 'undefined' ? _target: prompt("Enter target node");
+    
     if (!this.nodeExists(edgeSource)){
       alert("ERROR: Unknown node: " + edgeSource);
       return;
     }
-    var edgeTarget = prompt("Enter target node");
     if (!this.nodeExists(edgeTarget)){
       alert("ERROR: Unknown node: " + edgeTarget);
       return;
     }
-    var edgeType = prompt("Enter relationship type");
     if (edgeType == "") {
       alert("Relationship type is mandatory");
       return;
@@ -203,13 +215,55 @@ var GraphEditor = {
     this.setGraphNodesJSON(json);
   },
 
+  'loadGEXF': function(){
+        function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+    
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
+    
+          var reader = new FileReader();
+    
+          // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+            return function(e) {
+              var gexfContent = e.target.result;
+              // GEXF IMPORTATION FUNCTION
+              $(gexfContent).find('node').each(function(){
+                console.log($(this).find('attvalue').attr('\\for'));
+                console.log();
+                GraphEditor.addNode($(this).attr('label'), {
+                                    "score": 0,
+                                    "type": $(this).find('attvalue').attr('value'),
+                                    "position": {
+                                      "x":$(this).find('viz\\:position').attr('x'),
+                                      "y":$(this).find('viz\\:position').attr('y')
+                                    }
+                });
+              });
+              $(gexfContent).find('edge').each(function(){
+                var sourceId = $(this).attr('source');
+                var targetId = $(this).attr('target');
+                var source = $(gexfContent).find('node#'+sourceId).attr('label');
+                var target = $(gexfContent).find('node#'+targetId).attr('label');
+                GraphEditor.addEdge(source, ".", target);
+              });
+            };
+          })(f);
+    
+          // Read in the image file as a data URL.
+          reader.readAsText(f);
+        }
+      }
+    document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  },
+  
   'refresh': function(){
     //Clear everything
     this.clearLists();
     //Set nodes
     var nodes = this.getGraphNodesJSON();
     for(var i in nodes){
-      console.log(i);
       this.addNodeToList(i);
       if (nodes[i].hasOwnProperty('start')){
         document.getElementById('_start_node').value = i;
@@ -229,42 +283,43 @@ var GraphEditor = {
   },
 
   'init': function(){
-    var widgetsToHide = ['id_graph_nodes', 'id_graph_edges'];
-    for(var i=0;i<widgetsToHide.length;i++){
-      widget = document.getElementById(widgetsToHide[i]);
-      if (!this.DEBUG) widget.style.display = "none";
-    }
-    var widgetsToDisable = ["id_source_path", "id_target_path"];
-    for(var i=0;i<widgetsToDisable.length;i++){
-      widget = document.getElementById(widgetsToDisable[i]);
-      //widget.disabled = true;
-    }
+
     var editorWidget = ' \
       <div id="graph-editor" class="form-row"> \
-      <a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a> \
-      <a class="deletelink graph-editor" onclick="GraphEditor.deleteNode()">Delete node</a> \
-      <a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a> \
-      <a class="deletelink graph-editor" onclick="GraphEditor.deleteEdge()">Delete edge</a> \
-      <a class="changelink graph-editor" onclick="GraphEditor.setStart()">Set start node</a> \
-      <input id="_start_node" type="text" disabled="true" size="5">  \
-      <a class="changelink graph-editor" onclick="GraphEditor.setFinish()">Set finish node</a> \
-      <input id="_end_node" type="text" disabled="true" size="5"> \
-      <a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a> \
-      <br/> \
-      <canvas id="graphcanvas"></canvas>  \
-      <table><tr><td> \
-      <h4>Nodes</h4> \
-      <ul id="node-list"></ul> \
-      </td><td> \
-      <h4>Edges</h4> \
-      <ol id="edge-list"></ol> \
-      </td><td> \
-      </td></tr></table> \
+        <a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a> \
+        <a class="deletelink graph-editor" onclick="GraphEditor.deleteNode()">Delete node</a> \
+        <a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a> \
+        <a class="deletelink graph-editor" onclick="GraphEditor.deleteEdge()">Delete edge</a> \
+        <a class="changelink graph-editor" onclick="GraphEditor.setStart()">Set start node</a> \
+        <input id="_start_node" type="text" disabled="true" size="5">  \
+        <a class="changelink graph-editor" onclick="GraphEditor.setFinish()">Set finish node</a> \
+        <input id="_end_node" type="text" disabled="true" size="5"> \
+        <a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a> \
+        <br/> \
+        <canvas id="graphcanvas"></canvas>  \
+        <div class="controlpanel"> \
+          <label for="gexf-file">Import GEXF</label> \
+          <input type="file" id="files" name="files[]" multiple /> \
+        </div> \
+        <table><tr><td> \
+          <h4>Nodes</h4> \
+          <ul id="node-list"></ul> \
+          </td><td> \
+          <h4>Edges</h4> \
+          <ol id="edge-list"></ol> \
+          </td><td> \
+        </td></tr></table> \
       </div>';
-    django.jQuery('.graph_nodes').hide().after(editorWidget);;
-    django.jQuery('.graph_edges').hide();
-    django.jQuery('.constraints').hide();
-    
+    if (!this.DEBUG){
+      $('.graph_nodes').hide();
+      $('.graph_edges').hide();
+      $('.constraints').hide();  
+    }
+    $('.constraints').before(editorWidget);
+    //$('.constraints').before('<p>Constraints</p>');
+   
+    this.loadGEXF();
+  
     // Black magic to have the Processing drawer ready to call the drawInitialData method
     // The ajax petition is a straightforward copy from the Processing original code in
     // its init method
@@ -282,8 +337,15 @@ var GraphEditor = {
   },
   
   'drawInitialData': function(){
-    for(var i in this.getGraphNodesJSON()){
-      this.drawer.addNode(i);
+    var nodesJSON = this.getGraphNodesJSON();
+    var node;
+    for(var i in nodesJSON){
+      node = nodesJSON[i];
+      if (node.hasOwnProperty('position')){
+        this.drawer.addLocatedNode(i, node['position']['x'], node['position']['y'])
+      } else {
+        this.drawer.addNode(i);
+      }
     }
     var edges = this.getGraphEdgesJSON();
     for(var i=0;i<edges.length;i++){

@@ -1,3 +1,7 @@
 .graph-editor {
   margin-left:15px;
 }
+
+div.controlpanel {
+  background-color: #D6E7FD;
+}
