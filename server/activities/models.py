@@ -43,7 +43,7 @@ class Activity(models.Model):
                                     choices=LAN_CHOICES)
     timestamp = models.DateTimeField(auto_now=True)
     query = models.CharField(_("query"), max_length=255)
-    level_type = models.PositiveSmallIntegerField(_("type"),
+    level_type = models.PositiveSmallIntegerField(_("level"),
                                             choices=TYPE_CHOICES)
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
