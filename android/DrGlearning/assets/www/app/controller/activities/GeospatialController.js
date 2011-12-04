@@ -119,10 +119,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	confirm: function() {
 		console.log(elmarker);
 		console.log(elpunto);
-		var distancia=(elmarker.position.Pa-elpunto.Pa)^2+(elmarker.position.Qa-elpunto.Qa)^2;
+		var distancia=Math.sqrt(Math.pow(elmarker.position.Pa-elpunto.Pa,2)+Math.pow(elmarker.position.Qa-elpunto.Qa,2))*60000;
 		console.log(distancia);
+		console.log(radio);
 		if (distancia < radio) {
-			Ext.Msg.alert('Bien!', 'Oooh, it wasnt the correct answer', function(){
+			Ext.Msg.alert('Right!', 'it was the correct answer!', function(){
 				this.getController('Careers').tolevel();
 			}, this);
 		}else{
