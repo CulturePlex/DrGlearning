@@ -197,6 +197,7 @@ Ext.define('DrGlearning.controller.Careers', {
     	});
 		for(var i=0;i<levelstemp.length;i++)
 		{
+			
 			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
 			if (i == 0) {
 				if (i == levelstemp.length - 1) {

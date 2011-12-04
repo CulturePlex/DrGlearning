@@ -20,6 +20,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		
 		
 	},
+	elmarker:null,
+	elpunto:null,
+	radio:null,
 	initialize: function(view,activity) {
 		this.control({
 			'button[customId=confirm]': {
@@ -36,24 +39,34 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				//var elotro={"type":"Feature", "properties":{}, "geometry":{"type":"Polygon", "coordinates":[[[20.390625, 13.0078125], [48.515625, 1.0546875], [33.75, 18.6328125], [9.84375, 28.4765625], [11.25, 1.7578125], [22.5, 12.3046875], [20.390625, 13.0078125]]]}, "crs":{"type":"name", "properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}}};
 				var jsonfromserver=eval("(" + activity.data.area + ')');
 				var googleOptions = {
-				    strokeColor: "#FFFF00",
-				    strokeWeight: 2,
+				    strokeColor: "#00FFFF",
+				    strokeWeight: 0,
 				    strokeOpacity: 0.5,
+					fillOpacity: 0.2,
+					fillColor: "#6699ff",
 					clickable:false
 				};
 				//var multipunto1={"type":"Feature", "properties":{}, "geometry":{"type":"Point", "coordinates":[37.265625, -16.5234375]}, "crs":{"type":"name", "properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}}};
 				var multipunto=eval("(" + activity.data.point + ')');
-				var googlePuntos=new GeoJSON(multipunto, googleOptions);
 				
+				var googlePuntos=new GeoJSON(multipunto, googleOptions);
+				console.log(googlePuntos[0].position.Pa);
+				elpunto=new google.maps.LatLng(googlePuntos[0].position.Pa,googlePuntos[0].position.Qa);
+				console.log(elpunto);
+				//googlePuntos.color="#FF0000"
+				//console.log(googlePuntos);	
 				//console.log(multipunto);
 				//googlePuntos.setMap(map);
 			
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
+				googleVector.color="#FFOOOO";
 				googleVector.setMap(map);
-				map.panTo(new google.maps.LatLng(googlePuntos[0].position.Pa, googlePuntos[0].position.Qa));
-				map.setZoom(3);
-            }
-        });
+				 //console.log(bounds.getCenter());
+				//googleVector.getBounds();				
+					map.panTo(new google.maps.LatLng(googlePuntos[0].position.Pa, googlePuntos[0].position.Qa));
+					map.setZoom(3);
+	            }
+		        });
         // FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
 		//starting parameters...
 		/*view.poligono = new google.maps.Polygon({
@@ -68,6 +81,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 					});
 		*/
 		//Creando eventlisteners para colocar marker y circulo al pinchar
+		radio=parseFloat(activity.data.radius);
 		google.maps.event.addListener(map, "mouseup", function(e){
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
 				if (view.bandera == true) {
@@ -90,6 +104,8 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 						position: e.latLng,
 						flat: true
 					});
+					elmarker=view.marker;
+					
 				}
 		});
 		google.maps.event.addListener(map, "mousemove", function(e){
@@ -101,8 +117,19 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 			
     },
 	confirm: function() {
-		Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){this.getController('Careers').tolevel();
-			},this);
+		console.log(elmarker);
+		console.log(elpunto);
+		var distancia=(elmarker.position.Pa-elpunto.Pa)^2+(elmarker.position.Qa-elpunto.Qa)^2;
+		console.log(distancia);
+		if (distancia < radio) {
+			Ext.Msg.alert('Bien!', 'Oooh, it wasnt the correct answer', function(){
+				this.getController('Careers').tolevel();
+			}, this);
+		}else{
+			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
+				this.getController('Careers').tolevel();
+			}, this);
+		}
 			
 	}
 });
