@@ -255,7 +255,8 @@ var GraphEditor = {
                 var targetId = $(this).attr('target');
                 var source = $(gexfContent).find('node#'+sourceId).attr('label');
                 var target = $(gexfContent).find('node#'+targetId).attr('label');
-                GraphEditor.addEdge(source, ".", target);
+                var type = $(this).attr('label');
+                GraphEditor.addEdge(source, type, target);
               });
             };
           })(f);
