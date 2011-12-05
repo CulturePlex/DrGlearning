@@ -65,11 +65,11 @@ Ext.define('DrGlearning.model.Activity', {
 	}
 	, {
 		name : "image_datetime",
-		type : "string"
+		type : "date"
 	}
 	, {
 		name : "query_datetime",
-		type : "string"
+		type : "date"
 	}
 	/*-------------------------
 		Linguistic Activities
