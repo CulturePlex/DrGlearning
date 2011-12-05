@@ -7,14 +7,19 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 	circle:null,
 	bandera:null,
     config: {
-		id:'activity',
 		customId:'activity',
+		id:'activity',
         title: 'Map',
         iconCls: 'maps',
         layout: 'fit',
         fullscreen: true,
         items: [{
             xtype: 'map',
+			streetViewControl: 'false',
+			mapOptions: {
+				styleHtmlContent: true,
+				streetViewControl:false,
+			},
             id: 'testMap',
             layout: 'fit',
             fullscreen: true
@@ -31,30 +36,8 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                     }
                     ]
                 
-            },
-			{
-                xtype: 'toolbar',
-                docked: 'bottom',
-                ui: 'gray',
-                items:[
-                    {
-						xtype: 'button',
-						customId: 'backtolevel',
-						text: 'Back',
-						ui: 'back',
-					},
-					{
-						 xtype: 'spacer' 
-					},
-					{
-                        xtype: 'button',
-                        text: 'Confirm',
-						id: 'confirmmapposition',
-						customId:'confirm'
-                        
-                    }]
-                
             }
+			
 		]
     }
 	
