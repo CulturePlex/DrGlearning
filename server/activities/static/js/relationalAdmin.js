@@ -303,28 +303,27 @@ var GraphEditor = {
 
   'init': function(){
 
-    var editorWidget = ' \
-      <div id="graph-editor" class="form-row"> \
-        <a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a> \
-        <a class="deletelink graph-editor" onclick="GraphEditor.deleteNode()">Delete node</a> \
-        <a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a> \
-        <a class="deletelink graph-editor" onclick="GraphEditor.deleteEdge()">Delete edge</a> \
-        <a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a> \
-        <br/> \
-        <canvas id="graphcanvas"></canvas>  \
-        <div class="controlpanel"> \
-          <label for="gexf-file">Import GEXF</label> \
-          <input type="file" id="files" name="files[]" multiple /> \
-        </div> \
-        <table><tr><td> \
-          <h4>Nodes</h4> \
-          <ul id="node-list"></ul> \
-          </td><td> \
-          <h4>Edges</h4> \
-          <ol id="edge-list"></ol> \
-          </td><td> \
-        </td></tr></table> \
-      </div>';
+    var editorWidget = '<div id="graph-editor" class="form-row">' +
+        '<a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a>' +
+        '<a class="deletelink graph-editor" onclick="GraphEditor.deleteNode()">Delete node</a>' +
+        '<a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a>' +
+        '<a class="deletelink graph-editor" onclick="GraphEditor.deleteEdge()">Delete edge</a>' +
+        '<a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a>' +
+        '<br/>' +
+        '<canvas id="graphcanvas"></canvas>' +
+        '<div class="controlpanel">' +
+          '<label for="gexf-file">Import GEXF</label>' +
+          '<input type="file" id="files" name="files[]" multiple />' +
+        '</div>' +
+        '<table><tr><td>' +
+          '<h4>Nodes</h4>' +
+          '<ul id="node-list"></ul>' +
+          '</td><td>' +
+          '<h4>Edges</h4>' +
+          '<ol id="edge-list"></ol>' +
+          '</td><td>' +
+        '</td></tr></table>' +
+      '</div>';
     if (!this.DEBUG){
       $('.graph_nodes').hide();
       $('.graph_edges').hide();
