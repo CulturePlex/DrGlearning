@@ -4,17 +4,18 @@ if ($ == undefined) {
 
 
 var GraphEditor = {
-  'DEBUG': false,
+  DEBUG: true,
 
-  'USES_DRAWER': false,
-  'USES_TYPES': false,
-  'USES_SCORES': false,
+  USES_DRAWER: false,
+  USES_TYPES: false,
+  USES_SCORES: false,
 
   'graphNodesId': "id_graph_nodes",
   'graphEdgesId': "id_graph_edges",
   'sourcePathId': "id_source_path",
   'targetPathId': "id_target_path",
   'scoredNodesId': "id_scored_nodes",
+  constraintsId: "id_constraints",
 
   'sourcePath': undefined,
   'targetPath': undefined,
@@ -158,6 +159,10 @@ var GraphEditor = {
     return JSON.parse((document.getElementById(this.graphEdgesId)).value);
   },
 
+  getConstraints: function(){
+    return JSON.parse($('#'+this.constraintsId).val());
+  },
+
   'setGraphNodesJSON': function(json){
     document.getElementById(this.graphNodesId).value = JSON.stringify(json);
     this.refresh();
@@ -166,6 +171,10 @@ var GraphEditor = {
   'setGraphEdgesJSON': function(json){
     document.getElementById(this.graphEdgesId).value = JSON.stringify(json);
     this.refresh();
+  },
+
+  setConstraints: function(json){
+    $('#'+this.constraintsId).val(JSON.stringify(json));
   },
 
   'clearLists': function(){
@@ -263,6 +272,7 @@ var GraphEditor = {
     this.clearLists();
     //Set nodes
     var nodes = this.getGraphNodesJSON();
+    var nodeTypes = {};
     for(var i in nodes){
       this.addNodeToList(i);
       if (nodes[i].hasOwnProperty('start')){
@@ -273,12 +283,21 @@ var GraphEditor = {
         document.getElementById('_end_node').value = i;
         this.targetPath = i;
       }
+      nodeTypes[nodes[i]["type"]] = {};
     }
     //Set edges
     var edges = this.getGraphEdgesJSON();
     for(var i=0;i<edges.length;i++){
       var edgeText = edges[i].source + " -> " + edges[i].target + " (" + edges[i].type + ")";
       this.addEdgeToList(edgeText);
+    }
+    //Set constraints
+    var constraints = this.getConstraints();
+    for(var i=0;i<constraints.length;i++){
+      $('#constraint-list').append('<li>'+JSON.stringify(constraints[i])+'</li>');
+    }
+    for(var nodeType in nodeTypes){
+      $('#constraint-types').append('<option value="'+ nodeType+ '">'+nodeType+'</option>');
     }
   },
 
@@ -290,10 +309,6 @@ var GraphEditor = {
         <a class="deletelink graph-editor" onclick="GraphEditor.deleteNode()">Delete node</a> \
         <a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a> \
         <a class="deletelink graph-editor" onclick="GraphEditor.deleteEdge()">Delete edge</a> \
-        <a class="changelink graph-editor" onclick="GraphEditor.setStart()">Set start node</a> \
-        <input id="_start_node" type="text" disabled="true" size="5">  \
-        <a class="changelink graph-editor" onclick="GraphEditor.setFinish()">Set finish node</a> \
-        <input id="_end_node" type="text" disabled="true" size="5"> \
         <a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a> \
         <br/> \
         <canvas id="graphcanvas"></canvas>  \
@@ -316,10 +331,48 @@ var GraphEditor = {
       $('.constraints').hide();  
     }
     $('.constraints').before(editorWidget);
-    //$('.constraints').before('<p>Constraints</p>');
    
     this.loadGEXF();
-  
+
+    var activityWidget = '<div id="activityWidget">' +
+        '<h3>Start node</h3>' +
+        '<a class="changelink graph-editor" onclick="GraphEditor.setStart()">Set start node</a>' +
+        '<input id="_start_node" type="text" disabled="true" size="5">' +
+        '<hr/>' +
+        '<div id="constraints">' +
+        '<h3>Constraints</h3>' +
+        '<ol id="constraint-list"></ol>' +
+        '<select id="constraint-types"></select>' +
+        '<select id="constraint-operator">' +
+        '<option value="lt">&lt;</option>' +
+        '<option value="let">&lt;&#61</option>' +
+        '<option value="gt">&gt;</option>' +
+        '<option value="get">&gt;&#61</option>' +
+        '<option value="eq">&#61;</option>' +
+        '<option value="neq">&#33;&#61;</option>' +
+        '</select>' +
+        '<input type="text" id="constraint-value" size="3"/>' +
+        '<button type="button" id="add-constraint">Add constraint</button>' +
+        '</div>' +
+        '<hr/>' +
+        '<h3>Finish node</h3>' +
+        '<a class="changelink graph-editor" onclick="GraphEditor.setFinish()">Set finish node</a>' +
+        '<input id="_end_node" type="text" disabled="true" size="5">' +
+        '</div>';
+
+    $('.controlpanel').before(activityWidget);
+    $('#add-constraint').click(function(){
+      var newConstraint = {
+        type: $('#constraint-types').val(),
+        operator: $('#constraint-operator').val(),
+        value: $('#constraint-value').val()
+      };
+      var constraints = GraphEditor.getConstraints();
+      constraints.push(newConstraint);
+      GraphEditor.setConstraints(constraints);
+      $('#constraint-list').append('<li>' + JSON.stringify(newConstraint) + '</li>');
+    });
+    
     // Black magic to have the Processing drawer ready to call the drawInitialData method
     // The ajax petition is a straightforward copy from the Processing original code in
     // its init method

@@ -4,4 +4,12 @@
 
 div.controlpanel {
   background-color: #D6E7FD;
+  500px;
+}
+
+div#activityWidget {
+  background-color: #D6E7FD;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 500px;
 }
