@@ -10,36 +10,70 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         autoCreate: true,
         xtype: 'mainview'
     }],	
+	activity:null,
+	respuestas:null,
 	updateActivity: function(view,newActivity) {
+		this.control({
+			'button[customId=respuesta]': {
+				tap: this.tryIt
+			}
+		});
+		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label[id=query]').setHtml(newActivity.data.query);
-		
-		console.log(newActivity.data);
-		
+		this.respuestas=eval("(" + this.activity.data.answers + ')');
 		view.add(activityView);
-		
-		
+		var opciones=6;
 		var time=newActivity.data.time;
+		console.log(time);
+		
+		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time, this);
+		
 		var increment=0;
 		while(time>0)
 		{
-				
-		var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time/1000+"s');",increment);
-		increment=increment+1000;
-		time=time-1000;
+			var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time/1000+"s');",increment);
+			increment=increment+1000;
+			time=time-1000;	
 		}
-		this.control({
-			'button[customId=confirm]': {
-				tap: this.confirm
-			}
-		});
-		},
-	confirm: function() {
-		Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){this.getController('Careers').tolevel();
-			},this);
+		
+	},
+	showAnswers: function() {
+		
+		var opciones = Ext.create('Ext.Container');
+		opciones.config={layout:{type:'vbox',pack:'center',align:'middle'}};
+		console.log(this.respuestas.length);
+		for(var i=0;i<this.respuestas.length;i++)
+		{
+			opciones.add({
+				xtype: 'button',
+				text: this.respuestas[i],
+				ui: 'round',
+				customId: 'respuesta'
+			});
+		}
+		activityView.down('label[customId=time]').hide();
+		activityView.down('label[customId=time]').destroy();
+		activityView.down('panel[customId=image]').hide();
+		activityView.down('panel[customId=image]').destroy();
+		activityView.add(opciones);
+			
+	},
+	tryIt: function() {
+		if (event.target.textContent == this.activity.data.correct_answer) 
+		{
+			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
+					this.getController('Careers').tolevel();
+				}, this);
+		}else{
+			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
+				this.getController('Careers').tolevel();
+			}, this);
+		}
+		
 			
 	}
 		

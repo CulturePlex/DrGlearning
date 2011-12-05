@@ -44,12 +44,12 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	after: function() {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getController('Careers').succes();
+				this.getController('Careers').toLevel();
 			},this);
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
-				this.getController('Careers').failed();
+				this.getController('Careers').toLevel();
 			},this);
 		} 
 	}
