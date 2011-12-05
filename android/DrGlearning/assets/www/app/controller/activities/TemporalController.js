@@ -31,7 +31,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	before: function() {
 		console.log(this.activity);
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-			Ext.Msg.alert('Success!', 'Nice, that was the right answer', function(){
+			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getController('Careers').tolevel();
 			},this);
 		}else
@@ -43,7 +43,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	},
 	after: function() {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
-			Ext.Msg.alert('Success!', 'Nice, that was the right answer', function(){
+			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getController('Careers').succes();
 			},this);
 		}else

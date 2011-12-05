@@ -43,7 +43,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	elmarker:null,
 	elpunto:null,
 	radio:null,
+	activity:null,
 	initialize: function(view,activity) {
+		this.activity=activity;
 		console.log('dale');
 		this.control({
 			'button[customId=confirm]': {
@@ -116,7 +118,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		console.log(distancia);
 		console.log(radio);
 		if (distancia < radio) {
-			Ext.Msg.alert('Right!', 'its the correct place!', function(){
+			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 				this.getController('Careers').tolevel();
 			}, this);
 		}else{
