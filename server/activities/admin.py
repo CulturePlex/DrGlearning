@@ -24,7 +24,9 @@ class RelationalAdmin(ActivityAdmin):
 
 
 class VisualAdmin(ActivityAdmin):
-    pass
+
+    class Media:
+        js = ('js/visualAdmin.js',)
 
 
 class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):

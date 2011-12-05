@@ -72,7 +72,7 @@ class Relational(Activity):
 class Visual(Activity):
     image = models.ImageField(upload_to="images")
     obfuscated_image = models.ImageField(upload_to="images")
-    answers = models.TextField(help_text="['Answer 1', 'Answer 2', ...]")
+    answers = models.TextField()
     correct_answer = models.CharField(max_length=30)
     time = models.CharField(max_length=10, help_text="Milliseconds")
 
