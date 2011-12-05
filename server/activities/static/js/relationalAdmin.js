@@ -10,27 +10,27 @@ var GraphEditor = {
   USES_TYPES: false,
   USES_SCORES: false,
 
-  'graphNodesId': "id_graph_nodes",
-  'graphEdgesId': "id_graph_edges",
-  'sourcePathId': "id_source_path",
-  'targetPathId': "id_target_path",
-  'scoredNodesId': "id_scored_nodes",
+  graphNodesId: "id_graph_nodes",
+  graphEdgesId: "id_graph_edges",
+  sourcePathId: "id_source_path",
+  targetPathId: "id_target_path",
+  scoredNodesId: "id_scored_nodes",
   constraintsId: "id_constraints",
 
-  'sourcePath': undefined,
-  'targetPath': undefined,
+  sourcePath: undefined,
+  targetPath: undefined,
 
-  'addNodeToList': function(name){
+  addNodeToList: function(name){
     var nodeList = document.getElementById("node-list");
     this.addElementToList(name, nodeList);
   },
 
-  'addEdgeToList': function(name){
+  'addEdgeToList: function(name){
     var edgeList = document.getElementById("edge-list");
     this.addElementToList(name, edgeList);
   },
 
-  'addElementToList': function(name, list){
+  addElementToList: function(name, list){
     var item = document.createElement('li');
     var itemValue = document.createElement('span');
     itemValue.appendChild(document.createTextNode(name));
@@ -39,7 +39,7 @@ var GraphEditor = {
     list.appendChild(item);
   },
 
-  'addNode': function(_name, _properties){
+  addNode: function(_name, _properties){
     // Only prompts if the parameter is not sent
     var nodeName = typeof(_name) != 'undefined' ? _name : prompt("Enter new node name");
     
@@ -66,7 +66,7 @@ var GraphEditor = {
     }
   },
 
-  'deleteNode': function(name){
+  deleteNode: function(name){
     var nodeName = prompt("Enter node to be deleted");
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
@@ -88,7 +88,7 @@ var GraphEditor = {
     }
   },
 
-  'addEdge': function(_source, _type, _target){
+  addEdge: function(_source, _type, _target){
     // Only prompts if the parameter is not sent
     var edgeSource = typeof(_source) != 'undefined' ? _source : prompt("Enter source node");
     var edgeType = typeof(_type) != 'undefined' ? _type: prompt("Enter relationship type");
@@ -115,7 +115,7 @@ var GraphEditor = {
     }
   },
 
-  'deleteEdge': function(number){
+  deleteEdge: function(number){
     var edgeNumber= parseInt(prompt("Enter edge number to be deleted")) - 1;
     var json = this.getGraphEdgesJSON();
     if (edgeNumber>json.length || edgeNumber<0) {
@@ -137,12 +137,12 @@ var GraphEditor = {
     this.setGraphEdgesJSON(newList);
   },
 
-  'nodeExists': function(nodeName){
+  nodeExists: function(nodeName){
     var nodesJSON = this.getGraphNodesJSON();
     return nodesJSON.hasOwnProperty(nodeName);
   },
 
-  'nodeBelongsToEdge': function(name){
+  nodeBelongsToEdge: function(name){
     var edges = this.getGraphEdgesJSON();
     for(var i=0;i<edges.length;i++){
       if (edges[i].source==name || edges[i].target==name)
@@ -151,11 +151,11 @@ var GraphEditor = {
     return false;
   },
 
-  'getGraphNodesJSON': function(){
+  getGraphNodesJSON: function(){
     return JSON.parse((document.getElementById(this.graphNodesId)).value);
   },
 
-  'getGraphEdgesJSON': function(){
+  getGraphEdgesJSON: function(){
     return JSON.parse((document.getElementById(this.graphEdgesId)).value);
   },
 
@@ -163,12 +163,12 @@ var GraphEditor = {
     return JSON.parse($('#'+this.constraintsId).val());
   },
 
-  'setGraphNodesJSON': function(json){
+  setGraphNodesJSON: function(json){
     document.getElementById(this.graphNodesId).value = JSON.stringify(json);
     this.refresh();
   },
 
-  'setGraphEdgesJSON': function(json){
+  setGraphEdgesJSON: function(json){
     document.getElementById(this.graphEdgesId).value = JSON.stringify(json);
     this.refresh();
   },
@@ -177,14 +177,14 @@ var GraphEditor = {
     $('#'+this.constraintsId).val(JSON.stringify(json));
   },
 
-  'clearLists': function(){
+  clearLists: function(){
     var items = django.jQuery(".item");
     for(var i=0;i<items.length;i++){
       items[i].parentNode.removeChild(items[i]);
     }
   },
 
-  'setStart': function(){
+  setStart: function(){
     var nodeName = prompt("Insert start node");
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
@@ -198,7 +198,7 @@ var GraphEditor = {
     this.setGraphNodesJSON(json);
   },
 
-  'setFinish': function(){
+  setFinish: function(){
     var nodeName = prompt("Insert finish node");
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
@@ -212,7 +212,7 @@ var GraphEditor = {
     this.setGraphNodesJSON(json);
   },
 
-  'setScore': function(){
+  setScore: function(){
     var nodeName = prompt("Enter node to be modified");
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
@@ -224,7 +224,7 @@ var GraphEditor = {
     this.setGraphNodesJSON(json);
   },
 
-  'loadGEXF': function(){
+  loadGEXF: function(){
         function handleFileSelect(evt) {
         var files = evt.target.files; // FileList object
     
@@ -268,7 +268,7 @@ var GraphEditor = {
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
   },
   
-  'refresh': function(){
+  refresh: function(){
     //Clear everything
     this.clearLists();
     //Set nodes
@@ -302,7 +302,7 @@ var GraphEditor = {
     }
   },
 
-  'init': function(){
+  init: function(){
 
     var editorWidget = '<div id="graph-editor" class="form-row">' +
         '<a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a>' +
@@ -389,7 +389,7 @@ var GraphEditor = {
     }
   },
   
-  'drawInitialData': function(){
+  drawInitialData: function(){
     var nodesJSON = this.getGraphNodesJSON();
     var node;
     for(var i in nodesJSON){
