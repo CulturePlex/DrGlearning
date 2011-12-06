@@ -125,23 +125,15 @@ Ext.define('DrGlearning.model.Activity', {
 	*/
 	, {
 		name : "graph_nodes",
-		type : "string"
+		type : "auto"
 	}
 	, {
 		name : "graph_edges",
-		type : "string"
+		type : "auto"
 	}
 	, {
-		name : "scored_nodes",
-		type : "string"
-	}
-	, {
-		name : "source_path",
-		type : "string"
-	}
-	, {
-		name : "target_path",
-		type : "string"
+		name : "constraints",
+		type: "auto"
 	}
 	/*-------------------------
 	Geospatial Activities

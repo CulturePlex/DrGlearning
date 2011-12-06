@@ -19,10 +19,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     var activityView;
     
     //Import graph nodes and edges from database
-    //var graphNodes = JSON.parse(newActivity.data.graph_nodes);
-    //var graphEdges = JSON.parse(newActivity.data.graph_edges);
-    var graphNodes = { "Sam": { "score": 0, "type": "Character" }, "Tolkien": { "start": true, "score": 0, "type": "Author" }, "LOTR": { "type": "Book", "score": 0}, "Gollum": { "score": 0, "type": "Character", "end": true}, "Frodo": { "score": 0, "type": "Character" }, "Bilbo": { "score": 0, "type": "Character" }, "The Hobbit": { "score": 0, "type": "Book" } };
-    var graphEdges = [ { "source": "Tolkien", "type": "wrote", "target": "LOTR" }, { "source": "Tolkien", "type": "wrote", "target": "The Hobbit" }, { "source": "Sam", "type": "appears in", "target": "LOTR" }, { "source": "Frodo", "type": "appears in", "target": "LOTR" }, { "source": "Bilbo", "type": "appears in", "target": "LOTR" }, { "source": "Bilbo", "type": "appears in", "target": "The Hobbit" }, { "source": "Frodo", "type": "knows", "target": "Gollum" }, { "source": "Sam", "type": "knows", "target": "Gollum" }, { "source": "Bilbo", "type": "knows", "target": "Gollum" } ];
+    var graphNodes = newActivity.data.graph_nodes;
+    var graphEdges = newActivity.data.graph_edges;
   
     /** This function receives a nodeName and searches into edges
      * data for all the related nodes. It returns a Sencha field.Select
