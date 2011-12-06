@@ -67,13 +67,14 @@ class Relational(Activity):
     constraints = jsonfield.JSONField(default="[]")
     graph_nodes = jsonfield.JSONField(default="{}")
     graph_edges = jsonfield.JSONField(default="[]")
+    path_limit = models.IntegerField(default=0)
 
 
 class Visual(Activity):
     image = models.ImageField(upload_to="images")
     obfuscated_image = models.ImageField(upload_to="images")
     answers = models.TextField()
-    correct_answer = models.CharField(max_length=30)
+    correct_answer = models.CharField(max_length=80)
     time = models.CharField(max_length=10, help_text="Milliseconds")
 
 
