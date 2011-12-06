@@ -74,10 +74,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
   
     function stepBack(){
       var previousStep;
-      console.log("BACK");
       if (playerPath.length>1){
         previousStep = playerPath[playerPath.length-2];
-        playerPath.splice(playerPath.length-2,1);
+        playerPath.splice(playerPath.length-2,2);
         option = takeStep(previousStep);
         refresh(option);
       }
@@ -99,8 +98,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       });
       var button = Ext.create('Ext.Button', {
         text: 'Step back',
-        listeners: {
-        // TODO click: stepBack()
+        handler: function() {
+          stepBack();
         }
       });
       activityView.add(option);
