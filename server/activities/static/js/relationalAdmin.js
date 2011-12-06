@@ -25,7 +25,7 @@ var GraphEditor = {
     this.addElementToList(name, nodeList);
   },
 
-  'addEdgeToList: function(name){
+  addEdgeToList: function(name){
     var edgeList = document.getElementById("edge-list");
     this.addElementToList(name, edgeList);
   },
