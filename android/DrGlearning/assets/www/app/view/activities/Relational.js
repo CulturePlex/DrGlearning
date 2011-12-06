@@ -4,7 +4,10 @@ Ext.define('DrGlearning.view.activities.Relational', {
 	xtype : 'relational',
 	customId:'activity',
 	config : {
-		layout : 'fit',
+		layout : {
+       type: 'vbox',
+       align: 'middle'
+   },
 		fullscreen : true,
 		items : [ {
 			xtype : 'panel',
@@ -12,12 +15,12 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			customId : 'contentSencha',
 			layout : 'fit',
 			fullscreen : true,
-			onRender : function() {
+			initialize : function() {
 				var sketch=Ext.getCmp('contentSencha').getEl();
 				
 				//Initializing Canvas and sketch
-                var canvas = document.getElementById("sketch");
-                var p = new Processing(canvas, sketchProc);
+                //var canvas = document.getElementById("sketch");
+                //var p = new Processing(canvas, sketchProc);
 
 				//console.log("cargada!!!!!");
 				//console.log(this.element.dom);
@@ -29,7 +32,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
 					//console.log("Y tenemos un canvas!!!");
 				}
 				//prueba();
-			},
+			}
 		}, {
 			xtype : 'toolbar',
 			docked : 'top',
@@ -51,11 +54,11 @@ Ext.define('DrGlearning.view.activities.Relational', {
 				text : 'Back',
 				ui : 'back',
 				controller : 'DrGlearning.controller.Career',
-				action : 'index',
+				action : 'index'
 			}, {
 				xtype : 'spacer'
 			} ]
 
 		} ]
-	},
+	}
 });
