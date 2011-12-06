@@ -43,6 +43,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         listeners: {
           change: function(field, newValue, oldValue){
             if (newValue.data.text!=blankOption){
+              option.hide();
               option = takeStep(newValue.data.value);
               refresh(option);
             }
@@ -77,6 +78,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (playerPath.length>1){
         previousStep = playerPath[playerPath.length-2];
         playerPath.splice(playerPath.length-2,2);
+        option.hide();
         option = takeStep(previousStep);
         refresh(option);
       }
