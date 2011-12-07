@@ -374,14 +374,16 @@ Ext.define('DrGlearning.controller.Careers', {
 		var activityView;
 		console.log(newActivity.data.activity_type);
 		if (newActivity.data.activity_type == 'geospatial') {
-			/*if (navigator.network != undefined && navigator.network.connection.type != Connection.NONE) {
+			console.log(navigator.network);
+			console.log(navigator.network.connection.type);
+			if (navigator.network != undefined && navigator.network.connection.type == Connection.NONE) {
 				Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
 				this.getController('Careers').tolevel();
 			}, this);
-			}else{*/
+			}else{
 				
 				this.getController('activities.GeospatialController').updateActivity(view, newActivity);
-			//}
+			}
 		}else if (newActivity.data.activity_type == 'visual') {
 			this.getController('activities.VisualController').updateActivity(view,newActivity);
 		}else if(newActivity.data.activity_type == 'relational'){
