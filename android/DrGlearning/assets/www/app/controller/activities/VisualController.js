@@ -12,18 +12,21 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     }],	
 	activity:null,
 	respuestas:null,
-	updateActivity: function(view,newActivity) {
+	initializate: function(){
 		this.control({
 			'button[customId=respuesta]': {
 				tap: this.tryIt
 			}
 		});
+	},
+	updateActivity: function(view,newActivity) {
+		
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
-		activityView.down('label[id=query]').setHtml(newActivity.data.query);
+		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=eval("(" + this.activity.data.answers + ')');
 		view.add(activityView);
 		var opciones=6;
@@ -62,7 +65,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		activityView.add(opciones);
 			
 	},
-	tryIt: function() {
+	tryIt: function() { 
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){

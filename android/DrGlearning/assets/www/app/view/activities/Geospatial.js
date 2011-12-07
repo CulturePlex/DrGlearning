@@ -36,8 +36,29 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                     }
                     ]
                 
-            }
-			
+            },
+			{
+				xtype: 'toolbar',
+                docked: 'bottom',
+                ui: 'gray',
+                items:[
+                    {
+						xtype: 'button',
+						customId: 'backtolevel',
+						text: 'Back',
+						ui: 'back',
+					},
+					{
+						 xtype: 'spacer' 
+					},
+					{
+                        xtype: 'button',
+                        text: 'Confirm',
+						id: 'confirm',
+						customId:'confirm'
+                    }
+				]
+			}
 		]
     }
 	

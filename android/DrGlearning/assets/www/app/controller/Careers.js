@@ -39,6 +39,9 @@ Ext.define('DrGlearning.controller.Careers', {
     selectedcareer: null,
 	selectedlevel: null,
     initializate: function(){
+		this.getController('activities.VisualController').initializate();
+		this.getController('activities.GeospatialController').initializate();
+		this.getController('activities.TemporalController').initializate();
         this.getMainView().create();
         this.control({
             'careerslistitem': {
@@ -376,6 +379,7 @@ Ext.define('DrGlearning.controller.Careers', {
 				this.getController('Careers').tolevel();
 			}, this);
 			}else{*/
+				
 				this.getController('activities.GeospatialController').updateActivity(view, newActivity);
 			//}
 		}else if (newActivity.data.activity_type == 'visual') {

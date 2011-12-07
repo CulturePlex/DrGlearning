@@ -11,14 +11,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
         xtype: 'mainview'
     }],	
 	activity:null,
-	updateActivity: function(view,newActivity) {
-		this.activity=newActivity;
-		view.down('component[id=activity]').destroy();
-		activityView = Ext.create('DrGlearning.view.activities.Temporal');
-		console.log(newActivity.data);
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
-		activityView.down('label').setHtml(newActivity.data.query);
-		view.add(activityView);
+	initializate: function(){
 		this.control({
 			'button[customId=after]': {
 				tap: this.after
@@ -27,6 +20,15 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 				tap: this.before
 			}
 		});
+	},
+	updateActivity: function(view,newActivity) {
+		this.activity=newActivity;
+		view.down('component[id=activity]').destroy();
+		activityView = Ext.create('DrGlearning.view.activities.Temporal');
+		console.log(newActivity.data);
+		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+		activityView.down('label').setHtml(newActivity.data.query);
+		view.add(activityView);
 	},
 	before: function() {
 		console.log(this.activity);
@@ -44,12 +46,13 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	after: function() {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getController('Careers').toLevel();
+				this.getController('Careers').tolevel();
 			},this);
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
-				this.getController('Careers').toLevel();
+				console.log(this.getController('Careers'));
+				this.getController('Careers').tolevel();
 			},this);
 		} 
 	}
