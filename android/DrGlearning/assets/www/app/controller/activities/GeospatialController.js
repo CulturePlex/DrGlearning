@@ -10,49 +10,35 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         autoCreate: true,
         xtype: 'mainview'
     }],	
-	updateActivity: function(view,newActivity) {
-		console.log(view.down('component[customId=activity]'));
-		view.down('component[customId=activity]').destroy();
-		activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-		activityView.down('label').setHtml(newActivity.data.query);
-		activityView.add({
-                xtype: 'toolbar',
-                docked: 'bottom',
-                ui: 'gray',
-                items:[
-                    {
-						xtype: 'button',
-						customId: 'backtolevel',
-						text: 'Back',
-						ui: 'back',
-					},
-					{
-						 xtype: 'spacer' 
-					},
-					{
-                        xtype: 'button',
-                        text: 'Confirm',
-						id: 'confirmmapposition',
-						customId:'confirm'
-                    }]
-            });
-		console.log(newActivity);
-		this.initialize(activityView,newActivity);
-		view.add(activityView);
-	},
 	elmarker:null,
 	elpunto:null,
 	radio:null,
 	activity:null,
-	initialize: function(view,activity) {
-		this.activity=activity;
-		console.log('dale');
+	activityView:null,
+	initializate: function(){
 		this.control({
 			'button[customId=confirm]': {
 				tap: this.confirm
 			}
 		});
-		
+	},
+	updateActivity: function(view,newActivity) {
+		this.activityView=null;
+		this.elmarker=null;
+		this.elpunto=null;
+		this.radio=null;
+		this.activity=null;
+		//console.log(view.down('component[customId=activity]'));
+		view.down('component[customId=activity]').hide();
+		view.down('component[customId=activity]').destroy();
+		this.activityView = Ext.create('DrGlearning.view.activities.Geospatial');
+		this.activityView.down('label').setHtml(newActivity.data.query);
+		this.empezar(this.activityView,newActivity);
+		view.add(this.activityView);
+	},
+		empezar: function(view,activity) {
+		this.activity=activity;
+		console.log('dale');
         var map = view.down('map').getMap();
 		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
         view.on({
@@ -114,6 +100,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		});
     },
 	confirm: function() {
+		console.log('asd');
 		var distancia=Math.sqrt(Math.pow(elmarker.position.Pa-elpunto.Pa,2)+Math.pow(elmarker.position.Qa-elpunto.Qa,2))*60000;
 		console.log(distancia);
 		console.log(radio);
