@@ -192,7 +192,9 @@ var GraphEditor = {
     }
     document.getElementById("_start_node").value = nodeName;
     json = this.getGraphNodesJSON();
-    delete json[this.sourcePath]["start"];
+    if (this.sourcePath) {
+      delete json[this.sourcePath]["start"];
+    }
     this.sourcePath = nodeName;
     json[nodeName]["start"] = true;
     this.setGraphNodesJSON(json);
@@ -206,7 +208,9 @@ var GraphEditor = {
     }
     document.getElementById("_end_node").value = nodeName;
     json = this.getGraphNodesJSON();
-    delete json[this.targetPath]["end"];
+    if (this.targetPath) {
+      delete json[this.targetPath]["end"];
+    }
     this.targetPath = nodeName;
     json[nodeName]["end"] = true;
     this.setGraphNodesJSON(json);
@@ -335,7 +339,7 @@ var GraphEditor = {
     var activityWidget = '<div id="activityWidget">' +
         '<h3>Start node</h3>' +
         '<a class="changelink graph-editor" onclick="GraphEditor.setStart()">Set start node</a>' +
-        '<input id="_start_node" type="text" disabled="true" size="5">' +
+        '<input id="_start_node" type="text" disabled="true">' +
         '<hr/>' +
         '<div id="constraints">' +
         '<h3>Constraints</h3>' +
@@ -355,7 +359,7 @@ var GraphEditor = {
         '<hr/>' +
         '<h3>Finish node</h3>' +
         '<a class="changelink graph-editor" onclick="GraphEditor.setFinish()">Set finish node</a>' +
-        '<input id="_end_node" type="text" disabled="true" size="5">' +
+        '<input id="_end_node" type="text" disabled="true">' +
         '</div>';
 
     $('.controlpanel').before(activityWidget);
