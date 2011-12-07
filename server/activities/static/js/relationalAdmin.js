@@ -239,8 +239,6 @@ var GraphEditor = {
               var gexfContent = e.target.result;
               // GEXF IMPORTATION FUNCTION
               $(gexfContent).find('node').each(function(){
-                console.log($(this).find('attvalue').attr('\\for'));
-                console.log();
                 GraphEditor.addNode($(this).attr('label'), {
                                     "score": 0,
                                     "type": $(this).find('attvalue').attr('value'),
