@@ -436,10 +436,11 @@ Ext.define('DrGlearning.controller.Careers', {
 		    readOnly:true,
 		    clearIcon:false,
 		});
-	    Ext.Msg.show({  
+		new Ext.MessageBox().show({  
 	        title: 'Export user',  
 	        msg: 'Copy and paste in your new device:',  
 	        items:textField ,
+	        multiline: true,
 	        buttons: Ext.Msg.OK,  
 	        icon: Ext.Msg.INFO  
 	    });
@@ -463,7 +464,7 @@ Ext.define('DrGlearning.controller.Careers', {
 			scope:this,
 		    text: 'Cancel',
 		});
-	    var show=Ext.Msg.show({  
+	    var show=new Ext.MessageBox().show({  
 	    	id:'pako',
 	        title: 'Import user',  
 	        msg: 'Paste your previous ID:',  
@@ -471,6 +472,7 @@ Ext.define('DrGlearning.controller.Careers', {
 	        buttons: [cancelButton,saveButton],  
 	        icon: Ext.Msg.INFO,   
 	    });
+	    console.log(show);
 	    saveButton.setHandler(function(){
 	    	show.hide();
 	    	user.data.uniqueid=textField.getValue();
@@ -479,11 +481,11 @@ Ext.define('DrGlearning.controller.Careers', {
 	    });
 	    cancelButton.setHandler(function(){
 	    	show.hide();
+	    	this.destroy(show);
 	    });
 	},
 	importUserAction:function(ola,adios){
-		console.log("PATATON");
-    	console.log(ola);
+		console.log(ola);
     	console.log(adios);
     },
 });

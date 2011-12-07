@@ -436,7 +436,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		    readOnly:true,
 		    clearIcon:false,
 		});
-	    Ext.Msg.show({  
+		Ext.MessageBox.show({  
 	        title: 'Export user',  
 	        msg: 'Copy and paste in your new device:',  
 	        items:textField ,
