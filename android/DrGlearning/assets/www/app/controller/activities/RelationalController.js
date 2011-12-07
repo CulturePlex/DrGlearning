@@ -21,6 +21,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     //Import graph nodes and edges from database
     var graphNodes = newActivity.data.graph_nodes;
     var graphEdges = newActivity.data.graph_edges;
+    var constraints = newActivity.data.constraints;
   
     /** This function receives a nodeName and searches into edges
      * data for all the related nodes. It returns a Sencha field.Select
@@ -71,6 +72,20 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       return '<p class="node">' + nodeName + ' (' + graphNodes[nodeName]["type"] + ')' + '</p>'
     }
   
+    function getContraintsHTML(){
+      var constraintsText;
+      constraintsText = '<p class="constraints">Solve the riddle with the following constraints:<br/><ul>';
+      for(var i=0;i<constraints.length;i++){
+        constraintsText += '<li>';
+        constraintsText += constraints[i]["type"] + ' ';
+        constraintsText += constraints[i]["operator"] + ' ';
+        constraintsText += constraints[i]["value"] + '<br/>';
+        constraintsText += '</li>';
+      }
+      constraintsText += '</ul></p>';
+      return constraintsText;
+    }
+
     function stepBack(){
       var previousStep;
       if (playerPath.length>1){
@@ -87,6 +102,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     function refresh(option){
       activityView = Ext.create('DrGlearning.view.activities.Relational');
       activityView.down('title').setTitle(newActivity.data.query);
+      var constraintsPanel = Ext.create('Ext.Panel', {
+        html: getContraintsHTML()
+      });
+      activityView.add(constraintsPanel);
       for(var i=0;i<playerPath.length;i++){
         var node = Ext.create('Ext.Panel' , {
           html: getNodeHTML(playerPath[i])

@@ -56,6 +56,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	if(activityModel.data.activity_type=='relational'){
                 		activityModel.data.graph_nodes=activity.graph_nodes;
                 		activityModel.data.graph_edges=activity.graph_edges;
+                    activityModel.data.constraints=activity.constraints;
                 	}
                 	if(activityModel.data.activity_type=='temporal'){
                 		activityModel.data.image=activity.image;
