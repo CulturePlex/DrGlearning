@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       for(var i=0;i<graphEdges.length;i++){
         edge = graphEdges[i];
         if (edge.target===nodeName){
-          options.push({text: edge.source + ' (' + edge.type +')', value: edge.source});
+          options.push({text: edge.source + ' (' + edge.type +')', value: edge.source,width:'100%'});
         } else if (edge.source===nodeName){
           options.push({text: edge.target + ' (' + edge.type +')', value: edge.target});
         }

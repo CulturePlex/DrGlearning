@@ -55,13 +55,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				};
 				var multipunto=eval("(" + activity.data.point + ')');
 				var googlePuntos=new GeoJSON(multipunto, googleOptions);
-				elpunto=new google.maps.LatLng(googlePuntos[0].position.Pa,googlePuntos[0].position.Qa);
+				elpunto=new google.maps.LatLng(googlePuntos[0].position.Qa,googlePuntos[0].position.Ra);
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.color="#FFOOOO";
 				googleVector.setMap(map);
-			
-							
-				map.panTo(new google.maps.LatLng(googlePuntos[0].position.Pa, googlePuntos[0].position.Qa));
+				map.panTo(new google.maps.LatLng(googlePuntos[0].position.Qa, googlePuntos[0].position.Ra));
 				map.setZoom(3);
 	            }
 		    });
@@ -101,7 +99,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     },
 	confirm: function() {
 		console.log('asd');
-		var distancia=Math.sqrt(Math.pow(elmarker.position.Pa-elpunto.Pa,2)+Math.pow(elmarker.position.Qa-elpunto.Qa,2))*60000;
+		var distancia=Math.sqrt(Math.pow(elmarker.position.Qa-elpunto.Qa,2)+Math.pow(elmarker.position.Ra-elpunto.Ra,2))*60000;
 		console.log(distancia);
 		console.log(radio);
 		if (distancia < radio) {
