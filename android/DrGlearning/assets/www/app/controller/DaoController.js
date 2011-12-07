@@ -16,9 +16,11 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return this.getCareersStore().findExact('installed','true');
 	},
     installCareer: function(id,callback,scope) {
+    	var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Downloading..."});
+		myMask.show();
     	var career=this.getCareersStore().getById(id);
     	var activities=career.data.activities;
-    	activities=activities.split(",")
+    	activities=activities.split(",");
     	console.log("activity "+activities);
 		for (cont in activities){
 			console.log(activities[cont]);
@@ -40,6 +42,10 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		timestamp : activity.timestamp,
                 		resource_uri : activity.resource_uri,
                 		reward: activity.reward,
+                		score: 0,
+                		played: false,
+                		successful: false
+                		
                 	});
                 	if(activityModel.data.activity_type=='linguistic'){
                 		activityModel.data.image=activity.image;
@@ -79,6 +85,7 @@ Ext.define('DrGlearning.controller.DaoController', {
     	career.set('installed','true');
     	this.getCareersStore().load();
     	this.getCareersStore().sync();
+    	myMask.hide();
     	callback(scope);
 
     },
@@ -92,9 +99,18 @@ Ext.define('DrGlearning.controller.DaoController', {
 			return record.data.careerId==careerId;
 		});
 		activities.each(function(item) {
-			if(levels[item.data.level_type]==undefined){
+			var exist=false;
+			for(x in levels){
+				if(levels[x]==item.data.level_type){
+					exist=true;
+				}
+			}
+			if(!exist){
 				levels.push(item.data.level_type);
 			}
+			//if(levels[item.data.level_type]==undefined){
+			//	levels.push(item.data.level_type);
+			//}
 		});
 		levels.sort(function(a, b) {
 			return a - b;
@@ -113,15 +129,105 @@ Ext.define('DrGlearning.controller.DaoController', {
 	getknowledgesFields:function(){
 		var knowledges=new Array();
 		var career=this.getCareersStore();
-		career.each(function() {
+		career.each(function(item) {
+			var carrerKnowledges=item.data.knowledges.split(",");
+			for(x in carrerKnowledges){
+				var exist=false;
+				for(y in knowledges){
+					if(carrerKnowledges[x]==knowledges[y]){
+						exist=true;
+					}
+				}
+				if(!exist){
+					knowledges.push(carrerKnowledges[x]);
+				}
+			}
 			
 		},this);
+		return knowledges;
 	},
 	getCarresByKnowledge:function(Knowledge){
-		
-	}
+		var carrers=this.getCarrersStore().queryBy(function(record) {
+			var knowledges=record.data.knowledges.split(",");
+			for(x in knowledges){
+				if(knowledges[x]==Knowledge){
+					return true;
+				}
+			}
+			return false;
+		});
+		return carrers;
+	},
+	activityPlayed:function(activityID,successful,score){
+		var activitiesStore=this.getActivitiesStore();
+		var activity=activitiesStore.getById(activityID);
+		if(successful){
+			if(activity.data.successful){
+				if(activity.data.score<parseInt(score)){
+					activity.data.score=parseInt(score);
+					updateScore(activityID,score);
+				}
+			}else{
+				activity.data.score=parseInt(score);
+			}
+			activity.data.successful=true;
+		}else{
+			if(!activity.data.successful){
+				if(activity.data.score<parseInt(score)){
+					activity.data.score=parseInt(score);
+				}
+			}
+		}
+		activity.data.played=true;
+		activity.save();
+		activitiesStore.load();
+		activitiesStore.sync();
+	},
+	updateScore:function(activityID,score){
+		if(navigator.network.connection.type!=Connection.NONE){
+			var user=usersStore.first();
+			var HOST = "http://drglearning.testing.cultureplex.ca";
+			Ext.data.JsonP.request({
+				scope: this,
+			    url: HOST+"/api/v1/highscore/?format=jsonp",
+			    params: {
+			    	player_code: user.data.uniqueid,
+			    	activity_id: activityID,
+			    	score: score
+			    },
+			    success: function(response){
+			    	console.log("Score successfully updated");
+				}
+			});
+		}
+	},
 	/*
+	 * Return level id
+	 */
+	getCurrenLevel:function(carrerID){
+		var levels=getLevels(carrerID);
+		for(var i=1;i<=levels.length;i++){
+			var activities=getActivitiesByLevel(carrerID,i);
+			for(var j=0;j<activities.length;j++){
+				if(!activities[j].data.successful){
+					return i; 
+				}
+			}
+		}
+		return 1;
+	},
+	/*
+	 * Return activity id
 	 * 
 	 */
-	
+	getCurrenActivity:function(carrerID,level){
+		var activities=getActivitiesByLevel(carrerID,i);
+		for(var j=0;j<activities.length;j++){
+			if(!activities[j].data.successful){
+				return activities[j].data.id; 
+			}
+		}
+		return activities[0].data.id;
+	}
+
 });

@@ -50,7 +50,16 @@ Ext.define('DrGlearning.model.Activity', {
 	}, {
 		name : "reward",
 		type : "string"
-	} 
+	}, {
+		name : "score",
+		type : "int"
+	},{
+		name : "played",
+		type : "string"
+	},{
+		name : "successful",
+		type : "string"
+	}
 	/*-----------------------
 	Temporal Activities
 	-----------------------
