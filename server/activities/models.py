@@ -72,7 +72,8 @@ class Relational(Activity):
 
 class Visual(Activity):
     image = models.ImageField(upload_to="images")
-    obfuscated_image = models.ImageField(upload_to="images")
+    obfuscated_image = models.ImageField(upload_to="images", null=True,
+                                                            blank=True)
     answers = jsonfield.JSONField(default="[]")
     correct_answer = models.CharField(max_length=80)
     time = models.CharField(max_length=10, help_text="Milliseconds")

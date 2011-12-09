@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
+import tempfile
+
 from django.contrib import admin
+from django.core.files import File
 from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
@@ -25,8 +28,19 @@ class RelationalAdmin(ActivityAdmin):
 
 class VisualAdmin(ActivityAdmin):
 
+    def save_model(self, request, obj, form, change):
+        if request.POST and request.POST.has_key('obfuscated_64'):
+            file_type, file_data = request.POST['obfuscated_64'].split('base64,')
+            filename = tempfile.mktemp()
+            tmpfile = open(filename, 'wb')
+            tmpfile.write(file_data.decode('base64'))
+            tmpfile.close()
+            f = open(filename)
+            obj.obfuscated_image.save('pixelated.png', File(f), True)
+        obj.save()
+
     class Media:
-        js = ('js/visualAdmin.js',)
+        js = ('js/visualAdminAnswers.js', 'js/visualAdminImages.js')
 
 
 class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
