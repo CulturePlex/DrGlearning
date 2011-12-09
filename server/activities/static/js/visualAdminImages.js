@@ -6,12 +6,9 @@ $(document).ready(function(){
   var DEBUG = false;
 
   function handleFile(evt){
-    console.log("Handle", evt.target.files[0]);
-   
     var f = evt.target.files[0];
     var reader = new FileReader();
     reader.onload = function(e){
-      console.log("On load");
       $('#original_image').load(loadImageInCanvas);
       $('#original_image').attr('src', e.target.result);
       $('#original_image').width(200);
@@ -19,7 +16,6 @@ $(document).ready(function(){
     }
     reader.readAsDataURL(f);
   }
-  console.log("Cargado images");
   $('#id_obfuscated_image').after('<div id="images_panel" style="width:200px"></div>');
   $('#images_panel').append('<img id="original_image" />');
   $('#images_panel').append('<br/>');
