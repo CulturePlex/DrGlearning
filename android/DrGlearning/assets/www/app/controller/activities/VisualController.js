@@ -24,10 +24,12 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
-		console.log(newActivity.data);
+		console.log(newActivity.data.answers);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
-		this.respuestas=eval("(" + this.activity.data.answers + ')');
+		this.respuestas=this.activity.data.answers;
+		console.log(this.respuestas);
+		
 		view.add(activityView);
 		var opciones=6;
 		var time=newActivity.data.time;

@@ -108,7 +108,7 @@ Ext.define('DrGlearning.model.Activity', {
 	*/
 	, {
 		name : "answers",
-		type : "string"
+		type : "auto"
 	}
 	, {
 		name : "correct_answer",
