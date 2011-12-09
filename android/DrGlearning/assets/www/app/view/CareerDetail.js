@@ -6,6 +6,11 @@ Ext.define('DrGlearning.view.CareerDetail', {
 		'DrGlearning.model.Level',
 		'DrGlearning.store.Levels'
     ],
+	listeners : {
+	    render : function(c) {
+	        c.getEl().on('click', function(){ console.log('asd'); }, c);
+	    }
+	},
     config: {
     	career:null,
         layout: 'vbox',
@@ -15,11 +20,19 @@ Ext.define('DrGlearning.view.CareerDetail', {
         items: [
 		{
            xtype: 'careerdescription',
+		   height:'150px',
         },
         {
+			
         	xtype: 'carousel',
             ui: 'light',
             direction: 'horizontal',
+			listeners : {
+	    render : function(c) {
+	        c.getEl().on('click', function(){ console.log('asd'); }, c);
+	    }
+	},
     	}]
-	}
+	},
+	
 });
