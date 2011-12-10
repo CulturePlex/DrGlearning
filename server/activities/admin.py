@@ -29,7 +29,7 @@ class RelationalAdmin(ActivityAdmin):
 class VisualAdmin(ActivityAdmin):
 
     def save_model(self, request, obj, form, change):
-        if request.POST and request.POST.has_key('obfuscated_64'):
+        if request.POST and request.POST.get('obfuscated_64'):
             file_type, file_data = request.POST['obfuscated_64'].split('base64,')
             filename = tempfile.mktemp()
             tmpfile = open(filename, 'wb')
