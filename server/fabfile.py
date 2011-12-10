@@ -6,7 +6,7 @@ def pull_git():
 def collect_static():
     # To work with virtualenvwrapper make sure the line
     # [ -z "$PS1" ] && return
-    # is commented in your .bashrc
+    # is commented in target machine's .bashrc
     with prefix('workon drglearning'):
         run('python manage.py collectstatic')
 
