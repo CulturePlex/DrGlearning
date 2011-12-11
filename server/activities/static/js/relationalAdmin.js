@@ -214,6 +214,13 @@ var GraphEditor = {
     this.setGraphNodesJSON(json);
   },
 
+  deleteConstraint: function(constraintNumber){
+    var constraints = this.getConstraints();
+    constraints.splice(constraintNumber, 1);
+    this.setConstraints(constraints);
+    this.refresh();
+  },
+
   setScore: function(){
     var nodeName = prompt("Enter node to be modified");
     if (!this.nodeExists(nodeName)){
@@ -269,6 +276,14 @@ var GraphEditor = {
   },
   
   refresh: function(){
+    var verboseOperator = {
+      lt: "less than",
+      lte: "less or equal than",
+      gt: "greater than",
+      gte: "greater or equal than",
+      eq: "equals to",
+      neq: "different to"
+    }
     //Clear everything
     this.clearLists();
     //Set nodes
@@ -300,8 +315,12 @@ var GraphEditor = {
     }
     //Set constraints
     var constraints = this.getConstraints();
+    var constraintText;
     for(var i=0;i<constraints.length;i++){
-      $('#constraint-list').append('<li class="item">'+JSON.stringify(constraints[i])+'</li>');
+      constraintText = constraints[i]["type"] + " nodes " +
+        verboseOperator[constraints[i]["operator"]] + " " + constraints[i]["value"] +
+        '<a onClick="GraphEditor.deleteConstraint(' + i + ')" class="deletelink"/>'
+      $('#constraint-list').append('<li class="item">' + constraintText + '</li>');
     }
     for(var nodeType in nodeTypes){
       $('#constraint-types').append('<option class="item" value="'+ nodeType+ '">'+nodeType+'</option>');
@@ -378,7 +397,7 @@ var GraphEditor = {
       var constraints = GraphEditor.getConstraints();
       constraints.push(newConstraint);
       GraphEditor.setConstraints(constraints);
-      $('#constraint-list').append('<li>' + JSON.stringify(newConstraint) + '</li>');
+      GraphEditor.refresh();
     });
     
     // Black magic to have the Processing drawer ready to call the drawInitialData method
