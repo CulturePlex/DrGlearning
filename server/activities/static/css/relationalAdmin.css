@@ -13,3 +13,10 @@ div#activityWidget {
   margin-bottom: 10px;
   width: 500px;
 }
+
+span.constraints {
+  font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+}

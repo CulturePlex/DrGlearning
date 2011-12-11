@@ -348,14 +348,16 @@ var GraphEditor = {
         '<div id="constraints">' +
         '<h3>Constraints</h3>' +
         '<ol id="constraint-list"></ol>' +
+        '<span class="constraints">Nodes of type</span>' +
         '<select id="constraint-types"></select>' +
+        '<span class="constraints">are</span>' +
         '<select id="constraint-operator">' +
-        '<option value="lt">&lt;</option>' +
-        '<option value="let">&lt;&#61</option>' +
-        '<option value="gt">&gt;</option>' +
-        '<option value="get">&gt;&#61</option>' +
-        '<option value="eq">&#61;</option>' +
-        '<option value="neq">&#33;&#61;</option>' +
+        '<option value="lt">less than</option>' +
+        '<option value="let">less or equal than</option>' +
+        '<option value="gt">greater than</option>' +
+        '<option value="get">greater or equal than</option>' +
+        '<option value="eq">equals to</option>' +
+        '<option value="neq">different to</option>' +
         '</select>' +
         '<input type="text" id="constraint-value" size="3"/>' +
         '<button type="button" id="add-constraint">Add constraint</button>' +
