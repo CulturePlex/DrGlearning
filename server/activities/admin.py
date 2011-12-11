@@ -21,9 +21,10 @@ class RelationalAdmin(ActivityAdmin):
 
     class Media:
         css = {
-            "all": ("css/relationalAdmin.css",)
+            "all": ("css/relationalAdmin.css", "css/chosen.css")
         }
-        js = ('js/processing-1.3.6.min.js', 'js/relationalAdmin.js',)
+        js = ('js/processing-1.3.6.min.js', 'js/relationalAdmin.js',
+              'js/jquery-1.7.1.min.js', 'js/chosen.jquery.min.js')
 
 
 class VisualAdmin(ActivityAdmin):

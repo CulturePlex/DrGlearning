@@ -185,12 +185,11 @@ var GraphEditor = {
   },
 
   setStart: function(){
-    var nodeName = prompt("Insert start node");
+    var nodeName = $('#_start_node').val();
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
       return;
     }
-    document.getElementById("_start_node").value = nodeName;
     json = this.getGraphNodesJSON();
     if (this.sourcePath) {
       delete json[this.sourcePath]["start"];
@@ -201,12 +200,11 @@ var GraphEditor = {
   },
 
   setFinish: function(){
-    var nodeName = prompt("Insert finish node");
+    var nodeName = $('#_end_node').val();
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
       return;
     }
-    document.getElementById("_end_node").value = nodeName;
     json = this.getGraphNodesJSON();
     if (this.targetPath) {
       delete json[this.targetPath]["end"];
@@ -276,17 +274,23 @@ var GraphEditor = {
     //Set nodes
     var nodes = this.getGraphNodesJSON();
     var nodeTypes = {};
+    var startOption;
+    var endOption;
     for(var i in nodes){
+      startOption = new Option(i, i);
+      endOption = new Option(i, i);
       this.addNodeToList(i);
       if (nodes[i].hasOwnProperty('start')){
-        document.getElementById('_start_node').value = i;
         this.sourcePath = i;
+        startOption = new Option(i, i, true, true);
       }
       if (nodes[i].hasOwnProperty('end')){
-        document.getElementById('_end_node').value = i;
         this.targetPath = i;
+        endOption = new Option(i, i, true, true);
       }
       nodeTypes[nodes[i]["type"]] = {};
+      $('#_start_node').append(startOption);
+      $('#_end_node').append(endOption);
     }
     //Set edges
     var edges = this.getGraphEdgesJSON();
@@ -338,8 +342,8 @@ var GraphEditor = {
 
     var activityWidget = '<div id="activityWidget">' +
         '<h3>Start node</h3>' +
-        '<a class="changelink graph-editor" onclick="GraphEditor.setStart()">Set start node</a>' +
-        '<input id="_start_node" type="text" disabled="true">' +
+        '<select id="_start_node" class="chzn-select" style="width:300px" onChange="GraphEditor.setStart()">' +
+        '</select>' +
         '<hr/>' +
         '<div id="constraints">' +
         '<h3>Constraints</h3>' +
@@ -358,8 +362,8 @@ var GraphEditor = {
         '</div>' +
         '<hr/>' +
         '<h3>Finish node</h3>' +
-        '<a class="changelink graph-editor" onclick="GraphEditor.setFinish()">Set finish node</a>' +
-        '<input id="_end_node" type="text" disabled="true">' +
+        '<select id="_end_node" class="chzn-select" style="width:300px" onChange="GraphEditor.setFinish()">' +
+        '</select>' +
         '</div>';
 
     $('.controlpanel').before(activityWidget);
@@ -416,5 +420,6 @@ $(document).ready(function(){
   GraphEditor.USES_SCORES = true;
   GraphEditor.init();
   GraphEditor.refresh();
+  $(".chzn-select").chosen();
 });
 
