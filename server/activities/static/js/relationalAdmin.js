@@ -301,10 +301,10 @@ var GraphEditor = {
     //Set constraints
     var constraints = this.getConstraints();
     for(var i=0;i<constraints.length;i++){
-      $('#constraint-list').append('<li>'+JSON.stringify(constraints[i])+'</li>');
+      $('#constraint-list').append('<li class="item">'+JSON.stringify(constraints[i])+'</li>');
     }
     for(var nodeType in nodeTypes){
-      $('#constraint-types').append('<option value="'+ nodeType+ '">'+nodeType+'</option>');
+      $('#constraint-types').append('<option class="item" value="'+ nodeType+ '">'+nodeType+'</option>');
     }
   },
 
