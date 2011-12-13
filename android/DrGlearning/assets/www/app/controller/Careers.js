@@ -90,12 +90,7 @@ Ext.define('DrGlearning.controller.Careers', {
             'button[id=import]': {
                 tap: this.importUser
                 
-            },
-	        'div1#flechaizq' : {
-	            click : function(c) {
-	               console.log('hola');
-	            }
-       		 },
+            }
         });
         
         this.index();
@@ -118,6 +113,10 @@ Ext.define('DrGlearning.controller.Careers', {
         var view1 = this.getCareersframe();
         view1.down('careerslist').refresh();
         this.filterCareers();
+		if (store.getCount() == 0) {
+			console.log(store.getCount());
+            view1.down('careerslist').mask('No installed careers, please click on Add Career Button');
+        }
 		
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarBottomSettings]').show();
@@ -190,9 +189,9 @@ Ext.define('DrGlearning.controller.Careers', {
     },
 	getLevelHtml: function(levelData)
 		{
-			var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png"];
+			var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","PhD.png","PhD.png","PhD.png"];
 			console.log(filesImgs[levelData.customId-1]);
-			return "<div id='centro' align='center' style='top:20%;'><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
+			return "<div id='centro' align='center' style='top:20%'><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
 		}
 		,
 	updateCareer: function(newCareer){
@@ -388,13 +387,13 @@ Ext.define('DrGlearning.controller.Careers', {
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.setItems({
-						html: "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:100%;top:0;'>" + activity.data.name + "</div>",
+						html: "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>",
 						name: 'a'
 					});
 				}else
 				{
 					activitiescarousel.setItems({
-						html: "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:100%;top:0;'>" + activity.data.name + "</div><div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'>",
+						html: "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div><div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'>",
 						name: 'a'
 					});
 				}
@@ -402,13 +401,13 @@ Ext.define('DrGlearning.controller.Careers', {
 			}else if(i == activities.length-1)
 			{
 				activitiescarousel.setItems({
-					html: "<div><img src='resources/images/flechaizq.png' alt='flecha'></div><div align='center' style='position:absolute;margin:0 auto 0 auto; width:100%;top:0;'>" + activity.data.name +"</div>",
+					html: "<div><img src='resources/images/flechaizq.png' alt='flecha'></div><div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name +"</div>",
 					name: 'a'
 				});
 			}else
 			{
 				activitiescarousel.setItems({
-					html: "<div><img src='resources/images/flechaizq.png' alt='flecha'></div><div align='center' style='position:absolute;margin:0 auto 0 auto; width:100%;top:0;'>" + activity.data.name + "</div><div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'></div>",
+					html: "<div><img src='resources/images/flechaizq.png' alt='flecha'></div><div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div><div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'></div>",
 					name: 'a'
 				});
 			}
