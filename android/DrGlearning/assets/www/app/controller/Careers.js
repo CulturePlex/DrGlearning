@@ -190,7 +190,7 @@ Ext.define('DrGlearning.controller.Careers', {
     },
 	getLevelHtml: function(levelData)
 		{
-			var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png"];
+			var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png"];
 			console.log(filesImgs[levelData.customId-1]);
 			return "<div id='centro' align='center' style='top:20%;'><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
 		}
