@@ -115,7 +115,7 @@ Ext.define('DrGlearning.controller.Careers', {
         this.filterCareers();
 		if (store.getCount() == 0) {
 			console.log(store.getCount());
-            view1.down('careerslist').mask('No installed careers, please click on Add Career Button');
+            view1.down('careerslist').mask('No installed careers, please click on Add Career button to start!');
         }
 		
         view1.down('toolbar[id=toolbarTopNormal]').show();
