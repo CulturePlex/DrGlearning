@@ -1,7 +1,7 @@
-Ext.define('DrGlearning.view.activities.Visual', {
+Ext.define('DrGlearning.view.activities.Linguistic', {
     
     extend: 'Ext.Panel',
-    xtype : 'visual',
+    xtype : 'linguistic',
     config: {
         layout: 'fit',
 		id:'activity',
@@ -11,8 +11,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
             xtype: 'panel',
             customId: 'image',
             layout: 'fit',
-            fullscreen: true
-        	},
+            },
 			{
                 xtype: 'toolbar',
                 docked: 'top',
@@ -41,22 +40,23 @@ Ext.define('DrGlearning.view.activities.Visual', {
 					},
 					{
 						 xtype: 'spacer' 
-					}]
+					},{
+						xtype: 'button',
+						customId: 'solve',
+						text: 'Solve',
+					},
+					]
                 
-            }
-			,
-			{
-                xtype: 'toolbar',
+            },{
+                xtype: 'textfield',
                 docked: 'bottom',
-                ui: 'gray',
-                items:[{
-                        xtype: 'label',
-						customId: 'time',
-						name: 'query',
-                        title: 'Error'
-                    }
-                    ]
-                
+				customId: 'letter',
+				name: 'letter',
+                title: 'Error'
+            },{
+                xtype: 'label',
+                docked: 'bottom',
+				customId: 'loqued',
             }
 		]
     },

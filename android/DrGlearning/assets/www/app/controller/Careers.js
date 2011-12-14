@@ -7,7 +7,7 @@
  */
 Ext.define('DrGlearning.controller.Careers', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.view.Settings'],
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.controller.activities.LinguisticController','DrGlearning.view.Settings'],
     views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList', 'ActivityFrame', 'Settings'],
     stores: ['Careers','Levels','Activities','Users'],
     refs: [{
@@ -592,8 +592,8 @@ Ext.define('DrGlearning.controller.Careers', {
 		}else if(newActivity.data.activity_type == 'temporal'){
 			this.getController('activities.TemporalController').updateActivity(view,newActivity);
 		
-		//else if(newActivity.data.activity_type == 'linguistic'){
-		//	this.getController('activities.LinguisticController').updateActivity(view,newActivity);
+		}else if(newActivity.data.activity_type == 'linguistic'){
+			this.getController('activities.LinguisticController').updateActivity(view,newActivity);
 		}else{
 			view.down('component[id=activity]').destroy();
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');			

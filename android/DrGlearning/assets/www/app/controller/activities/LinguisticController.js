@@ -1,11 +1,11 @@
-Ext.define('DrGlearning.controller.activities.VisualController', {
+Ext.define('DrGlearning.controller.activities.LinguisticController', {
     extend: 'Ext.app.Controller',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
-    views: ['ActivityFrame', 'activities.Geospatial'],
+    views: ['ActivityFrame', 'activities.Linguistic'],
 	controllers: ['DrGlearning.controller.Careers'],
     stores: ['Careers','Levels','Activities'],
 	refs: [{
-        ref: 'activities.geospatial',
+        ref: 'activities.linguistic',
         selector: 'mainview',
         autoCreate: true,
         xtype: 'mainview'
@@ -23,52 +23,20 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
-		activityView = Ext.create('DrGlearning.view.activities.Visual');
-		console.log(newActivity.data.answers);
+		activityView = Ext.create('DrGlearning.view.activities.Linguistic');
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
+		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
+		
 		this.respuestas=this.activity.data.answers;
 		console.log(this.respuestas);
 		
 		view.add(activityView);
-		var opciones=6;
-		var time=newActivity.data.time;
-		console.log(time);
 		
-		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time, this);
 		
-		var increment=0;
-		while(time>0)
-		{
-			var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time/1000+"s');",increment);
-			increment=increment+1000;
-			time=time-1000;	
-		}
-		
-	},
-	showAnswers: function() {
-		
-		var opciones = Ext.create('Ext.Container');
-		opciones.config={layout:{type:'vbox',pack:'center',align:'middle'}};
-		console.log(this.respuestas.length);
-		for(var i=0;i<this.respuestas.length;i++)
-		{
-			opciones.add({
-				xtype: 'button',
-				text: this.respuestas[i],
-				ui: 'round',
-				customId: 'respuesta'
-			});
-		}
-		activityView.down('label[customId=time]').hide();
-		activityView.down('label[customId=time]').destroy();
-		activityView.down('panel[customId=image]').hide();
-		activityView.down('panel[customId=image]').destroy();
-		activityView.add(opciones);
-			
 	},
 	tryIt: function() { 
-		if (event.target.textContent == this.activity.data.correct_answer) 
+		if (event.target.textContent == this.activity.data.answer) 
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 					this.getController('Careers').tolevel();
