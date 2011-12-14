@@ -243,8 +243,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 			for(var j=0;j<activities.items.length;j++){
 				console.log(activities.items[j]);
 				if(!activities.items[j].data.successful){
-					console.log('hola');
-					return levels[i]; 
+					console.log('devolviendo: '+levels[i]);
+					return levels[i-1]; 
 				}
 			}
 		}
@@ -256,8 +256,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 	 * 
 	 */
 	getCurrenActivity:function(carrerID,level){
-		//console.log(carrerID);
-		//console.log(level);
+		console.log(carrerID);
+		console.log(level);
 		var activities=this.getActivitiesByLevel(carrerID,level);
 		
 		for(var j=0;j<activities.items.length;j++){
@@ -266,7 +266,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 				return activities.items[j].data.id; 
 			}
 		}
-		return activities[0].data.id;
+		return activities.items[0].data.id;
 	},
 	updateOfflineScores:function(){
 		var offlineScoreStore=this.getOfflineScoresStore();
