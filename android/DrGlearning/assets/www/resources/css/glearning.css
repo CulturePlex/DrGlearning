@@ -1,0 +1,14 @@
+.relational {
+  font-size: small;
+  text-align: center;
+}
+
+li.relational-constraints{
+  background-color: #FF3535;
+  text-align: left;
+}
+
+li.relational-constraint-passed {
+  background-color: #ADFF9B;
+}
+
