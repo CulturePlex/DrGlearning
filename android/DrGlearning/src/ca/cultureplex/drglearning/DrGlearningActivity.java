@@ -13,6 +13,7 @@ public class DrGlearningActivity extends DroidGap {
         super.onCreate(savedInstanceState);
         super.init();
         api = new InternalAPI(this, appView);
+        super.setIntegerProperty("splashscreen", R.drawable.splash);
         appView.addJavascriptInterface(api, "InternalApi");
         super.loadUrl("file:///android_asset/www/index.html");
     }
