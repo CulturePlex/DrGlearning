@@ -38,6 +38,8 @@ Ext.define('DrGlearning.controller.Careers', {
     }],
     selectedcareer: null,
 	selectedlevel: null,
+	flechaizqHtml:"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><img src='resources/images/flechaizq.png' alt='flecha'></div>",
+	flechaderHtml:"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><img src='resources/images/flecha.png' alt='flecha'></div>",
     initializate: function(){
 		this.getController('activities.VisualController').initializate();
 		this.getController('activities.GeospatialController').initializate();
@@ -214,8 +216,7 @@ Ext.define('DrGlearning.controller.Careers', {
             direction: 'horizontal',
     	});
 		var carouselcolor='0x1c7e29';
-		var flechaizqHtml="<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><img src='resources/images/flechaizq.png' alt='flecha'></div>";
-		var flechaderHtml="<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><img src='resources/images/flecha.png' alt='flecha'></div>";
+		
 		var levelButtonHtml;
 		
 		for(var i=0;i<levelstemp.length;i++)
@@ -243,7 +244,7 @@ Ext.define('DrGlearning.controller.Careers', {
 				}else
 				{
 					levelscarousel.setItems({
-						html: levelButtonHtml+flechaderHtml,
+						html: levelButtonHtml+this.flechaderHtml,
 						listeners: {
                     	tap: function() {
 							console.log(event);
@@ -277,7 +278,7 @@ Ext.define('DrGlearning.controller.Careers', {
 						}
                 
                     }},
-					html: flechaizqHtml+levelButtonHtml,
+					html: this.flechaizqHtml+levelButtonHtml,
 					name: 'a',
 				});
 			}else
@@ -303,9 +304,9 @@ Ext.define('DrGlearning.controller.Careers', {
                 
                     }},
 					items:[
-						{html:flechaizqHtml},
+						{html:this.flechaizqHtml},
 						{html:levelButtonHtml},
-						{html:flechaderHtml}
+						{html:this.flechaderHtml}
 					]
                 });
 			}
@@ -380,25 +381,70 @@ Ext.define('DrGlearning.controller.Careers', {
             ui: 'light',
             direction: 'horizontal',
     	});
-		var flechaizqHtml="<div><img src='resources/images/flechaizq.png' alt='flecha'></div>";
-		var flechaderHtml="<div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'></div>";
+		var flechaizqHtml=this.flechaizqHtml;
+		var flechaderHtml=this.flechaderHtml;
+		var currentLevel = this.getController('DaoController').getCurrenLevel(this.selectedcareer.internalId);
+		var currentActivity = this.getController('DaoController').getCurrenActivity(this.selectedcareer.internalId,currentLevel);
+		var startingIndex=0;
 		for(var i=0;i<activities.length;i++)
 		{
 			var activity=activities.getAt(i);
+			console.log(currentActivity);
+			console.log(activity);
+			if(activity.internalId==currentActivity-1){
+				startingIndex=i;
+				
+			}
+			
+			
 			var iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>";
 			if(activity.data.successful)
 			{
-				iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "<div bottom='0'>Superadaaa, score: " + activity.data.score + "</div></div>";
+				iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto;height:100%; width:70%;top:0;left:15%;background-color:#999999;'>" + activity.data.name + "<div bottom='0'>Score: " + activity.data.score + "<img src=resources/images/tick.png></div></div>";
 			}
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.setItems({
+						listeners: {
+		                    tap: function() {
+								console.log(event);
+								if(event.target.parentNode.id=='flechaizq')
+								{
+									activitiescarousel.previous();							
+								}
+								if(event.target.parentNode.id=='flechader')
+								{
+									activitiescarousel.next();							
+								}
+								if(event.target.parentNode.id=='centro')
+								{
+									//this.startLevel();							
+								}
+		                
+		                    }},
 						html: iconoactivityHtml,
 						name: 'a'
 					});
 				}else
 				{
 					activitiescarousel.setItems({
+						listeners: {
+		                    tap: function() {
+								console.log(event);
+								if(event.target.parentNode.id=='flechaizq')
+								{
+									activitiescarousel.previous();							
+								}
+								if(event.target.parentNode.id=='flechader')
+								{
+									activitiescarousel.next();							
+								}
+								if(event.target.parentNode.id=='centro')
+								{
+									//this.startLevel();							
+								}
+		                
+		                    }},
 						html: iconoactivityHtml + flechaderHtml,
 						name: 'a'
 					});
@@ -407,17 +453,55 @@ Ext.define('DrGlearning.controller.Careers', {
 			}else if(i == activities.length-1)
 			{
 				activitiescarousel.setItems({
+					listeners: {
+		                    tap: function() {
+								console.log(event);
+								if(event.target.parentNode.id=='flechaizq')
+								{
+									activitiescarousel.previous();							
+								}
+								if(event.target.parentNode.id=='flechader')
+								{
+									activitiescarousel.next();							
+								}
+								if(event.target.parentNode.id=='centro')
+								{
+									//this.startLevel();							
+								}
+		                
+		                    }},
 					html: flechaizqHtml + iconoactivityHtml,
 					name: 'a'
 				});
 			}else
 			{
 				activitiescarousel.setItems({
+					listeners: {
+		                    tap: function() {
+								console.log(event);
+								if(event.target.parentNode.id=='flechaizq')
+								{
+									activitiescarousel.previous();							
+								}
+								if(event.target.parentNode.id=='flechader')
+								{
+									activitiescarousel.next();							
+								}
+								if(event.target.parentNode.id=='centro')
+								{
+									//this.startLevel();							
+								}
+		                
+		                    }},
 					html: flechaizqHtml + iconoactivityHtml + flechaderHtml,
 					name: 'a'
 				});
 			}
 		}
+		
+		console.log(currentActivity);
+		console.log(activitiescarousel);
+		activitiescarousel.setActiveItem(startingIndex);
 		detail.add(activitiescarousel);
 		view.down('title[id=title]').setTitle(newCareer.data.name);
     },
