@@ -67,7 +67,7 @@ Ext.define('DrGlearning.controller.Careers', {
                 tap: this.startLevel
             },
             'button[id=startActivity]': {
-                tap: this.startActivity
+                tap: this.startActivityFromCarousel
             },
             'searchfield[id=searchbox]': {
                 change: this.search
@@ -191,7 +191,7 @@ Ext.define('DrGlearning.controller.Careers', {
 		{
 			var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","PhD.png","PhD.png","PhD.png"];
 			console.log(filesImgs[levelData.customId-1]);
-			return "<div id='centro' align='center' style='top:20%'><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
+			return "<div id='centro' align='middle' ><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
 		}
 		,
 	updateCareer: function(newCareer){
@@ -380,20 +380,26 @@ Ext.define('DrGlearning.controller.Careers', {
             ui: 'light',
             direction: 'horizontal',
     	});
-		
+		var flechaizqHtml="<div><img src='resources/images/flechaizq.png' alt='flecha'></div>";
+		var flechaderHtml="<div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'></div>";
 		for(var i=0;i<activities.length;i++)
 		{
 			var activity=activities.getAt(i);
+			var iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>";
+			if(activity.data.successful)
+			{
+				iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "<div bottom='0'>Superadaaa, score: " + activity.data.score + "</div></div>";
+			}
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.setItems({
-						html: "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>",
+						html: iconoactivityHtml,
 						name: 'a'
 					});
 				}else
 				{
 					activitiescarousel.setItems({
-						html: "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div><div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'>",
+						html: iconoactivityHtml + flechaderHtml,
 						name: 'a'
 					});
 				}
@@ -401,13 +407,13 @@ Ext.define('DrGlearning.controller.Careers', {
 			}else if(i == activities.length-1)
 			{
 				activitiescarousel.setItems({
-					html: "<div><img src='resources/images/flechaizq.png' alt='flecha'></div><div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name +"</div>",
+					html: flechaizqHtml + iconoactivityHtml,
 					name: 'a'
 				});
 			}else
 			{
 				activitiescarousel.setItems({
-					html: "<div><img src='resources/images/flechaizq.png' alt='flecha'></div><div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div><div style='position:absolute;top:0;right:0'><img src='resources/images/flecha.png' alt='flecha'></div>",
+					html: flechaizqHtml + iconoactivityHtml + flechaderHtml,
 					name: 'a'
 				});
 			}
@@ -435,24 +441,53 @@ Ext.define('DrGlearning.controller.Careers', {
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
     },
-    startActivity: function(){
+    startActivityFromCarousel: function(){
 		var view1 = this.getLevelframe();
 		var detail= view1.down('leveldetail');
 		var activitiescarousel = detail.down('carousel');
         this.getActivityFrameView().create();
         var view = this.getActivityframe();
-        this.updateActivity(activitiescarousel.getActiveIndex());
+		var temp = this.getActivitiesStore().queryBy(function(record) {
+			return record.data.level_type==this.selectedlevel && record.data.careerId==this.selectedcareer.data.id ;
+		},this);
+		tempActivity = temp.items[activitiescarousel.getActiveIndex()];
+		console.log(tempActivity);
+        this.updateActivity(tempActivity.internalId);
         if (this.getLevelframe()) {
             this.getLevelframe().hide();
         }
         view.show();
     },
-	updateActivity: function(newActivityIndex) {
+	startActivity: function(idActivity){
+		var view1 = this.getLevelframe();
+		var detail= view1.down('leveldetail');
+		var activitiescarousel = detail.down('carousel');
+        this.getActivityFrameView().create();
+        var view = this.getActivityframe();
+        this.updateActivity(idActivity);
+        if (this.getLevelframe()) {
+            this.getLevelframe().hide();
+        }
+        view.show();
+	},
+	nextActivity: function(){
+		var currentLevel = this.getController('DaoController').getCurrenLevel(this.selectedcareer.internalId);
+		console.log(currentLevel);
+		console.log(this.selectedcareer.internalId);
+		var currentActivity = this.getController('DaoController').getCurrenActivity(this.selectedcareer.internalId,currentLevel);
+		console.log(currentActivity);
+		this.startActivity(currentActivity);
+		
+	},
+	updateActivity: function(newActivityId) {
 		var view = this.getActivityframe();
+		console.log(newActivityId);
 		var temp = this.getActivitiesStore().queryBy(function(record) {
-			return record.data.level_type==this.selectedlevel && record.data.careerId==this.selectedcareer.data.id ;
+			return record.data.id==newActivityId;
 		},this);
-		newActivity = temp.items[newActivityIndex];
+		//newActivity = temp.items[newActivityIndex];
+		console.log(temp);
+		newActivity=temp.items[0]; 
 		view.down('title[id=title]').setTitle(newActivity.data.name);
 		var activityView;
 		console.log(newActivity.data.activity_type);

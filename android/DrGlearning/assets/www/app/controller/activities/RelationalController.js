@@ -2,7 +2,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
   extend: 'Ext.app.Controller',
   requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
   views: ['ActivityFrame', 'activities.Relational'],
-  controllers: ['DrGlearning.controller.Careers'],
+  controllers: ['DrGlearning.controller.Careers','DrGlearning.controller.DaoController'],
   stores: ['Careers','Levels','Activities'],
   refs: [{
     ref: 'activities.reospatial',
@@ -11,7 +11,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     xtype: 'mainview'
   }],  
   updateActivity: function(view, newActivity) {
-
+	var daocontroller = this.getController('DaoController');
+	var careerscontroller = this.getController('Careers');
     var blankOption = "- - -";
     var playerPath = [];
     var pathStart, pathGoal, pathPosition;
@@ -101,7 +102,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
      * actual walked path and next options available */
     function refresh(option){
       activityView = Ext.create('DrGlearning.view.activities.Relational');
-      activityView.down('title').setTitle(newActivity.data.query);
+      activityView.down('label').setHtml(newActivity.data.query);
       var constraintsPanel = Ext.create('Ext.Panel', {
         html: getContraintsHTML()
       });
@@ -128,7 +129,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     }
   
     function successfulGame(){
-        console.log(newActivity.data.reward)
+        console.log(newActivity.data.reward);
+		Ext.Msg.alert('Right!', newActivity.data.reward, function(){
+				daocontroller.activityPlayed(newActivity.data.id,true,500);
+				careerscontroller.nextActivity();
+			}, this);
     }
   
     //Set the initial step as the initial node and the goal
