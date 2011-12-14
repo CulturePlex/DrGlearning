@@ -12,8 +12,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
   }],
 
   updateActivity: function(view, newActivity) {
-	var daocontroller = this.getController('DaoController');
-	var careerscontroller = this.getController('Careers');
+    var daocontroller = this.getController('DaoController');
+    var careerscontroller = this.getController('Careers');
     var blankOption = "- - -";
     var playerPath = [];
     var playerEdgePath = [];
@@ -183,11 +183,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
   
     function successfulGame(){
       if (allConstraintsPassed) {
-        console.log(newActivity.data.reward);
-		Ext.Msg.alert('Right!', newActivity.data.reward, function(){
-				daocontroller.activityPlayed(newActivity.data.id,true,500);
-				careerscontroller.nextActivity();
-			}, this);
+        Ext.Msg.alert('Right!', newActivity.data.reward, function(){
+          daocontroller.activityPlayed(newActivity.data.id,true,500);
+          careerscontroller.nextActivity();
+        }, this);
       }
     }
   

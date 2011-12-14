@@ -9,6 +9,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
        align: 'middle'
    },
 		fullscreen : true,
+		scrollable: true,
 		items : [ {
 			xtype : 'panel',
 			id : 'contentSencha',
