@@ -16,7 +16,7 @@ Ext.define('DrGlearning.model.Activity', {
 	extend : 'Ext.data.Model',
 	fields : [ {
 		name : "id",
-		type : "string"
+		type : "int"
 	}, {
 		name : "name",
 		type : "string"

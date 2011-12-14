@@ -185,6 +185,7 @@ Ext.define('DrGlearning.controller.Careers', {
             this.getActivityframe().hide();
         }
         var view1 = this.getLevelframe();
+		this.updateLevel(this.selectedcareer, this.selectedlevel);		
         view1.show();
     },
     onListTap: function(list, career){
@@ -419,9 +420,10 @@ Ext.define('DrGlearning.controller.Careers', {
 		{
 			var activity=activities.getAt(i);
 			console.log(currentActivity);
-			console.log(activity);
-			if(activity.internalId==currentActivity-1){
+			console.log(activity.data.id);
+			if(activity.data.id==currentActivity){
 				startingIndex=i;
+				console.log('este es! '+i);
 				
 			}
 			
@@ -527,7 +529,6 @@ Ext.define('DrGlearning.controller.Careers', {
 				});
 			}
 		}
-		
 		console.log(currentActivity);
 		console.log(activitiescarousel);
 		activitiescarousel.setActiveItem(startingIndex);
