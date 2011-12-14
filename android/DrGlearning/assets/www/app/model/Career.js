@@ -27,7 +27,7 @@ Ext.define('DrGlearning.model.Career', {
 		type: "string"
 	},{
 		name: "knowledges",
-		type: "string"
+		type: "auto"
 	},{
 		name: "timestamp",
 		type: "string"
