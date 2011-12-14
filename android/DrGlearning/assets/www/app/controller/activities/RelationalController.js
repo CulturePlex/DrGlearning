@@ -19,6 +19,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     var pathStart, pathGoal, pathPosition;
     var option;
     var activityView;
+    var allConstraintsPassed = false;
 
     var verboseOperator = {
       lt: "less than",
@@ -90,18 +91,35 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     }
 
     function constraintPassed(constraint){
-      return false;
+      var elementCount = 0;
+      var constraintValue = parseInt(constraint["value"]);
+      for(var i=0;i<playerPath.length;i++){
+        if (constraint["type"] === graphNodes[playerPath[i]]["type"]) {
+          elementCount++;
+        }
+      }
+      switch(constraint["operator"]) {
+        case "eq": return (elementCount===constraintValue);
+        case "neq": return (elementCount!=constraintValue);
+        case "let": return (elementCount<=constraintValue);
+        case "get": return (elementCount>=constraintValue);
+        case "lt": return (elementCount<constraintValue);
+        case "gt": return (elementCount>constraintValue);
+        default: return false;
+      }
     }
 
     function getContraintsHTML(){
       var constraintsText;
       var constraintClass;
+      allConstraintsPassed = true;
       constraintsText = '<p class="relational">Solve the riddle with the following constraints:<br/><ul>';
       for(var i=0;i<constraints.length;i++){
         if (constraintPassed(constraints[i])){
           constraintClass = "relational-constraint-passed";
         } else {
           constraintClass = "relational-constraints";
+          allConstraintsPassed = false;
         }
         constraintsText += '<li class="relational ' + constraintClass + '">- Nodes of type ';
         constraintsText += constraints[i]["type"] + ' ';
@@ -136,9 +154,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       activityView.add(constraintsPanel);
       for(var i=0;i<playerPath.length;i++){
         if (i!=0) {
-          var edgeText = '<span class="relational">|</span>';
-          edgeText += '<p class="relational">' + playerEdgePath[i-1] + '</p>';
-          edgeText += '<span>|</span>';
+          var edgeText = '<p class="relational">&lt;' + playerEdgePath[i-1] + '&gt;</p>';
           var edge = Ext.create('Ext.Panel' , {
             html: edgeText
           });
@@ -165,7 +181,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     }
   
     function successfulGame(){
+      if (allConstraintsPassed) {
         console.log(newActivity.data.reward)
+      }
     }
   
     //Set the initial step as the initial node and the goal
