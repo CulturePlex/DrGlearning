@@ -166,7 +166,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 			if(activity.data.successful){
 				if(activity.data.score<parseInt(score)){
 					activity.data.score=parseInt(score);
-					updateScore(activityID,score);
+					this.updateScore(activityID,score);
 				}
 			}else{
 				activity.data.score=parseInt(score);
@@ -233,26 +233,35 @@ Ext.define('DrGlearning.controller.DaoController', {
 	 * Return level id
 	 */
 	getCurrenLevel:function(carrerID){
-		var levels=getLevels(carrerID);
+		console.log(carrerID);
+		var levels=this.getLevels(carrerID);
+	
 		for(var i=1;i<=levels.length;i++){
-			var activities=getActivitiesByLevel(carrerID,i);
-			for(var j=0;j<activities.length;j++){
-				if(!activities[j].data.successful){
-					return i; 
+			var activities=this.getActivitiesByLevel(carrerID,levels[i]);
+			for(var j=0;j<activities.items.length;j++){
+				console.log(activities.items[j]);
+				if(!activities.items[j].data.successful){
+					console.log('hola');
+					return levels[i]; 
 				}
 			}
 		}
-		return 1;
+		console.log('el primer nivelse suponeq es:'+levels[0]);
+		return levels[0];
 	},
 	/*
 	 * Return activity id
 	 * 
 	 */
 	getCurrenActivity:function(carrerID,level){
-		var activities=getActivitiesByLevel(carrerID,i);
-		for(var j=0;j<activities.length;j++){
-			if(!activities[j].data.successful){
-				return activities[j].data.id; 
+		console.log(carrerID);
+		console.log(level);
+		var activities=this.getActivitiesByLevel(carrerID,level);
+		
+		for(var j=0;j<activities.items.length;j++){
+			console.log(activities.items[j]);
+			if(!activities.items[j].data.successful){
+				return activities.items[j].data.id; 
 			}
 		}
 		return activities[0].data.id;

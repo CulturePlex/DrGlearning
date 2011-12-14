@@ -38,10 +38,11 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			docked : 'top',
 			ui : 'gray',
 			items : [ {
-				xtype : 'title',
+				xtype : 'label',
 				id : 'query',
 				name : 'query',
-				title : 'Relational Test'
+				title : 'Relational Test',
+				
 			} ]
 
 		}, {

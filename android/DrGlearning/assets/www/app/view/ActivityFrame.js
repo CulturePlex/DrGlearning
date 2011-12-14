@@ -13,16 +13,13 @@ Ext.define('DrGlearning.view.ActivityFrame', {
                 docked: 'top',
 				name: 'up',
                 items: [
-                    { xtype: 'spacer', width: 35 },
-                    { xtype: 'spacer' },
                     {
                         xtype: 'title',
 						id: 'title',
 						name: 'title',
-                        title: 'Activity Name'
-                    },
-                    { xtype: 'spacer' }
-                  
+                        title: 'Activity Name',
+						width: '100%',
+                    }
                 ]
             },
 			{
