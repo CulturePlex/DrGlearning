@@ -2,7 +2,7 @@
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
     stores: [
-        'Careers','Activities'
+        'Careers','Activities','OfflineScores','Users'
     ],
 	
 	init: function(){
@@ -21,7 +21,8 @@ Ext.define('DrGlearning.controller.DaoController', {
     	var career=this.getCareersStore().getById(id);
     	var activities=career.data.activities;
     	activities=activities.split(",");
-    	console.log("activity "+activities);
+    	//console.log("activity "+activities);
+    	var activitiesInstalled=0;
 		for (cont in activities){
 			console.log(activities[cont]);
 			Ext.data.JsonP.request({
@@ -77,7 +78,11 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	activityModel.save();
                 	this.getActivitiesStore().sync();
 					this.getActivitiesStore().load();
-					console.log(this.getActivitiesStore());
+					activitiesInstalled=activitiesInstalled+1;
+					if(activities.length==activitiesInstalled){
+				    	myMask.hide();
+				    	callback(scope);
+		    		}
                 }
             });
 		}
@@ -85,9 +90,6 @@ Ext.define('DrGlearning.controller.DaoController', {
     	career.set('installed','true');
     	this.getCareersStore().load();
     	this.getCareersStore().sync();
-    	myMask.hide();
-    	callback(scope);
-
     },
     
     /* 
@@ -142,7 +144,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 					knowledges.push(carrerKnowledges[x]);
 				}
 			}
-			
 		},this);
 		return knowledges;
 	},
@@ -184,9 +185,11 @@ Ext.define('DrGlearning.controller.DaoController', {
 		activitiesStore.sync();
 	},
 	updateScore:function(activityID,score){
-		if(navigator.network.connection.type!=Connection.NONE){
-			var user=usersStore.first();
-			var HOST = "http://drglearning.testing.cultureplex.ca";
+		var offlineScoreStore=this.getOfflineScoresStore();
+		var usersStore = this.getUsersStore();
+		var user=usersStore.first();
+		var HOST = "http://drglearning.testing.cultureplex.ca";
+		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
 			Ext.data.JsonP.request({
 				scope: this,
 			    url: HOST+"/api/v1/highscore/?format=jsonp",
@@ -199,6 +202,31 @@ Ext.define('DrGlearning.controller.DaoController', {
 			    	console.log("Score successfully updated");
 				}
 			});
+			var offlineScoreOld=offlineScoreStore.queryBy(function(record) {
+				if(record.data.activity_id==activityID){
+					return true;
+				}
+			});
+			offlineScoreOld.destroy();
+			offlineScoreStore.sync();
+			offlineScoreStore.load();
+			updateOfflineScores();
+		}else{
+			var offlineScore=offlineScoreStore.queryBy(function(record) {
+				if(record.data.activity_id==activityID){
+					return true;
+				}
+			});
+			var offlineScoreModel=new DrGlearning.model.OfflineScore({
+				activity_id : activityID,
+        		score : score
+        	});
+			if(offlineScore.getCount()!=0){
+				offlineScoreModel.set('id',offlineScore.first().data.id);
+			}
+			offlineScoreModel.save();
+			offlineScoreStore.sync();
+			offlineScoreStore.load();
 		}
 	},
 	/*
@@ -228,6 +256,29 @@ Ext.define('DrGlearning.controller.DaoController', {
 			}
 		}
 		return activities[0].data.id;
+	},
+	updateOfflineScores:function(){
+		var offlineScoreStore=this.getOfflineScoresStore();
+		var usersStore = this.getUsersStore();
+		var user=usersStore.first();
+		var HOST = 'http://drglearning.testing.cultureplex.ca';
+		offlineScoreStore.each(function(item) {
+			Ext.data.JsonP.request({
+				scope: this,
+			    url: HOST+'/api/v1/highscore/?format=jsonp',
+			    params: {
+			    	player_code: user.data.uniqueid,
+			    	activity_id: item.data.activityID,
+			    	score: item.data.score
+			    },
+			    success: function(response){
+			    	console.log("Score successfully updated");
+			    	item.destroy();
+				}
+			});
+		},this);
+		offlineScoreStore.sync();
+		offlineScoreStore.load();	
 	}
 
 });

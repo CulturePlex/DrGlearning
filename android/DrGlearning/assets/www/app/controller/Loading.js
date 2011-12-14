@@ -1,7 +1,7 @@
 //Ext.require('Phonegap');
 Ext.define('DrGlearning.controller.Loading', {
     extend: 'Ext.app.Controller',
-    //requires: 'Phonegap',
+    requires: ['DrGlearning.controller.DaoController'],
 	
 	views : [
 	        'Loading'	,
@@ -28,7 +28,6 @@ Ext.define('DrGlearning.controller.Loading', {
 	},
 	
 	onLaunch: function() {
-		
 		if(window.InternalApi != undefined){
 			console.log(window.InternalApi.getTest());
 		}
@@ -42,9 +41,9 @@ Ext.define('DrGlearning.controller.Loading', {
 		var usersStore = this.getUsersStore();
 		usersStore.load();
 		//Create user if needed
-		if(usersStore.count()==0){
+		if(window.device != undefined && usersStore.count()==0 ){
 			console.log("New user");
-			var digest=this.SHA1(device.uuid+" "+new Date().getTime());
+			var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());
 			console.log(digest);
 			var userModel=new DrGlearning.model.User({
 				uniqueid:digest
@@ -52,7 +51,7 @@ Ext.define('DrGlearning.controller.Loading', {
 			userModel.save();
 			usersStore.sync();
 		}
-		if(navigator.network.connection.type!=Connection.NONE){
+		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
 				//Register user if needed
 				var user=usersStore.first();
 				if(user != undefined && user.data.serverid==""){
@@ -109,6 +108,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    			careerModel.set('activities',activities);
 	                    			careerModel.save();
 	                    			careersStore.sync();
+	                    			careersStore.load();
 	                    			console.log("Careers stored after add = "+careersStore.count());
 	                    		}else{
 	                    			console.log("Career already exist -> id="+career.id);
@@ -121,6 +121,8 @@ Ext.define('DrGlearning.controller.Loading', {
 
 	                    }
 	                });
+	    			//Scores Updates
+	    			this.getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
 	    	  	myMask.hide();

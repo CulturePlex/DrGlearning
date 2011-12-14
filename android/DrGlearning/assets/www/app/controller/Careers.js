@@ -343,7 +343,6 @@ Ext.define('DrGlearning.controller.Careers', {
             view.hide();
         }
         view12.down('careerslist').refresh();
-        console.log("Q pasa? "+this.loading);
         if (store.getCount() == 0) {
 			console.log(store.getCount());
             view12.down('careerslist').mask('No more careers to install');
@@ -474,6 +473,9 @@ Ext.define('DrGlearning.controller.Careers', {
 			this.getController('activities.RelationalController').updateActivity(view,newActivity);
 		}else if(newActivity.data.activity_type == 'temporal'){
 			this.getController('activities.TemporalController').updateActivity(view,newActivity);
+		
+		//else if(newActivity.data.activity_type == 'linguistic'){
+		//	this.getController('activities.LinguisticController').updateActivity(view,newActivity);
 		}else{
 			view.down('component[id=activity]').destroy();
 			activityView=Ext.create('DrGlearning.view.activities.ActivityContent');			
