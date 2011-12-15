@@ -48,16 +48,27 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 					]
                 
             },{
-                xtype: 'textfield',
+				xtype: 'toolbar',
                 docked: 'bottom',
-				customId: 'letter',
-				name: 'letter',
-                title: 'Error'
-            },{
-                xtype: 'label',
-                docked: 'bottom',
-				customId: 'loqued',
-            }
+                ui: 'gray',
+                items:[
+                    {
+		                xtype: 'textfield',
+		                docked: 'bottom',
+						customId: 'letter',
+						name: 'letter',
+		                title: 'Error'
+		            },
+					{
+						 xtype: 'spacer' 
+					},{
+		                xtype: 'label',
+		                docked: 'bottom',
+						customId: 'loqued',
+		            }
+				]
+			}
+			
 		]
     },
 	

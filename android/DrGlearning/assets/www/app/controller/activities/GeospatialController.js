@@ -105,12 +105,12 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		if (distancia < radio) {
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.getController('Careers').nextActivity();
+				this.getController('Activities').nextActivity();
 			}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct place', function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,false,0);
-				this.getController('Careers').tolevel();
+				this.getController('Activities').tolevel();
 			}, this);
 		}
 	}

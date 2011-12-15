@@ -32,7 +32,7 @@ Ext.define('DrGlearning.view.LevelFrame', {
                 items:[
                     {
                         xtype: 'button',
-						id: 'backtocareer',
+						id: 'backtolevels',
                         text: 'Back',
 						ui:'back',
 						controller: 'DrGlearning.controller.Career',

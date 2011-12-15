@@ -14,7 +14,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	respuestas:null,
 	initializate: function(){
 		this.control({
-			'button[customId=respuesta]': {
+			'button[customId=solve]': {
 				tap: this.tryIt
 			}
 		});
@@ -24,7 +24,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Linguistic');
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		
@@ -39,11 +39,11 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		if (event.target.textContent == this.activity.data.answer) 
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getController('Careers').tolevel();
+					this.getController('Activities').tolevel();
 				}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
-				this.getController('Careers').tolevel();
+				this.getController('Activities').tolevel();
 			}, this);
 		}
 		
