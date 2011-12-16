@@ -36,6 +36,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
 						customId: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
+						customId: 'backtolevel',
 						controller: 'DrGlearning.controller.Career',
 						action: 'index',
 					},

@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.controller.activities.LinguisticController', {
-    extend: 'Ext.app.Controller',
+    extend: 'DrGlearning.controller.ActivityController',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
     views: ['ActivityFrame', 'activities.Linguistic'],
 	controllers: ['DrGlearning.controller.Careers'],
@@ -39,11 +39,11 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		if (event.target.textContent == this.activity.data.answer) 
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getController('Activities').tolevel();
+					this.levelController.tolevel();
 				}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
-				this.getController('Activities').tolevel();
+				this.levelController.tolevel();
 			}, this);
 		}
 		

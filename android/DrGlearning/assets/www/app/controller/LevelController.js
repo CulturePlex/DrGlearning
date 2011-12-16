@@ -2,7 +2,7 @@
  * @class DrGlearning.controller.Activities
  * @extends Ext.app.Controller
  *
- * Controller to manage Activities Menu and Logic.
+ * Controller to manage Level Menu and Logic.
  */
 Ext.define('DrGlearning.controller.LevelController', {
     extend: 'Ext.app.Controller',
@@ -20,6 +20,9 @@ Ext.define('DrGlearning.controller.LevelController', {
     }
 	],
 	activityView:null,
+	/*
+	 * Initializate Controller.
+	 */
     initializate: function(){
 		this.careersListController=this.getController('CareersListController');
 		this.careerController=this.getController('CareerController');
@@ -31,19 +34,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 			},
 			'button[id=startActivity]': {
 				tap: this.startActivity
-			},
-            'button[customId=backtolevel]': {
-                tap: this.tolevel
-            }
+			}
 		});
-    },
- 	tolevel: function(){
-        if (this.getActivityframe()) {
-            this.getActivityframe().hide();
-        }
-        var view1 = this.getLevelframe();
-		this.updateLevel(this.careersListController.selectedcareer, this.selectedlevel);		
-        view1.show();
     },
     tolevels: function(){
         if (this.getLevelframe()) {

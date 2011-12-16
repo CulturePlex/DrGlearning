@@ -36,7 +36,7 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 						text: 'Back',
 						ui: 'back',
 						controller: 'DrGlearning.controller.Career',
-						action: 'index',
+						action: 'index'
 					},
 					{
 						 xtype: 'spacer' 

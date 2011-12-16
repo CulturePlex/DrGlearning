@@ -34,6 +34,7 @@ Ext.define('DrGlearning.view.activities.Temporal', {
                     {
 						xtype: 'button',
 						customId: 'backtolevel',
+						id: 'backtolevel',
 						text: 'Back',
 						ui: 'back',
 					},

@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.controller.activities.RelationalController', {
-  extend: 'Ext.app.Controller',
+  extend: 'DrGlearning.controller.ActivityController',
   requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
   views: ['ActivityFrame', 'activities.Relational'],
   controllers: ['DrGlearning.controller.Careers','DrGlearning.controller.DaoController'],
@@ -13,8 +13,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 
   updateActivity: function(view, newActivity) {
     var daocontroller = this.getController('DaoController');
-    var careerscontroller = this.getController('Careers');
-	var activitiescontroller = this.getController('Activities');
+    var careerscontroller = this.getController('CareersListController');
+	var activitiescontroller = this.getController('LevelController');
     var blankOption = "- - -";
     var playerPath = [];
     var playerEdgePath = [];
@@ -186,7 +186,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (allConstraintsPassed) {
         Ext.Msg.alert('Right!', newActivity.data.reward, function(){
           daocontroller.activityPlayed(newActivity.data.id,true,500);
-          activitiescontroller.nextActivity();
+          this.levelController.nextActivity();
         }, this);
       }
     }

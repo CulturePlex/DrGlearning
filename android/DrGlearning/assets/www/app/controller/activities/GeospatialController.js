@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.controller.activities.GeospatialController', {
-    extend: 'Ext.app.Controller',
+    extend: 'DrGlearning.controller.ActivityController',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
     views: ['ActivityFrame', 'activities.Geospatial'],
 	controllers: ['DrGlearning.controller.Careers'],
@@ -105,12 +105,12 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		if (distancia < radio) {
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.getController('Activities').nextActivity();
+				this.levelController.nextActivity();
 			}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct place', function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,false,0);
-				this.getController('Activities').tolevel();
+				this.levelController.tolevel();
 			}, this);
 		}
 	}

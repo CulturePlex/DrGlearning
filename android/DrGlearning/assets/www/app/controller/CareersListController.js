@@ -2,7 +2,7 @@
  * @class DrGlearning.controller.CareersListController
  * @extends Ext.app.Controller
  *
- * Controller to manage Careers Menu and Logic.
+ * Controller to manage Careers List Menu and Logic.
  */
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
@@ -27,6 +27,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	knowledgeFields: null,
 	flechaizqHtml:"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><img src='resources/images/flechaizq.png' alt='flecha'></div>",
 	flechaderHtml:"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><img src='resources/images/flecha.png' alt='flecha'></div>",
+	/*
+	 * Initializate Controller.
+	 */
     initializate: function(){
 		this.careerController=this.getController('CareerController');
 		this.levelController=this.getController('LevelController');
@@ -75,6 +78,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
         });
         this.index();
     },
+	/*
+	 * Showing Installed Careers.
+	 */
     index: function(){
         var store = this.getCareersStore();
         store.clearFilter();
@@ -99,6 +105,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		//console.log(view1.getItems());
         view1.show();
     },
+	/*
+	 * Method call when tap on a Carrer Item inthe list.
+	 */
 	addOrStartCareer: function(list, career){
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
@@ -116,6 +125,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			this.getCareersframe().hide();
 		}
     },
+	/*
+	 * Callback function for Career install finished. 
+	 */
 	installFinished: function(scope){
 		if(scope.id!='Careers')
 		{
@@ -123,6 +135,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		}
 		scope.index();
     },
+	/*
+	 * Filer Careers by started/not started atribute.
+	 */
     filterCareers: function(){
         var store = this.getCareersStore();
         store.clearFilter();
@@ -152,6 +167,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
         store.load();
         view1.down('careerslist').refresh();
     },*/
+	/*
+	 * Showing not installed carrers (menu to install new career).
+	 */
     addCareer: function(){
 		
 		knowledgeFields = ["Materia 1","Materia 2"];
@@ -182,6 +200,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view12.down('toolbar[id=toolbarBottomAdd]').show();
         view12.show();
     },
+	/*
+	 * Searching for specific career by writing in searchbox.
+	 */
     search: function(values, form){
         form = form.toLowerCase();
         var store = this.getCareersStore();

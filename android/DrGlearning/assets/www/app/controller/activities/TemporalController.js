@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.controller.activities.TemporalController', {
-    extend: 'Ext.app.Controller',
+    extend: 'DrGlearning.controller.ActivityController',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
     views: ['ActivityFrame', 'activities.Temporal'],
 	controllers: ['DrGlearning.controller.Careers'],
@@ -35,12 +35,12 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.getController('Activities').nextActivity();
+				this.levelController.nextActivity();
 			},this);
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
-				this.getController('Activities').tolevel();
+				this.levelController.tolevel();
 			},this);
 		} 
 	},
@@ -48,13 +48,13 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.getController('Activities').nextActivity();
+				this.levelController.nextActivity();
 			},this);
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
 				console.log(this.getController('Careers'));
-				this.getController('Activities').tolevel();
+				this.levelController.tolevel();
 			},this);
 		} 
 	}

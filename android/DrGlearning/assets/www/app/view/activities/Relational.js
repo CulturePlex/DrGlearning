@@ -52,9 +52,9 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			ui : 'gray',
 			items : [ {
 				xtype : 'button',
-				customId : 'backtolevel',
 				text : 'Back',
 				ui : 'back',
+				customId: 'backtolevel',
 				controller : 'DrGlearning.controller.Career',
 				action : 'index'
 			}, {
