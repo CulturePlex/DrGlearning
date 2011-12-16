@@ -30,7 +30,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 	/*
 	 * Initializate Controller.
 	 */
-    initializate: function(){
+    init: function(){
 		this.careersListController=this.getController('CareersListController');
 		this.levelController=this.getController('LevelController');
 		this.getCareerFrameView().create();

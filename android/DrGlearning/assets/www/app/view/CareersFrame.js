@@ -13,7 +13,8 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 xtype: 'spacer'
             }, {
                 xtype: 'title',
-                title: 'Dr. Glearning'
+                title: 'Dr. Glearning',
+				ui:'light'	
             }, {
                 xtype: 'spacer'
             }]

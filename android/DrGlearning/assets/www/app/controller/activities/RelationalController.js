@@ -1,11 +1,11 @@
 Ext.define('DrGlearning.controller.activities.RelationalController', {
-  extend: 'DrGlearning.controller.ActivityController',
+  extend: 'Ext.app.Controller',
   requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
   views: ['ActivityFrame', 'activities.Relational'],
   controllers: ['DrGlearning.controller.Careers','DrGlearning.controller.DaoController'],
   stores: ['Careers','Levels','Activities'],
   refs: [{
-    ref: 'activities.reospatial',
+    ref: 'activities.relational',
     selector: 'mainview',
     autoCreate: true,
     xtype: 'mainview'
@@ -186,7 +186,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (allConstraintsPassed) {
         Ext.Msg.alert('Right!', newActivity.data.reward, function(){
           daocontroller.activityPlayed(newActivity.data.id,true,500);
-          this.levelController.nextActivity();
+          this.activitiesController.nextActivity();
         }, this);
       }
     }

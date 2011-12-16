@@ -6,7 +6,7 @@
  */
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.controller.CareerController','DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.controller.activities.LinguisticController','DrGlearning.view.Settings'],
+    requires: ['DrGlearning.controller.ActivityController','DrGlearning.controller.CareerController','DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.controller.activities.LinguisticController','DrGlearning.view.Settings'],
     views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList','Settings'],
     stores: ['Careers','Levels','Activities','Users'],
     refs: [{
@@ -33,12 +33,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
     initializate: function(){
 		this.careerController=this.getController('CareerController');
 		this.levelController=this.getController('LevelController');
-		this.getController('activities.VisualController').initializate();
-		this.getController('activities.GeospatialController').initializate();
-		this.getController('activities.TemporalController').initializate();
-		this.getController('activities.LinguisticController').initializate();
-		this.careerController.initializate();
-		this.levelController.initializate();
         this.getMainView().create();
         this.control({
             'careerslistitem': {

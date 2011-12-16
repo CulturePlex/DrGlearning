@@ -12,3 +12,6 @@ li.relational-constraint-passed {
   background-color: #ADFF9B;
 }
 
+.career-name div{font-weight:bold;}
+.career-description div{font-size: 100%;}
+.career-creator div{}

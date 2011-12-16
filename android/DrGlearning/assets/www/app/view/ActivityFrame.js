@@ -1,9 +1,7 @@
 Ext.define('DrGlearning.view.ActivityFrame', {
     extend: 'Ext.Container',
 	xtype: 'activityframe',
-    requires: [
-		'DrGlearning.view.activities.ActivityContent',	
-    ],
+    
 	config: {
         items: [
             {

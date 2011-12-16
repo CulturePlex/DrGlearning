@@ -1,21 +1,33 @@
 Ext.define('DrGlearning.controller.activities.GeospatialController', {
-    extend: 'DrGlearning.controller.ActivityController',
+    extend: 'Ext.app.Controller',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
     views: ['ActivityFrame', 'activities.Geospatial'],
 	controllers: ['DrGlearning.controller.Careers'],
     stores: ['Careers','Levels','Activities'],
-	refs: [{
-        ref: 'activities.geospatial',
-        selector: 'mainview',
-        autoCreate: true,
-        xtype: 'mainview'
-    }],	
+	refs: [
+		{
+	        ref: 'activities.geospatial',
+	        selector: 'mainview',
+	        autoCreate: true,
+	        xtype: 'mainview'
+    	},{
+	        ref: 'activityframe',
+	        selector: 'activityframe',
+	        xtype: 'activityframe'
+    	}
+	],	
 	elmarker:null,
 	elpunto:null,
 	radio:null,
 	activity:null,
 	activityView:null,
-	initializate: function(){
+	init: function(){
+		this.levelController=this.getController('LevelController');
+		console.log(this.levelController);
+		console.log('asssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
+		this.careersListController=this.getController('CareersListController');
+		this.getActivityFrameView().create();
+		this.activityView=this.getActivityframe();
 		this.control({
 			'button[customId=confirm]': {
 				tap: this.confirm
@@ -109,9 +121,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 			}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct place', function(){
-				this.getController('DaoController').activityPlayed(this.activity.data.id,false,0);
 				this.levelController.tolevel();
 			}, this);
 		}
-	}
+	},
+	
 });

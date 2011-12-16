@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.controller.activities.VisualController', {
-    extend: 'DrGlearning.controller.ActivityController',
+    extend: 'Ext.app.Controller',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
     views: ['ActivityFrame', 'activities.Geospatial'],
 	controllers: ['DrGlearning.controller.Careers'],
@@ -12,7 +12,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     }],	
 	activity:null,
 	respuestas:null,
-	initializate: function(){
+	init: function(){
+		this.levelController = this.getController('LevelController');
 		this.control({
 			'button[customId=respuesta]': {
 				tap: this.tryIt

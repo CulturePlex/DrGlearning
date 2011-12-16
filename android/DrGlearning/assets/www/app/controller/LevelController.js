@@ -23,7 +23,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 	/*
 	 * Initializate Controller.
 	 */
-    initializate: function(){
+    init: function(){
 		this.careersListController=this.getController('CareersListController');
 		this.careerController=this.getController('CareerController');
 		this.levelController=this.getController('LevelController');
@@ -34,7 +34,10 @@ Ext.define('DrGlearning.controller.LevelController', {
 			},
 			'button[id=startActivity]': {
 				tap: this.startActivity
-			}
+			},
+            'button[customId=backtolevel]': {
+                tap: this.tolevel
+            }
 		});
     },
     tolevels: function(){
@@ -228,6 +231,13 @@ Ext.define('DrGlearning.controller.LevelController', {
 		var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
 		console.log(currentActivity);
 		this.startActivity(currentActivity);
-		
-	}
+	},
+	tolevel: function(){
+        if (this.activityView) {
+            this.activityView.hide();
+        }
+        var view1 = this.getLevelframe();
+		this.updateLevel(this.careersListController.selectedcareer, this.levelController.selectedlevel);		
+        view1.show();
+    }
 });

@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.controller.activities.TemporalController', {
-    extend: 'DrGlearning.controller.ActivityController',
+    extend: 'Ext.app.Controller',
     requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
     views: ['ActivityFrame', 'activities.Temporal'],
 	controllers: ['DrGlearning.controller.Careers'],
@@ -11,7 +11,8 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
         xtype: 'mainview'
     }],	
 	activity:null,
-	initializate: function(){
+	init: function(){
+		this.levelController = this.getController('LevelController');
 		this.control({
 			'button[customId=after]': {
 				tap: this.after
@@ -53,7 +54,6 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
-				console.log(this.getController('Careers'));
 				this.levelController.tolevel();
 			},this);
 		} 
