@@ -24,26 +24,8 @@ Ext.define('DrGlearning.controller.ActivityController', {
 	 * Initializate Controller.
 	 */
     init: function(){
-		this.levelController=this.getController('LevelController');
-		console.log(this.levelController);
-		console.log('asssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-		this.careersListController=this.getController('CareersListController');
-		this.getActivityFrameView().create();
-		this.activityView=this.getActivityframe();
-       	this.control({
-            'button[customId=backtolevel]': {
-                tap: this.tolevel
-            }
-		});
+		
     },
-	tolevel: function(){
-        if (this.activityView) {
-            this.activityView.hide();
-        }
-		console.log(this.levelController);
-        var view1 = this.levelController.getLevelframe();
-		this.levelController.updateLevel(this.careersListController.selectedcareer, this.levelController.selectedlevel);		
-        view1.show();
-    }
+	
  	
 });
