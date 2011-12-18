@@ -6,7 +6,7 @@
  */
 Ext.define('DrGlearning.controller.LevelController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController'],
+    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.controller.activities.RelationalController'],
     views: ['LevelFrame','ActivityFrame'],
     stores: ['Careers','Levels','Activities','Users'],
     refs: [{
