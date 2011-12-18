@@ -7,7 +7,6 @@ Ext.define('DrGlearning.view.ActivityFrame', {
             {
 				ref: 'toolbar',
                 xtype: 'toolbar',
-                ui   : 'green',
                 docked: 'top',
 				name: 'up',
                 items: [

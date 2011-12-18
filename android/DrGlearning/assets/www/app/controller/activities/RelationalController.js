@@ -12,6 +12,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
   }],
 
   updateActivity: function(view, newActivity) {
+  	if(view.down('component[customId=activity]'))
+	{
+		view.down('component[customId=activity]').hide();
+		view.down('component[customId=activity]').destroy();
+	}
+	console.log(this);
     var daocontroller = this.getController('DaoController');
     var careerscontroller = this.getController('CareersListController');
 	var activitiescontroller = this.getController('LevelController');
@@ -180,6 +186,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       activityView.add(endNode);
       activityView.add(button);
       view.add(activityView);
+	  console.log(view);
     }
   
     function successfulGame(){

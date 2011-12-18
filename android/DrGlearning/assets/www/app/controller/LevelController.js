@@ -37,7 +37,12 @@ Ext.define('DrGlearning.controller.LevelController', {
 			},
             'button[customId=backtolevel]': {
                 tap: this.tolevel
+            },
+			'[customId=centro]': {
+                tap: this.startActivity
             }
+			
+			
 		});
     },
     tolevels: function(){
@@ -47,6 +52,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         this.careerController.tocareer();
     },
 	updateLevel: function(newCareer,newLevel) {
+		levelController=this.getController('LevelController');
 		this.selectedlevel=newLevel;
 		var view = this.getLevelframe();
 		var detail= view.down('leveldetail');
@@ -72,28 +78,28 @@ Ext.define('DrGlearning.controller.LevelController', {
 			if(activity.data.id==currentActivity){
 				startingIndex=i;
 			}
-			var iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>";
+			var iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>";
 			if(activity.data.successful)
 			{
-				iconoactivityHtml = "<div align='center' style='position:absolute;margin:0 auto 0 auto;height:100%; width:70%;top:0;left:15%;background-color:#999999;'>" + activity.data.name + "<div bottom='0'>Score: " + activity.data.score + "<img src=resources/images/tick.png></div></div>";
+				iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto;height:100%; width:70%;top:0;left:15%;background-color:#999999;'>" + activity.data.name + "<div bottom='0'>Score: " + activity.data.score + "<img src=resources/images/tick.png></div></div>";
 			}
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.setItems({
 						listeners: {
-		                    tap: function() {
+		                    tap: function(scope) {
 								console.log(event);
 								if(event.target.parentNode.id=='flechaizq')
 								{
 									activitiescarousel.previous();							
 								}
-								if(event.target.parentNode.id=='flechader')
+								else if(event.target.parentNode.id=='flechader')
 								{
 									activitiescarousel.next();							
 								}
-								if(event.target.parentNode.id=='centro')
+								else
 								{
-									//this.startLevel();							
+									levelController.startActivity();						
 								}
 
 		                    }},
@@ -104,19 +110,19 @@ Ext.define('DrGlearning.controller.LevelController', {
 				{
 					activitiescarousel.setItems({
 						listeners: {
-		                    tap: function() {
+		                    tap: function(scope) {
 								console.log(event);
 								if(event.target.parentNode.id=='flechaizq')
 								{
 									activitiescarousel.previous();							
 								}
-								if(event.target.parentNode.id=='flechader')
+								else if(event.target.parentNode.id=='flechader')
 								{
 									activitiescarousel.next();							
 								}
-								if(event.target.parentNode.id=='centro')
+								else
 								{
-									//this.startLevel();							
+									levelController.startActivity();					
 								}
 
 		                    }},
@@ -129,19 +135,19 @@ Ext.define('DrGlearning.controller.LevelController', {
 			{
 				activitiescarousel.setItems({
 					listeners: {
-		                    tap: function() {
+		                    tap: function(scope) {
 								console.log(event);
 								if(event.target.parentNode.id=='flechaizq')
 								{
 									activitiescarousel.previous();							
 								}
-								if(event.target.parentNode.id=='flechader')
+								else if(event.target.parentNode.id=='flechader')
 								{
 									activitiescarousel.next();							
 								}
-								if(event.target.parentNode.id=='centro')
+								else
 								{
-									//this.startLevel();							
+									levelController.startActivity();						
 								}
 
 		                    }},
@@ -152,19 +158,19 @@ Ext.define('DrGlearning.controller.LevelController', {
 			{
 				activitiescarousel.setItems({
 					listeners: {
-		                    tap: function() {
+		                    tap: function(scope) {
 								console.log(event);
 								if(event.target.parentNode.id=='flechaizq')
 								{
 									activitiescarousel.previous();							
 								}
-								if(event.target.parentNode.id=='flechader')
+								else if(event.target.parentNode.id=='flechader')
 								{
 									activitiescarousel.next();							
 								}
-								if(event.target.parentNode.id=='centro')
+								else 
 								{
-									//this.startLevel();							
+									levelController.startActivity();						
 								}
 
 		                    }},
@@ -228,9 +234,20 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.activityView.destroy();
 		}*/
 		var currentLevel = this.getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
-		var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
-		console.log(currentActivity);
-		this.startActivity(currentActivity);
+		//console.log(currentLevel);
+		/*if(this.getStore('Activities').queryBy)
+		{*/
+			var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
+			this.startActivity(currentActivity);
+		/*}
+		else
+		{
+			Ext.Msg.alert('Congrats!', 'You have complete this level!', function(){
+				
+			}, this);	
+		}*/
+		//console.log(currentActivity);
+		
 	},
 	tolevel: function(){
         if (this.activityView) {

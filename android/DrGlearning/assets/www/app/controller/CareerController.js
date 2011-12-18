@@ -71,6 +71,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 	 * Update Career View.
 	 */
 	updateCareer: function(newCareer){
+		careerController=this.getController('CareerController');
 		var view = this.getCareerframe();
 		var detail= view.down('careerdetail');
 		var description = detail.down('careerdescription');
@@ -105,12 +106,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 						html: levelButtonHtml,
 						listeners: {
 	                    tap: function() {
-							console.log(event);
-							if(event.target.parentNode.id=='centro')
-							{
-								//this.startLevel();							
-							}
-	                
+							careerController.startLevel();							
 	                    }},
 						name: 'a',
 					});
@@ -125,9 +121,9 @@ Ext.define('DrGlearning.controller.CareerController', {
 							{
 								levelscarousel.next();							
 							}
-							if(event.target.parentNode.id=='centro')
+							else
 							{
-								//this.startLevel;							
+								careerController.startLevel();								
 							}
                 
                     }},
@@ -145,9 +141,9 @@ Ext.define('DrGlearning.controller.CareerController', {
 						{
 							levelscarousel.previous();							
 						}
-						if(event.target.parentNode.id=='centro')
+						else
 						{
-							//this.startLevel();							
+							careerController.startLevel();								
 						}
                 
                     }},
@@ -166,13 +162,13 @@ Ext.define('DrGlearning.controller.CareerController', {
 						{
 							levelscarousel.previous();							
 						}
-						if(event.target.parentNode.id=='flechader')
+						else if(event.target.parentNode.id=='flechader')
 						{
 							levelscarousel.next();							
 						}
-						if(event.target.parentNode.id=='centro')
+						else
 						{
-							//this.startLevel();							
+							careerController.startLevel();					
 						}
                 
                     }},

@@ -9,7 +9,6 @@ Ext.define('DrGlearning.view.CareerFrame', {
             {
 				ref: 'toolbar',
                 xtype: 'toolbar',
-                ui   : 'green',
                 docked: 'top',
 				name: 'up',
                 items: [
@@ -28,7 +27,6 @@ Ext.define('DrGlearning.view.CareerFrame', {
 			{
                 xtype: 'toolbar',
                 docked: 'bottom',
-                ui: 'gray',
                 items:[
                     {
                         xtype: 'button',

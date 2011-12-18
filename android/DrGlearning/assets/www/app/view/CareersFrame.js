@@ -7,21 +7,18 @@ Ext.define('DrGlearning.view.CareersFrame', {
         items: [
                 {
             xtype: 'toolbar',
-            ui: 'green',
             docked: 'top',
             items: [{
                 xtype: 'spacer'
             }, {
                 xtype: 'title',
                 title: 'Dr. Glearning',
-				ui:'light'	
             }, {
                 xtype: 'spacer'
             }]
         }, {
             xtype: 'toolbar',
             docked: 'top',
-            ui: 'gray',
             id: 'toolbarTopNormal',
             items: [{
                 xtype: 'selectfield',
@@ -50,7 +47,6 @@ Ext.define('DrGlearning.view.CareersFrame', {
         }, {
             xtype: 'toolbar',
             docked: 'top',
-            ui: 'gray',
             id: 'toolbarTopAdd',
             items: [{
                 xtype: 'searchfield',
@@ -76,7 +72,6 @@ Ext.define('DrGlearning.view.CareersFrame', {
         }, {
             xtype: 'toolbar',
             docked: 'bottom',
-            ui: 'gray',
             id: 'toolbarBottomAdd',
             items: [{
                 xtype: 'button',
@@ -97,7 +92,6 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 pack:'center',
                 align: 'center'
             },
-            ui: 'gray',
             id: 'toolbarBottomSettings',
             items: [{
                 id: 'settings',

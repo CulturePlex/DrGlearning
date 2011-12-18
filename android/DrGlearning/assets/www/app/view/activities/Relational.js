@@ -17,7 +17,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			layout : 'fit',
 			fullscreen : true,
 			initialize : function() {
-				var sketch=Ext.getCmp('contentSencha').getEl();
+				/*var sketch=Ext.getCmp('contentSencha').getEl();
 				
 				//Initializing Canvas and sketch
                 //var canvas = document.getElementById("sketch");
@@ -32,7 +32,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
 				}else{
 					//console.log("Y tenemos un canvas!!!");
 				}
-				//prueba();
+				//prueba();*/
 			}
 		}, {
 			xtype : 'toolbar',
