@@ -79,30 +79,18 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var levelscarousel = detail.down('carousel');
 		var levelstemp = new Array();
 		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
-		levelscarousel.destroy();
-		levelscarousel=Ext.create('Ext.Carousel', {
-    		layout: {
-            type: 'vbox',
-            align: 'stretch'
-        },
-        	xtype: 'carousel',
-            ui: 'light',
-            direction: 'horizontal',
-    	});
-		var carouselcolor='0x1c7e29';
-		
+		var items=[];
 		var levelButtonHtml;
-		
 		for(var i=0;i<levelstemp.length;i++)
 		{
 		
 			
 			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
 			levelButtonHtml=this.getLevelHtml(level.data);
-			//levelButtonHtml = this.getLevelHtml(level.data);
 			if (i == 0) {
 				if (i == levelstemp.length - 1) {
-					levelscarousel.setItems({
+					levelscarousel.add({
+						xtype: 'panel',
 						html: levelButtonHtml,
 						listeners: {
 	                    tap: function() {
@@ -112,7 +100,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 					});
 				}else
 				{
-					levelscarousel.setItems({
+					levelscarousel.add({
+						xtype: 'panel',
 						html: levelButtonHtml+this.flechaderHtml,
 						listeners: {
                     	tap: function() {
@@ -133,7 +122,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 				
 			}else if(i == levelstemp.length-1)
 			{
-				levelscarousel.setItems({
+				levelscarousel.add({
+					xtype: 'panel',
 					listeners: {
                     tap: function() {
 						console.log(event);
@@ -152,8 +142,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 				});
 			}else
 			{
-				levelscarousel.setItems({
-					
+				levelscarousel.add({
+					xtype: 'panel',
 					name: 'a',
 					listeners: {
                     tap: function() {

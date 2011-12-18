@@ -85,7 +85,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 			}
 			if (i == 0) {
 				if (i == activities.length - 1) {
-					activitiescarousel.setItems({
+					activitiescarousel.add({
 						listeners: {
 		                    tap: function(scope) {
 								console.log(event);
@@ -108,7 +108,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 					});
 				}else
 				{
-					activitiescarousel.setItems({
+					activitiescarousel.add({
 						listeners: {
 		                    tap: function(scope) {
 								console.log(event);
@@ -133,7 +133,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 
 			}else if(i == activities.length-1)
 			{
-				activitiescarousel.setItems({
+				activitiescarousel.add({
 					listeners: {
 		                    tap: function(scope) {
 								console.log(event);
@@ -156,7 +156,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 				});
 			}else
 			{
-				activitiescarousel.setItems({
+				activitiescarousel.add({
 					listeners: {
 		                    tap: function(scope) {
 								console.log(event);

@@ -182,7 +182,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 			}
 		}
 		activity.data.played=true;
-		activity.save();
+		//activity.save();
 		activitiesStore.load();
 		activitiesStore.sync();
 	},

@@ -55,7 +55,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
         view.on({
             show: function(){
-                google.maps.event.trigger(map, 'resize');
+                //google.maps.event.trigger(map, 'resize');
 				var jsonfromserver=eval("(" + activity.data.area + ')');
 				var googleOptions = {
 				    strokeColor: "#00FFFF",
@@ -71,13 +71,13 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.color="#FFOOOO";
 				googleVector.setMap(map);
-				map.panTo(new google.maps.LatLng(googlePuntos[0].position.Qa, googlePuntos[0].position.Ra));
-				map.setZoom(3);
+				//map.panTo(new google.maps.LatLng(googlePuntos[0].position.Qa, googlePuntos[0].position.Ra));
+				//map.setZoom(3);
 	            }
 		    });
         //Creando eventlisteners para colocar marker y circulo al pinchar
 		radio=parseFloat(activity.data.radius);
-		google.maps.event.addListener(map, "mouseup", function(e){
+		/*google.maps.event.addListener(map, "mouseup", function(e){
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
 				if (view.bandera == true) {
 					//console.log('Evento en el mapa mousedown');
@@ -107,7 +107,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		});
 		google.maps.event.addListener(map, "mousedown", function(e){
 				view.bandera=true;
-		});
+		});*/
     },
 	confirm: function() {
 		console.log('asd');

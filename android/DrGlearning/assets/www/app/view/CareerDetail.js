@@ -27,12 +27,8 @@ Ext.define('DrGlearning.view.CareerDetail', {
         	xtype: 'carousel',
             ui: 'light',
             direction: 'horizontal',
-			listeners : {
-	    render : function(c) {
-	        c.getEl().on('click', function(){ console.log('asd'); }, c);
-	    }
-	},
-    	}]
+	}],
+    	
 	},
 	
 });

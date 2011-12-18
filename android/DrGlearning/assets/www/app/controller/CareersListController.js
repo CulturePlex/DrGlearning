@@ -88,10 +88,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.down('careerslist').refresh();
         this.filterCareers();
 		if (store.getCount() == 0) {
-			console.log(store.getCount());
-            view1.down('careerslist').mask('No installed careers, please click on Add Career button to start!');
+            //view1.down('careerslist').mask('No installed careers, please click on Add Career button to start!');
         }
-		
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarBottomSettings]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
@@ -100,18 +98,18 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.show();
     },
 	/*
-	 * Method call when tap on a Carrer Item inthe list.
+	 * Method call when tap on a Carrer Item in the list.
 	 */
 	addOrStartCareer: function(list, career){
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
-				//TODO waiting for confirm fix
-												//												if (answer == 'yes') {
+			//Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
+				
+																								//if (answer == 'yes') {
 																									this.getController('DaoController').installCareer(career.data.id, this.installFinished,this);
-												//											}
-																									},this);
+																							//}
+																									//},this);
 		}
 		else 
 		{
@@ -123,10 +121,10 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Callback function for Career install finished. 
 	 */
 	installFinished: function(scope){
-		if(scope.id!='Careers')
+		/*if(scope.id!='Careers')
 		{
 			scope=this;
-		}
+		}*/
 		scope.index();
     },
 	/*
