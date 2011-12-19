@@ -28,6 +28,10 @@ Ext.define('DrGlearning.controller.DaoController', {
 			Ext.data.JsonP.request({
 				scope: this,
                 url:'http://drglearning.testing.cultureplex.ca/'+activities[cont]+'?format=jsonp',
+                params: {
+                    deviceWidth: (window.screen.width != undefined) ? window.screen.width : 200,
+                    deviceHeight: (window.screen.height != undefined) ? window.screen.height : 200
+                },
                 success:function(response, opts){
                 	var activity=response;
                 	var activityModel=new DrGlearning.model.Activity({
