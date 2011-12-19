@@ -14,10 +14,14 @@ TARGET_FIELDS = (
 class Base64ImageSizer(object):
 
     def process_response(self, request, response):
+        ext_jsonp_str = request.GET.get("callback")
+        if not ext_jsonp_str:
+            return response
         # Detect with re if petition is modificable
         for tf in TARGET_FIELDS:
             if request.path.startswith(tf[0]):
-                json = simplejson.loads(response.content)
+                json_str = response.content[len(ext_jsonp_str)+1:-1]
+                json = simplejson.loads(json_str)
                 for field in [f for f in json if f in tf[1]]:
                     if 'deviceWidth' in request.GET and \
                             'deviceHeight' in request.GET:
@@ -32,5 +36,6 @@ class Base64ImageSizer(object):
                         im.save(output, format="PNG")
                         json[field] = "data:image/png;base64,%s" % \
                                         base64.encodestring(output.getvalue())
-                        response.content = simplejson.dumps(json)
+                        response.content = "%s(%s)" % (ext_jsonp_str,
+                                                       simplejson.dumps(json))
         return response
