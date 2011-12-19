@@ -22,6 +22,10 @@ var GraphEditor = {
 
   addNodeToList: function(name){
     var nodeList = document.getElementById("node-list");
+    var node = this.getGraphNodesJSON()[name];
+    if (node.type != undefined && node.score != undefined){
+      name += ' (type: ' + node.type + ', score: ' + node.score + ')';
+    }
     this.addElementToList(name, nodeList);
   },
 
