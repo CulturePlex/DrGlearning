@@ -69,7 +69,6 @@ Ext.define('DrGlearning.controller.LevelController', {
     	});
 		var flechaizqHtml=this.careersListController.flechaizqHtml;
 		var flechaderHtml=this.careersListController.flechaderHtml;
-		//var currentLevel = this.getController('DaoController').getCurrenLevel(this.selectedcareer.internalId);
 		var currentActivity = this.getController('DaoController').getCurrenActivity(newCareer.data.id,newLevel);
 		var startingIndex=0;
 		for(var i=0;i<activities.length;i++)
@@ -227,25 +226,31 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.getController('activities.LinguisticController').updateActivity(view,newActivity);
 		}
 	},
-	nextActivity: function(){
+	nextActivity: function(prevLevel){
 		/*if(this.activityView!=null)
 		{
 			this.activityView.hide();
 			this.activityView.destroy();
 		}*/
+		
 		var currentLevel = this.getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
+		console.log('prevlevel: '+prevLevel);
+		console.log('currenlevel: '+currentLevel);
 		//console.log(currentLevel);
-		/*if(this.getStore('Activities').queryBy)
-		{*/
+		if(currentLevel==prevLevel)
+		{
 			var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
 			this.startActivity(currentActivity);
-		/*}
+		}
 		else
 		{
-			Ext.Msg.alert('Congrats!', 'You have complete this level!', function(){
+			this.careerController.updateCareer(this.careersListController.selectedcareer);
+			this.getLevelframe().hide();
+			this.getActivityframe().hide();
+			console.log('hola');
+			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete this level!', function(){}, this);",50);
 				
-			}, this);	
-		}*/
+		}
 		//console.log(currentActivity);
 		
 	},

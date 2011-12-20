@@ -251,7 +251,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		console.log('la carrera es:'+carrerID);
 		var levels=this.getLevels(carrerID);
 		console.log('los niveles son:'+levels);
-		for(var i=1;i<=levels.length;i++){
+		for(var i=0;i<=levels.length;i++){
 			var activities=this.getActivitiesByLevel(carrerID,levels[i]);
 			for(var j=0;j<activities.items.length;j++){
 				console.log(activities.items[j]);

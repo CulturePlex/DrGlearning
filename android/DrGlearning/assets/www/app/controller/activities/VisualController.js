@@ -23,7 +23,9 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	updateActivity: function(view,newActivity) {
 		
 		this.activity= newActivity;
-		view.down('component[customId=activity]').destroy();
+		if (view.down('component[customId=activity]') != undefined) {
+			view.down('component[customId=activity]').destroy();
+		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data.answers);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.data.image+'" />');
@@ -73,7 +75,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 					this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-					this.levelController.nextActivity();
+					this.levelController.nextActivity(this.activity.data.level_type);
 				}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){

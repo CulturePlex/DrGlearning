@@ -66,7 +66,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 	{
 		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
 		console.log(filesImgs[levelData.customId-1]);
-		return "<div id='centro' align='middle' ><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
+		return "<div id='centro' align='middle' ><p align='top'>"+levelData.name+"</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
 	},
 	/*
 	 * Update Career View.
@@ -112,7 +112,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 						html: levelButtonHtml+this.flechaderHtml,
 						listeners: {
                     	tap: function() {
-							console.log(event);
+							console.log('event');
 							if(event.target.parentNode.id=='flechader')
 							{
 								levelscarousel.next();							

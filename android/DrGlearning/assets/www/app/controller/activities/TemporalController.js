@@ -49,7 +49,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.levelController.nextActivity();
+				this.levelController.nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{

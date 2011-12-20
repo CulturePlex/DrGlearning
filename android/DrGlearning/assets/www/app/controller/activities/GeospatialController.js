@@ -124,7 +124,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		if (distancia < radio) {
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.levelController.nextActivity();
+				this.levelController.nextActivity(this.activity.data.level_type);
 			}, this);
 		}else{
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct place', function(){

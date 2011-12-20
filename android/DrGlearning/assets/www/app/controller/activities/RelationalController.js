@@ -212,7 +212,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (allConstraintsPassed) {
         Ext.Msg.alert('Right!', newActivity.data.reward, function(){
           daocontroller.activityPlayed(newActivity.data.id,true,500);
-          this.activitiesController.nextActivity();
+          this.activitiesController.nextActivity(newActivity.data.level_type);
         }, this);
       }
     }
