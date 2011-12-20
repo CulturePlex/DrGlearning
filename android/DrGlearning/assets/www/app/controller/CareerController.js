@@ -81,6 +81,12 @@ Ext.define('DrGlearning.controller.CareerController', {
 		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
 		var items=[];
 		var levelButtonHtml;
+		levelscarousel.destroy();
+		levelscarousel=Ext.create('Ext.Carousel', {
+        	xtype: 'carousel',
+            ui: 'light',
+            direction: 'horizontal',
+    	});
 		for(var i=0;i<levelstemp.length;i++)
 		{
 		
