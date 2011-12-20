@@ -126,6 +126,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'base64imagesizer.middleware.Base64ImageSizer'
 )
 
 ROOT_URLCONF = 'urls'

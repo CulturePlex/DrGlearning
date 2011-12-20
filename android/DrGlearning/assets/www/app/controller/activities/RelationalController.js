@@ -150,12 +150,31 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         refresh(option);
       }
     }
-  
+
+    function getPathScore(){
+      var score = 0;
+      var node;
+      for(var i=0;i<playerPath.length;i++){
+        node = graphNodes[playerPath[i]];
+        if (node.score != undefined ) {
+          score += parseInt(node.score);
+        }
+      }
+      return score;
+    }
+
     /** Given the last step, it refreshes the user interface to mark the
      * actual walked path and next options available */
     function refresh(option){
       activityView = Ext.create('DrGlearning.view.activities.Relational');
       activityView.down('label').setHtml(newActivity.data.query);
+      /*if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
+        Ext.Msg.alert('Congratulations!', 'You got' + grapnNodes[pathPosition].score+ ' points!', function(){}, this);
+      }*/
+      var scorePanel = Ext.create('Ext.Panel', {
+        html: '<p>Score: ' + getPathScore() + '</p>'
+      });
+      activityView.add(scorePanel);
       var constraintsPanel = Ext.create('Ext.Panel', {
         html: getContraintsHTML()
       });
