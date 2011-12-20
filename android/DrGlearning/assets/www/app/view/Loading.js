@@ -6,8 +6,11 @@ Ext.define('DrGlearning.view.Loading', {
         layout: 'fit',
         items: [{
             xtype:'panel',
-            html: '<img src="resources/images/splash.png" />',
+			width:'100%',
+            html: '<img src="resources/images/splash.png" width="100%"/>',
             id: 'loadingpanel',
+			fullscreen: true,
+        	layout: 'fit',
         }]
     }
 });

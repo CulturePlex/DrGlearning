@@ -31,6 +31,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Initializate Controller.
 	 */
     initializate: function(){
+		document.body.style.background="";
+		console.log(document.body.style.background);
 		this.careerController=this.getController('CareerController');
 		this.levelController=this.getController('LevelController');
 		this.daoController=this.getController('DaoController');
