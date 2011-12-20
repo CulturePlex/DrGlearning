@@ -30530,6 +30530,11 @@ Ext.define('Ext.data.Batch', {
          */
 
         me.mixins.observable.constructor.call(me, config);
+        
+        // HACK start
+        if (config.proxy)
+            this.proxy = config.proxy;
+        // HACK end
 
         /**
          * Ordered array of operations that will be executed by this batch
