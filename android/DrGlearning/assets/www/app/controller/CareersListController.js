@@ -121,7 +121,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Callback function for Career install finished. 
 	 */
 	installFinished: function(scope){
-		/*if(scope.id!='Careers')
+		/*
+		 *if(scope.id!='Careers')
 		{
 			scope=this;
 		}*/

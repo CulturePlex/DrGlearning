@@ -6,6 +6,12 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
     marker:null,
 	circle:null,
 	bandera:null,
+	listeners: {
+        show: function(){
+			console.log('asd');
+		}
+
+    },
     config: {
 		customId:'activity',
 		id:'activity',

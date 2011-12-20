@@ -16,6 +16,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	        xtype: 'activityframe'
     	}
 	],	
+	mapa:null,
 	elmarker:null,
 	elpunto:null,
 	radio:null,
@@ -48,36 +49,40 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		this.empezar(this.activityView,newActivity);
 		view.add(this.activityView);
 	},
-		empezar: function(view,activity) {
-		this.activity=activity;
-		console.log('dale');
-        var map = view.down('map').getMap();
+	empezar: function(view,activity) {
+		
 		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
-        view.on({
-            show: function(){
-                //google.maps.event.trigger(map, 'resize');
-				var jsonfromserver=eval("(" + activity.data.area + ')');
+        view.down('map').on({
+            maprender: function(){
+				console.log(view.down('map').getMap());
+				map=view.down('map').getMap();
+				this.activity=activity;
+				
+		        var multipunto=eval("(" + activity.data.point + ')');
 				var googleOptions = {
-				    strokeColor: "#00FFFF",
-				    strokeWeight: 0,
-				    strokeOpacity: 0.5,
-					fillOpacity: 0.2,
-					fillColor: "#6699ff",
-					clickable:false
-				};
-				var multipunto=eval("(" + activity.data.point + ')');
+						    strokeColor: "#00FFFF",
+						    strokeWeight: 0,
+						    strokeOpacity: 0.5,
+							fillOpacity: 0.2,
+							fillColor: "#6699ff",
+							clickable:false
+						};
+								
 				var googlePuntos=new GeoJSON(multipunto, googleOptions);
+				
+				map.panTo(googlePuntos[0].position);
+				var jsonfromserver=eval("(" + activity.data.area + ')');
+				
 				elpunto=new google.maps.LatLng(googlePuntos[0].position.Qa,googlePuntos[0].position.Ra);
+				
+				radio=parseFloat(activity.data.radius);
+				
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.color="#FFOOOO";
 				googleVector.setMap(map);
-				//map.panTo(new google.maps.LatLng(googlePuntos[0].position.Qa, googlePuntos[0].position.Ra));
-				//map.setZoom(3);
-	            }
-		    });
-        //Creando eventlisteners para colocar marker y circulo al pinchar
-		radio=parseFloat(activity.data.radius);
-		/*google.maps.event.addListener(map, "mouseup", function(e){
+				map.setZoom(3);
+				//Creando eventlisteners para colocar marker y circulo al pinchar
+				google.maps.event.addListener(map, "mouseup", function(e){
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
 				if (view.bandera == true) {
 					//console.log('Evento en el mapa mousedown');
@@ -90,7 +95,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 					
 					view.circle = new google.maps.Circle({
 		                center: e.latLng,
-		                radius: parseFloat(activity.data.radius),
+		                radius: radio,
 		                map: map,
 						clickable:false
 		            });
@@ -107,7 +112,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		});
 		google.maps.event.addListener(map, "mousedown", function(e){
 				view.bandera=true;
-		});*/
+		});
+	            }
+		    });
+        
+		
     },
 	confirm: function() {
 		console.log('asd');
