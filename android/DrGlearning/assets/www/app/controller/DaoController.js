@@ -257,7 +257,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 				console.log(activities.items[j]);
 				if(!activities.items[j].data.successful){
 					console.log('devolviendo: '+levels[i]);
-					return levels[i-1]; 
+					return levels[i]; 
 				}
 			}
 		}

@@ -8,7 +8,7 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 		customId:'activity',
         fullscreen: true,
         items: [{
-            xtype: 'panel',
+            xtype: 'image',
             customId: 'image',
             layout: 'fit',
             fullscreen: true

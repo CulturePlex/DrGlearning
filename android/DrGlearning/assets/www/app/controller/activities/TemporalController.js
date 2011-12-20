@@ -27,7 +27,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		view.down('component[id=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
 		console.log(newActivity.data);
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+		activityView.down('image').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label').setHtml(newActivity.data.query);
 		view.add(activityView);
 	},

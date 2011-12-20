@@ -33,6 +33,7 @@ Ext.define('DrGlearning.controller.CareerController', {
     init: function(){
 		this.careersListController=this.getController('CareersListController');
 		this.levelController=this.getController('LevelController');
+		this.daoController=this.getController('DaoController');
 		this.getCareerFrameView().create();
         this.control({
             'button[id=startLevel]': {
@@ -176,6 +177,8 @@ Ext.define('DrGlearning.controller.CareerController', {
                 });
 			}
 		}
+		console.log('me han dado:'+this.daoController.getCurrenLevel(newCareer.data.id));
+		levelscarousel.setActiveItem(parseFloat(this.daoController.getCurrenLevel(newCareer.data.id))-1);
 		detail.add(levelscarousel);
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 		view.show();

@@ -33,6 +33,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     initializate: function(){
 		this.careerController=this.getController('CareerController');
 		this.levelController=this.getController('LevelController');
+		this.daoController=this.getController('DaoController');
         this.getMainView().create();
         this.control({
             'careerslistitem': {
@@ -165,13 +166,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 */
     addCareer: function(){
 		
-		knowledgeFields = ["Materia 1","Materia 2"];
+		knowledgeFields = this.daoController.getknowledgesFields();
+		console.log(knowledgeFields);
 		this.getCareersFrameView().create().destroy();
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
 		options=[];
 		for (var i = 0; i < knowledgeFields.length; i++) {
-			options.push({text: knowledgeFields[i], value: knowledgeFields[i]});
+			options.push({text: knowledgeFields[i].name, value: knowledgeFields[i].name});
 		}
 		view12.down('selectfield[name=knnowledge_field]').setOptions(options);
 				
