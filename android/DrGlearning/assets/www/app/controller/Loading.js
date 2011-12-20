@@ -99,7 +99,8 @@ Ext.define('DrGlearning.controller.Loading', {
 	                        				knowledges : career.knowledges,
 	                        				timestamp : career.timestamp,
 	                        				installed : false,
-	                    					started : false
+	                    					started : false,
+	                    					update : false
 	                    			});
 	                    			var activities=new Array();
 	                    			for(cont in career.activities){
@@ -112,7 +113,11 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    			console.log("Careers stored after add = "+careersStore.count());
 	                    		}else{
 	                    			console.log("Career already exist -> id="+career.id);
-	                    		}
+	                    			//Watch for updates
+	                    			var careerModel=careersStore.getById(career.id);
+	                    			console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
+	                    			console.log(new Date(careerModel.data.timestamp));
+                    			}
 	                    		
 	                    	}
 	                    	myMask.hide();

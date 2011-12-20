@@ -166,6 +166,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return carrers;
 	},
 	activityPlayed:function(activityID,successful,score){
+		var carrersStore=this.getCarrersStore();
 		var activitiesStore=this.getActivitiesStore();
 		var activity=activitiesStore.getById(activityID);
 		if(successful){
@@ -186,9 +187,17 @@ Ext.define('DrGlearning.controller.DaoController', {
 			}
 		}
 		activity.data.played=true;
-		//activity.save();
+		activity.save();
 		activitiesStore.load();
 		activitiesStore.sync();
+		//Make carrer started if needed
+		var carrer=carrersStore.getById(activity.data.careerId);
+		if(!carrer.data.started){
+			carrer.data.started=true;
+			carrer.save();
+			carrersStore.load();
+			carrersStore.sync();
+		}
 	},
 	updateScore:function(activityID,score){
 		var offlineScoreStore=this.getOfflineScoresStore();
@@ -260,8 +269,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 	 * 
 	 */
 	getCurrenActivity:function(carrerID,level){
-		console.log(carrerID);
-		console.log(level);
 		var activities=this.getActivitiesByLevel(carrerID,level);
 		
 		for(var j=0;j<activities.items.length;j++){
