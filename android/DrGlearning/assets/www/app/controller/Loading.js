@@ -115,8 +115,14 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    			console.log("Career already exist -> id="+career.id);
 	                    			//Watch for updates
 	                    			var careerModel=careersStore.getById(career.id);
-	                    			console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
-	                    			console.log(new Date(careerModel.data.timestamp));
+	                    			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
+	                    			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
+	                    			if(Date.parse(careerModel.data.timestamp)<Date.parse(career.timestamp)){
+	    								careerModel.data.update=true;
+	    								careerModel.save();
+		                    			careersStore.sync();
+		                    			careersStore.load();
+	                    			}
                     			}
 	                    		
 	                    	}
