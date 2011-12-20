@@ -40,7 +40,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		this.elmarker=null;
 		this.elpunto=null;
 		this.radio=null;
-		this.activity=null;
+		this.activity=newActivity;
 		//console.log(view.down('component[customId=activity]'));
 		view.down('component[customId=activity]').hide();
 		view.down('component[customId=activity]').destroy();
@@ -56,8 +56,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             maprender: function(){
 				console.log(view.down('map').getMap());
 				map=view.down('map').getMap();
-				this.activity=activity;
-				
 		        var multipunto=eval("(" + activity.data.point + ')');
 				var googleOptions = {
 						    strokeColor: "#00FFFF",

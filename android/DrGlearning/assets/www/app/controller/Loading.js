@@ -34,7 +34,7 @@ Ext.define('DrGlearning.controller.Loading', {
 		//view.mask("Loading..");
 		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
 		//myMask.show();
-		//this.getLoading().show();
+		this.getLoading().show();
 		var careersStore = this.getCareersStore();
 		careersStore.load();
 		this.getActivitiesStore().load();
@@ -121,7 +121,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    		
 	                    	}
 	                    	//myMask.hide();
-	                    	//this.getLoading().hide();
+	                    	this.getLoading().hide();
 	            			this.getController('CareersListController').initializate();		
 
 	                    }
@@ -131,7 +131,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	    			
 	      }else{
 	    	  	//myMask.hide();
-	          	//this.getLoading().hide();
+	          	this.getLoading().hide();
     			this.getController('CareersListController').initializate();		
 	      }
 		},
