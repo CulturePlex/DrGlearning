@@ -23,9 +23,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	updateActivity: function(view,newActivity) {
 		
 		this.activity= newActivity;
-		if (view.down('component[customId=activity]') != undefined) {
-			view.down('component[customId=activity]').destroy();
-		}
+		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data.answers);
 		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.data.image+'" />');
