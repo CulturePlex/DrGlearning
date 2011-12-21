@@ -80,7 +80,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				var jsonfromserver=eval("(" + activity.data.area + ')');
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.color="#FFOOOO";
-				googleVector.setMap(map);
+				//googleVector.setMap(map);
 				var puntosPoligono = googleVector.getPath();
 				var bounds= new google.maps.LatLngBounds();
 				console.log(bounds);
