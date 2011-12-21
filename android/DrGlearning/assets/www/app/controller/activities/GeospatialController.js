@@ -41,9 +41,12 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		this.elpunto=null;
 		this.radio=null;
 		this.activity=newActivity;
-		//console.log(view.down('component[customId=activity]'));
-		view.down('component[customId=activity]').hide();
-		view.down('component[customId=activity]').destroy();
+		console.log(view.down('component[customId=activity]'));
+		if(view.down('component[customId=activity]'))
+		{
+			view.down('component[customId=activity]').hide();
+			view.down('component[customId=activity]').destroy();
+		}
 		this.activityView = Ext.create('DrGlearning.view.activities.Geospatial');
 		this.activityView.down('label').setHtml(newActivity.data.query);
 		this.empezar(this.activityView,newActivity);

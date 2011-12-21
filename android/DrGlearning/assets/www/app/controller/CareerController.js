@@ -90,8 +90,6 @@ Ext.define('DrGlearning.controller.CareerController', {
     	});
 		for(var i=0;i<levelstemp.length;i++)
 		{
-		
-			
 			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
 			levelButtonHtml=this.getLevelHtml(level.data);
 			if (i == 0) {
@@ -178,7 +176,9 @@ Ext.define('DrGlearning.controller.CareerController', {
 			}
 		}
 		console.log('me han dado:'+this.daoController.getCurrenLevel(newCareer.data.id));
-		levelscarousel.setActiveItem(parseFloat(this.daoController.getCurrenLevel(newCareer.data.id))-1);
+		console.log(levelstemp);
+		var activeItem=levelstemp.indexOf(''+this.daoController.getCurrenLevel(newCareer.data.id));
+		levelscarousel.setActiveItem(activeItem);
 		detail.add(levelscarousel);
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 		view.show();

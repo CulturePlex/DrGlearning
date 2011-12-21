@@ -235,6 +235,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 		
 		var currentLevel = this.getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
 		console.log('prevlevel: '+prevLevel);
+		var prevLevelString = this.getLevelsStore().getAt(prevLevel-1).data.name;
+		console.log('prevlevelString: '+prevLevelString);
 		console.log('currenlevel: '+currentLevel);
 		//console.log(currentLevel);
 		if(currentLevel==prevLevel)
@@ -248,7 +250,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.getLevelframe().hide();
 			this.getActivityframe().hide();
 			console.log('hola');
-			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete this level!', function(){}, this);",50);
+			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the "+prevLevelString+" level!', function(){}, this);",50);
 				
 		}
 		//console.log(currentActivity);
