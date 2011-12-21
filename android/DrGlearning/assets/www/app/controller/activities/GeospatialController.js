@@ -53,12 +53,12 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		view.add(this.activityView);
 	},
 	empezar: function(view,activity) {
-		
 		// FIX: Rendering Problem von Sencha Touch 2.0.0-pr1
         view.down('map').on({
             maprender: function(){
-				console.log(view.down('map').getMap());
+				//Initializing map variable
 				map=view.down('map').getMap();
+				//Getting target points of activity
 		        var multipunto=eval("(" + activity.data.point + ')');
 				var googleOptions = {
 						    strokeColor: "#00FFFF",
@@ -68,22 +68,69 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 							fillColor: "#6699ff",
 							clickable:false
 						};
-								
 				var googlePuntos=new GeoJSON(multipunto, googleOptions);
 				
-				map.panTo(googlePuntos[0].position);
-				var jsonfromserver=eval("(" + activity.data.area + ')');
 				
+				
+				//Getting first of target points as the only one valid
 				elpunto=new google.maps.LatLng(googlePuntos[0].position.Qa,googlePuntos[0].position.Ra);
-				
+				//Getting radio allowed for the user
 				radio=parseFloat(activity.data.radius);
-				
+				//Getting playable area
+				var jsonfromserver=eval("(" + activity.data.area + ')');
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.color="#FFOOOO";
 				googleVector.setMap(map);
-				map.setZoom(3);
+				var puntosPoligono = googleVector.getPath();
+				var bounds= new google.maps.LatLngBounds();
+				console.log(bounds);
+				for (i = 0; i < puntosPoligono.b.length; i++) {
+					punto = new google.maps.LatLng(puntosPoligono.b[i].Qa,puntosPoligono.b[i].Ra);
+					console.log(bounds.contains(punto));
+  					bounds.extend(punto);
+					
+					console.log(bounds);
+				}
+				//Fitting map to playable area and setting zoom
+				map.fitBounds(bounds);
+				//map.setZoom(3);
+				//limiting zoom
+				google.maps.event.addListener(map, "zoom_changed", function(e1){
+					console.log(map.getZoom());
+					if(map.getZoom()<4)
+					{
+						map.setZoom(4);
+					}
+				});
+				//Creating listener to recenter map when is out of playable area				
+				google.maps.event.addListener(map, "bounds_changed", function(e1){
+					checkBounds();
+				});
+				function checkBounds() {
+			        // Perform the check and return if OK
+			        if (bounds.contains(map.getCenter())) {
+			          return;
+			        }
+			        // It`s not OK, so find the nearest allowed point and move there
+			        var C = map.getCenter();
+			        var X = C.lng();
+			        var Y = C.lat();
+			
+			        var AmaxX = bounds.getNorthEast().lng();
+			        var AmaxY = bounds.getNorthEast().lat();
+			        var AminX = bounds.getSouthWest().lng();
+			        var AminY = bounds.getSouthWest().lat();
+			
+			        if (X < AminX) {X = AminX;}
+			        if (X > AmaxX) {X = AmaxX;}
+			        if (Y < AminY) {Y = AminY;}
+			        if (Y > AmaxY) {Y = AmaxY;}
+			        //alert ("Restricting "+Y+" "+X);
+			        map.setCenter(new google.maps.LatLng(Y,X));
+			    }
 				//Creando eventlisteners para colocar marker y circulo al pinchar
 				google.maps.event.addListener(map, "mouseup", function(e){
+					console.log(e);
 				// ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
 				if (view.bandera == true) {
 					//console.log('Evento en el mapa mousedown');
