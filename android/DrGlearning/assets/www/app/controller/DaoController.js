@@ -58,7 +58,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.answer=activity.answer;
                 	}
                 	if(activityModel.data.activity_type=='visual'){
-                		activityModel.data.image=activity.image;
+                		activityModel.data.image=Base64Manager.storeImage(activity.image, activity);
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer;
                 		activityModel.data.obfuscated_image=activity.obfuscated_image;
