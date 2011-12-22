@@ -1,5 +1,6 @@
 package ca.cultureplex.drglearning;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.phonegap.*;
@@ -16,5 +17,6 @@ public class DrGlearningActivity extends DroidGap {
         super.setIntegerProperty("splashscreen", R.drawable.splash);
         appView.addJavascriptInterface(api, "InternalApi");
         super.loadUrl("file:///android_asset/www/index.html");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 }

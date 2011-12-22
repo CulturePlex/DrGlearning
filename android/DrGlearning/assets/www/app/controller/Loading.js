@@ -5,6 +5,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	
 	views : [
 	        'Loading'	,
+			'Main'
 		],
 		
 	stores: [
@@ -23,8 +24,6 @@ Ext.define('DrGlearning.controller.Loading', {
 		
 	init: function(){
 		this.getLoadingView().create();
-		
-		
 	},
 	
 	onLaunch: function() {
@@ -33,8 +32,9 @@ Ext.define('DrGlearning.controller.Loading', {
 		}
 		//var view=this.getLoading();
 		//view.mask("Loading..");
-		var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
-		myMask.show();
+		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
+		//myMask.show();
+		this.getLoading().show();
 		var careersStore = this.getCareersStore();
 		careersStore.load();
 		this.getActivitiesStore().load();
@@ -99,7 +99,8 @@ Ext.define('DrGlearning.controller.Loading', {
 	                        				knowledges : career.knowledges,
 	                        				timestamp : career.timestamp,
 	                        				installed : false,
-	                    					started : false
+	                    					started : false,
+	                    					update : false
 	                    			});
 	                    			var activities=new Array();
 	                    			for(cont in career.activities){
@@ -112,10 +113,20 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    			console.log("Careers stored after add = "+careersStore.count());
 	                    		}else{
 	                    			console.log("Career already exist -> id="+career.id);
-	                    		}
+	                    			//Watch for updates
+	                    			var careerModel=careersStore.getById(career.id);
+	                    			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
+	                    			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
+	                    			if(Date.parse(careerModel.data.timestamp)<Date.parse(career.timestamp)){
+	    								careerModel.data.update=true;
+	    								careerModel.save();
+		                    			careersStore.sync();
+		                    			careersStore.load();
+	                    			}
+                    			}
 	                    		
 	                    	}
-	                    	myMask.hide();
+	                    	//myMask.hide();
 	                    	this.getLoading().hide();
 	            			this.getController('CareersListController').initializate();		
 
@@ -125,7 +136,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	    			this.getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
-	    	  	myMask.hide();
+	    	  	//myMask.hide();
 	          	this.getLoading().hide();
     			this.getController('CareersListController').initializate();		
 	      }

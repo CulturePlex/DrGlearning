@@ -166,6 +166,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return carrers;
 	},
 	activityPlayed:function(activityID,successful,score){
+		var carrersStore=this.getCareersStore();
 		var activitiesStore=this.getActivitiesStore();
 		var activity=activitiesStore.getById(activityID);
 		if(successful){
@@ -186,9 +187,17 @@ Ext.define('DrGlearning.controller.DaoController', {
 			}
 		}
 		activity.data.played=true;
-		//activity.save();
+		activity.save();
 		activitiesStore.load();
 		activitiesStore.sync();
+		//Make carrer started if needed
+		var carrer=carrersStore.getById(activity.data.careerId);
+		if(!carrer.data.started){
+			carrer.data.started=true;
+			carrer.save();
+			carrersStore.load();
+			carrersStore.sync();
+		}
 	},
 	updateScore:function(activityID,score){
 		var offlineScoreStore=this.getOfflineScoresStore();
@@ -242,13 +251,13 @@ Ext.define('DrGlearning.controller.DaoController', {
 		console.log('la carrera es:'+carrerID);
 		var levels=this.getLevels(carrerID);
 		console.log('los niveles son:'+levels);
-		for(var i=1;i<=levels.length;i++){
+		for(var i=0;i<=levels.length;i++){
 			var activities=this.getActivitiesByLevel(carrerID,levels[i]);
 			for(var j=0;j<activities.items.length;j++){
 				console.log(activities.items[j]);
 				if(!activities.items[j].data.successful){
 					console.log('devolviendo: '+levels[i]);
-					return levels[i-1]; 
+					return levels[i]; 
 				}
 			}
 		}
@@ -260,8 +269,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 	 * 
 	 */
 	getCurrenActivity:function(carrerID,level){
-		console.log(carrerID);
-		console.log(level);
 		var activities=this.getActivitiesByLevel(carrerID,level);
 		
 		for(var j=0;j<activities.items.length;j++){

@@ -69,7 +69,6 @@ Ext.define('DrGlearning.controller.LevelController', {
     	});
 		var flechaizqHtml=this.careersListController.flechaizqHtml;
 		var flechaderHtml=this.careersListController.flechaderHtml;
-		//var currentLevel = this.getController('DaoController').getCurrenLevel(this.selectedcareer.internalId);
 		var currentActivity = this.getController('DaoController').getCurrenActivity(newCareer.data.id,newLevel);
 		var startingIndex=0;
 		for(var i=0;i<activities.length;i++)
@@ -179,8 +178,6 @@ Ext.define('DrGlearning.controller.LevelController', {
 				});
 			}
 		}
-		console.log(currentActivity);
-		console.log(activitiescarousel);
 		activitiescarousel.setActiveItem(startingIndex);
 		detail.add(activitiescarousel);
 		view.down('title[id=title]').setTitle(newCareer.data.name);
@@ -205,10 +202,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 			return record.data.level_type==this.selectedlevel && record.data.careerId==this.careersListController.selectedcareer.data.id ;
 		},this);
 		newActivity = temp.items[newActivityIndex];
-		console.log(view);
 		view.down('title[customId=title]').setTitle(newActivity.data.name);
 		var activityView;
-		console.log(newActivity.data.activity_type);
 		if (newActivity.data.activity_type == 'geospatial') {
 			if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
 				Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
@@ -227,25 +222,28 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.getController('activities.LinguisticController').updateActivity(view,newActivity);
 		}
 	},
-	nextActivity: function(){
+	nextActivity: function(prevLevel){
 		/*if(this.activityView!=null)
 		{
 			this.activityView.hide();
 			this.activityView.destroy();
 		}*/
+		
 		var currentLevel = this.getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
-		//console.log(currentLevel);
-		/*if(this.getStore('Activities').queryBy)
-		{*/
+		var prevLevelString = this.getLevelsStore().getAt(prevLevel-1).data.name;
+		if(currentLevel==prevLevel)
+		{
 			var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
 			this.startActivity(currentActivity);
-		/*}
+		}
 		else
 		{
-			Ext.Msg.alert('Congrats!', 'You have complete this level!', function(){
+			this.careerController.updateCareer(this.careersListController.selectedcareer);
+			this.getLevelframe().hide();
+			this.getActivityframe().hide();
+			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the "+prevLevelString+" level!', function(){}, this);",50);
 				
-			}, this);	
-		}*/
+		}
 		//console.log(currentActivity);
 		
 	},

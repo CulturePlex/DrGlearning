@@ -33,6 +33,7 @@ Ext.define('DrGlearning.controller.CareerController', {
     init: function(){
 		this.careersListController=this.getController('CareersListController');
 		this.levelController=this.getController('LevelController');
+		this.daoController=this.getController('DaoController');
 		this.getCareerFrameView().create();
         this.control({
             'button[id=startLevel]': {
@@ -65,7 +66,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 	{
 		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
 		console.log(filesImgs[levelData.customId-1]);
-		return "<div id='centro' align='middle' ><p align='top'>"+levelData.name + "</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
+		return "<div id='centro' align='middle' ><p align='top'>"+levelData.name+"</p><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></div>"
 	},
 	/*
 	 * Update Career View.
@@ -89,8 +90,6 @@ Ext.define('DrGlearning.controller.CareerController', {
     	});
 		for(var i=0;i<levelstemp.length;i++)
 		{
-		
-			
 			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
 			levelButtonHtml=this.getLevelHtml(level.data);
 			if (i == 0) {
@@ -111,7 +110,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 						html: levelButtonHtml+this.flechaderHtml,
 						listeners: {
                     	tap: function() {
-							console.log(event);
+							console.log('event');
 							if(event.target.parentNode.id=='flechader')
 							{
 								levelscarousel.next();							
@@ -176,6 +175,10 @@ Ext.define('DrGlearning.controller.CareerController', {
                 });
 			}
 		}
+		console.log('me han dado:'+this.daoController.getCurrenLevel(newCareer.data.id));
+		console.log(levelstemp);
+		var activeItem=levelstemp.indexOf(''+this.daoController.getCurrenLevel(newCareer.data.id));
+		levelscarousel.setActiveItem(activeItem);
 		detail.add(levelscarousel);
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 		view.show();

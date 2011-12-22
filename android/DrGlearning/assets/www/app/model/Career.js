@@ -37,6 +37,9 @@ Ext.define('DrGlearning.model.Career', {
 	},{
 		name: "started",
 		type: "string"
+	},{
+		name: "update",
+		type: "boolean"
 	}],
    proxy: {
 		type: 'localstorage',

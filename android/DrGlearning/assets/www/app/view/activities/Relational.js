@@ -4,7 +4,9 @@ Ext.define('DrGlearning.view.activities.Relational', {
 	xtype : 'relational',
 	customId:'activity',
 	config : {
-		layout : {
+		id:'activity',
+		customId:'activity',
+	   layout : {
        type: 'vbox',
        align: 'middle'
    },

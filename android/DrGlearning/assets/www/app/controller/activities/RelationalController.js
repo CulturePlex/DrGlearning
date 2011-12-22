@@ -168,9 +168,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     function refresh(option){
       activityView = Ext.create('DrGlearning.view.activities.Relational');
       activityView.down('label').setHtml(newActivity.data.query);
-      /*if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
+      if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
         Ext.Msg.alert('Congratulations!', 'You got' + grapnNodes[pathPosition].score+ ' points!', function(){}, this);
-      }*/
+      }
       var scorePanel = Ext.create('Ext.Panel', {
         html: '<p>Score: ' + getPathScore() + '</p>'
       });
@@ -212,7 +212,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (allConstraintsPassed) {
         Ext.Msg.alert('Right!', newActivity.data.reward, function(){
           daocontroller.activityPlayed(newActivity.data.id,true,500);
-          this.activitiesController.nextActivity();
+          this.activitiesController.nextActivity(newActivity.data.level_type);
         }, this);
       }
     }
