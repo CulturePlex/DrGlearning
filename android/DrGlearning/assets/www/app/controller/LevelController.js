@@ -20,6 +20,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     }
 	],
 	activityView:null,
+	carousel:null,
 	/*
 	 * Initializate Controller.
 	 */
@@ -67,8 +68,9 @@ Ext.define('DrGlearning.controller.LevelController', {
             ui: 'light',
             direction: 'horizontal',
     	});
-		var flechaizqHtml=this.careersListController.flechaizqHtml;
-		var flechaderHtml=this.careersListController.flechaderHtml;
+		this.carousel=activitiescarousel;
+		var flechaizqHtml="<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.previous();'><img src='resources/images/flechaizq.png' alt='flecha'></a></div>";
+		var flechaderHtml="<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>";
 		var currentActivity = this.getController('DaoController').getCurrenActivity(newCareer.data.id,newLevel);
 		var startingIndex=0;
 		for(var i=0;i<activities.length;i++)
@@ -85,46 +87,12 @@ Ext.define('DrGlearning.controller.LevelController', {
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.add({
-						listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else
-								{
-									levelController.startActivity();						
-								}
-
-		                    }},
 						html: iconoactivityHtml,
 						name: 'a'
 					});
 				}else
 				{
 					activitiescarousel.add({
-						listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else
-								{
-									levelController.startActivity();					
-								}
-
-		                    }},
 						html: iconoactivityHtml + flechaderHtml,
 						name: 'a'
 					});
@@ -133,46 +101,12 @@ Ext.define('DrGlearning.controller.LevelController', {
 			}else if(i == activities.length-1)
 			{
 				activitiescarousel.add({
-					listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else
-								{
-									levelController.startActivity();						
-								}
-
-		                    }},
 					html: flechaizqHtml + iconoactivityHtml,
 					name: 'a'
 				});
 			}else
 			{
 				activitiescarousel.add({
-					listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else 
-								{
-									levelController.startActivity();						
-								}
-
-		                    }},
 					html: flechaizqHtml + iconoactivityHtml + flechaderHtml,
 					name: 'a'
 				});
@@ -231,6 +165,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		
 		var currentLevel = this.getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
 		var prevLevelString = this.getLevelsStore().getAt(prevLevel-1).data.name;
+		var currentLevelString = this.getLevelsStore().getAt(currentLevel-1).data.name;
 		if(currentLevel==prevLevel)
 		{
 			var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
@@ -241,7 +176,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.careerController.updateCareer(this.careersListController.selectedcareer);
 			this.getLevelframe().hide();
 			this.getActivityframe().hide();
-			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the "+prevLevelString+" level!', function(){}, this);",50);
+			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the "+prevLevelString+" level! Next Level: "+currentLevelString+"', function(){}, this);",50);
 				
 		}
 		//console.log(currentActivity);

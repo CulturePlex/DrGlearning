@@ -39,7 +39,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		console.log(this.activity);
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
+				this.getController('DaoController').activityPlayed(this.activity.data.id,true,100);
 				this.levelController.nextActivity(this.activity.data.level_type);
 			},this);
 		}else
@@ -52,7 +52,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	after: function() {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
+				this.getController('DaoController').activityPlayed(this.activity.data.id,true,100);
 				this.levelController.nextActivity(this.activity.data.level_type);
 			},this);
 		}else

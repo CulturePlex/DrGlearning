@@ -77,7 +77,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
+					this.getController('DaoController').activityPlayed(this.activity.data.id,true,100);
 					this.levelController.nextActivity(this.activity.data.level_type);
 				}, this);
 		}else{

@@ -80,7 +80,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 				var jsonfromserver=eval("(" + activity.data.area + ')');
 				googleVector = new GeoJSON(jsonfromserver, googleOptions);
 				googleVector.color="#FFOOOO";
-				//googleVector.setMap(map);
 				var puntosPoligono = googleVector.getPath();
 				var bounds= new google.maps.LatLngBounds();
 				console.log(bounds);
@@ -92,14 +91,17 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 					console.log(bounds);
 				}
 				//Fitting map to playable area and setting zoom
-				map.fitBounds(bounds);
-				//map.setZoom(3);
+				map.setCenter(bounds.getCenter());
+				var zoomlimite=map.getZoom();
+				console.log(zoomlimite);
+				map.setZoom(3);
+				var zoomlimite=map.getZoom();
 				//limiting zoom
 				google.maps.event.addListener(map, "zoom_changed", function(e1){
 					console.log(map.getZoom());
-					if(map.getZoom()<4)
+					if(map.getZoom()<zoomlimite)
 					{
-						map.setZoom(4);
+						map.setZoom(zoomlimite);
 					}
 				});
 				//Creating listener to recenter map when is out of playable area				
