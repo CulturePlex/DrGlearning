@@ -24,10 +24,14 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	},
 	updateActivity: function(view,newActivity) {
 		this.activity=newActivity;
-		view.down('component[id=activity]').destroy();
+		if(view.down('component[customId=activity]'))
+		{
+			view.down('component[customId=activity]').hide();
+			view.down('component[customId=activity]').destroy();
+		}
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
 		console.log(newActivity.data);
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+		activityView.down('panel').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label').setHtml(newActivity.data.query);
 		view.add(activityView);
 	},
@@ -35,8 +39,8 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		console.log(this.activity);
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.levelController.nextActivity();
+				this.getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+				this.levelController.nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{
@@ -48,8 +52,8 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	after: function() {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
-				this.levelController.nextActivity();
+				this.getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+				this.levelController.nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{

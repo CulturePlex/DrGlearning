@@ -20,6 +20,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     }
 	],
 	activityView:null,
+	carousel:null,
 	/*
 	 * Initializate Controller.
 	 */
@@ -67,9 +68,9 @@ Ext.define('DrGlearning.controller.LevelController', {
             ui: 'light',
             direction: 'horizontal',
     	});
-		var flechaizqHtml=this.careersListController.flechaizqHtml;
-		var flechaderHtml=this.careersListController.flechaderHtml;
-		//var currentLevel = this.getController('DaoController').getCurrenLevel(this.selectedcareer.internalId);
+		this.carousel=activitiescarousel;
+		var flechaizqHtml="<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.previous();'><img src='resources/images/flechaizq.png' alt='flecha'></a></div>";
+		var flechaderHtml="<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>";
 		var currentActivity = this.getController('DaoController').getCurrenActivity(newCareer.data.id,newLevel);
 		var startingIndex=0;
 		for(var i=0;i<activities.length;i++)
@@ -86,46 +87,12 @@ Ext.define('DrGlearning.controller.LevelController', {
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.add({
-						listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else
-								{
-									levelController.startActivity();						
-								}
-
-		                    }},
 						html: iconoactivityHtml,
 						name: 'a'
 					});
 				}else
 				{
 					activitiescarousel.add({
-						listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else
-								{
-									levelController.startActivity();					
-								}
-
-		                    }},
 						html: iconoactivityHtml + flechaderHtml,
 						name: 'a'
 					});
@@ -134,53 +101,17 @@ Ext.define('DrGlearning.controller.LevelController', {
 			}else if(i == activities.length-1)
 			{
 				activitiescarousel.add({
-					listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else
-								{
-									levelController.startActivity();						
-								}
-
-		                    }},
 					html: flechaizqHtml + iconoactivityHtml,
 					name: 'a'
 				});
 			}else
 			{
 				activitiescarousel.add({
-					listeners: {
-		                    tap: function(scope) {
-								console.log(event);
-								if(event.target.parentNode.id=='flechaizq')
-								{
-									activitiescarousel.previous();							
-								}
-								else if(event.target.parentNode.id=='flechader')
-								{
-									activitiescarousel.next();							
-								}
-								else 
-								{
-									levelController.startActivity();						
-								}
-
-		                    }},
 					html: flechaizqHtml + iconoactivityHtml + flechaderHtml,
 					name: 'a'
 				});
 			}
 		}
-		console.log(currentActivity);
-		console.log(activitiescarousel);
 		activitiescarousel.setActiveItem(startingIndex);
 		detail.add(activitiescarousel);
 		view.down('title[id=title]').setTitle(newCareer.data.name);
@@ -205,10 +136,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 			return record.data.level_type==this.selectedlevel && record.data.careerId==this.careersListController.selectedcareer.data.id ;
 		},this);
 		newActivity = temp.items[newActivityIndex];
-		console.log(view);
 		view.down('title[customId=title]').setTitle(newActivity.data.name);
 		var activityView;
-		console.log(newActivity.data.activity_type);
 		if (newActivity.data.activity_type == 'geospatial') {
 			if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
 				Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
@@ -227,25 +156,29 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.getController('activities.LinguisticController').updateActivity(view,newActivity);
 		}
 	},
-	nextActivity: function(){
+	nextActivity: function(prevLevel){
 		/*if(this.activityView!=null)
 		{
 			this.activityView.hide();
 			this.activityView.destroy();
 		}*/
+		
 		var currentLevel = this.getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
-		//console.log(currentLevel);
-		/*if(this.getStore('Activities').queryBy)
-		{*/
+		var prevLevelString = this.getLevelsStore().getAt(prevLevel-1).data.name;
+		var currentLevelString = this.getLevelsStore().getAt(currentLevel-1).data.name;
+		if(currentLevel==prevLevel)
+		{
 			var currentActivity = this.getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id,currentLevel);
 			this.startActivity(currentActivity);
-		/*}
+		}
 		else
 		{
-			Ext.Msg.alert('Congrats!', 'You have complete this level!', function(){
+			this.careerController.updateCareer(this.careersListController.selectedcareer);
+			this.getLevelframe().hide();
+			this.getActivityframe().hide();
+			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the "+prevLevelString+" level! Next Level: "+currentLevelString+"', function(){}, this);",50);
 				
-			}, this);	
-		}*/
+		}
 		//console.log(currentActivity);
 		
 	},

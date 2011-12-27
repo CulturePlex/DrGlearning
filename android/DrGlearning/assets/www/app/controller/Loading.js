@@ -5,6 +5,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	
 	views : [
 	        'Loading'	,
+			'Main'
 		],
 		
 	stores: [
@@ -23,8 +24,6 @@ Ext.define('DrGlearning.controller.Loading', {
 		
 	init: function(){
 		this.getLoadingView().create();
-		
-		
 	},
 	
 	onLaunch: function() {
@@ -33,8 +32,9 @@ Ext.define('DrGlearning.controller.Loading', {
 		}
 		//var view=this.getLoading();
 		//view.mask("Loading..");
-		var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
-		myMask.show();
+		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
+		//myMask.show();
+		this.getLoading().show();
 		var careersStore = this.getCareersStore();
 		careersStore.load();
 		this.getActivitiesStore().load();
@@ -125,7 +125,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	                    			}
                     			}
 	                    	}
-	                    	myMask.hide();
+	                    	//myMask.hide();
 	                    	this.getLoading().hide();
 	            			this.getController('CareersListController').initializate();		
 
@@ -135,7 +135,7 @@ Ext.define('DrGlearning.controller.Loading', {
 	    			this.getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
-	    	  	myMask.hide();
+	    	  	//myMask.hide();
 	          	this.getLoading().hide();
     			this.getController('CareersListController').initializate();		
 	      }

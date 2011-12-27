@@ -58,7 +58,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.answer=activity.answer;
                 	}
                 	if(activityModel.data.activity_type=='visual'){
-                		activityModel.data.image=activity.image;
+                		activityModel.data.image=Base64Manager.storeImage(activity.image, activity);
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer;
                 		activityModel.data.obfuscated_image=activity.obfuscated_image;
@@ -251,13 +251,13 @@ Ext.define('DrGlearning.controller.DaoController', {
 		console.log('la carrera es:'+carrerID);
 		var levels=this.getLevels(carrerID);
 		console.log('los niveles son:'+levels);
-		for(var i=1;i<=levels.length;i++){
+		for(var i=0;i<=levels.length;i++){
 			var activities=this.getActivitiesByLevel(carrerID,levels[i]);
 			for(var j=0;j<activities.items.length;j++){
 				console.log(activities.items[j]);
 				if(!activities.items[j].data.successful){
 					console.log('devolviendo: '+levels[i]);
-					return levels[i-1]; 
+					return levels[i]; 
 				}
 			}
 		}

@@ -31,14 +31,20 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Initializate Controller.
 	 */
     initializate: function(){
+		document.body.style.background="";
+		console.log(document.body.style.background);
 		this.careerController=this.getController('CareerController');
 		this.levelController=this.getController('LevelController');
+		this.daoController=this.getController('DaoController');
         this.getMainView().create();
         this.control({
             'careerslistitem': {
                 tap: this.addOrStartCareer
             },
             'button[id=addCareer]': {
+                tap: this.addCareer
+            },
+			'button[customId=addCareer]': {
                 tap: this.addCareer
             },
             'searchfield[id=searchbox]': {
@@ -85,10 +91,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
         }
         this.getCareersFrameView().create();
         var view1 = this.getCareersframe();
-        view1.down('careerslist').refresh();
         this.filterCareers();
+		view1.down('careerslistempty').hide();
 		if (store.getCount() == 0) {
-            //view1.down('careerslist').mask('No installed careers, please click on Add Career button to start!');
+			view1.down('careerslist').hide();
+			view1.down('careerslistempty').show();
         }
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarBottomSettings]').show();
@@ -165,13 +172,16 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 */
     addCareer: function(){
 		
-		knowledgeFields = ["Materia 1","Materia 2"];
+		knowledgeFields = this.daoController.getknowledgesFields();
+		console.log(knowledgeFields);
 		this.getCareersFrameView().create().destroy();
         var view12 = this.getCareersframe();
+		view12.down('careerslist').show();
+		view12.down('careerslistempty').hide();
         view12.down('careerslist').refresh();
 		options=[];
 		for (var i = 0; i < knowledgeFields.length; i++) {
-			options.push({text: knowledgeFields[i], value: knowledgeFields[i]});
+			options.push({text: knowledgeFields[i].name, value: knowledgeFields[i].name});
 		}
 		view12.down('selectfield[name=knnowledge_field]').setOptions(options);
 				

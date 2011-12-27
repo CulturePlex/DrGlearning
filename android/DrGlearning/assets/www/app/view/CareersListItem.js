@@ -14,30 +14,30 @@ Ext.define('DrGlearning.view.CareersListItem', {
             }
         },
         name: {
-            cls:'career-name'	
+           cls:'career-name'	
         },
         description: {
-            cls: 'career-description'
+           cls: 'career-description'
         },
         creator: {
-            cls: 'career-creator'
+           cls: 'career-creator'
         },
         layout: {
-            type: 'vbox',
-            pack: 'center'
+           type: 'vbox',
+           pack: 'center'
         }
     },
     
     applyName: function(config){		
         return Ext.factory(config, Ext.Component, this.getName());
     },
-    
-    updateName: function(newName){
+	
+	updateName: function(newName){
         if (newName) {
             this.add(newName);
         }
     },
-    
+      
     applyDescription: function(config){
         return Ext.factory(config, Ext.Component, this.getDescription());
     },

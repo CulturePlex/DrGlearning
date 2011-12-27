@@ -5,21 +5,12 @@ Ext.define('DrGlearning.view.Loading', {
         fullscreen: true,
         layout: 'fit',
         items: [{
-            xtype: 'toolbar',
-            ui: 'green',
-            docked: 'top',
-            items: [{
-                xtype: 'spacer'
-            }, {
-                xtype: 'title',
-                title: 'Dr. Glearning'
-            }, {
-                xtype: 'spacer'
-            }]
-        },{
             xtype:'panel',
-            html: '',
+			width:'100%',
+            html: '<img src="resources/images/splash.png" width="100%"/>',
             id: 'loadingpanel',
+			fullscreen: true,
+        	layout: 'fit',
         }]
     }
 });
