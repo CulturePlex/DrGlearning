@@ -2,6 +2,10 @@ var Base64Manager = {
   DIRECTORY: ".drglearning",
 
   storeImage: function(imageData, activity, sufix){
+    if (LocalFileSystem == undefined) {
+      return imageData;
+    }
+
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successFS, fail);
 
     function successFS(fileSystem) {
