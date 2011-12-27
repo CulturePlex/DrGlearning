@@ -1,6 +1,7 @@
 
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
+    requires: ['DrGlearning.controller.GlobalSettingsController'],
     stores: [
         'Careers','Activities','OfflineScores','Users'
     ],
@@ -25,9 +26,10 @@ Ext.define('DrGlearning.controller.DaoController', {
     	var activitiesInstalled=0;
 		for (cont in activities){
 			console.log(activities[cont]);
+			var HOST = this.getController('GlobalSettingsController').getServerURL();
 			Ext.data.JsonP.request({
 				scope: this,
-                url:'http://drglearning.testing.cultureplex.ca/'+activities[cont]+'?format=jsonp',
+                url: HOST+'/'+activities[cont]+'?format=jsonp',
                 params: {
                     deviceWidth: (window.screen.width != undefined) ? window.screen.width : 200,
                     deviceHeight: (window.screen.height != undefined) ? window.screen.height : 200
@@ -59,6 +61,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	}
                 	if(activityModel.data.activity_type=='visual'){
                 		activityModel.data.image=Base64Manager.storeImage(activity.image, activity);
+                		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer;
                 		activityModel.data.obfuscated_image=activity.obfuscated_image;
@@ -135,6 +138,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 	getknowledgesFields:function(){
 		var knowledges=new Array();
 		var career=this.getCareersStore();
+		career.load();
+		console.log("Careers finded: "+career.count());
 		career.each(function(item) {
 			//var temp=eval('('+item.data.knowledges+')');
 			console.log(item.data.knowledges);
@@ -142,15 +147,17 @@ Ext.define('DrGlearning.controller.DaoController', {
 			for(x in carrerKnowledges){
 				var exist=false;
 				for(y in knowledges){
-					if(carrerKnowledges[x]==knowledges[y]){
+					if(carrerKnowledges[x].name==knowledges[y]){
 						exist=true;
 					}
 				}
 				if(!exist){
-					knowledges.push(carrerKnowledges[x]);
+					knowledges.push(carrerKnowledges[x].name);
 				}
 			}
 		},this);
+		console.log("Conocimientos encontrados "+knowledges.length);
+		console.log(knowledges);
 		return knowledges;
 	},
 	getCarresByKnowledge:function(Knowledge){
@@ -203,7 +210,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		var offlineScoreStore=this.getOfflineScoresStore();
 		var usersStore = this.getUsersStore();
 		var user=usersStore.first();
-		var HOST = "http://drglearning.testing.cultureplex.ca";
+		var HOST = this.getController('GlobalSettingsController').getServerURL();
 		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
 			Ext.data.JsonP.request({
 				scope: this,
@@ -283,7 +290,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		var offlineScoreStore=this.getOfflineScoresStore();
 		var usersStore = this.getUsersStore();
 		var user=usersStore.first();
-		var HOST = 'http://drglearning.testing.cultureplex.ca';
+		var HOST = this.getController('GlobalSettingsController').getServerURL();
 		offlineScoreStore.each(function(item) {
 			Ext.data.JsonP.request({
 				scope: this,
@@ -301,6 +308,140 @@ Ext.define('DrGlearning.controller.DaoController', {
 		},this);
 		offlineScoreStore.sync();
 		offlineScoreStore.load();	
+	},
+	updateCarrer:function(careerID){
+		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
+			var careersStore=this.getCareersStore();
+			var activityStore=this.getActivitiesStore();
+			var career=careersStore.getById(careerID);
+			var HOST = this.getController('GlobalSettingsController').getServerURL();
+            	//Career request
+    			Ext.data.JsonP.request({
+                    url: HOST+'/api/v1/career/'+careerID+'/?format=jsonp',
+                    scope   : this,
+                    success:function(response, opts){
+                    	console.log("Updating career");
+                    	var newCareer=response["objects"];
+                    		//if(careersStore.findExact("id",career.id)==-1){
+                    	career.data.name=newCareer.name;
+                    	career.data.description=newCareer.description;
+                    	career.data.creator=newCareer.creator;
+                    	career.data.knowledges=newCareer.knowledges;
+                    	career.data.name=newCareer.name;
+                    	career.data.name=newCareer.name;
+                   		var activities=new Array();
+                    	for(cont in newCareer.activities){
+                    		activities[cont]=career.activities[cont].full_activity_url;
+                    	}
+                    	career.data.activities=activities;
+                    	activities=activities.split(",");
+                    	var HOST = this.getController('GlobalSettingsController').getServerURL();
+                    	for (cont in activities){
+                    		Ext.data.JsonP.request({
+                				scope: this,
+                                url: HOST+'/'+activities[cont]+'?format=jsonp',
+                                params: {
+                                    deviceWidth: (window.screen.width != undefined) ? window.screen.width : 200,
+                                    deviceHeight: (window.screen.height != undefined) ? window.screen.height : 200
+                                },
+                                success:function(response, opts){
+                                	var activity=response;
+                                	if(activityStore.getById(activity.id)!=undefined){
+                                		var activityModel=activityStore.getById(activity.id);
+                                		activityModel.data.name=activity.name;
+                                		activityModel.data.activity_type=activity.activity_type;
+                                		activityModel.data.language_code=activity.language_code;
+                                		activityModel.data.level_type=activity.level_type;
+                                		activityModel.data.level_order=activity.level_order;
+                                		activityModel.data.level_required=activity.level_required;
+                                		activityModel.data.query=activity.query;
+                                		activityModel.data.timestamp=activity.timestamp;
+                                		activityModel.data.resource_uri=activity.resource_uri;
+                                		activityModel.data.reward=activity.reward;
+                                	}else{
+                                		var activityModel=new DrGlearning.model.Activity({
+                                    		id : activity.id,
+                                    		name : activity.name,
+                                    		careerId : careerID,
+                                    		activity_type : activity.activity_type,
+                                    		language_code : activity.language_code,
+                                    		level_type : activity.level_type,
+                                    		level_order : activity.level_order,
+                                    		level_required : activity.level_required,
+                                    		query : activity.query,
+                                    		timestamp : activity.timestamp,
+                                    		resource_uri : activity.resource_uri,
+                                    		reward: activity.reward,
+                                    		score: 0,
+                                    		played: false,
+                                    		successful: false
+                                    		
+                                    	});
+                                	}
+                                    	if(activityModel.data.activity_type=='linguistic'){
+                                    		activityModel.data.image=activity.image;
+                                    		activityModel.data.locked_text=activity.locked_text;
+                                    		activityModel.data.answer=activity.answer;
+                                    	}
+                                    	if(activityModel.data.activity_type=='visual'){
+                                    		activityModel.data.image=Base64Manager.storeImage(activity.image, activity);
+                                    		//activityModel.data.image=activity.image;
+                                    		activityModel.data.answers=activity.answers;
+                                    		activityModel.data.correct_answer=activity.correct_answer;
+                                    		activityModel.data.obfuscated_image=activity.obfuscated_image;
+                                    		activityModel.data.time=activity.time;
+                                    	}
+                                    	if(activityModel.data.activity_type=='relational'){
+                                    		activityModel.data.graph_nodes=activity.graph_nodes;
+                                    		activityModel.data.graph_edges=activity.graph_edges;
+                                        activityModel.data.constraints=activity.constraints;
+                                    	}
+                                    	if(activityModel.data.activity_type=='temporal'){
+                                    		activityModel.data.image=activity.image;
+                                    		activityModel.data.image_datetime=activity.image_datetime;
+                                    		activityModel.data.query_datetime=activity.query_datetime;
+                                    	}
+                                    	if(activityModel.data.activity_type=='geospatial'){
+                                    		activityModel.data.area=activity.area;
+                                    		activityModel.data.point=activity.points;
+                                    		activityModel.data.radius=activity.radius;
+                                    	}
+                                    	activityModel.save();
+                                    	this.getActivitiesStore().sync();
+                    					this.getActivitiesStore().load();
+                                }
+                            });
+                    	}
+                    	career.data.update=false;
+                    	career.save();
+                    	careersStore.sync();
+                    	careersStore.load();
+                    }
+                });
+    			
+      }else{
+    	  // no internet connection
+      }
+	},
+	deleteCarrer:function(careerID){
+		var careersStore=this.getCareersStore();
+		var activityStore=this.getActivitiesStore();
+		var career=careersStore.getById(careerID);
+		career.data.installed = false;
+		career.data.started = false;
+		career.data.update = false;
+		var activities=activityStore.queryBy(function(record) {
+			if(record.data.careerId==careerID){
+				return true;
+			}
+		});
+		activities.each(function(item) {
+			item.destroy();
+		});
+		activityStore().sync();
+		activityStore().load();
+		career.save();
+		careersStore.sync();
+		careersStore.load();
 	}
-
 });

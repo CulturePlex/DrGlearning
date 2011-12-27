@@ -181,7 +181,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view12.down('careerslist').refresh();
 		options=[];
 		for (var i = 0; i < knowledgeFields.length; i++) {
-			options.push({text: knowledgeFields[i].name, value: knowledgeFields[i].name});
+			options.push({text: knowledgeFields[i], value: knowledgeFields[i]});
 		}
 		view12.down('selectfield[name=knnowledge_field]').setOptions(options);
 				
