@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
 import jsonfield
+import os.path
+from PIL import Image
+from StringIO import StringIO
 
 from django.contrib.gis.db import models
+from django.core.files.base import ContentFile
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -14,6 +18,9 @@ from south.modelsinspector import add_introspection_rules
 
 # South and PostGis integration patch
 add_introspection_rules([], ["^django\.contrib\.gis"])
+
+
+MAX_IMAGE_SIZE = 1024
 
 class Activity(models.Model):
     LAN_CHOICES = (
@@ -58,6 +65,23 @@ class Activity(models.Model):
                                             self.level_type,
                                             self.level_order)
 
+    def save(self, *args, **kwargs):
+        if hasattr(self, "image"):
+            if self.image.width > MAX_IMAGE_SIZE or \
+                    self.image.height > MAX_IMAGE_SIZE:
+                filename = self.image.name
+                small_image = Image.open(StringIO(self.image.read()))
+                small_image.thumbnail((MAX_IMAGE_SIZE,
+                                                    MAX_IMAGE_SIZE))
+                temp_file = StringIO()
+                file_extension = os.path.splitext(filename)[1][1:]
+                if file_extension.lower() == "jpg":
+                    file_extension = "jpeg"
+                small_image.save(temp_file, file_extension)
+                image_content = ContentFile(temp_file.getvalue())
+                self.image.save(filename, image_content)
+        super(Activity, self).save(*args, **kwargs)
+        
     class Meta:
         verbose_name_plural = "Activities"
         ordering = ['level_type', 'level_order']

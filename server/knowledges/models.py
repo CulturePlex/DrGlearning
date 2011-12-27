@@ -30,3 +30,7 @@ class Career(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.name
+
+
+class GenuineUser(User):
+    has_authenticity = models.BooleanField(default=True)

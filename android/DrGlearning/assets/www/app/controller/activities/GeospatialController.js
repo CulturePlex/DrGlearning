@@ -22,6 +22,8 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	radio:null,
 	activity:null,
 	activityView:null,
+	distancia:null,
+	puntos:null,
 	init: function(){
 		this.levelController=this.getController('LevelController');
 		console.log(this.levelController);
@@ -170,12 +172,15 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     },
 	confirm: function() {
 		console.log('asd');
-		var distancia=Math.sqrt(Math.pow(elmarker.position.Qa-elpunto.Qa,2)+Math.pow(elmarker.position.Ra-elpunto.Ra,2))*60000;
-		console.log(distancia);
+		this.distancia=Math.sqrt(Math.pow(elmarker.position.Qa-elpunto.Qa,2)+Math.pow(elmarker.position.Ra-elpunto.Ra,2))*60000;
+		console.log(this.distancia);
 		console.log(radio);
-		if (distancia < radio) {
-			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-				this.getController('DaoController').activityPlayed(this.activity.data.id,true,500);
+		this.puntos= 100 - (this.distancia*100)/radio;
+		console.log(this.puntos);
+		if (this.distancia < radio) {
+			Ext.Msg.alert('Right!', this.activity.data.reward, function(distancia){
+				console.log(this.distancia);
+				this.getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.levelController.nextActivity(this.activity.data.level_type);
 			}, this);
 		}else{
