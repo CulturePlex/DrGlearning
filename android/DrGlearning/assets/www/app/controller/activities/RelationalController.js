@@ -90,6 +90,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         return null;
       } else {
         playerPath.push(step);
+        if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
+          Ext.Msg.alert('Congratulations!', 'You get ' + graphNodes[pathPosition].score+ ' points!', function(){}, this);
+        }
         return createSelectFromNode(pathPosition)
       }
     }
@@ -168,9 +171,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     function refresh(option){
       activityView = Ext.create('DrGlearning.view.activities.Relational');
       activityView.down('label').setHtml(newActivity.data.query);
-      if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
-        Ext.Msg.alert('Congratulations!', 'You got' + grapnNodes[pathPosition].score+ ' points!', function(){}, this);
-      }
       var scorePanel = Ext.create('Ext.Panel', {
         html: '<p>Score: ' + getPathScore() + '</p>'
       });
