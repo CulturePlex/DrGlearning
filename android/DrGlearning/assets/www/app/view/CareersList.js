@@ -12,13 +12,24 @@ Ext.define('DrGlearning.view.CareersList', {
     requires: [
         'DrGlearning.view.CareersListItem'
     ],
-	//emptyText: 'No more careers to install',
+	emptyText: 'No more careers to install',
+	deferEmptyText: false,
     config: {
 		deselectOnContainerClick: true,
         ui   : 'careers',
         store: 'Careers',
         defaultType: 'careerslistitem',
 		//emptyText: 'No more careers to install',
-        deselectOnContainerClick: false
-    }
+        deselectOnContainerClick: false,
+
+    },
+	ponmascara: function(){
+		
+			console.log('asd');
+			if (this.getStore().getCount() == 0) {
+				this.setMask('No installed careers, please click on Add Career button to start!');
+			}
+		
+	}
 });
+
