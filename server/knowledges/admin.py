@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from knowledges.models import Knowledge, Career
+from knowledges.models import Knowledge, Career, GenuineUser
 from activities.models import Activity
 
 
@@ -27,3 +27,4 @@ class CareerAdmin(admin.ModelAdmin):
 
 admin.site.register(Knowledge)
 admin.site.register(Career, CareerAdmin)
+admin.site.register(GenuineUser)
