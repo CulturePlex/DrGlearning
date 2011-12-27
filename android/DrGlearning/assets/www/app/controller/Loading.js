@@ -124,7 +124,6 @@ Ext.define('DrGlearning.controller.Loading', {
 		                    			careersStore.load();
 	                    			}
                     			}
-	                    		
 	                    	}
 	                    	myMask.hide();
 	                    	this.getLoading().hide();

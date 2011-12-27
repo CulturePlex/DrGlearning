@@ -56,7 +56,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
         if (newCreator) {
             this.add(newCreator);
         }
-    }
+    },
     
     
 });
