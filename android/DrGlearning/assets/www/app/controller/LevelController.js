@@ -62,6 +62,11 @@ Ext.define('DrGlearning.controller.LevelController', {
 		description.setHtml('<b>'+level.data.name+' Level: </b>'+level.data.description+'<div style="position:absolute;margin:0 auto 0 auto; width:100%;bottom:50%;">Activities:</div>');
 		var activitiescarousel = detail.down('carousel');
 		var activities = this.getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+newLevel);
+		console.log(activities);
+		var activities = this.getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+newLevel);
+		console.log(activities);
+		var activities = this.getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+newLevel);
+		console.log(activities);
 		activitiescarousel.destroy();
 		activitiescarousel=Ext.create('Ext.Carousel', {
         	xtype: 'carousel',
