@@ -1,7 +1,7 @@
 //Ext.require('Phonegap');
 Ext.define('DrGlearning.controller.Loading', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.controller.DaoController'],
+    requires: ['DrGlearning.controller.DaoController','DrGlearning.controller.GlobalSettingsController'],
 	
 	views : [
 	        'Loading'	,
@@ -56,7 +56,7 @@ Ext.define('DrGlearning.controller.Loading', {
 				var user=usersStore.first();
 				if(user != undefined && user.data.serverid==""){
 					console.log("Registering user");
-					var HOST = "http://drglearning.testing.cultureplex.ca";
+					var HOST = this.getController('GlobalSettingsController').getServerURL();
 					Ext.data.JsonP.request({
 						scope: this,
 					    url: HOST+"/api/v1/player/?format=jsonp",
@@ -76,8 +76,9 @@ Ext.define('DrGlearning.controller.Loading', {
 					usersStore.sync();
 				}
 	            	//Career request
+					var HOST = this.getController('GlobalSettingsController').getServerURL();
 	    			Ext.data.JsonP.request({
-	                    url:"http://drglearning.testing.cultureplex.ca/api/v1/career/?format=jsonp",
+	                    url: HOST+"/api/v1/career/?format=jsonp",
 	                    scope   : this,
 	                    success:function(response, opts){
 	                    	console.log("Careers retrieved");
@@ -124,8 +125,8 @@ Ext.define('DrGlearning.controller.Loading', {
 		                    			careersStore.load();
 	                    			}
                     			}
-	                    		
 	                    	}
+	                    	console.log("Careers stored after loading = "+careersStore.count());
 	                    	//myMask.hide();
 	                    	this.getLoading().hide();
 	            			this.getController('CareersListController').initializate();		

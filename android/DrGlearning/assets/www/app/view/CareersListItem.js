@@ -11,7 +11,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
             },
             getCreator: {
                 setHtml: 'creator'
-            }
+            },
         },
         name: {
            cls:'career-name'	
@@ -27,7 +27,6 @@ Ext.define('DrGlearning.view.CareersListItem', {
            pack: 'center'
         }
     },
-    
     applyName: function(config){		
         return Ext.factory(config, Ext.Component, this.getName());
     },
@@ -56,7 +55,7 @@ Ext.define('DrGlearning.view.CareersListItem', {
         if (newCreator) {
             this.add(newCreator);
         }
-    }
+    },
     
     
 });

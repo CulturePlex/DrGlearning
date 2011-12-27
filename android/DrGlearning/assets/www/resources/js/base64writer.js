@@ -5,8 +5,8 @@ var Base64Manager = {
     if (LocalFileSystem == undefined) {
       return imageData;
     }
-
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successFS, fail);
+
 
     function successFS(fileSystem) {
       fileSystem.root.getDirectory(Base64Manager.DIRECTORY , {create: true, exclusive: false}, successDirectory, fail);
