@@ -1,7 +1,6 @@
 //Ext.require('Phonegap');
 Ext.define('DrGlearning.controller.LoadingController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.controller.DaoController','DrGlearning.controller.GlobalSettingsController','DrGlearning.view.Loading','DrGlearning.model.User','DrGlearning.view.Loading','DrGlearning.controller.GlobalSettingsController'],
     config: {
     	refs: 
     	        {
@@ -23,7 +22,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
 		//myMask.show();
 		console.log(this);
-		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		//view.show();
 		
