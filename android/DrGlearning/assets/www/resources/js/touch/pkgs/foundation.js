@@ -151,7 +151,7 @@ If you are unsure which license is appropriate for your use, please contact the 
          * @param {Function} superclass
          * @param {Object} overrides
          * @return {Function} The subclass constructor from the <tt>overrides</tt> parameter, or a generated one if not provided.
-         * @deprecated 4.0.0 Use {@link Ext#define Ext.define} instead
+         * @deprecated 4.0.0 Please use {@link Ext#define Ext.define} instead
          */
         extend: function() {
             // inline overrides
@@ -222,7 +222,7 @@ If you are unsure which license is appropriate for your use, please contact the 
          * containing one or more properties.
          * @method override
          * @markdown
-         * @deprecated 4.1.0 Use {@link Ext#define Ext.define} instead
+         * @deprecated 4.1.0 Please use {@link Ext#define Ext.define} instead
          */
         override: function(cls, overrides) {
             if (cls.$isClass) {
@@ -583,25 +583,43 @@ If you are unsure which license is appropriate for your use, please contact the 
             })();
         },
 
+        //<feature logger>
         /**
          * @private
          * @property
          */
         Logger: {
-            verbose: emptyFn,
-            log: emptyFn,
-            info: emptyFn,
-            warn: emptyFn,
+            log: function(message, priority) {
+                if ('console' in global) {
+                    if (!priority || !(priority in global.console)) {
+                        priority = 'log';
+                    }
+                    message = '[' + priority.toUpperCase() + '] ' + message;
+                    global.console[priority](message);
+                }
+            },
+            verbose: function(message) {
+                this.log(message, 'verbose');
+            },
+            info: function(message) {
+                this.log(message, 'info');
+            },
+            warn: function(message) {
+                this.log(message, 'warn');
+            },
             error: function(message) {
                 throw new Error(message);
             },
-            deprecate: emptyFn
+            deprecate: function(message) {
+                this.log(message, 'warn');
+            }
         }
+        //</feature>
     });
 
     /**
      * Old alias to {@link Ext#typeOf}
-     * @deprecated 4.0.0 Use {@link Ext#typeOf} instead
+     * @deprecated 4.0.0 Please use {@link Ext#typeOf} instead
      * @method
      * @alias Ext#typeOf
      */
@@ -649,7 +667,8 @@ var version = '4.1.0', Version;
          * @return {Ext.Version} this
          */
         constructor: function(version) {
-            var parts, releaseStartIndex;
+            var toNumber = this.toNumber,
+                parts, releaseStartIndex;
 
             if (version instanceof Version) {
                 return version;
@@ -668,12 +687,22 @@ var version = '4.1.0', Version;
 
             parts = this.version.split('.');
 
-            this.major = parseInt(parts.shift() || 0, 10);
-            this.minor = parseInt(parts.shift() || 0, 10);
-            this.patch = parseInt(parts.shift() || 0, 10);
-            this.build = parseInt(parts.shift() || 0, 10);
+            this.major = toNumber(parts.shift());
+            this.minor = toNumber(parts.shift());
+            this.patch = toNumber(parts.shift());
+            this.build = toNumber(parts.shift());
 
             return this;
+        },
+
+        toNumber: function(value) {
+            value = parseInt(value || 0, 10);
+
+            if (isNaN(value)) {
+                value = 0;
+            }
+
+            return value;
         },
 
         /**
@@ -2209,7 +2238,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#min}
-     * @deprecated 4.0.0 Use {@link Ext.Array#min} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#min} instead
      * @method
      * @member Ext
      * @alias Ext.Array#min
@@ -2218,7 +2247,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#max}
-     * @deprecated 4.0.0 Use {@link Ext.Array#max} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#max} instead
      * @method
      * @member Ext
      * @alias Ext.Array#max
@@ -2227,7 +2256,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#sum}
-     * @deprecated 4.0.0 Use {@link Ext.Array#sum} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#sum} instead
      * @method
      * @member Ext
      * @alias Ext.Array#sum
@@ -2236,7 +2265,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#mean}
-     * @deprecated 4.0.0 Use {@link Ext.Array#mean} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#mean} instead
      * @method
      * @member Ext
      * @alias Ext.Array#mean
@@ -2245,7 +2274,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#flatten}
-     * @deprecated 4.0.0 Use {@link Ext.Array#flatten} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#flatten} instead
      * @method
      * @member Ext
      * @alias Ext.Array#flatten
@@ -2254,7 +2283,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#clean}
-     * @deprecated 4.0.0 Use {@link Ext.Array#clean} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#clean} instead
      * @method
      * @member Ext
      * @alias Ext.Array#clean
@@ -2263,7 +2292,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#unique}
-     * @deprecated 4.0.0 Use {@link Ext.Array#unique} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#unique} instead
      * @method
      * @member Ext
      * @alias Ext.Array#unique
@@ -2272,7 +2301,7 @@ Ext.urlAppend = Ext.String.urlAppend;
 
     /**
      * Old alias to {@link Ext.Array#pluck Ext.Array.pluck}
-     * @deprecated 4.0.0 Use {@link Ext.Array#pluck Ext.Array.pluck} instead
+     * @deprecated 4.0.0 Please use {@link Ext.Array#pluck Ext.Array.pluck} instead
      * @method
      * @member Ext
      * @alias Ext.Array#pluck
@@ -2981,7 +3010,7 @@ Ext.mergeIf = Ext.Object.mergeIf;
  *
  * @member Ext
  * @method urlEncode
- * @deprecated 4.0.0 Use {@link Ext.Object#toQueryString Ext.Object.toQueryString} instead
+ * @deprecated 4.0.0 Please use {@link Ext.Object#toQueryString Ext.Object.toQueryString} instead
  */
 Ext.urlEncode = function() {
     var args = Ext.Array.from(arguments),
@@ -3001,7 +3030,7 @@ Ext.urlEncode = function() {
  *
  * @member Ext
  * @method urlDecode
- * @deprecated 4.0.0 Use {@link Ext.Object#fromQueryString Ext.Object.fromQueryString} instead
+ * @deprecated 4.0.0 Please use {@link Ext.Object#fromQueryString Ext.Object.fromQueryString} instead
  */
 Ext.urlDecode = function() {
     return ExtObject.fromQueryString.apply(ExtObject, arguments);
@@ -3653,7 +3682,6 @@ Ext.merge(Ext, {
 /**
  * @author Jacky Nguyen <jacky@sencha.com>
  * @class Ext.Base
- * @private
  *
  * The root of all classes created with {@link Ext#define}.
  *
@@ -4113,7 +4141,7 @@ var noArgs = [],
          * @return {Ext.Base} this class
          * @static
          * @inheritable
-         * @deprecated 4.1.0 Use {@link Ext#define Ext.define} instead
+         * @deprecated 4.1.0 Please use {@link Ext#define Ext.define} instead
          */
         override: function(members) {
             var me = this,
@@ -4646,6 +4674,8 @@ var noArgs = [],
                 this[nameMap.get] = this[nameMap.initGet];
             }
 
+            this.beforeInitConfig(config);
+
             for (i = 0,ln = initConfigList.length; i < ln; i++) {
                 name = initConfigList[i];
                 nameMap = configNameCache[name];
@@ -4660,6 +4690,8 @@ var noArgs = [],
             return this;
         },
 
+        beforeInitConfig: Ext.emptyFn,
+
         /**
          * @private
          */
@@ -4670,10 +4702,8 @@ var noArgs = [],
                 name, nameMap;
 
             for (name in defaultConfig) {
-                if (defaultConfig.hasOwnProperty(name)) {
-                    nameMap = configNameCache[name];
-                    config[name] = this[nameMap.get].call(this);
-                }
+                nameMap = configNameCache[name];
+                config[name] = this[nameMap.get].call(this);
             }
 
             return config;
@@ -4820,7 +4850,6 @@ var noArgs = [],
      * from the current method, for example: `this.callOverridden(arguments)`
      * @return {Object} Returns the result of calling the overridden method
      * @protected
-     * @deprecated as of 4.1. Use {@link #callParent} instead.
      */
     Base.prototype.callOverridden = Base.prototype.callParent;
 
@@ -4831,7 +4860,6 @@ var noArgs = [],
 /**
  * @author Jacky Nguyen <jacky@sencha.com>
  * @class Ext.Class
- * @private
  *
  * Handles class creation throughout the framework. This is a low level factory that is used by Ext.ClassManager and generally
  * should not be used directly. If you choose to use Ext.Class you will lose out on the namespace, aliasing and depency loading
@@ -5646,7 +5674,7 @@ var noArgs = [],
  *     });
  *
  *     Ext.define('CanComposeSongs', {
- *          composeSongs: function() { ... }
+ *          composeSongs: function() { }
  *     });
  *
  *     Ext.define('CanSing', {
@@ -5731,7 +5759,6 @@ var noArgs = [],
  *     iPhone.getPrice(); // 500;
  *     iPhone.getOperatingSystem(); // 'iOS'
  *     iPhone.getHasTouchScreen(); // true;
- *     iPhone.hasTouchScreen(); // true
  *
  *     iPhone.isExpensive; // false;
  *     iPhone.setPrice(600);
@@ -5751,7 +5778,7 @@ var noArgs = [],
  *              }
  *          },
  *
- *          constructor: function() { ... }
+ *          constructor: function() { }
  *     });
  *
  *     var dellComputer = Computer.factory('Dell');
@@ -6110,8 +6137,8 @@ var noArgs = [],
 
             if (alias && aliasToNameMap[alias] !== className) {
                 //<debug info>
-                if (aliasToNameMap[alias] && Ext.isDefined(global.console)) {
-                    global.console.log("[Ext.ClassManager] Overriding existing alias: '" + alias + "' " +
+                if (aliasToNameMap[alias]) {
+                    Ext.Logger.info("[Ext.ClassManager] Overriding existing alias: '" + alias + "' " +
                         "of: '" + aliasToNameMap[alias] + "' with: '" + className + "'. Be sure it's intentional.");
                 }
                 //</debug>
@@ -6380,10 +6407,8 @@ var noArgs = [],
                 //</debug>
 
                 //<debug warn>
-                if (global.console) {
-                    global.console.warn("[Ext.Loader] Synchronously loading '" + className + "'; consider adding " +
-                         "Ext.require('" + alias + "') above Ext.onReady");
-                }
+                Ext.Logger.warn("[Ext.Loader] Synchronously loading '" + className + "'; consider adding " +
+                     "Ext.require('" + alias + "') above Ext.onReady");
                 //</debug>
 
                 Ext.syncRequire(className);
@@ -6460,10 +6485,8 @@ var noArgs = [],
             // Still not existing at this point, try to load it via synchronous mode as the last resort
             if (!cls) {
                 //<debug warn>
-                if (global.console) {
-                    global.console.warn("[Ext.Loader] Synchronously loading '" + name + "'; consider adding " +
-                         "Ext.require('" + ((possibleName) ? alias : name) + "') above Ext.onReady");
-                }
+                Ext.Logger.warn("[Ext.Loader] Synchronously loading '" + name + "'; consider adding '" +
+                    ((possibleName) ? alias : name) + "' explicitly as a require of the corresponding class");
                 //</debug>
 
                 Ext.syncRequire(name);
@@ -6998,7 +7021,7 @@ var noArgs = [],
 
     /**
      * Old name for {@link Ext#widget}.
-     * @deprecated 4.0.0 Use {@link Ext#widget} instead.
+     * @deprecated 4.0.0 Please use {@link Ext#widget} instead.
      * @method createWidget
      * @member Ext
      */

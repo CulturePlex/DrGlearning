@@ -82,6 +82,7 @@ this.ExtBootstrapData = {
         ],
         "Ext.carousel.Indicator":["widget.carouselindicator"
         ],
+        "Ext.carousel.Infinite":[],
         "Ext.carousel.Item":[],
         "Ext.data.ArrayStore":["store.array"
         ],
@@ -169,6 +170,22 @@ this.ExtBootstrapData = {
         ],
         "Ext.dataview.element.Container":[],
         "Ext.dataview.element.List":[],
+        "Ext.direct.Event":["direct.event"
+        ],
+        "Ext.direct.ExceptionEvent":["direct.exception"
+        ],
+        "Ext.direct.JsonProvider":["direct.jsonprovider"
+        ],
+        "Ext.direct.Manager":[],
+        "Ext.direct.Provider":["direct.provider"
+        ],
+        "Ext.direct.RemotingEvent":["direct.rpc"
+        ],
+        "Ext.direct.RemotingMethod":[],
+        "Ext.direct.RemotingProvider":["direct.remotingprovider"
+        ],
+        "Ext.direct.Transaction":["direct.transaction"
+        ],
         "Ext.dom.CompositeElement":[],
         "Ext.dom.CompositeElementLite":[],
         "Ext.dom.Element":["widget.element"
@@ -345,10 +362,8 @@ this.ExtBootstrapData = {
         "Ext.scroll.View":[],
         "Ext.scroll.indicator.Abstract":[],
         "Ext.scroll.indicator.CssTransform":[],
+        "Ext.scroll.indicator.Default":[],
         "Ext.scroll.indicator.ScrollPosition":[],
-        "Ext.scroll.scroller.Abstract":[],
-        "Ext.scroll.scroller.CssTransform":[],
-        "Ext.scroll.scroller.ScrollPosition":[],
         "Ext.slider.Slider":["widget.slider"
         ],
         "Ext.slider.Thumb":["widget.thumb"
@@ -439,6 +454,8 @@ this.ExtBootstrapData = {
         "Ext.IndexBar":"Ext.dataview.IndexBar",
         "Ext.List":"Ext.dataview.List",
         "Ext.NestedList":"Ext.dataview.NestedList",
+        "Ext.Direct":"Ext.direct.Manager",
+        "Ext.Direct.Transaction":"Ext.direct.Transaction",
         "Ext.CompositeElement":"Ext.dom.CompositeElementLite",
         "Ext.CompositeElementLite":"Ext.dom.CompositeElementLite",
         "Ext.Element":"Ext.dom.Element",
@@ -475,7 +492,6 @@ this.ExtBootstrapData = {
         "Ext.Picker":"Ext.picker.Picker",
         "Ext.Picker.Slot":"Ext.picker.Slot",
         "Ext.util.Indicator":"Ext.scroll.Indicator",
-        "Ext.util.Scroller":"Ext.scroll.Scroller",
         "Ext.util.ScrollView":"Ext.scroll.View",
         "Ext.TabBar":"Ext.tab.Bar",
         "Ext.TabPanel":"Ext.tab.Panel",
