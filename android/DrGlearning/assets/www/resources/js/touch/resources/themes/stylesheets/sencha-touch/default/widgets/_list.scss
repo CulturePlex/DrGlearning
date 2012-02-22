@@ -17,7 +17,7 @@ $list-color: #000 !default;
 $list-bg-color: #f7f7f7 !default;
 
 /**
- * @var {color} $list-pressed-color
+ * @var {color} $include-list-highlights
  * Background-color for pressed list rows.
  */
 $include-list-highlights: $include-highlights !default;
@@ -65,11 +65,12 @@ $list-disclosure-size: 1.7em;
  */
 @mixin sencha-list {
   .x-list {
-    background-color: $list-bg-color;
-  }
-
-  .x-list {
     position: relative;
+    background-color: $list-bg-color;
+
+    .x-list-inner {
+      width: 100%;
+    }
 
     .x-list-disclosure {
       position: absolute;
@@ -95,7 +96,7 @@ $list-disclosure-size: 1.7em;
     }
 
     .x-list-item {
-      overflow: hidden;
+//      overflow: hidden;
       position: relative;
       color: $list-color;
       border-top: 1px solid darken($list-bg-color, 15%);
@@ -144,6 +145,11 @@ $list-disclosure-size: 1.7em;
     font-size: 0.8em;
     padding: 0.2em 1.02em;
     @include bevel-by-background($list-header-bg-color);
+
+    //to put it above the border on list items
+    position: relative;
+    margin-top: -1px;
+
     @if $include-list-highlights {
       -webkit-box-shadow: 0px .1em .3em rgba(0, 0, 0, 0.3);
     }
@@ -151,7 +157,7 @@ $list-disclosure-size: 1.7em;
 
   .x-list-header-swap {
     position: absolute;
-    top: 0;
+    margin-top: -1px;
     left: 0;
     width: 100%;
   }
@@ -230,12 +236,11 @@ $list-disclosure-size: 1.7em;
     width: 2.5em;
     height: 4.5em;
 
-    -webkit-mask: center center theme_image($theme-name, "pullarrow.png") no-repeat;
-    -webkit-mask-size: 2em 3em;
+    background: center center theme_image($theme-name, "pullarrow.png") no-repeat;
+    background-size: 2em 3em;
     /*-webkit-transition-property: -webkit-transform;*/
     /*-webkit-transition-duration: 200ms;*/
     -webkit-transform: rotate(0deg);
-    background-color: #111;
   }
 
   .x-list-pullrefresh-release .x-list-pullrefresh-arrow {

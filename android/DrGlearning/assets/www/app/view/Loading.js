@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.view.Loading', {
-    extend: 'Ext.Container',
+    extend: 'Ext.Panel',
 	xtype: 'loading',
     config: {
         fullscreen: true,

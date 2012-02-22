@@ -1,7 +1,9 @@
 Ext.define('DrGlearning.store.Levels', {
 	extend  : 'Ext.data.Store',
-    model: 'DrGlearning.model.Level',
     requires: ['DrGlearning.model.Level'],
+	config: {
+		model: 'DrGlearning.model.Level',
+    },
     autoLoad: true,
     autoSync: true,
 

@@ -7,7 +7,7 @@
  * by Ext.List
  */
 Ext.define('DrGlearning.view.CareersList', {
-    extend: 'Ext.dataview.ComponentView',
+    extend: 'Ext.dataview.DataView',
     xtype : 'careerslist',
     requires: [
         'DrGlearning.view.CareersListItem'

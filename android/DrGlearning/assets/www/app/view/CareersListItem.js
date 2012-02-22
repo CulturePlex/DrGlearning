@@ -1,5 +1,5 @@
 Ext.define('DrGlearning.view.CareersListItem', {
-    extend: 'Ext.dataview.DataItem',
+    extend: 'Ext.dataview.component.DataItem',
     xtype: 'careerslistitem',
     config: {
         dataMap: {
