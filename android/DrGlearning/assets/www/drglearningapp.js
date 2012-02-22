@@ -5,8 +5,12 @@ Ext.Loader.setConfig({
 Ext.application({
 	name : 'DrGlearning',
 	views : [ 'Loading' ],
-	controllers : [ 'LoadingController','GlobalSettingsController' ],
+	controllers : [ 'LoadingController','GlobalSettingsController','DaoController'],
 	models: ['User'],
 	stores: ['Activities','Careers','Levels','OfflineScores','Users'],
 	autoCreateViewport : true,
+	
+    launch: function() {
+        this.getController('LoadingController').onLaunch();
+    }
 });

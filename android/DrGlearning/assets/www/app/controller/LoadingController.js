@@ -1,7 +1,7 @@
 //Ext.require('Phonegap');
 Ext.define('DrGlearning.controller.LoadingController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.controller.DaoController','DrGlearning.controller.GlobalSettingsController','DrGlearning.view.Loading'],
+    requires: ['DrGlearning.controller.DaoController','DrGlearning.controller.GlobalSettingsController','DrGlearning.view.Loading','DrGlearning.model.User','DrGlearning.view.Loading','DrGlearning.controller.GlobalSettingsController'],
     config: {
     	refs: 
     	        {
@@ -11,7 +11,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
     },
 
     init: function(){
-		this.onLaunch();
 	},
 	
 	onLaunch: function() {
@@ -72,10 +71,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 					usersStore.sync();
 				}
 	            	//Career request
-					console.log(this.getApplication());
-					console.log(this);
-					console.log(this.getApplication().getController('GlobalSettingsController'));
-					var HOST = this.getController('GlobalSettingsController').getServerURL();
+					var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 	    			Ext.data.JsonP.request({
 	                    url: HOST+"/api/v1/career/?format=jsonp",
 	                    scope   : this,
@@ -128,17 +124,17 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    	console.log("Careers stored after loading = "+careersStore.count());
 	                    	//myMask.hide();
 	                    	this.getLoading().hide();
-	            			this.getController('CareersListController').initializate();		
+	                    	this.getApplication().getController('CareersListController').initializate();		
 
 	                    }
 	                });
 	    			//Scores Updates
-	    			this.getController('DaoController').updateOfflineScores();
+	    			this.getApplication().getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
 	    	  	//myMask.hide();
 	          	this.getLoading().hide();
-    			this.getController('CareersListController').initializate();		
+	          	this.getApplication().getController('CareersListController').initializate();		
 	      }
 		},
 		/**
