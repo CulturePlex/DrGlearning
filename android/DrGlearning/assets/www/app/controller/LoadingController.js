@@ -13,7 +13,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	},
 	
 	onLaunch: function() {
-		console.log("2");
 		if(window.InternalApi != undefined){
 			console.log(window.InternalApi.getTest());
 		}
@@ -21,7 +20,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		//view.mask("Loading..");
 		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
 		//myMask.show();
-		console.log(this);
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		//view.show();
@@ -50,7 +48,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 				var user=usersStore.first();
 				if(user != undefined && user.data.serverid==""){
 					console.log("Registering user");
-					var HOST = this.getController('GlobalSettingsController').getServerURL();
+					var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 					Ext.data.JsonP.request({
 						scope: this,
 					    url: HOST+"/api/v1/player/?format=jsonp",
@@ -80,7 +78,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    	for (cont in careers) {
 	                    		var career=careers[cont];
 	                    		//its a new career?
-	                    		console.log("Careers stored "+careersStore.count());
+	                    		console.log("Careers stored "+careersStore.getCount());
 	                    		if(careersStore.findExact("id",career.id)==-1){
 	                    			console.log("New Career found -> id="+career.id);
 	                    			var careerModel=new DrGlearning.model.Career({
@@ -105,7 +103,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    			careerModel.save();
 	                    			careersStore.sync();
 	                    			careersStore.load();
-	                    			console.log("Careers stored after add = "+careersStore.count());
+	                    			console.log("Careers stored after add = "+careersStore.getCount());
 	                    		}else{
 	                    			console.log("Career already exist -> id="+career.id);
 	                    			//Watch for updates
@@ -120,7 +118,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    			}
                     			}
 	                    	}
-	                    	console.log("Careers stored after loading = "+careersStore.count());
+	                    	console.log("Careers stored after loading = "+careersStore.getCount());
 	                    	//myMask.hide();
 	                    	this.getLoading().hide();
 	                    	this.getApplication().getController('CareersListController').initializate();		

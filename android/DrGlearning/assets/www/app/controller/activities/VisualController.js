@@ -13,7 +13,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	activity:null,
 	respuestas:null,
 	init: function(){
-		this.levelController = this.getController('LevelController');
+		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
 			'button[customId=respuesta]': {
 				tap: this.tryIt
@@ -77,7 +77,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
 					this.levelController.nextActivity(this.activity.data.level_type);
 				}, this);
 		}else{

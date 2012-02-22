@@ -13,7 +13,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	activity:null,
 	respuestas:null,
 	init: function(){
-		this.levelController = this.getController('LevelController');
+		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
 			'button[customId=solve]': {
 				tap: this.tryIt

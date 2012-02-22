@@ -6,6 +6,6 @@ Ext.define('DrGlearning.controller.GlobalSettingsController', {
 	},
 	getServerURL: function() {
 		//return 'http://drglearning.testing.cultureplex.ca';
-		return 'http://testing.cultureplex.ca:8680/admin/';
+		return 'http://testing.cultureplex.ca:8680';
 	},
 });

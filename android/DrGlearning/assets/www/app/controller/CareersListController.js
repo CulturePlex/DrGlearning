@@ -6,22 +6,17 @@
  */
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.controller.ActivityController','DrGlearning.controller.CareerController','DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.controller.activities.LinguisticController','DrGlearning.view.Settings'],
-    views: ['Main', 'CareerFrame', 'CareersFrame', 'LevelFrame', 'CareersList','Settings'],
-    stores: ['Careers','Levels','Activities','Users'],
-    refs: [{
-        ref: 'main',
-        selector: 'mainview',
-        xtype: 'mainview'
-    },  {
-        ref: 'careersframe',
-        selector: 'careersframe',
-        xtype: 'careersframe'
-    }, {
-        ref: 'settings',
-        selector: 'settings',
-        xtype: 'settings'
-    }],
+    requires: [
+               'DrGlearning.view.Main',
+    ], 
+    config: {
+    	refs: {
+    		mainView : 'mainview',
+    		careersframe:  'careersframe',
+    		settings : 'settings',
+        
+    	}
+    },
     selectedcareer: null,
 	selectedlevel: null,
 	knowledgeFields: null,
@@ -33,10 +28,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
     initializate: function(){
 		document.body.style.background="";
 		console.log(document.body.style.background);
-		this.careerController=this.getController('CareerController');
-		this.levelController=this.getController('LevelController');
-		this.daoController=this.getController('DaoController');
-        this.getMainView().create();
+		this.careerController=this.getApplication().getController('CareerController');
+		this.levelController=this.getApplication().getController('LevelController');
+		this.daoController=this.getApplication().getController('DaoController');
+		console.log(this);
+		Ext.create('DrGlearning.view.Main');
         this.control({
             'careerslistitem': {
                 tap: this.addOrStartCareer
@@ -82,14 +78,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Showing Installed Careers.
 	 */
     index: function(){
-        var store = this.getCareersStore();
+        var store = Ext.getStore('Careers');
         store.clearFilter();
         store.filter("installed", "true");
         var view1 = this.getCareersframe();
         if (view1) {
             view1.hide();
         }
-        this.getCareersFrameView().create();
+        Ext.create('DrGlearning.view.CareersFrame');
         var view1 = this.getCareersframe();
         this.filterCareers();
 		view1.down('careerslistempty').hide();
@@ -114,7 +110,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			//Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
 				
 																								//if (answer == 'yes') {
-																									this.getController('DaoController').installCareer(career.data.id, this.installFinished,this);
+																									this.getApplication().getController('DaoController').installCareer(career.data.id, this.installFinished,this);
 																							//}
 																									//},this);
 		}
@@ -139,7 +135,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Filer Careers by started/not started atribute.
 	 */
     filterCareers: function(){
-        var store = this.getCareersStore();
+        var store = Ext.getStore('Careers');
         store.clearFilter();
         store.filter("installed", "true");
         var view1 = this.getCareersframe();
@@ -185,7 +181,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		}
 		view12.down('selectfield[name=knnowledge_field]').setOptions(options);
 				
-        var store = this.getCareersStore();
+        var store = Ext.getStore('Carrers');
         store.clearFilter();
         store.filter('installed', 'false');
 		
@@ -208,7 +204,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 */
     search: function(values, form){
         form = form.toLowerCase();
-        var store = this.getCareersStore();
+        var store = Ext.getStore('Carrers');
         var filters = [];
         filters.push(new Ext.util.Filter({
             filterFn: function(item){

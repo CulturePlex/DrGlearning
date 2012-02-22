@@ -18,9 +18,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 		view.down('component[customId=activity]').destroy();
 	}
 	console.log(this);
-    var daocontroller = this.getController('DaoController');
-    var careerscontroller = this.getController('CareersListController');
-	var activitiescontroller = this.getController('LevelController');
+    var daocontroller = this.getApplication().getController('DaoController');
+    var careerscontroller = this.getApplication().getController('CareersListController');
+	var activitiescontroller = this.getApplication().getController('LevelController');
     var blankOption = "- - -";
     var playerPath = [];
     var playerEdgePath = [];

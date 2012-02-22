@@ -32,9 +32,9 @@ Ext.define('DrGlearning.controller.CareerController', {
 	 * Initializate Controller.
 	 */
     init: function(){
-		this.careersListController=this.getController('CareersListController');
-		this.levelController=this.getController('LevelController');
-		this.daoController=this.getController('DaoController');
+		this.careersListController=this.getApplication().getController('CareersListController');
+		this.levelController=this.getApplication().getController('LevelController');
+		this.daoController=this.getApplication().getController('DaoController');
 		this.getCareerFrameView().create();
         this.control({
             'button[customId=startLevel]': {
@@ -73,14 +73,14 @@ Ext.define('DrGlearning.controller.CareerController', {
 	 * Update Career View.
 	 */
 	updateCareer: function(newCareer){
-		careerController=this.getController('CareerController');
+		careerController=this.getApplication().getController('CareerController');
 		var view = this.getCareerframe();
 		var detail= view.down('careerdetail');
 		var description = detail.down('careerdescription');
         description.setData(newCareer.data);
 		var levelscarousel = detail.down('carousel');
 		var levelstemp = new Array();
-		levelstemp = this.getController('DaoController').getLevels(''+newCareer.data.id);
+		levelstemp = this.getApplication().getController('DaoController').getLevels(''+newCareer.data.id);
 		var items=[];
 		var levelButtonHtml;
 		levelscarousel.destroy();
@@ -142,7 +142,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var view1 = this.getCareerframe();
 		var detail= view1.down('careerdetail');
 		var levelscarousel = detail.down('carousel');
-        this.levelController.updateLevel(this.careersListController.selectedcareer, this.getController('DaoController').getLevels(this.careersListController.selectedcareer.data.id)[levelscarousel.getActiveIndex()]);
+        this.levelController.updateLevel(this.careersListController.selectedcareer, this.getApplication().getController('DaoController').getLevels(this.careersListController.selectedcareer.data.id)[levelscarousel.getActiveIndex()]);
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }

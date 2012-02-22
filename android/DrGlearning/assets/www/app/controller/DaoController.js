@@ -14,7 +14,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		
 	},
 	getInstalled: function() {
-		return this.getCareersStore().findExact('installed','true');
+		return Ext.getStore('Carrers').findExact('installed','true');
 	},
     installCareer: function(id,callback,scope) {
     	var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Downloading..."});

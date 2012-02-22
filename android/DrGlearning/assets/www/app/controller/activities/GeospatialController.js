@@ -25,10 +25,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	distancia:null,
 	puntos:null,
 	init: function(){
-		this.levelController=this.getController('LevelController');
+		this.levelController=this.getApplication().getController('LevelController');
 		console.log(this.levelController);
-		console.log('asssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss');
-		this.careersListController=this.getController('CareersListController');
+		this.careersListController=this.getApplication().getController('CareersListController');
 		this.getActivityFrameView().create();
 		this.activityView=this.getActivityframe();
 		this.control({
@@ -180,7 +179,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		if (this.distancia < radio) {
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(distancia){
 				console.log(this.distancia);
-				this.getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
+				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.levelController.nextActivity(this.activity.data.level_type);
 			}, this);
 		}else{

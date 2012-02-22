@@ -1,5 +1,6 @@
 Ext.define('DrGlearning.model.Career', {
     extend: 'Ext.data.Model',
+    config: {
     fields: [
 	{
 		name: "id",
@@ -45,4 +46,5 @@ Ext.define('DrGlearning.model.Career', {
 		type: 'localstorage',
 		id  : 'DrGlearningCareers'
 	}
+    }
 });
