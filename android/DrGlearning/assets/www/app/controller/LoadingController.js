@@ -22,6 +22,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
 		//myMask.show();
 		console.log(this);
+		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		//view.show();
 		
