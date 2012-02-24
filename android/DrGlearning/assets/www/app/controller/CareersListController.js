@@ -139,14 +139,16 @@ Ext.define('DrGlearning.controller.CareersListController', {
         store.clearFilter();
         store.filter("installed", "true");
         var view1 = this.getCareersframe();
-        if (view1.down('selectfield[name=state]').getValue() == 'notYet') {
+		console.log(view1);
+		var careerStateSelected=Ext.ComponentQuery.query('selectfield[name=state]')[0];
+		console.log(careerStateSelected);
+        if (careerStateSelected.getValue() == 'notYet') {
             store.filter("started", "false");
         }
-        if (view1.down('selectfield[name=state]').getValue() == 'inProgress') {
+        if (careerStateSelected.getValue() == 'inProgress') {
             store.filter("started", "true");
         }
         store.load();
-        view1.down('careerslist').refresh();
     },
 	/*filterCareersByKnowledge: function(){
         var store = this.getCareersStore();
