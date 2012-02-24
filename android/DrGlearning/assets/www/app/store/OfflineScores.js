@@ -3,9 +3,10 @@ Ext.define('DrGlearning.store.OfflineScores', {
     requires: ['DrGlearning.model.OfflineScore'],
 	config: {
 		model: 'DrGlearning.model.OfflineScore',
+	    autoLoad: true,
+	    autoSync: true,
     },
-    autoLoad: true,
-    autoSync: true,
+
 
     listeners: { 
         exception: function(){ 
