@@ -131,7 +131,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var view1 = this.getCareerframe();
 		var detail= view1.down('careerdetail');
 		var levelscarousel = detail.down('carousel');
-        this.levelController.updateLevel(this.careersListController.selectedcareer, this.getApplication().getController('DaoController').getLevels(this.careersListController.selectedcareer.data.id)[levelscarousel.getActiveIndex()]);
+        this.getApplication().getController('LevelController').updateLevel(this.careersListController.selectedcareer, this.getApplication().getController('DaoController').getLevels(this.careersListController.selectedcareer.data.id)[levelscarousel.getActiveIndex()]);
         if (this.getCareerframe()) {
             this.getCareerframe().hide();
         }
