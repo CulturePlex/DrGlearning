@@ -138,14 +138,16 @@ Ext.define('DrGlearning.controller.CareersListController', {
         store.clearFilter();
         store.filter("installed", "true");
         var view1 = this.getCareersframe();
-        if (view1.down("selectfield[name='state']").getValue() == 'notYet') {
+		console.log(view1);
+		var careerStateSelected=Ext.ComponentQuery.query('selectfield[name=state]')[0];
+		console.log(careerStateSelected);
+        if (careerStateSelected.getValue() == 'notYet') {
             store.filter("started", "false");
         }
-        if (view1.down('selectfield[name=state]').getValue() == 'inProgress') {
+        if (careerStateSelected.getValue() == 'inProgress') {
             store.filter("started", "true");
         }
         store.load();
-        view1.down('careerslist').refresh();
     },
 	/*filterCareersByKnowledge: function(){
         var store = this.getCareersStore();
@@ -169,8 +171,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		
 		knowledgeFields = this.daoController.getknowledgesFields();
 		console.log(knowledgeFields);
-		this.getCareersFrameView().create().destroy();
-        var view12 = this.getCareersframe();
+		var view12 = this.getCareersframe();
 		view12.down('careerslist').show();
 		view12.down('careerslistempty').hide();
         view12.down('careerslist').refresh();
@@ -180,12 +181,10 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		}
 		view12.down('selectfield[name=knnowledge_field]').setOptions(options);
 				
-        var store = Ext.getStore('Carrers');
+        var store = Ext.getStore('Careers');
         store.clearFilter();
         store.filter('installed', 'false');
 		
-        var caca = this.getCareersFrameView().create();
-        caca.destroy();
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
         if (store.getCount() == 0) {

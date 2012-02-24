@@ -137,9 +137,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 	},
 	getknowledgesFields:function(){
 		var knowledges=new Array();
-		var career=Ext.getStore('Carrers');
+		var career=Ext.getStore('Careers');
 		career.load();
-		console.log("Careers finded: "+career.count());
+		console.log("Careers finded: "+career.getCount());
 		career.each(function(item) {
 			//var temp=eval('('+item.data.knowledges+')');
 			console.log(item.data.knowledges);
