@@ -5,6 +5,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
 		'DrGlearning.view.CareerDetail',	
     ],
 	config: {
+		fullscreen: true,
         items: [
             {
 				ref: 'toolbar',

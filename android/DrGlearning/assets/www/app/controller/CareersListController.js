@@ -93,7 +93,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.down('toolbar[id=toolbarBottomSettings]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
-		console.log('cacota');
         view1.show();
     },
 	/*
