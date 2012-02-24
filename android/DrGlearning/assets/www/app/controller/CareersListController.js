@@ -34,7 +34,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		Ext.create('DrGlearning.view.Main');
         this.control({
             'careerslist': {
-                select: this.addOrStartCareer
+                itemtap: this.addOrStartCareer
             },
             'button[id=addCareer]': {
                 tap: this.addCareer
@@ -96,26 +96,27 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.down('toolbar[id=toolbarBottomSettings]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
-		//console.log(view1.getItems());
+		console.log('cacota');
         view1.show();
     },
 	/*
 	 * Method call when tap on a Carrer Item in the list.
 	 */
-	addOrStartCareer: function(list, career){
+	addOrStartCareer: function(list, itemIndex, item, career){
+		console.log(career);
 		this.selectedcareer=career;
 		if (career.data.installed == "false") 
 		{
-			//Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
+			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){
 				
-																								//if (answer == 'yes') {
+																								if (answer == 'yes') {
 																									this.getApplication().getController('DaoController').installCareer(career.data.id, this.installFinished,this);
-																							//}
-																									//},this);
+																							}
+																								},this);
 		}
 		else 
 		{
-			this.careerController.updateCareer(career);
+			this.getApplication().getController('CareerController').updateCareer(career);
 			this.getCareersframe().hide();
 		}
     },

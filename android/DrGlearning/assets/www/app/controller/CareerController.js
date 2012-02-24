@@ -6,25 +6,13 @@
  */
 Ext.define('DrGlearning.controller.CareerController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.controller.DaoController'],
-    views: ['CareerFrame'],
-    stores: ['Careers','Levels','Activities','Users'],
-    refs: [
-	{
-        ref: 'careerframe',
-        selector: 'careerframe',
-        xtype: 'careerframe'
-    }, 
-	{
-        ref: 'levelframe',
-        selector: 'levelframe',
-        xtype: 'levelframe'
-    }, 
-	{
-        ref: 'activityframe',
-        selector: 'activityframe',
-        xtype: 'activityframe'
-    }],
+	config: {
+	    refs: {
+			careerframe : 'careerframe',
+			levelframe : 'levelframe',
+			activityframe: 'activityframe'
+	    }
+	},
 	carousel:null,
 	flechaizqHtml:"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.previous();'><img src='resources/images/flechaizq.png' alt='flecha'></a></div>",
 	flechaderHtml:"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>",
@@ -35,7 +23,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 		this.careersListController=this.getApplication().getController('CareersListController');
 		this.levelController=this.getApplication().getController('LevelController');
 		this.daoController=this.getApplication().getController('DaoController');
-		this.getCareerFrameView().create();
+		Ext.create('DrGlearning.view.careerframe');
+		this.getCareerframe().create();
         this.control({
             'button[customId=startLevel]': {
                 tap: this.startLevel
