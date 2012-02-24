@@ -33,8 +33,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		console.log(this);
 		Ext.create('DrGlearning.view.Main');
         this.control({
-            'careerslistitem': {
-                tap: this.addOrStartCareer
+            'careerslist': {
+                select: this.addOrStartCareer
             },
             'button[id=addCareer]': {
                 tap: this.addCareer
@@ -170,6 +170,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		knowledgeFields = this.daoController.getknowledgesFields();
 		console.log(knowledgeFields);
 		var view12 = this.getCareersframe();
+
 		view12.down('careerslist').show();
 		view12.down('careerslistempty').hide();
         view12.down('careerslist').refresh();
@@ -178,7 +179,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			options.push({text: knowledgeFields[i], value: knowledgeFields[i]});
 		}
 		view12.down('selectfield[name=knnowledge_field]').setOptions(options);
-				
         var store = Ext.getStore('Careers');
         store.clearFilter();
         store.filter('installed', 'false');
@@ -194,6 +194,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();
         view12.show();
+		view12.down('careerslist').refresh();
+		console.log(view12.down('careerslist').getStore().getCount());
     },
 	/*
 	 * Searching for specific career by writing in searchbox.

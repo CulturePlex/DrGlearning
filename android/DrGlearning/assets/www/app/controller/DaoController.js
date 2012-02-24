@@ -16,14 +16,14 @@ Ext.define('DrGlearning.controller.DaoController', {
     installCareer: function(id,callback,scope) {
     	var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Downloading..."});
 		myMask.show();
-    	var career=Ext.getStore('Carrers').getById(id);
+    	var career=Ext.getStore('Careers').getById(id);
     	var activities=career.data.activities;
     	activities=activities.split(",");
     	//console.log("activity "+activities);
     	var activitiesInstalled=0;
 		for (cont in activities){
 			console.log(activities[cont]);
-			var HOST = this.getAplication.getController('GlobalSettingsController').getServerURL();
+			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 			Ext.data.JsonP.request({
 				scope: this,
                 url: HOST+'/'+activities[cont]+'?format=jsonp',
@@ -90,10 +90,8 @@ Ext.define('DrGlearning.controller.DaoController', {
                 }
             });
 		}
-		var career=Ext.getStore('Carrers').getById(id);
+		var career=Ext.getStore('Careers').getById(id);
     	career.set('installed','true');
-    	Ext.getStore('Carrers').load();
-    	Ext.getStore('Carrers').sync();
     },
     
     /* 

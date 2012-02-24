@@ -19,6 +19,7 @@ Ext.define('DrGlearning.view.CareersList', {
         ui   : 'careers',
         store: 'Careers',
         defaultType: 'careerslistitem',
+		useComponents: true,
 		//emptyText: 'No more careers to install',
         deselectOnContainerClick: false,
 
