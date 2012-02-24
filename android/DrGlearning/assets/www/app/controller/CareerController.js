@@ -19,7 +19,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 	/*
 	 * Initializate Controller.
 	 */
-    init: function(){
+    launch: function(){
 		this.careersListController=this.getApplication().getController('CareersListController');
 		this.levelController=this.getApplication().getController('LevelController');
 		this.daoController=this.getApplication().getController('DaoController');
@@ -80,7 +80,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		this.carousel=levelscarousel;
 		for(var i=0;i<levelstemp.length;i++)
 		{
-			var level=this.getLevelsStore().getAt(levelstemp[i]-1);
+			var level=Ext.getStore('Levels').getAt(levelstemp[i]-1);
 			levelButtonHtml=this.getLevelHtml(level.data);
 			if (i == 0) {
 				if (i == levelstemp.length - 1) {
