@@ -4,7 +4,7 @@ Ext.Loader.setConfig({
 
 Ext.application({
 	name : 'DrGlearning',
-	views : [ 'Loading' ],
+	views : [ 'Loading','CareerFrame' ],
 	controllers : [ 'LoadingController','GlobalSettingsController','DaoController','CareersListController','CareerController'],
 	models: ['Activity','Career','Level','OfflineScore','User'],
 	stores: ['Activities','Careers','Levels','OfflineScores','Users'],

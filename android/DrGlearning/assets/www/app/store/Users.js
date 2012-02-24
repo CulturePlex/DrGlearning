@@ -4,8 +4,8 @@ Ext.define('DrGlearning.store.Users', {
 		model: 'DrGlearning.model.User',
 		autoLoad: true,
 	    autoSync: true,
-    },
-    
+	},
+
 
     listeners: { 
         exception: function(){ 

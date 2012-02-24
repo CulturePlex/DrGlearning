@@ -28,7 +28,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		careersStore.load();
 		Ext.getStore('Activities').load();
 		var usersStore = Ext.getStore('Users');
-		usersStore.load();
 		console.log(usersStore);
 		//Create user if needed
 		if(window.device != undefined && usersStore.getCount()==0 ){
@@ -78,8 +77,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    	for (cont in careers) {
 	                    		var career=careers[cont];
 	                    		//its a new career?
+	                    		console.log(career.id);
 	                    		console.log("Careers stored "+careersStore.getCount());
-	                    		if(careersStore.findExact("id",career.id)==-1){
+	                    		if(careersStore.findExact('id',parseInt(career.id))==-1){
 	                    			console.log("New Career found -> id="+career.id);
 	                    			var careerModel=new DrGlearning.model.Career({
 	                    					id : career.id,

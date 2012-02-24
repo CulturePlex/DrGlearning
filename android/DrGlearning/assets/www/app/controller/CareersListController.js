@@ -6,9 +6,6 @@
  */
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
-    requires: [
-               'DrGlearning.view.Main',
-    ], 
     config: {
     	refs: {
     		mainView : 'mainview',

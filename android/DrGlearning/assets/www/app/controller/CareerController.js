@@ -23,9 +23,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 		this.careersListController=this.getApplication().getController('CareersListController');
 		this.levelController=this.getApplication().getController('LevelController');
 		this.daoController=this.getApplication().getController('DaoController');
-		Ext.create('DrGlearning.view.careerframe');
-		this.getCareerframe().create();
-        this.control({
+		Ext.create('DrGlearning.view.CareerFrame');
+		this.control({
             'button[customId=startLevel]': {
                 tap: this.startLevel
             },

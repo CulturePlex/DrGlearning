@@ -92,6 +92,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 		}
 		var career=Ext.getStore('Careers').getById(id);
     	career.set('installed','true');
+    	career.save();
+    	Ext.getStore('Careers').sync();
+    	
     },
     
     /* 
