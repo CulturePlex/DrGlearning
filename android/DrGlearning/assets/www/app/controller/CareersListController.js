@@ -14,8 +14,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     		mainView : 'mainview',
     		careersframe:  'careersframe',
     		settings : 'settings',
-        
-    	}
+        }
     },
     selectedcareer: null,
 	selectedlevel: null,
@@ -139,7 +138,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         store.clearFilter();
         store.filter("installed", "true");
         var view1 = this.getCareersframe();
-        if (view1.down('selectfield[name=state]').getValue() == 'notYet') {
+        if (view1.down("selectfield[name='state']").getValue() == 'notYet') {
             store.filter("started", "false");
         }
         if (view1.down('selectfield[name=state]').getValue() == 'inProgress') {
