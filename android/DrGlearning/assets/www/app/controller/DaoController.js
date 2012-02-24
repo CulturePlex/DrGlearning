@@ -2,10 +2,7 @@
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
     requires: ['DrGlearning.controller.GlobalSettingsController'],
-    stores: [
-        'Careers','Activities','OfflineScores','Users'
-    ],
-	
+    
 	init: function(){
 		
 	},
@@ -138,7 +135,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 	getknowledgesFields:function(){
 		var knowledges=new Array();
 		var career=Ext.getStore('Careers');
-		career.load();
+		console.log(career);
+		career.clearFilter();
 		console.log("Careers finded: "+career.getCount());
 		career.each(function(item) {
 			//var temp=eval('('+item.data.knowledges+')');
@@ -156,7 +154,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 				}
 			}
 		},this);
-		console.log("Conocimientos encontrados "+knowledges.length);
+		console.log("Knowledges finded: "+knowledges.length);
 		console.log(knowledges);
 		return knowledges;
 	},

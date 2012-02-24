@@ -101,8 +101,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    			}
 	                    			careerModel.set('activities',activities);
 	                    			careerModel.save();
-	                    			careersStore.sync();
-	                    			careersStore.load();
 	                    			console.log("Careers stored after add = "+careersStore.getCount());
 	                    		}else{
 	                    			console.log("Career already exist -> id="+career.id);
