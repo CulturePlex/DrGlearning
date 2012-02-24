@@ -16,7 +16,7 @@ Ext.define('DrGlearning.model.Level', {
 			url : 'resources/json/levels.json',
 			reader : {
 				type : 'json',
-				root : 'levels'
+				rootProperty : 'levels'
 			}
 		}
 	}
