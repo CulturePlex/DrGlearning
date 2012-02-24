@@ -56,6 +56,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 	getLevelHtml: function(levelData)
 	{
 		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
+		console.log(levelData);
 		console.log(filesImgs[levelData.customId-1]);
 		return "<div id='centro' align='middle'><p align='top'>"+levelData.name+"</p><a href= 'javascript:careerController.startLevel();'><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></a></div>"
 	},
@@ -69,20 +70,24 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var description = detail.down('careerdescription');
         description.setData(newCareer.data);
 		var levelscarousel = detail.down('carousel');
+		console.log(levelscarousel);
+		console.log('asdasdasd');
 		var levelstemp = new Array();
 		levelstemp = this.getApplication().getController('DaoController').getLevels(''+newCareer.data.id);
+		console.log(levelstemp);
 		var items=[];
 		var levelButtonHtml;
-		levelscarousel.destroy();
+		/*levelscarousel.destroy();
 		levelscarousel=Ext.create('Ext.Carousel', {
         	xtype: 'carousel',
             ui: 'dark',
             direction: 'horizontal',
     	});
-		this.carousel=levelscarousel;
+		this.carousel=levelscarousel;*/
 		for(var i=0;i<levelstemp.length;i++)
 		{
 			var level=Ext.getStore('Levels').getAt(levelstemp[i]-1);
+			console.log(level);
 			levelButtonHtml=this.getLevelHtml(level.data);
 			if (i == 0) {
 				if (i == levelstemp.length - 1) {
@@ -121,7 +126,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 		console.log(levelstemp);
 		var activeItem=levelstemp.indexOf(''+this.daoController.getCurrenLevel(newCareer.data.id));
 		levelscarousel.setActiveItem(activeItem);
-		detail.add(levelscarousel);
+		//detail.add(levelscarousel);
+		
     	view.down('title[id=title]').setTitle(newCareer.data.name);
 		view.show();
 	},

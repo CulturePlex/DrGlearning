@@ -6,9 +6,6 @@ Ext.define('DrGlearning.store.Careers', {
         autoLoad: true,
         autoSync: true,
     },
-    
-
-
     listeners: { 
         exception: function(){ 
           console.log('store exception'); 
