@@ -19,7 +19,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
                         xtype: 'title',
 						id: 'title',
 						name: 'title',
-                        title: 'Career Name'
+                        title: 'Careessssr Name'
                     },
                     { xtype: 'spacer' }
                   

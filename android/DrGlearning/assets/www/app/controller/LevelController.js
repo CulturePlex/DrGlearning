@@ -21,7 +21,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 		this.careersListController=this.getApplication().getController('CareersListController');
 		this.careerController=this.getApplication().getController('CareerController');
 		this.levelController=this.getApplication().getController('LevelController');
-		Ext.create('DrGlearning.view.LevelFrame');
+		var view = Ext.create('DrGlearning.view.ActivityFrame');
+		view.hide();
        	this.control({
 			'button[id=backtolevels]': {
 				tap: this.tolevels
@@ -40,12 +41,14 @@ Ext.define('DrGlearning.controller.LevelController', {
 		});
     },
     tolevels: function(){
+		console.log('olas');
         if (this.getLevelframe()) {
             this.getLevelframe().hide();
         }
         this.getApplication().getController('CareerController').tocareer();
     },
 	updateLevel: function(newCareer,newLevel) {
+		Ext.create('DrGlearning.view.LevelFrame');
 		levelController=this.getApplication().getController('LevelController');
 		this.selectedlevel=newLevel;
 		console.log(this);
@@ -112,9 +115,10 @@ Ext.define('DrGlearning.controller.LevelController', {
 		var detail= view1.down('leveldetail');
 		var activitiescarousel = detail.down('carousel');
         //this.getActivityFrameView().create();
-		var view = Ext.create('DrGlearning.view.ActivityFrame');
-        //var view = this.getActivityframe();
-		console.log(typeof activityIndex == 'number');
+
+        var view = this.getActivityframe();
+		view.hide();
+		console.log(view);
 		if(typeof activityIndex == 'number')
 		{
 			console.log('era un numero');
@@ -134,6 +138,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		Ext.create('DrGlearning.view.ActivityFrame');
 		var view = this.getActivityframe();
 		console.log(view);
+		console.log('aaaaaaaargh');
 		var temp = Ext.getStore('Activities').queryBy(function(record) {
 			return record.data.level_type==this.selectedlevel && record.data.careerId==this.getApplication().getController('CareersListController').selectedcareer.data.id ;
 		},this);
@@ -180,10 +185,15 @@ Ext.define('DrGlearning.controller.LevelController', {
 		}
 		else
 		{
-			this.careerController.updateCareer(this.careersListController.selectedcareer);
+			this.getApplication().getController('CareerController').updateCareer(this.getApplication().getController('CareersListController').selectedcareer);
 			this.getLevelframe().hide();
 			this.getActivityframe().hide();
-			setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the "+prevLevelString+" level! Next Level: "+currentLevelString+"', function(){}, this);",50);
+			if (currentLevel != 1) {
+				setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! Next Level: " + currentLevelString + "', function(){}, this);", 50);
+			}else
+			{
+				setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! It was the last Level, you have finished this career!', function(){}, this);", 50);
+			}
 				
 		}
 		//console.log(currentActivity);
