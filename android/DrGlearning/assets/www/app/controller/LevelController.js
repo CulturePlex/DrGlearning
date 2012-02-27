@@ -6,20 +6,13 @@
  */
 Ext.define('DrGlearning.controller.LevelController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.controller.DaoController','DrGlearning.controller.activities.GeospatialController','DrGlearning.controller.activities.TemporalController','DrGlearning.controller.activities.VisualController','DrGlearning.controller.activities.RelationalController'],
-    views: ['LevelFrame','ActivityFrame'],
-    stores: ['Careers','Levels','Activities','Users'],
-    refs: [{
-        ref: 'levelframe',
-        selector: 'levelframe',
-        xtype: 'levelframe'
-    }, {
-        ref: 'activityframe',
-        selector: 'activityframe',
-        xtype: 'activityframe'
-    }
-	],
-	activityView:null,
+    config: {
+    	refs: {
+    		levelframe: 'levelframe',
+    		activityframe: 'activityframe',
+        }
+    },
+    activityView:null,
 	carousel:null,
 	/*
 	 * Initializate Controller.
@@ -28,7 +21,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		this.careersListController=this.getApplication().getController('CareersListController');
 		this.careerController=this.getApplication().getController('CareerController');
 		this.levelController=this.getApplication().getController('LevelController');
-		this.getLevelFrameView().create();
+		Ext.create('DrGlearning.view.LevelFrame');
        	this.control({
 			'button[id=backtolevels]': {
 				tap: this.tolevels
@@ -55,10 +48,12 @@ Ext.define('DrGlearning.controller.LevelController', {
 	updateLevel: function(newCareer,newLevel) {
 		levelController=this.getApplication().getController('LevelController');
 		this.selectedlevel=newLevel;
+		console.log(this);
+		
 		var view = this.getLevelframe();
 		var detail= view.down('leveldetail');
 		var description = detail.down('leveldescription');
-		var level=this.getLevelsStore().getAt(newLevel-1);
+		var level=Ext.getStore('Levels').getAt(newLevel-1);
 		description.setHtml('<b>'+level.data.name+' Level: </b>'+level.data.description+'<div style="position:absolute;margin:0 auto 0 auto; width:100%;bottom:50%;">Activities:</div>');
 		var activitiescarousel = detail.down('carousel');
 		var activities = this.getApplication().getController('DaoController').getActivitiesByLevel(''+newCareer.data.id,''+newLevel);
