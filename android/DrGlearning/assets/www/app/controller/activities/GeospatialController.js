@@ -1,21 +1,11 @@
 Ext.define('DrGlearning.controller.activities.GeospatialController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
-    views: ['ActivityFrame', 'activities.Geospatial'],
-	controllers: ['DrGlearning.controller.Careers'],
-    stores: ['Careers','Levels','Activities'],
-	refs: [
-		{
-	        ref: 'activities.geospatial',
-	        selector: 'mainview',
-	        autoCreate: true,
-	        xtype: 'mainview'
-    	},{
-	        ref: 'activityframe',
-	        selector: 'activityframe',
-	        xtype: 'activityframe'
-    	}
-	],	
+	config: {
+		refs: {
+    		geospatial: 'activities.geospatial',
+    		activityframe: 'activityframe',
+        }
+	},
 	mapa:null,
 	elmarker:null,
 	elpunto:null,
@@ -28,8 +18,8 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		this.levelController=this.getApplication().getController('LevelController');
 		console.log(this.levelController);
 		this.careersListController=this.getApplication().getController('CareersListController');
-		this.getActivityFrameView().create();
-		this.activityView=this.getActivityframe();
+		//this.getActivityFrameView().create();
+		//this.activityView=this.getActivityframe();
 		this.control({
 			'button[customId=confirm]': {
 				tap: this.confirm

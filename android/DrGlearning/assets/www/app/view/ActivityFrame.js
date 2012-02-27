@@ -3,6 +3,7 @@ Ext.define('DrGlearning.view.ActivityFrame', {
 	xtype: 'activityframe',
     
 	config: {
+		fullscreen: true,
         items: [
             {
 				ref: 'toolbar',

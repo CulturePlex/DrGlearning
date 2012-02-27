@@ -99,8 +99,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	 * Method call when tap on a Carrer Item in the list.
 	 */
 	addOrStartCareer: function(list, itemIndex, item, career){
-		console.log(career);
+		console.log('aaaaaaaaaaaaaaaaaaaaaaa');
 		this.selectedcareer=career;
+		console.log(this.selectedcareer);
 		if (career.data.installed == "false") 
 		{
 			Ext.Msg.confirm("Install Career?","Are you sure you want to install this career?",function(answer,pako){

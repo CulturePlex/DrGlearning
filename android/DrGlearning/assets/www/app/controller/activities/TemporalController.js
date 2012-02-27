@@ -40,12 +40,12 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
-				this.levelController.nextActivity(this.activity.data.level_type);
+				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
-				this.levelController.tolevel();
+				this.getApplication().getController('LevelController').tolevel();
 			},this);
 		} 
 	},
@@ -53,12 +53,13 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
 			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
-				this.levelController.nextActivity(this.activity.data.level_type);
+				console.log('ola');
+				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{
 			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
-				this.levelController.tolevel();
+				this.getApplication().getController('LevelController').tolevel();
 			},this);
 		} 
 	}

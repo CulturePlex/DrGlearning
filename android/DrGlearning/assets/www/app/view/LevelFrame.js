@@ -5,6 +5,7 @@ Ext.define('DrGlearning.view.LevelFrame', {
 		'DrGlearning.view.LevelDetail',	
     ],
 	config: {
+		fullscreen: true,
         items: [
             {
 				ref: 'toolbar',

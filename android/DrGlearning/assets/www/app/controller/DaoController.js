@@ -197,7 +197,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		activitiesStore.load();
 		activitiesStore.sync();
 		//Make carrer started if needed
-		var carrer=carrersStore.getById(activity.data.careerId);
+		var carrer=Ext.getStore('Careers').getById(activity.data.careerId);
 		if(!carrer.data.started){
 			carrer.data.started=true;
 			carrer.save();
