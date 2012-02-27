@@ -12,14 +12,7 @@ Ext.define('DrGlearning.view.CareersList', {
     requires: [
         'DrGlearning.view.CareersListItem'
     ],
-	
-	deferEmptyText: false,
-	masked: {
-		    xtype: 'loadmask',
-		    message: 'My message'
-		},
     config: {
-		emptyText: 'No more careers to install',
 		deselectOnContainerClick: true,
         ui   : 'careers',
         store: 'Careers',

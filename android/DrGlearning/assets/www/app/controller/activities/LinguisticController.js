@@ -1,15 +1,12 @@
 Ext.define('DrGlearning.controller.activities.LinguisticController', {
     extend:  'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
-    views: ['ActivityFrame', 'activities.Linguistic'],
-	controllers: ['DrGlearning.controller.Careers'],
-    stores: ['Careers','Levels','Activities'],
-	refs: [{
-        ref: 'activities.linguistic',
-        selector: 'mainview',
-        autoCreate: true,
-        xtype: 'mainview'
-    }],	
+	config: {
+		fullscreen:true,
+        refs: {
+            linguistic: 'activities.linguistic',
+            activityframe: 'activityframe',
+        }
+    },
 	activity:null,
 	respuestas:null,
 	init: function(){
@@ -21,7 +18,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		});
 	},
 	updateActivity: function(view,newActivity) {
-		
+		console.log(view);
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Linguistic');
@@ -30,7 +27,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		this.respuestas=this.activity.data.answers;
-		console.log(this.respuestas);
+		console.log(this.activity);
 		view.add(activityView);
 		
 		

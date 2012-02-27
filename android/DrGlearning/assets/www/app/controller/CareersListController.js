@@ -184,8 +184,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
         if (store.getCount() == 0) {
-			console.log(view12.down('careerslist'));
-            view12.down('careerslist').setMasked(true);
+			//console.log(view12.down('careerslist'));
+            //view12.down('careerslist').setMasked(true);
         }
         view12.down('toolbar[id=toolbarTopNormal]').hide();
         view12.down('toolbar[id=toolbarBottomSettings]').hide();

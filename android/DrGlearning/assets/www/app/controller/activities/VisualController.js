@@ -78,6 +78,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		{
 			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
 					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+					console.log('aski');
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
 		}else{

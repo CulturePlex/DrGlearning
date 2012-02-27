@@ -209,7 +209,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		var offlineScoreStore=Ext.getStore('OfflineScores');
 		var usersStore = Ext.getStore('Users');
 		var user=usersStore.first();
-		var HOST = this.getAplication().getController('GlobalSettingsController').getServerURL();
+		var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
 			Ext.data.JsonP.request({
 				scope: this,
@@ -280,10 +280,11 @@ Ext.define('DrGlearning.controller.DaoController', {
 		for(var j=0;j<activities.items.length;j++){
 			console.log(activities.items[j]);
 			if(!activities.items[j].data.successful){
-				return activities.items[j].data.id; 
+				return activities.items[j]; 
 			}
 		}
-		return activities.items[0].data.id;
+		console.log(activities.items[0].data.id);
+		return activities.items[0];
 	},
 	updateOfflineScores:function(){
 		var offlineScoreStore=Ext.getStore('OfflineScores');
