@@ -14,6 +14,12 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return Ext.getStore('Carrers').findExact('installed','true');
 	},
     installCareer: function(id,callback,scope) {
+    	Ext.Viewport.setMasked({
+    	    xtype: 'loadmask',
+    	    message: 'Downloading...',
+ 	       indicator: true
+    	});
+    	
     	var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Downloading..."});
 		myMask.show();
     	var career=Ext.getStore('Careers').getById(id);
@@ -84,7 +90,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	Ext.getStore('Activities').load();
 					activitiesInstalled=activitiesInstalled+1;
 					if(activities.length==activitiesInstalled){
-				    	myMask.hide();
+						Ext.Viewport.setMasked(false);
 				    	callback(scope);
 		    		}
                 }

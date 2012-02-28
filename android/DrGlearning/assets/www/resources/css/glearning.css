@@ -1,18 +1,29 @@
 .relational {
-  font-size: small;
-  text-align: center;
+	font-size: small;
+	text-align: center;
 }
 
-li.relational-constraints{
-  background-color: #FF3535;
-  text-align: left;
+li.relational-constraints {
+	background-color: #FF3535;
+	text-align: left;
 }
 
 li.relational-constraint-passed {
-  background-color: #ADFF9B;
+	background-color: #ADFF9B;
 }
 
-.career-name div{font-weight:bold;}
-.career-description div{font-size: 100%;}
-.career-creator div{}
+.career-name div {
+	font-weight: bold;
+}
 
+.career-description div {
+	font-size: 100%;
+}
+
+.career-creator div {
+	
+}
+
+.x-sheet-detail {
+	background: white;
+}
