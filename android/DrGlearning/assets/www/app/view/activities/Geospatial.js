@@ -15,12 +15,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
         fullscreen: true,
         items: [{
             xtype: 'map',
-			mapOptions: {
-				styleHtmlContent: true,
-				streetViewControl:false,
-			},
             id: 'testMap',
-            layout: 'fit',
             fullscreen: true
         	},
 			{

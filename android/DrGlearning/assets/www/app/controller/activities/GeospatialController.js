@@ -41,6 +41,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         this.activityView.down('label').setHtml(newActivity.data.query);
         this.empezar(this.activityView, newActivity);
         console.log('lolo');
+		this.activityView.show();
         view.add(this.activityView);
     },
     empezar: function(view, activity){

@@ -33,6 +33,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		console.log(newActivity.data);
 		activityView.down('panel').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
 		activityView.down('label').setHtml(newActivity.data.query);
+		activityView.show();
 		view.add(activityView);
 	},
 	before: function() {

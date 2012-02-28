@@ -125,13 +125,14 @@ Ext.define('DrGlearning.controller.LevelController', {
         if (this.getLevelframe()) {
             this.getLevelframe().hide();
         }
-		this.activityView=view;
-   
+		//this.activityView=view;
+   		
     },
+	
 	updateActivity: function(newActivity) {
 		Ext.create('DrGlearning.view.ActivityFrame');
 		var view = this.getActivityframe();
-		view.hide();
+		//view.hide();
 		console.log(view);
 
 /*		console.log(newActivityIndex);

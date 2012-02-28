@@ -35,7 +35,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=this.activity.data.answers;
 		console.log(this.respuestas);
-		
+		activityView.show();
 		view.add(activityView);
 		var opciones=6;
 		var time=newActivity.data.time;

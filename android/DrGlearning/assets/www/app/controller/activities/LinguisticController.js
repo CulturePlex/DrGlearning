@@ -28,6 +28,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		this.respuestas=this.activity.data.answers;
 		console.log(this.activity);
+		activityView.show();
 		view.add(activityView);
 		
 		
