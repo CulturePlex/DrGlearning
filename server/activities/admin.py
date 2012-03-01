@@ -47,7 +47,7 @@ class VisualAdmin(ActivityAdmin):
 class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
 
     class Media:
-        js = ('js/geospatialAdmin.js',)
+        js = ('http://www.google.com/jsapi', 'js/geospatialAdmin.js')
 
 
 class TemporalAdmin(ActivityAdmin):
