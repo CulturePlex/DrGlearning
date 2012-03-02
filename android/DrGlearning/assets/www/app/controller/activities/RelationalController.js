@@ -1,22 +1,33 @@
 Ext.define('DrGlearning.controller.activities.RelationalController', {
   extend: 'Ext.app.Controller',
-  requires: ['DrGlearning.store.Careers','DrGlearning.store.Levels','DrGlearning.view.CareersFrame'],
-  views: ['ActivityFrame', 'activities.Relational'],
-  controllers: ['DrGlearning.controller.Careers','DrGlearning.controller.DaoController'],
-  stores: ['Careers','Levels','Activities'],
-  refs: [{
-    ref: 'activities.relational',
-    selector: 'mainview',
-    autoCreate: true,
-    xtype: 'mainview'
-  }],
+  config: {
+		fullscreen:true,
+        refs: {
+            relational: 'activities.relational',
+            activityframe: 'activityframe',
+        }
+    },
 
   updateActivity: function(view, newActivity) {
-  	if(view.down('component[customId=activity]'))
+		
+  	/*if(view.down('component[customId=activity]'))
 	{
 		view.down('component[customId=activity]').hide();
 		view.down('component[customId=activity]').destroy();
-	}
+	}*/
+	
+	console.log(view);
+	this.activity= newActivity;
+	view.down('component[customId=activity]').destroy();
+	/*activityView = Ext.create('DrGlearning.view.activities.Relational');
+	
+	
+	activityView.show();
+	view.add(activityView);*/
+		
+	activityView = Ext.create('DrGlearning.view.activities.Relational');
+    activityView.down('label').setHtml(newActivity.data.query);
+	  
 	console.log(this);
     var daocontroller = this.getApplication().getController('DaoController');
     var careerscontroller = this.getApplication().getController('CareersListController');
@@ -42,6 +53,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     var graphNodes = newActivity.data.graph_nodes;
     var graphEdges = newActivity.data.graph_edges;
     var constraints = newActivity.data.constraints;
+	
+	console.log(graphNodes);
   
     /** This function receives a nodeName and searches into edges
      * data for all the related nodes. It returns a Sencha field.Select
@@ -169,8 +182,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     /** Given the last step, it refreshes the user interface to mark the
      * actual walked path and next options available */
     function refresh(option){
-      activityView = Ext.create('DrGlearning.view.activities.Relational');
-      activityView.down('label').setHtml(newActivity.data.query);
       var scorePanel = Ext.create('Ext.Panel', {
         html: '<p>Score: ' + getPathScore() + '</p>'
       });
@@ -204,15 +215,17 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       activityView.add(option);
       activityView.add(endNode);
       activityView.add(button);
+	  activityView.show();
       view.add(activityView);
 	  console.log(view);
     }
   
-    function successfulGame(){
+    function successfulGame(context){
       if (allConstraintsPassed) {
         Ext.Msg.alert('Right!', newActivity.data.reward, function(){
           daocontroller.activityPlayed(newActivity.data.id,true,500);
-          this.activitiesController.nextActivity(newActivity.data.level_type);
+		  console.log(DrGlearning);
+          DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
         }, this);
       }
     }
