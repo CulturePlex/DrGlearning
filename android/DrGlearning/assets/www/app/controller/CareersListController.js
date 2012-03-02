@@ -86,10 +86,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         Ext.create('DrGlearning.view.CareersFrame');
         var view1 = this.getCareersframe();
         this.filterCareers();
-        view1.down('careerslistempty').hide();
         if (store.getCount() == 0) {
             view1.down('careerslist').hide();
-            view1.down('careerslistempty').show();
         }
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarBottomSettings]').show();
@@ -171,13 +169,12 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * career).
      */
     addCareer: function(){
-    
+    	
         knowledgeFields = this.daoController.getknowledgesFields();
         console.log(knowledgeFields);
         var view12 = this.getCareersframe();
         
         view12.down('careerslist').show();
-        view12.down('careerslistempty').hide();
         view12.down('careerslist').refresh();
         options = [];
         for (var i = 0; i < knowledgeFields.length; i++) {
@@ -202,6 +199,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();
         view12.show();
+		console.log(view12.down('careerslist'));
         view12.down('careerslist').refresh();
         console.log(view12.down('careerslist').getStore().getCount());
 		this.filterCareersByKnowledge();

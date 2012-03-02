@@ -1,7 +1,6 @@
 Ext.define('DrGlearning.view.CareersFrame', {
     extend: 'Ext.Container',
     xtype: 'careersframe',
-    requires: ['DrGlearning.view.CareersList', 'DrGlearning.view.CareersListEmpty'],
     config: {
     	fullscreen: true,
         items: [
@@ -81,36 +80,6 @@ Ext.define('DrGlearning.view.CareersFrame', {
 				ui: 'back'
             }]
         
-        },{
-            xtype: 'careerslistempty',
-			layout: 'vbox',
-			items:[{xtype:'spacer'},
-					{xtype:'container',
-					layout: 'hbox',		
-					items: [
-						{xtype:'spacer'},
-						{
-							xtype:'panel',
-							html:'<p align="center" >No careers installed, click on Add Career Button to start</p>'
-						},
-						{xtype:'spacer'}
-					]},
-					{xtype:'container',
-					layout: 'hbox',		
-					items: [
-						{xtype:'spacer'},
-						{
-							xtype:'button',
-							text:'Add Career',
-							width:'150px',
-							align:'center',
-							customId:'addCareer'
-						},	
-						{xtype:'spacer'}
-					]},
-					
-					{xtype:'spacer'}
-				]
         },{
             xtype: 'careerslist',
         },{
