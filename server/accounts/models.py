@@ -8,6 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
+from base.utils import image_resize
 from userena.models import UserenaLanguageBaseProfile
 
 
@@ -62,6 +63,11 @@ class UserProfile(UserenaLanguageBaseProfile):
                                 related_name="users")
     trusted = models.BooleanField(_('trusted'), default=False, editable=False,
                                   help_text=_('It the user is trusted'))
+    image = models.ImageField(upload_to="images", null=True)
+
+    def save(self, *args, **kwargs):
+        self = image_resize(self)
+        super(UserProfile, self).save(*args, **kwargs)
 
     @property
     def age(self):
