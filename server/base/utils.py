@@ -1,3 +1,5 @@
+MAX_IMAGE_SIZE = 1024
+
 def image_resize(self):
     if hasattr(self, "image") and self.image:
         if self.image.width > MAX_IMAGE_SIZE or \
