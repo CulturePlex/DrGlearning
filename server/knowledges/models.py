@@ -41,3 +41,4 @@ class Career(models.Model):
 
 class GenuineUser(User):
     has_authenticity = models.BooleanField(default=True)
+    institution_url = models.CharField(max_length=80)
