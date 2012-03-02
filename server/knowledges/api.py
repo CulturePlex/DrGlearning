@@ -25,3 +25,12 @@ class CareerResource(ModelResource):
         bundle.data["creator"] = bundle.obj.user.get_full_name() or \
                                                     bundle.obj.user.username
         return bundle
+
+    def alter_list_data_to_serialize(self, request, data):
+        # Filter careers without activities
+        careers_objects = data["objects"]
+        filtered_careers = [c for c in careers_objects \
+                if c.obj.activity_set.count() > 0]
+        data["objects"] = filtered_careers
+        return data
+

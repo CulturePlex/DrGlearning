@@ -21,9 +21,6 @@ from south.modelsinspector import add_introspection_rules
 add_introspection_rules([], ["^django\.contrib\.gis"])
 
 
-MAX_IMAGE_SIZE = 1024
-
-
 class Activity(models.Model):
     LAN_CHOICES = (
         ("en", _("English")),
