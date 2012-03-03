@@ -1,8 +1,9 @@
 from tastypie import fields
 from tastypie.resources import ModelResource
 
-from knowledges.models import Knowledge, Career
 from activities.api import ActivityUpdateResource
+from base.utils import dehydrate_fields
+from knowledges.models import Knowledge, Career
 
 
 class KnowledgeResource(ModelResource):
@@ -33,7 +34,7 @@ class CareerResource(ModelResource):
         size += len(str(bundle.data))
         bundle.data["size"] = size
 
-        return bundle
+        return dehydrate_fields(bundle)
 
     def alter_list_data_to_serialize(self, request, data):
         # Filter careers without activities

@@ -5,6 +5,7 @@ from tastypie.resources import ModelResource
 
 from activities.api import ActivityResource
 from activities.models import Activity
+from base.utils import dehydrate_fields
 from players.models import Player, HighScore
 
 
@@ -32,6 +33,8 @@ class PlayerResource(ModelResource):
                                                     request,
                                                     **kwargs)
 
+    def dehydrate(self, bundle):
+        return dehydrate_fields(bundle)
 
 class HighScoreResource(ModelResource):
     player = fields.ForeignKey(PlayerResource, 'player')
