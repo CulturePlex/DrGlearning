@@ -166,11 +166,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var store = Ext.getStore('Careers');
         store.clearFilter();
         store.filter("installed", "false");
-       // var view1 = this.getCareersframe();
-       // store.filter("started", "false");
-	   //console.log(store);
-        //if (Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0].getValue() ==
-        //'notYet') {
+		var value=Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0].getValue();
+		if(value!='All')
+		{
             store.filterBy(
 				function(record,id)
 				{
@@ -180,10 +178,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
 					}
 					return bool;
 					});
-        //}
-       
+        }
         store.load();
-        //view1.down('careerslist').refresh();
     },
     /*
      * Showing not installed carrers (menu to install new
@@ -197,7 +193,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         
         view12.down('careerslist').show();
         view12.down('careerslist').refresh();
-        options = [];
+        options = [{text:'All',value:'All'}];
         for (var i = 0; i < knowledgeFields.length; i++) {
             options.push({
                 text: knowledgeFields[i],
