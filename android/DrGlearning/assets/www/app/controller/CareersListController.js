@@ -98,20 +98,40 @@ Ext.define('DrGlearning.controller.CareersListController', {
     /*
      * Method call when tap on a Carrer Item in the list.
      */
-    addOrStartCareer: function(list, itemIndex, item, career){
+    addOrStartCareer: function(list, itemIndex, item, career,e){
+		//console.log(career.data.installed);
         this.selectedcareer = career;
         console.log(this.selectedcareer);
         if (career.data.installed == "false") {
             Ext.Msg.confirm("Install Career?", "Are you sure you want to install this career?", function(answer, pako){
-            
                 if (answer == 'yes') {
                     this.getApplication().getController('DaoController').installCareer(career.data.id, this.installFinished, this);
                 }
             }, this);
         }
         else {
-            this.getApplication().getController('CareerController').updateCareer(career);
-            this.getCareersframe().hide();
+			if(e.touch.target.id=="uninstall")
+			{
+				Ext.Msg.confirm("Uninstall Career?", "Are you sure you want to uninstall this career?", function(answer, pako){
+                if (answer == 'yes') {
+                    this.getApplication().getController('DaoController').deleteCareer(career.data.id, this.installFinished, this);
+					this.index();
+                }
+            }, this);
+			}else if(e.touch.target.id=="update")
+			{	
+				Ext.Msg.confirm("Update Career?", "Are you sure you want to update this career?", function(answer, pako){
+                if (answer == 'yes') {
+                    this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
+					this.index();
+                }
+			}, this);
+			}else
+			{
+				this.getApplication().getController('CareerController').updateCareer(career);
+	            this.getCareersframe().hide();				
+			}
+            
         }
     },
     /*
@@ -138,6 +158,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         if (careerStateSelected.getValue() == 'inProgress') {
             store.filter("started", "true");
         }
+		console.log(store);
         store.load();
     },
     

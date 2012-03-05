@@ -18,14 +18,14 @@ Ext.define('DrGlearning.view.CareersList', {
         itemTpl: new Ext.XTemplate(
 		    '<tpl for=".">',
 		   
-		        '<div><b>{name}</b></div><div>{description}</div><div>',
-		    	'<tpl if= "installed == \'true\'">',
-		       		'<img height="25" src="resources/images/uninstall.jpg">',
-					'<img height="25" src="resources/images/update.jpg">',
+		        '<div><div><b>{name}</b></div><div><font size="2">{description}</font></div></div>',
+		    	'<div style="position:absolute;top:10px;right:0"><tpl if= "installed == \'true\'">',
+		       		'<img id="uninstall" height="35" src="resources/images/uninstall.jpg">',
+					'<img id="update" height="35" src="resources/images/update.jpg">',
 		        '</tpl>',
 				'<tpl if= "installed == \'false\'">',
-		       		'<img height="25" src="resources/images/install.jpg">',
-		        '</tpl>',
+		       		'<img height="35" src="resources/images/install.jpg">',
+		        '</tpl></div>',
 		        		   
 		    '</tpl>'
 		),

@@ -315,12 +315,12 @@ Ext.define('DrGlearning.controller.DaoController', {
 		offlineScoreStore.sync();
 		offlineScoreStore.load();	
 	},
-	updateCarrer:function(careerID){
+	updateCareer:function(careerID){
 		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
-			var careersStore=Ext.getStore('Carrers');
+			var careersStore=Ext.getStore('Careers');
 			var activityStore=Ext.getStore('Activities');
 			var career=careersStore.getById(careerID);
-			var HOST = this.getAaplication().getController('GlobalSettingsController').getServerURL();
+			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
             	//Career request
     			Ext.data.JsonP.request({
                     url: HOST+'/api/v1/career/'+careerID+'/?format=jsonp',
@@ -429,13 +429,13 @@ Ext.define('DrGlearning.controller.DaoController', {
     	  // no internet connection
       }
 	},
-	deleteCarrer:function(careerID){
-		var careersStore=Ext.getStore('Carrers');
+	deleteCareer:function(careerID){
+		var careersStore=Ext.getStore('Careers');
 		var activityStore=Ext.getStore('Activities');
 		var career=careersStore.getById(careerID);
-		career.data.installed = false;
-		career.data.started = false;
-		career.data.update = false;
+		career.data.installed = "false";
+		career.data.started = "false";
+		career.data.update = "false";
 		var activities=activityStore.queryBy(function(record) {
 			if(record.data.careerId==careerID){
 				return true;
@@ -444,8 +444,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 		activities.each(function(item) {
 			item.destroy();
 		});
-		activityStore().sync();
-		activityStore().load();
+		activityStore.sync();
+		//activityStore.load();
 		career.save();
 		careersStore.sync();
 		careersStore.load();
