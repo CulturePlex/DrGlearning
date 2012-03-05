@@ -143,8 +143,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 		console.log(temp);
 		newActivity = temp.items[newActivityIndex];
 		console.log(newActivityIndex);*/
-		//console.log(Ext.ComponentQuery.query('title[customId=title]'));
-		//Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
+		console.log(Ext.ComponentQuery.query('title[customId=title]'));
+		Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
 		//view.down('title[customId=title]').setTitle(newActivity.data.name);
 		var activityView;
 		if (newActivity.data.activity_type == 'geospatial') {
