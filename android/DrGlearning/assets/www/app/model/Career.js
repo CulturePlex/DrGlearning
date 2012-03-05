@@ -36,7 +36,7 @@ Ext.define('DrGlearning.model.Career', {
 			type : "string"
 		}, {
 			name : "started",
-			type : "string"
+			type : "boolean"
 		}, {
 			name : "update",
 			type : "boolean"

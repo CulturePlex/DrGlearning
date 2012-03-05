@@ -178,7 +178,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return carrers;
 	},
 	activityPlayed:function(activityID,successful,score){
-		var carrersStore=Ext.getStore('Carrers');
+		var carrersStore=Ext.getStore('Careers');
 		var activitiesStore=Ext.getStore('Activities');
 		var activity=activitiesStore.getById(activityID);
 		if(successful){

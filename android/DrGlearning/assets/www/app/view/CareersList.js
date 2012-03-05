@@ -7,10 +7,11 @@
  * by Ext.List
  */
 Ext.define('DrGlearning.view.CareersList', {
-    extend: 'Ext.List',
+	extend: 'Ext.List',
     xtype : 'careerslist',
     config: {
-        ui   : 'careers',
+		ui: 'mia',
+		styleHtmlContent:true,
         store: 'Careers',
 		disableSelection: true,
 		useComponents: true,
@@ -18,15 +19,22 @@ Ext.define('DrGlearning.view.CareersList', {
         itemTpl: new Ext.XTemplate(
 		    '<tpl for=".">',
 		   
-		        '<div><div><b>{name}</b></div><div><font size="2">{description}</font></div></div>',
-		    	'<div style="position:absolute;top:10px;right:0"><tpl if= "installed == \'true\'">',
-		       		'<img id="uninstall" height="35" src="resources/images/uninstall.jpg">',
+		        '<div style="float:left;width:60%;"><div><b>{name}</b></div><div>',
+				'<tpl for="knowledges">',
+					'<tpl if= "xindex == xcount">',
+						'<font size="3" color="grey">{name} </font>',
+					'</tpl>',
+					'<tpl if= "xindex != xcount">',
+						'<font size="3" color="grey">{name}, </font>',
+					'</tpl>',
+				'</tpl></div></div>',
+		    	'<tpl if= "installed == \'true\'">',
+		       		'<div style="float:right;right:0;"><img id="uninstall" height="35" src="resources/images/uninstall.jpg">',
 					'<img id="update" height="35" src="resources/images/update.jpg">',
-		        '</tpl>',
-				'<tpl if= "installed == \'false\'">',
+		        '</tpl></div>',
+				'<tpl if= "installed == \'false\'"><div style="float:right;right:0;">',
 		       		'<img height="35" src="resources/images/install.jpg">',
 		        '</tpl></div>',
-		        		   
 		    '</tpl>'
 		),
 		
