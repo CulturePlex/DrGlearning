@@ -31,7 +31,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data.answers);
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.data.image+'" />');
+		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=this.activity.data.answers;
 		console.log(this.respuestas);

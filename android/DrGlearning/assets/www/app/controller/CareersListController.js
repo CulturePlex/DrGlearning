@@ -120,7 +120,10 @@ Ext.define('DrGlearning.controller.CareersListController', {
             }, this);
 			}else if(e.touch.target.id=="update")
 			{	
+				console.log("ola1");
 				Ext.Msg.confirm("Update Career?", "Are you sure you want to update this career?", function(answer, pako){
+					console.log("ola2");
+					console.log(answer);
                 if (answer == 'yes') {
                     this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
 					this.index();

@@ -17,18 +17,15 @@ Ext.define('DrGlearning.controller.DaoController', {
     	Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
     	    message: 'Downloading...',
- 	       indicator: true
+ 	       	indicator: true
     	});
     	
-    	var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Downloading..."});
-		myMask.show();
     	var career=Ext.getStore('Careers').getById(id);
     	var activities=career.data.activities;
     	activities=activities.split(",");
     	//console.log("activity "+activities);
     	var activitiesInstalled=0;
 		for (cont in activities){
-			console.log(activities[cont]);
 			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 			Ext.data.JsonP.request({
 				scope: this,
@@ -58,25 +55,25 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		
                 	});
                 	if(activityModel.data.activity_type=='linguistic'){
-                		activityModel.data.image=activity.image;
+                		activityModel.set('image',activity.image);
                 		activityModel.data.locked_text=activity.locked_text;
                 		activityModel.data.answer=activity.answer;
                 	}
                 	if(activityModel.data.activity_type=='visual'){
-                		activityModel.data.image=Base64Manager.storeImage(activity.image, activity);
+                		activityModel.set('image',activity.image);
                 		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer;
-                		activityModel.data.obfuscated_image=activity.obfuscated_image;
+                		activityModel.set('obfuscated_image',activity.obfuscated_image);
                 		activityModel.data.time=activity.time;
                 	}
                 	if(activityModel.data.activity_type=='relational'){
                 		activityModel.data.graph_nodes=activity.graph_nodes;
                 		activityModel.data.graph_edges=activity.graph_edges;
-                    activityModel.data.constraints=activity.constraints;
+                		activityModel.data.constraints=activity.constraints;
                 	}
                 	if(activityModel.data.activity_type=='temporal'){
-                		activityModel.data.image=activity.image;
+                		activityModel.set('image',activity.image);
                 		activityModel.data.image_datetime=activity.image_datetime;
                 		activityModel.data.query_datetime=activity.query_datetime;
                 	}
@@ -99,7 +96,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 		var career=Ext.getStore('Careers').getById(id);
     	career.set('installed',true);
     	career.save();
-    	Ext.getStore('Careers').sync();
     	
     },
     
@@ -250,8 +246,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 				offlineScoreModel.set('id',offlineScore.first().data.id);
 			}
 			offlineScoreModel.save();
-			offlineScoreStore.sync();
-			offlineScoreStore.load();
 		}
 	},
 	/*
@@ -309,11 +303,10 @@ Ext.define('DrGlearning.controller.DaoController', {
 			    	item.erase();
 				}
 			});
-		},this);
-		offlineScoreStore.sync();
-		offlineScoreStore.load();	
+		},this);	
 	},
 	updateCareer:function(careerID){
+		console.log("Updating career "+careerID);
 		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
 			var careersStore=Ext.getStore('Careers');
 			var activityStore=Ext.getStore('Activities');
@@ -325,21 +318,21 @@ Ext.define('DrGlearning.controller.DaoController', {
                     scope   : this,
                     success:function(response, opts){
                     	console.log("Updating career");
-                    	var newCareer=response["objects"];
+                    	var newCareer=response;
                     		//if(careersStore.findExact("id",career.id)==-1){
                     	career.data.name=newCareer.name;
                     	career.data.description=newCareer.description;
                     	career.data.creator=newCareer.creator;
                     	career.data.knowledges=newCareer.knowledges;
-                    	career.data.name=newCareer.name;
-                    	career.data.name=newCareer.name;
+                    	career.data.timestamp=newCareer.timestamp;
                    		var activities=new Array();
                     	for(cont in newCareer.activities){
-                    		activities[cont]=career.activities[cont].full_activity_url;
+                    		console.log(cont);
+                    		activities[cont]=newCareer.activities[cont].full_activity_url;
                     	}
                     	career.data.activities=activities;
-                    	activities=activities.split(",");
-                    	var HOST = this.getAplication().getController('GlobalSettingsController').getServerURL();
+                    	//activities=activities.split(",");
+                    	var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
                     	for (cont in activities){
                     		Ext.data.JsonP.request({
                 				scope: this,
@@ -383,16 +376,16 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     	});
                                 	}
                                     	if(activityModel.data.activity_type=='linguistic'){
-                                    		activityModel.data.image=activity.image;
+                                    		activityModel.set('image',activity.image);
                                     		activityModel.data.locked_text=activity.locked_text;
                                     		activityModel.data.answer=activity.answer;
                                     	}
                                     	if(activityModel.data.activity_type=='visual'){
-                                    		activityModel.data.image=Base64Manager.storeImage(activity.image, activity);
+                                    		activityModel.set('image',activity.image);
                                     		//activityModel.data.image=activity.image;
                                     		activityModel.data.answers=activity.answers;
                                     		activityModel.data.correct_answer=activity.correct_answer;
-                                    		activityModel.data.obfuscated_image=activity.obfuscated_image;
+                                    		activityModel.set('obfuscated_image',activity.obfuscated_image);
                                     		activityModel.data.time=activity.time;
                                     	}
                                     	if(activityModel.data.activity_type=='relational'){
@@ -401,7 +394,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                         activityModel.data.constraints=activity.constraints;
                                     	}
                                     	if(activityModel.data.activity_type=='temporal'){
-                                    		activityModel.data.image=activity.image;
+                                    		activityModel.set('image',activity.image);
                                     		activityModel.data.image_datetime=activity.image_datetime;
                                     		activityModel.data.query_datetime=activity.query_datetime;
                                     	}
@@ -411,8 +404,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		activityModel.data.radius=activity.radius;
                                     	}
                                     	activityModel.save();
-                                    	Ext.getStore('Activities').sync();
-                                    	Ext.getStore('Activities').load();
                                 }
                             });
                     	}

@@ -155,9 +155,24 @@ Ext.define('DrGlearning.model.Activity', {
 			name : "radius",
 			type : "string"
 		} ],
+        
+		
+
 		proxy : {
 			type : 'localstorage',
 			id : 'DrGlearningActivity'
 		}
-	}
+	},
+	/*set: function(fieldName, value) {
+		if(fieldName=='image' || fieldName=='obfuscated_image'){
+			this.getApplication().getController('FileManagerController').storeImage(value,fieldName,this.data.id);
+		}else{
+			this.data.fieldName=value;
+		}
+	},*/
+    getImage: function(fieldName,targetId,scope) {
+    	//console.log(scope);
+    	//return scope.getApplication().getController('FileManagerController').retrieveImage(fieldName+this.data.id,targetId);
+    	return this.data.image;
+	},
 });

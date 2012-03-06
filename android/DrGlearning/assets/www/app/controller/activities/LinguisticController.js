@@ -23,7 +23,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Linguistic');
 		//activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
-		activityView.down('panel[customId=image]').setHtml('<table border="1" WIDTH="200" HEIGHT="200" BACKGROUND="'+newActivity.data.image+'"><tr><td></td><td></td></tr><tr><td></td><td BGCOLOR="BLACK"></td></tr></table>');
+		activityView.down('panel[customId=image]').setHtml('<table border="1" WIDTH="200" HEIGHT="200" BACKGROUND="'+newActivity.getImage('image','image')+'"><tr><td></td><td></td></tr><tr><td></td><td BGCOLOR="BLACK"></td></tr></table>');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		this.respuestas=this.activity.data.answers;
