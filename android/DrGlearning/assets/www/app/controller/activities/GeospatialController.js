@@ -16,7 +16,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     puntos: null,
     init: function(){
         this.levelController = this.getApplication().getController('LevelController');
-        console.log(this.levelController);
+        //console.log(this.levelController);
         this.careersListController = this.getApplication().getController('CareersListController');
         //this.getActivityFrameView().create();
         //this.activityView=this.getActivityframe();
@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         this.elpunto = null;
         this.radio = null;
         this.activity = newActivity;
-        console.log(view.down('component[customId=activity]'));
+        //console.log(view.down('component[customId=activity]'));
         if (view.down('component[customId=activity]')) {
             view.down('component[customId=activity]').hide();
             view.down('component[customId=activity]').destroy();
@@ -40,7 +40,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         this.activityView = Ext.create('DrGlearning.view.activities.Geospatial');
         this.activityView.down('label').setHtml(newActivity.data.query);
         this.empezar(this.activityView, newActivity);
-        console.log('lolo');
+        //console.log('lolo');
 		this.activityView.show();
         view.add(this.activityView);
     },
@@ -68,13 +68,13 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         googleVector.color = "#FFOOOO";
         var puntosPoligono = googleVector.getPath();
         var bounds = new google.maps.LatLngBounds();
-        console.log(bounds);
+        //console.log(bounds);
         for (i = 0; i < puntosPoligono.b.length; i++) {
             punto = new google.maps.LatLng(puntosPoligono.b[i].Sa, puntosPoligono.b[i].Ta);
-            console.log(bounds.contains(punto));
+            //console.log(bounds.contains(punto));
             bounds.extend(punto);
             
-            console.log(bounds);
+            //console.log(bounds);
         }
         //Fitting map to playable area and setting zoom
         map.setCenter(bounds.getCenter());
@@ -84,11 +84,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		//var zoomlimite = Math.floor(25 / distance );
 		var zoomlimite = 3;
 		map.setZoom(zoomlimite);
-		console.log(map.getZoom());
-		console.log(map.getZoom());
+		//console.log(map.getZoom());
+		//console.log(map.getZoom());
         //var zoomlimite = Math.floor(map.getZoom()/2.5);
 		//console.log(distance);
-        console.log(zoomlimite);
+        //console.log(zoomlimite);
         //map.setZoom(zoomlimite);
         //var zoomlimite = map.getZoom();
         //limiting zoom
