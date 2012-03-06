@@ -33,10 +33,10 @@ Ext.define('DrGlearning.model.Career', {
 			type : "string"
 		}, {
 			name : "installed",
-			type : "string"
+			type : "boolean"
 		}, {
 			name : "started",
-			type : "string"
+			type : "boolean"
 		}, {
 			name : "update",
 			type : "boolean"

@@ -83,7 +83,7 @@ Ext
 					index : function() {
 						var store = Ext.getStore('Careers');
 						store.clearFilter();
-						store.filter("installed", "true");
+						store.filter("installed", true);
 						var view1 = this.getCareersframe();
 						if (view1) {
 							view1.hide();
@@ -108,7 +108,7 @@ Ext
 					addOrStartCareer : function(list, itemIndex, item, career) {
 						this.selectedcareer = career;
 						console.log(this.selectedcareer);
-						if (career.data.installed == "false") {
+						if (career.data.installed == false) {
 							Ext.Msg
 									.confirm(
 											"Install Career?",

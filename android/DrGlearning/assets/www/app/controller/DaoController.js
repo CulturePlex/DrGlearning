@@ -178,6 +178,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return carrers;
 	},
 	activityPlayed:function(activityID,successful,score){
+		console.log('Peticion de jugada!!!!!');
 		var carrersStore=Ext.getStore('Carrers');
 		var activitiesStore=Ext.getStore('Activities');
 		var activity=activitiesStore.getById(activityID);
@@ -200,15 +201,14 @@ Ext.define('DrGlearning.controller.DaoController', {
 		}
 		activity.data.played=true;
 		activity.save();
-		activitiesStore.load();
-		activitiesStore.sync();
 		//Make carrer started if needed
 		var carrer=Ext.getStore('Careers').getById(activity.data.careerId);
+		console.log('Necesita actualizar la carrera?');
+		console.log(carrer.data.started);
 		if(!carrer.data.started){
+			console.log('Marcando como empezada!! '+activity.data.careerId);
 			carrer.data.started=true;
 			carrer.save();
-			carrersStore.load();
-			carrersStore.sync();
 		}
 	},
 	updateScore:function(activityID,score){
@@ -235,9 +235,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 				}
 			});
 			offlineScoreOld.destroy();
-			offlineScoreStore.sync();
-			offlineScoreStore.load();
-			updateOfflineScores();
+			this.updateOfflineScores();
 		}else{
 			var offlineScore=offlineScoreStore.queryBy(function(record) {
 				if(record.data.activity_id==activityID){
