@@ -17,6 +17,7 @@ Ext.define('DrGlearning.view.ActivityFrame', {
 						name: 'title',
                         title: 'Activity Name',
 						width: '100%',
+						centered: true
                     }
                 ]
             },

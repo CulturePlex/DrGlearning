@@ -78,19 +78,28 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         }
         //Fitting map to playable area and setting zoom
         map.setCenter(bounds.getCenter());
-        var zoomlimite = map.getZoom();
+		var upcorner = bounds.getNorthEast();
+		var downcorner = bounds.getSouthWest();
+		//var distance = Math.sqrt(Math.pow(upcorner.Sa - downcorner.Sa, 2) + Math.pow(upcorner.Ta - downcorner.Ta, 2));
+		//var zoomlimite = Math.floor(25 / distance );
+		var zoomlimite = 3;
+		map.setZoom(zoomlimite);
+		console.log(map.getZoom());
+		console.log(map.getZoom());
+        //var zoomlimite = Math.floor(map.getZoom()/2.5);
+		//console.log(distance);
         console.log(zoomlimite);
-        map.setZoom(3);
-        var zoomlimite = map.getZoom();
+        //map.setZoom(zoomlimite);
+        //var zoomlimite = map.getZoom();
         //limiting zoom
         google.maps.event.addListener(map, "zoom_changed", function(e1){
-            console.log(map.getZoom());
+            console.log(zoomlimite);
             if (map.getZoom() < zoomlimite) {
                 map.setZoom(zoomlimite);
             }
         });
         //Creating listener to recenter map when is out of playable area				
-        google.maps.event.addListener(map, "bounds_changed", function(e1){
+        google.maps.event.addListener(map, "center_changed", function(e1){
             checkBounds();
         });
         function checkBounds(){

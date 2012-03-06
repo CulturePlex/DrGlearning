@@ -6,6 +6,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
+from base.utils import image_resize
+
 
 class Knowledge(models.Model):
     name = models.CharField(_('name'), max_length=255)
@@ -24,6 +26,7 @@ class Career(models.Model):
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to="images", null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
                                              verbose_name="knowledge field",
                                              related_name="knowledge_fields")
@@ -31,6 +34,11 @@ class Career(models.Model):
     def __unicode__(self):
         return u"%s" % self.name
 
+    def save(self, *args, **kwargs):
+        self = image_resize(self)
+        super(Career, self).save(*args, **kwargs)
+
 
 class GenuineUser(User):
     has_authenticity = models.BooleanField(default=True)
+    institution_url = models.CharField(max_length=80)

@@ -72,11 +72,12 @@ Ext.define('DrGlearning.controller.LevelController', {
 			if(activity.data.id==currentActivity){
 				startingIndex=i;
 			}
-			var iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + "</div>";
-			if(activity.data.successful)
+			var iconoactivityHtml = this.getActivityHtml(activity.data);
+			//var iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + activityIconHtml</div>";
+			/*if(activity.data.successful)
 			{
 				iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto;height:100%; width:70%;top:0;left:15%;background-color:#999999;'>" + activity.data.name + "<div bottom='0'>Score: " + activity.data.score + "<img src=resources/images/tick.png></div></div>";
-			}
+			}*/
 			if (i == 0) {
 				if (i == activities.length - 1) {
 					activitiescarousel.add({
@@ -110,6 +111,19 @@ Ext.define('DrGlearning.controller.LevelController', {
 		view.down('title[id=title]').setTitle(newCareer.data.name);
 		view.show();
     },
+	
+	getActivityHtml: function(activityData)
+	{
+		var html= "<div id='centro' align='middle'><p align='top'>"+activityData.name+"</p><a href= 'javascript:careerController.startActivity();'><img src='resources/images/activity_icons/"+activityData.activity_type+".png' align='bottom'></a></div>";
+		console.log(activityData.successful);
+		if(activityData.successful==true)
+		{
+			html = "<div id='centro' align='middle'><p align='top'>"+activityData.name+"</p><a href= 'javascript:careerController.startActivity();'><img src='resources/images/activity_icons/"+activityData.activity_type+".png' align='bottom'></a></div><div bottom='0' align='center'>Score: " + activityData.score + "<img  height='30px' src=resources/images/tick.png></div>";
+		}
+		return html;
+		
+	},
+	
     startActivity: function(activityIndex){
 		var view1 = this.getLevelframe();
 		var detail= view1.down('leveldetail');
@@ -132,20 +146,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 	updateActivity: function(newActivity) {
 		Ext.create('DrGlearning.view.ActivityFrame');
 		var view = this.getActivityframe();
-		//view.hide();
-		console.log(view);
-
-/*		console.log(newActivityIndex);
-		console.log('aaaaaaaargh');
-		var temp = Ext.getStore('Activities').queryBy(function(record) {
-			return record.data.level_type==this.selectedlevel && record.data.careerId==this.getApplication().getController('CareersListController').selectedcareer.data.id ;
-		},this);
-		console.log(temp);
-		newActivity = temp.items[newActivityIndex];
-		console.log(newActivityIndex);*/
-		//console.log(Ext.ComponentQuery.query('title[customId=title]'));
-		//Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
-		//view.down('title[customId=title]').setTitle(newActivity.data.name);
+		Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
 		var activityView;
 		if (newActivity.data.activity_type == 'geospatial') {
 			if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {

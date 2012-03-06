@@ -16,6 +16,9 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
         items: [{
             xtype: 'map',
             id: 'testMap',
+			mapOptions: {
+				streetViewControl:false,
+			}
         	},
 			{
                 xtype: 'toolbar',
