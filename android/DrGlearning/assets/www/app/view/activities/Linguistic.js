@@ -4,13 +4,9 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
     xtype : 'linguistic',
     config: {
         id:'activity',
-		customId:'activity',
-        layout: {
-                type: 'vbox',
-                customId: 'horizontal',
-                fullscreen: true,
-                align: 'stretch' ,
-        },
+        customId:'activity',
+        fullscreen: true,
+        layout: 'vbox',
         items: [
 							{
 							    xtype: 'label',
@@ -43,11 +39,27 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
         		                xtype: 'label',
         		                customId: 'loqued',
         		            },{
-        		                xtype: 'textfield',
-        		                customId: 'letter',
-        						name: 'letter',
-        						maxLength: 1,
-        		            }
+        		            	xtype: 'fieldset',
+        		            	title: 'Insert a character:',
+        		            	items: [
+        		                {
+        		                    xtype: 'textfield',
+        		                    customId: 'letter',
+        		                    name: 'letter',
+        		                    maxLength: 1,
+        		                },
+        		                ]
+        		            },{
+        		                xtype: 'label',
+        		                customId: 'responses',
+        		            },{
+        						xtype: 'button',
+        						customId: 'try',
+        						text: 'Try',
+        					}
+        		            
+        		            
+        		           
                 	   
             ,
 			{
