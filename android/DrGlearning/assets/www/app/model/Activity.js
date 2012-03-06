@@ -56,7 +56,7 @@ Ext.define('DrGlearning.model.Activity', {
 			type : "int"
 		}, {
 			name : "played",
-			type : "string"
+			type : "boolean"
 		}, {
 			name : "successful",
 			type : "boolean"

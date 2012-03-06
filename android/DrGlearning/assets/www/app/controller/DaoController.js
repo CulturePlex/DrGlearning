@@ -11,7 +11,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		
 	},
 	getInstalled: function() {
-		return Ext.getStore('Carrers').findExact('installed','true');
+		return Ext.getStore('Carrers').findExact('installed',true);
 	},
     installCareer: function(id,callback,scope) {
     	Ext.Viewport.setMasked({
@@ -97,7 +97,7 @@ Ext.define('DrGlearning.controller.DaoController', {
             });
 		}
 		var career=Ext.getStore('Careers').getById(id);
-    	career.set('installed','true');
+    	career.set('installed',true);
     	career.save();
     	Ext.getStore('Careers').sync();
     	
@@ -234,7 +234,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 					return true;
 				}
 			});
-			offlineScoreOld.destroy();
+			offlineScoreOld.erase();
 			this.updateOfflineScores();
 		}else{
 			var offlineScore=offlineScoreStore.queryBy(function(record) {
@@ -306,7 +306,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 			    },
 			    success: function(response){
 			    	console.log("Score successfully updated");
-			    	item.destroy();
+			    	item.erase();
 				}
 			});
 		},this);
@@ -431,16 +431,16 @@ Ext.define('DrGlearning.controller.DaoController', {
 		var careersStore=Ext.getStore('Careers');
 		var activityStore=Ext.getStore('Activities');
 		var career=careersStore.getById(careerID);
-		career.data.installed = "false";
-		career.data.started = "false";
-		career.data.update = "false";
+		career.data.installed = false;
+		career.data.started =false;
+		career.data.update = false;
 		var activities=activityStore.queryBy(function(record) {
 			if(record.data.careerId==careerID){
 				return true;
 			}
 		});
 		activities.each(function(item) {
-			item.destroy();
+			item.erase();
 		});
 		activityStore.sync();
 		//activityStore.load();
