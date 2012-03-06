@@ -114,17 +114,18 @@ Ext.define('DrGlearning.controller.LevelController', {
 	
 	getActivityHtml: function(activityData)
 	{
-		var html= "<div id='centro' align='middle'><p align='top'>"+activityData.name+"</p><a href= 'javascript:careerController.startActivity();'><img src='resources/images/activity_icons/"+activityData.activity_type+".png' align='bottom'></a></div>";
+		var html= "<div id='centro' align='middle'><p align='top'>"+activityData.name+"</p><a href= 'javascript:levelController.startActivity();'><img src='resources/images/activity_icons/"+activityData.activity_type+".png' align='bottom'></a></div>";
 		console.log(activityData.successful);
 		if(activityData.successful==true)
 		{
-			html = "<div id='centro' align='middle'><p align='top'>"+activityData.name+"</p><a href= 'javascript:careerController.startActivity();'><img src='resources/images/activity_icons/"+activityData.activity_type+".png' align='bottom'></a></div><div bottom='0' align='center'>Score: " + activityData.score + "<img  height='30px' src=resources/images/tick.png></div>";
+			html = "<div id='centro' align='middle'><p align='top'>"+activityData.name+"</p><a href= 'javascript:levelController.startActivity();'><img src='resources/images/activity_icons/"+activityData.activity_type+".png' align='bottom'></a></div><div bottom='0' align='center'>Score: " + activityData.score + "<img  height='30px' src=resources/images/tick.png></div>";
 		}
 		return html;
 		
 	},
 	
     startActivity: function(activityIndex){
+		
 		var view1 = this.getLevelframe();
 		var detail= view1.down('leveldetail');
 		var activitiescarousel = detail.down('carousel');
