@@ -59,24 +59,26 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         };
         var googlePuntos = new GeoJSON(multipunto, googleOptions);
         //Getting first of target points as the only one valid
-        elpunto = new google.maps.LatLng(googlePuntos[0].position.Sa, googlePuntos[0].position.Ta);
+        elpunto = new google.maps.LatLng(googlePuntos[0].position.Ua, googlePuntos[0].position.Va);
         //Getting radio allowed for the user
         radio = parseFloat(activity.data.radius);
         //Getting playable area
         var jsonfromserver = eval("(" + activity.data.area + ')');
         googleVector = new GeoJSON(jsonfromserver, googleOptions);
         googleVector.color = "#FFOOOO";
+		console.log(googleVector);
         var puntosPoligono = googleVector.getPath();
         var bounds = new google.maps.LatLngBounds();
         //console.log(bounds);
         for (i = 0; i < puntosPoligono.b.length; i++) {
-            punto = new google.maps.LatLng(puntosPoligono.b[i].Sa, puntosPoligono.b[i].Ta);
-            //console.log(bounds.contains(punto));
+            punto = new google.maps.LatLng(puntosPoligono.b[i].Ua, puntosPoligono.b[i].Va);
+            console.log(puntosPoligono);
             bounds.extend(punto);
             
             //console.log(bounds);
         }
         //Fitting map to playable area and setting zoom
+		console.log(bounds);
         map.setCenter(bounds.getCenter());
 		var upcorner = bounds.getNorthEast();
 		var downcorner = bounds.getSouthWest();
@@ -169,7 +171,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     },
     confirm: function(){
         console.log(elpunto);
-        this.distancia = Math.sqrt(Math.pow(elmarker.position.Sa - elpunto.Sa, 2) + Math.pow(elmarker.position.Ta - elpunto.Ta, 2)) * 60000;
+        this.distancia = Math.sqrt(Math.pow(elmarker.position.Ua - elpunto.Ua, 2) + Math.pow(elmarker.position.Va - elpunto.Va, 2)) * 60000;
         console.log(this.distancia);
         console.log(radio);
         this.puntos = 100 - (this.distancia * 100) / radio;
