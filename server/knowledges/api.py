@@ -1,3 +1,5 @@
+from django.db.models.fields.files import ImageField
+
 from tastypie import fields
 from tastypie.resources import ModelResource
 
@@ -30,8 +32,10 @@ class CareerResource(ModelResource):
         # Career size in bytes
         size = 0
         for activity in bundle.data["activities"]:
-            size += len(str(activity.data))
-        size += len(str(bundle.data))
+            size += activity.obj.size()
+        fields = [f for f in bundle.obj._meta.fields if not isinstance(f, ImageField)]
+        for field in fields:
+            size += len(unicode(getattr(bundle.obj, field.name)))
         bundle.data["size"] = size
 
         return dehydrate_fields(bundle)

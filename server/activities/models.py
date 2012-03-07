@@ -7,6 +7,7 @@ from StringIO import StringIO
 
 from django.contrib.gis.db import models
 from django.core.files.base import ContentFile
+from django.db.models.fields.files import ImageField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -64,6 +65,23 @@ class Activity(models.Model):
                                             self.level_type,
                                             self.level_order)
 
+    def size(self):
+        for sub in ('linguistic', 'relational', 'geospatial', 'visual', 
+                        'quiz', 'temporal'):
+            if hasattr(self, sub):
+                sub_obj = getattr(self, sub)
+                if sub_obj:
+                    return sub_obj.sub_activity_size()
+        print "WARNING: 0 sized activity"
+        return 0
+
+
+    def sub_activity_size(self):
+        size = 0
+        fields = [f for f in self._meta.fields if not isinstance(f, ImageField)]
+        for field in fields:
+            size += len(unicode(getattr(self, field.name)))
+        return size
 
     def save(self, *args, **kwargs):
         self = image_resize(self)
