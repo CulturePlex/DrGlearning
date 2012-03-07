@@ -12,6 +12,7 @@ $(document).ready(function(){
         } else {
             return JSON.parse(json);
         }
+
     }
     
     //Hide original widget
@@ -50,4 +51,11 @@ $(document).ready(function(){
             $('#answer-list').append('<li>'+json[i]+'</li>');
         }
     })
+
+    //Populate with existing answers
+    var existingAnswers = getJSON();
+    $.each(existingAnswers, function(answer){
+      $('#answer-list').append('<li>'+answer+'</li>');
+    });
+
 });
