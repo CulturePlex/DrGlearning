@@ -9,7 +9,7 @@ class CareerAdmin(admin.ModelAdmin):
 
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
-                        'geospatial'):
+                        'geospatial', 'quiz'):
             if hasattr(a, a_type):
                 return a_type
         return None
