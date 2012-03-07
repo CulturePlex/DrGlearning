@@ -6,7 +6,7 @@ from django.core.files import File
 from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
-                               Temporal, Linguistic)
+                               Temporal, Linguistic, Quiz)
 
 
 class ActivityAdmin(admin.ModelAdmin):
@@ -60,6 +60,7 @@ class LinguisticAdmin(ActivityAdmin):
 
 admin.site.register(Relational, RelationalAdmin)
 admin.site.register(Visual, VisualAdmin)
+admin.site.register(Quiz, VisualAdmin)
 admin.site.register(Geospatial, GeospatialAdmin)
 admin.site.register(Temporal, TemporalAdmin)
 admin.site.register(Linguistic, LinguisticAdmin)

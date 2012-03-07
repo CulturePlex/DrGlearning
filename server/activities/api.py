@@ -42,6 +42,9 @@ class ActivityResource(ModelResource):
         elif hasattr(bundle.obj, "geospatial"):
             child_obj = bundle.obj.geospatial
             bundle.data["activity_type"] = "geospatial"
+        elif hasattr(bundle.obj, "quiz"):
+            child_obj = bundle.obj.quiz
+            bundle.data["activity_type"] = "quiz"
         else:
             bundle.data["activity_type"] = "unknown"
             return bundle

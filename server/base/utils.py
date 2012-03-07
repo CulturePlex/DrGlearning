@@ -15,7 +15,11 @@ def dehydrate_fields(bundle, child_obj=None):
         field_name = f.name
         # If image convert to base64
         if isinstance(f, ImageField):
-            image_path = getattr(child_obj, field_name).path
+            image = getattr(child_obj, field_name)
+            if not image:
+                # TODO Should we send the field with a blank value?
+                continue
+            image_path = image.path
             ext = image_path.split('.')[-1]
             image_data = open(image_path,"rb").read()
             bundle.data[field_name] = "data:image/%s;base64,%s" % (ext,

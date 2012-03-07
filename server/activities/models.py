@@ -90,6 +90,19 @@ class Visual(Activity):
     time = models.CharField(max_length=10, help_text="Seconds")
 
 
+class Quiz(Activity):
+    image = models.ImageField(upload_to="images", null=True, blank=True)
+    obfuscated_image = models.ImageField(upload_to="images", null=True,
+                                                            blank=True)
+    answers = jsonfield.JSONField(default="[]")
+    correct_answer = models.CharField(max_length=80)
+    time = models.CharField(max_length=10, help_text="Seconds",
+            null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "quizes"
+
+
 class Geospatial(Activity):
     points = models.MultiPointField()
     radius = models.FloatField(help_text="Meters")
