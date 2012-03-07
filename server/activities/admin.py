@@ -3,6 +3,8 @@ import tempfile
 
 from django.contrib import admin
 from django.core.files import File
+from django.http import HttpResponse
+
 from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
@@ -13,6 +15,26 @@ class ActivityAdmin(admin.ModelAdmin):
     list_filter = ['career']
     save_as = True
 
+    def response_change(self, request, obj, *args, **kwargs):  
+        if request.REQUEST.has_key('_popup'):  
+             return HttpResponse('''
+                <script type="text/javascript">
+                    opener.closePopup(window);
+                </script>''')  
+        else:  
+            return super(ActivityAdmin, self).response_change(request, obj, *args, **kwargs)  
+
+    def response_add(self, request, obj, *args, **kwargs):  
+        if request.REQUEST.has_key('_popup'):  
+             return HttpResponse('''
+                <script type="text/javascript">
+                    opener.closePopup(window);
+                </script>''')  
+        else:  
+            return super(ActivityAdmin, self).response_add(request, obj, *args, **kwargs)  
+
+        
+ 
     class Media:
         js = ('js/careerAutoselector.js',)
 
