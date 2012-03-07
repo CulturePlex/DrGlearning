@@ -19,6 +19,11 @@ def dehydrate_fields(bundle, child_obj=None):
             if not image:
                 # TODO Should we send the field with a blank value?
                 continue
+            
+            # Original url for debugging
+            bundle.data[field_name+'_url'] = image
+
+            # base64 transformation
             image_path = image.path
             ext = image_path.split('.')[-1]
             image_data = open(image_path,"rb").read()
