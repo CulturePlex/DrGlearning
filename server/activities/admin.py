@@ -33,6 +33,14 @@ class ActivityAdmin(admin.ModelAdmin):
         else:  
             return super(ActivityAdmin, self).response_add(request, obj, *args, **kwargs)  
 
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        """
+        Sets the is_popup parameter in the context to avoid the Django
+        default behaviour of hiding most of the control when editing
+        through a popu
+        """
+        context['is_popup'] = False
+        return super(ActivityAdmin, self).render_change_form(request, context, add, change, form_url, obj)
         
  
     class Media:
