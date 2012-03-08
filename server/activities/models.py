@@ -55,6 +55,10 @@ class Activity(models.Model):
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
     reward = models.CharField(_("reward"), max_length=255, default="OK!")
+    
+    # Needed for objects permissions. It should be autoassigned to
+    # the career owner user
+    user = models.ForeignKey(User, verbose_name="user", null=True)
 
     @classmethod
     def serialize(cls):
@@ -85,6 +89,7 @@ class Activity(models.Model):
 
     def save(self, *args, **kwargs):
         self = image_resize(self)
+        self.user = self.career.user
         super(Activity, self).save(*args, **kwargs)
         
     class Meta:

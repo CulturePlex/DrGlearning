@@ -5,14 +5,19 @@ from django.contrib import admin
 from django.core.files import File
 from django.http import HttpResponse
 
+from guardian.admin import GuardedModelAdmin
 from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
                                Temporal, Linguistic, Quiz)
 
 
-class ActivityAdmin(admin.ModelAdmin):
+class ActivityAdmin(GuardedModelAdmin):
+
+    user_can_access_owned_objects_only = True
+
     list_filter = ['career']
+    exclude = ('user',)
     save_as = True
 
     def response_change(self, request, obj, *args, **kwargs):  
