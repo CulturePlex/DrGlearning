@@ -10,7 +10,7 @@ from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
                                Temporal, Linguistic, Quiz)
-
+from knowledges.models import Career
 
 class ActivityAdmin(GuardedModelAdmin):
 
@@ -47,7 +47,16 @@ class ActivityAdmin(GuardedModelAdmin):
         context['is_popup'] = False
         return super(ActivityAdmin, self).render_change_form(request, context, add, change, form_url, obj)
         
- 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'career':
+            if request.user.is_superuser:
+                kwargs['queryset'] = Career.objects.all()
+            else:
+                kwargs['queryset'] = Career.objects.filter(user=request.user)
+            return db_field.formfield(**kwargs)
+        return super(ActivityAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
     class Media:
         js = ('js/careerAutoselector.js',)
 
