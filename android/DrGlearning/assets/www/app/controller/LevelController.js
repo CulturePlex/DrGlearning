@@ -66,6 +66,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		var flechaderHtml="<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>";
 		var currentActivity = this.getApplication().getController('DaoController').getCurrenActivity(newCareer.data.id,newLevel).data.id;
 		var startingIndex=0;
+		
 		for(var i=0;i<activities.length;i++)
 		{
 			var activity=activities.getAt(i);
@@ -82,13 +83,15 @@ Ext.define('DrGlearning.controller.LevelController', {
 				if (i == activities.length - 1) {
 					activitiescarousel.add({
 						html: iconoactivityHtml,
-						name: 'a'
+						name: 'a',
+						myId: activity.data.id
 					});
 				}else
 				{
 					activitiescarousel.add({
 						html: iconoactivityHtml + flechaderHtml,
-						name: 'a'
+						name: 'a',
+						myId: activity.data.id
 					});
 				}
 
@@ -96,13 +99,15 @@ Ext.define('DrGlearning.controller.LevelController', {
 			{
 				activitiescarousel.add({
 					html: flechaizqHtml + iconoactivityHtml,
-					name: 'a'
+					name: 'a',
+					myId: activity.data.id
 				});
 			}else
 			{
 				activitiescarousel.add({
 					html: flechaizqHtml + iconoactivityHtml + flechaderHtml,
-					name: 'a'
+					name: 'a',
+					myId: activity.data.id
 				});
 			}
 		}
@@ -124,18 +129,19 @@ Ext.define('DrGlearning.controller.LevelController', {
 		
 	},
 	
-    startActivity: function(activityIndex){
+    startActivity: function(){
 		
 		var view1 = this.getLevelframe();
 		var detail= view1.down('leveldetail');
 		var activitiescarousel = detail.down('carousel');
+		console.log(activitiescarousel.getActiveItem());
         //this.getActivityFrameView().create();
 		var temp = Ext.getStore('Activities').queryBy(function(record) {
-			return record.data.level_type==this.selectedlevel && record.data.careerId==this.getApplication().getController('CareersListController').selectedcareer.data.id ;
+			return record.data.id == activitiescarousel.getActiveItem().config.myId;
 		},this);
 		console.log(temp);
-		newActivity = temp.items[activitiescarousel.getActiveIndex()];
-		console.log('no era un numero');
+		newActivity = temp.items[0];
+		//console.log('no era un numero');
 		this.updateActivity(newActivity);
         if (this.getLevelframe()) {
             this.getLevelframe().hide();
@@ -177,33 +183,36 @@ Ext.define('DrGlearning.controller.LevelController', {
 		var currentLevel = this.getApplication().getController('DaoController').getCurrenLevel(this.getApplication().getController('CareersListController').selectedcareer.data.id);
 		var prevLevelString = Ext.getStore('Levels').getAt(prevLevel-1).data.name;
 		var currentLevelString = Ext.getStore('Levels').getAt(currentLevel-1).data.name;
-		if(currentLevel==prevLevel)
+		console.log(currentLevel);
+		console.log(prevLevel);
+		var currentActivity = this.getApplication().getController('DaoController').getCurrenActivity(this.getApplication().getController('CareersListController').selectedcareer.data.id,parseInt(prevLevel));
+		if(currentActivity.data.successful == false)
 		{
-			var currentActivity = this.getApplication().getController('DaoController').getCurrenActivity(this.getApplication().getController('CareersListController').selectedcareer.data.id,parseInt(currentLevel));
-			if (currentActivity.data.successful == false) {
-				this.updateActivity(currentActivity);
-			}else{
+			this.updateActivity(currentActivity);
+		}else
+		{
+			if (currentLevel == prevLevel) 
+			{
 				if (this.getLevelframe()) {
 		            this.getLevelframe().hide();
 		        }
 		        this.getApplication().getController('CareersListController').index();
 				this.getActivityframe().hide();
 				setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! It was the last Level, you have finished this career!', function(){}, this);", 50);
-			}
-		}
-		else
-		{
-			this.getApplication().getController('CareerController').updateCareer(this.getApplication().getController('CareersListController').selectedcareer);
-			this.getLevelframe().hide();
-			this.getActivityframe().hide();
-			if (currentLevel != 1) {
-				setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! Next Level: " + currentLevelString + "', function(){}, this);", 50);
 			}else
 			{
-				setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! It was the last Level, you have finished this career!', function(){}, this);", 50);
+				this.getApplication().getController('CareerController').updateCareer(this.getApplication().getController('CareersListController').selectedcareer);
+				this.getLevelframe().hide();
+				this.getActivityframe().hide();
+				if (currentLevel != 1) {
+					setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! Next Level: " + currentLevelString + "', function(){}, this);", 50);
+				}else
+				{
+					setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! It was the last Level, you have finished this career!', function(){}, this);", 50);
+				}
 			}
-				
 		}
+
 		//console.log(currentActivity);
 		
 	},

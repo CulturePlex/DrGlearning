@@ -112,7 +112,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         else {
 			if(e.touch.target.id=="uninstall")
 			{
-				Ext.Msg.confirm("Uninstall Career?", "Are you sure you want to uninstall this career?", function(answer, pako){
+				Ext.Msg.confirm("Uninstall Career?", "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?", function(answer, pako){
                 if (answer == 'yes') {
                     this.getApplication().getController('DaoController').deleteCareer(career.data.id, this.installFinished, this);
 					this.index();

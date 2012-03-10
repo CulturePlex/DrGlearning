@@ -22,6 +22,7 @@ Ext.define('DrGlearning.controller.DaoController', {
     	
     	var career=Ext.getStore('Careers').getById(id);
     	var activities=career.data.activities;
+		
     	activities=activities.split(",");
     	//console.log("activity "+activities);
     	var activitiesInstalled=0;
@@ -83,8 +84,10 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.radius=activity.radius;
                 	}
                 	activityModel.save();
+					//Ext.getStore('Activities').sort('level_order');
                 	Ext.getStore('Activities').sync();
                 	Ext.getStore('Activities').load();
+					
 					activitiesInstalled=activitiesInstalled+1;
 					if(activities.length==activitiesInstalled){
 						Ext.Viewport.setMasked(false);
@@ -130,9 +133,13 @@ Ext.define('DrGlearning.controller.DaoController', {
 	 * Returns a MixedCollection 
 	 */
 	getActivitiesByLevel: function(careerId,level){
+		
 		var activities=Ext.getStore('Activities').queryBy(function(record) {
 			return record.data.careerId==careerId && record.data.level_type==level;
 		});
+		console.log(activities);
+	
+		console.log(activities);
 		return activities;
 	},
 	getknowledgesFields:function(){
