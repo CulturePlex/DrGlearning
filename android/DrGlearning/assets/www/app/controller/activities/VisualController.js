@@ -41,14 +41,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		var time=newActivity.data.time;
 		console.log(time);
 		
-		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time, this);
+		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		
 		var increment=0;
 		while(time>0)
 		{
-			var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time/1000+"s');",increment);
+			var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time+"s');",increment);
 			increment=increment+1000;
-			time=time-1000;	
+			time=time-1;	
 		}
 		
 	},

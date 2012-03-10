@@ -47,6 +47,14 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     empezar: function(view, activity){
         //Initializing map variable
         map = view.down('map').getMap();
+		console.log(map);
+		/*map.setMapOptions({
+                       			streetViewControl:false,
+				zoomControl:false,
+				maxZoom:0,
+				minZoom:0,
+                    });*/
+		
         //Getting target points of activity
         var multipunto = eval("(" + activity.data.point + ')');
         var googleOptions = {
@@ -79,11 +87,17 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         }
         //Fitting map to playable area and setting zoom
 		console.log(bounds);
-        map.setCenter(bounds.getCenter());
-		var zoomlimite = map.getZoom();
-		map.setZoom(zoomlimite);
-		var upcorner = bounds.getNorthEast();
-		var downcorner = bounds.getSouthWest();
+        map.fitBounds(bounds);
+		map.setMapOptions={streetViewControl:false,
+				zoomControl:false,
+				maxZoom:0,
+				minZoom:0,};
+		//map.map.maxZoom=0;
+		//map.map.minZoom=0;
+		//var zoomlimite = map.getZoom();
+		//map.setZoom(zoomlimite);
+		//var upcorner = bounds.getNorthEast();
+		//var downcorner = bounds.getSouthWest();
 		//var distance = Math.sqrt(Math.pow(upcorner.Sa - downcorner.Sa, 2) + Math.pow(upcorner.Ta - downcorner.Ta, 2));
 		//var zoomlimite = Math.floor(25 / distance );
 		
@@ -96,10 +110,10 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         //var zoomlimite = map.getZoom();
         //limiting zoom
         google.maps.event.addListener(map, "zoom_changed", function(e1){
-            console.log(zoomlimite);
-            if (map.getZoom() < zoomlimite) {
+            //console.log(zoomlimite);
+            /*if (map.getZoom() < zoomlimite) {
                 //map.setZoom(zoomlimite);
-            }
+            }*/
         });
         //Creating listener to recenter map when is out of playable area				
         google.maps.event.addListener(map, "center_changed", function(e1){

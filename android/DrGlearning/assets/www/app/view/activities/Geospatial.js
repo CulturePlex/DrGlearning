@@ -16,10 +16,14 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
         items: [{
             xtype: 'map',
             id: 'testMap',
-			mapOptions: {
-				streetViewControl:false,
-			}
-        	},
+			config: {
+				height: '',
+				id: 'detailMap',
+				mapOptions: {
+					zoomControl:false,
+				zoom: 10
+				},
+        	}},
 			{
                 xtype: 'toolbar',
                 docked: 'top',
