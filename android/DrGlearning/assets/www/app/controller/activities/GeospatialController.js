@@ -66,8 +66,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             clickable: false
         };
         var googlePuntos = new GeoJSON(multipunto, googleOptions);
+		console.log(googlePuntos);
+		var elpunto = googlePuntos[0];
+		
         //Getting first of target points as the only one valid
-        elpunto = new google.maps.LatLng(googlePuntos[0].position.Ua, googlePuntos[0].position.Va);
+        //elpunto = new google.maps.LatLng(googlePuntos[0].position.Ua, googlePuntos[0].position.Va);
         //Getting radio allowed for the user
         radio = parseFloat(activity.data.radius);
         //Getting playable area
@@ -77,9 +80,10 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		console.log(googleVector);
         var puntosPoligono = googleVector.getPath();
         var bounds = new google.maps.LatLngBounds();
+		console.log(puntosPoligono);
         //console.log(bounds);
         for (i = 0; i < puntosPoligono.b.length; i++) {
-            punto = new google.maps.LatLng(puntosPoligono.b[i].Ua, puntosPoligono.b[i].Va);
+            punto = puntosPoligono.b[i];
             console.log(puntosPoligono);
             bounds.extend(punto);
             

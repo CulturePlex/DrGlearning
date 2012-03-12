@@ -171,6 +171,8 @@ Ext.define('DrGlearning.controller.LevelController', {
 			this.getApplication().getController('activities.TemporalController').updateActivity(view,newActivity);
 		}else if(newActivity.data.activity_type == 'linguistic'){
 			this.getApplication().getController('activities.LinguisticController').updateActivity(view,newActivity);
+		}else if(newActivity.data.activity_type == 'quiz'){
+			this.getApplication().getController('activities.QuizController').updateActivity(view,newActivity);
 		}
 		view.show();
 	},

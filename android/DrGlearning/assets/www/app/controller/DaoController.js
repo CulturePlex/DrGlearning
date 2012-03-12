@@ -68,6 +68,14 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.set('obfuscated_image',activity.obfuscated_image);
                 		activityModel.data.time=activity.time;
                 	}
+					if(activityModel.data.activity_type=='quiz'){
+                		activityModel.set('image',activity.image);
+                		//activityModel.data.image=activity.image;
+                		activityModel.data.answers=activity.answers;
+                		activityModel.data.correct_answer=activity.correct_answer;
+                		//activityModel.set('obfuscated_image',activity.obfuscated_image);
+                		activityModel.data.time=activity.time;
+                	}
                 	if(activityModel.data.activity_type=='relational'){
                 		activityModel.data.graph_nodes=activity.graph_nodes;
                 		activityModel.data.graph_edges=activity.graph_edges;
@@ -393,6 +401,14 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		activityModel.data.answers=activity.answers;
                                     		activityModel.data.correct_answer=activity.correct_answer;
                                     		activityModel.set('obfuscated_image',activity.obfuscated_image);
+                                    		activityModel.data.time=activity.time;
+                                    	}
+										if(activityModel.data.activity_type=='quiz'){
+                                    		activityModel.set('image',activity.image);
+                                    		//activityModel.data.image=activity.image;
+                                    		activityModel.data.answers=activity.answers;
+                                    		activityModel.data.correct_answer=activity.correct_answer;
+                                    		//activityModel.set('obfuscated_image',activity.obfuscated_image);
                                     		activityModel.data.time=activity.time;
                                     	}
                                     	if(activityModel.data.activity_type=='relational'){
