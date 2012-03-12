@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'userena',
     'userena.contrib.umessages',
+    'django.contrib.gis',
     'guardian',
     'easy_thumbnails',
     'sorl.thumbnail',
