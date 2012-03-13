@@ -14,6 +14,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     activityView: null,
     distancia: null,
     puntos: null,
+	bounds: null,
     init: function(){
         this.levelController = this.getApplication().getController('LevelController');
         //console.log(this.levelController);
@@ -46,6 +47,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     },
     empezar: function(view, activity){
         //Initializing map variable
+		
         map = view.down('map').getMap();
 		console.log(map);
 		/*map.setMapOptions({
@@ -78,22 +80,24 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         googleVector.color = "#FFOOOO";
 		console.log(googleVector);
         var puntosPoligono = googleVector.getPath();
-        var bounds = new google.maps.LatLngBounds();
+		bounds = new google.maps.LatLngBounds();
+        this.bounds = new google.maps.LatLngBounds();
         //console.log(bounds);
         for (i = 0; i < puntosPoligono.b.length; i++) {
             punto = new google.maps.LatLng(puntosPoligono.b[i].Ua, puntosPoligono.b[i].Va);
             console.log(puntosPoligono);
             bounds.extend(punto);
+			this.bounds.extend(punto);
             
             //console.log(bounds);
         }
         //Fitting map to playable area and setting zoom
+        map.fitBounds(this.bounds);
+		console.log(this.bounds);
 		console.log(bounds);
-        map.fitBounds(bounds);
-		map.setMapOptions={streetViewControl:false,
-				zoomControl:false,
-				maxZoom:0,
-				minZoom:0,};
+		this.minZoom=map.getZoom();
+		var t=setTimeout(function(thisObj) { thisObj.actualizaelmapa(); }, 100, this);
+		
 		//map.map.maxZoom=0;
 		//map.map.minZoom=0;
 		//var zoomlimite = map.getZoom();
@@ -112,7 +116,12 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         //var zoomlimite = map.getZoom();
         //limiting zoom
         google.maps.event.addListener(map, "zoom_changed", function(e1){
-            //console.log(zoomlimite);
+            console.log('loco');
+			var minZoom=map.getZoom();
+			console.log(minZoom);
+			map.setMapOptions={
+				minZoom:minZoom};
+		    //console.log(zoomlimite);
             /*if (map.getZoom() < zoomlimite) {
                 //map.setZoom(zoomlimite);
             }*/
@@ -153,6 +162,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         }
         //Creando eventlisteners para colocar marker y circulo al pinchar
         google.maps.event.addListener(map, "mouseup", function(e){
+			
             console.log('e tocao');
             console.log(e);
             // ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
@@ -206,5 +216,61 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             }, this);
         }
     },
+	actualizaelmapa: function(){
+        console.log('asdasdasdsadasd');
+		 
+        map = Ext.ComponentQuery.query('map')[0].getMap();
+		var minZoom = map.getZoom();
+		console.log(minZoom);
+        var mapdemo = Ext.create('Ext.Map', {
+            mapOptions : {
+                mapTypeControl: false,
+				streetViewControl:false,
+				minZoom:minZoom,
+            }
+        });
+	
+		this.activityView.add(mapdemo);
+		var map=mapdemo.getMap();
+		this.colocamapa(map);
+		google.maps.event.addListener(map, "center_changed", function(e1){
+            checkBounds();
+        });
+        function checkBounds(){
+            // Perform the check and return if OK
+            if (bounds.contains(map.getCenter())) {
+                return;
+            }
+            // It`s not OK, so find the nearest allowed point and move there
+            var C = map.getCenter();
+            var X = C.lng();
+            var Y = C.lat();
+            
+            var AmaxX = bounds.getNorthEast().lng();
+            var AmaxY = bounds.getNorthEast().lat();
+            var AminX = bounds.getSouthWest().lng();
+            var AminY = bounds.getSouthWest().lat();
+            
+            if (X < AminX) {
+                X = AminX;
+            }
+            if (X > AmaxX) {
+                X = AmaxX;
+            }
+            if (Y < AminY) {
+                Y = AminY;
+            }
+            if (Y > AmaxY) {
+                Y = AmaxY;
+            }
+            //alert ("Restricting "+Y+" "+X);
+            map.setCenter(new google.maps.LatLng(Y, X));
+        }
+		
+    },
+	colocamapa: function(map){
+		console.log(this.bounds);
+		map.fitBounds(this.bounds);
+	}
 
 });

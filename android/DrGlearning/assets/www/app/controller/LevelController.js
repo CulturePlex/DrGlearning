@@ -156,13 +156,13 @@ Ext.define('DrGlearning.controller.LevelController', {
 		Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
 		var activityView;
 		if (newActivity.data.activity_type == 'geospatial') {
-			if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+			/*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
 				Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
 				this.careersListController.tolevel();
 			}, this);
-			}else{
+			}else{*/
 				this.getApplication().getController('activities.GeospatialController').updateActivity(view, newActivity);
-			}
+			//}
 		}else if (newActivity.data.activity_type == 'visual') {
 			this.getApplication().getController('activities.VisualController').updateActivity(view,newActivity);
 		}else if(newActivity.data.activity_type == 'relational'){
