@@ -1,417 +1,0 @@
-3.0.15 (Classy Cassidy)
-0af59bec2e4e4b02a4a29973ee08921b5f90118f
-o:Sass::Tree::RootNode
-:@template"ò@mixin sencha-layout {
-    html, body {
-        width: 100%;
-        height: 100%;
-    }
-
-    .x-translatable {
-        position: absolute;
-        top: 100%;
-        left: 100%;
-        z-index: 1;
-    }
-
-    .x-translatable-container {
-        position: relative;
-    }
-
-    .x-translatable-wrapper {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        overflow: hidden;
-    }
-
-    .x-translatable-stretcher {
-        width: 300%;
-        height: 300%;
-        position: absolute;
-        visibility: hidden;
-        z-index: -1;
-    }
-
-    .x-translatable-nested-stretcher {
-        width: 100%;
-        height: 100%;
-        left: 100%;
-        top: 100%;
-        position: absolute;
-        visibility: hidden;
-        z-index: -1;
-    }
-
-    .x-layout-fit,
-    .x-layout-card {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .x-layout-fit-item, .x-layout-card-item {
-        position: absolute !important;
-        width: 100%;
-        height: 100%;
-    }
-
-    .x-layout-hbox, .x-layout-vbox {
-        display: -webkit-box;
-        > * {
-            -webkit-box-flex: 0;
-        }
-    }
-
-    .x-layout-hbox {
-        -webkit-box-orient: horizontal;
-    }
-
-    .x-layout-vbox {
-        -webkit-box-orient: vertical;
-    }
-
-    .x-layout-hbox > .x-layout-box-item {
-        width: 0 !important;
-    }
-
-    .x-layout-vbox > .x-layout-box-item {
-        height: 0 !important;
-    }
-
-    .x-table-inner {
-        display: table !important;
-        width: 100%;
-        height: 100%;
-    }
-
-    .x-table-inner.x-table-fixed {
-        table-layout: fixed !important;
-    }
-
-    .x-table-row {
-        display: table-row !important;
-    }
-
-    .x-table-row > * {
-        display: table-cell !important;
-        vertical-align: middle;
-    }
-
-    .x-container, .x-body {
-        display: -webkit-box;
-    }
-
-    .x-body {
-        overflow: hidden;
-        -webkit-box-flex: 1;
-        min-width: 100%;
-        min-height: 100%;
-    }
-
-    .x-body > .x-inner, .x-container > .x-inner {
-        -webkit-box-flex: 1;
-        min-width: 100%;
-        min-height: 100%;
-        position: relative;
-    }
-
-    .x-docking-horizontal {
-        display: -webkit-box;
-        -webkit-box-flex: 1;
-        -webkit-box-orient: horizontal;
-        min-width: 100%;
-        min-height: 100%;
-    }
-
-    .x-docking-vertical {
-        display: -webkit-box;
-        -webkit-box-flex: 1;
-        -webkit-box-orient: vertical;
-        min-width: 100%;
-        min-height: 100%;
-    }
-
-    .x-centered {
-        position: absolute !important;
-        width: 100%;
-        height: 100%;
-        display: -webkit-box;
-        -webkit-box-align: center;
-        -webkit-box-pack: center;
-    }
-
-    .x-floating {
-        position: absolute !important;
-    }
-
-    .x-centered > * {
-        position: relative !important;
-        -webkit-box-flex: 0 !important;
-    }
-
-    .x-size-change-detector {
-        visibility: hidden;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-    }
-
-    .x-size-change-detector > * {
-        visibility: hidden;
-    }
-
-    .x-size-change-detector-shrink > * {
-        width: 200%;
-        height: 200%;
-    }
-
-    .x-size-change-detector-expand > * {
-        width: 100000px;
-        height: 100000px;
-    }
-
-    .x-scroll-view {
-        position: relative;
-        display: block;
-    }
-
-    .x-scroll-container {
-        position: absolute;
-        overflow: hidden;
-        width: 100%;
-        height: 100%;
-    }
-
-    .x-scroll-scroller {
-        position: absolute;
-        min-width: 100%;
-        min-height: 100%;
-    }
-
-    .x-ios .x-scroll-scroller {
-        -webkit-transform: translate3d(0, 0, 0);
-    }
-
-    .x-scroll-stretcher {
-        position: absolute;
-        visibility: hidden;
-    }
-
-    .x-scroll-bar-grid-wrapper {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-    }
-
-    .x-scroll-bar-grid {
-        display: table;
-        width: 100%;
-        height: 100%;
-
-        > * {
-            display: table-row;
-        }
-
-        > * > * {
-            display: table-cell;
-        }
-
-        > :first-child > :first-child {
-            width: 100%;
-            height: 100%;
-        }
-
-        > :first-child > :nth-child(2) {
-            padding: 3px 3px 0 0;
-        }
-
-        > :nth-child(2) > :first-child {
-            padding: 0 0 3px 3px;
-        }
-    }
-
-    .x-scroll-bar {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .x-scroll-bar-stretcher {
-        position: absolute;
-        visibility: hidden;
-        width: 100%;
-        height: 100%;
-    }
-
-    .x-scroll-bar-x {
-        width: 100%;
-
-        > .x-scroll-bar-stretcher {
-            width: 300%;
-        }
-
-        &.active {
-            height: 6px;
-        }
-    }
-
-    .x-scroll-bar-y {
-        height: 100%;
-
-        > .x-scroll-bar-stretcher {
-            height: 300%;
-        }
-
-        &.active {
-            width: 6px;
-        }
-    }
-
-    .x-scroll-indicator {
-        background: #333;
-        position: absolute;
-        z-index: 2;
-        opacity: 0.5;
-    }
-
-    .x-scroll-indicator.default {
-        @include border-top-radius(3px);
-        @include border-bottom-radius(3px);
-    }
-
-    .x-list-light,
-    .x-dataview-light {
-        .x-scroll-indicator {
-            background: #fff;
-            opacity: 1;
-        }
-    }
-
-    .x-scroll-indicator-x {
-        height: 100%;
-    }
-
-    .x-scroll-indicator-y {
-        width: 100%;
-    }
-
-    .x-scroll-indicator.csstransform {
-        background: none;
-        /*-webkit-transition: opacity 0.2s ease-out;*/
-
-        > * {
-            position: absolute;
-            background-color: #333;
-        }
-
-        > :nth-child(2) {
-            -webkit-transform-origin: 0% 0%;
-            background: none;
-            content: url(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAAxhgAAAAA);
-        }
-
-        &.x-scroll-indicator-light {
-            > * {
-                background-color: #eee;
-            }
-
-            > :nth-child(2) {
-                content: url(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAAvXcAAAAA);
-            }
-        }
-
-        &.x-scroll-indicator-y {
-            > * {
-                width: 100%;
-            }
-
-            > :first-child {
-                height: 3px;
-                @include border-top-radius(3px);
-            }
-
-            > :nth-child(2) {
-                height: 1px;
-            }
-
-            > :last-child {
-                height: 3px;
-                @include border-bottom-radius(3px);
-            }
-        }
-
-        &.x-scroll-indicator-x {
-            > * {
-                height: 100%;
-            }
-
-            > :first-child {
-                width: 3px;
-                @include border-left-radius(3px);
-            }
-
-            > :nth-child(2) {
-                width: 1px;
-            }
-            > :last-child {
-                width: 3px;
-                @include border-right-radius(3px);
-            }
-        }
-    }
-}
-:@has_childrenT:
-@linei:@options{:template_location[["./public/stylesheets/sass"./public/stylesheets["i/home/pedro/cultureplex/DrGlearning/android/DrGlearning/assets/www/resources/js/touch/resources/sass"p/home/pedro/cultureplex/DrGlearning/android/DrGlearning/assets/www/resources/js/touch/resources/sass/../css["8/usr/share/compass/frameworks/blueprint/stylesheets@["L/usr/share/compass/frameworks/_blueprint_deprecated_imports/stylesheets@["6/usr/share/compass/frameworks/compass/stylesheets@["J/usr/share/compass/frameworks/_compass_deprecated_imports/stylesheets@["/home/pedro/cultureplex/DrGlearning/android/DrGlearning/assets/www/resources/js/touch/resources/sass/../themes/stylesheets@:load_paths[@
-@@@@@@:full_exceptionT:css_location@:
-cacheT:always_updateF:cache_location"u/home/pedro/cultureplex/DrGlearning/android/DrGlearning/assets/www/resources/js/touch/resources/sass/.sass-cache:line_comments0:always_checkT:filename"™/home/pedro/cultureplex/DrGlearning/android/DrGlearning/assets/www/resources/js/touch/resources/themes/stylesheets/sencha-touch/default/core/_layout.scss:syntax:	scss:
-style:compressed:property_syntax0:@children[o:Sass::Tree::MixinDefNode;T;i:
-@args[ :
-@name"sencha-layout;	@;[3o:Sass::Tree::RuleNode:
-@tabsi ;T;i:
-@rule["html, body;	@;[o:Sass::Tree::PropNode;i :@prop_syntax:new;i;["
-width;	@;[ :@valueo:Sass::Script::String:
-@type:identifier:@context:default;#"	100%o; ;i ;!;";i	;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i;[".x-translatable;	@;[	o; ;i ;!;";i;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i;["top;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i;["	left;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i;["z-index;	@;[ ;#o;$;%;&;';(;#"1o;;i ;T;i;[".x-translatable-container;	@;[o; ;i ;!;";i;["position;	@;[ ;#o;$;%;&;';(;#"relativeo;;i ;T;i;[".x-translatable-wrapper;	@;[	o; ;i ;!;";i;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i;["height;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i;["overflow;	@;[ ;#o;$;%;&;';(;#"hiddeno;;i ;T;i;[".x-translatable-stretcher;	@;[
-o; ;i ;!;";i;["
-width;	@;[ ;#o;$;%;&;';(;#"	300%o; ;i ;!;";i ;["height;	@;[ ;#o;$;%;&;';(;#"	300%o; ;i ;!;";i!;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i";["visibility;	@;[ ;#o;$;%;&;';(;#"hiddeno; ;i ;!;";i#;["z-index;	@;[ ;#o;$;%;&;';(;#"-1o;;i ;T;i&;["%.x-translatable-nested-stretcher;	@;[o; ;i ;!;";i';["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i(;["height;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i);["	left;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i*;["top;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i+;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i,;["visibility;	@;[ ;#o;$;%;&;';(;#"hiddeno; ;i ;!;";i-;["z-index;	@;[ ;#o;$;%;&;';(;#"-1o;;i ;T;i1;["&.x-layout-fit,
-    .x-layout-card;	@;[o; ;i ;!;";i2;["position;	@;[ ;#o;$;%;&;';(;#"relativeo; ;i ;!;";i3;["overflow;	@;[ ;#o;$;%;&;';(;#"hiddeno;;i ;T;i6;[",.x-layout-fit-item, .x-layout-card-item;	@;[o; ;i ;!;";i7;["position;	@;[ ;#o;$;%;&;';(;#"absolute !importanto; ;i ;!;";i8;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i9;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i<;["#.x-layout-hbox, .x-layout-vbox;	@;[o; ;i ;!;";i=;["display;	@;[ ;#o;$;%;&;';(;#"-webkit-boxo;;i ;T;i>;["> *;	@;[o; ;i ;!;";i?;["-webkit-box-flex;	@;[ ;#o;$;%;&;';(;#"0o;;i ;T;iC;[".x-layout-hbox;	@;[o; ;i ;!;";iD;["-webkit-box-orient;	@;[ ;#o;$;%;&;';(;#"horizontalo;;i ;T;iG;[".x-layout-vbox;	@;[o; ;i ;!;";iH;["-webkit-box-orient;	@;[ ;#o;$;%;&;';(;#"verticalo;;i ;T;iK;["(.x-layout-hbox > .x-layout-box-item;	@;[o; ;i ;!;";iL;["
-width;	@;[ ;#o;$;%;&;';(;#"0 !importanto;;i ;T;iO;["(.x-layout-vbox > .x-layout-box-item;	@;[o; ;i ;!;";iP;["height;	@;[ ;#o;$;%;&;';(;#"0 !importanto;;i ;T;iS;[".x-table-inner;	@;[o; ;i ;!;";iT;["display;	@;[ ;#o;$;%;&;';(;#"table !importanto; ;i ;!;";iU;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";iV;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iY;["!.x-table-inner.x-table-fixed;	@;[o; ;i ;!;";iZ;["table-layout;	@;[ ;#o;$;%;&;';(;#"fixed !importanto;;i ;T;i];[".x-table-row;	@;[o; ;i ;!;";i^;["display;	@;[ ;#o;$;%;&;';(;#"table-row !importanto;;i ;T;ia;[".x-table-row > *;	@;[o; ;i ;!;";ib;["display;	@;[ ;#o;$;%;&;';(;#"table-cell !importanto; ;i ;!;";ic;["vertical-align;	@;[ ;#o;$;%;&;';(;#"middleo;;i ;T;if;[".x-container, .x-body;	@;[o; ;i ;!;";ig;["display;	@;[ ;#o;$;%;&;';(;#"-webkit-boxo;;i ;T;ij;[".x-body;	@;[	o; ;i ;!;";ik;["overflow;	@;[ ;#o;$;%;&;';(;#"hiddeno; ;i ;!;";il;["-webkit-box-flex;	@;[ ;#o;$;%;&;';(;#"1o; ;i ;!;";im;["min-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";in;["min-height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iq;["0.x-body > .x-inner, .x-container > .x-inner;	@;[	o; ;i ;!;";ir;["-webkit-box-flex;	@;[ ;#o;$;%;&;';(;#"1o; ;i ;!;";is;["min-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";it;["min-height;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";iu;["position;	@;[ ;#o;$;%;&;';(;#"relativeo;;i ;T;ix;[".x-docking-horizontal;	@;[
-o; ;i ;!;";iy;["display;	@;[ ;#o;$;%;&;';(;#"-webkit-boxo; ;i ;!;";iz;["-webkit-box-flex;	@;[ ;#o;$;%;&;';(;#"1o; ;i ;!;";i{;["-webkit-box-orient;	@;[ ;#o;$;%;&;';(;#"horizontalo; ;i ;!;";i|;["min-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i};["min-height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i{;[".x-docking-vertical;	@;[
-o; ;i ;!;";i|;["display;	@;[ ;#o;$;%;&;';(;#"-webkit-boxo; ;i ;!;";i};["-webkit-box-flex;	@;[ ;#o;$;%;&;';(;#"1o; ;i ;!;";i~;["-webkit-box-orient;	@;[ ;#o;$;%;&;';(;#"verticalo; ;i ;!;";i;["min-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i€;["min-height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iƒ;[".x-centered;	@;[o; ;i ;!;";i„;["position;	@;[ ;#o;$;%;&;';(;#"absolute !importanto; ;i ;!;";i…;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i†;["height;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i‡;["display;	@;[ ;#o;$;%;&;';(;#"-webkit-boxo; ;i ;!;";iˆ;["-webkit-box-align;	@;[ ;#o;$;%;&;';(;#"centero; ;i ;!;";i‰;["-webkit-box-pack;	@;[ ;#o;$;%;&;';(;#"centero;;i ;T;iŒ;[".x-floating;	@;[o; ;i ;!;";i;["position;	@;[ ;#o;$;%;&;';(;#"absolute !importanto;;i ;T;i;[".x-centered > *;	@;[o; ;i ;!;";i‘;["position;	@;[ ;#o;$;%;&;';(;#"relative !importanto; ;i ;!;";i’;["-webkit-box-flex;	@;[ ;#o;$;%;&;';(;#"0 !importanto;;i ;T;i•;[".x-size-change-detector;	@;[o; ;i ;!;";i–;["visibility;	@;[ ;#o;$;%;&;';(;#"hiddeno; ;i ;!;";i—;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i˜;["	left;	@;[ ;#o;$;%;&;';(;#"0o; ;i ;!;";i™;["top;	@;[ ;#o;$;%;&;';(;#"0o; ;i ;!;";iš;["z-index;	@;[ ;#o;$;%;&;';(;#"-1o; ;i ;!;";i›;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";iœ;["height;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i;["overflow;	@;[ ;#o;$;%;&;';(;#"hiddeno;;i ;T;i ;[" .x-size-change-detector > *;	@;[o; ;i ;!;";i¡;["visibility;	@;[ ;#o;$;%;&;';(;#"hiddeno;;i ;T;i¤;["'.x-size-change-detector-shrink > *;	@;[o; ;i ;!;";i¥;["
-width;	@;[ ;#o;$;%;&;';(;#"	200%o; ;i ;!;";i¦;["height;	@;[ ;#o;$;%;&;';(;#"	200%o;;i ;T;i©;["'.x-size-change-detector-expand > *;	@;[o; ;i ;!;";iª;["
-width;	@;[ ;#o;$;%;&;';(;#"100000pxo; ;i ;!;";i«;["height;	@;[ ;#o;$;%;&;';(;#"100000pxo;;i ;T;i®;[".x-scroll-view;	@;[o; ;i ;!;";i¯;["position;	@;[ ;#o;$;%;&;';(;#"relativeo; ;i ;!;";i°;["display;	@;[ ;#o;$;%;&;';(;#"
-blocko;;i ;T;i³;[".x-scroll-container;	@;[	o; ;i ;!;";i´;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";iµ;["overflow;	@;[ ;#o;$;%;&;';(;#"hiddeno; ;i ;!;";i¶;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i·;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iº;[".x-scroll-scroller;	@;[o; ;i ;!;";i»;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i¼;["min-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";i½;["min-height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iÀ;[".x-ios .x-scroll-scroller;	@;[o; ;i ;!;";iÁ;["-webkit-transform;	@;[ ;#o:Sass::Script::Funcall
-;iÁ;';(;[o:Sass::Script::Number:@numerator_units[ :@original"0;iÁ;';(;	{ :@denominator_units[ ;#i o;*;+[ ;,"0;iÁ;';(;	@Ï;-[ ;#i o;*;+[ ;,"0;iÁ;';(;	@Ï;-[ ;#i ;"translate3d;	@Ïo;;i ;T;iÄ;[".x-scroll-stretcher;	@;[o; ;i ;!;";iÅ;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";iÆ;["visibility;	@;[ ;#o;$;%;&;';(;#"hiddeno;;i ;T;iÉ;[".x-scroll-bar-grid-wrapper;	@;[o; ;i ;!;";iÊ;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";iË;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";iÌ;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iÏ;[".x-scroll-bar-grid;	@;[o; ;i ;!;";iÐ;["display;	@;[ ;#o;$;%;&;';(;#"
-tableo; ;i ;!;";iÑ;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";iÒ;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iÔ;["> *;	@;[o; ;i ;!;";iÕ;["display;	@;[ ;#o;$;%;&;';(;#"table-rowo;;i ;T;iØ;["> * > *;	@;[o; ;i ;!;";iÙ;["display;	@;[ ;#o;$;%;&;';(;#"table-cello;;i ;T;iÜ;[""> :first-child > :first-child;	@;[o; ;i ;!;";iÝ;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";iÞ;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iá;["#> :first-child > :nth-child(2);	@;[o; ;i ;!;";iâ;["padding;	@;[ ;#o;$;%;&;';(;#"3px 3px 0 0o;;i ;T;iå;["#> :nth-child(2) > :first-child;	@;[o; ;i ;!;";iæ;["padding;	@;[ ;#o;$;%;&;';(;#"0 0 3px 3pxo;;i ;T;iê;[".x-scroll-bar;	@;[o; ;i ;!;";ië;["position;	@;[ ;#o;$;%;&;';(;#"relativeo; ;i ;!;";iì;["overflow;	@;[ ;#o;$;%;&;';(;#"hiddeno;;i ;T;iï;[".x-scroll-bar-stretcher;	@;[	o; ;i ;!;";ið;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";iñ;["visibility;	@;[ ;#o;$;%;&;';(;#"hiddeno; ;i ;!;";iò;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o; ;i ;!;";ió;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iö;[".x-scroll-bar-x;	@;[o; ;i ;!;";i÷;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iù;["> .x-scroll-bar-stretcher;	@;[o; ;i ;!;";iú;["
-width;	@;[ ;#o;$;%;&;';(;#"	300%o;;i ;T;iý;["&.active;	@;[o; ;i ;!;";iþ;["height;	@;[ ;#o;$;%;&;';(;#"6pxo;;i ;T;i;[".x-scroll-bar-y;	@;[o; ;i ;!;";i;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i;["> .x-scroll-bar-stretcher;	@;[o; ;i ;!;";i;["height;	@;[ ;#o;$;%;&;';(;#"	300%o;;i ;T;i	;["&.active;	@;[o; ;i ;!;";i
-;["
-width;	@;[ ;#o;$;%;&;';(;#"6pxo;;i ;T;i;[".x-scroll-indicator;	@;[	o; ;i ;!;";i;["background;	@;[ ;#o;$;%;&;';(;#"	#333o; ;i ;!;";i;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i;["z-index;	@;[ ;#o;$;%;&;';(;#"2o; ;i ;!;";i;["opacity;	@;[ ;#o;$;%;&;';(;#"0.5o;;i ;T;i;[" .x-scroll-indicator.default;	@;[o:Sass::Tree::MixinNode
-;i;[o;*;+["px;,"3px;i;';(;	{ ;-[ ;#i;"border-top-radius;	@;[ o;.
-;i;[o;*;+["px;,"3px;i;';(;	{ ;-[ ;#i;"border-bottom-radius;	@;[ o;;i ;T;i;[").x-list-light,
-    .x-dataview-light;	@;[o;;i ;T;i;[".x-scroll-indicator;	@;[o; ;i ;!;";i;["background;	@;[ ;#o;$;%;&;';(;#"	#fffo; ;i ;!;";i;["opacity;	@;[ ;#o;$;%;&;';(;#"1o;;i ;T;i";[".x-scroll-indicator-x;	@;[o; ;i ;!;";i#;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i&;[".x-scroll-indicator-y;	@;[o; ;i ;!;";i';["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i*;["%.x-scroll-indicator.csstransform;	@;[o; ;i ;!;";i+;["background;	@;[ ;#o;$;%;&;';(;#"	noneo:Sass::Tree::CommentNode:@lines[ :@silent0;i,;	@;[ ;#"3/*-webkit-transition: opacity 0.2s ease-out;*/o;;i ;T;i.;["> *;	@;[o; ;i ;!;";i/;["position;	@;[ ;#o;$;%;&;';(;#"absoluteo; ;i ;!;";i0;["background-color;	@;[ ;#o;$;%;&;';(;#"	#333o;;i ;T;i3;["> :nth-child(2);	@;[o; ;i ;!;";i4;["-webkit-transform-origin;	@;[ ;#o;$;%;&;';(;#"
-0% 0%o; ;i ;!;";i5;["background;	@;[ ;#o;$;%;&;';(;#"	noneo; ;i ;!;";i6;["content;	@;[ ;#o;$
-;%;&;i6;';(;	{ ;#"purl(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAAxhgAAAAA)o;;i ;T;i9;["&.x-scroll-indicator-light;	@;[o;;i ;T;i:;["> *;	@;[o; ;i ;!;";i;;["background-color;	@;[ ;#o;$;%;&;';(;#"	#eeeo;;i ;T;i>;["> :nth-child(2);	@;[o; ;i ;!;";i?;["content;	@;[ ;#o;$
-;%;&;i?;';(;	{ ;#"purl(data:image/bmp;base64,Qk08AAAAAAAAADYAAAAoAAAAAQAAAAEAAAABABAAAAAAAAYAAAASCwAAEgsAAAAAAAAAAAAAvXcAAAAA)o;;i ;T;iC;["&.x-scroll-indicator-y;	@;[	o;;i ;T;iD;["> *;	@;[o; ;i ;!;";iE;["
-width;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;iH;["> :first-child;	@;[o; ;i ;!;";iI;["height;	@;[ ;#o;$;%;&;';(;#"3pxo;.
-;iJ;[o;*;+["px;,"3px;iJ;';(;	{ ;-[ ;#i;"border-top-radius;	@;[ o;;i ;T;iM;["> :nth-child(2);	@;[o; ;i ;!;";iN;["height;	@;[ ;#o;$;%;&;';(;#"1pxo;;i ;T;iQ;["> :last-child;	@;[o; ;i ;!;";iR;["height;	@;[ ;#o;$;%;&;';(;#"3pxo;.
-;iS;[o;*;+["px;,"3px;iS;';(;	{ ;-[ ;#i;"border-bottom-radius;	@;[ o;;i ;T;iW;["&.x-scroll-indicator-x;	@;[	o;;i ;T;iX;["> *;	@;[o; ;i ;!;";iY;["height;	@;[ ;#o;$;%;&;';(;#"	100%o;;i ;T;i\;["> :first-child;	@;[o; ;i ;!;";i];["
-width;	@;[ ;#o;$;%;&;';(;#"3pxo;.
-;i^;[o;*;+["px;,"3px;i^;';(;	{ ;-[ ;#i;"border-left-radius;	@;[ o;;i ;T;ia;["> :nth-child(2);	@;[o; ;i ;!;";ib;["
-width;	@;[ ;#o;$;%;&;';(;#"1pxo;;i ;T;id;["> :last-child;	@;[o; ;i ;!;";ie;["
-width;	@;[ ;#o;$;%;&;';(;#"3pxo;.
-;if;[o;*;+["px;,"3px;if;';(;	{ ;-[ ;#i;"border-right-radius;	@;[ 
