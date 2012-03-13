@@ -7,7 +7,7 @@ from knowledges.models import Knowledge, Career, GenuineUser
 from activities.models import Activity
 
 
-class CareerAdmin(GuardedModelAdmin):
+class CareerAdmin(admin.ModelAdmin):
     
     # Setting this attribute to True makes the magic of "hiding" not owned objects
     user_can_access_owned_objects_only = True

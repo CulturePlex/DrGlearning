@@ -54,7 +54,7 @@ $(document).ready(function(){
 
     //Populate with existing answers
     var existingAnswers = getJSON();
-    $.each(existingAnswers, function(answer){
+    $.each(existingAnswers, function(i, answer){
       $('#answer-list').append('<li>'+answer+'</li>');
     });
 

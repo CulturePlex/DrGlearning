@@ -245,7 +245,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 					return true;
 				}
 			});
-			offlineScoreOld.erase();
+			//offlineScoreOld.erase();
 			this.updateOfflineScores();
 		}else{
 			var offlineScore=offlineScoreStore.queryBy(function(record) {
