@@ -16,7 +16,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     puntos: null,
     bounds: null,
 	view: null,
-	map: null,
     init: function(){
         this.levelController = this.getApplication().getController('LevelController');
         //console.log(this.levelController);
@@ -97,10 +96,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         console.log(this.bounds);
         console.log(bounds);
         this.minZoom = map.getZoom();
-		this.map=map;
-        /*var t = setTimeout(function(thisObj){
+        var t = setTimeout(function(thisObj){
             thisObj.actualizaelmapa();
-        }, 100, this);*/
+        }, 100, this);
         
         //map.map.maxZoom=0;
         //map.map.minZoom=0;
@@ -120,19 +118,19 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         //var zoomlimite = map.getZoom();
         //limiting zoom
 		this.view=view;
-        google.maps.event.addListener(map, "zoom_changed", this.actualizaelmapa);
+        google.maps.event.addListener(map, "zoom_changed", function(e1){
+            console.log('loco');
+            var minZoom = map.getZoom();
+            console.log(minZoom);
+            map.setMapOptions = {
+                minZoom: minZoom
+            };
+			
             //console.log(zoomlimite);
             /*if (map.getZoom() < zoomlimite) {
              //map.setZoom(zoomlimite);
              }*/
-        //});
-		/*function hazlo(){
-			function(e){
-            console.log('loco');
-            var minZoom = this.map.getZoom();
-            console.log(minZoom);
-            actualizaelmapa();
-		}*/
+        });
         //Creating listener to recenter map when is out of playable area				
         google.maps.event.addListener(map, "center_changed", function(e1){
             checkBounds();
