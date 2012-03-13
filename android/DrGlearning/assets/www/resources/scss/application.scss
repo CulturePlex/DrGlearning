@@ -12,6 +12,8 @@ $include-default-icons: false;
 
 @import 'sencha-touch/default/all';
 
+$base-color: #af2584;
+
 @include sencha-panel;
 @include sencha-buttons;
 @include sencha-toolbar-forms;
@@ -25,6 +27,9 @@ $include-default-icons: false;
 @include pictos-iconmask('refresh');
 
 @include sencha-toolbar-ui('green', #74B446);
+
+
+
 .x-toolbar-green {
   border-bottom-color: darken(#4B9123, 15) !important;
 }
