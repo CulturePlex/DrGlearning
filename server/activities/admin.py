@@ -90,6 +90,10 @@ class VisualAdmin(ActivityAdmin):
 
 class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
 
+    options = {
+        'layers': ['osm.mapnik', 'google.streets', 've.road']
+    }
+
     class Media:
         js = ('http://www.google.com/jsapi', 'js/geospatialAdmin.js')
 
