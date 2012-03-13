@@ -23,7 +23,7 @@ Ext.define('DrGlearning.controller.DaoController', {
     	var career=Ext.getStore('Careers').getById(id);
     	var activities=career.data.activities;
 		
-    	activities=activities.split(",");
+    	//activities=activities.split(",");
     	//console.log("activity "+activities);
     	var activitiesInstalled=0;
 		for (cont in activities){
@@ -178,7 +178,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 	},
 	getCarresByKnowledge:function(Knowledge){
 		var carrers=Ext.getStore('Carrers').queryBy(function(record) {
-			var knowledges=record.data.knowledges.split(",");
+			var knowledges=record.data.knowledges;
 			for(x in knowledges){
 				if(knowledges[x]==Knowledge){
 					return true;

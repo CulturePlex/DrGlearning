@@ -27,3 +27,6 @@ li.relational-constraint-passed {
 .x-sheet-detail {
 	background: white;
 }
+.x-sheet-detail .x-input-el{
+	background: grey;
+}

@@ -6,7 +6,7 @@ Ext.define('DrGlearning.model.Career', {
 			type : "string"
 		}, {
 			name : "activities",
-			type : "string"
+			type : "auto"
 		}, {
 			name : "negative_votes",
 			type : "string"

@@ -40,6 +40,8 @@ Ext.define('DrGlearning.view.Settings', {
 		}, {
 			xtype : 'spacer',
 		}, {
+			xtype : 'spacer',
+		}, {
 			xtype : 'button',
 			text : 'Import user',
 			id : 'import'

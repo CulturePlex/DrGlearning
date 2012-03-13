@@ -13,6 +13,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	},
 	
 	onLaunch: function() {
+		
 		if(window.InternalApi != undefined){
 			console.log(window.InternalApi.getTest());
 		}
@@ -29,7 +30,13 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		//Create user if needed
 		if(window.device != undefined && usersStore.getCount()==0 ){
 			//First calculate max localstorage size
+			Ext.Viewport.setMasked({
+	    	    xtype: 'loadmask',
+	    	    message: 'Calculating free space...',
+	 	       	indicator: true
+	    	});
 			//this.getApplication().getController('MaxStorageSizeController').initTest();
+			Ext.Viewport.setMasked(false);
 			console.log("New user");
 			var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());
 			console.log(digest);
