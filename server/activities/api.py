@@ -1,12 +1,8 @@
-import base64
-
-from django.db.models.fields.files import ImageField
-from django.contrib.gis.db.models import GeometryField
-
 from tastypie import fields
 from tastypie.resources import ModelResource
 
 from activities.models import Activity
+from base.utils import dehydrate_fields
 from knowledges.models import Career
 
 
@@ -46,23 +42,10 @@ class ActivityResource(ModelResource):
         elif hasattr(bundle.obj, "geospatial"):
             child_obj = bundle.obj.geospatial
             bundle.data["activity_type"] = "geospatial"
+        elif hasattr(bundle.obj, "quiz"):
+            child_obj = bundle.obj.quiz
+            bundle.data["activity_type"] = "quiz"
         else:
             bundle.data["activity_type"] = "unknown"
             return bundle
-        fields = child_obj._meta.local_fields
-        for f in fields:
-            field_name = f.name
-            # If image convert to base64
-            if isinstance(f, ImageField):
-                image_path = getattr(child_obj, field_name).path
-                ext = image_path.split('.')[-1]
-                image_data = open(image_path,"rb").read()
-                bundle.data[field_name] = "data:image/%s;base64,%s" % (ext,
-                                            base64.encodestring(image_data))
-            # If geometry export to geojson
-            elif isinstance(f, GeometryField):
-                geo_object = getattr(child_obj, field_name)
-                bundle.data[field_name] = geo_object.geojson
-            else:
-                bundle.data[field_name] = getattr(child_obj, field_name)
-        return bundle
+        return dehydrate_fields(bundle, child_obj)

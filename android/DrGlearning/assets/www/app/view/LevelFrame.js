@@ -13,15 +13,13 @@ Ext.define('DrGlearning.view.LevelFrame', {
                 docked: 'top',
 				name: 'up',
                 items: [
-                    { xtype: 'spacer', width: 35 },
-                    { xtype: 'spacer' },
                     {
                         xtype: 'title',
 						id: 'title',
 						name: 'title',
-                        title: 'Career Name'
+                        title: 'Career Name',
+						centered:true,
                     },
-                    { xtype: 'spacer' }
                   
                 ]
             },

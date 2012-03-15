@@ -13,13 +13,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	},
 	
 	onLaunch: function() {
+		
 		if(window.InternalApi != undefined){
 			console.log(window.InternalApi.getTest());
 		}
-		//var view=this.getLoading();
-		//view.mask("Loading..");
-		//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Loading..."});
-		//myMask.show();
+    	
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		//view.show();
@@ -31,6 +29,14 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		console.log(usersStore);
 		//Create user if needed
 		if(window.device != undefined && usersStore.getCount()==0 ){
+			//First calculate max localstorage size
+			Ext.Viewport.setMasked({
+	    	    xtype: 'loadmask',
+	    	    message: 'Calculating free space...',
+	 	       	indicator: true
+	    	});
+			//this.getApplication().getController('MaxStorageSizeController').initTest();
+			Ext.Viewport.setMasked(false);
 			console.log("New user");
 			var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());
 			console.log(digest);
@@ -40,7 +46,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 				uniqueid:digest
 			});
 			userModel.save();
-			usersStore.sync();
+			
 		}
 		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
 				//Register user if needed
@@ -108,16 +114,14 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    			var careerModel=careersStore.getById(career.id);
 	                    			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
 	                    			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
+	                    			
 	                    			if(Date.parse(careerModel.data.timestamp)<Date.parse(career.timestamp)){
 	    								careerModel.data.update=true;
 	    								careerModel.save();
-		                    			careersStore.sync();
-		                    			careersStore.load();
-	                    			}
+		                    		}
                     			}
 	                    	}
 	                    	console.log("Careers stored after loading = "+careersStore.getCount());
-	                    	//myMask.hide();
 	                    	this.getLoading().hide();
 	                    	this.getApplication().getController('CareersListController').initializate();		
 
@@ -127,7 +131,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    			this.getApplication().getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
-	    	  	//myMask.hide();
+	    	  	Ext.Viewport.setMasked(false);
 	          	this.getLoading().hide();
 	          	this.getApplication().getController('CareersListController').initializate();		
 	      }

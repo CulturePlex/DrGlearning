@@ -6,7 +6,7 @@ Ext.define('DrGlearning.model.Career', {
 			type : "string"
 		}, {
 			name : "activities",
-			type : "string"
+			type : "auto"
 		}, {
 			name : "negative_votes",
 			type : "string"
@@ -33,10 +33,10 @@ Ext.define('DrGlearning.model.Career', {
 			type : "string"
 		}, {
 			name : "installed",
-			type : "string"
+			type : "boolean"
 		}, {
 			name : "started",
-			type : "string"
+			type : "boolean"
 		}, {
 			name : "update",
 			type : "boolean"

@@ -31,7 +31,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		console.log(newActivity.data.answers);
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.data.image+'" />');
+		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=this.activity.data.answers;
 		console.log(this.respuestas);
@@ -41,14 +41,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		var time=newActivity.data.time;
 		console.log(time);
 		
-		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time, this);
+		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		
 		var increment=0;
 		while(time>0)
 		{
-			var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time/1000+"s');",increment);
+			var t=setTimeout("activityView.down('label[customId=time]').setHtml('"+time+"s');",increment);
 			increment=increment+1000;
-			time=time-1000;	
+			time=time-1;	
 		}
 		
 	},

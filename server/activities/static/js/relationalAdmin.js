@@ -310,6 +310,9 @@ var GraphEditor = {
       nodeTypes[nodes[i]["type"]] = {};
       $('#_start_node').append(startOption);
       $('#_end_node').append(endOption);
+
+      // Update chosen selects with new content
+      $('.chzn-select').trigger("liszt:updated");
     }
     //Set edges
     var edges = this.getGraphEdgesJSON();

@@ -13,16 +13,14 @@ Ext.define('DrGlearning.view.CareerFrame', {
                 docked: 'top',
 				name: 'up',
                 items: [
-                    { xtype: 'spacer', width: 35 },
-                    { xtype: 'spacer' },
                     {
                         xtype: 'title',
 						id: 'title',
 						name: 'title',
-                        title: 'Careessssr Name'
+                        title: 'Careessssr Name',
+						maxWidth: '100%',
+						centered:true,
                     },
-                    { xtype: 'spacer' }
-                  
                 ]
             },
 			{

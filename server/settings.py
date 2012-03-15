@@ -9,6 +9,7 @@ ugettext = lambda s: s
 
 PROJECT_NAME = u"Dr. Glearning"
 PROJECT_ROOT = path.dirname(path.abspath(__file__))
+GRAPPELLI_ADMIN_TITLE = PROJECT_NAME
 
 ADMINS = (
     ('CulturePlex Lab', 'admins@cultureplex.ca'),
@@ -18,7 +19,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': path.join(PROJECT_ROOT, 'drglearning.sqlite'),          # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -76,7 +77,8 @@ STATIC_URL = '/static/'
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+#ADMIN_MEDIA_PREFIX = '/static/admin/'
+ADMIN_MEDIA_PREFIX = STATIC_URL + "grappelli/"
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -137,6 +139,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -147,6 +150,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'userena',
     'userena.contrib.umessages',
+    'django.contrib.gis',
     'guardian',
     'easy_thumbnails',
     'sorl.thumbnail',
@@ -165,6 +169,9 @@ AUTHENTICATION_BACKENDS = (
     'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+SESSION_COOKIE_NAME = "drglearning"
+LANGUAGE_COOKIE_NAME = SESSION_COOKIE_NAME + "_language"
 
 ANONYMOUS_USER_ID = -1
 AUTH_PROFILE_MODULE = "accounts.UserProfile"

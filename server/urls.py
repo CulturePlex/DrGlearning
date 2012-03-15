@@ -21,6 +21,8 @@ v1_api.register(PlayerResource())
 v1_api.register(HighScoreResource())
 
 urlpatterns = patterns('',
+    url(r'^grappelli/', include('grappelli.urls')),
+
     # base
     url(r'^', include('base.urls')),
 

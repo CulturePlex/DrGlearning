@@ -1,7 +1,6 @@
 Ext.define('DrGlearning.view.CareersFrame', {
     extend: 'Ext.Container',
     xtype: 'careersframe',
-    requires: ['DrGlearning.view.CareersList', 'DrGlearning.view.CareersListEmpty'],
     config: {
     	fullscreen: true,
         items: [

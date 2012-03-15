@@ -7,20 +7,20 @@ from StringIO import StringIO
 
 from django.contrib.gis.db import models
 from django.core.files.base import ContentFile
+from django.db.models.fields.files import ImageField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
+from base.utils import image_resize
 from knowledges.models import Career
 from south.modelsinspector import add_introspection_rules
 
 # South and PostGis integration patch
 add_introspection_rules([], ["^django\.contrib\.gis"])
 
-
-MAX_IMAGE_SIZE = 1024
 
 class Activity(models.Model):
     LAN_CHOICES = (
@@ -55,6 +55,10 @@ class Activity(models.Model):
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
     reward = models.CharField(_("reward"), max_length=255, default="OK!")
+    
+    # Needed for objects permissions. It should be autoassigned to
+    # the career owner user
+    user = models.ForeignKey(User, verbose_name="user", null=True)
 
     @classmethod
     def serialize(cls):
@@ -65,21 +69,27 @@ class Activity(models.Model):
                                             self.level_type,
                                             self.level_order)
 
+    def size(self):
+        for sub in ('linguistic', 'relational', 'geospatial', 'visual', 
+                        'quiz', 'temporal'):
+            if hasattr(self, sub):
+                sub_obj = getattr(self, sub)
+                if sub_obj:
+                    return sub_obj.sub_activity_size()
+        print "WARNING: 0 sized activity"
+        return 0
+
+
+    def sub_activity_size(self):
+        size = 0
+        fields = [f for f in self._meta.fields if not isinstance(f, ImageField)]
+        for field in fields:
+            size += len(unicode(getattr(self, field.name)))
+        return size
+
     def save(self, *args, **kwargs):
-        if hasattr(self, "image"):
-            if self.image.width > MAX_IMAGE_SIZE or \
-                    self.image.height > MAX_IMAGE_SIZE:
-                filename = self.image.name
-                small_image = Image.open(StringIO(self.image.read()))
-                small_image.thumbnail((MAX_IMAGE_SIZE,
-                                                    MAX_IMAGE_SIZE))
-                temp_file = StringIO()
-                file_extension = os.path.splitext(filename)[1][1:]
-                if file_extension.lower() == "jpg":
-                    file_extension = "jpeg"
-                small_image.save(temp_file, file_extension)
-                image_content = ContentFile(temp_file.getvalue())
-                self.image.save(filename, image_content)
+        self = image_resize(self)
+        self.user = self.career.user
         super(Activity, self).save(*args, **kwargs)
         
     class Meta:
@@ -100,7 +110,20 @@ class Visual(Activity):
                                                             blank=True)
     answers = jsonfield.JSONField(default="[]")
     correct_answer = models.CharField(max_length=80)
-    time = models.CharField(max_length=10, help_text="Milliseconds")
+    time = models.CharField(max_length=10, help_text="Seconds")
+
+
+class Quiz(Activity):
+    image = models.ImageField(upload_to="images", null=True, blank=True)
+    obfuscated_image = models.ImageField(upload_to="images", null=True,
+                                                            blank=True)
+    answers = jsonfield.JSONField(default="[]")
+    correct_answer = models.CharField(max_length=80)
+    time = models.CharField(max_length=10, help_text="Seconds",
+            null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "quizes"
 
 
 class Geospatial(Activity):

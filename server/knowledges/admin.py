@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
+from guardian.admin import GuardedModelAdmin
+
 from knowledges.models import Knowledge, Career, GenuineUser
 from activities.models import Activity
 
 
-class CareerAdmin(admin.ModelAdmin):
+class CareerAdmin(GuardedModelAdmin):
+    
+    # Setting this attribute to True makes the magic of "hiding" not owned objects
+    user_can_access_owned_objects_only = True
+    change_form_template = 'admin/knowledges/career/change_form.html'
 
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
-                        'geospatial'):
+                        'geospatial', 'quiz'):
             if hasattr(a, a_type):
                 return a_type
         return None

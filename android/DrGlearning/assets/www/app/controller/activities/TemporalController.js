@@ -31,7 +31,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
 		console.log(newActivity.data);
-		activityView.down('panel').setHtml('<img alt="imagen" src="'+newActivity.data.image+'" />');
+		activityView.down('panel').setHtml('<img id="image" alt="imagen" src="'+newActivity.getImage('image','image',this)+'" />');
 		activityView.down('label').setHtml(newActivity.data.query);
 		activityView.show();
 		view.add(activityView);

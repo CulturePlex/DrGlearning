@@ -5,6 +5,8 @@ Ext.define('DrGlearning.store.Activities', {
     	model: 'DrGlearning.model.Activity',
         autoLoad: true,
         autoSync: true,
+		sorters: 'level_order',
+		autosort:true
     },
 
    

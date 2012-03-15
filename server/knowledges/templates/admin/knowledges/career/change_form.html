@@ -1,25 +1,66 @@
 {% extends "admin/change_form.html" %}
 
 {% block after_field_sets %}
-<ul>
-<h2>Career activities</h2>
-{% for level, activities in activities_by_level %}
-<h3>{{level}}</h3>
-{% for activity, type in activities %} 
-    <li>{{ activity.level_order }}. {{ activity.name|title }} ({{ type|title }})
-    <a class="changelink" href="/admin/activities/{{type}}/{{activity.id}}/" onclick="return showAddAnotherPopup(this);">Edit</a>
-    <a class="deletelink" href="/admin/activities/{{type}}/{{activity.id}}/delete/">Delete</a></li>
-{% endfor %}
-{% endfor %}
-</ul>
-<h3>Add new activities</h3>
-<ul>
-    <li><a href="/admin/activities/geospatial/add/" class="addlink" onclick="return showAddAnotherPopup(this);">Geospatial</a></li>
-    <li><a href="/admin/activities/relational/add/" class="addlink" onclick="return showAddAnotherPopup(this);">Relational</a></li>
-    <li><a href="/admin/activities/temporal/add/" class="addlink" onclick="return showAddAnotherPopup(this);">Temporal</a></li>
-    <li><a href="/admin/activities/linguistic/add/" class="addlink" onclick="return showAddAnotherPopup(this);">Linguistic</a></li>
-    <li><a href="/admin/activities/visual/add/" class="addlink" onclick="return showAddAnotherPopup(this);">Visual</a></li>
-</ul>
+<script type="text/javascript">
+function closePopup(win) {
+    win.close();
+    location.reload();
+}
+</script>
+
+<fieldset class="module">
+
+    <h2>Career activities</h2>
+    {% for level, activities in activities_by_level %}
+      <div class="row cells-1">
+        <div class="column span-4">{{level}}</div>
+        <div class="column span-flexible">
+        <ul>
+        {% for activity, type in activities %} 
+        <li>{{ activity.level_order }}. {{ activity.name|title }} ({{ type|title }})
+          <a class="changelink" onClick="window.open('/admin/activities/{{type}}/{{activity.id}}/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)">Edit</a>
+          <a class="deletelink" href="/admin/activities/{{type}}/{{activity.id}}/delete/">Delete</a>
+        </li>
+      {% endfor %}
+      </div>
+      </div>
+    {% endfor %}
+  </div>
+</fieldset>
+
+<br/>
+
+<fieldset class="module">
+    <h2>Add new activities</h2>
+    <div class="row cells-1">
+        <div class="column span-4">
+            <a onClick="window.open('/admin/activities/geospatial/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Geospatial</a>
+        </div>
+    </div>
+    <div class="row cells-1">
+        <div class="column span-4">
+            <a onClick="window.open('/admin/activities/relational/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Relational</a>
+        </div>
+    </div>
+    <div class="row cells-1">
+        <div class="column span-4">
+            <a onClick="window.open('/admin/activities/temporal/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Temporal</a>
+        </div>
+    </div>
+    <div class="row cells-1">
+        <div class="column span-4">
+            <a onClick="window.open('/admin/activities/linguistic/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Linguistic</a>
+        </div>
+    </div>
+    <div class="row cells-1">
+        <div class="column span-4">
+            <a onClick="window.open('/admin/activities/visual/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Visual</a>
+        </div>
+    </div>
+    <div class="row cells-1">
+        <div class="column span-4">
+            <a onClick="window.open('/admin/activities/quiz/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Quiz</a>
+        </div>
+    </div>
+</fieldset>
 {% endblock %}
-
-

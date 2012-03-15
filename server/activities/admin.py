@@ -3,15 +3,59 @@ import tempfile
 
 from django.contrib import admin
 from django.core.files import File
+from django.http import HttpResponse
+
+from guardian.admin import GuardedModelAdmin
 from olwidget.admin import GeoModelAdmin
 
 from activities.models import (Relational, Visual, Geospatial,
-                               Temporal, Linguistic)
+                               Temporal, Linguistic, Quiz)
+from knowledges.models import Career
 
+class ActivityAdmin(GuardedModelAdmin):
 
-class ActivityAdmin(admin.ModelAdmin):
+    user_can_access_owned_objects_only = True
+
     list_filter = ['career']
+    exclude = ('user',)
     save_as = True
+
+    def response_change(self, request, obj, *args, **kwargs):  
+        if request.REQUEST.has_key('_popup'):  
+             return HttpResponse('''
+                <script type="text/javascript">
+                    opener.closePopup(window);
+                </script>''')  
+        else:  
+            return super(ActivityAdmin, self).response_change(request, obj, *args, **kwargs)  
+
+    def response_add(self, request, obj, *args, **kwargs):  
+        if request.REQUEST.has_key('_popup'):  
+             return HttpResponse('''
+                <script type="text/javascript">
+                    opener.closePopup(window);
+                </script>''')  
+        else:  
+            return super(ActivityAdmin, self).response_add(request, obj, *args, **kwargs)  
+
+    def render_change_form(self, request, context, add=False, change=False, form_url='', obj=None):
+        """
+        Sets the is_popup parameter in the context to avoid the Django
+        default behaviour of hiding most of the control when editing
+        through a popu
+        """
+        context['is_popup'] = False
+        return super(ActivityAdmin, self).render_change_form(request, context, add, change, form_url, obj)
+        
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'career':
+            if request.user.is_superuser:
+                kwargs['queryset'] = Career.objects.all()
+            else:
+                kwargs['queryset'] = Career.objects.filter(user=request.user)
+            return db_field.formfield(**kwargs)
+        return super(ActivityAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
     class Media:
         js = ('js/careerAutoselector.js',)
@@ -46,8 +90,12 @@ class VisualAdmin(ActivityAdmin):
 
 class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
 
+    options = {
+        'layers': ['osm.mapnik', 'google.streets', 've.road']
+    }
+
     class Media:
-        js = ('js/geospatialAdmin.js',)
+        js = ('http://www.google.com/jsapi', 'js/geospatialAdmin.js')
 
 
 class TemporalAdmin(ActivityAdmin):
@@ -60,6 +108,7 @@ class LinguisticAdmin(ActivityAdmin):
 
 admin.site.register(Relational, RelationalAdmin)
 admin.site.register(Visual, VisualAdmin)
+admin.site.register(Quiz, VisualAdmin)
 admin.site.register(Geospatial, GeospatialAdmin)
 admin.site.register(Temporal, TemporalAdmin)
 admin.site.register(Linguistic, LinguisticAdmin)
