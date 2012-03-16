@@ -18,6 +18,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
         }, {
             xtype: 'toolbar',
             docked: 'top',
+			ui:'neutral',
             id: 'toolbarTopNormal',
             items: [{
                 xtype: 'selectfield',
@@ -47,6 +48,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             xtype: 'toolbar',
             docked: 'top',
             id: 'toolbarTopAdd',
+			ui:'neutral',
             items: [{
                 xtype: 'searchfield',
                 placeHolder: 'Search',

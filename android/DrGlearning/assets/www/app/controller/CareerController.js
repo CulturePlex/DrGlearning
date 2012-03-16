@@ -56,7 +56,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
 		console.log(levelData);
 		console.log(filesImgs[levelData.customId-1]);
-		return "<div id='centro' align='middle'><p align='top'>"+levelData.name+"</p><a href= 'javascript:careerController.startLevel();'><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></a></div>"
+		return "<div id='centro' align='middle'><p align='top'>Level "+levelData.customId+": "+levelData.name+"</p><a href= 'javascript:careerController.startLevel();'><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></a></div>"
 	},
 	/*
 	 * Update Career View.
@@ -84,33 +84,32 @@ Ext.define('DrGlearning.controller.CareerController', {
 			if (i == 0) {
 				if (i == levelstemp.length - 1) {
 					levelscarousel.add({
-						xtype: 'panel',
 						html: levelButtonHtml,
 						name: 'a',
+						cls:'card dark'
 					});
 				}else
 				{
 				levelscarousel.add({
-						xtype: 'panel',
 						html: levelButtonHtml+this.flechaderHtml,
 						name: 'a',
+						cls:'card'
 					});
 				}
 				
 			}else if(i == levelstemp.length-1)
 			{
 				levelscarousel.add({
-					xtype: 'panel',
 					html: this.flechaizqHtml+levelButtonHtml,
 					name: 'a',
+					cls:'card dark'
 				});
 			}else
-			{
+			{	
 				levelscarousel.add({
-					xtype: 'panel',
 					name: 'a',
-					html:this.flechaizqHtml+levelButtonHtml+this.flechaderHtml
-					
+					html:this.flechaizqHtml+levelButtonHtml+this.flechaderHtml,
+					cls:'card dark'
                 });
 			}
 		}

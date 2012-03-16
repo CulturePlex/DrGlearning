@@ -40,7 +40,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             view.down('component[customId=activity]').destroy();
         }
         this.activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-        this.activityView.down('label').setHtml(newActivity.data.query);
+        this.activityView.down('label').setHtml("<p>"+newActivity.data.query+"</p>");
         this.empezar(this.activityView, newActivity);
         //console.log('lolo');
         this.activityView.show();

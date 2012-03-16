@@ -54,8 +54,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	},
 	showAnswers: function() {
 		
-		var opciones = Ext.create('Ext.Container');
-		opciones.config={layout:{type:'vbox',pack:'center',align:'middle'}};
+		var opciones = Ext.create('Ext.Panel');
+		opciones.config={layout:{type:'hbox',pack:'center',dock:'bottom'}};
 		console.log(this.respuestas.length);
 		for(var i=0;i<this.respuestas.length;i++)
 		{
@@ -66,10 +66,12 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 				customId: 'respuesta'
 			});
 		}
-		activityView.down('label[customId=time]').hide();
-		activityView.down('label[customId=time]').destroy();
+		activityView.down('toolbar[customId=time]').hide();
+		activityView.down('toolbar[customId=time]').destroy();
+		
 		activityView.down('panel[customId=image]').hide();
 		activityView.down('panel[customId=image]').destroy();
+		
 		activityView.add(opciones);
 			
 	},

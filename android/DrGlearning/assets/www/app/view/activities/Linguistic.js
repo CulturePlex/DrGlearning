@@ -10,6 +10,7 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
         items: [
 							{
 							    xtype: 'label',
+								ui:'neutral',
 								customId: 'query',
 								name: 'query',
 							    title: 'Error'
@@ -65,7 +66,6 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 			{
                 xtype: 'toolbar',
                 docked: 'bottom',
-                ui: 'gray',
                 items:[
                     {
 						xtype: 'button',

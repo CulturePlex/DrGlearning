@@ -3,10 +3,10 @@ Ext.define('DrGlearning.view.CareerDescription', {
     xtype: 'careerdescription',
     requires: ['Ext.XTemplate'],
     config: {
-        cls: 'detail-card',
+        cls: 'card',
         styleHtmlContent: true,
         tpl: Ext.create('Ext.XTemplate',
-            '<p>{description}</p>'
+            "<p font-size:'18' >{description}</p>"
         )
     }
 });

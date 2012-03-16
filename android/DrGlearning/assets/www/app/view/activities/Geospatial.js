@@ -23,7 +23,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 			{
                 xtype: 'toolbar',
                 docked: 'top',
-                ui: 'gray',
+                ui: 'neutral',
                 items:[{
                         xtype: 'label',
 						id: 'query',
@@ -36,7 +36,6 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 			{
 				xtype: 'toolbar',
                 docked: 'bottom',
-                ui: 'gray',
                 items:[
                     {
 						xtype: 'button',

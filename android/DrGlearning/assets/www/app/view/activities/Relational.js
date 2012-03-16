@@ -39,7 +39,7 @@ Ext.define('DrGlearning.view.activities.Relational', {
 		}, {
 			xtype : 'toolbar',
 			docked : 'top',
-			ui : 'gray',
+			ui : 'neutral',
 			items : [ {
 				xtype : 'label',
 				id : 'query',
@@ -51,7 +51,6 @@ Ext.define('DrGlearning.view.activities.Relational', {
 		}, {
 			xtype : 'toolbar',
 			docked : 'bottom',
-			ui : 'gray',
 			items : [ {
 				xtype : 'button',
 				text : 'Back',

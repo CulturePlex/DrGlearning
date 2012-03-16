@@ -14,7 +14,7 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 			{
                 xtype: 'toolbar',
                 docked: 'top',
-                ui: 'gray',
+                ui: 'neutral',
                 items:[{
                         xtype: 'label',
 						customId: 'query',
@@ -27,7 +27,6 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 			{
                 xtype: 'toolbar',
                 docked: 'bottom',
-                ui: 'gray',
                 items:[
                     {
 						xtype: 'button',
