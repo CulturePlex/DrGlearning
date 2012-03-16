@@ -154,6 +154,9 @@ Ext.define('DrGlearning.model.Activity', {
 		}, {
 			name : "radius",
 			type : "string"
+		},{
+			name : "minZoom",
+			type : "int"
 		} ],
         
 		

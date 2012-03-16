@@ -13,13 +13,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
         iconCls: 'maps',
         layout: 'fit',
         fullscreen: true,
-        items: [{
-            xtype: 'map',
-			mapOptions: {
-				mapTypeControl: false,
-				streetViewControl:false,
-				
-			}},
+        items: [
 			{
                 xtype: 'toolbar',
                 docked: 'top',
