@@ -222,6 +222,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         if (this.getActivityframe()) {
             this.getActivityframe().hide();
         }
+		this.getApplication().getController('activities.VisualController').stop();
         var view1 = this.getLevelframe();
 		this.updateLevel(this.getApplication().getController('CareersListController').selectedcareer, this.getApplication().getController('LevelController').selectedlevel);		
         view1.show();
