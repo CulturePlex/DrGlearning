@@ -80,8 +80,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         listeners: {
           change: function(field, newValue, oldValue){
             if (newValue.data.text!=blankOption){
+			  console.log(newValue);
               option.hide();
-              playerEdgePath.push(newValue.data.edgeType);
+			  //scorePanel.hide();
+              playerEdgePath.push(newValue.raw.edgeType);
               option = takeStep(newValue.data.value);
               refresh(option);
             }
@@ -162,6 +164,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         playerPath.splice(playerPath.length-2,2);
         playerEdgePath.splice(playerEdgePath.length-1,1);
         option.hide();
+		
         option = takeStep(previousStep);
         refresh(option);
       }
@@ -182,6 +185,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     /** Given the last step, it refreshes the user interface to mark the
      * actual walked path and next options available */
     function refresh(option){
+	  activityView.removeAll();
+		//console.log(activityView.down('panel'));
+	  //activityView.down('panel')[0].hide();
       var scorePanel = Ext.create('Ext.Panel', {
         html: '<p>Score: ' + getPathScore() + '</p>'
       });
@@ -191,6 +197,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       });
       activityView.add(constraintsPanel);
       for(var i=0;i<playerPath.length;i++){
+	  	console.log(playerEdgePath);
         if (i!=0) {
           var edgeText = '<p class="relational">&lt;' + playerEdgePath[i-1] + '&gt;</p>';
           var edge = Ext.create('Ext.Panel' , {
