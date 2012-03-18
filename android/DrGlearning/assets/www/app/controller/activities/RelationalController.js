@@ -75,7 +75,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                         edgeType: edge.type});
         }
       }
-      return Ext.create('Ext.field.Select' ,{
+      return Ext.create('Ext.form.Select' ,{
         options: options,
         listeners: {
           change: function(field, newValue, oldValue){

@@ -1,6 +1,6 @@
 Ext.define('DrGlearning.view.activities.Relational', {
 
-	extend : 'Ext.Panel',
+	extend : 'Ext.Container',
 	xtype : 'relational',
 	customId:'activity',
 	config : {
