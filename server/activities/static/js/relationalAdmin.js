@@ -10,12 +10,30 @@ var GraphEditor = {
   USES_TYPES: false,
   USES_SCORES: false,
 
+  PDE_URL: "/js/graphdrawer.pde",
+
+  // This parameter should be set to true with long batch
+  // operations (loading from GEXF) and set to false again
+  // when done. Method "refresh" should be manually called
+  _stopRefreshing: false,
+
   graphNodesId: "id_graph_nodes",
   graphEdgesId: "id_graph_edges",
   sourcePathId: "id_source_path",
   targetPathId: "id_target_path",
   scoredNodesId: "id_scored_nodes",
   constraintsId: "id_constraints",
+
+  progressBar: {
+    show: function() {
+      GraphEditor._stopRefreshing = true;
+    },
+    hide: function() {
+      GraphEditor._stopRefreshing = false;
+      GraphEditor.refresh();
+    },
+    set: function(value) {$('#'+GraphEditor.progressBarId+' progress').val(value);}
+  },
 
   sourcePath: undefined,
   targetPath: undefined,
@@ -63,9 +81,9 @@ var GraphEditor = {
     this.setGraphNodesJSON(json);
     if (this.USES_DRAWER) {
       if (data.hasOwnProperty('position')){
-        this.drawer.addLocatedNode(nodeName, _properties['position']['x'], _properties['position']['y'])
+        this.drawer.addLocatedNode(nodeName, _properties['position']['x'], _properties['position']['y'], data.type)
       } else {
-        this.drawer.addNode(nodeName);
+        this.drawer.addNode(nodeName, data.type);
       }
     }
   },
@@ -168,13 +186,17 @@ var GraphEditor = {
   },
 
   setGraphNodesJSON: function(json){
-    document.getElementById(this.graphNodesId).value = JSON.stringify(json);
-    this.refresh();
+    $('#'+this.graphNodesId).val(JSON.stringify(json));
+    if (!this._stopRefreshing) {
+      this.refresh();
+    }
   },
 
   setGraphEdgesJSON: function(json){
-    document.getElementById(this.graphEdgesId).value = JSON.stringify(json);
-    this.refresh();
+    $('#'+this.graphEdgesId).val(JSON.stringify(json));
+    if (!this._stopRefreshing) {
+      this.refresh();
+    }
   },
 
   setConstraints: function(json){
@@ -279,6 +301,64 @@ var GraphEditor = {
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
   },
   
+  loadGEXF: function(){
+        function handleFileSelect(evt) {
+        GraphEditor.progressBar.show();
+        var files = evt.target.files; // FileList object
+    
+        for (var i = 0, f; f = files[i]; i++) {
+    
+          var reader = new FileReader();
+    
+          // Closure to capture the file information.
+          reader.onload = (function(theFile) {
+            return function(e) {
+              var gexfContent = e.target.result;
+              // GEXF IMPORTATION FUNCTION
+
+              // NODES
+              $(gexfContent).find('node').each(function(index, item){
+                
+                // Node custom attributes
+                var attributes = {};
+                $(this).find('attvalue').each(function(index){
+                    attributes[$(this).attr('for').toLowerCase()] = $(this).attr('value');
+                });
+
+                // Node position
+                attributes["position"] =  {
+                    "x":$(this).find('viz\\:position').attr('x'),
+                    "y":$(this).find('viz\\:position').attr('y')
+                }
+                
+                GraphEditor.addNode($(this).attr('label'), attributes);
+              });
+
+              // EDGES
+              $(gexfContent).find('edge').each(function(){
+
+                //  Edge custom attributes
+                var attributes = {};
+                $(this).find('attvalue').each(function(index){
+                    attributes[$(this).attr('for').toLowerCase()] = $(this).attr('value');
+                });
+                var sourceId = $(this).attr('source');
+                var targetId = $(this).attr('target');
+                var source = $(gexfContent).find('node#'+sourceId).attr('label');
+                var target = $(gexfContent).find('node#'+targetId).attr('label');
+                var type = $(this).attr('label');
+                GraphEditor.addEdge(source, type, target, attributes);
+              });
+              GraphEditor.progressBar.hide();
+            };
+          })(f);
+    
+          reader.readAsText(f);
+        }
+      }
+    $('#files').bind('change', handleFileSelect);
+  },
+
   refresh: function(){
     var verboseOperator = {
       lt: "less than",
