@@ -8,8 +8,9 @@ Ext.define('DrGlearning.view.activities.Visual', {
 		customId:'activity',
         fullscreen: true,
         items: [{
-            xtype: 'panel',
+            xtype: 'container',
             customId: 'image',
+			padding: 10,
         	},
 			{
                 xtype: 'toolbar',
@@ -48,6 +49,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
 				customId: 'time',
                 docked: 'bottom',
 				ui:'neutral',
+				padding: 10,
                 items:[{
                         xtype: 'label',
 						customId: 'time',

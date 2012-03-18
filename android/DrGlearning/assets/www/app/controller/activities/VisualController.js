@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
-		activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
+		activityView.down('container[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=this.activity.data.answers;
 		activityView.show();
@@ -69,12 +69,13 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 				xtype: 'button',
 				text: this.respuestas[i],
 				ui: 'round',
+				padding: 5,
 				customId: 'respuesta',
 			});
 		}
 		activityView.down('label[customId=time]').setHtml("");
-		activityView.down('panel[customId=image]').hide();
-		activityView.down('panel[customId=image]').destroy();
+		activityView.down('container[customId=image]').hide();
+		activityView.down('container[customId=image]').destroy();
 		activityView.add(obfuscatedImg);
 			
 	},

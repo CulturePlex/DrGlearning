@@ -44,9 +44,11 @@ Ext.define('DrGlearning.view.activities.Quiz', {
             }
 			,
 			{
-                xtype: 'toolbar',
+                xtype: 'container',
+				customId: 'time',
                 docked: 'bottom',
 				ui:'neutral',
+				padding: 10,
                 items:[{
                         xtype: 'label',
 						customId: 'time',

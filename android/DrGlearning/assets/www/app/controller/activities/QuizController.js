@@ -42,10 +42,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		view.add(activityView);
 		var opciones=6;
 		var time=newActivity.data.time;
-		console.log(time);
-		
 		var t=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
-		
 		var increment=0;
 		while(time>0)
 		{
@@ -62,15 +59,17 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		console.log(this.respuestas.length);
 		for(var i=0;i<this.respuestas.length;i++)
 		{
-			opciones.add({
+			activityView.down('container[customId=time]').add({
 				xtype: 'button',
 				text: this.respuestas[i],
 				ui: 'round',
+				padding: 5,
 				customId: 'respuestaQuiz'
 			});
 		}
-		activityView.down('label[customId=time]').hide();
-		activityView.down('label[customId=time]').destroy();
+		//activityView.down('label[customId=time]').hide();
+		//activityView.down('label[customId=time]').destroy();
+		activityView.down('label[customId=time]').setHtml("");
 		activityView.down('panel[customId=image]').hide();
 		activityView.down('panel[customId=image]').destroy();
 		activityView.add(opciones);

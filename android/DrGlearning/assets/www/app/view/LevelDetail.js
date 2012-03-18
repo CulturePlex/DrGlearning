@@ -15,7 +15,7 @@ Ext.define('DrGlearning.view.LevelDetail', {
         },
         {
         	xtype: 'carousel',
-            ui: 'light',
+            //ui: 'light',
             direction: 'horizontal',
     	}	
 		]
