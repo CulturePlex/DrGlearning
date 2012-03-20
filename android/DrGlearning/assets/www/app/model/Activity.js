@@ -78,7 +78,11 @@ Ext.define('DrGlearning.model.Activity', {
 		}, {
 			name : "query_datetime",
 			type : "date"
+		},{
+			name : "image_url",
+			type : "string"
 		}
+		
 		/*-------------------------
 			Linguistic Activities
 		-------------------------
@@ -116,7 +120,11 @@ Ext.define('DrGlearning.model.Activity', {
 		}, {
 			name : "time",
 			type : "string"
+		}, {
+			name : "obfuscated_image_url",
+			type : "string"
 		}
+		
 		/*-------------------------
 		Relational Activities
 		-------------------------
@@ -166,16 +174,19 @@ Ext.define('DrGlearning.model.Activity', {
 			id : 'DrGlearningActivity'
 		}
 	},
-	/*set: function(fieldName, value) {
-		if(fieldName=='image' || fieldName=='obfuscated_image'){
-			this.getApplication().getController('FileManagerController').storeImage(value,fieldName,this.data.id);
-		}else{
-			this.data.fieldName=value;
-		}
-	},*/
-    getImage: function(fieldName,targetId,scope) {
-    	//console.log(scope);
+	setImage: function(fieldName, value,scope) {
+		//if(window.device != undefined){
+		//	scope.getApplication().getController('FileManagerController').storeImage(value,this.data.id,fieldName);
+		//}
+	},
+    getImage: function(name,targetId,scope) {
     	//return scope.getApplication().getController('FileManagerController').retrieveImage(fieldName+this.data.id,targetId);
-    	return this.data.image;
+    	//if(window.device != undefined){
+    	//	scope.getApplication().getController('FileManagerController').retrieveImage(this.data.id,name,targetId);
+    	//	return this.data.image;
+    	//}else{
+    		return scope.getApplication().getController('GlobalSettingsController').getServerURL()+"/media/"+this.data.image_url;
+    	//}
+    	
 	},
 });

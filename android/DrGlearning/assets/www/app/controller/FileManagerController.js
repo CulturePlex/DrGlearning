@@ -22,6 +22,7 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successFS, fail);
 	    sufix = (sufix!=undefined) ? sufix : "";
 	    var imageName = "image" + imageId + sufix + ".b64";
+	    console.log("Storing "+imageName);
 
 	    function successFS(fileSystem) {
 	      fileSystem.root.getDirectory(Base64Manager.DIRECTORY , {create: true, exclusive: false}, successDirectory, fail);
@@ -54,14 +55,16 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	   * The targetId is mandatory to load the image through a
 	   * callback in the DOM element with that id.
 	   */
-	  retrieveImage: function(fileName, targetId) {
+	  retrieveImage: function(imageId,sufix, targetId) {
 
 	    function successFS(fileSystem) {
 	      fileSystem.root.getDirectory(Base64Manager.DIRECTORY , {create: true, exclusive: false}, successDirectory, fail);
 	    }
 
 	    function successDirectory(parent){
-	      parent.getFile(fileName, {create: true, exclusive: false}, successFile, fail);
+	    	var imageName="image"+imageId+sufix+".b64"
+	    	console.log("Loading "+imageName);
+	    	parent.getFile(imageName, {create: true, exclusive: false}, successFile, fail);
 	    }
 
 	    function successFile(fileEntry) {
@@ -69,7 +72,10 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	      var reader = new FileReader();
 	      reader.onload = function(evt) {
 	        var value = evt.target.result;
+	        console.log("Searching element "+targetId);
+	        console.log(document.getElementById(targetId));
 	        document.getElementById(targetId).src = value;
+	        
 	      };
 	      reader.readAsText(fileEntry);
 	    }

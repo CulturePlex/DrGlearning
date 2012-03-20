@@ -9,7 +9,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
         fullscreen: true,
         items: [{
             xtype: 'container',
-            customId: 'image',
+            id: 'image',
 			padding: 10,
         	},
 			{

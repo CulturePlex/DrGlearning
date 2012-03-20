@@ -40,7 +40,10 @@ Ext.define('DrGlearning.model.Career', {
 		}, {
 			name : "update",
 			type : "boolean"
-		} ],
+		},{
+			name : "size",
+			type : "int"
+		}],
 		proxy : {
 			type : 'localstorage',
 			id : 'DrGlearningCareers'

@@ -14,6 +14,26 @@
     <script type="text/javascript" charset="utf-8" src="resources/js/GeoJSON.js"></script>
     <script type="text/javascript" charset="utf-8" src="resources/js/maps.google.polygon.containsLatLng.js"></script>
 	
+	<script type="text/javascript" charset="utf-8">
+
+            // Call onDeviceReady when PhoneGap is loaded.
+            //
+            // At this point, the document has loaded but phonegap.js has not.
+            // When PhoneGap is loaded and talking with the native device,
+            // it will call the event `deviceready`.
+            //
+            function onLoad(){
+                document.addEventListener("deviceready", onDeviceReady, false);
+            }
+
+            // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+            //
+            function onDeviceReady() {
+                // Now safe to use the PhoneGap API
+            	this.getController('LoadingController').onLaunch();
+            }
+
+            </script>
 	
 </head>
 <body style="background: url(resources/images/splash.png) no-repeat; background-size: 100%;">

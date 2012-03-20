@@ -5,7 +5,15 @@ Ext.define('DrGlearning.store.Activities', {
     	model: 'DrGlearning.model.Activity',
         autoLoad: true,
         autoSync: true,
-		sorters: 'level_order',
+        sorters: [
+                  {
+                      property : 'level_order',
+                      direction: 'ASC'
+                  },{
+                      property : 'id',
+                      direction: 'ASC'
+                  }
+              ],
 		autosort:true
     },
 
