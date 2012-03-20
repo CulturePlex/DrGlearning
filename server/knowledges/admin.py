@@ -13,6 +13,12 @@ class CareerAdmin(GuardedModelAdmin):
     user_can_access_owned_objects_only = True
     change_form_template = 'admin/knowledges/career/change_form.html'
 
+    # grapelli
+    raw_id_fields = ('knowledge_field',)
+    autocomplete_lookup_fields = {
+        'm2m': ['knowledge_field'],
+    }
+
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
                         'geospatial', 'quiz'):

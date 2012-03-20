@@ -20,6 +20,12 @@ class ActivityAdmin(GuardedModelAdmin):
     exclude = ('user',)
     save_as = True
 
+    # grapelli
+    raw_id_fields = ('career',)
+    autocomplete_lookup_fields = {
+        'fk': ['career']
+    }
+
     def response_change(self, request, obj, *args, **kwargs):  
         if request.REQUEST.has_key('_popup'):  
              return HttpResponse('''
