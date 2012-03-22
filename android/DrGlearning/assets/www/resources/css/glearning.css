@@ -1,3 +1,14 @@
+.helpicon{
+	float:right;
+	height: 80%;
+	vertical-align: middle;
+	
+}
+.querymia{
+	width:100%;
+	vertical-align: middle;
+}
+
 .relational {
 	font-size: small;
 	text-align: center;
@@ -30,3 +41,5 @@ li.relational-constraint-passed {
 .x-sheet-detail .x-input-el{
 	background: grey;
 }
+
+
