@@ -173,9 +173,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	//Confirmation function to try a location
     confirm: function(){
         this.distancia = Math.sqrt(Math.pow(elmarker.position.Ua - elpunto.Ua, 2) + Math.pow(elmarker.position.Va - elpunto.Va, 2)) * 60000;
-        this.puntos = 100 - (this.distancia * 100) / radio;
+        this.puntos = parseInt(100 - (this.distancia * 100) / radio);
         if (this.distancia < radio) {
-            Ext.Msg.alert('Right!', this.activity.data.reward, function(distancia){
+            Ext.Msg.alert('Right!', this.activity.data.reward+", obtained score:"+this.puntos, function(distancia){
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
             }, this);

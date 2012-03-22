@@ -12,6 +12,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	squaresBlack:null,
 	loquedText:null,
 	loquedTextFinded:null,
+	puntos:null,
 	init: function(){
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
@@ -147,6 +148,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	},
 		
 	solve: function() { 
+		this.puntos=100;
 		console.log(this.activity.data.answer);
 		var answer;
 		var saveButton = Ext.create('Ext.Button', {
@@ -176,8 +178,8 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			answer = show.down('#importvalue').getValue();
 			if (answer.toLowerCase() == this.activity.data.answer.toLowerCase()) 
 			{
-				Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+				Ext.Msg.alert('Right!', this.activity.data.reward+"obtained score:"+this.puntos, function(){
+					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
 			}else{
