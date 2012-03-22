@@ -24,6 +24,9 @@ Ext.define('DrGlearning.controller.LevelController', {
 		var view = Ext.create('DrGlearning.view.ActivityFrame');
 		view.hide();
        	this.control({
+			'button[id=help]': {
+				tap: this.help
+			},
 			'button[id=backtolevels]': {
 				tap: this.tolevels
 			},
@@ -229,9 +232,6 @@ Ext.define('DrGlearning.controller.LevelController', {
 		this.updateLevel(this.getApplication().getController('CareersListController').selectedcareer, this.getApplication().getController('LevelController').selectedlevel);		
         view1.show();
     },
-	getHelpHtml: function(){
-		return "<div class='helpicon'><a href= 'javascript:levelController.help();'><img src='resources/images/help.png' alt='help' height='100%'></a></div>"
-	},
 	help: function(){
 		Ext.Msg.alert('Help','this is the help for this activity', function(){}, this);
 	}

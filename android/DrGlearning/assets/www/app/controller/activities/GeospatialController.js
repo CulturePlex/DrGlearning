@@ -34,7 +34,28 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             view.down('component[customId=activity]').destroy();
         }
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-        activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>" + newActivity.data.query + "</p></div>");
+        activityView.down('toolbar[customId=query]').add( 
+		{ 
+                    xtype: 'label', 
+                    name: 'label_name', 
+                    id: 'label_id', 
+                    html: newActivity.data.query, 
+                    cls: 'x-form-item-label x-form-item'
+					} );
+		activityView.down('toolbar[customId=query]').add(
+		{
+			xtype:'spacer'
+			});
+		
+		activityView.down('toolbar[customId=query]').add(
+		{
+			xtype:'button',
+			text:'?',
+			ui:'round',
+			id:'help'
+		}			);
+                                         
+		//setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>" + newActivity.data.query + "</p></div>");
         
         //Initializing map 
         console.log(Ext.ComponentQuery.query('map'));

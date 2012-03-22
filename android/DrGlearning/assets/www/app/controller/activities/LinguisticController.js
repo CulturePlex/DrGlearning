@@ -43,7 +43,27 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		//activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
 		var table=this.getTable();
 		activityView.down('panel[customId=image]').setHtml(table);
-		activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>"+newActivity.data.query + "</p></div>");
+		activityView.down('toolbar[customId=query]').add( 
+		{ 
+                    xtype: 'label', 
+                    name: 'label_name', 
+                    id: 'label_id', 
+                    html: newActivity.data.query, 
+                    cls: 'x-form-item-label x-form-item'
+					} );
+		activityView.down('toolbar[customId=query]').add(
+		{
+			xtype:'spacer'
+			});
+		
+		activityView.down('toolbar[customId=query]').add(
+		{
+			xtype:'button',
+			text:'?',
+			ui:'round',
+			id:'help'
+		}			);
+		//activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>"+newActivity.data.query + "</p></div>");
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		activityView.down('label[customId=responses]').setHtml('');
 		this.respuestas=this.activity.data.answers;
@@ -85,7 +105,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	},
 	
 	getTable:function(){
-		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+newActivity.getImage('image','image')+'"><tr>';
+		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+newActivity.getImage('image','image',this)+'"><tr>';
 		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
 		var squaresBlack=this.squaresBlack;
 		var cont;
