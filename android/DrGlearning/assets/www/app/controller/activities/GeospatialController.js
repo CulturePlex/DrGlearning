@@ -34,7 +34,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             view.down('component[customId=activity]').destroy();
         }
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-        activityView.down('label').setHtml("<p>" + newActivity.data.query + "</p>");
+        activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>" + newActivity.data.query + "</p></div>");
         
         //Initializing map 
         console.log(Ext.ComponentQuery.query('map'));
