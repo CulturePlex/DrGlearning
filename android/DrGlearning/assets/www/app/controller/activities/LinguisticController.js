@@ -43,7 +43,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		//activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
 		var table=this.getTable();
 		activityView.down('panel[customId=image]').setHtml(table);
-		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
+		activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>"+newActivity.data.query + "</p></div>");
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		activityView.down('label[customId=responses]').setHtml('');
 		this.respuestas=this.activity.data.answers;
