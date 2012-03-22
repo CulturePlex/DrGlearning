@@ -166,6 +166,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		}else if (newActivity.data.activity_type == 'visual') {
 			this.getApplication().getController('activities.VisualController').updateActivity(view,newActivity);
 		}else if(newActivity.data.activity_type == 'relational'){
+			console.log(newActivity.data);
 			this.getApplication().getController('activities.RelationalController').updateActivity(view,newActivity);
 		}else if(newActivity.data.activity_type == 'temporal'){
 			this.getApplication().getController('activities.TemporalController').updateActivity(view,newActivity);
@@ -223,6 +224,7 @@ Ext.define('DrGlearning.controller.LevelController', {
             this.getActivityframe().hide();
         }
 		this.getApplication().getController('activities.VisualController').stop();
+		this.getApplication().getController('activities.QuizController').stop();
         var view1 = this.getLevelframe();
 		this.updateLevel(this.getApplication().getController('CareersListController').selectedcareer, this.getApplication().getController('LevelController').selectedlevel);		
         view1.show();

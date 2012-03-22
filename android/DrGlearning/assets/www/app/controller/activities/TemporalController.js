@@ -11,6 +11,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
         xtype: 'mainview'
     }],	
 	activity:null,
+	puntos:null,
 	init: function(){
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
@@ -37,10 +38,11 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		view.add(activityView);
 	},
 	before: function() {
+		this.puntos=100;
 		console.log(this.activity);
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+			Ext.Msg.alert('Success!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
+				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);
 		}else
@@ -51,9 +53,10 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		} 
 	},
 	after: function() {
+		this.puntos=100;
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
-			Ext.Msg.alert('Success!', this.activity.data.reward, function(){
-				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+			Ext.Msg.alert('Success!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
+				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				console.log('ola');
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);

@@ -15,6 +15,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	finishtemp:null,
 	secondtemp:null,
 	currentTime:0,
+	puntos:null,
 	init: function(){
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
@@ -81,10 +82,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			
 	},
 	tryIt: function() { 
+	this.puntos= 100;
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
-			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+			Ext.Msg.alert('Right!', this.activity.data.reward+", obtained score:"+this.puntos, function(){
+					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					console.log('aski');
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
