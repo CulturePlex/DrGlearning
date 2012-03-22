@@ -8,7 +8,7 @@ class Player(models.Model):
     code = models.CharField(unique=True, max_length=100)
     display_name = models.CharField(max_length=30, blank=True)
     email = models.CharField(max_length=30, blank=True)
-    image = models.ImageField(upload_to="images", null=True)
+    image = models.ImageField(upload_to="images", null=True, blank=True)
 
     def __unicode__(self):
         return self.code

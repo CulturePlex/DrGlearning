@@ -13,32 +13,38 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	},
 	
 	onLaunch: function() {
-		
 		if(window.InternalApi != undefined){
 			console.log(window.InternalApi.getTest());
 		}
     	
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
+		console.log('Loading...');
 		//view.show();
 		
 		var careersStore = Ext.getStore('Careers');
 		careersStore.load();
 		Ext.getStore('Activities').load();
 		var usersStore = Ext.getStore('Users');
-		console.log(usersStore);
+		//console.log(usersStore);
 		//Create user if needed
-		if(window.device != undefined && usersStore.getCount()==0 ){
+		if(usersStore.getCount()==0 ){
 			//First calculate max localstorage size
 			Ext.Viewport.setMasked({
 	    	    xtype: 'loadmask',
 	    	    message: 'Calculating free space...',
 	 	       	indicator: true
 	    	});
-			//this.getApplication().getController('MaxStorageSizeController').initTest();
-			Ext.Viewport.setMasked(false);
+			//this.getApplication().getController('MaxStorageSizeController').initTest(this);
+			localStorage.maxSize=2600000;
+			localStorage.actualSize=0;
 			console.log("New user");
-			var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());
+			if(window.device != undefined){
+				var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());	
+			}else{
+				var digest=this.SHA1("test"+" "+new Date().getTime());
+			}
+			
 			console.log(digest);
 			//var userModel=Ext.ModelManager.getModel('DrGlearning.model.User');
 			//user.set('uniqueid:', digest);
@@ -99,7 +105,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                        				timestamp : career.timestamp,
 	                        				installed : false,
 	                    					started : false,
-	                    					update : false
+	                    					update : false,
+	                    					size: career.size
 	                    			});
 	                    			var activities=new Array();
 	                    			for(cont in career.activities){
@@ -122,20 +129,33 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     			}
 	                    	}
 	                    	console.log("Careers stored after loading = "+careersStore.getCount());
-	                    	this.getLoading().hide();
-	                    	this.getApplication().getController('CareersListController').initializate();		
+	                    	if(localStorage.maxSize!=undefined){
+	                    		this.getLoading().hide();
+	                    		Ext.Viewport.setMasked(false);
+		                    	this.getApplication().getController('CareersListController').initializate();	
+	                    	}
+	                    			
 
 	                    }
 	                });
-	    			//Scores Updates
+	    			//Ext.Viewport.setMasked(false);
+		    	  	//console.log();
+		    	  	//console.log("Listo1");
 	    			this.getApplication().getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
-	    	  	Ext.Viewport.setMasked(false);
+	    	  	//Ext.Viewport.setMasked(false);
+	    	  	//console.log("Listo2");
 	          	this.getLoading().hide();
 	          	this.getApplication().getController('CareersListController').initializate();		
 	      }
-		},
+	    },
+		
+		pausecomp:function (ms) {
+			ms += new Date().getTime();
+			while (new Date() < ms){}
+		} ,
+		
 		/**
 		*
 		*  Secure Hash Algorithm (SHA1)

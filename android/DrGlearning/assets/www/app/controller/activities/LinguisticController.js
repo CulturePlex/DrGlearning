@@ -41,7 +41,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		}
 		//activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
 		var table=this.getTable();
-		activityView.down('panel[customId=image]').setHtml(table);
+		activityView.down('panel[id=image]').setHtml(table);
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		activityView.down('label[customId=responses]').setHtml('');
@@ -84,8 +84,8 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	},
 	
 	getTable:function(){
-		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+newActivity.getImage('image','image')+'"><tr>';
-		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
+		var table='<table style="background-repeat:no-repeat;background-size:100% 100%;border-collapse:collapse;" border="0" WIDTH="100%" HEIGHT="200" BACKGROUND="'+newActivity.getImage('image','image',this)+'"><tr>';
+		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';background-position:100% center
 		var squaresBlack=this.squaresBlack;
 		var cont;
 		var temp;
@@ -93,7 +93,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		//console.log(squares.length);
 		for(cont in squaresBlack){
 			if(squaresBlack[cont]){
-				table=table+'<td BGCOLOR="BLACK"></td>';	
+				table=table+'<td style="background-color:black;width:20%;"></td>';	
 			}else{
 				table=table+'<td></td>';
 			}
@@ -142,7 +142,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			}
 			whiteSquares++;
 		}
-		activityView.down('panel[customId=image]').setHtml(this.getTable());
+		activityView.down('panel[id=image]').setHtml(this.getTable());
 		
 	},
 		

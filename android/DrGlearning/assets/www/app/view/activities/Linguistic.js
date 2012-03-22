@@ -17,52 +17,50 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 							},	
                      		{
                 	        	xtype: 'panel',
-                	        	customId: 'image',
-                	        	layout: 'vbox',
-                	        	/*items: [
-                	        	        {
-                	        	        	xtype: 'panel',
-                            	        	customId: 'image2',
-                            	        	layout: 'hbox',
-                            	        	items:[{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'}
-                            	        	       ]
-                	        		    },{
-                	        	        	xtype: 'panel',
-                            	        	customId: 'image3',
-                            	        	layout: 'hbox',
-                            	        	items:[{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'}
-                            	        	      
-                            	        	      ]
-                	        		    } 
-                	        	        
-                	        	        ]*/
-                			},{
-        		                xtype: 'label',
-        		                customId: 'loqued',
-        		            },{
-        		            	xtype: 'fieldset',
-        		            	title: 'Insert a character:',
-        		            	items: [
-        		                {
-        		                    xtype: 'textfield',
-        		                    customId: 'letter',
-        		                    name: 'letter',
-        		                    maxLength: 1,
-        		                },
-        		                ]
-        		            },{
+                	        	id: 'image',
+                	        },{
+								xtype: 'container',
+								layout: 'hbox',
+								items: [
+								        {
+								        	xtype: 'label',
+								        	html: 'TIP: ',
+								        	flex: 0
+								        },{
+								        	xtype: 'label',
+								        	customId: 'loqued',
+								        	flex: 1
+								        }]
+                	        },{
+										xtype: 'fieldset',
+										title: 'Insert a character:',
+										layout: 'hbox',
+										items: [
+									    {
+									        xtype: 'textfield',
+									        customId: 'letter',
+									        name: 'letter',
+									        maxLength: 1,
+									        width: '80%',
+									        flex: 0
+									    },{
+			        						xtype: 'button',
+			        						customId: 'try',
+			        						text: 'Try',
+			        						width: '20%',
+			        						flex: 1
+			        					}
+									    ]
+									},
+        		            {
         		                xtype: 'label',
         		                customId: 'responses',
-        		            },{
-        						xtype: 'button',
-        						customId: 'try',
-        						text: 'Try',
-        					}
+        		            },
         		            
         		            
         		           
                 	   
-            ,
+            
 			{
                 xtype: 'toolbar',
                 docked: 'bottom',

@@ -6,7 +6,7 @@ Ext.define('DrGlearning.controller.MaxStorageSizeController', {
     init: function(){
 	},
 	
-	initTest:function(){
+	initTest:function(controller){
 
 		var iterationsData;
 		//var results = document.getElementById('results');
@@ -56,7 +56,12 @@ Ext.define('DrGlearning.controller.MaxStorageSizeController', {
 			//results.innerHTML = length + ' characters were stored successfully.';
 		    } else {
 		    	console.log('Max localstorage size '+oldLength);
+		    	localStorage.maxSize=oldLength;
+		    	localStorage.actualSize=0;
 		    	localStorage.removeItem('test');
+		    	Ext.Viewport.setMasked(false);
+		    	controller.getLoading().hide();
+		    	controller.getApplication().getController('CareersListController').initializate();
 			//results.innerHTML = oldLength + ' characters were stored successfully,  but ' + length + ' weren\'t.';
 			return;
 		    }
@@ -64,7 +69,7 @@ Ext.define('DrGlearning.controller.MaxStorageSizeController', {
 		    
 		    index++;
 		    if (index < iterationsData.length) {
-			iteration();
+		    	setTimeout(iteration, 0);
 		    } else {
 		    	//results.innerHTML = oldLength + ' characters were saved successfully, test is stopped.';
 			return;

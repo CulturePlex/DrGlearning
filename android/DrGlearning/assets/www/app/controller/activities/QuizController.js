@@ -32,8 +32,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		activityView = Ext.create('DrGlearning.view.activities.Quiz');
 		console.log(newActivity.data.answers);
 		console.log(newActivity.data.image);
+		console.log("Tiene imagen?");
 		if (newActivity.data.image) {
-			activityView.down('panel[customId=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image', 'image', this) + '" />');
+			activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
 		}
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=this.activity.data.answers;
@@ -70,8 +71,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		//activityView.down('label[customId=time]').hide();
 		//activityView.down('label[customId=time]').destroy();
 		activityView.down('label[customId=time]').setHtml("");
-		activityView.down('panel[customId=image]').hide();
-		activityView.down('panel[customId=image]').destroy();
+		activityView.down('panel[id=image]').hide();
+		activityView.down('panel[id=image]').destroy();
 		activityView.add(opciones);
 			
 	},

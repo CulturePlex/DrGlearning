@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
-		activityView.down('container[customId=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
+		activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
 		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
 		this.respuestas=this.activity.data.answers;
 		activityView.show();
@@ -48,6 +48,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		clearInterval(this.finishtemp);
 		clearInterval(this.secondtemp);
 		var obfuscatedImg = Ext.create('Ext.Container',{
+			customId: 'obfuscated',
     		layout: 'vbox',
 			align:'center',
 			pack:'center',
@@ -74,8 +75,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			});
 		}
 		activityView.down('label[customId=time]').setHtml("");
-		activityView.down('container[customId=image]').hide();
-		activityView.down('container[customId=image]').destroy();
+		activityView.down('container[id=image]').hide();
+		activityView.down('container[id=image]').destroy();
 		activityView.add(obfuscatedImg);
 			
 	},

@@ -27,6 +27,13 @@ li.relational-constraint-passed {
 .x-sheet-detail {
 	background: white;
 }
-.x-sheet-detail .x-input-el{
+
+.x-sheet-detail .x-input-el {
 	background: grey;
+}
+
+#loadingpanel {
+	backgroundImage: 'url(resources/images/splash.png)';
+	backgroundRepeat: 'no-repeat';
+	backgroundPosition: 'center';
 }

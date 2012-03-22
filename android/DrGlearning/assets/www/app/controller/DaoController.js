@@ -21,12 +21,20 @@ Ext.define('DrGlearning.controller.DaoController', {
     	});
     	
     	var career=Ext.getStore('Careers').getById(id);
+    	if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
+    		Ext.Viewport.setMasked(false);
+			Ext.Msg.alert('Problem finded', 'Unable to install this carrer, delete some installed careers.', Ext.emptyFn);
+			return;
+		}
     	var activities=career.data.activities;
+    	
 		
     	//activities=activities.split(",");
     	//console.log("activity "+activities);
     	var activitiesInstalled=0;
 		for (cont in activities){
+			var activitiesToInstall=new Array();
+			var size=0;
 			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 			Ext.data.JsonP.request({
 				scope: this,
@@ -56,20 +64,24 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		
                 	});
                 	if(activityModel.data.activity_type=='linguistic'){
-                		activityModel.set('image',activity.image);
+                		activityModel.setImage('image',activity.image,this);
+                		activityModel.data.image_url=activity.image_url;
                 		activityModel.data.locked_text=activity.locked_text;
                 		activityModel.data.answer=activity.answer;
                 	}
                 	if(activityModel.data.activity_type=='visual'){
-                		activityModel.set('image',activity.image);
+                		activityModel.setImage('image',activity.image,this);
+                		activityModel.data.image_url=activity.image_url;
                 		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer;
                 		activityModel.set('obfuscated_image',activity.obfuscated_image);
+                		activityModel.data.obfuscated_image_url=activity.obfuscated_image_url;
                 		activityModel.data.time=activity.time;
                 	}
 					if(activityModel.data.activity_type=='quiz'){
-                		activityModel.set('image',activity.image);
+						activityModel.setImage('image',activity.image,this);
+                		activityModel.data.image_url=activity.image_url;
                 		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer;
@@ -82,7 +94,8 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.constraints=activity.constraints;
                 	}
                 	if(activityModel.data.activity_type=='temporal'){
-                		activityModel.set('image',activity.image);
+                		activityModel.setImage('image',activity.image,this);
+                		activityModel.data.image_url=activity.image_url;
                 		activityModel.data.image_datetime=activity.image_datetime;
                 		activityModel.data.query_datetime=activity.query_datetime;
                 	}
@@ -91,22 +104,24 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.point=activity.points;
                 		activityModel.data.radius=activity.radius;
                 	}
-                	activityModel.save();
-					//Ext.getStore('Activities').sort('level_order');
-                	Ext.getStore('Activities').sync();
-                	Ext.getStore('Activities').load();
-					
-					activitiesInstalled=activitiesInstalled+1;
+                	activitiesToInstall.push(activityModel);
+                	activitiesInstalled=activitiesInstalled+1;
 					if(activities.length==activitiesInstalled){
-						Ext.Viewport.setMasked(false);
-				    	callback(scope);
+						for(cont in activitiesToInstall){
+                			activitiesToInstall[cont].save();
+                		}
+                		var career=Ext.getStore('Careers').getById(id);
+                	    career.set('installed',true);
+                	    career.save();
+                	    localStorage.actualSize=parseInt(localStorage.actualSize)+career.data.size;
+                		Ext.getStore('Activities').sync();
+                		Ext.getStore('Activities').load();
+                		Ext.Viewport.setMasked(false);
+						callback(scope);
 		    		}
                 }
             });
 		}
-		var career=Ext.getStore('Careers').getById(id);
-    	career.set('installed',true);
-    	career.save();
     	
     },
     
@@ -145,8 +160,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		var activities=Ext.getStore('Activities').queryBy(function(record) {
 			return record.data.careerId==careerId && record.data.level_type==level;
 		});
-		console.log(activities);
-	
+		console.log("ORDEN");
 		console.log(activities);
 		return activities;
 	},
