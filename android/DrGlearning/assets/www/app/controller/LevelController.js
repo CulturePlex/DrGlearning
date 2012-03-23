@@ -239,27 +239,36 @@ Ext.define('DrGlearning.controller.LevelController', {
 		if(this.currentActivity.data.activity_type=='linguistic')
 		{
 			text="You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image";
+			Ext.Msg.alert('Help',text, function(){}, this);
 		}
 		if(this.currentActivity.data.activity_type=='geospatial')
 		{
 			text="You should find the correct location in the map";
+			Ext.Msg.alert('Help',text, function(){}, this);
 		}
 		if(this.currentActivity.data.activity_type=='quiz')
 		{
 			text="You have to choose the correct option";
+			Ext.Msg.alert('Help',text, function(){}, this);
 		}
 		if(this.currentActivity.data.activity_type=='relational')
 		{
 			text="You should go from one consept to another according with the constraints";
+			Ext.Msg.alert('Help',text, function(){}, this);
 		}
 		if(this.currentActivity.data.activity_type=='temporal')
 		{
 			text="You should to guess if the event in the text was before or after the event in the image";
+			Ext.Msg.alert('Help',text, function(){}, this);
 		}
 		if(this.currentActivity.data.activity_type=='visual')
 		{
 			text="Look at the image and answer the question!";
+			this.getApplication().getController('activities.VisualController').stopNotClear();
+			Ext.Msg.alert('Help',text, function(){this.getApplication().getController('activities.VisualController').restart()}, this);
+
 		}
-		Ext.Msg.alert('Help',text, function(){}, this);
+		
+		
 	}
 });

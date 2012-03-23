@@ -16,7 +16,9 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	secondtemp:null,
 	currentTime:0,
 	puntos:null,
+	parado:false,
 	init: function(){
+		this.parado=false;
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
 			'button[customId=respuesta]': {
@@ -60,7 +62,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		var opciones=6;
 		var time=newActivity.data.time;
 		this.currentTime=time;
-		this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
+		//this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
 		this.showSeconds();
 		if(!this.helpFlag)
@@ -123,13 +125,25 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			
 	},
 	showSeconds: function() { 
-		activityView.down('label[customId=time]').setHtml(this.currentTime+"s");
-		this.currentTime--;	
+	if (this.parado==false) {
+		activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
+		this.currentTime--;
+		if(this.currentTime<0)
+		{
+			this.showAnswers();
+		}
+	}	
 	},
 	stop: function() { 
 		clearInterval(this.finishtemp);
 		clearInterval(this.secondtemp);
 			
+	},
+	stopNotClear: function() { 
+		this.parado=true;
+	},
+	restart: function() { 
+		this.parado=false;
 	}
 		
 	
