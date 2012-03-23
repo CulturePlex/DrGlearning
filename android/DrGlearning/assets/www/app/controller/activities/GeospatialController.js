@@ -40,7 +40,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
                     name: 'label_name', 
                     id: 'label_id', 
                     html: newActivity.data.query, 
-                    cls: 'x-form-item-label x-form-item'
+					width: '80%',
 					} );
 		activityView.down('toolbar[customId=query]').add(
 		{

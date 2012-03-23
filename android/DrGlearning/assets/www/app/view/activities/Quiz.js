@@ -15,14 +15,7 @@ Ext.define('DrGlearning.view.activities.Quiz', {
                 xtype: 'toolbar',
                 docked: 'top',
 				ui:'neutral',
-                items:[{
-                        xtype: 'label',
-						customId: 'query',
-						name: 'query',
-                        title: 'Error'
-                    }
-                    ]
-                
+				customId: 'query',
             },
 			{
                 xtype: 'toolbar',
