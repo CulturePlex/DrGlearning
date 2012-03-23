@@ -16,14 +16,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
                 xtype: 'toolbar',
                 docked: 'top',
                 ui: 'gray',
-                items:[{
-                        xtype: 'label',
-						customId: 'query',
-						name: 'query',
-                        title: 'Error'
-                    }
-                    ]
-                
+				customId: 'query',
             },
 			{
                 xtype: 'toolbar',

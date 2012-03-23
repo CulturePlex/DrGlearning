@@ -33,7 +33,26 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
 		console.log(newActivity.data);
 		activityView.down('panel').setHtml('<img id="image" alt="imagen" src="'+newActivity.getImage('image','image',this)+'" />');
-		activityView.down('label').setHtml(newActivity.data.query);
+		 activityView.down('toolbar[customId=query]').add( 
+		{ 
+            xtype: 'label', 
+            name: 'label_name', 
+            id: 'label_id', 
+            html: newActivity.data.query, 
+			width: '80%',
+			} );
+		activityView.down('toolbar[customId=query]').add(
+		{
+			xtype:'spacer'
+			});
+		
+		activityView.down('toolbar[customId=query]').add(
+		{
+			xtype:'button',
+			text:'?',
+			ui:'round',
+			id:'help'
+		}			);
 		activityView.show();
 		view.add(activityView);
 	},
