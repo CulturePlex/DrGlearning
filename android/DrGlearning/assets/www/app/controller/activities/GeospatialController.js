@@ -14,7 +14,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     puntos: null,
     bounds: null,
     view: null,
+	helpFlag:false,
     init: function(){
+		this.helpFlag=false;
         this.levelController = this.getApplication().getController('LevelController');
         this.careersListController = this.getApplication().getController('CareersListController');
         this.control({
@@ -24,6 +26,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         });
     },
     updateActivity: function(view, newActivity){
+		
         this.elmarker = null;
         this.elpunto = null;
         this.radio = null;
@@ -74,6 +77,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         activityView.add(elmapa);
         activityView.show();
         view.add(activityView);
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
     },
     empezar: function(view, activity){
         //Initializing map variable

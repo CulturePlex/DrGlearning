@@ -63,6 +63,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
 		this.showSeconds();
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
 	},
 	showAnswers: function() {
 		clearInterval(this.finishtemp);

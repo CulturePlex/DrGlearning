@@ -55,6 +55,11 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		}			);
 		activityView.show();
 		view.add(activityView);
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
 	},
 	before: function() {
 		this.puntos=100;

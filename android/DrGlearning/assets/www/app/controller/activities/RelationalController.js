@@ -269,5 +269,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     //Execute first step
     option = takeStep(pathStart);
     refresh(option);
+	if(!this.helpFlag)
+	{
+		this.getApplication().getController('LevelController').help();
+		this.helpFlag=true;
+	}
   }
 });

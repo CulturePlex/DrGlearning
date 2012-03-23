@@ -70,7 +70,11 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		console.log(this.activity);
 		activityView.show();
 		view.add(activityView);
-		
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
 		
 	},
 	tryIt: function() {
