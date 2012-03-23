@@ -14,6 +14,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     },
     activityView:null,
 	carousel:null,
+	currentActivity:null,
 	/*
 	 * Initializate Controller.
 	 */
@@ -154,6 +155,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     },
 	
 	updateActivity: function(newActivity) {
+		this.currentActivity=newActivity;
 		Ext.create('DrGlearning.view.ActivityFrame');
 		var view = this.getActivityframe();
 		Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
@@ -233,6 +235,31 @@ Ext.define('DrGlearning.controller.LevelController', {
         view1.show();
     },
 	help: function(){
-		Ext.Msg.alert('Help','this is the help for this activity', function(){}, this);
+		var text="help!";
+		if(this.currentActivity.data.activity_type=='linguistic')
+		{
+			text="You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image";
+		}
+		if(this.currentActivity.data.activity_type=='geospatial')
+		{
+			text="You should find the correct location in the map";
+		}
+		if(this.currentActivity.data.activity_type=='quiz')
+		{
+			text="You have to choose the correct option";
+		}
+		if(this.currentActivity.data.activity_type=='relational')
+		{
+			text="You should go from one consept to another according with the constraints";
+		}
+		if(this.currentActivity.data.activity_type=='temporal')
+		{
+			text="You should to guess if the event in the text was before or after the event in the image";
+		}
+		if(this.currentActivity.data.activity_type=='visual')
+		{
+			text="Look at the image and answer the question!";
+		}
+		Ext.Msg.alert('Help',text, function(){}, this);
 	}
 });
