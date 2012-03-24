@@ -233,7 +233,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
          html: getNodeHTML(pathGoal)
       });
       var button = Ext.create('Ext.Button', {
-        text: 'Step back',
+        text: 'Undo',
         handler: function() {
           stepBack();
         }
