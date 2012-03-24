@@ -80,7 +80,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			align:'center',
 			pack:'center',
 			padding: 10,
-			html:'<img alt="imagen" width="100%" src="'+newActivity.data.obfuscated_image+'" />'
+			html:'<img alt="imagen" width="100%" src="'+this.activity.data.obfuscated_image+'" />'
     		
     	});
 		var options = Ext.create('Ext.Container',{

@@ -109,7 +109,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	},
 	
 	getTable:function(){
-		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+newActivity.getImage('image','image',this)+'"><tr>';
+		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+this.activity.getImage('image','image',this)+'"><tr>';
 		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
 		var squaresBlack=this.squaresBlack;
 		var cont;
