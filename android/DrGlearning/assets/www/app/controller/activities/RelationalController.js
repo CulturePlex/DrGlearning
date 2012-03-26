@@ -124,9 +124,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         return null;
       } else {
         playerPath.push(step);
-        if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
-          Ext.Msg.alert('Congratulations!', 'You get ' + graphNodes[pathPosition].score+ ' points!', function(){}, this);
-        }
+		if (graphNodes[pathPosition]!=undefined)
+		{
+	        if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition]["score"] > 0) {
+	          Ext.Msg.alert('Congratulations!', 'You get ' + graphNodes[pathPosition].score+ ' points!', function(){}, this);
+	        }
+		}
         return createSelectFromNode(pathPosition)
       }
     }
@@ -267,8 +270,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (graphNodes[i].hasOwnProperty("start")){
         pathStart = i;
       } else if (graphNodes[i].hasOwnProperty("end")) {
+	  	 console.log(pathGoal);
         pathGoal = i;
       }
+	 
     }
   
     //Execute first step
