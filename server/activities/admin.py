@@ -73,6 +73,13 @@ class RelationalAdmin(ActivityAdmin):
 
 class VisualAdmin(ActivityAdmin):
 
+    def change_view(self, request, object_id, extra_content=None):
+        if '_saveasnew' in request.POST:
+            old_visual = Visual.objects.get(id=object_id)
+            request.FILES['image'] = getattr(old_visual, 'image')
+            request.FILES['obfuscated_image'] = getattr(old_visual, 'obfuscated_image')
+        return super(VisualAdmin, self).change_view(request, object_id, extra_content)
+
     def save_model(self, request, obj, form, change):
         if request.POST and request.POST.get('obfuscated_64'):
             file_type, file_data = request.POST['obfuscated_64'].split('base64,')
