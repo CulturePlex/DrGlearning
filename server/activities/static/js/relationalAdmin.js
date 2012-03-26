@@ -39,31 +39,43 @@ var GraphEditor = {
   targetPath: undefined,
 
   addNodeToList: function(name){
-    var nodeList = document.getElementById("node-list");
+    var nodeList = $("#node-list");
     var node = this.getGraphNodesJSON()[name];
+
+    // Delete button
+    var deleteControl = $('<ul class="actions">')
+      .append($('<li class="delete-link">'))
+      .append($('<img onClick="GraphEditor.deleteNode(\'' + name + '\')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">'));
+
     if (node.type != undefined && node.score != undefined){
       name += ' (type: ' + node.type + ', score: ' + node.score + ')';
     }
-    this.addElementToList(name, nodeList);
+    this.addElementToList(name, nodeList, deleteControl);
   },
 
   addEdgeToList: function(name){
-    var edgeList = document.getElementById("edge-list");
-    this.addElementToList(name, edgeList);
+    var edgeList = $("#edge-list");
+
+    // Delete button
+    var elementNumber = $('#edge-list li').size();
+    var deleteControl = $('<ul class="actions">')
+      .append($('<li class="delete-link">'))
+      .append($('<img onClick="GraphEditor.deleteEdge(' + elementNumber + ')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">'));
+
+    this.addElementToList(name, edgeList, deleteControl);
   },
 
-  addElementToList: function(name, list){
-    var item = document.createElement('li');
-    var itemValue = document.createElement('span');
-    itemValue.appendChild(document.createTextNode(name));
-    item.appendChild(itemValue);
-    item.setAttribute("class", "item");
-    list.appendChild(item);
+  addElementToList: function(name, list, deleteControl){
+    var item = $('<li>');
+    item.text(name);
+    if (deleteControl !== undefined) { item.append(deleteControl); };
+    item.addClass("item");
+    list.append(item);
   },
 
   addNode: function(_name, _properties){
     // Only prompts if the parameter is not sent
-    var nodeName = typeof(_name) != 'undefined' ? _name : prompt("Enter new node name");
+    var nodeName = _name != undefined ? _name : prompt("Enter new node name");
     
     var json = this.getGraphNodesJSON();
     if (this.nodeExists(nodeName)){
@@ -89,7 +101,7 @@ var GraphEditor = {
   },
 
   deleteNode: function(name){
-    var nodeName = prompt("Enter node to be deleted");
+    var nodeName = name !== undefined ? name : prompt("Enter new node name");
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
       return;
@@ -112,9 +124,9 @@ var GraphEditor = {
 
   addEdge: function(_source, _type, _target){
     // Only prompts if the parameter is not sent
-    var edgeSource = typeof(_source) != 'undefined' ? _source : prompt("Enter source node");
-    var edgeType = typeof(_type) != 'undefined' ? _type: prompt("Enter relationship type");
-    var edgeTarget = typeof(_target) != 'undefined' ? _target: prompt("Enter target node");
+    var edgeSource = _source !== undefined ? _source : prompt("Enter source node");
+    var edgeType = _type !== undefined ? _type: prompt("Enter relationship type");
+    var edgeTarget = _target !== undefined ? _target: prompt("Enter target node");
     
     if (!this.nodeExists(edgeSource)){
       alert("ERROR: Unknown node: " + edgeSource);
@@ -138,10 +150,10 @@ var GraphEditor = {
   },
 
   deleteEdge: function(number){
-    var edgeNumber= parseInt(prompt("Enter edge number to be deleted")) - 1;
+    var edgeNumber = number !== undefined ? number : parseInt(prompt("Enter edge number to be deleted"));
     var json = this.getGraphEdgesJSON();
     if (edgeNumber>json.length || edgeNumber<0) {
-      alert("Invalid edge number: " + (edgeNumber+1));
+      alert("Invalid edge number: " + (edgeNumber));
       return;
     }
     var newList = []
@@ -420,9 +432,7 @@ var GraphEditor = {
 
     var editorWidget = '<div id="graph-editor" class="form-row">' +
         '<a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a>' +
-        '<a class="deletelink graph-editor" onclick="GraphEditor.deleteNode()">Delete node</a>' +
         '<a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a>' +
-        '<a class="deletelink graph-editor" onclick="GraphEditor.deleteEdge()">Delete edge</a>' +
         '<a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a>' +
         '<br/>' +
         '<canvas id="graphcanvas"></canvas>' +
