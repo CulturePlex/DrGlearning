@@ -132,6 +132,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     }
   
     function getNodeHTML(nodeName){
+		console.log(graphNodes);
+		console.log(nodeName);
       return '<p class="relational">' + nodeName + ' (' + graphNodes[nodeName]["type"] + ')' + '</p>'
     }
 
@@ -224,11 +226,14 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
           });
           activityView.add(edge);
         }
+		console.log(playerPath);
+		console.log(i);
         var node = Ext.create('Ext.Panel' , {
           html: getNodeHTML(playerPath[i])
         });
         activityView.add(node);
       }
+	  	console.log(pathGoal);
       var endNode = Ext.create('Ext.Panel' , {
          html: getNodeHTML(pathGoal)
       });

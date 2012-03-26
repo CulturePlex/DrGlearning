@@ -24,7 +24,7 @@ Ext.define('DrGlearning.view.LevelDetail', {
 		    '<tpl for=".">',
 				'<tpl if= "successful == true">',
 					'<div style="background-color:#90EE90;">',
-							'<div><b>{name}</b></div>',
+							'<div><b>{name}</b> <img height=20 src=resources/images/tick.png> Score: {score}</div>',
 							'<font size="3" color="grey">{query} </font>',
 					'</div>',
 				'</tpl>',
