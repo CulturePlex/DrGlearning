@@ -7,7 +7,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             activityframe: 'activityframe',
         }
     },
-
+	activityView:null,
   updateActivity: function(view, newActivity) {
 		
   	/*if(view.down('component[customId=activity]'))
@@ -26,6 +26,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 	view.add(activityView);*/
 		
 	activityView = Ext.create('DrGlearning.view.activities.Relational');
+	this.activityView=activityView;
     this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 	  
 	console.log(this);
@@ -98,6 +99,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
      * Otherwise, it pushes the step into the players path and queries
      * all the posible next steps to the edges data */
     function takeStep(step){
+	  
       pathPosition = step;
       //TODO Add constraints
       if (step==pathGoal){
@@ -232,7 +234,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       activityView.add(button);
 	  activityView.show();
       view.add(activityView);
-	  console.log(view);
+	  console.log(activityView);
+	  var scroller=activityView.getScrollable().getScroller();
+	  console.log(scroller);
+	  console.log('scroller');
+	  scroller.scrollBy(0,40);
     }
   
     function successfulGame(context){
