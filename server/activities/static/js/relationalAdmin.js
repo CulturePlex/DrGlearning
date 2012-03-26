@@ -77,7 +77,7 @@ var GraphEditor = {
 
   addNode: function(_name, _properties){
     // Only prompts if the parameter is not sent
-    var nodeName = _name != undefined ? _name : prompt("Enter new node name");
+    var nodeName = _name != undefined ? _name : $('#node-name').val();
     
     var json = this.getGraphNodesJSON();
     if (this.nodeExists(nodeName)){
@@ -86,7 +86,7 @@ var GraphEditor = {
     }
     var data = typeof(_properties) != 'undefined' ? _properties : {};
     if (this.USES_TYPES) {
-      data["type"] = data.hasOwnProperty('type') ? data["type"] : prompt("Enter new node type");
+      data["type"] = data.hasOwnProperty('type') ? data["type"] : $('#node-type').val();
     }
     if (this.USES_SCORES) {
       data["score"] = data.hasOwnProperty('score') ? data["score"] : 0;
@@ -126,9 +126,9 @@ var GraphEditor = {
 
   addEdge: function(_source, _type, _target){
     // Only prompts if the parameter is not sent
-    var edgeSource = _source !== undefined ? _source : prompt("Enter source node");
-    var edgeType = _type !== undefined ? _type: prompt("Enter relationship type");
-    var edgeTarget = _target !== undefined ? _target: prompt("Enter target node");
+    var edgeSource = _source !== undefined ? _source : $('#source-node').val();
+    var edgeType = _type !== undefined ? _type: $('#edge-type').val();
+    var edgeTarget = _target !== undefined ? _target: $('#target-node').val();
     
     if (!this.nodeExists(edgeSource)){
       alert("ERROR: Unknown node: " + edgeSource);
@@ -222,6 +222,8 @@ var GraphEditor = {
     for(var i=0;i<items.length;i++){
       items[i].parentNode.removeChild(items[i]);
     }
+    $('#_start_node').empty();
+    $('#_end_node').empty();
   },
 
   setStart: function(){
@@ -433,9 +435,9 @@ var GraphEditor = {
   init: function(){
 
     var editorWidget = '<div id="graph-editor" class="form-row">' +
-        '<a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a>' +
-        '<a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a>' +
-        '<br/>' +
+        '<a class="addlink graph-editor" onclick="GraphEditor.addNodeForm()">Add node</a>' +
+        '<a class="addlink graph-editor" onclick="GraphEditor.addEdgeForm()">Add edge</a>' +
+        '<div id="adding-form"></div>' + 
         '<canvas id="graphcanvas"></canvas>' +
         '<div class="controlpanel">' +
           '<label for="gexf-file">Import GEXF</label>' +
@@ -532,7 +534,58 @@ var GraphEditor = {
       var edge = edges[i];
       this.drawer.addEdge(edge["source"], edge["type"], edge["target"]);
     }
-  }
+  },
+
+  addNodeForm: function(){
+    var form = $('<div>')
+      .append($('<label for="node-name">').text("Node name:"))
+      .append($('<input type="text" id="node-name">'));
+    if (GraphEditor.USES_TYPES) {
+      form.append($('<label for="node-type">').text("Node type:"))
+        .append($('<input type="text" id="node-type">'));
+    }
+    form.append($('<br/>'))
+      .append($('<button type="button" onClick="GraphEditor.addNode();GraphEditor.hideAddForm();">').text("Add node"));
+   
+    $('#adding-form').empty();
+    $('#adding-form').append(form);
+  },
+  
+  addEdgeForm: function(){
+    var nodes = GraphEditor.getGraphNodesJSON();
+
+    var nodeSelect = $('<select>');
+    var option;
+
+    $.each(nodes, function(i, node){
+      option = $('<option>');
+      option.attr('value', i);
+      option.text(i);
+      nodeSelect.append(option);
+    });
+
+    var form = $('<div>')
+      .append($('<label for="source-node">').text("Source node:"))
+      .append(nodeSelect.clone().attr('id', 'source-node'));
+    if (GraphEditor.USES_TYPES) {
+      form.append($('<label for="source-node">').text("Relationship type:"))
+       .append($('<input type="text" id="edge-type">'));
+    }
+    form.append($('<label for="target-node">').text("Target node:"))
+      .append(nodeSelect.clone().attr('id', 'target-node'));
+    form.append($('<br/>'))
+      .append($('<button type="button" onClick="GraphEditor.addEdge();GraphEditor.hideAddForm();">').text("Add edge"));
+    
+    // Update chosen selects with new content
+    $('.chzn-select').trigger("liszt:updated");
+
+    $('#adding-form').empty();
+    $('#adding-form').append(form);
+  },
+
+  hideAddForm: function(){
+    $('#adding-form').empty();
+  },
 }
 
 $(document).ready(function(){
