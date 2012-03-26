@@ -44,8 +44,10 @@ var GraphEditor = {
 
     // Delete button
     var deleteControl = $('<ul class="actions">')
-      .append($('<li class="delete-link">'))
-      .append($('<img onClick="GraphEditor.deleteNode(\'' + name + '\')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">'));
+      .append($('<li class="delete-link">')
+        .append($('<a onClick="GraphEditor.deleteNode(\'' + name + '\')">').text("Delete")));
+    deleteControl.append($('<li class="change-link">')
+      .append($('<a onClick="GraphEditor.setScore(\'' + name + '\')">').text('Set Score')));
 
     if (node.type != undefined && node.score != undefined){
       name += ' (type: ' + node.type + ', score: ' + node.score + ')';
@@ -59,8 +61,8 @@ var GraphEditor = {
     // Delete button
     var elementNumber = $('#edge-list li').size();
     var deleteControl = $('<ul class="actions">')
-      .append($('<li class="delete-link">'))
-      .append($('<img onClick="GraphEditor.deleteEdge(' + elementNumber + ')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">'));
+      .append($('<li class="delete-link">')
+        .append($('<a onClick="GraphEditor.deleteEdge(' + elementNumber + ')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">').text("Delete")));
 
     this.addElementToList(name, edgeList, deleteControl);
   },
@@ -259,8 +261,8 @@ var GraphEditor = {
     this.refresh();
   },
 
-  setScore: function(){
-    var nodeName = prompt("Enter node to be modified");
+  setScore: function(name){
+    var nodeName = name !== undefined ? name : prompt("Enter node to be modified");
     if (!this.nodeExists(nodeName)){
       alert("ERROR: Unknown node: " + nodeName);
       return;
@@ -433,7 +435,6 @@ var GraphEditor = {
     var editorWidget = '<div id="graph-editor" class="form-row">' +
         '<a class="addlink graph-editor" onclick="GraphEditor.addNode()">Add node</a>' +
         '<a class="addlink graph-editor" onclick="GraphEditor.addEdge()">Add edge</a>' +
-        '<a class="changelink graph-editor" onclick="GraphEditor.setScore()">Set node score</a>' +
         '<br/>' +
         '<canvas id="graphcanvas"></canvas>' +
         '<div class="controlpanel">' +
