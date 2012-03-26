@@ -362,9 +362,9 @@ var GraphEditor = {
   refresh: function(){
     var verboseOperator = {
       lt: "less than",
-      lte: "less or equal than",
+      let: "less or equal than",
       gt: "greater than",
-      gte: "greater or equal than",
+      get: "greater or equal than",
       eq: "equals to",
       neq: "different to"
     }
@@ -406,7 +406,9 @@ var GraphEditor = {
     for(var i=0;i<constraints.length;i++){
       constraintText = constraints[i]["type"] + " nodes " +
         verboseOperator[constraints[i]["operator"]] + " " + constraints[i]["value"] +
-        '<a onClick="GraphEditor.deleteConstraint(' + i + ')" class="deletelink"/>'
+        '<ul class="actions"><li class="delete-link">' +
+        '<a onClick="GraphEditor.deleteConstraint(' + i + ')">delete</a>' +
+        '</li></ul>';
       $('#constraint-list').append('<li class="item">' + constraintText + '</li>');
     }
     for(var nodeType in nodeTypes){

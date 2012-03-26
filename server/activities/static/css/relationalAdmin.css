@@ -11,7 +11,7 @@ div#activityWidget {
   background-color: #D6E7FD;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 500px;
+  width: 800px;
 }
 
 span.constraints {
@@ -19,4 +19,9 @@ span.constraints {
   font-weight: bold;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+ol#constraint-list {
+  width: 200px;
+  padding-bottom: 20px;
 }
