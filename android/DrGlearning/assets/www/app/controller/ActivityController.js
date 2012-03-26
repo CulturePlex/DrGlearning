@@ -26,6 +26,29 @@ Ext.define('DrGlearning.controller.ActivityController', {
     init: function(){
 		
     },
+	addQueryAndButtons: function(activityView,newActivity){
 	
- 	
+		activityView.down('toolbar[customId=query]').add({
+			xtype: 'label',
+			name: 'label_name',
+			id: 'label_id',
+			html: newActivity.data.query,
+			width: '70%',
+		});
+		activityView.down('toolbar[customId=query]').add({
+			xtype: 'spacer'
+		});
+		activityView.down('toolbar[customId=query]').add({
+			xtype: 'button',
+			text: '...',
+			ui: 'round',
+			id: 'more'
+		});
+		activityView.down('toolbar[customId=query]').add({
+			xtype: 'button',
+			text: '?',
+			ui: 'round',
+			id: 'help'
+		});
+	}
 });

@@ -39,26 +39,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		if (newActivity.data.image) {
 			activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
 		}
-		activityView.down('toolbar[customId=query]').add( 
-		{ 
-                    xtype: 'label', 
-                    name: 'label_name', 
-                    id: 'label_id', 
-                    html: newActivity.data.query, 
-					width: '80%',
-					} );
-		activityView.down('toolbar[customId=query]').add(
-		{
-			xtype:'spacer'
-			});
+		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		
-		activityView.down('toolbar[customId=query]').add(
-		{
-			xtype:'button',
-			text:'?',
-			ui:'round',
-			id:'help'
-		}			);
+	
 		this.respuestas=this.activity.data.answers;
 		console.log(this.respuestas);
 		activityView.show();

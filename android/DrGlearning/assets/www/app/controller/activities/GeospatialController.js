@@ -37,26 +37,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             view.down('component[customId=activity]').destroy();
         }
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-        activityView.down('toolbar[customId=query]').add( 
-		{ 
-                    xtype: 'label', 
-                    name: 'label_name', 
-                    id: 'label_id', 
-                    html: newActivity.data.query, 
-					width: '80%',
-					} );
-		activityView.down('toolbar[customId=query]').add(
-		{
-			xtype:'spacer'
-			});
-		
-		activityView.down('toolbar[customId=query]').add(
-		{
-			xtype:'button',
-			text:'?',
-			ui:'round',
-			id:'help'
-		}			);
+        this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);;
                                          
 		//setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>" + newActivity.data.query + "</p></div>");
         

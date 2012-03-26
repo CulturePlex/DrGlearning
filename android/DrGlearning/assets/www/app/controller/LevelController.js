@@ -28,6 +28,9 @@ Ext.define('DrGlearning.controller.LevelController', {
             'button[id=help]': {
                 tap: this.help
             },
+			 'button[id=more]': {
+                tap: this.more
+            },
             'button[id=backtolevels]': {
                 tap: this.tolevels
             },
@@ -42,9 +45,7 @@ Ext.define('DrGlearning.controller.LevelController', {
             },
 			'list[customId=activitiesList]': {
                 itemtap: this.startActivity
-            },
-        
-        
+            }
         });
     },
     tolevels: function(){
@@ -310,6 +311,12 @@ Ext.define('DrGlearning.controller.LevelController', {
             
         }
         
+        
+    },
+    more: function(){
+		var text = this.currentActivity.data.query;
+        Ext.Msg.alert('Query', text, function(){
+        }, this);
         
     }
 });
