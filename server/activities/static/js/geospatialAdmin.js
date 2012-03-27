@@ -1,4 +1,5 @@
 google.load('search', '1');
+
 if (!window.jQuery) {
     google.load('jquery', '1.7.1');
 }

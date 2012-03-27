@@ -102,8 +102,7 @@ class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
     }
 
     class Media:
-        js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
-                'http://maps.google.com/maps/api/js?sensor=false',
+        js = ('http://www.google.com/jsapi',
                 'js/geospatialAdmin.js')
 
 
