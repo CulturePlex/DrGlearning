@@ -1,90 +1,77 @@
 Ext.define('DrGlearning.view.activities.Linguistic', {
-    
+
     extend: 'Ext.Panel',
-    xtype : 'linguistic',
+    xtype: 'linguistic',
     config: {
-        id:'activity',
-        customId:'activity',
+        id: 'activity',
+        customId: 'activity',
         fullscreen: true,
         layout: 'vbox',
-        items: [
-							{
-							    xtype: 'label',
-								ui:'neutral',
-								customId: 'query',
-								name: 'query',
-							    title: 'Error'
-							},	
-                     		{
-                	        	xtype: 'panel',
-                	        	id: 'image',
-                	        },{
-								xtype: 'container',
-								layout: 'hbox',
-								items: [
-								        {
-								        	xtype: 'label',
-								        	html: 'TIP: ',
-								        	flex: 0
-								        },{
-								        	xtype: 'label',
-								        	customId: 'loqued',
-								        	flex: 1
-								        }]
-                	        },{
-										xtype: 'fieldset',
-										title: 'Insert a character:',
-										layout: 'hbox',
-										items: [
-									    {
-									        xtype: 'textfield',
-									        customId: 'letter',
-									        name: 'letter',
-									        maxLength: 1,
-									        width: '80%',
-									        flex: 0
-									    },{
-			        						xtype: 'button',
-			        						customId: 'try',
-			        						text: 'Try',
-			        						width: '20%',
-			        						flex: 1
-			        					}
-									    ]
-									},
-        		            {
-        		                xtype: 'label',
-        		                customId: 'responses',
-        		            },
-        		            
-        		            
-        		           
-                	   
-            
-			{
-                xtype: 'toolbar',
-                docked: 'bottom',
-                items:[
-                    {
-						xtype: 'button',
-						customId: 'backtolevel',
-						text: 'Back',
-						ui: 'back',
-						controller: 'DrGlearning.controller.Career',
-						action: 'index'
-					},
-					{
-						 xtype: 'spacer' 
-					},{
-						xtype: 'button',
-						customId: 'solve',
-						text: 'Solve',
-					},
-					]
-                
-            }
-		]
+        items: [{
+            xtype: 'toolbar',
+            ui: 'neutral',
+            customId: 'query',
+            name: 'query',
+        }, {
+            xtype: 'panel',
+            customId: 'image',
+            layout: 'vbox',
+            /*items: [
+             {
+             xtype: 'panel',
+             customId: 'image2',
+             layout: 'hbox',
+             items:[{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'}
+             ]
+             },{
+             xtype: 'panel',
+             customId: 'image3',
+             layout: 'hbox',
+             items:[{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'},{xtype: 'label',html:'hola'}
+             
+             ]
+             }
+             
+             ]*/
+        }, {
+            xtype: 'label',
+            customId: 'loqued',
+        }, {
+            xtype: 'fieldset',
+            title: 'Insert a character:',
+            items: [{
+                xtype: 'textfield',
+                customId: 'letter',
+                name: 'letter',
+                maxLength: 1,
+            }, ]
+        }, {
+            xtype: 'label',
+            customId: 'responses',
+        }, {
+            xtype: 'button',
+            customId: 'try',
+            text: 'Try',
+        }, {
+            xtype: 'toolbar',
+            docked: 'bottom',
+            items: [{
+                xtype: 'button',
+                customId: 'backtolevel',
+                text: 'Back',
+                ui: 'back',
+                controller: 'DrGlearning.controller.Career',
+                action: 'index'
+            }, {
+                xtype: 'spacer'
+            }, {
+                xtype: 'button',
+                customId: 'solve',
+                text: 'Solve',
+            }, ]
+        
+        }]
     },
-	
-	
+
+
 });

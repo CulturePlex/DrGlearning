@@ -220,6 +220,9 @@ ACCOUNT_FREE = {
     "queries": 10,
 }
 
+#API KEYS
+GOOGLE_API_KEY = 'AIzaSyD1ibezws-sdp2Suvn97eSakILyQsY8Wno'
+
 try:
     from local_settings import *
 except ImportError:

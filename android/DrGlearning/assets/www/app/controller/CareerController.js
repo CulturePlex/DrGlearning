@@ -56,7 +56,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
 		console.log(levelData);
 		console.log(filesImgs[levelData.customId-1]);
-		return "<div id='centro' align='middle'><p>Level "+levelData.customId+": "+levelData.name+"</p><a href= 'javascript:careerController.startLevel();'><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></a></div>"
+		return "<div id='centro' align='middle'><p>"+levelData.name+"</p><a href= 'javascript:careerController.startLevel();'><img src='resources/images/level_icons/"+filesImgs[levelData.customId-1]+"' align='bottom'></a></div>"
 	},
 	/*
 	 * Update Career View.

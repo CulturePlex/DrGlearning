@@ -14,7 +14,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     puntos: null,
     bounds: null,
     view: null,
+	helpFlag:false,
     init: function(){
+		this.helpFlag=false;
         this.levelController = this.getApplication().getController('LevelController');
         this.careersListController = this.getApplication().getController('CareersListController');
         this.control({
@@ -24,6 +26,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         });
     },
     updateActivity: function(view, newActivity){
+		
         this.elmarker = null;
         this.elpunto = null;
         this.radio = null;
@@ -34,7 +37,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             view.down('component[customId=activity]').destroy();
         }
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-        activityView.down('label').setHtml("<p>" + newActivity.data.query + "</p>");
+        this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);;
+                                         
+		//setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>" + newActivity.data.query + "</p></div>");
         
         //Initializing map 
         console.log(Ext.ComponentQuery.query('map'));
@@ -53,6 +58,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         activityView.add(elmapa);
         activityView.show();
         view.add(activityView);
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
     },
     empezar: function(view, activity){
         //Initializing map variable
@@ -173,9 +183,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	//Confirmation function to try a location
     confirm: function(){
         this.distancia = Math.sqrt(Math.pow(elmarker.position.Ua - elpunto.Ua, 2) + Math.pow(elmarker.position.Va - elpunto.Va, 2)) * 60000;
-        this.puntos = 100 - (this.distancia * 100) / radio;
+        this.puntos = parseInt(100 - (this.distancia * 100) / radio);
         if (this.distancia < radio) {
-            Ext.Msg.alert('Right!', this.activity.data.reward, function(distancia){
+            Ext.Msg.alert('Right!', this.activity.data.reward+", obtained score:"+this.puntos, function(distancia){
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
             }, this);

@@ -18,14 +18,8 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                 xtype: 'toolbar',
                 docked: 'top',
                 ui: 'neutral',
-                items:[{
-                        xtype: 'label',
-						id: 'query',
-						name: 'query',
-                        title: 'Error'
-                    }
-                    ]
-                
+				customId: 'query',
+                               
             },
 			{
 				xtype: 'toolbar',

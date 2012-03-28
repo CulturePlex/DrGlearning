@@ -15,7 +15,10 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	finishtemp:null,
 	secondtemp:null,
 	currentTime:0,
+	puntos:null,
+	parado:false,
 	init: function(){
+		this.parado=false;
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
 			'button[customId=respuesta]': {
@@ -33,16 +36,21 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
 		activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
-		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
+		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		this.respuestas=this.activity.data.answers;
 		activityView.show();
 		view.add(activityView);
 		var opciones=6;
 		var time=newActivity.data.time;
 		this.currentTime=time;
-		this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
+		//this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
 		this.showSeconds();
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
 	},
 	showAnswers: function() {
 		clearInterval(this.finishtemp);
@@ -53,7 +61,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			align:'center',
 			pack:'center',
 			padding: 10,
-			html:'<img alt="imagen" width="100%" src="'+newActivity.data.obfuscated_image+'" />'
+			html:'<img alt="imagen" width="100%" src="'+this.activity.data.obfuscated_image+'" />'
     		
     	});
 		var options = Ext.create('Ext.Container',{
@@ -81,10 +89,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			
 	},
 	tryIt: function() { 
+	this.puntos= 100;
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
-			Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+			Ext.Msg.alert('Right!', this.activity.data.reward+", obtained score:"+this.puntos, function(){
+					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					console.log('aski');
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
@@ -97,13 +106,25 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			
 	},
 	showSeconds: function() { 
-		activityView.down('label[customId=time]').setHtml(this.currentTime+"s");
-		this.currentTime--;	
+	if (this.parado==false) {
+		activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
+		this.currentTime--;
+		if(this.currentTime<0)
+		{
+			this.showAnswers();
+		}
+	}	
 	},
 	stop: function() { 
 		clearInterval(this.finishtemp);
 		clearInterval(this.secondtemp);
 			
+	},
+	stopNotClear: function() { 
+		this.parado=true;
+	},
+	restart: function() { 
+		this.parado=false;
 	}
 		
 	

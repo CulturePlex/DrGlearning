@@ -12,11 +12,30 @@ Ext.define('DrGlearning.view.LevelDetail', {
         items: [
 		{
            xtype: 'leveldescription',
+		   height:'20%'
         },
         {
-        	xtype: 'carousel',
-            //ui: 'light',
-            direction: 'horizontal',
+			ui:'activities',
+        	xtype: 'list',
+			customId:'activitiesList',
+			store:'Activities',
+			disableSelection: true,
+			itemTpl: new Ext.XTemplate(
+		    '<tpl for=".">',
+				'<tpl if= "successful == true">',
+					'<div style="background-color:#90EE90;">',
+							'<div><b>{name}</b> <img height=20 src=resources/images/tick.png> Score: {score}</div>',
+							'<font size="3" color="grey">{query} </font>',
+					'</div>',
+				'</tpl>',
+				'<tpl if= "successful == false">',
+					'<div>',
+							'<div><b>{name}</b></div>',
+							'<font size="3" color="grey">{query} </font>',
+					'</div>',
+				'</tpl>',
+		    '</tpl>'
+		),
     	}	
 		]
     }

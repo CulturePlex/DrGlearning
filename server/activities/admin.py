@@ -20,12 +20,6 @@ class ActivityAdmin(GuardedModelAdmin):
     exclude = ('user',)
     save_as = True
 
-    # grapelli
-    raw_id_fields = ('career',)
-    autocomplete_lookup_fields = {
-        'fk': ['career']
-    }
-
     def response_change(self, request, obj, *args, **kwargs):  
         if request.REQUEST.has_key('_popup'):  
              return HttpResponse('''
@@ -79,6 +73,13 @@ class RelationalAdmin(ActivityAdmin):
 
 class VisualAdmin(ActivityAdmin):
 
+    def change_view(self, request, object_id, extra_content=None):
+        if '_saveasnew' in request.POST:
+            old_visual = Visual.objects.get(id=object_id)
+            request.FILES['image'] = getattr(old_visual, 'image')
+            request.FILES['obfuscated_image'] = getattr(old_visual, 'obfuscated_image')
+        return super(VisualAdmin, self).change_view(request, object_id, extra_content)
+
     def save_model(self, request, obj, form, change):
         if request.POST and request.POST.get('obfuscated_64'):
             file_type, file_data = request.POST['obfuscated_64'].split('base64,')
@@ -101,7 +102,8 @@ class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
     }
 
     class Media:
-        js = ('http://www.google.com/jsapi', 'js/geospatialAdmin.js')
+        js = ('http://www.google.com/jsapi',
+                'js/geospatialAdmin.js')
 
 
 class TemporalAdmin(ActivityAdmin):

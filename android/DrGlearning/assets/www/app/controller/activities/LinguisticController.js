@@ -12,6 +12,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	squaresBlack:null,
 	loquedText:null,
 	loquedTextFinded:null,
+	puntos:null,
 	init: function(){
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
@@ -41,15 +42,20 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		}
 		//activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
 		var table=this.getTable();
-		activityView.down('panel[id=image]').setHtml(table);
-		activityView.down('label[customId=query]').setHtml(newActivity.data.query);
+		activityView.down('panel[customId=image]').setHtml(table);
+		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
+		//activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>"+newActivity.data.query + "</p></div>");
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		activityView.down('label[customId=responses]').setHtml('');
 		this.respuestas=this.activity.data.answers;
 		console.log(this.activity);
 		activityView.show();
 		view.add(activityView);
-		
+		if(!this.helpFlag)
+		{
+			this.getApplication().getController('LevelController').help();
+			this.helpFlag=true;
+		}
 		
 	},
 	tryIt: function() {
@@ -84,8 +90,8 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	},
 	
 	getTable:function(){
-		var table='<table style="background-repeat:no-repeat;background-size:100% 100%;border-collapse:collapse;" border="0" WIDTH="100%" HEIGHT="200" BACKGROUND="'+newActivity.getImage('image','image',this)+'"><tr>';
-		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';background-position:100% center
+		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+this.activity.getImage('image','image',this)+'"><tr>';
+		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
 		var squaresBlack=this.squaresBlack;
 		var cont;
 		var temp;
@@ -93,7 +99,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		//console.log(squares.length);
 		for(cont in squaresBlack){
 			if(squaresBlack[cont]){
-				table=table+'<td style="background-color:black;width:20%;"></td>';	
+				table=table+'<td BGCOLOR="BLACK"></td>';	
 			}else{
 				table=table+'<td></td>';
 			}
@@ -142,11 +148,12 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			}
 			whiteSquares++;
 		}
-		activityView.down('panel[id=image]').setHtml(this.getTable());
+		activityView.down('panel[customId=image]').setHtml(this.getTable());
 		
 	},
 		
 	solve: function() { 
+		this.puntos=100;
 		console.log(this.activity.data.answer);
 		var answer;
 		var saveButton = Ext.create('Ext.Button', {
@@ -176,8 +183,8 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			answer = show.down('#importvalue').getValue();
 			if (answer.toLowerCase() == this.activity.data.answer.toLowerCase()) 
 			{
-				Ext.Msg.alert('Right!', this.activity.data.reward, function(){
-					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,100);
+				Ext.Msg.alert('Right!', this.activity.data.reward+"obtained score:"+this.puntos, function(){
+					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
 			}else{

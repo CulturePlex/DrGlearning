@@ -7,7 +7,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             activityframe: 'activityframe',
         }
     },
-
+	activityView:null,
   updateActivity: function(view, newActivity) {
 		
   	/*if(view.down('component[customId=activity]'))
@@ -26,7 +26,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 	view.add(activityView);*/
 		
 	activityView = Ext.create('DrGlearning.view.activities.Relational');
-    activityView.down('label').setHtml(newActivity.data.query);
+	this.activityView=activityView;
+    this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 	  
 	console.log(this);
     var daocontroller = this.getApplication().getController('DaoController');
@@ -98,6 +99,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
      * Otherwise, it pushes the step into the players path and queries
      * all the posible next steps to the edges data */
     function takeStep(step){
+	  
       pathPosition = step;
       //TODO Add constraints
       if (step==pathGoal){
@@ -105,14 +107,19 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         return null;
       } else {
         playerPath.push(step);
-        if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition].score > 0) {
-          Ext.Msg.alert('Congratulations!', 'You get ' + graphNodes[pathPosition].score+ ' points!', function(){}, this);
-        }
+		if (graphNodes[pathPosition]!=undefined)
+		{
+	        if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition]["score"] > 0) {
+	          Ext.Msg.alert('Congratulations!', 'You get ' + graphNodes[pathPosition].score+ ' points!', function(){}, this);
+	        }
+		}
         return createSelectFromNode(pathPosition)
       }
     }
   
     function getNodeHTML(nodeName){
+		console.log(graphNodes);
+		console.log(nodeName);
       return '<p class="relational">' + nodeName + ' (' + graphNodes[nodeName]["type"] + ')' + '</p>'
     }
 
@@ -205,16 +212,19 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
           });
           activityView.add(edge);
         }
+		console.log(playerPath);
+		console.log(i);
         var node = Ext.create('Ext.Panel' , {
           html: getNodeHTML(playerPath[i])
         });
         activityView.add(node);
       }
+	  	console.log(pathGoal);
       var endNode = Ext.create('Ext.Panel' , {
          html: getNodeHTML(pathGoal)
       });
       var button = Ext.create('Ext.Button', {
-        text: 'Step back',
+        text: 'Undo',
         handler: function() {
           stepBack();
         }
@@ -224,13 +234,18 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       activityView.add(button);
 	  activityView.show();
       view.add(activityView);
-	  console.log(view);
+	  console.log(activityView);
+	  var scroller=activityView.getScrollable().getScroller();
+	  console.log(scroller);
+	  console.log('scroller');
+	  scroller.scrollBy(0,40);
     }
   
     function successfulGame(context){
+		this.puntos=500;
       if (allConstraintsPassed) {
-        Ext.Msg.alert('Right!', newActivity.data.reward, function(){
-          daocontroller.activityPlayed(newActivity.data.id,true,500);
+        Ext.Msg.alert('Right!', newActivity.data.reward+" obtained score: "+this.puntos, function(){
+          daocontroller.activityPlayed(newActivity.data.id,true,this.puntos);
 		  console.log(DrGlearning);
           DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
         }, this);
@@ -242,12 +257,19 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       if (graphNodes[i].hasOwnProperty("start")){
         pathStart = i;
       } else if (graphNodes[i].hasOwnProperty("end")) {
+	  	 console.log(pathGoal);
         pathGoal = i;
       }
+	 
     }
   
     //Execute first step
     option = takeStep(pathStart);
     refresh(option);
+	if(!this.helpFlag)
+	{
+		this.getApplication().getController('LevelController').help();
+		this.helpFlag=true;
+	}
   }
 });

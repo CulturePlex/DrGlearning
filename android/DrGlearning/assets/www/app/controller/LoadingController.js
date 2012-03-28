@@ -129,11 +129,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     			}
 	                    	}
 	                    	console.log("Careers stored after loading = "+careersStore.getCount());
-	                    	if(localStorage.maxSize!=undefined){
+	                    	//if(localStorage.maxSize!=undefined){
 	                    		this.getLoading().hide();
 	                    		Ext.Viewport.setMasked(false);
 		                    	this.getApplication().getController('CareersListController').initializate();	
-	                    	}
+	                    	//}
 	                    			
 
 	                    }
