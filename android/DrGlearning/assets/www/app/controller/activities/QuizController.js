@@ -40,10 +40,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		console.log(newActivity.data.answers);
 		console.log(newActivity.data.image);
 		console.log("Tiene imagen?");
-		if (newActivity.data.image) {
-			//activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
-			newActivity.getImage('image','image',activityView.down('panel[id=image]'),this,view,activityView,false);
-		}
+
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		this.respuestas=this.activity.data.answers;
 		var opciones=6;
@@ -51,9 +48,13 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		this.currentTime=time;
 		this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
-		
-		
-				
+		if (newActivity.data.image_url) {
+			//activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
+			newActivity.getImage('image','image',activityView.down('panel[id=image]'),this,view,activityView,false);
+		}else{
+			this.loadingImages(view,activityView);
+		}
+	
 	},loadingImages:function(view,activityView){
 		activityView.show();
 		view.add(activityView);
