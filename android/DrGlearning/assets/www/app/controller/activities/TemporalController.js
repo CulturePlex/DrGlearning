@@ -36,10 +36,11 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
-		activityView.down('label').setHtml(newActivity.data.query);
+		console.log(newActivity.data);
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
-		newActivity.getImage('image','image',activityView.down('panel'),this,view,activityView);
-	},loadingImages:function(view,newActivity){
+		//activityView.down('panel').setHtml('<img id="image" alt="imagen" src="'+newActivity.getImage('image','image',this)+'" />');
+		newActivity.getImage('image','image',activityView.down('panel'),this,view,activityView,false);
+	},loadingImages:function(view,activityView){
 		activityView.show();
 		view.add(activityView);
 		Ext.Viewport.setMasked(false);

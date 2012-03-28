@@ -55,7 +55,7 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	   * The targetId is mandatory to load the image through a
 	   * callback in the DOM element with that id.
 	   */
-	  retrieveImage: function(imageId,sufix, component,controller,view,activityView) {
+	  retrieveImage: function(imageId,sufix, component,controller,view,newActivity,isTable) {
 
 	    function successFS(fileSystem) {
 	      fileSystem.root.getDirectory(Base64Manager.DIRECTORY , {create: true, exclusive: false}, successDirectory, fail);
@@ -72,8 +72,13 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	      var reader = new FileReader();
 	      reader.onload = function(evt) {
 	    	var value = evt.target.result;
-	    	component.setHtml('<img id="image" alt="imagen" src="'+value+'" />');
-	    	controller.loadingImages(view,activityView);
+	    	if(isTable){
+	    		controller.loadingImages(view,newActivity,value);
+	    	}else{
+	    		component.setHtml('<img id="image" alt="imagen" src="'+value+'" />');
+		    	controller.loadingImages(view,newActivity);	
+	    	}
+	    	
 	      };
 	      reader.readAsText(fileEntry);
 	    }

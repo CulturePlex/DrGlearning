@@ -27,7 +27,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		});
 	},
 	updateActivity: function(view,newActivity) {
-		
+		Ext.Viewport.setMasked({
+    	    xtype: 'loadmask',
+    	    message: 'Loading activity...',
+ 	       	indicator: true
+    	});
 		this.activity= newActivity;
 		if(view.down('component[customId=activity]'))
 		{
@@ -35,22 +39,28 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
-		activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
+		//activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
+		newActivity.getImage('image','image',activityView.down('container[id=image]'),this,view,activityView,false);
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		this.respuestas=this.activity.data.answers;
-		activityView.show();
-		view.add(activityView);
+		
 		var opciones=6;
 		var time=newActivity.data.time;
 		this.currentTime=time;
 		//this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
-		this.showSeconds();
+		
+		
+	},loadingImages:function(view,activityView){
+		activityView.show();
+		view.add(activityView);
+		Ext.Viewport.setMasked(false);
 		if(!this.helpFlag)
 		{
 			this.getApplication().getController('LevelController').help();
 			this.helpFlag=true;
 		}
+		this.showSeconds();
 	},
 	showAnswers: function() {
 		clearInterval(this.finishtemp);

@@ -121,8 +121,10 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    			var careerModel=careersStore.getById(career.id);
 	                    			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
 	                    			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
-	                    			
-	                    			if(Date.parse(careerModel.data.timestamp)<Date.parse(career.timestamp)){
+	                    			console.log("Actual timestamp "+careerModel.data.timestamp);
+                    				console.log("Server timestamp "+career.timestamp);
+	                    			if(Date.parse(careerModel.data.timestamp)<career.timestamp){
+	                    				console.log("Checking for update.")
 	    								careerModel.data.update=true;
 	    								careerModel.save();
 		                    		}

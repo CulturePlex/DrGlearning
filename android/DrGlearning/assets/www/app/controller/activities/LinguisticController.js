@@ -13,6 +13,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	loquedText:null,
 	loquedTextFinded:null,
 	puntos:null,
+	imagesrc:null,
 	init: function(){
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
@@ -28,7 +29,11 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		
 	},
 	updateActivity: function(view,newActivity) {
-		console.log(view);
+		Ext.Viewport.setMasked({
+    	    xtype: 'loadmask',
+    	    message: 'Loading activity...',
+ 	       	indicator: true
+    	});
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Linguistic');
@@ -40,23 +45,23 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		for(cont in this.loquedText){
 			this.loquedTextFinded[cont]=false;
 		}
-		//activityView.down('panel[customId=image]').setHtml('<img alt="imagen" height="100px" src="'+newActivity.data.image+'" />');
-		var table=this.getTable();
-		activityView.down('panel[customId=image]').setHtml(table);
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
-		//activityView.down('toolbar[customId=query]').setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>"+newActivity.data.query + "</p></div>");
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
 		activityView.down('label[customId=responses]').setHtml('');
 		this.respuestas=this.activity.data.answers;
-		console.log(this.activity);
+		newActivity.getImage('image','image',null,this,view,activityView,true);
+	},loadingImages:function(view,activityView,value){
+		this.imagesrc=value;
+		var table=this.getTable();
+		activityView.down('panel[customId=image]').setHtml(table);
 		activityView.show();
 		view.add(activityView);
+		Ext.Viewport.setMasked(false);
 		if(!this.helpFlag)
 		{
 			this.getApplication().getController('LevelController').help();
 			this.helpFlag=true;
 		}
-		
 	},
 	tryIt: function() {
 		var letterView=activityView.down('textfield[customId=letter]');
@@ -90,7 +95,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	},
 	
 	getTable:function(){
-		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+this.activity.getImage('image','image',this)+'"><tr>';
+		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+this.imagesrc+'"><tr>';
 		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
 		var squaresBlack=this.squaresBlack;
 		var cont;

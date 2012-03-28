@@ -14,13 +14,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return Ext.getStore('Carrers').findExact('installed',true);
 	},
     installCareer: function(id,callback,scope) {
-    	Ext.Viewport.setMasked({
-    	    xtype: 'loadmask',
-    	    message: 'Downloading Career...',
- 	       	indicator: true,
-			html: "<img src='resources/images/ic_launcher.png' alt='flecha'>"    	
-			});
-    	
     	var career=Ext.getStore('Careers').getById(id);
     	if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
     		Ext.Viewport.setMasked(false);
