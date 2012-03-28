@@ -23,6 +23,11 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		});
 	},
 	updateActivity: function(view,newActivity) {
+		Ext.Viewport.setMasked({
+    	    xtype: 'loadmask',
+    	    message: 'Loading activity...',
+ 	       	indicator: true
+    	});
 		this.activity=newActivity;
 		if(view.down('component[customId=activity]'))
 		{
@@ -30,11 +35,12 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
-		console.log(newActivity.data);
-		activityView.down('panel').setHtml('<img id="image" alt="imagen" src="'+newActivity.getImage('image','image',this)+'" />');
 		activityView.down('label').setHtml(newActivity.data.query);
+		newActivity.getImage('image','image',activityView.down('panel'),this,view,activityView);
+	},loadingImages:function(view,newActivity){
 		activityView.show();
 		view.add(activityView);
+		Ext.Viewport.setMasked(false);
 	},
 	before: function() {
 		console.log(this.activity);

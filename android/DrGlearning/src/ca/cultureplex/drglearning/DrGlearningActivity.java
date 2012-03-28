@@ -1,9 +1,9 @@
 package ca.cultureplex.drglearning;
 
+import com.phonegap.DroidGap;
+
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-
-import com.phonegap.*;
 
 public class DrGlearningActivity extends DroidGap {
 	

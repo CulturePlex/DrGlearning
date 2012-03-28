@@ -44,7 +44,7 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	    }
 
 	    function fail(error) {
-	      alert("[ERROR] " + error);
+	    	console.log('Error al guardar imagen '+error);
 	    }
 
 	    return imageName;
@@ -55,7 +55,7 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	   * The targetId is mandatory to load the image through a
 	   * callback in the DOM element with that id.
 	   */
-	  retrieveImage: function(imageId,sufix, targetId) {
+	  retrieveImage: function(imageId,sufix, component,controller,view,activityView) {
 
 	    function successFS(fileSystem) {
 	      fileSystem.root.getDirectory(Base64Manager.DIRECTORY , {create: true, exclusive: false}, successDirectory, fail);
@@ -63,7 +63,7 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 
 	    function successDirectory(parent){
 	    	var imageName="image"+imageId+sufix+".b64"
-	    	console.log("Loading "+imageName);
+	    	//console.log("Loading "+imageName);
 	    	parent.getFile(imageName, {create: true, exclusive: false}, successFile, fail);
 	    }
 
@@ -71,17 +71,15 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	      
 	      var reader = new FileReader();
 	      reader.onload = function(evt) {
-	        var value = evt.target.result;
-	        console.log("Searching element "+targetId);
-	        console.log(document.getElementById(targetId));
-	        document.getElementById(targetId).src = value;
-	        
+	    	var value = evt.target.result;
+	    	component.setHtml('<img id="image" alt="imagen" src="'+value+'" />');
+	    	controller.loadingImages(view,activityView);
 	      };
 	      reader.readAsText(fileEntry);
 	    }
 
 	    function fail(error) {
-	      alert("[ERROR] " + error);
+	    	console.log('Error al recuperar imagen '+error);
 	    }
 	    
 	    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successFS, fail);

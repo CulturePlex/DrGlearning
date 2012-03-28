@@ -175,18 +175,20 @@ Ext.define('DrGlearning.model.Activity', {
 		}
 	},
 	setImage: function(fieldName, value,scope) {
-		//if(window.device != undefined){
-		//	scope.getApplication().getController('FileManagerController').storeImage(value,this.data.id,fieldName);
-		//}
+		if(window.device != undefined && LocalFileSystem!=undefined){
+			//console.log('Estamos en un dispositivo movil');
+			//console.log('Almacenamos en disco.');
+			scope.getApplication().getController('FileManagerController').storeImage(value,this.data.id,fieldName);
+		}
 	},
-    getImage: function(name,targetId,scope) {
+    getImage: function(name,targetId,component,controller,view,activityView) {
     	//return scope.getApplication().getController('FileManagerController').retrieveImage(fieldName+this.data.id,targetId);
-    	//if(window.device != undefined){
-    	//	scope.getApplication().getController('FileManagerController').retrieveImage(this.data.id,name,targetId);
-    	//	return this.data.image;
-    	//}else{
-    		return scope.getApplication().getController('GlobalSettingsController').getServerURL()+"/media/"+this.data.image_url;
-    	//}
+    	if(window.device != undefined && LocalFileSystem!=undefined){
+    		//console.log('Recuperamos de disco.');
+    		controller.getApplication().getController('FileManagerController').retrieveImage(this.data.id,name,component,controller,view,activityView);
+    	}else{
+    		component.setHtml('<img id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" />');
+    	}
     	
 	},
 });

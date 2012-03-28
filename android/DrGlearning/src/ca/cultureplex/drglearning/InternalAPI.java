@@ -1,8 +1,9 @@
 package ca.cultureplex.drglearning;
 
+import com.phonegap.DroidGap;
+
 import android.webkit.WebView;
 
-import com.phonegap.DroidGap;
 
 public class InternalAPI {
     private WebView mAppView;
