@@ -1,3 +1,8 @@
+.splash-body {
+    background: url(/resources/images/splash.png) no-repeat center;
+    background-color: #D4D3D0;
+}
+
 .helpicon{
 	float:right;
 	height: 80%;
