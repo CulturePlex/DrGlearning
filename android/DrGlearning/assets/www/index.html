@@ -22,7 +22,9 @@
         function onDeviceReady() {
             // Now safe to use the PhoneGap API
             console.log('LAUNCH!!!');
-            this.getController('LoadingController').onLaunch();
+            if (typeof(this.getController) != "undefined") {
+                this.getController('LoadingController').onLaunch();
+            }
         }
         // Loaders
         yepnope({
