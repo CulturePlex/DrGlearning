@@ -69,6 +69,38 @@ class Activity(models.Model):
     def serialize(cls):
         return NotImplemented
 
+    @classmethod
+    def create_from_dict(cls, career, data_dict):
+        # Select proper subclass
+        activity_type = data_dict.get('_type', None)
+        if activity_type == 'visual':
+            new_activity = Visual()
+        elif activity_type == 'quiz':
+            new_activity = Quiz()
+        elif activity_type == 'linguistic':
+            new_activity = Linguistic()
+        elif activity_type == 'relational':
+            new_activity = Relational()
+        elif activity_type == 'geospatial':
+            new_activity = Geospatial()
+        elif activity_type == 'temporal':
+            new_activity = Temporal()
+        else:
+            return ValueError
+
+        # Populate fields from import
+        data_dict.pop('_type')
+        for field, value in data_dict.iteritems():
+            setattr(new_activity, field, value)
+
+        # Asign career fields
+        new_activity.career = career
+        new_activity.user = career.user
+
+        # Save new instance
+        new_activity.save()
+        
+
     def __unicode__(self):
         return u"%s (Level:%s, Order:%s)" % (self.name,
                                             self.level_type,
