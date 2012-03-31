@@ -60,6 +60,11 @@ class Activity(models.Model):
     # the career owner user
     user = models.ForeignKey(User, verbose_name="user", null=True)
 
+    activity_subtypes = ['linguistic', 'relational', 'geospatial', 'visual', 
+                        'quiz', 'temporal']
+    field_blacklist = ['activity_ptr', 'user', 'highscore', 'id', 'career',
+                        'timestamp']
+
     @classmethod
     def serialize(cls):
         return NotImplemented
@@ -70,8 +75,7 @@ class Activity(models.Model):
                                             self.level_order)
 
     def size(self):
-        for sub in ('linguistic', 'relational', 'geospatial', 'visual', 
-                        'quiz', 'temporal'):
+        for sub in activity_subtypes:
             if hasattr(self, sub):
                 sub_obj = getattr(self, sub)
                 if sub_obj:
@@ -91,7 +95,23 @@ class Activity(models.Model):
         self = image_resize(self)
         self.user = self.career.user
         super(Activity, self).save(*args, **kwargs)
-        
+
+    def export(self):
+        activity = {}
+        for sub in self.activity_subtypes:
+            if hasattr(self, sub):
+                sub_obj = getattr(self, sub)
+                exportable_fields = [\
+                        f for f in self._meta.get_all_field_names() \
+                        if f not in self.field_blacklist and \
+                        f not in self.activity_subtypes]
+
+                for field in exportable_fields:
+                    activity[field] = getattr(sub_obj, field)
+                # Extra type meta field
+                activity["_type"] = sub
+                return activity
+
     class Meta:
         verbose_name_plural = "Activities"
         ordering = ['level_type', 'level_order']
