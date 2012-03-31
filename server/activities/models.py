@@ -128,6 +128,7 @@ class Activity(models.Model):
         self.user = self.career.user
         self.timestamp = datetime.datetime.now()
         self.career.timestamp = self.timestamp
+        self.career.save()
         super(Activity, self).save(*args, **kwargs)
 
     def export(self):
