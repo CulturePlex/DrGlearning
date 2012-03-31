@@ -107,7 +107,7 @@ class Activity(models.Model):
                                             self.level_order)
 
     def size(self):
-        for sub in activity_subtypes:
+        for sub in self.activity_subtypes:
             if hasattr(self, sub):
                 sub_obj = getattr(self, sub)
                 if sub_obj:
@@ -126,6 +126,8 @@ class Activity(models.Model):
     def save(self, *args, **kwargs):
         self = image_resize(self)
         self.user = self.career.user
+        self.timestamp = datetime.datetime.now()
+        self.career.timestamp = self.timestamp
         super(Activity, self).save(*args, **kwargs)
 
     def export(self):
