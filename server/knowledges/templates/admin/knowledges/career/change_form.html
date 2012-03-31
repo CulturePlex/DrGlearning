@@ -10,7 +10,7 @@ function closePopup(win) {
 
 <fieldset class="module">
 
-    <h2>Career activities</h2>
+    <h2>Career activities ({{ activities_count|default:"0" }} activities)</h2>
     {% for level, activities in activities_by_level %}
       <div class="row cells-1">
         <div class="column span-4">{{level}}</div>
@@ -64,13 +64,22 @@ function closePopup(win) {
     </div>
 </fieldset>
 
-<fieldset class="module">
-    <h2>Career tools</h2>
-    <div class="row cells-1">
-        <div class="column span-4">
-            <a href="{% url career_export object_id %}">Export activities</a>
+{% if object_id %}
+    <fieldset class="module">
+        <h2>Career tools</h2>
+        <div class="row cells-1">
+            <div class="column span-4">
+                <a href="{% url career_export object_id %}">Export activities</a>
+            </div>
         </div>
-    </div>
-</fieldset>
+            {% if activities_count == 0 %}
+                <div class="row cells-1">
+                    <div class="column span-4">
+                        <a href="{% url career_export object_id %}">Import activities</a>
+                    </div>
+                 </div>
+            {% endif %}
+    </fieldset>
+{% endif %}
 
 {% endblock %}
