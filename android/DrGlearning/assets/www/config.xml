@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap    = "http://phonegap.com/ns/1.0"
+        id = "ca.cultureplex.drglearning"
+        version = "1.0.0">
+
+    <name>
+        Dr. Glearning
+    </name>
+
+    <description>
+    Dr. Glearning is a multidisciplinary project that addresses the need for higher education level apps and aims to develop a flexible mobile educational game platform.
+    </description>
+
+    <author href="http://cultureplex.ca/projects/dr-glearning/"
+            email="apps@cultureplex.ca">
+        CulturePlex Lab
+    </author>
+
+    <!--<icon src="icon.png" gap:role="default" />-->
+
+    <preference name="orientation" value="portrait" />
+    <preference name="phonegap-version" value="1.2.0" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="android-minSdkVersion" value="7" />
+    <!--<preference name="android-maxSdkVersion" value="15" />-->
+    <preference name="android-installLocation" value="auto" />
+
+    <!-- if a single icon is specified then Build will use it for all platforms -->
+    <!--<icon src="icons/icon.png" />-->
+
+    <!-- the default attribute can also be used -->
+    <!--<icon src="icons/icon.png" default="true" />-->
+
+    <!-- specifies the icon to be displayed when hovered over (on BlackBerry) -->
+    <!--<icon src="icons/icon-hover.png" hover="true" />-->
+
+    <!-- iOS requires specific dimensions for icons; classic iPhone screens, Retina
+        displays, and iPad screens respectively -->
+    <!--<icon src="icons/icon-iphone-57.png" width="57" height="57"/>-->
+    <!--<icon src="icons/icon-iphone-72.png" width="72" height="72"/>-->
+    <!--<icon src="icons/icon-iphone-114.png" width="114" height="114"/>-->
+
+    <!-- Android requires specific dimensions; ldpi, mdpi, and hdpi respectively -->
+    <!--<icon src="icons/icon-android-36.png" width="36" height="36"/>-->
+    <!--<icon src="icons/icon-android-48.png" width="48" height="48"/>-->
+    <!--<icon src="icons/icon-android-72.png" width="72" height="72"/>-->
+
+    <preference name="permissions" value="none"/>
+    <!-- to enable individual permissions use the following examples -->
+    <!--<feature name="http://api.phonegap.com/1.0/battery"/>-->
+    <!--<feature name="http://api.phonegap.com/1.0/camera"/>-->
+    <!--<feature name="http://api.phonegap.com/1.0/contacts"/>-->
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <!--<feature name="http://api.phonegap.com/1.0/media"/>-->
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <!--<feature name="http://api.phonegap.com/1.0/notification"/>-->
+
+    <access origin="*" />
+
+    <gap:splash src="resources/images/splash.png" />
+    <gap:splash src="resources/images/splash-retina.png" width="640" height="960"/> <!-- Retina -->
+    <gap:splash src="resources/images/splash-portrait.png" width="768" height="1004"/> <!-- iPad Potrait -->
+    <gap:splash src="resources/images/splash-landscape.png" width="1024" height="748"/> <!-- iPad Landscape -->
+
+</widget>

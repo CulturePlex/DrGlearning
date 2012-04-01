@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>DrGlearning activities import tool</h1>
+
+<form enctype="multipart/form-data" method="post" action="{% url career_import career_id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Import activities" style="margin-top:30px"/>
+</form>
+{% endblock %}

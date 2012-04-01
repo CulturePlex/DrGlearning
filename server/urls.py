@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     url(r'^messages/', include('userena.contrib.umessages.urls')),
 
     # knowledge
-    # url(r'^knowledges/', include('knowledges.urls')),
+    url(r'^knowledges/', include('knowledges.urls')),
 
     # api
     (r'^api/', include(v1_api.urls)),
