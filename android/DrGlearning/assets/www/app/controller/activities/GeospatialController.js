@@ -15,6 +15,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     bounds: null,
     view: null,
 	helpFlag:false,
+	zoomFlag:false,
     init: function(){
 		this.helpFlag=false;
         this.levelController = this.getApplication().getController('LevelController');
@@ -102,13 +103,13 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         }
         
         //Fitting map to playable area and setting minZoom
-        elmapa.getMap().fitBounds(bounds);
+        //elmapa.getMap().fitBounds(bounds);     ------------------------------>Aqui esta el pete
         var minZoom = map.getZoom();
 		
         //limiting zoom
         google.maps.event.addListener(map, "zoom_changed", function(e1){
-            if (map.getZoom() < minZoom) {
-                map.setZoom(minZoom);
+            if (map.getZoom() < minZoom-1) {
+                map.setZoom(minZoom);				
             }
         });
         //Creating listener to recenter map when is out of playable area				
