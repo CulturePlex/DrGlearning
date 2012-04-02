@@ -197,7 +197,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         if (newActivity.data.activity_type == 'geospatial') {
             if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
              Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
-             this.careersListController.tolevel();
+             this.tolevel();
              }, this);
              }else{
             this.getApplication().getController('activities.GeospatialController').updateActivity(view, newActivity);

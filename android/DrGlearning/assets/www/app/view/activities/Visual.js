@@ -48,6 +48,10 @@ Ext.define('DrGlearning.view.activities.Visual', {
 						customId: 'time',
 						name: 'query',
                         title: 'Error'
+                    },
+					{
+                        xtype: 'container',
+						customId: 'options',
                     }
                     ]
                 
