@@ -59,10 +59,17 @@ Ext.define('DrGlearning.controller.LevelController', {
         Ext.create('DrGlearning.view.LevelFrame');
         levelController = this.getApplication().getController('LevelController');
         this.selectedlevel = newLevel;
-        console.log(this);
+        console.log(newLevel);
         
         var view = this.getLevelframe();
         var detail = view.down('leveldetail');
+		var activitieslist=detail.down('list[customId=activitiesList]');
+		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
+		activitieslist.setStyle( {
+			            backgroundImage: 'url(resources/images/level_icons/'+filesImgs[newLevel-1]+')',
+			            backgroundRepeat: 'no-repeat',
+			            backgroundPosition: 'center'
+			});
        // var description = detail.down('leveldescription');
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
        // description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
