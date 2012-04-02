@@ -45,7 +45,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       lt: "less than",
       lte: "less or equal than",
       gt: "greater than",
-      gte: "greater or equal than",
+      get: "greater or equal than",
       eq: "equals to",
       neq: "different to"
     }
@@ -141,25 +141,54 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         default: return false;
       }
     }
-
+	var constraintsTextNew=[];
+	var constraintState=[];
     function getContraintsHTML(){
-      var constraintsText;
       var constraintClass;
+	  var icontype;
       allConstraintsPassed = true;
       constraintsText = '<p class="relational">Solve the riddle with the following constraints:<br/><ul>';
+	  activityView.down('toolbar[customId=constraintsbar]').removeAll();
+	  activityView.down('toolbar[customId=constraintsbar]').add({xtype:'spacer'});
       for(var i=0;i<constraints.length;i++){
+	  	constraintsTextNew[i]="";
+		constraintState[i]="";
         if (constraintPassed(constraints[i])){
           constraintClass = "relational-constraint-passed";
+		  icontype='star';
+		  constraintState[i]='Constraint Passed';
+		  
         } else {
           constraintClass = "relational-constraints";
           allConstraintsPassed = false;
+		  icontype='delete';
+		  constraintState[i]='Constraint Not Passed Yet';
         }
         constraintsText += '<li class="relational ' + constraintClass + '">- Nodes of type ';
+		constraintsTextNew[i] += 'Nodes of type ';
         constraintsText += constraints[i]["type"] + ' ';
+		constraintsTextNew[i] += constraints[i]["type"] + ' should be ';
         constraintsText += verboseOperator[constraints[i]["operator"]] + ' ';
+		constraintsTextNew[i] += verboseOperator[constraints[i]["operator"]] + ' ';
         constraintsText += constraints[i]["value"] + '<br/>';
+		constraintsTextNew[i] += constraints[i]["value"];
         constraintsText += '</li>';
+		console.log(constraints[i]["operator"]);
+		activityView.down('toolbar[customId=constraintsbar]').add(
+			{
+				xtype:'button',
+				iconCls: icontype,
+				customId: i,
+				listeners: {
+					tap: function(i){
+						showConstraint(i);
+					}
+				}
+			});
+		
+		
       }
+	  activityView.down('toolbar[customId=constraintsbar]').add({xtype:'spacer'});
       constraintsText += '</ul></p>';
       return constraintsText;
     }
@@ -199,10 +228,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         html: '<p>Score: ' + getPathScore() + '</p>'
       });
       activityView.add(scorePanel);
-      var constraintsPanel = Ext.create('Ext.Panel', {
+	  getContraintsHTML();
+      /*var constraintsPanel = Ext.create('Ext.Panel', {
         html: getContraintsHTML()
       });
-      activityView.add(constraintsPanel);
+      activityView.add(constraintsPanel);*/
       for(var i=0;i<playerPath.length;i++){
 	  	console.log(playerEdgePath);
         if (i!=0) {
@@ -250,6 +280,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
           DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
         }, this);
       }
+    }
+	
+	function showConstraint(button){
+		console.log(button);
+		Ext.Msg.alert(constraintState[button.config.customId],  constraintsTextNew[button.config.customId], function(){
+						}, this);
     }
   
     //Set the initial step as the initial node and the goal

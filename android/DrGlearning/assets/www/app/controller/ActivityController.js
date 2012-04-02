@@ -33,18 +33,10 @@ Ext.define('DrGlearning.controller.ActivityController', {
             name: 'label_name',
             id: 'label_id',
             html: newActivity.data.query,
-			launch: function() {
-		        Ext.override(Ext.util.Scroller.Indicator, {
-		            hide: function() {
-		                var me = this;
-		                if (this.hideTimer) {
-		                    clearTimeout(this.hideTimer);
-		                }
-		                return this;
-			            }
-			    });
-			},
             width: '85%',
+			style: {
+				backgroundColor: '#ccccff ',
+			}
         });
 			console.log(activityView);
         activityView.down('container[customId=query]').add({

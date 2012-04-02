@@ -63,6 +63,16 @@ Ext.define('DrGlearning.view.activities.Relational', {
 				xtype : 'spacer'
 			} ]
 
-		} ]
+		},
+		{
+			xtype : 'toolbar',
+			docked : 'bottom',
+			ui:'neutral',
+			customId:'constraintsbar',
+			 defaults: {
+                iconMask: true
+            }
+		}
+		 ]
 	}
 });
