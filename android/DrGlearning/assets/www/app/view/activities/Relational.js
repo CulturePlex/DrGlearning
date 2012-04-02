@@ -36,12 +36,20 @@ Ext.define('DrGlearning.view.activities.Relational', {
 				}
 				//prueba();*/
 			}
-		}, {
-			xtype : 'toolbar',
-			docked : 'top',
-			ui : 'neutral',
-			customId : 'query',
-		}, {
+		}, 
+		{
+                xtype: 'container',
+                docked: 'top',
+                ui: 'neutral',
+				customId: 'query',
+				layout: {
+		            type: 'hbox',
+					pack : 'center' 
+		        },
+
+				height:60,
+                               
+            },{
 			xtype : 'toolbar',
 			docked : 'bottom',
 			items : [ {
