@@ -16,7 +16,7 @@ Ext.define('DrGlearning.view.LevelDetail', {
         	xtype: 'list',
 			customId:'activitiesList',
 			store:'Activities',
-			
+			cls:'activities-list',
 			disableSelection: true,
 			itemTpl: new Ext.XTemplate(
 		    '<tpl for=".">',

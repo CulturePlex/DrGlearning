@@ -68,8 +68,10 @@ Ext.define('DrGlearning.controller.LevelController', {
 		activitieslist.setStyle( {
 			            backgroundImage: 'url(resources/images/level_icons/'+filesImgs[newLevel-1]+')',
 			            backgroundRepeat: 'no-repeat',
-			            backgroundPosition: 'center'
+			            backgroundPosition: 'center',
+						backgroundFilter: 'alpha(opacity=60)'
 			});
+		activitieslist.refresh();
        // var description = detail.down('leveldescription');
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
        // description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
