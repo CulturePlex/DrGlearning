@@ -6,6 +6,7 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
         id: 'activity',
         customId: 'activity',
         fullscreen: true,
+		scrollable:true,
         layout: 'vbox',
         items: [
 							{

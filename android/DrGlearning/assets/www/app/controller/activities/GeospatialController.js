@@ -84,7 +84,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         var googlePuntos = new GeoJSON(multipunto, googleOptions);
         
         //Getting first of target points as the only one valid
-        elpunto = new google.maps.LatLng(googlePuntos[0].position.Ua, googlePuntos[0].position.Va);
+        elpunto = new google.maps.LatLng(googlePuntos[0].position.Ta, googlePuntos[0].position.Ua);
         console.log(elpunto);
         
         //Getting radio allowed for the user
@@ -96,14 +96,13 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         googleVector.color = "#FFOOOO";
         var puntosPoligono = googleVector.getPath();
         var bounds = new google.maps.LatLngBounds();
+		//bounds.union(puntosPoligono);
         for (i = 0; i < puntosPoligono.b.length; i++) {
-            punto = new google.maps.LatLng(puntosPoligono.b[i].Ua, puntosPoligono.b[i].Va);
-            console.log(puntosPoligono.b);
-            bounds.extend(punto);
+            bounds.extend(puntosPoligono.b[i]);
         }
         
         //Fitting map to playable area and setting minZoom
-        //elmapa.getMap().fitBounds(bounds);     ------------------------------>Aqui esta el pete
+        elmapa.getMap().fitBounds(bounds);    // ------------------------------>Aqui esta el pete
         var minZoom = map.getZoom();
 		
         //limiting zoom
@@ -183,7 +182,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	
 	//Confirmation function to try a location
     confirm: function(){
-        this.distancia = Math.sqrt(Math.pow(elmarker.position.Ua - elpunto.Ua, 2) + Math.pow(elmarker.position.Va - elpunto.Va, 2)) * 60000;
+		console.log('eluhto');
+		console.log()
+        this.distancia = Math.sqrt(Math.pow(elmarker.position.lat() - elpunto.lat(), 2) + Math.pow(elmarker.position.lng() - elpunto.lng(), 2)) * 60000;
         this.puntos = parseInt(100 - (this.distancia * 100) / radio);
         if (this.distancia < radio) {
             Ext.Msg.alert('Right!', this.activity.data.reward+", obtained score:"+this.puntos, function(distancia){
