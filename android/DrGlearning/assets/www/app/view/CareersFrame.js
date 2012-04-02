@@ -92,7 +92,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
 						{xtype:'spacer'},
 						{
 							xtype:'panel',
-							html:'<p align="center" >No careers installed, click on Add Career Button to start</p>'
+							html:'<p align="center" >'+i18n.gettext("No careers installed, click on Add Career Button to start")+'</p>'
 						},
 						{xtype:'spacer'}
 					]},
