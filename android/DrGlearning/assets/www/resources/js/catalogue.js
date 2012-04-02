@@ -7,7 +7,7 @@ var i18n = new Jed({
         "lang"   : "en",
         "plural_forms" : "nplurals=2; plural=(n != 1);"
       },
-      "some key" : [ null, "some value"]
+      "No careers installed, click on Add Career Button to start" : [ "en" , "some value"]
     }
   },
   "domain" : "messages"
