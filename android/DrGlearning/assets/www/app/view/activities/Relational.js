@@ -6,9 +6,10 @@ Ext.define('DrGlearning.view.activities.Relational', {
 	config : {
 		id:'activity',
 		customId:'activity',
-	   layout : {
-       type: 'vbox',
-       align: 'middle'
+	    layout : {
+        type: 'vbox',
+        align: 'left',
+	    padding:10,
    },
 		fullscreen : true,
 		scrollable: true,
@@ -16,26 +17,6 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			xtype : 'panel',
 			id : 'contentSencha',
 			customId : 'contentSencha',
-			layout : 'fit',
-			fullscreen : true,
-			initialize : function() {
-				/*var sketch=Ext.getCmp('contentSencha').getEl();
-				
-				//Initializing Canvas and sketch
-                //var canvas = document.getElementById("sketch");
-                //var p = new Processing(canvas, sketchProc);
-
-				//console.log("cargada!!!!!");
-				//console.log(this.element.dom);
-				//console.log(this.down("canvas"));
-				//console.log(this.getEl().down('[class="pako"'));
-				if(sketch==undefined){
-					//console.log("Pero no existe :C");
-				}else{
-					//console.log("Y tenemos un canvas!!!");
-				}
-				//prueba();*/
-			}
 		}, 
 		{
                 xtype: 'container',
