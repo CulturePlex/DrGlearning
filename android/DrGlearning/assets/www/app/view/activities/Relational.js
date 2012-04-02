@@ -72,6 +72,15 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			 defaults: {
                 iconMask: true
             }
+		},
+		{
+			xtype : 'container',
+			docked : 'bottom',
+			ui:'neutral',
+			customId:'scorebar',
+			 defaults: {
+                iconMask: true
+            }
 		}
 		 ]
 	}

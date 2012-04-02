@@ -227,7 +227,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
       var scorePanel = Ext.create('Ext.Panel', {
         html: '<p>Score: ' + getPathScore() + '</p>'
       });
-      activityView.add(scorePanel);
+      activityView.down('container[customId=scorebar]').add(scorePanel);
 	  getContraintsHTML();
       /*var constraintsPanel = Ext.create('Ext.Panel', {
         html: getContraintsHTML()
