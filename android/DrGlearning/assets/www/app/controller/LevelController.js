@@ -64,7 +64,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         var view = this.getLevelframe();
         var detail = view.down('leveldetail');
 		var activitieslist=detail.down('list[customId=activitiesList]');
-		var filesImgs=["iletratum.png","primary.png","secondary.png","highschool.png","college.png","master.png","PhD.png","post-doc.png","professor.png","emeritus.png"];
+		var filesImgs=["iletratumB.png","primaryB.png","secondaryB.png","highschoolB.png","collegeB.png","masterB.png","PhDB.png","post-docB.png","professorB.png","emeritusB.png"];
 		activitieslist.setStyle( {
 			            backgroundImage: 'url(resources/images/level_icons/'+filesImgs[newLevel-1]+')',
 			            backgroundRepeat: 'no-repeat',
