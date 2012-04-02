@@ -63,9 +63,9 @@ Ext.define('DrGlearning.controller.LevelController', {
         
         var view = this.getLevelframe();
         var detail = view.down('leveldetail');
-        var description = detail.down('leveldescription');
+       // var description = detail.down('leveldescription');
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
-        description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
+       // description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
         //var activities = this.getApplication().getController('DaoController').getActivitiesByLevel('' + newCareer.data.id, '' + newLevel);
 		Ext.getStore('Activities').sort('level_order');
 		Ext.getStore('Activities').sort('successful');

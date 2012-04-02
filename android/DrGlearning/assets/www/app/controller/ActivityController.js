@@ -26,15 +26,27 @@ Ext.define('DrGlearning.controller.ActivityController', {
     
     },
     addQueryAndButtons: function(activityView, newActivity){
-    
+    	
         activityView.down('container[customId=query]').add({
             xtype: 'panel',
 			scrollable:true,
             name: 'label_name',
             id: 'label_id',
             html: newActivity.data.query,
+			launch: function() {
+		        Ext.override(Ext.util.Scroller.Indicator, {
+		            hide: function() {
+		                var me = this;
+		                if (this.hideTimer) {
+		                    clearTimeout(this.hideTimer);
+		                }
+		                return this;
+			            }
+			    });
+			},
             width: '85%',
         });
+			console.log(activityView);
         activityView.down('container[customId=query]').add({
             xtype: 'spacer'
         });

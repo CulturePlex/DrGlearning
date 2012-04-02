@@ -10,10 +10,7 @@ Ext.define('DrGlearning.view.LevelDetail', {
             flex: 1
         },
         items: [
-		{
-           xtype: 'leveldescription',
-		   height:'20%'
-        },
+		
         {
 			ui:'activities',
         	xtype: 'list',
