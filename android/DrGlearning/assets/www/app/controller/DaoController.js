@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 			Ext.data.JsonP.request({
 				scope: this,
-                url: HOST+'/'+activities[cont]+'?format=jsonp',
+				url: HOST+'/'+activities[cont]+'?format=jsonp',
                 params: {
                     deviceWidth: (window.screen.width != undefined) ? window.screen.width : 200,
                     deviceHeight: (window.screen.height != undefined) ? window.screen.height : 200
@@ -113,6 +113,9 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		Ext.Viewport.setMasked(false);
 						callback(scope);
 		    		}
+                },failure:function(){
+                	Ext.Viewport.setMasked(false);
+                	Ext.Msg.alert('Unable to install', 'Try again later.', Ext.emptyFn);
                 }
             });
 		}

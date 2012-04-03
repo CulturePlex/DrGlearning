@@ -54,6 +54,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		this.imagesrc=value;
 		var table=this.getTable();
 		activityView.down('panel[customId=image]').setHtml(table);
+		this.goodLetter();
 		activityView.show();
 		view.add(activityView);
 		Ext.Viewport.setMasked(false);
@@ -92,10 +93,19 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			}
 		}
 		loquedView.setHtml(loqued);
+		console.log('*'+loqued+'*');
+		console.log('*'+this.activity.data.answer+'*');
+		if (loqued.toLowerCase() == this.activity.data.answer.toLowerCase()) 
+		{
+			Ext.Msg.alert('Right!', this.activity.data.reward+"obtained score:"+this.puntos, function(){
+				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
+				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
+			}, this);
+		}
 	},
 	
 	getTable:function(){
-		var table='<table style="background-repeat:no-repeat;background-position:center center;" border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="'+this.imagesrc+'"><tr>';
+		var table='<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT="170" BACKGROUND="'+this.imagesrc+'"><tr>';
 		//var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
 		var squaresBlack=this.squaresBlack;
 		var cont;
@@ -104,7 +114,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		//console.log(squares.length);
 		for(cont in squaresBlack){
 			if(squaresBlack[cont]){
-				table=table+'<td BGCOLOR="BLACK"></td>';	
+				table=table+'<td BGCOLOR="BLACK" style="border: inset 0pt" width="20%"></td>';	
 			}else{
 				table=table+'<td></td>';
 			}
@@ -123,7 +133,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	
 	goodLetter:function(){
 		var cont;
-		var goodLetters=0;
+		var goodLetters=1;
 		var whiteSquares=0;
 		for(cont in this.loquedTextFinded){
 			if(this.loquedTextFinded[cont]){

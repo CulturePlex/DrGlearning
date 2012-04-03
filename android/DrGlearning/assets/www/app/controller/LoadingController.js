@@ -13,10 +13,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	},
 	
 	onLaunch: function() {
-		if(window.InternalApi != undefined){
-			console.log(window.InternalApi.getTest());
-		}
-    	
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		console.log('Loading...');

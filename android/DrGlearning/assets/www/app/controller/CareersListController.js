@@ -103,17 +103,22 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.selectedcareer = career;
         console.log(this.selectedcareer);
         if (career.data.installed == false) {
-            Ext.Msg.confirm("Install Career?", "Are you sure you want to install this career?", function(answer, pako){
-                if (answer == 'yes') {
-                	Ext.Viewport.setMasked({
-                	    xtype: 'loadmask',
-                	    message: 'Downloading Career...',
-             	       	indicator: true,
-            			html: "<img src='resources/images/ic_launcher.png' alt='flecha'>"    	
-            			});
-                	this.getApplication().getController('DaoController').installCareer(career.data.id, this.installFinished, this);
-                }
-            }, this);
+        	if(navigator.network != undefined && navigator.network.connection.type==Connection.NONE){
+        		Ext.Msg.alert('Unable to install', 'You need data connection to install careers', Ext.emptyFn);
+        	}else{
+        		Ext.Msg.confirm("Install Career?", "Are you sure you want to install this career?", function(answer, pako){
+                    if (answer == 'yes') {
+                    	Ext.Viewport.setMasked({
+                    	    xtype: 'loadmask',
+                    	    message: 'Downloading Career...',
+                 	       	indicator: true,
+                			html: "<img src='resources/images/ic_launcher.png' alt='flecha'>"    	
+                			});
+                    	this.getApplication().getController('DaoController').installCareer(career.data.id, this.installFinished, this);
+                    }
+                }, this);	
+        	}
+            
         }
         else {
 			if(e.touch.target.id=="uninstall")

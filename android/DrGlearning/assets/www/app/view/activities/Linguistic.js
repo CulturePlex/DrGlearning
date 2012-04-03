@@ -13,48 +13,57 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 								ui:'neutral',
 								customId: 'query',
 								name: 'query',
+								
 							},	
                      		{
                 	        	xtype: 'panel',
                 	        	id: 'image',
                 	        	customId: 'image',
+                	        	margin: 10,
                 	        },{
-								xtype: 'fieldset',
+								xtype: 'container',
 								layout: 'hbox',
 								items: [
 								        {
 								        	xtype: 'label',
 								        	html: 'TIP: ',
-								        	flex: 0
+								        	margin: 10,
+								        	
 								        },{
 								        	xtype: 'label',
 								        	customId: 'loqued',
-								        	flex: 1
+								        	margin: 10,
+								        	
 								        }]
                 	        },{
-										xtype: 'fieldset',
-										title: 'Insert a character:',
+										xtype: 'container',
 										layout: 'hbox',
 										items: [
-									    {
+										{
 									        xtype: 'textfield',
 									        customId: 'letter',
 									        name: 'letter',
+									        label: 'CHAR:',
+									        labelWidth: '40%',
 									        maxLength: 1,
-									        width: '80%',
-									        flex: 0
+									        width: '60%',
+									        margin: 10,
+									        flex: 2
 									    },{
 			        						xtype: 'button',
 			        						customId: 'try',
 			        						text: 'Try',
-			        						width: '20%',
-			        						flex: 1
+			        						flex: 1,
+			        						margin: 10,
+			        						width: '20%'
+			        							
 			        					}
 									    ]
 									},
         		            {
         		                xtype: 'label',
         		                customId: 'responses',
+        		                margin: 10,
         		            },
         		            
         		            
