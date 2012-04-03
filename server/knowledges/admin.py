@@ -32,7 +32,8 @@ class CareerAdmin(GuardedModelAdmin):
         career_activities = []
         for value, text in Activity.TYPE_CHOICES:
             career_activities.append((text, [a for a in all_activities if a[0].level_type==value]))
-        context = {"activities_by_level": career_activities}
+        context = {"activities_by_level": career_activities,
+                    "activities_count": len(all_activities)}
         return super(CareerAdmin, self).change_view(request, object_id,
                                                     extra_context=context)
 

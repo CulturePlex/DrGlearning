@@ -1,3 +1,18 @@
+.splash-body {
+    background: url(/resources/images/splash.png) no-repeat center;
+    background-color: #D4D3D0;
+    background-size: contain;
+}
+
+.activities-list img {
+    padding:0;
+    width:100%;
+    height:100%; 
+    margin:0;
+    filter:alpha(opacity=90);
+    opacity:.90;
+}
+
 .helpicon{
 	float:right;
 	height: 80%;

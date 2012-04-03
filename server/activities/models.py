@@ -60,9 +60,46 @@ class Activity(models.Model):
     # the career owner user
     user = models.ForeignKey(User, verbose_name="user", null=True)
 
+    activity_subtypes = ['linguistic', 'relational', 'geospatial', 'visual', 
+                        'quiz', 'temporal']
+    field_blacklist = ['activity_ptr', 'user', 'highscore', 'id', 'career',
+                        'timestamp']
+
     @classmethod
     def serialize(cls):
         return NotImplemented
+
+    @classmethod
+    def create_from_dict(cls, career, data_dict):
+        # Select proper subclass
+        activity_type = data_dict.get('_type', None)
+        if activity_type == 'visual':
+            new_activity = Visual()
+        elif activity_type == 'quiz':
+            new_activity = Quiz()
+        elif activity_type == 'linguistic':
+            new_activity = Linguistic()
+        elif activity_type == 'relational':
+            new_activity = Relational()
+        elif activity_type == 'geospatial':
+            new_activity = Geospatial()
+        elif activity_type == 'temporal':
+            new_activity = Temporal()
+        else:
+            return ValueError
+
+        # Populate fields from import
+        data_dict.pop('_type')
+        for field, value in data_dict.iteritems():
+            setattr(new_activity, field, value)
+
+        # Asign career fields
+        new_activity.career = career
+        new_activity.user = career.user
+
+        # Save new instance
+        new_activity.save()
+        
 
     def __unicode__(self):
         return u"%s (Level:%s, Order:%s)" % (self.name,
@@ -70,8 +107,7 @@ class Activity(models.Model):
                                             self.level_order)
 
     def size(self):
-        for sub in ('linguistic', 'relational', 'geospatial', 'visual', 
-                        'quiz', 'temporal'):
+        for sub in self.activity_subtypes:
             if hasattr(self, sub):
                 sub_obj = getattr(self, sub)
                 if sub_obj:
@@ -90,8 +126,27 @@ class Activity(models.Model):
     def save(self, *args, **kwargs):
         self = image_resize(self)
         self.user = self.career.user
+        self.timestamp = datetime.datetime.now()
+        self.career.timestamp = self.timestamp
+        self.career.save()
         super(Activity, self).save(*args, **kwargs)
-        
+
+    def export(self):
+        activity = {}
+        for sub in self.activity_subtypes:
+            if hasattr(self, sub):
+                sub_obj = getattr(self, sub)
+                exportable_fields = [\
+                        f for f in self._meta.get_all_field_names() \
+                        if f not in self.field_blacklist and \
+                        f not in self.activity_subtypes]
+
+                for field in exportable_fields:
+                    activity[field] = getattr(sub_obj, field)
+                # Extra type meta field
+                activity["_type"] = sub
+                return activity
+
     class Meta:
         verbose_name_plural = "Activities"
         ordering = ['level_type', 'level_order']

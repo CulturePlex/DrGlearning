@@ -12,10 +12,17 @@ Ext.define('DrGlearning.view.activities.Temporal', {
             id: 'image',
         	},
 			{
-                xtype: 'toolbar',
+                xtype: 'container',
                 docked: 'top',
                 ui: 'neutral',
 				customId: 'query',
+				layout: {
+		            type: 'hbox',
+					pack : 'center' 
+		        },
+
+				height:60,
+                               
             },
 			{
                 xtype: 'toolbar',

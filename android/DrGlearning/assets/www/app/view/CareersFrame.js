@@ -92,7 +92,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
 						{xtype:'spacer'},
 						{
 							xtype:'panel',
-							html:'<p align="center" >No careers installed, click on Add Career Button to start</p>'
+							html:'<p align="center" >'+i18n.gettext("No careers installed, click on Add Career Button to start")+'</p>'
 						},
 						{xtype:'spacer'}
 					]},
@@ -125,8 +125,10 @@ Ext.define('DrGlearning.view.CareersFrame', {
             },
             id: 'toolbarBottomSettings',
             items: [{
-                id: 'settings',
-               	text: 'Settings',
+                //id: 'settings',
+               	//text: 'Settings',
+				xtype:'panel',
+				html:'<font color="white">CulturePlex Lab.</font>',
 
             }]
         

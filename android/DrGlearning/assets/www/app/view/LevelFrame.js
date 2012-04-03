@@ -35,7 +35,7 @@ Ext.define('DrGlearning.view.LevelFrame', {
 						controller: 'DrGlearning.controller.Career',
 						action: 'index',
                         
-                    },
+                    }/*,
 					{
 						 xtype: 'spacer' 
 					},
@@ -44,7 +44,7 @@ Ext.define('DrGlearning.view.LevelFrame', {
                         text: 'Start',
 						id: 'startActivity'
                         
-                  	}
+                  	}*/
 					]
                 
             },

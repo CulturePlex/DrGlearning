@@ -14,8 +14,8 @@ Ext.define('DrGlearning.controller.CareerController', {
 	    }
 	},
 	carousel:null,
-	flechaizqHtml:"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.previous();'><img src='resources/images/flechaizq.png' alt='flecha'></a></div>",
-	flechaderHtml:"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>",
+	flechaizqHtml:"",//"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.previous();'><img src='resources/images/arrowleft.png' alt='flecha' height=30></a></div>",
+	flechaderHtml:"",//"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.next();'><img src='resources/images/arrowright.png' alt='flecha' height=30></a></div>",
 	/*
 	 * Initializate Controller.
 	 */
