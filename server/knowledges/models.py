@@ -38,6 +38,12 @@ class Career(models.Model):
         self = image_resize(self)
         super(Career, self).save(*args, **kwargs)
 
+    def export(self):
+        exported_activities = []
+        for a in self.activity_set.all():
+            exported_activities.append(a.export())
+        return exported_activities
+
 
 class GenuineUser(User):
     has_authenticity = models.BooleanField(default=True)

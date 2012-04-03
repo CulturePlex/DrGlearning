@@ -59,13 +59,22 @@ Ext.define('DrGlearning.controller.LevelController', {
         Ext.create('DrGlearning.view.LevelFrame');
         levelController = this.getApplication().getController('LevelController');
         this.selectedlevel = newLevel;
-        console.log(this);
+        console.log(newLevel);
         
         var view = this.getLevelframe();
         var detail = view.down('leveldetail');
-        var description = detail.down('leveldescription');
+		var activitieslist=detail.down('list[customId=activitiesList]');
+		var filesImgs=["iletratumB.png","primaryB.png","secondaryB.png","highschoolB.png","collegeB.png","masterB.png","PhDB.png","post-docB.png","professorB.png","emeritusB.png"];
+		activitieslist.setStyle( {
+			            backgroundImage: 'url(resources/images/level_icons/'+filesImgs[newLevel-1]+')',
+			            backgroundRepeat: 'no-repeat',
+			            backgroundPosition: 'center',
+						backgroundFilter: 'alpha(opacity=60)'
+			});
+		activitieslist.refresh();
+       // var description = detail.down('leveldescription');
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
-        description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
+       // description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
         //var activities = this.getApplication().getController('DaoController').getActivitiesByLevel('' + newCareer.data.id, '' + newLevel);
 		Ext.getStore('Activities').sort('level_order');
 		Ext.getStore('Activities').sort('successful');
@@ -195,9 +204,9 @@ Ext.define('DrGlearning.controller.LevelController', {
         Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
         var activityView;
         if (newActivity.data.activity_type == 'geospatial') {
-            /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+           /* if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
              Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
-             this.careersListController.tolevel();
+             this.tolevel();
              }, this);
              }else{*/
             this.getApplication().getController('activities.GeospatialController').updateActivity(view, newActivity);

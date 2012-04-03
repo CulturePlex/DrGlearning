@@ -6,15 +6,20 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
         id: 'activity',
         customId: 'activity',
         fullscreen: true,
+		scrollable:true,
         layout: 'vbox',
         items: [
 							{
-							    xtype: 'toolbar',
-								ui:'neutral',
-								customId: 'query',
-								name: 'query',
-								
-							},	
+                xtype: 'container',
+                docked: 'top',
+                ui: 'neutral',
+				customId: 'query',
+				layout: {
+		            type: 'hbox',
+					pack : 'center' 
+		        },
+
+            },
                      		{
                 	        	xtype: 'panel',
                 	        	id: 'image',

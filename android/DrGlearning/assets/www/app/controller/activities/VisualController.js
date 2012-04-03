@@ -33,12 +33,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
  	       	indicator: true
     	});
 		this.activity= newActivity;
-		if(view.down('component[customId=activity]'))
-		{
-			view.down('component[customId=activity]').hide();
-			view.down('component[customId=activity]').destroy();
-		}
+		
+		view.down('component[customId=activity]').destroy();
+		
 		activityView = Ext.create('DrGlearning.view.activities.Visual');
+		activityView.down('container[customId=time]').down('container[customId=options]').removeAll();
 		//activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
 		newActivity.getImage('image','image',activityView.down('container[id=image]'),this,view,activityView,false);
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
@@ -49,6 +48,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.currentTime=time;
 		//this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
+		
 		
 		
 	},loadingImages:function(view,activityView){
@@ -63,7 +63,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.showSeconds();
 	},
 	showAnswers: function() {
-		clearInterval(this.finishtemp);
+		//clearInterval(this.finishtemp);
 		clearInterval(this.secondtemp);
 		var obfuscatedImg = Ext.create('Ext.Container',{
 			customId: 'obfuscated',
@@ -82,9 +82,10 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			height:'50%',
     		
     	});
+		activityView.down('container[customId=time]').down('container[customId=options]').removeAll();
 		for(var i=0;i<this.respuestas.length;i++)
 		{
-			activityView.down('container[customId=time]').add({
+			activityView.down('container[customId=time]').down('container[customId=options]').add({
 				xtype: 'button',
 				text: this.respuestas[i],
 				ui: 'round',
@@ -92,7 +93,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 				customId: 'respuesta',
 			});
 		}
-		activityView.down('label[customId=time]').setHtml("");
 		activityView.down('container[id=image]').hide();
 		activityView.down('container[id=image]').destroy();
 		activityView.add(obfuscatedImg);
@@ -116,17 +116,19 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 			
 	},
 	showSeconds: function() { 
+	
 	if (this.parado==false) {
 		activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
 		this.currentTime--;
 		if(this.currentTime<0)
 		{
+			clearInterval(this.secondtemp);
 			this.showAnswers();
 		}
 	}	
 	},
 	stop: function() { 
-		clearInterval(this.finishtemp);
+		//clearInterval(this.finishtemp);
 		clearInterval(this.secondtemp);
 			
 	},

@@ -26,28 +26,38 @@ Ext.define('DrGlearning.controller.ActivityController', {
     
     },
     addQueryAndButtons: function(activityView, newActivity){
-    
-        activityView.down('toolbar[customId=query]').add({
-            xtype: 'label',
+    	
+        activityView.down('container[customId=query]').add({
+            xtype: 'panel',
+			scrollable:true,
             name: 'label_name',
             id: 'label_id',
             html: newActivity.data.query,
-            width: '70%',
+            width: '85%',
+			style: {
+				backgroundColor: '#ccccff ',
+			}
         });
-        activityView.down('toolbar[customId=query]').add({
+			console.log(activityView);
+        activityView.down('container[customId=query]').add({
             xtype: 'spacer'
         });
-        activityView.down('toolbar[customId=query]').add({
+        /*activityView.down('container[customId=query]').add({
             xtype: 'button',
             text: '...',
             ui: 'round',
-            id: 'more'
-        });
-        activityView.down('toolbar[customId=query]').add({
+            id: 'more',
+			width:43,
+        });*/
+        activityView.down('container[customId=query]').add({
             xtype: 'button',
             text: '?',
             ui: 'round',
-            id: 'help'
+            id: 'help',
+			width:44,
+			height:40,
+			padding:5,
+			pack:'middle'
         });
     }
 });

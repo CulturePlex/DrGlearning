@@ -12,10 +12,17 @@ Ext.define('DrGlearning.view.activities.Quiz', {
             id: 'image',
         	},
 			{
-                xtype: 'toolbar',
+                xtype: 'container',
                 docked: 'top',
-				ui:'neutral',
+                ui: 'neutral',
 				customId: 'query',
+				layout: {
+		            type: 'hbox',
+					pack : 'center' 
+		        },
+
+				height:60,
+                               
             },
 			{
                 xtype: 'toolbar',
