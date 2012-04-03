@@ -84,7 +84,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         var googlePuntos = new GeoJSON(multipunto, googleOptions);
         
         //Getting first of target points as the only one valid
-        elpunto = new google.maps.LatLng(googlePuntos[0].position.Ta, googlePuntos[0].position.Ua);
+        elpunto = new google.maps.LatLng(googlePuntos[0].position.lat(), googlePuntos[0].position.lng());
         console.log(elpunto);
         
         //Getting radio allowed for the user
