@@ -16,6 +16,7 @@ public class DrGlearningActivity extends DroidGap {
         api = new InternalAPI(this, appView);
         //super.setIntegerProperty("splashscreen", R.drawable.splash);
         appView.addJavascriptInterface(api, "InternalApi");
+        super.setIntegerProperty("loadUrlTimeoutValue", 60000);
         super.loadUrl("file:///android_asset/www/index.html");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }

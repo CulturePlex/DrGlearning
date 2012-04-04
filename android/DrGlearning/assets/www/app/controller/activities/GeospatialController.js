@@ -50,11 +50,13 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
                 streetViewControl: false,
             }
         });
-        
-        //Starting activity 100ms later to wait for map to render, dont know yet which event to use, no one working
-        var t = setTimeout(function(thisObj){
-            thisObj.empezar(activityView, newActivity);
-        }, 100, this);
+        var that = this;
+        //Starting activity after the map is render
+		google.maps.event.addListener(elmapa.getMap(), "idle", function(){
+            that.empezar(activityView, newActivity);
+			
+        });
+
         
         activityView.add(elmapa);
         activityView.show();
@@ -70,7 +72,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         var elmapa = view.down('map');
         view.add(elmapa);
         var map = elmapa.getMap();
-        
+        google.maps.event.clearListeners(map, 'idle');
         //Getting target points of activity
         var multipunto = eval("(" + activity.data.point + ')');
         var googleOptions = {
