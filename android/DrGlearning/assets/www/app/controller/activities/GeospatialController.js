@@ -27,10 +27,15 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         });
     },
     updateActivity: function(view, newActivity){
-		
+		Ext.Viewport.setMasked({
+    	    xtype: 'loadmask',
+    	    message: 'Loading activity...',
+ 	       	indicator: true
+    	});
         this.elmarker = null;
         this.elpunto = null;
         this.radio = null;
+		this.view=view;	
         this.activity = newActivity;
         view.down('component[customId=activity]').destroy();
         if (view.down('component[customId=activity]')) {
@@ -73,6 +78,10 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         view.add(elmapa);
         var map = elmapa.getMap();
         google.maps.event.clearListeners(map, 'idle');
+		google.maps.event.addListener(elmapa.getMap(), "idle", function(){
+            Ext.Viewport.setMasked(false);
+			google.maps.event.clearListeners(map, 'idle');
+        });
         //Getting target points of activity
         var multipunto = eval("(" + activity.data.point + ')');
         var googleOptions = {
