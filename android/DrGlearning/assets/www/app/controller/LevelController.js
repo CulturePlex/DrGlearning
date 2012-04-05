@@ -28,8 +28,8 @@ Ext.define('DrGlearning.controller.LevelController', {
             'button[id=help]': {
                 tap: this.help
             },
-			 'button[id=more]': {
-                tap: this.more
+			 '[customId=query_label]': {
+                click: this.more
             },
             'button[id=backtolevels]': {
                 tap: this.tolevels
@@ -323,6 +323,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         
     },
     more: function(){
+		console.log('aaa');
 		var text = this.currentActivity.data.query;
         Ext.Msg.alert('Query', text, function(){
         }, this);

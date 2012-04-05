@@ -10,7 +10,8 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
         layout: 'vbox',
         items: [
 							{
-                xtype: 'container',
+                xtype: 'toolbar',
+				
                 docked: 'top',
                 ui: 'neutral',
 				customId: 'query',

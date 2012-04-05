@@ -13,7 +13,8 @@ Ext.define('DrGlearning.view.activities.Visual', {
 			padding: 10,
         	},
 			{
-                xtype: 'container',
+               xtype: 'toolbar',
+				
                 docked: 'top',
                 ui: 'neutral',
 				customId: 'query',
@@ -22,7 +23,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
 					pack : 'center' 
 		        },
 
-				height:60,
+				height:40,
                                
             },
 			{

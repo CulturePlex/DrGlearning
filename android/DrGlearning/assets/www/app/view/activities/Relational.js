@@ -19,16 +19,17 @@ Ext.define('DrGlearning.view.activities.Relational', {
 			customId : 'contentSencha',
 		}, 
 		{
-                xtype: 'container',
+                xtype: 'toolbar',
+				
                 docked: 'top',
                 ui: 'neutral',
+
 				customId: 'query',
 				layout: {
 		            type: 'hbox',
-					pack : 'center' 
 		        },
-
-				height:60,
+				width:'100%',
+				height:40,
                                
             },{
 			xtype : 'toolbar',

@@ -15,7 +15,8 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
         fullscreen: true,
         items: [
 			{
-                xtype: 'container',
+              xtype: 'toolbar',
+				
                 docked: 'top',
                 ui: 'neutral',
 				customId: 'query',
@@ -24,7 +25,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 					pack : 'center' 
 		        },
 
-				height:60,
+				height:40,
                                
             },
 			{

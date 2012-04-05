@@ -27,21 +27,27 @@ Ext.define('DrGlearning.controller.ActivityController', {
     },
     addQueryAndButtons: function(activityView, newActivity){
     	
-        activityView.down('container[customId=query]').add({
-            xtype: 'panel',
-			scrollable:true,
+        activityView.down('toolbar[customId=query]').add({
+            xtype: 'titlebar',
             name: 'label_name',
+			customId: 'query_label',
             id: 'label_id',
-            html: newActivity.data.query,
-            width: '85%',
-			style: {
-				backgroundColor: '#ccccff ',
+			cls:'query',
+            title: newActivity.data.query,
+            flex:1,
+			ui: 'neutral',
+		
+			
+        });
+		var that= this;
+		activityView.down('toolbar[customId=query]').down('titlebar').setListeners({
+			tap: {
+				fn: function(e,that,eso){
+					DrGlearning.app.getApplication().getController('LevelController').more();
+				},
+				element: 'element'
 			}
-        });
-			console.log(activityView);
-        activityView.down('container[customId=query]').add({
-            xtype: 'spacer'
-        });
+		});
         /*activityView.down('container[customId=query]').add({
             xtype: 'button',
             text: '...',
@@ -49,7 +55,7 @@ Ext.define('DrGlearning.controller.ActivityController', {
             id: 'more',
 			width:43,
         });*/
-        activityView.down('container[customId=query]').add({
+        activityView.down('toolbar[customId=query]').add({
             xtype: 'button',
             text: '?',
             ui: 'round',
