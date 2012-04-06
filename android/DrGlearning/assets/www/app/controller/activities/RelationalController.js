@@ -243,6 +243,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var scorePanel = Ext.create('Ext.Panel', {
                 html: '<p>Score: ' + getPathScore() + '</p>'
             });
+			var gamePanel = Ext.create('Ext.Panel', {
+				padding:10
+            });
 			activityView.down('container[customId=scorebar]').removeAll();
             //activityView.down('container[customId=scorebar]').add(scorePanel);
             getContraintsHTML();
@@ -267,7 +270,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     });
                     
                     
-                    activityView.add(edge);
+                    gamePanel.add(edge);
                 }
                 console.log(playerPath);
                 console.log(i);
@@ -282,7 +285,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     }],
                 });
                 
-                activityView.add(node);
+                gamePanel.add(node);
             }
             console.log(pathGoal);
             var endNode = Ext.create('Ext.Container', {
@@ -301,16 +304,17 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     stepBack();
                 }
             });
-            activityView.add(option);
-            activityView.add(endNode);
-            activityView.add(button);
+            gamePanel.add(option);
+            gamePanel.add(endNode);
+            gamePanel.add(button);
+			activityView.add(gamePanel);
             activityView.show();
             view.add(activityView);
             console.log(activityView);
             var scroller = activityView.getScrollable().getScroller();
             console.log(scroller);
             console.log('scroller');
-            scroller.scrollBy(0, 40);
+            scroller.scrollBy(0, 58);
         }
         
         function successfulGame(context){

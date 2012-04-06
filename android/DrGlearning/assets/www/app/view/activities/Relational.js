@@ -3,13 +3,13 @@ Ext.define('DrGlearning.view.activities.Relational', {
 	extend : 'Ext.Container',
 	xtype : 'relational',
 	customId:'activity',
+	padding:10,
 	config : {
 		id:'activity',
 		customId:'activity',
 	    layout : {
         type: 'vbox',
-        align: 'left',
-	    padding:10,
+	    
    },
 		fullscreen : true,
 		scrollable: true,

@@ -26,7 +26,7 @@ Ext.define('DrGlearning.controller.ActivityController', {
     
     },
     addQueryAndButtons: function(activityView, newActivity){
-    	
+    	console.log(activityView);
         activityView.down('toolbar[customId=query]').add({
             xtype: 'titlebar',
             name: 'label_name',
