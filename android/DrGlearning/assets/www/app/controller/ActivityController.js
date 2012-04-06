@@ -36,6 +36,7 @@ Ext.define('DrGlearning.controller.ActivityController', {
             title: newActivity.data.query,
             flex:1,
 			ui: 'neutral',
+			style: 'font-size:13px'
 		
 			
         });
