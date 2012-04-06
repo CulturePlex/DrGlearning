@@ -6,6 +6,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
     ],
 	config: {
 		fullscreen: true,
+		
         items: [
             {
 				ref: 'toolbar',
@@ -17,7 +18,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
                         xtype: 'title',
 						id: 'title',
 						name: 'title',
-                        title: 'Careessssr Name',
+                        title: 'Career Name',
 						maxWidth: '100%',
 						centered:true,
                     },
@@ -49,6 +50,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
             },
 			{
 				xtype: 'careerdetail',
+			
 				
 				
 			}
