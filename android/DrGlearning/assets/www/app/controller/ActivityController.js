@@ -61,9 +61,6 @@ Ext.define('DrGlearning.controller.ActivityController', {
             text: '?',
             ui: 'round',
             id: 'help',
-			width:44,
-			height:40,
-			padding:5,
 			pack:'middle'
         });
     }
