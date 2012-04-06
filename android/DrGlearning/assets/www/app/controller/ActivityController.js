@@ -49,13 +49,6 @@ Ext.define('DrGlearning.controller.ActivityController', {
 				element: 'element'
 			}
 		});
-        /*activityView.down('container[customId=query]').add({
-            xtype: 'button',
-            text: '...',
-            ui: 'round',
-            id: 'more',
-			width:43,
-        });*/
         activityView.down('toolbar[customId=query]').add({
             xtype: 'button',
             text: '?',

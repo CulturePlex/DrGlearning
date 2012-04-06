@@ -27,7 +27,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
     	    message: 'Loading activity...',
- 	       	indicator: true
+ 	       	indicator: true,
+			html: "<img src='resources/images/activity_icons/quiz.png'>",
     	});
 		this.activity= newActivity;
 		console.log(view.down('component[customId=activity]'));

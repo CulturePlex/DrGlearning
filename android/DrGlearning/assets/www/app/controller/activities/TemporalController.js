@@ -27,7 +27,8 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
     	    message: 'Loading activity...',
- 	       	indicator: true
+ 	       	indicator: true,
+			html: "<img src='resources/images/activity_icons/temporal.png'>",
     	});
 		this.activity=newActivity;
 		if(view.down('component[customId=activity]'))

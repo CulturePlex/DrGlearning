@@ -115,7 +115,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		    		}
                 },failure:function(){
                 	Ext.Viewport.setMasked(false);
-                	Ext.Msg.alert('Unable to install', 'Try again later.', Ext.emptyFn);
+                	º.alert('Unable to install', 'Try again later.', Ext.emptyFn);
                 }
             });
 		}

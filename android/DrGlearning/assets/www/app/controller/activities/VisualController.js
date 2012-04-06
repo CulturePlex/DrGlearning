@@ -30,7 +30,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
     	    message: 'Loading activity...',
- 	       	indicator: true
+ 	       	indicator: true,
+			html: "<img src='resources/images/activity_icons/visual.png'>",
     	});
 		this.activity= newActivity;
 		
@@ -64,7 +65,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 	},
 	showAnswers: function() {
 		//clearInterval(this.finishtemp);
-		clearInterval(this.secondtemp);
 		var obfuscatedImg = Ext.create('Ext.Container',{
 			customId: 'obfuscated',
     		layout: 'vbox',

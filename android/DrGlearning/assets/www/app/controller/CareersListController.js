@@ -112,7 +112,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     	    xtype: 'loadmask',
                     	    message: 'Downloading Career...',
                  	       	indicator: true,
-                			html: "<img src='resources/images/ic_launcher.png' alt='flecha'>"    	
+                			html: "<img src='resources/images/ic_launcher.png'>"    	
                 			});
                     	this.getApplication().getController('DaoController').installCareer(career.data.id, this.installFinished, this);
                     }
