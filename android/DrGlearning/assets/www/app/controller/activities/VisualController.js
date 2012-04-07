@@ -117,10 +117,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         
     },
     tryIt: function(){
-		activityView.down('container[customId=options]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');
+		
         this.puntos = 100;
         if (event.target.textContent == this.activity.data.correct_answer) {
             Ext.Msg.alert('Right!', this.activity.data.reward + ", obtained score:" + this.puntos, function(){
+				activityView.down('container[customId=options]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 console.log('aski');
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
