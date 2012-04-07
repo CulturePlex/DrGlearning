@@ -129,6 +129,12 @@ Ext.define('DrGlearning.controller.CareerController', {
      * Start a Level.
      */
     startLevel: function(){
+		Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: 'Loading level...',
+            indicator: true,
+            //html: "<img src='resources/images/activity_icons/visual.png'>",
+        });
         var view1 = this.getCareerframe();
         var detail = view1.down('careerdetail');
         var levelscarousel = detail.down('carousel');

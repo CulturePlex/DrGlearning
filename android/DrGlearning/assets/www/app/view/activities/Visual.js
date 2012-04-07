@@ -14,6 +14,11 @@ Ext.define('DrGlearning.view.activities.Visual', {
 			margin: 10,
         	},
 			{
+            xtype: 'container',
+            id: 'obImage',
+			margin: 10,
+        	},
+			{
                xtype: 'toolbar',
 				
                 docked: 'top',

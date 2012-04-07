@@ -58,8 +58,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
      *
      */
     startGame: function(){
-        console.log('olaaaaaaaaa');
-        //activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
+		this.activityView.down('container[id=image]').setHtml('');
+		//activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
         this.activity.getImage('image', 'image', this.activityView.down('container[id=image]'), this, this.view, this.activityView, false);
         this.getApplication().getController('ActivityController').addQueryAndButtons(this.activityView, this.activity);
         this.respuestas = this.activity.data.answers;
@@ -68,11 +68,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         //this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.activityView.down('container[customId=options]').removeAll();
 		this.activityView.down('container[customId=options]').removeAll();
+		
         this.activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
         this.currentTime;
         this.secondtemp = setInterval(function(thisObj){
             thisObj.showSeconds();
         }, 1000, this);
+		this.activityView.down('container[id=image]').show();
+		this.activityView.down('container[id=obImage]').hide();
     },
     
     loadingImages: function(view, activityView){
@@ -86,17 +89,17 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         this.showSeconds();
     },
     showAnswers: function(){
-        activityView.down('label[customId=time]').setHtml("");
+        activityView.down('label[customId=time]').setHtml('');
+		
         //clearInterval(this.finishtemp);
-        var obfuscatedImg = Ext.create('Ext.Container', {
-            customId: 'obfuscated',
-            layout: 'vbox',
-            align: 'center',
-            pack: 'center',
-            padding: 10,
-            html: '<img alt="imagen" width="100%" src="' + this.activity.data.obfuscated_image + '" />'
+		this.activityView.down('container[id=obImage]').setHtml('<img class="activityImage" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
+		console.log('si?');
+        /*var obfuscatedImg = Ext.create('Ext.Container', {
+			id:'obImage',
+			margin: 10,
+            html: '<img class="activityImage" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />'
         
-        });
+        });*/
         
         for (var i = 0; i < this.respuestas.length; i++) {
            activityView.down('container[customId=options]').add({
@@ -108,8 +111,9 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             });
         }
         activityView.down('container[id=image]').hide();
+		activityView.down('container[id=obImage]').show();
         //activityView.down('container[id=image]').destroy();
-        activityView.add(obfuscatedImg);
+        //activityView.add(obfuscatedImg);
         
     },
     tryIt: function(){

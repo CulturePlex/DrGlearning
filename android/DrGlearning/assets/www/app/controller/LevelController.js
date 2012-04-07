@@ -56,12 +56,24 @@ Ext.define('DrGlearning.controller.LevelController', {
         this.getApplication().getController('CareerController').tocareer();
     },
     updateLevel: function(newCareer, newLevel){
+		Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: 'Loading level...',
+            indicator: true,
+            //html: "<img src='resources/images/activity_icons/visual.png'>",
+        });
         Ext.create('DrGlearning.view.LevelFrame');
         levelController = this.getApplication().getController('LevelController');
         this.selectedlevel = newLevel;
         console.log(newLevel);
         
         var view = this.getLevelframe();
+		view.setListeners( {
+                painted: function(){
+                    console.log('show');
+                    Ext.Viewport.setMasked(false);
+                }
+            });
         var detail = view.down('leveldetail');
 		var activitieslist=detail.down('list[customId=activitiesList]');
 		var filesImgs=["iletratumB.png","primaryB.png","secondaryB.png","highschoolB.png","collegeB.png","masterB.png","PhDB.png","post-docB.png","professorB.png","emeritusB.png"];
@@ -72,6 +84,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 						backgroundFilter: 'alpha(opacity=60)'
 			});
 		activitieslist.refresh();
+		
        // var description = detail.down('leveldescription');
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
        // description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
@@ -143,6 +156,8 @@ Ext.define('DrGlearning.controller.LevelController', {
          activitiescarousel.setActiveItem(startingIndex);
          detail.add(activitiescarousel);*/
         view.down('title[id=title]').setTitle(newCareer.data.name);
+		
+		
         view.show();
     },
     
@@ -275,6 +290,12 @@ Ext.define('DrGlearning.controller.LevelController', {
     
     },
     tolevel: function(){
+		Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: 'Loading level...',
+            indicator: true,
+            //html: "<img src='resources/images/activity_icons/visual.png'>",
+        }); 
         if (this.getActivityframe()) {
             this.getActivityframe().hide();
         }
@@ -282,6 +303,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         this.getApplication().getController('activities.QuizController').stop();
         var view1 = this.getLevelframe();
         this.updateLevel(this.getApplication().getController('CareersListController').selectedcareer, this.getApplication().getController('LevelController').selectedlevel);
+		
         view1.show();
     },
     help: function(){
