@@ -14,7 +14,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
-from base.utils import image_resize
+from base.utils import image_resize, jsonify_fields
 from knowledges.models import Career
 from south.modelsinspector import add_introspection_rules
 
@@ -137,12 +137,12 @@ class Activity(models.Model):
             if hasattr(self, sub):
                 sub_obj = getattr(self, sub)
                 exportable_fields = [\
-                        f for f in sub_obj._meta.get_all_field_names() \
-                        if f not in self.field_blacklist and \
-                        f not in self.activity_subtypes]
+                        f for f in sub_obj._meta.fields \
+                        if f.name not in self.field_blacklist and \
+                        f.name not in self.activity_subtypes]
 
-                for field in exportable_fields:
-                    activity[field] = getattr(sub_obj, field)
+                activity = jsonify_fields(sub_obj, exportable_fields)
+
                 # Extra type meta field
                 activity["_type"] = sub
                 return activity
