@@ -7,6 +7,12 @@ Ext.define('DrGlearning.view.activities.Visual', {
 		id:'activity',
 		customId:'activity',
         fullscreen: true,
+		/*listeners: {
+            show: function(){
+                    console.log('show');
+					DrGlearning.app.getApplication().getController('activities.VisualController').startGame(); 
+                }
+            },*/
         items: [{
             xtype: 'container',
             id: 'image',
@@ -47,7 +53,6 @@ Ext.define('DrGlearning.view.activities.Visual', {
 			,
 			{
                 xtype: 'container',
-				customId: 'time',
                 docked: 'bottom',
 				ui:'neutral',
 				padding: 10,

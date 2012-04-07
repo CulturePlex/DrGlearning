@@ -22,7 +22,7 @@ Ext.define('DrGlearning.view.ActivityFrame', {
                 ]
             },
 			{
-				xtype:'component',
+				xtype:'panel',
 				id:'activity',
 				customId:'activity'
 			}

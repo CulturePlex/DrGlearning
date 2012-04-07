@@ -53,8 +53,6 @@ Ext.define('DrGlearning.controller.CareerController', {
      */
     getLevelHtml: function(levelData){
         var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
-        console.log(levelData);
-        console.log(filesImgs[levelData.customId - 1]);
         return "<div id='centro' align='middle'><p>" + levelData.name + "</p><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div>"
     },
     /*
@@ -65,27 +63,14 @@ Ext.define('DrGlearning.controller.CareerController', {
         var view = this.getCareerframe();
         var detail = view.down('careerdetail');
         var description = detail.down('careerdescription');
+		var levelscarousel = detail.down('carousel');
         description.setData(newCareer.data);
-        var levelscarousel = Ext.create('Ext.Carousel', {
-            listeners: {
-                element: 'element',
-                delegate: 'a.navigation',
-                tap: function(e,img,asd,thisObj){
-					if(e.target.nodeName == "IMG")
-					{
-						careerController.startLevel();
-					}
-                }
-            }
-        });
-        
-        console.log(levelscarousel);
         var levelstemp = new Array();
         levelstemp = this.getApplication().getController('DaoController').getLevels('' + newCareer.data.id);
-        console.log(levelstemp);
         var items = [];
         var levelButtonHtml;
         this.carousel = levelscarousel;
+		levelscarousel.removeAll();
         for (var i = 0; i < levelstemp.length; i++) {
             var level = Ext.getStore('Levels').getAt(levelstemp[i] - 1);
             console.log(level);
@@ -94,7 +79,6 @@ Ext.define('DrGlearning.controller.CareerController', {
                 html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>',
             
             });
-            
             /**
              I used it to paint the correct arows
              
@@ -134,11 +118,8 @@ Ext.define('DrGlearning.controller.CareerController', {
              });
              }*/
         }
-        console.log('me han dado:' + this.daoController.getCurrenLevel(newCareer.data.id));
-        console.log(levelstemp);
         var activeItem = levelstemp.indexOf('' + this.daoController.getCurrenLevel(newCareer.data.id));
         levelscarousel.setActiveItem(activeItem);
-        detail.add(levelscarousel);
         view.down('title[id=title]').setTitle(newCareer.data.name);
         view.show();
     },

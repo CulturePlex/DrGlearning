@@ -6,13 +6,7 @@ Ext.define('DrGlearning.view.CareerDetail', {
 		'DrGlearning.model.Level',
 		'DrGlearning.store.Levels'
     ],
-	listeners : {
-	    render : function(c) {
-	        c.getEl().on('click', function(){ console.log('asd'); }, c);
-	    }
-	},
     config: {
-    	career:null,
         layout: 'vbox',
         defaults: {
             flex: 1
@@ -20,6 +14,20 @@ Ext.define('DrGlearning.view.CareerDetail', {
         items: [
 		{
 	        xtype: 'careerdescription',
+        },
+		{
+	        xtype: 'carousel',
+			customId: 'levelscarousel',
+			listeners: {
+                element: 'element',
+                delegate: 'a.navigation',
+                tap: function(e,img,asd,thisObj){
+					if(e.target.nodeName == "IMG")
+					{
+						careerController.startLevel();
+					}
+                }
+            }
         }
         ],
 	},
