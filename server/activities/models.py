@@ -3,10 +3,16 @@ import datetime
 import jsonfield
 import os.path
 from PIL import Image
+import simplejson
 from StringIO import StringIO
+import tempfile
 
 from django.contrib.gis.db import models
+from django.contrib.gis.db.models import GeometryField
+from django.contrib.gis.geos.geometry import Point, Polygon, MultiPoint
+from django.core.files import File
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models.fields.files import ImageField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -91,7 +97,40 @@ class Activity(models.Model):
         # Populate fields from import
         data_dict.pop('_type')
         for field, value in data_dict.iteritems():
-            setattr(new_activity, field, value)
+            field_type = new_activity._meta.get_field_by_name(field)[0]
+            if isinstance(field_type, ImageField):
+                # Convert the base64 string to a file
+                file_type, file_data = value.split('base64,')
+                filename = tempfile.mktemp()
+                tmpfile = open(filename, 'wb')
+                tmpfile.write(file_data.decode('base64'))
+                tmpfile.close()
+                extension = 'jpg' in file_type and 'jpg' or 'png'
+                f = open(filename)
+                image_field = getattr(new_activity, field)
+                file_name = os.path.splitext(filename.rpartition('/')[-1])[0]
+                suf = SimpleUploadedFile(file_name + extension, f.read(), content_type='image/' + extension)
+
+                image_field.save(file_name + extension, suf, save=False)
+                
+            elif isinstance(field_type, GeometryField):
+                value = simplejson.loads(value)
+                if value['type'] == 'Polygon':
+                    points = []
+                    for point in value['coordinates'][0]:
+                        new_point = Point(point[0], point[1])
+                        points.append(new_point)
+                    polygon = Polygon(points)
+                    setattr(new_activity, field, polygon)
+                elif value['type'] == 'MultiPoint':
+                    points = []
+                    for point in value['coordinates']:
+                        new_point = Point(point[0], point[1])
+                        points.append(new_point)
+                    multipoint = MultiPoint(points)
+                    setattr(new_activity, field, multipoint)
+            else:
+                setattr(new_activity, field, value)
 
         # Asign career fields
         new_activity.career = career
