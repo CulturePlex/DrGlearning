@@ -79,8 +79,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 			activityView.down('container[customId=time]').add({
 				xtype: 'button',
 				text: this.respuestas[i],
-				ui: 'round',
-				padding: 5,
+				ui: 'small',
+				margin: 3,
 				customId: 'respuestaQuiz'
 			});
 		}
@@ -96,16 +96,20 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		activityView.down('label[customId=time]').setHtml(this.currentTime+"s");
 		this.currentTime--;	
 	},
-	tryIt: function() { 
-	this.puntos=100;
+	tryIt: function() {
+		activityView.down('container[customId=time]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small'); 
+		
+		this.puntos=100;
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
+			
 			Ext.Msg.alert('Right!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
 					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					console.log('aski');
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
 		}else{
+			activityView.down('container[customId=time]').down('button[text='+event.target.textContent+']').setUi('decline-small');
 			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
 				this.getApplication().getController('LevelController').tolevel();
 			}, this);

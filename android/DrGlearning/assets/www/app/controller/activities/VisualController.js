@@ -105,8 +105,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
            activityView.down('container[customId=options]').add({
                 xtype: 'button',
                 text: this.respuestas[i],
-                ui: 'round',
-                padding: 5,
+                ui: 'small',
+				margin: 3,
                 customId: 'respuesta',
             });
         }
@@ -117,6 +117,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         
     },
     tryIt: function(){
+		activityView.down('container[customId=options]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');
         this.puntos = 100;
         if (event.target.textContent == this.activity.data.correct_answer) {
             Ext.Msg.alert('Right!', this.activity.data.reward + ", obtained score:" + this.puntos, function(){
@@ -126,6 +127,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             }, this);
         }
         else {
+			activityView.down('container[customId=options]').down('button[text='+event.target.textContent+']').setUi('decline-small');
             Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
                 this.getApplication().getController('LevelController').tolevel();
             }, this);
@@ -136,8 +138,9 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     showSeconds: function(){
     
         if (this.parado == false) {
+			this.currentTime--;
             activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
-            this.currentTime--;
+        
             console.log('holas');
             if (this.currentTime < 0) {
                 clearInterval(this.secondtemp);
