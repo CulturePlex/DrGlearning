@@ -137,7 +137,7 @@ class Activity(models.Model):
             if hasattr(self, sub):
                 sub_obj = getattr(self, sub)
                 exportable_fields = [\
-                        f for f in self._meta.get_all_field_names() \
+                        f for f in sub_obj._meta.get_all_field_names() \
                         if f not in self.field_blacklist and \
                         f not in self.activity_subtypes]
 
