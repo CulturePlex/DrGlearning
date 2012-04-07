@@ -33,7 +33,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             xtype: 'loadmask',
             message: 'Loading activity...',
             indicator: true,
-            html: "<img src='resources/images/activity_icons/visual.png'>",
+            //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
 		this.view=view;
         this.activity = newActivity;
@@ -66,6 +66,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         var time = this.activity.data.time;
         this.currentTime = time;
         //this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
+		this.activityView.down('container[customId=options]').removeAll();
 		this.activityView.down('container[customId=options]').removeAll();
         this.activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
         this.currentTime;
@@ -106,7 +107,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                 customId: 'respuesta',
             });
         }
-        //activityView.down('container[id=image]').hide();
+        activityView.down('container[id=image]').hide();
         //activityView.down('container[id=image]').destroy();
         activityView.add(obfuscatedImg);
         

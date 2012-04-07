@@ -28,7 +28,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
     	    xtype: 'loadmask',
     	    message: 'Loading activity...',
  	       	indicator: true,
-			html: "<img src='resources/images/activity_icons/temporal.png'>",
+			//html: "<img src='resources/images/activity_icons/temporal.png'>",
     	});
 		this.activity=newActivity;
 		if(view.down('component[customId=activity]'))
@@ -39,9 +39,10 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
 		console.log(newActivity.data);
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
-		//activityView.down('panel').setHtml('<img id="image" alt="imagen" src="'+newActivity.getImage('image','image',this)+'" />');
-		newActivity.getImage('image','image',activityView.down('panel'),this,view,activityView,false);
-	},loadingImages:function(view,activityView){
+		newActivity.getImage('image','image',activityView.down('[id=image]'),this,view,activityView,false);
+		console.log(activityView.down('[id=image]'));
+	},
+	loadingImages:function(view,activityView){
 		activityView.show();
 		view.add(activityView);
 		Ext.Viewport.setMasked(false);

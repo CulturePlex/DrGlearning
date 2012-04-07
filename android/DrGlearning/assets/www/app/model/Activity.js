@@ -190,7 +190,7 @@ Ext.define('DrGlearning.model.Activity', {
     		if(isTable){
     			controller.loadingImages(view,activityView,controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url);
     		}else{
-    			component.setHtml('<img id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" />');
+    			component.setHtml('<img class="activityImage" id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" />');
         		controller.loadingImages(view,activityView);	
     		}
     	}

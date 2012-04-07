@@ -33,7 +33,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
     	    xtype: 'loadmask',
     	    message: 'Loading activity...',
  	       	indicator: true,
-			html: "<img src='resources/images/activity_icons/linguistic.png'>",
+			//html: "<img src='resources/images/activity_icons/linguistic.png'>",
     	});
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();

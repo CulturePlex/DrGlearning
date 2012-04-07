@@ -1,15 +1,23 @@
+try {
+	
+} catch (e) {
+	
+}
+
 Ext.define('DrGlearning.view.activities.Temporal', {
     
     extend: 'Ext.Panel',
     xtype : 'temporal',
 	config: {
-        layout: 'fit',
-		id:'activity',
-		customId:'activity',
+        id: 'activity',
+        customId: 'activity',
         fullscreen: true,
+		scrollable:true,
+        layout: 'vbox',
         items: [{
-            xtype: 'panel',
+            xtype: 'container',
             id: 'image',
+			margin: 10,
         	},
 			{
                 xtype: 'toolbar',

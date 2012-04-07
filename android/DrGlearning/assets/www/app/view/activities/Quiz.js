@@ -3,13 +3,15 @@ Ext.define('DrGlearning.view.activities.Quiz', {
     extend: 'Ext.Panel',
     xtype : 'visual',
     config: {
-        layout: 'fit',
-		id:'activity',
-		customId:'activity',
+        id: 'activity',
+        customId: 'activity',
         fullscreen: true,
+		scrollable:true,
+        layout: 'vbox',
         items: [{
-            xtype: 'panel',
+            xtype: 'container',
             id: 'image',
+			margin: 10,
         	},
 			{
                 xtype: 'toolbar',

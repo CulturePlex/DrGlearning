@@ -3,20 +3,15 @@ Ext.define('DrGlearning.view.activities.Visual', {
     extend: 'Ext.Panel',
     xtype : 'visual',
     config: {
-        layout: 'fit',
-		id:'activity',
-		customId:'activity',
+        id: 'activity',
+        customId: 'activity',
         fullscreen: true,
-		/*listeners: {
-            show: function(){
-                    console.log('show');
-					DrGlearning.app.getApplication().getController('activities.VisualController').startGame(); 
-                }
-            },*/
+		scrollable:true,
+        layout: 'vbox',
         items: [{
             xtype: 'container',
             id: 'image',
-			padding: 10,
+			margin: 10,
         	},
 			{
                xtype: 'toolbar',

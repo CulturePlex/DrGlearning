@@ -4,6 +4,10 @@
     background-size: contain;
 }
 
+.activityImage{
+        max-width: 100%;
+}
+
 .helpicon{
 	float:right;
 	height: 80%;
@@ -12,7 +16,7 @@
 }
 
 .query{
-font-size:12;
+	font-size:12;
 }
 
 .querymia{

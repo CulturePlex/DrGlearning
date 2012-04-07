@@ -28,7 +28,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     	    xtype: 'loadmask',
     	    message: 'Loading activity...',
  	       	indicator: true,
-			html: "<img src='resources/images/activity_icons/quiz.png'>",
+			//html: "<img src='resources/images/activity_icons/quiz.png'>",
     	});
 		this.activity= newActivity;
 		console.log(view.down('component[customId=activity]'));
@@ -51,7 +51,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
 		if (newActivity.data.image_url) {
 			//activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
-			newActivity.getImage('image','image',activityView.down('panel[id=image]'),this,view,activityView,false);
+			newActivity.getImage('image','image',activityView.down('[id=image]'),this,view,activityView,false);
 		}else{
 			this.loadingImages(view,activityView);
 		}
