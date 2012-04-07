@@ -111,7 +111,7 @@ class Activity(models.Model):
                 file_name = os.path.splitext(filename.rpartition('/')[-1])[0]
                 suf = SimpleUploadedFile(file_name + extension, f.read(), content_type='image/' + extension)
 
-                image_field.save(file_name + extension, suf, save=False)
+                image_field.save("%s.%s" % (file_name, extension), suf, save=False)
                 
             elif isinstance(field_type, GeometryField):
                 value = simplejson.loads(value)
