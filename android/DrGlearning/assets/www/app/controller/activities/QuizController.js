@@ -47,14 +47,15 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		var opciones=6;
 		var time=newActivity.data.time;
 		this.currentTime=time;
-		this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
-		this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
+		//this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
+		//this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
 		if (newActivity.data.image_url) {
 			//activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
 			newActivity.getImage('image','image',activityView.down('[id=image]'),this,view,activityView,false);
 		}else{
 			this.loadingImages(view,activityView);
 		}
+		this.showAnswers();
 	
 	},loadingImages:function(view,activityView){
 		activityView.show();
@@ -87,8 +88,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		//activityView.down('label[customId=time]').hide();
 		//activityView.down('label[customId=time]').destroy();
 		activityView.down('label[customId=time]').setHtml("");
-		activityView.down('panel[id=image]').hide();
-		activityView.down('panel[id=image]').destroy();
+		//activityView.down('panel[id=image]').hide();
+		//activityView.down('panel[id=image]').destroy();
 		activityView.add(opciones);
 			
 	},
@@ -97,12 +98,12 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		this.currentTime--;	
 	},
 	tryIt: function() {
-		activityView.down('container[customId=time]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small'); 
+		 
 		
 		this.puntos=100;
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
-			
+			activityView.down('container[customId=time]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');		
 			Ext.Msg.alert('Right!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
 					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					console.log('aski');

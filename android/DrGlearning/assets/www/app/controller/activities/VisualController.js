@@ -19,6 +19,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     currentTime: 0,
     puntos: null,
     parado: false,
+	loading: null,
     init: function(){
         this.parado = false;
         this.levelController = this.getApplication().getController('LevelController');
@@ -29,12 +30,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         });
     },
     updateActivity: function(view, newActivity){
+		
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Loading activity...',
             indicator: true,
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
+		this.loading=true;
 		this.view=view;
         this.activity = newActivity;
         console.log(view.down('[customId=activity]'));
@@ -70,10 +73,10 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.activityView.down('container[customId=options]').removeAll();
 		
         this.activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
-        this.currentTime;
-        this.secondtemp = setInterval(function(thisObj){
-            thisObj.showSeconds();
-        }, 1000, this);
+		var that= this;		
+        this.secondtemp = setInterval(function(){
+            that.showSeconds();
+        }, 1000);
 		this.activityView.down('container[id=image]').show();
 		this.activityView.down('container[id=obImage]').hide();
     },
@@ -86,7 +89,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             this.getApplication().getController('LevelController').help();
             this.helpFlag = true;
         }
-        this.showSeconds();
+        this.loading=false;
     },
     showAnswers: function(){
         activityView.down('label[customId=time]').setHtml('');
@@ -138,7 +141,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     },
     showSeconds: function(){
     
-        if (this.parado == false) {
+        if (this.parado == false && this.loading == false) {
 			this.currentTime--;
             activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
         
