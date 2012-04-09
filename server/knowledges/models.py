@@ -17,6 +17,10 @@ class Knowledge(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.name
+    
+    @staticmethod
+    def autocomplete_search_fields():
+        return ("id__iexact", "name__icontains",)
 
 
 class Career(models.Model):
