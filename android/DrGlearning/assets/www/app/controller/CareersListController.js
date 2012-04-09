@@ -237,7 +237,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
      */
     search: function(values, form){
         form = form.toLowerCase();
-        var store = Ext.getStore('Carrers');
+        var store = Ext.getStore('Careers');
         var filters = [];
         filters.push(new Ext.util.Filter({
             filterFn: function(item){
