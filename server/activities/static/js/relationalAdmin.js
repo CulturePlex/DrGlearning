@@ -547,6 +547,7 @@ var GraphEditor = {
     }
     form.append($('<br/>'))
       .append($('<button type="button" onClick="GraphEditor.addNode();GraphEditor.hideAddForm();">').text("Add node"));
+    form.append($('<button type="button" onClick="GraphEditor.hideAddForm();">').text("Cancel"));
    
     $('#adding-form').empty();
     $('#adding-form').append(form);
@@ -576,6 +577,7 @@ var GraphEditor = {
       .append(nodeSelect.clone().attr('id', 'target-node'));
     form.append($('<br/>'))
       .append($('<button type="button" onClick="GraphEditor.addEdge();GraphEditor.hideAddForm();">').text("Add edge"));
+    form.append($('<button type="button" onClick="GraphEditor.hideAddForm();">').text("Cancel"));
     
     // Update chosen selects with new content
     $('.chzn-select').trigger("liszt:updated");
