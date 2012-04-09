@@ -269,7 +269,8 @@ var GraphEditor = {
       alert("ERROR: Unknown node: " + nodeName);
       return;
     }
-    var score = prompt("Enter new score")
+    var score = prompt("Enter new score");
+    if (parseFloat(score).toString() == "NaN") { return; }
     json = this.getGraphNodesJSON();
     json[nodeName]["score"] = score;
     this.setGraphNodesJSON(json);
