@@ -48,7 +48,6 @@ Ext.define('DrGlearning.view.CareersList', {
     },
 	ponmascara: function(){
 		
-			console.log('asd');
 			if (this.getStore().getCount() == 0) {
 				this.setMask('No installed careers, please click on Add Career button to start!');
 			}

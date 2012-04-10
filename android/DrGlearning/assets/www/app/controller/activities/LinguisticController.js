@@ -41,13 +41,27 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		//Initializate values
 		this.squaresBlack=[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
 		this.loquedText=this.activity.data.locked_text.split("");
+		console.log("DEBUG");
+		console.log('*'+this.activity.data.locked_text+'*');
+		console.log(this.loquedText);
 		this.loquedTextFinded=new Array();
 		var cont;
 		for(cont in this.loquedText){
-			this.loquedTextFinded[cont]=false;
+			if(this.loquedText[cont]==" "){
+				this.loquedTextFinded[cont]=true;
+			}else{
+				this.loquedTextFinded[cont]=false;	
+			}
+			
 		}
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
+		activityView.down('label[customId=responses]').setHtml('');
+		console.log(this.activity.data.locked_text.toLowerCase());
+		console.log(this.activity.data.answer.toLowerCase());
+		if(this.activity.data.locked_text.toLowerCase() == this.activity.data.answer.toLowerCase()){
+			activityView.down('label[customId=tip]').setHtml('Answer: ');
+		}
 		activityView.down('label[customId=responses]').setHtml('');
 		this.respuestas=this.activity.data.answers;
 		newActivity.getImage('image','image',null,this,view,activityView,true);

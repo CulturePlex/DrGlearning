@@ -33,6 +33,7 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 								        {
 								        	xtype: 'label',
 								        	html: 'TIP: ',
+								        	customId: 'tip',
 								        	margin: 10,
 								        	
 								        },{

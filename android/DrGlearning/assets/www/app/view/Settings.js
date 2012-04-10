@@ -25,22 +25,28 @@ Ext.define('DrGlearning.view.Settings', {
 
 			xtype : 'title',
 			title : 'Settings'
-		}, {
+		},{
+            xtype: 'selectfield',
+            label: 'Language',
+            labelAlign: 'top',
+            margin: 5,
+            options: [
+                {text: 'English',  value: 'en'},
+            ]
+        }, {
 			xtype : 'textfield',
 			label : 'Username',
 			name : 'username',
 			id : 'username',
-			labelAlign : 'top'
+			labelAlign : 'top',
+			margin: 5,
 		}, {
 			xtype : 'textfield',
 			label : 'Email',
 			name : 'email',
 			id : 'email',
-			labelAlign : 'top'
-		}, {
-			xtype : 'spacer',
-		}, {
-			xtype : 'spacer',
+			labelAlign : 'top',
+			margin: 5,
 		}, {
 			xtype : 'button',
 			text : 'Import user',
@@ -53,7 +59,9 @@ Ext.define('DrGlearning.view.Settings', {
 			xtype : 'button',
 			text : 'Save',
 			id : 'save'
-		} ]
+		}
+		
+		]
 	},
 
 	animationDuration : 300,

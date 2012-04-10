@@ -127,9 +127,11 @@ Ext.define('DrGlearning.view.CareersFrame', {
             items: [{
                 //id: 'settings',
                	//text: 'Settings',
-				xtype:'panel',
+            	//xtype:'button',
+				
+            	xtype:'panel',
 				html:'<font color="white">CulturePlex Lab.</font>',
-
+            	
             }]
         
         }
