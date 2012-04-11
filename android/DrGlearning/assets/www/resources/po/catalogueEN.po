@@ -1,9 +1,13 @@
-# English Oficial texts for DrGlearning
+# English texts for DrGlearning
 # CulturePlex Lab 2012.
 # Lista de Carreras , CareersListView.js
+
 msgid ""
 msgstr ""
+
 "lang: en"
+
+# Menus
 
 msgid "No careers installed, click on Add Career Button to start"
 msgstr "No careers installed, click on Add Career Button to start"
@@ -11,42 +15,116 @@ msgstr "No careers installed, click on Add Career Button to start"
 msgid "Dr. Glearning"
 msgstr "Dr. Glearning"
 
-Confirm
+msgid "Start"
+msgstr "Start"
 
-'Try'
+msgid "All"
+msgstr "All"
 
-'Solve'
+msgid "In progress"
+msgstr "In progress"
 
-'Back'
+msgid "Not Yet"
+msgstr "Not Yet"
 
-'Before'
+msgid "Add Career"
+msgstr "Add Career"
 
-'After'
+msgid "back"
+msgstr "back"
 
-'Start'
+msgid "CulturePlex Lab."
+msgstr "CulturePlex Lab."
 
-'All'
+# Settings
 
-'In progress'
+msgid "Language"
+msgstr "Language"
 
-'Not Yet'
+msgid "English"
+msgstr "English"
 
-'Add Career'
+msgid "Username"
+msgstr "Username"
 
-'back'
+msgid "Email"
+msgstr "Email"
 
-'CulturePlex Lab.'
+msgid "Import user"
+msgstr "Import user"
 
-'Language'
+msgid "Export user"
+msgstr "Export user"
 
-'English'
+msgid "Save"
+msgstr "Save"
 
-'Username'
+# Activities
 
-'Email'
+msgid "Loading activity..."
+msgstr "Loading activity..."
 
-'Import user'
+msgid "Right!"
+msgstr "Right!"
 
-'Export user'
+msgid "obtained score:"
+msgstr "obtained score:"
 
-'Save'
+msgid "Wrong!"
+msgstr "Wrong!"
+
+msgid "Oooh, it isnt the correct place"
+msgstr "Oooh, it isnt the correct place"
+
+
+msgid "Answer: "
+msgstr "Answer: "
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Answer the question:"
+msgstr "Answer the question:"
+
+msgid "Congratulations!"
+msgstr "Congratulations!"
+
+# Geospatial Activity
+
+msgid "Confirm"
+msgstr "Confirm"
+
+# Linguistic Activity
+
+msgid "Try"
+msgstr "Try"
+
+msgid "Solve"
+msgstr "Solve"
+
+# Temporal Activity
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Before"
+msgstr "Before"
+
+msgid "After"
+msgstr "After"
+
+# Relational Activity
+
+msgid "Constraint Passed"
+msgstr "Constraint Passed"
+
+msgid "Constraint Not Passed Yet"
+msgstr "Constraint Not Passed Yet"
+
+msgid "Undo"
+msgstr "Undo"
+
+# Quiz and Visual Activities
+
+msgid "Oooh, it wasnt the correct answer"
+msgstr "Oooh, it wasnt the correct answer"

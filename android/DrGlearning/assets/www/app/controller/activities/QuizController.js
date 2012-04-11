@@ -26,31 +26,24 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 	updateActivity: function(view,newActivity) {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
-    	    message: 'Loading activity...',
+    	    message: i18n.gettext('Loading activity...'),
  	       	indicator: true,
 			//html: "<img src='resources/images/activity_icons/quiz.png'>",
     	});
 		this.activity= newActivity;
-		console.log(view.down('component[customId=activity]'));
 		if(view.down('component[customId=activity]'))
 		{
 			view.down('component[customId=activity]').hide();
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Quiz');
-		console.log(newActivity.data.answers);
-		console.log(newActivity.data.image);
-		console.log("Tiene imagen?");
 
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		this.respuestas=this.activity.data.answers;
 		var opciones=6;
 		var time=newActivity.data.time;
 		this.currentTime=time;
-		//this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
-		//this.secondtemp=setInterval(function(thisObj) { thisObj.showSeconds(); },1000,this);
 		if (newActivity.data.image_url) {
-			//activityView.down('panel[id=image]').setHtml('<img alt="imagen" width="100%" src="' + newActivity.getImage('image','image', this) + '" />');
 			newActivity.getImage('image','image',activityView.down('[id=image]'),this,view,activityView,false);
 		}else{
 			this.loadingImages(view,activityView);
@@ -74,7 +67,6 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		
 		var opciones = Ext.create('Ext.Container');
 		opciones.config={layout:{type:'vbox',pack:'center',align:'middle'}};
-		console.log(this.respuestas.length);
 		for(var i=0;i<this.respuestas.length;i++)
 		{
 			activityView.down('container[customId=time]').add({
@@ -85,11 +77,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 				customId: 'respuestaQuiz'
 			});
 		}
-		//activityView.down('label[customId=time]').hide();
-		//activityView.down('label[customId=time]').destroy();
 		activityView.down('label[customId=time]').setHtml("");
-		//activityView.down('panel[id=image]').hide();
-		//activityView.down('panel[id=image]').destroy();
 		activityView.add(opciones);
 			
 	},
@@ -104,14 +92,13 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
 			activityView.down('container[customId=time]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');		
-			Ext.Msg.alert('Right!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext(" obtained score: ")+this.puntos, function(){
 					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
-					console.log('aski');
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
 		}else{
 			activityView.down('container[customId=time]').down('button[text='+event.target.textContent+']').setUi('decline-small');
-			Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
+			Ext.Msg.alert(i18n.gettext('Wrong!'), ('Oooh, it isnt the correct answer'), function(){
 				this.getApplication().getController('LevelController').tolevel();
 			}, this);
 		}

@@ -40,7 +40,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.loading=true;
 		this.view=view;
         this.activity = newActivity;
-        console.log(view.down('[customId=activity]'));
         view.down('[customId=activity]').hide();
         view.down('[customId=activity]').destroy();
         
@@ -62,13 +61,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
      */
     startGame: function(){
 		this.activityView.down('container[id=image]').setHtml('');
-		//activityView.down('container[id=image]').setHtml('<img alt="imagen" width="100%" src="'+newActivity.getImage('image','image',this)+'" />');
         this.activity.getImage('image', 'image', this.activityView.down('container[id=image]'), this, this.view, this.activityView, false);
         this.getApplication().getController('ActivityController').addQueryAndButtons(this.activityView, this.activity);
         this.respuestas = this.activity.data.answers;
         var time = this.activity.data.time;
         this.currentTime = time;
-        //this.finishtemp=setTimeout(function(thisObj) { thisObj.showAnswers(); }, time*1000, this);
 		this.activityView.down('container[customId=options]').removeAll();
 		this.activityView.down('container[customId=options]').removeAll();
 		
@@ -93,17 +90,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     },
     showAnswers: function(){
         activityView.down('label[customId=time]').setHtml('');
-		
-        //clearInterval(this.finishtemp);
 		this.activityView.down('container[id=obImage]').setHtml('<img class="activityImage" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
-		console.log('si?');
-        /*var obfuscatedImg = Ext.create('Ext.Container', {
-			id:'obImage',
-			margin: 10,
-            html: '<img class="activityImage" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />'
-        
-        });*/
-        
         for (var i = 0; i < this.respuestas.length; i++) {
            activityView.down('container[customId=options]').add({
                 xtype: 'button',
@@ -115,37 +102,29 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         }
         activityView.down('container[id=image]').hide();
 		activityView.down('container[id=obImage]').show();
-        //activityView.down('container[id=image]').destroy();
-        //activityView.add(obfuscatedImg);
-        
     },
     tryIt: function(){
 		
         this.puntos = 100;
         if (event.target.textContent == this.activity.data.correct_answer) {
-            Ext.Msg.alert('Right!', this.activity.data.reward + ", obtained score:" + this.puntos, function(){
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + i18n.gettext(" obtained score:") + this.puntos, function(){
 				activityView.down('container[customId=options]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
-                console.log('aski');
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
             }, this);
         }
         else {
 			activityView.down('container[customId=options]').down('button[text='+event.target.textContent+']').setUi('decline-small');
-            Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function(){
+            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it isnt the correct answer'), function(){
                 this.getApplication().getController('LevelController').tolevel();
             }, this);
         }
-        
-        
     },
     showSeconds: function(){
     
         if (this.parado == false && this.loading == false) {
 			this.currentTime--;
             activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
-        
-            console.log('holas');
             if (this.currentTime < 0) {
                 clearInterval(this.secondtemp);
                 this.showAnswers();
@@ -153,10 +132,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         }
     },
     stop: function(){
-        //clearInterval(this.finishtemp);
-        console.log('hola');
         clearInterval(this.secondtemp);
-        
     },
     stopNotClear: function(){
         this.parado = true;
@@ -164,6 +140,4 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     restart: function(){
         this.parado = false;
     }
-    
-    
 });

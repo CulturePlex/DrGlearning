@@ -10,24 +10,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     activityView: null,
     updateActivity: function(view, newActivity){
     
-        /*if(view.down('component[customId=activity]'))
-         {
-         view.down('component[customId=activity]').hide();
-         view.down('component[customId=activity]').destroy();
-         }*/
-        console.log(view);
         this.activity = newActivity;
         view.down('component[customId=activity]').destroy();
-        /*activityView = Ext.create('DrGlearning.view.activities.Relational');
-         
-         
-         activityView.show();
-         view.add(activityView);*/
         activityView = Ext.create('DrGlearning.view.activities.Relational');
         this.activityView = activityView;
         this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
         
-        console.log(this);
         var daocontroller = this.getApplication().getController('DaoController');
         var careerscontroller = this.getApplication().getController('CareersListController');
         var activitiescontroller = this.getApplication().getController('LevelController');
@@ -89,7 +77,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                         if (newValue.data.text != blankOption) {
                             console.log(newValue);
                             option.hide();
-                            //scorePanel.hide();
                             playerEdgePath.push(newValue.raw.edgeType);
                             option = takeStep(newValue.data.value);
                             refresh(option);
@@ -116,7 +103,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 playerPath.push(step);
                 if (graphNodes[pathPosition] != undefined) {
                     if (graphNodes[pathPosition]["score"] != undefined && graphNodes[pathPosition]["score"] > 0) {
-                        Ext.Msg.alert('Congratulations!', 'You get ' + graphNodes[pathPosition].score + ' points!', function(){
+                        Ext.Msg.alert(i18n.gettext('Congratulations!'), 'You get ' + graphNodes[pathPosition].score + ' points!', function(){
                         }, this);
                     }
                 }
@@ -159,7 +146,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var constraintClass;
             var icontype;
             allConstraintsPassed = true;
-            constraintsText = '<p class="relational">Solve the riddle with the following constraints:<br/><ul>';
             activityView.down('toolbar[customId=constraintsbar]').removeAll();
             activityView.down('toolbar[customId=constraintsbar]').add({
                 xtype: 'spacer'
@@ -170,25 +156,19 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 if (constraintPassed(constraints[i])) {
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
-                    constraintState[i] = 'Constraint Passed';
+                    constraintState[i] = i18n.gettext('Constraint Passed');
                     
                 }
                 else {
                     constraintClass = "relational-constraints";
                     allConstraintsPassed = false;
                     icontype = 'delete';
-                    constraintState[i] = 'Constraint Not Passed Yet';
+                    constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
                 }
-                constraintsText += '<li class="relational ' + constraintClass + '">- Nodes of type ';
                 constraintsTextNew[i] += 'Nodes of type ';
-                constraintsText += constraints[i]["type"] + ' ';
                 constraintsTextNew[i] += constraints[i]["type"] + ' should be ';
-                constraintsText += verboseOperator[constraints[i]["operator"]] + ' ';
                 constraintsTextNew[i] += verboseOperator[constraints[i]["operator"]] + ' ';
-                constraintsText += constraints[i]["value"] + '<br/>';
                 constraintsTextNew[i] += constraints[i]["value"];
-                constraintsText += '</li>';
-                console.log(constraints[i]["operator"]);
                 activityView.down('toolbar[customId=constraintsbar]').add({
                     xtype: 'button',
                     iconCls: icontype,
@@ -205,7 +185,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             activityView.down('toolbar[customId=constraintsbar]').add({
                 xtype: 'spacer'
             });
-            constraintsText += '</ul></p>';
+            var constraintsText = '</ul></p>';
             return constraintsText;
         }
         
@@ -238,8 +218,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
          * actual walked path and next options available */
         function refresh(option){
             activityView.removeAll();
-            //console.log(activityView.down('panel'));
-            //activityView.down('panel')[0].hide();
             var scorePanel = Ext.create('Ext.Panel', {
                 html: '<p>Score: ' + getPathScore() + '</p>'
             });
@@ -247,12 +225,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 				padding:10
             });
 			activityView.down('container[customId=scorebar]').removeAll();
-            //activityView.down('container[customId=scorebar]').add(scorePanel);
             getContraintsHTML();
-            /*var constraintsPanel = Ext.create('Ext.Panel', {
-             html: getContraintsHTML()
-             });
-             activityView.add(constraintsPanel);*/
             for (var i = 0; i < playerPath.length; i++) {
                 console.log(playerEdgePath);
                 if (i != 0) {
@@ -272,8 +245,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     
                     gamePanel.add(edge);
                 }
-                console.log(playerPath);
-                console.log(i);
                 var node = Ext.create('Ext.Container', {
                     layout: 'hbox',
                     items: [{
@@ -287,7 +258,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 
                 gamePanel.add(node);
             }
-            console.log(pathGoal);
             var endNode = Ext.create('Ext.Container', {
                 layout: 'hbox',
                 items: [{
@@ -299,7 +269,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 }],
             });
             var button = Ext.create('Ext.Button', {
-                text: 'Undo',
+                text: i18n.gettext('Undo'),
                 handler: function(){
                     stepBack();
                 }
@@ -310,17 +280,14 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 			activityView.add(gamePanel);
             activityView.show();
             view.add(activityView);
-            console.log(activityView);
             var scroller = activityView.getScrollable().getScroller();
-            console.log(scroller);
-            console.log('scroller');
             scroller.scrollBy(0, 58);
         }
         
         function successfulGame(context){
             this.puntos = 500;
             if (allConstraintsPassed) {
-                Ext.Msg.alert('Right!', newActivity.data.reward + " obtained score: " + this.puntos, function(){
+                Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + i18n.gettext(" obtained score: ") + this.puntos, function(){
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
                     console.log(DrGlearning);
                     DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
@@ -329,7 +296,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         
         function showConstraint(button){
-            console.log(button);
             Ext.Msg.alert(constraintState[button.config.customId], constraintsTextNew[button.config.customId], function(){
             }, this);
         }
