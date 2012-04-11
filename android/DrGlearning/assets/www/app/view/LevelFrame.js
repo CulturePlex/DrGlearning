@@ -30,7 +30,7 @@ Ext.define('DrGlearning.view.LevelFrame', {
                     {
                         xtype: 'button',
 						id: 'backtolevels',
-                        text: 'Back',
+                        text: i18n.gettext('Back'),
 						ui:'back',
 						controller: 'DrGlearning.controller.Career',
 						action: 'index',

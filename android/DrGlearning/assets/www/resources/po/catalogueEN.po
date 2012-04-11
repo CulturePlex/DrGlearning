@@ -7,3 +7,46 @@ msgstr ""
 
 msgid "No careers installed, click on Add Career Button to start"
 msgstr "No careers installed, click on Add Career Button to start"
+
+msgid "Dr. Glearning"
+msgstr "Dr. Glearning"
+
+Confirm
+
+'Try'
+
+'Solve'
+
+'Back'
+
+'Before'
+
+'After'
+
+'Start'
+
+'All'
+
+'In progress'
+
+'Not Yet'
+
+'Add Career'
+
+'back'
+
+'CulturePlex Lab.'
+
+'Language'
+
+'English'
+
+'Username'
+
+'Email'
+
+'Import user'
+
+'Export user'
+
+'Save'

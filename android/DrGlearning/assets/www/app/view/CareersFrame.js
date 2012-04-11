@@ -11,7 +11,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 xtype: 'spacer'
             }, {
                 xtype: 'title',
-                title: 'Dr. Glearning',
+                title: i18n.gettext("Dr. Glearning"),
             }, {
                 xtype: 'spacer'
             }]
@@ -25,22 +25,22 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 name: 'state',
 				width: '40%',
                 options: [ {
-                    text: 'All',
+                    text: i18n.gettext('All'),
                     value: 'all'
                 },
 				{
-                    text: 'In progress',
+                    text: i18n.gettext('In progress'),
                     value: 'inProgress'
                 }, 
 				{
-                    text: 'Not Yet',
+                    text: i18n.gettext('Not Yet'),
                     value: 'notYet'
                 }]
             }, {
                 xtype: 'spacer'
             }, {
                 xtype: 'button',
-                text: 'Add Career',
+                text: i18n.gettext('Add Career'),
                 id: 'addCareer'
             }]
         
@@ -61,13 +61,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 xtype: 'selectfield',
                 name: 'knnowledge_field',
 				width: '40%', 
-                options: [{
-                    text: 'Mathematics',
-                    value: 'both'
-                }, {
-                    text: 'Physics',
-                    value: 'male'
-                }]
+                options: []
             }, ]
         
         }, {
@@ -78,7 +72,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 xtype: 'button',
                 name: 'back',
                 id: 'back',
-				text: 'back',
+				text: i18n.gettext('Back'),
 				ui: 'back'
             }]
         
@@ -102,7 +96,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
 						{xtype:'spacer'},
 						{
 							xtype:'button',
-							text:'Add Career',
+							text:i18n.gettext('Add Career'),
 							width:'150px',
 							align:'center',
 							customId:'addCareer'
@@ -130,38 +124,12 @@ Ext.define('DrGlearning.view.CareersFrame', {
             	//xtype:'button',
 				
             	xtype:'panel',
-				html:'<font color="white">CulturePlex Lab.</font>',
+				html:'<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
             	
             }]
         
         }
-        
-        /*{
-        	xtype: 'tabpanel',
-        	docked: 'bottom',
-        	tabBar: {
-                docked: 'bottom',
-                layout: {
-                    pack: 'center'
-                }
-            },
-            defaults: {
-                scrollable: true
-            },
-            items: [
-                {
-                    title: 'About',
-                    iconCls: 'info',
-                    cls: 'card1'
-                },
-                {
-                    title: 'Favorites',
-                    iconCls: 'favorites',
-                    cls: 'card2'
-                }
-            ]
-        	
-        }*/],
+        ],
         
         layout: 'fit'
     }

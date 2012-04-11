@@ -43,7 +43,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
 					},
 					{
                         xtype: 'button',
-                        text: 'Confirm',
+                        text: i18n.gettext("Confirm"),
 						id: 'confirm',
 						customId:'confirm'
                     }
