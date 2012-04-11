@@ -8,6 +8,41 @@ msgstr ""
 "lang: en"
 
 # Menus
+msgid "Unable to install"
+msgstr "Unable to install"
+
+msgid "You need data connection to install careers"
+msgstr "You need data connection to install careers"
+
+msgid "Install Career?"
+msgstr "Install Career?"
+
+msgid "Are you sure you want to install this career?"
+msgstr "Are you sure you want to install this career?"
+
+msgid "Downloading Career..."
+msgstr "Downloading Career..."
+
+msgid "Uninstall Career?"
+msgstr "Uninstall Career?"
+
+msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
+msgstr "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
+ 
+msgid "Update Career?"
+msgstr "Update Career?"
+
+msgid "Are you sure you want to update this career?"
+msgstr "Are you sure you want to update this career?"
+
+msgid "Problem finded"
+msgstr "Problem finded"
+
+msgid "Unable to install this carrer, delete some installed careers."
+msgstr "Unable to install this carrer, delete some installed careers."
+
+msgid "There is not connection to Internet, you cant start this activity!"
+msgstr "There is not connection to Internet, you cant start this activity!"
 
 msgid "No careers installed, click on Add Career Button to start"
 msgstr "No careers installed, click on Add Career Button to start"
@@ -58,6 +93,12 @@ msgstr "Export user"
 
 msgid "Save"
 msgstr "Save"
+
+msgid "Copy and paste in your new device:"
+msgstr "Copy and paste in your new device:"
+
+msgid "Paste your previous ID:"
+msgstr "Paste your previous ID:"
 
 # Activities
 
@@ -128,3 +169,29 @@ msgstr "Undo"
 
 msgid "Oooh, it wasnt the correct answer"
 msgstr "Oooh, it wasnt the correct answer"
+
+# Help and Question
+
+msgid "Question"
+msgstr "Question"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Look at the image and answer the question!"
+msgstr "Look at the image and answer the question!"
+
+msgid "You should to guess if the event in the text was before or after the event in the image"
+msgstr "You should to guess if the event in the text was before or after the event in the image"
+
+msgid "You should go from one consept to another according with the constraints"
+msgstr "You should go from one consept to another according with the constraints"
+
+msgid "You have to choose the correct option"
+msgstr "You have to choose the correct option"
+
+msgid "You should find the correct location in the map"
+msgstr "You should find the correct location in the map"
+
+msgid "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"
+msgstr "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"

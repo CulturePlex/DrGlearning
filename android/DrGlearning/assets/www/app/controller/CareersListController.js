@@ -99,18 +99,17 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * Method call when tap on a Carrer Item in the list.
      */
     addOrStartCareer: function(list, itemIndex, item, career,e){
-		//console.log(career.data.installed);
         this.selectedcareer = career;
         console.log(this.selectedcareer);
         if (career.data.installed == false) {
         	if(navigator.network != undefined && navigator.network.connection.type==Connection.NONE){
-        		Ext.Msg.alert('Unable to install', 'You need data connection to install careers', Ext.emptyFn);
+        		Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
         	}else{
-        		Ext.Msg.confirm("Install Career?", "Are you sure you want to install this career?", function(answer, pako){
+        		Ext.Msg.confirm(i18n.gettext("Install Career?"), i18n.gettext("Are you sure you want to install this career?"), function(answer, pako){
                     if (answer == 'yes') {
                     	Ext.Viewport.setMasked({
                     	    xtype: 'loadmask',
-                    	    message: 'Downloading Career...',
+                    	    message: i18n.gettext('Downloading Career...'),
                  	       	indicator: true,
                 			html: "<img src='resources/images/ic_launcher.png'>"    	
                 			});
@@ -123,7 +122,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         else {
 			if(e.touch.target.id=="uninstall")
 			{
-				Ext.Msg.confirm("Uninstall Career?", "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?", function(answer, pako){
+				Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function(answer, pako){
                 if (answer == 'yes') {
                     this.getApplication().getController('DaoController').deleteCareer(career.data.id, this.installFinished, this);
 					this.index();
@@ -131,7 +130,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             }, this);
 			}else if(e.touch.target.id=="update")
 			{	
-				Ext.Msg.confirm("Update Career?", "Are you sure you want to update this career?", function(answer, pako){
+				Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer, pako){
 				if (answer == 'yes') {
                     this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
 					this.index();
@@ -218,18 +217,12 @@ Ext.define('DrGlearning.controller.CareersListController', {
         
         var view12 = this.getCareersframe();
         view12.down('careerslist').refresh();
-        if (store.getCount() == 0) {
-            // console.log(view12.down('careerslist'));
-            // view12.down('careerslist').setMasked(true);
-        }
         view12.down('toolbar[id=toolbarTopNormal]').hide();
         view12.down('toolbar[id=toolbarBottomSettings]').hide();
         view12.down('toolbar[id=toolbarTopAdd]').show();
         view12.down('toolbar[id=toolbarBottomAdd]').show();
         view12.show();
-		console.log(view12.down('careerslist'));
         view12.down('careerslist').refresh();
-        console.log(view12.down('careerslist').getStore().getCount());
 		this.filterCareersByKnowledge();
     },
     /*
