@@ -1,0 +1,9 @@
+# English Oficial texts for DrGlearning
+# CulturePlex Lab 2012.
+# Lista de Carreras , CareersListView.js
+msgid ""
+msgstr ""
+"lang: en"
+
+msgid "No careers installed, click on Add Career Button to start"
+msgstr "No careers installed, click on Add Career Button to start"
