@@ -171,14 +171,15 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
                 view.circle = new google.maps.Circle({
                     center: e.latLng,
                     radius: radio,
-                    map: map,
+                    //map: map,
                     clickable: false
                 });
                 view.marker = new google.maps.Marker({
                     map: map,
                     position: e.latLng,
                     flat: true,
-					clickable: false
+					clickable: false,
+					size: new google.maps.Size(2,2),
                 });
                 elmarker = view.marker;
             }

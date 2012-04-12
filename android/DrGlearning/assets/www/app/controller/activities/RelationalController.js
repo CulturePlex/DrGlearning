@@ -221,10 +221,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var scorePanel = Ext.create('Ext.Panel', {
                 html: '<p>Score: ' + getPathScore() + '</p>'
             });
-			var gamePanel = Ext.create('Ext.Panel', {
-				padding:10
+            var gamePanel = Ext.create('Ext.Panel', {
+                padding: 10
             });
-			activityView.down('container[customId=scorebar]').removeAll();
+            activityView.down('container[customId=scorebar]').removeAll();
             getContraintsHTML();
             for (var i = 0; i < playerPath.length; i++) {
                 console.log(playerEdgePath);
@@ -232,7 +232,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     var edgeText = '<p class="relational">&lt;' + playerEdgePath[i - 1] + '&gt;</p>';
                     
                     var edge = Ext.create('Ext.Container', {
-                        layout: 'hbox',
+                        layout: {
+                            type: 'hbox',
+                            align: 'middle'
+                        },
                         items: [{
                             xtype: 'panel',
                             html: '<img height=25 src="resources/images/arrowdown.png">'
@@ -246,20 +249,26 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     gamePanel.add(edge);
                 }
                 var node = Ext.create('Ext.Container', {
-                    layout: 'hbox',
+                    layout: {
+                        type: 'hbox',
+                        align: 'middle'
+                    },
                     items: [{
                         xtype: 'panel',
                         html: '<img height=25 src="resources/images/record.png">'
                     }, {
                         xtype: 'panel',
-                        html: getNodeHTML(playerPath[i])
-                    }],
+                        html: getNodeHTML(playerPath[i]),
+                    }]
                 });
                 
                 gamePanel.add(node);
             }
             var endNode = Ext.create('Ext.Container', {
-                layout: 'hbox',
+                layout: {
+                    type: 'hbox',
+                    align: 'middle'
+                },
                 items: [{
                     xtype: 'panel',
                     html: '<img height=25 src="resources/images/speaker.png">'
@@ -277,7 +286,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             gamePanel.add(option);
             gamePanel.add(endNode);
             gamePanel.add(button);
-			activityView.add(gamePanel);
+            activityView.add(gamePanel);
             activityView.show();
             view.add(activityView);
             var scroller = activityView.getScrollable().getScroller();
