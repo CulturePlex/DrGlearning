@@ -41,7 +41,7 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 						xtype: 'button',
 						customId: 'backtolevel',
 						id: 'backtolevel',
-						text: 'Back',
+						text: i18n.gettext('Back'),
 						ui: 'back',
 					},
 					{
@@ -49,13 +49,13 @@ Ext.define('DrGlearning.view.activities.Temporal', {
 					},
 					{
                         xtype: 'button',
-                        text: 'Before',
+                        text: i18n.gettext('Before'),
 						customId: 'before',
 						ui: 'normal',
                     },
 					{
                         xtype: 'button',
-                        text: 'After',
+                        text: i18n.gettext('After'),
 						customId: 'after',
 						ui: 'normal',
                     }]

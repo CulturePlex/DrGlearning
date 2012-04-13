@@ -129,6 +129,10 @@ var GraphEditor = {
     var edgeSource = _source !== undefined ? _source : $('#source-node').val();
     var edgeType = _type !== undefined ? _type: $('#edge-type').val();
     var edgeTarget = _target !== undefined ? _target: $('#target-node').val();
+
+    // Inverse edge type
+    var edgeInverseType = $('#edge-inverse-type').val();
+    edgeInverseType =  edgeInverseType ? edgeInverseType : "";
     
     if (!this.nodeExists(edgeSource)){
       alert("ERROR: Unknown node: " + edgeSource);
@@ -143,7 +147,7 @@ var GraphEditor = {
       return;
     }
     var json = this.getGraphEdgesJSON();
-    var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType};
+    var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType, "inverse": edgeInverseType};
     json.push(newEdge);
     this.setGraphEdgesJSON(json);
     if (this.USES_DRAWER) {
@@ -570,8 +574,10 @@ var GraphEditor = {
       .append($('<label for="source-node">').text("Source node:"))
       .append(nodeSelect.clone().attr('id', 'source-node'));
     if (GraphEditor.USES_TYPES) {
-      form.append($('<label for="source-node">').text("Relationship type:"))
+      form.append($('<label for="edge-type">').text("Relationship type:"))
        .append($('<input type="text" id="edge-type">'));
+      form.append($('<label for="edge-inverse-type">').text("Inverse relationship type:"))
+       .append($('<input type="text" id="edge-inverse-type">'));
     }
     form.append($('<label for="target-node">').text("Target node:"))
       .append(nodeSelect.clone().attr('id', 'target-node'));

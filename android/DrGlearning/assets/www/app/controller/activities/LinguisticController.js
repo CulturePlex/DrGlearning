@@ -31,7 +31,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 	updateActivity: function(view,newActivity) {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
-    	    message: 'Loading activity...',
+    	    message: i18n.gettext('Loading activity...'),
  	       	indicator: true,
 			//html: "<img src='resources/images/activity_icons/linguistic.png'>",
     	});
@@ -60,7 +60,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		console.log(this.activity.data.locked_text.toLowerCase());
 		console.log(this.activity.data.answer.toLowerCase());
 		if(this.activity.data.locked_text.toLowerCase() == this.activity.data.answer.toLowerCase()){
-			activityView.down('label[customId=tip]').setHtml('Answer: ');
+			activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer: '));
 		}
 		activityView.down('label[customId=responses]').setHtml('');
 		this.respuestas=this.activity.data.answers;
@@ -112,7 +112,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		console.log('*'+this.activity.data.answer+'*');
 		if (loqued.toLowerCase() == this.activity.data.answer.toLowerCase()) 
 		{
-			Ext.Msg.alert('Right!', this.activity.data.reward+"obtained score:"+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+this.puntos, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			}, this);
@@ -188,15 +188,15 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		var answer;
 		var saveButton = Ext.create('Ext.Button', {
 			scope : this,
-			text : 'Solve',
+			text : i18n.gettext('Solve'),
 		});
 		var cancelButton = Ext.create('Ext.Button', {
 			scope : this,
-			text : 'Cancel',
+			text : i18n.gettext('Cancel'),
 		});
 		var show = new Ext.MessageBox().show({
 			id : 'info',
-			title : 'Answer the question:',
+			title : i18n.gettext('Answer the question:'),
 			msg : this.activity.data.query,
 			items : [ {
 				xtype : 'textfield',

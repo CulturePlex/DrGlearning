@@ -1,0 +1,198 @@
+# English texts for DrGlearning
+# CulturePlex Lab 2012.
+# Lista de Carreras , CareersListView.js
+
+msgid ""
+msgstr ""
+
+"lang: en"
+
+# Menus
+
+msgid "Unable to install"
+msgstr "Unable to install"
+
+msgid "You need data connection to install careers"
+msgstr "You need data connection to install careers"
+
+msgid "Install Career?"
+msgstr "Install Career?"
+
+msgid "Are you sure you want to install this career?"
+msgstr "Are you sure you want to install this career?"
+
+msgid "Downloading Career..."
+msgstr "Downloading Career..."
+
+msgid "Uninstall Career?"
+msgstr "Uninstall Career?"
+
+msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
+msgstr "If you uninstall this career, all your points will be lost. Are you sure you want to uninstall this career?"
+ 
+msgid "Update Career?"
+msgstr "Update Career?"
+
+msgid "Are you sure you want to update this career?"
+msgstr "Are you sure you want to update this career?"
+
+msgid "Problem finded"
+msgstr "Problem found"
+
+msgid "Unable to install this career, delete some installed careers."
+msgstr "Not enough space. Unable to install this career. Delete some installed careers?"
+
+msgid "There is not connection to Internet, you cant start this activity!"
+msgstr "Unable to connect to the Internet. Activity won't start!"
+
+msgid "No careers installed, click on Add Career Button to start"
+msgstr "No careers installed, click Add Career button to start"
+
+msgid "Dr. Glearning"
+msgstr "Dr. Glearning"
+
+msgid "Start"
+msgstr "Start"
+
+msgid "All"
+msgstr "All"
+
+msgid "In progress"
+msgstr "In progress"
+
+msgid "Not Yet"
+msgstr "Not Yet"
+
+msgid "Add Career"
+msgstr "Add Career"
+
+msgid "back"
+msgstr "back"
+
+msgid "CulturePlex Lab."
+msgstr "CulturePlex Lab."
+
+# Settings
+
+msgid "Language"
+msgstr "Language"
+
+msgid "English"
+msgstr "English"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Import user"
+msgstr "Import user"
+
+msgid "Export user"
+msgstr "Export user"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "Copy and paste in your new device:"
+msgstr "Copy and paste in your new device:"
+
+msgid "Paste your previous ID:"
+msgstr "Paste your previous ID:"
+
+# Activities
+
+msgid "Loading activity..."
+msgstr "Loading activity..."
+
+msgid "Right!"
+msgstr "Right!"
+
+msgid "obtained score:"
+msgstr "Score:"
+
+msgid "Wrong!"
+msgstr "Oops! Try again!"
+
+msgid "Oooh, it isnt the correct place"
+msgstr "Uh oh, that isn't the right place"
+
+
+msgid "Answer: "
+msgstr "Answer: "
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Answer the question:"
+msgstr "Answer the question:"
+
+msgid "Congratulations!"
+msgstr "Congratulations!"
+
+# Geospatial Activity
+
+msgid "Confirm"
+msgstr "Confirm place"
+
+# Linguistic Activity
+
+msgid "Try"
+msgstr "Unlock letter"
+
+msgid "Solve"
+msgstr "Solve"
+
+# Temporal Activity
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Before"
+msgstr "Before"
+
+msgid "After"
+msgstr "After"
+
+# Relational Activity
+
+msgid "Constraint Passed"
+msgstr "Constraint Passed"
+
+msgid "Constraint Not Passed Yet"
+msgstr "Constraint Not Yet Passed"
+
+msgid "Undo"
+msgstr "Undo"
+
+# Quiz and Visual Activities
+
+msgid "Oooh, it wasnt the correct answer"
+msgstr "Uh oh, that wasn't the correct answer"
+
+# Help and Question
+
+msgid "Question"
+msgstr "Question"
+
+msgid "Help"
+msgstr "Help"
+
+msgid "Look at the image and answer the question!"
+msgstr "Look at the image and answer the question!"
+
+msgid "You should to guess if the event in the text was before or after the event in the image"
+msgstr "Guess whether the event in the text was before or after the event in the image"
+
+msgid "You should go from one consept to another according with the constraints"
+msgstr "Go from one item to another until you fulfill all the conditions"
+
+msgid "You have to choose the correct option"
+msgstr "Choose the right option"
+
+msgid "You should find the correct location in the map"
+msgstr "Find the correct location on the map"
+
+msgid "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"
+msgstr "Guess the hidden word(s). Unlock letters to get a hint; the image might help too!"

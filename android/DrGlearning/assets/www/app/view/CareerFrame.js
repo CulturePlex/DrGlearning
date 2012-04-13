@@ -31,7 +31,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
                     {
                         xtype: 'button',
 						id: 'backToCareers',
-                        text: 'Back',
+                        text: i18n.gettext('Back'),
 						ui:'back',
                         
                     },
@@ -40,7 +40,7 @@ Ext.define('DrGlearning.view.CareerFrame', {
 					},
 					{
                         xtype: 'button',
-                        text: 'Start',
+                        text: i18n.gettext('Start'),
 						id: 'startLevel',
 						customId: 'startLevel'
                         

@@ -50,19 +50,16 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 									        xtype: 'textfield',
 									        customId: 'letter',
 									        name: 'letter',
-									        label: 'CHAR:',
-									        labelWidth: '40%',
 									        maxLength: 1,
-									        width: '60%',
 									        margin: 10,
 									        flex: 2
 									    },{
 			        						xtype: 'button',
 			        						customId: 'try',
-			        						text: 'Try',
+			        						text: i18n.gettext('Try'),
+											ui:'small',
 			        						flex: 1,
 			        						margin: 10,
-			        						width: '20%'
 			        							
 			        					}
 									    ]
@@ -94,7 +91,7 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
 					},{
 						xtype: 'button',
 						customId: 'solve',
-						text: 'Solve',
+						text: i18n.gettext('Solve'),
 					},
 					]
                 

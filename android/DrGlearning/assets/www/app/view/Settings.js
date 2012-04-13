@@ -27,37 +27,37 @@ Ext.define('DrGlearning.view.Settings', {
 			title : 'Settings'
 		},{
             xtype: 'selectfield',
-            label: 'Language',
+            label: i18n.gettext('Language'),
             labelAlign: 'top',
             margin: 5,
             options: [
-                {text: 'English',  value: 'en'},
+                {text: i18n.gettext('English'),  value: 'en'},
             ]
         }, {
 			xtype : 'textfield',
-			label : 'Username',
+			label : i18n.gettext('Username'),
 			name : 'username',
 			id : 'username',
 			labelAlign : 'top',
 			margin: 5,
 		}, {
 			xtype : 'textfield',
-			label : 'Email',
+			label : i18n.gettext('Email'),
 			name : 'email',
 			id : 'email',
 			labelAlign : 'top',
 			margin: 5,
 		}, {
 			xtype : 'button',
-			text : 'Import user',
+			text : i18n.gettext('Import user'),
 			id : 'import'
 		}, {
 			xtype : 'button',
-			text : 'Export user',
+			text : i18n.gettext('Export user'),
 			id : 'export'
 		}, {
 			xtype : 'button',
-			text : 'Save',
+			text : i18n.gettext('Save'),
 			id : 'save'
 		}
 		

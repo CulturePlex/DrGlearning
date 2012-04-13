@@ -17,14 +17,12 @@ Ext.define('DrGlearning.controller.DaoController', {
     	var career=Ext.getStore('Careers').getById(id);
     	if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
     		Ext.Viewport.setMasked(false);
-			Ext.Msg.alert('Problem finded', 'Unable to install this carrer, delete some installed careers.', Ext.emptyFn);
+			Ext.Msg.alert(i18n.gettext('Problem finded'), i18n.gettext('Unable to install this carrer, delete some installed careers.'), Ext.emptyFn);
 			return;
 		}
     	var activities=career.data.activities;
     	
 		
-    	//activities=activities.split(",");
-    	//console.log("activity "+activities);
     	var activitiesInstalled=0;
 		for (cont in activities){
 			var activitiesToInstall=new Array();

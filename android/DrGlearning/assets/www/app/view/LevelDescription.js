@@ -5,7 +5,7 @@ Ext.define('DrGlearning.view.LevelDescription', {
     config: {
         cls: 'detail-card',
         styleHtmlContent: true,
-        html: '<p>Aquí la descripción del nivel</p>'
+        html: ''
         
     }
 });

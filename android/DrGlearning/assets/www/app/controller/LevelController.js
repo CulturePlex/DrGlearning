@@ -49,7 +49,6 @@ Ext.define('DrGlearning.controller.LevelController', {
         });
     },
     tolevels: function(){
-        console.log('olas');
         if (this.getLevelframe()) {
             this.getLevelframe().hide();
         }
@@ -58,19 +57,16 @@ Ext.define('DrGlearning.controller.LevelController', {
     updateLevel: function(newCareer, newLevel){
 		Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: 'Loading level...',
+            message: i18n.gettext('Loading level...'),
             indicator: true,
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
         Ext.create('DrGlearning.view.LevelFrame');
         levelController = this.getApplication().getController('LevelController');
         this.selectedlevel = newLevel;
-        console.log(newLevel);
-        
         var view = this.getLevelframe();
 		view.setListeners( {
                 painted: function(){
-                    console.log('show');
                     Ext.Viewport.setMasked(false);
                 }
             });
@@ -84,11 +80,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 						backgroundFilter: 'alpha(opacity=60)'
 			});
 		activitieslist.refresh();
-		
-       // var description = detail.down('leveldescription');
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
-       // description.setHtml('<p>' + level.data.name + ' Level: ' + level.data.description + '</p>');
-        //var activities = this.getApplication().getController('DaoController').getActivitiesByLevel('' + newCareer.data.id, '' + newLevel);
 		Ext.getStore('Activities').sort('level_order');
 		Ext.getStore('Activities').sort('successful');
 		Ext.getStore('Activities').clearFilter();
@@ -219,13 +211,13 @@ Ext.define('DrGlearning.controller.LevelController', {
         Ext.ComponentQuery.query('title[customId=title]')[0].setTitle(newActivity.data.name);
         var activityView;
         if (newActivity.data.activity_type == 'geospatial') {
-            if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
-             Ext.Msg.alert('No Internet', 'There is not connection to Internet, you cant start this activity!', function(){
+           /* if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+             Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function(){
              this.tolevel();
              }, this);
-             }else{
+             }else{*/
             	this.getApplication().getController('activities.GeospatialController').updateActivity(view, newActivity);
-            }
+            //}
         }
         else 
             if (newActivity.data.activity_type == 'visual') {
@@ -309,45 +301,41 @@ Ext.define('DrGlearning.controller.LevelController', {
     help: function(){
         var text = "help!";
         if (this.currentActivity.data.activity_type == 'linguistic') {
-            text = "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image";
+            text = i18n.gettext("You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image");
             Ext.Msg.alert('Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'geospatial') {
-            text = "You should find the correct location in the map";
+            text = i18n.gettext("You should find the correct location in the map");
             Ext.Msg.alert('Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'quiz') {
-            text = "You have to choose the correct option";
+            text = i18n.gettext("You have to choose the correct option");
             Ext.Msg.alert('Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'relational') {
-            text = "You should go from one consept to another according with the constraints";
+            text = i18n.gettext("You should go from one consept to another according with the constraints");
             Ext.Msg.alert('Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'temporal') {
-            text = "You should to guess if the event in the text was before or after the event in the image";
+            text = i18n.gettext("You should to guess if the event in the text was before or after the event in the image");
             Ext.Msg.alert('Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'visual') {
-            text = "Look at the image and answer the question!";
+            text = i18n.gettext("Look at the image and answer the question!");
             this.getApplication().getController('activities.VisualController').stopNotClear();
-            Ext.Msg.alert('Help', text, function(){
+            Ext.Msg.alert(i18n.gettext('Help'), text, function(){
                 this.getApplication().getController('activities.VisualController').restart()
             }, this);
-            
         }
-        
-        
     },
     more: function(){
-		console.log('aaa');
 		var text = this.currentActivity.data.query;
-        Ext.Msg.alert('Query', text, function(){
+        Ext.Msg.alert(i18n.gettext('Question'), text, function(){
         }, this);
         
     }

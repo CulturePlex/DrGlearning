@@ -26,7 +26,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	updateActivity: function(view,newActivity) {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
-    	    message: 'Loading activity...',
+    	    message: i18n.gettext('Loading activity...'),
  	       	indicator: true,
 			//html: "<img src='resources/images/activity_icons/temporal.png'>",
     	});
@@ -37,10 +37,8 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 			view.down('component[customId=activity]').destroy();
 		}
 		activityView = Ext.create('DrGlearning.view.activities.Temporal');
-		console.log(newActivity.data);
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
 		newActivity.getImage('image','image',activityView.down('[id=image]'),this,view,activityView,false);
-		console.log(activityView.down('[id=image]'));
 	},
 	loadingImages:function(view,activityView){
 		activityView.show();
@@ -54,15 +52,14 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	},
 	before: function() {
 		this.puntos=100;
-		console.log(this.activity);
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-			Ext.Msg.alert('Success!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward+i18n.gettext(" obtained score: ")+this.puntos, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{
-			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
+			Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it wasnt the correct answer'), function(){
 				this.getApplication().getController('LevelController').tolevel();
 			},this);
 		} 
@@ -70,14 +67,13 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	after: function() {
 		this.puntos=100;
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
-			Ext.Msg.alert('Success!', this.activity.data.reward+" obtained score: "+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward+i18n.gettext(" obtained score: ")+this.puntos, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
-				console.log('ola');
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);
 		}else
 		{
-			Ext.Msg.alert('Wrong!', 'Oooh, it wasnt the correct answer', function(){
+			Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it wasnt the correct answer'), function(){
 				this.getApplication().getController('LevelController').tolevel();
 			},this);
 		} 

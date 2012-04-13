@@ -34,7 +34,7 @@ Ext.define('DrGlearning.view.activities.Quiz', {
                     {
 						xtype: 'button',
 						customId: 'backtolevel',
-						text: 'Back',
+						text: i18n.gettext('Back'),
 						ui: 'back',
 						customId: 'backtolevel',
 						controller: 'DrGlearning.controller.Career',

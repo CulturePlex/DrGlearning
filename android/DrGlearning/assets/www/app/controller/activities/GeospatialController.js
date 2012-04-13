@@ -29,7 +29,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     updateActivity: function(view, newActivity){
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
-    	    message: 'Loading activity...',
+    	    message: i18n.gettext('Loading activity...'),
 			//html: "<img src='resources/images/activity_icons/geospatial.png'>",
  	       	indicator: true
     	});
@@ -46,7 +46,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
         this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);;
                                          
-		//setHtml(this.getApplication().getController('LevelController').getHelpHtml()+"<div class='querymia'><p>" + newActivity.data.query + "</p></div>");
         
         //Initializing map 
         console.log(Ext.ComponentQuery.query('map'));
@@ -172,14 +171,15 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
                 view.circle = new google.maps.Circle({
                     center: e.latLng,
                     radius: radio,
-                    map: map,
+                    //map: map,
                     clickable: false
                 });
                 view.marker = new google.maps.Marker({
                     map: map,
                     position: e.latLng,
                     flat: true,
-					clickable: false
+					clickable: false,
+					size: new google.maps.Size(2,2),
                 });
                 elmarker = view.marker;
             }
@@ -194,18 +194,16 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 	
 	//Confirmation function to try a location
     confirm: function(){
-		console.log('eluhto');
-		console.log()
         this.distancia = Math.sqrt(Math.pow(elmarker.position.lat() - elpunto.lat(), 2) + Math.pow(elmarker.position.lng() - elpunto.lng(), 2)) * 60000;
         this.puntos = parseInt(100 - (this.distancia * 100) / radio);
         if (this.distancia < radio) {
-            Ext.Msg.alert('Right!', this.activity.data.reward+", obtained score:"+this.puntos, function(distancia){
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+this.puntos, function(distancia){
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
             }, this);
         }
         else {
-            Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct place', function(){
+            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it isnt the correct place'), function(){
                 this.getApplication().getController('LevelController').tolevel();
             }, this);
         }
