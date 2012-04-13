@@ -16,11 +16,13 @@ google.setOnLoadCallback(function() {
     console.log($)
     var className = "olwidgetgooglemapssearch";
     var formRow = ''+
-'<div class="form-row _address">'+
+'<div class="row cells-1 _address">'+
 '    <div>'+
+'       <div class="column span-4">'+
 '        <label for="id__address" class="'+ className +'">Address:</label>'+
 //'        <input name="_address" class="vTextField" maxlength="255" type="text" id="id_address">'+
 //'        <p class="help">Or even coordinates.</p>'+
+'       </div>'+
 '    </div>'+
 '</div>';
     console.log(formRow, $('.points'))
@@ -59,9 +61,9 @@ google.setOnLoadCallback(function() {
 //        input.after(aLocalSearch);
         var divLocalsSearch = $("<div>");
         divLocalsSearch.attr("id", idlocalSearch);
-        divLocalsSearch.css("padding-left", "106px");
+        divLocalsSearch.addClass("column span-flexible");
 //        aLocalSearch.after(divLocalsSearch);
-         $('.'+ className).after(divLocalsSearch);
+         $('.'+ className).parent().after(divLocalsSearch);
 //        divLocalsSearch.hide();
         searchControl.draw(document.getElementById(idlocalSearch));
 //        var applyTo = [];
@@ -91,7 +93,7 @@ google.setOnLoadCallback(function() {
             }
             return false;
         });
-//        $(".olLayerGooglePoweredBy").remove();
+        $(".olLayerGooglePoweredBy").remove();
     });
     $.urlParam = function(url, name){
         var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);

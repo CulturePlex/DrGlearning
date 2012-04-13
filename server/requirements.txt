@@ -6,7 +6,7 @@ django-grappelli==2.3.7
 #django-guardian==1.0.4.dev
 -e git+git://github.com/lukaszb/django-guardian.git#egg=django-guardian
 django-jsonfield==0.6
-django-olwidget==0.49
+django-olwidget==0.50
 -e git+git://github.com/bread-and-pepper/django-userena.git#egg=userena
 easy-thumbnails==1.0-alpha-18
 ipdb==0.6

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import tempfile
 
+from django.conf import settings
 from django.contrib import admin
 from django.core.files import File
 from django.http import HttpResponse
@@ -98,11 +99,11 @@ class VisualAdmin(ActivityAdmin):
 class GeospatialAdmin(ActivityAdmin, GeoModelAdmin):
 
     options = {
-        'layers': ['osm.mapnik', 'google.streets', 've.road']
+        'layers': ['google.streets', 'osm.mapnik', 've.road']
     }
 
     class Media:
-        js = ('http://www.google.com/jsapi',
+        js = ('http://www.google.com/jsapi?key=%s' % settings.GOOGLE_API_KEY,
                 'js/geospatialAdmin.js')
 
 

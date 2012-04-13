@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime
+import json
 import jsonfield
-import os.path
-from PIL import Image
-import simplejson
-from StringIO import StringIO
 import tempfile
+from os import path
+from PIL import Image
+from StringIO import StringIO
 
 from django.contrib.gis.db import models
 from django.contrib.gis.db.models import GeometryField
@@ -108,13 +108,13 @@ class Activity(models.Model):
                 extension = 'jpg' in file_type and 'jpg' or 'png'
                 f = open(filename)
                 image_field = getattr(new_activity, field)
-                file_name = os.path.splitext(filename.rpartition('/')[-1])[0]
+                file_name = path.splitext(filename.rpartition('/')[-1])[0]
                 suf = SimpleUploadedFile(file_name + extension, f.read(), content_type='image/' + extension)
 
                 image_field.save("%s.%s" % (file_name, extension), suf, save=False)
                 
             elif isinstance(field_type, GeometryField):
-                value = simplejson.loads(value)
+                value = json.loads(value)
                 if value['type'] == 'Polygon':
                     points = []
                     for point in value['coordinates'][0]:
