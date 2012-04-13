@@ -20,6 +20,16 @@
     <script type="text/javascript" charset="utf-8" src="resources/js/base64writer.js"></script>
     <script type="text/javascript" charset="utf-8" src="resources/js/GeoJSON.js"></script>
     <script type="text/javascript" charset="utf-8" src="resources/js/maps.google.polygon.containsLatLng.js"></script>
+    <script>
+        // Fix for problem  with android 3.x and 4.x which is
+        // the browser has a problem with urls with ? and this
+        // bug has not been fixed by google. See:
+        // http://code.google.com/p/android/issues/detail?id=17535 or
+        // http://www.sencha.com/forum/showthread.php?162322-Sencha-Touch-2-PhoneGap-are-not-working-on-Android-4/page3&highlight=Loader
+        //
+        Ext.Loader.setConfig({ disableCaching: false });
+        Ext.Ajax.setDisableCaching(false);
+    </script>
     <script type="text/javascript" charset="utf-8" src="drglearningapp.js"></script>
     <script type="text/javascript" charset="utf-8">
         function onDeviceReady() {
