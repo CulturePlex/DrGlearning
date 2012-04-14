@@ -17,7 +17,7 @@ class Knowledge(models.Model):
 
     def __unicode__(self):
         return u"%s" % self.name
-    
+
     @staticmethod
     def autocomplete_search_fields():
         return ("id__iexact", "name__icontains",)
@@ -30,7 +30,7 @@ class Career(models.Model):
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to="images", null=True)
+    image = models.ImageField(upload_to="images", blank=True, null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
                                              verbose_name="knowledge field",
                                              related_name="knowledge_fields")

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from django.db import models
+from django.db import DatabaseError, models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -23,14 +23,9 @@ class Account(models.Model):
                                               choices=TYPE_CHOICES,
                                               blank=True,
                                               null=True)
-    graphs = models.IntegerField(_('graphs'), blank=True, null=True)
-    nodes = models.IntegerField(_('nodes'), blank=True, null=True)
-    relationships = models.IntegerField(_('relationships'), blank=True,
-                                        null=True)
+    careers = models.IntegerField(_('careers'), blank=True, null=True)
     storage = models.IntegerField(_('storage'), blank=True, null=True,
                                   help_text=_('MB'))
-    queries = models.IntegerField(_('queries'), blank=True, null=True,
-                                  help_text=_('Queries per day'))
     privacy = models.NullBooleanField(_('privacy'), blank=True, null=True,
                                   default=False,
                                   help_text=_('Can change graphs\' privacy?'))
@@ -63,7 +58,7 @@ class UserProfile(UserenaLanguageBaseProfile):
                                 related_name="users")
     trusted = models.BooleanField(_('trusted'), default=False, editable=False,
                                   help_text=_('It the user is trusted'))
-    image = models.ImageField(upload_to="images", null=True)
+    image = models.ImageField(upload_to="images", null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self = image_resize(self)
@@ -102,3 +97,7 @@ def create_profile_account(*args, **kwargs):
             else:
                 account = accounts[0]
             UserProfile.objects.create(user=user, account=account)
+        except DatabaseError:
+            # Database error when a syncdb is performed and it creates an user
+            # before having a UserProfile tables
+            pass
