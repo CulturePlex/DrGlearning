@@ -13,6 +13,7 @@ from django.contrib.gis.geos.geometry import Point, Polygon, MultiPoint
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models.fields import DateTimeField
 from django.db.models.fields.files import ImageField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -129,6 +130,11 @@ class Activity(models.Model):
                         points.append(new_point)
                     multipoint = MultiPoint(points)
                     setattr(new_activity, field, multipoint)
+
+            elif isinstance(field_type, DateTimeField):
+                date = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
+                setattr(new_activity, field, date)
+
             else:
                 setattr(new_activity, field, value)
 

@@ -1,5 +1,6 @@
 import base64
 
+from django.db.models.fields import DateTimeField
 from django.db.models.fields.files import ImageField
 from django.contrib.gis.db.models import GeometryField
 
@@ -39,6 +40,8 @@ def jsonify_fields(instance, fields=None):
         elif isinstance(f, GeometryField):
             geo_object = getattr(instance, field_name)
             data[field_name] = geo_object.geojson
+        elif isinstance(f, DateTimeField):
+            data[field_name] = getattr(instance, field_name).isoformat()
         else:
             data[field_name] = getattr(instance, field_name)
     return data
