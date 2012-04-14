@@ -27,8 +27,8 @@ class Account(models.Model):
     storage = models.IntegerField(_('storage'), blank=True, null=True,
                                   help_text=_('MB'))
     privacy = models.NullBooleanField(_('privacy'), blank=True, null=True,
-                                  default=False,
-                                  help_text=_('Can change graphs\' privacy?'))
+                                      default=False,
+                                      help_text=_('Can has private careers?'))
 
     def __unicode__(self):
         return u"%s (%s)" % (self.name, self.get_type_display().lower())
@@ -91,7 +91,8 @@ def create_profile_account(*args, **kwargs):
         try:
             user.get_profile().account
         except UserProfile.DoesNotExist:
-            accounts = Account.objects.filter(type=1)
+            account_type = settings.ACCOUNT_FREE["type"]
+            accounts = Account.objects.filter(type=account_type)
             if not accounts:
                 account = Account.objects.create(**settings.ACCOUNT_FREE)
             else:
