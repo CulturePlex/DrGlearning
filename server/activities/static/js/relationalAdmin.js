@@ -4,7 +4,7 @@ if ($ == undefined) {
 
 
 var GraphEditor = {
-  DEBUG: true,
+  DEBUG: false,
 
   USES_DRAWER: false,
   USES_TYPES: false,
@@ -132,7 +132,8 @@ var GraphEditor = {
 
     // Inverse edge type
     var edgeInverseType = $('#edge-inverse-type').val();
-    edgeInverseType =  edgeInverseType ? edgeInverseType : "";
+    // Discard only-white strings
+    edgeInverseType =  (edgeInverseType.search(/^\s*$/) == -1) ? edgeInverseType : "";
     
     if (!this.nodeExists(edgeSource)){
       alert("ERROR: Unknown node: " + edgeSource);
