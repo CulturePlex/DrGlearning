@@ -8,11 +8,11 @@ from activities.models import Activity
 
 
 class CareerAdmin(GuardedModelAdmin):
-    
+    exclude = ("user", )
+    readonly_fields = ("positive_votes", "negative_votes")
     # Setting this attribute to True makes the magic of "hiding" not owned objects
     user_can_access_owned_objects_only = True
     change_form_template = 'admin/knowledges/career/change_form.html'
-
     # grapelli
     raw_id_fields = ('knowledge_field',)
     autocomplete_lookup_fields = {
@@ -36,6 +36,10 @@ class CareerAdmin(GuardedModelAdmin):
                     "activities_count": len(all_activities)}
         return super(CareerAdmin, self).change_view(request, object_id,
                                                     extra_context=context)
+
+    def save_model(self, request, obj, form, change):
+        obj.user = request.user
+        obj.save()
 
 
 admin.site.register(Knowledge)
