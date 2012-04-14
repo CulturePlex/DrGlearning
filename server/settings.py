@@ -213,11 +213,8 @@ USERENA_SIGNIN_REDIRECT_URL = LOGIN_REDIRECT_URL
 ACCOUNT_FREE = {
     "name": "Free account",
     "type": 1,  # Free
-    "graphs": 10,
-    "nodes": 1000,
-    "relationships": 10000,
-    "storage": 10,
-    "queries": 10,
+    "careers": 10,
+    "storage": 100,
 }
 
 #API KEYS
