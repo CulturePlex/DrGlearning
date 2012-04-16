@@ -330,11 +330,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 			});
 		},this);	
 	},
-	//Tell us if a level is sapproved or not
+	//Tell us if a level is approved or not
 	isApproved:function(careerID,level)
 	{
-		console.log(level);
-		console.log(careerID);
 		var approved=true;
 		var activities=this.getActivitiesByLevel(careerID,level.customId);
 		console.log(activities);
@@ -343,7 +341,6 @@ Ext.define('DrGlearning.controller.DaoController', {
 			console.log(activities.items[j]);
 			if(!activities.items[j].data.successful){
 				approved=false; 
-				console.log('no esta superdaa');
 			}
 		}
 		return approved;

@@ -19,7 +19,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var daocontroller = this.getApplication().getController('DaoController');
         var careerscontroller = this.getApplication().getController('CareersListController');
         var activitiescontroller = this.getApplication().getController('LevelController');
-        var blankOption = "- - -";
+        var blankOption = "Choose";
         var playerPath = [];
         var playerEdgePath = [];
         var pathStart, pathGoal, pathPosition;
@@ -48,23 +48,56 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
          * object with all the options available */
         function createSelectFromNode(nodeName){
             var edge;
+			var written=[];
+			var tipo="error";
+			for (var i = 0; i < graphEdges.length; i++) {
+				edge = graphEdges[i];
+				console.log(graphNodes);
+				if (edge.target === nodeName && edge.inverse != undefined) {
+						for( var nodo in graphNodes ){
+							console.log(graphNodes[i]);
+							console.log(edge.source);
+							if (nodo == edge.target) {
+								tipo = nodo.type;
+							}
+						}
+						console.log(tipo);
+						blankOption += " " + tipo + " or";
+						written.push(tipo);
+				}
+				if (edge.source === nodeName ) {
+						for( var nodo in graphNodes ){
+							console.log(nodo);
+							console.log(edge.source);
+							if (nodo == edge.source) {
+								console.log(nodo);
+								tipo = nodo;
+							}
+						}
+						console.log(tipo);
+						blankOption += " " + tipo + " or";
+						written.push(tipo);
+				}
+			}
             var options = [{
                 text: blankOption
             }];
             for (var i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
-                if (edge.target === nodeName) {
+				console.log(edge.inverse);
+                if (edge.target === nodeName && edge.inverse != undefined) {
+					
                     options.push({
-                        text: edge.source + ' (' + edge.type + ')',
+                        text: edge.inverse + ' ' + edge.source,
                         value: edge.source,
                         edgeType: edge.type,
                         width: '100%'
                     });
                 }
                 else 
-                    if (edge.source === nodeName) {
+                    if (edge.source === nodeName ) {
                         options.push({
-                            text: edge.target + ' (' + edge.type + ')',
+                            text:  edge.type + ' ' + edge.target,
                             value: edge.target,
                             edgeType: edge.type
                         });
@@ -207,9 +240,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var node;
             for (var i = 0; i < playerPath.length; i++) {
                 node = graphNodes[playerPath[i]];
-                if (node.score != undefined) {
-                    score += parseInt(node.score);
-                }
+				if (node != undefined) {
+					if (node.score != undefined) {
+						score += parseInt(node.score);
+					}
+				}
             }
             return score;
         }
@@ -229,7 +264,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             for (var i = 0; i < playerPath.length; i++) {
                 console.log(playerEdgePath);
                 if (i != 0) {
-                    var edgeText = '<p class="relational">&lt;' + playerEdgePath[i - 1] + '&gt;</p>';
+                    var edgeText = '<p class="relational">' + playerEdgePath[i - 1] + '</p>';
                     
                     var edge = Ext.create('Ext.Container', {
                         layout: {
@@ -238,7 +273,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                         },
                         items: [{
                             xtype: 'panel',
-                            html: '<img height=25 src="resources/images/arrowdown.png">'
+                            html: '<img height=25 src="resources/images/arrowdown.png">',
+							margin: '5px',
                         }, {
                             xtype: 'panel',
                             html: edgeText
@@ -255,7 +291,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     },
                     items: [{
                         xtype: 'panel',
-                        html: '<img height=25 src="resources/images/record.png">'
+                        html: '<img height=25 src="resources/images/record.png">',
+						margin: '5px',
                     }, {
                         xtype: 'panel',
                         html: getNodeHTML(playerPath[i]),
@@ -267,11 +304,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var endNode = Ext.create('Ext.Container', {
                 layout: {
                     type: 'hbox',
-                    align: 'middle'
+                    align: 'middle',
                 },
                 items: [{
                     xtype: 'panel',
-                    html: '<img height=25 src="resources/images/speaker.png">'
+                    html: '<img height=25 src="resources/images/speaker.png">',
+					margin: '5px',
                 }, {
                     xtype: 'panel',
                     html: getNodeHTML(pathGoal)
