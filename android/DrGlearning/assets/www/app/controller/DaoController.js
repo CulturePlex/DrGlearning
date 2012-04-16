@@ -156,7 +156,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 			return record.data.careerId==careerId && record.data.level_type==level;
 		});
 		console.log("ORDEN");
-		console.log(activities);
+		console.log(level);
+		console.log(careerId);
 		return activities;
 	},
 	getknowledgesFields:function(){
@@ -328,6 +329,24 @@ Ext.define('DrGlearning.controller.DaoController', {
 				}
 			});
 		},this);	
+	},
+	//Tell us if a level is sapproved or not
+	isApproved:function(careerID,level)
+	{
+		console.log(level);
+		console.log(careerID);
+		var approved=true;
+		var activities=this.getActivitiesByLevel(careerID,level.customId);
+		console.log(activities);
+		for(var j=0;j<activities.items.length;j++){
+			
+			console.log(activities.items[j]);
+			if(!activities.items[j].data.successful){
+				approved=false; 
+				console.log('no esta superdaa');
+			}
+		}
+		return approved;
 	},
 	updateCareer:function(careerID){
 		console.log("Updating career "+careerID);

@@ -53,9 +53,15 @@ Ext.define('DrGlearning.controller.CareerController', {
     /*
      * Getting the properly Html to show Level icon.
      */
-    getLevelHtml: function(levelData){
+    getLevelHtml: function(career,levelData){
         var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
-        return "<div id='centro' align='middle'><p>" + levelData.name + "</p><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div>"
+		var html = "<div id='centro' align='middle'><p>" + levelData.name + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
+		if (this.getApplication().getController('DaoController').isApproved(career,levelData))
+		{
+			html = "<div id='centro' align='middle'><p>" + levelData.name + "</p><div><img style=' position:absolute; top:50px; right:100px;' src='resources/images/approved-stamp.png' width='150'><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
+		}
+		console.log(levelData);
+        return html;
     },
     /*
      * Update Career View.
@@ -76,7 +82,7 @@ Ext.define('DrGlearning.controller.CareerController', {
         for (var i = 0; i < levelstemp.length; i++) {
             var level = Ext.getStore('Levels').getAt(levelstemp[i] - 1);
             console.log(level);
-            levelButtonHtml = this.getLevelHtml(level.data);
+            levelButtonHtml = this.getLevelHtml(newCareer.data.id,level.data);
             levelscarousel.add({
                 html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>',
             
