@@ -4,7 +4,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
     config: {
     	fullscreen: true,
         items: [
-                {
+            {
             xtype: 'toolbar',
             docked: 'top',
             items: [{

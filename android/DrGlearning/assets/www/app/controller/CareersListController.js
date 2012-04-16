@@ -86,6 +86,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         }
         Ext.create('DrGlearning.view.CareersFrame');
         var view1 = this.getCareersframe();
+    	view1.down('title').setTitle(i18n.gettext('Dr. Glearning'));
         this.filterCareers();
         if (store.getCount() == 0) {
             view1.down('careerslist').hide();
@@ -198,9 +199,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
      */
     addCareer: function(){
 		var view12 = this.getCareersframe();
-		//var view = this.getApplication().getView('Main');
-		//console.log(view);
-    	//view12.down('title[id=title]').setTitle('jaja');
+    	view12.down('title').setTitle(i18n.gettext('Careers'));
         knowledgeFields = this.daoController.getknowledgesFields();
         console.log(knowledgeFields);
         view12.down('careerslist').show();
