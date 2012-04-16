@@ -76,6 +76,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * Showing Installed Careers.
      */
     index: function(){
+		
         var store = Ext.getStore('Careers');
         store.clearFilter();
         store.filter("installed", true);
@@ -196,11 +197,12 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * career).
      */
     addCareer: function(){
-    	
+		var view12 = this.getCareersframe();
+		//var view = this.getApplication().getView('Main');
+		//console.log(view);
+    	//view12.down('title[id=title]').setTitle('jaja');
         knowledgeFields = this.daoController.getknowledgesFields();
         console.log(knowledgeFields);
-        var view12 = this.getCareersframe();
-        
         view12.down('careerslist').show();
         view12.down('careerslist').refresh();
         options = [{text:'All',value:'All'}];

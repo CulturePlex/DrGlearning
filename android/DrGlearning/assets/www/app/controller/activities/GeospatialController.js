@@ -174,12 +174,13 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
                     //map: map,
                     clickable: false
                 });
+				var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png');
                 view.marker = new google.maps.Marker({
                     map: map,
                     position: e.latLng,
                     flat: true,
 					clickable: false,
-					size: new google.maps.Size(2,2),
+					icon:markerIcon
                 });
                 elmarker = view.marker;
             }
