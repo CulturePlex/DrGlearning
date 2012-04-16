@@ -50,7 +50,7 @@ def jsonify_fields(instance, fields=None):
 def dehydrate_fields(bundle, child_obj=None):
     if not child_obj:
         child_obj = bundle.obj
-    bundle.data = jsonify_fields(child_obj)
+    bundle.data.update(jsonify_fields(child_obj))
     return bundle
 
 
