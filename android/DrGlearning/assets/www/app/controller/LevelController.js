@@ -344,38 +344,38 @@ Ext.define('DrGlearning.controller.LevelController', {
         if (this.currentActivity.data.activity_type == 'linguistic') {
 			text += " <br>  <br>";
 			text += i18n.gettext("You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image");
-            Ext.Msg.alert('Query and Help', text, function(){
+            Ext.Msg.alert('Question and Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'geospatial') {
 			text += " <br>  <br>";
             text += i18n.gettext("You should find the correct location in the map");
-            Ext.Msg.alert('Query and Help', text, function(){
+            Ext.Msg.alert('Question and Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'quiz') {
             text += " <br>  <br>";
             text += i18n.gettext("You have to choose the correct option");
-            Ext.Msg.alert('Query and Help', text, function(){
+            Ext.Msg.alert('Question and Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'relational') {
             text += " <br>  <br>";
             text += i18n.gettext("You should go from one consept to another according with the constraints");
-            Ext.Msg.alert('Query and Help', text, function(){
+            Ext.Msg.alert('Question and Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'temporal') {
             text += " <br>  <br>";
             text += i18n.gettext("You should to guess if the event in the text was before or after the event in the image");
-            Ext.Msg.alert('Query and Help', text, function(){
+            Ext.Msg.alert('Question and Help', text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'visual') {
             text += " <br>  <br>";
             text += i18n.gettext("Look at the image and answer the question!");
             this.getApplication().getController('activities.VisualController').stopNotClear();
-            Ext.Msg.alert(i18n.gettext('Query and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
                 this.getApplication().getController('activities.VisualController').restart()
             }, this);
         }
