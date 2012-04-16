@@ -46,7 +46,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		Ext.Viewport.setMasked(false);
 		if(!this.helpFlag)
 		{
-			this.getApplication().getController('LevelController').help();
+			this.getApplication().getController('LevelController').helpAndQuery();
 			this.helpFlag=true;
 		}
 	},

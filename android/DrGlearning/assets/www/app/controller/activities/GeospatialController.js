@@ -68,7 +68,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         view.add(activityView);
 		if(!this.helpFlag)
 		{
-			this.getApplication().getController('LevelController').help();
+			this.getApplication().getController('LevelController').helpAndQuery();
 			this.helpFlag=true;
 		}
     },

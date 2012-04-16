@@ -75,7 +75,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 		Ext.Viewport.setMasked(false);
 		if(!this.helpFlag)
 		{
-			this.getApplication().getController('LevelController').help();
+			this.getApplication().getController('LevelController').helpAndQuery();
 			this.helpFlag=true;
 		}
 	},

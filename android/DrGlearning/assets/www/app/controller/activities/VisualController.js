@@ -83,7 +83,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         view.add(activityView);
         Ext.Viewport.setMasked(false);
         if (!this.helpFlag) {
-            this.getApplication().getController('LevelController').help();
+            this.getApplication().getController('LevelController').helpAndQuery();
             this.helpFlag = true;
         }
         this.loading=false;
