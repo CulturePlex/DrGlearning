@@ -33,7 +33,7 @@ Ext.define('DrGlearning.view.CareersList', {
 					'<div style="display:table-cell; vertical-align: middle; float:right;">',
 						'<tpl if= "installed == true">',
 				       		'<img hspace="2" vertical-align= "middle" id="uninstall" height="25" src="resources/images/settings.png">',
-				        	'<tpl if= "update == false">',
+				        	'<tpl if= "update == true">',
 				        	'<img hspace="2" vertical-align= "middle" id="update" height="25" src="resources/images/reload.png">',
 				        	'</tpl>',
 						'</tpl>',
