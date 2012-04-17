@@ -134,7 +134,6 @@ var GraphEditor = {
     var edgeInverseType = $('#edge-inverse-type').val();
     
     // Taking inverse relationship property if edge comes from GEXF import
-    debugger;
     if (edgeInverseType === undefined) {
       if (_properties.hasOwnProperty('inverse')) {
         edgeInverseType = _properties.inverse;
@@ -338,6 +337,12 @@ var GraphEditor = {
   loadGEXF: function(){
         function handleFileSelect(evt) {
         GraphEditor.progressBar.show();
+
+        // Clean previous information to have a clean graph
+        GraphEditor.setGraphNodesJSON({});
+        GraphEditor.setGraphEdgesJSON([]);
+        GraphEditor.setConstraints([]);
+
         var files = evt.target.files; // FileList object
     
         for (var i = 0, f; f = files[i]; i++) {
