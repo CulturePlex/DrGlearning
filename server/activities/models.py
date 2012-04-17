@@ -241,6 +241,11 @@ class Temporal(Activity):
 
 
 class Linguistic(Activity):
-    locked_text = models.TextField()
+    locked_text = models.CharField(max_length=255)
     image = models.ImageField(upload_to="images")
-    answer = models.TextField()
+    answer = models.CharField(max_length=255)
+
+    def save(self, *args, **kwargs):
+        self.locked_text = self.locked_text.strip()
+        self.answer = self.answer.strip()
+        super(Linguistic, self).save(*args, **kwargs)
