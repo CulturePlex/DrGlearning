@@ -30,6 +30,7 @@ class Career(models.Model):
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now=True)
+    published = models.BooleanField(default=False)
     image = models.ImageField(upload_to="images", blank=True, null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
                                              verbose_name="knowledge field",
