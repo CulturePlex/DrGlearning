@@ -1,3 +1,7 @@
+                                                                     
+                                                                     
+                                                                     
+                                             
 # French texts for DrGlearning
 # CulturePlex Lab 2012.
 # Lista de Carreras , CareersListView.js
@@ -10,43 +14,43 @@ msgstr ""
 # Menus
 
 msgid "Unable to install"
-msgstr "Impossible dï¿½installer"
+msgstr "Impossible d’installer"
 
 msgid "You need data connection to install careers"
-msgstr "Pour installer les carriï¿½res vous avez besoin de la connexion de donnï¿½es"
+msgstr "Pour installer les carrières vous avez besoin de la connexion de données"
 
 msgid "Install Career?"
-msgstr "Installer Carriï¿½re?"
+msgstr "Installer Carrière?"
 
 msgid "Are you sure you want to install this career?"
-msgstr "Vous souhaitez installer cette carriï¿½re?"
+msgstr "Vous souhaitez installer cette carrière?"
 
 msgid "Downloading Career..."
-msgstr "Chargement de carriï¿½re..."
+msgstr "Chargement de carrière..."
 
 msgid "Uninstall Career?"
-msgstr "Dï¿½sinstaller carriï¿½re?"
+msgstr "Désinstaller carrière?"
 
 msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
-msgstr "Si vous dï¿½sinstallez cette carriï¿½re, tous vos points seront perdus. Vous souhaitez dï¿½sinstaller cette carriï¿½re?"
+msgstr "Si vous désinstallez cette carrière, tous vos points seront perdus. Vous souhaitez désinstaller cette carrière?"
  
 msgid "Update Career?"
-msgstr "Mise ï¿½ jour la carriï¿½re?"
+msgstr "Mise à jour la carrière?"
 
 msgid "Are you sure you want to update this career?"
-msgstr "Vous souhaitez mise ï¿½ jour cette carriï¿½re?"
+msgstr "Vous souhaitez mise à jour cette carrière?"
 
 msgid "Problem finded"
-msgstr "Un problï¿½me trouvï¿½"
+msgstr "Un problème trouvé"
 
 msgid "Unable to install this career, delete some installed careers."
-msgstr "Il nï¿½y a pas assez dï¿½espace, supprimer des carriï¿½res"
+msgstr "Il n’y a pas assez d’espace, supprimer des carrières"
 
 msgid "There is not connection to Internet, you cant start this activity!"
-msgstr "Pas de connexion internet. Activitï¿½ ne commencera pas!"
+msgstr "Pas de connexion internet. Activité ne commencera pas!"
 
 msgid "No careers installed, click on Add Career Button to start"
-msgstr "Aucune carriï¿½re installï¿½e, clique bouton Ajoute Carriï¿½re pour commencer"
+msgstr "Aucune carrière installée, clique bouton Ajoute Carrière pour commencer"
 
 msgid "Dr. Glearning"
 msgstr "Dr. Glearning"
@@ -64,7 +68,7 @@ msgid "Not Yet"
 msgstr "Pas encore"
 
 msgid "Add Career"
-msgstr "Ajoute carriï¿½re"
+msgstr "Ajoute carrière"
 
 msgid "back"
 msgstr "retour"
@@ -81,7 +85,7 @@ msgid "English"
 msgstr "Anglais"
 
 msgid "Username"
-msgstr "Nom dï¿½utilisateur"
+msgstr "Nom d’utilisateur"
 
 msgid "Email"
 msgstr "Email"
@@ -99,12 +103,12 @@ msgid "Copy and paste in your new device:"
 msgstr "Copier et coller dans votre nouvel appareil:"
 
 msgid "Paste your previous ID:"
-msgstr "Collez votre ID prï¿½cï¿½dente:"
+msgstr "Collez votre ID précédente:"
 
 # Activities
 
 msgid "Loading activity..."
-msgstr "Chargement de lï¿½activitï¿½..."
+msgstr "Chargement de l’activité..."
 
 msgid "Right!"
 msgstr "Correct!"
@@ -113,23 +117,23 @@ msgid "obtained score:"
 msgstr "Score:"
 
 msgid "Wrong!"
-msgstr "Oops! Rï¿½essayez!"
+msgstr "Oops! Réessayez!"
 
 msgid "Oooh, it isnt the correct place"
-msgstr "Uh oh, ce nï¿½est pas le lieu correct"
+msgstr "Uh oh, ce n’est pas le lieu correct"
 
 
 msgid "Answer: "
-msgstr "Rï¿½ponse: "
+msgstr "Réponse: "
 
 msgid "Cancel"
 msgstr "Annuler"
 
 msgid "Answer the question:"
-msgstr "Rï¿½pondez ï¿½ la question:"
+msgstr "Répondez à la question:"
 
 msgid "Congratulations!"
-msgstr "Fï¿½licitation!"
+msgstr "Félicitation!"
 
 # Geospatial Activity
 
@@ -139,10 +143,10 @@ msgstr "Confirmez le lieu"
 # Linguistic Activity
 
 msgid "Try"
-msgstr "Rï¿½vï¿½ler la lettre"
+msgstr "Révéler la lettre"
 
 msgid "Solve"
-msgstr "Rï¿½soudre"
+msgstr "Résoudre"
 
 # Temporal Activity
 
@@ -153,23 +157,23 @@ msgid "Before"
 msgstr "Avant"
 
 msgid "After"
-msgstr "Aprï¿½s"
+msgstr "Après"
 
 # Relational Activity
 
 msgid "Constraint Passed"
-msgstr "Contrainte rï¿½ussi"
+msgstr "Contrainte réussi"
 
 msgid "Constraint Not Passed Yet"
-msgstr "Contrainte nï¿½est pas encore rï¿½ussi"
+msgstr "Contrainte n’est pas encore réussi"
 
 msgid "Undo"
-msgstr "Dï¿½faire"
+msgstr "Défaire"
 
 # Quiz and Visual Activities
 
 msgid "Oooh, it wasnt the correct answer"
-msgstr "Uh oh, mauvaise rï¿½ponse"
+msgstr "Uh oh, mauvaise réponse"
 
 # Help and Question
 
@@ -180,19 +184,19 @@ msgid "Help"
 msgstr "Aide"
 
 msgid "Look at the image and answer the question!"
-msgstr "Regardez lï¿½image et rï¿½pondre ï¿½ la question!"
+msgstr "Regardez l’image et répondre à la question!"
 
 msgid "You should to guess if the event in the text was before or after the event in the image"
-msgstr "Devinez si lï¿½ï¿½vï¿½nement dans le texte ï¿½tait avant ou aprï¿½s lï¿½ï¿½vï¿½nement dans lï¿½image"
+msgstr "Devinez si l’événement dans le texte était avant ou après l’événement dans l’image"
 
 msgid "You should go from one consept to another according with the constraints"
-msgstr "Passez dï¿½un article ï¿½ lï¿½autre jusquï¿½ï¿½ que vous complï¿½tez les conditions"
+msgstr "Passez d’un article à l’autre jusqu’à que vous complétez les conditions"
 
 msgid "You have to choose the correct option"
 msgstr "Choisissez la bonne option"
 
 msgid "You should find the correct location in the map"
-msgstr "Trouvez lï¿½emplacement sur la carte"
+msgstr "Trouvez l’emplacement sur la carte"
 
 msgid "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"
-msgstr "Dï¿½vinez le(s) mot(s) cachï¿½(s). Pour obtenir un indice, rï¿½lï¿½vez les lettres ; lï¿½image peut aider aussi!"
+msgstr "Dévinez le(s) mot(s) caché(s). Pour obtenir un indice, rélévez les lettres ; l’image peut aider aussi!"

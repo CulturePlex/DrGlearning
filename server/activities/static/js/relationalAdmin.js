@@ -164,6 +164,7 @@ var GraphEditor = {
       return;
     }
     var newList = []
+    edgeNumber--;
     for(var i=0;i<json.length;i++) {
       if (i!=edgeNumber) {
         newList.push(json[i]);
@@ -387,7 +388,7 @@ var GraphEditor = {
       let: "less or equal than",
       gt: "greater than",
       get: "greater or equal than",
-      eq: "equals to",
+      eq: "equal to",
       neq: "different to"
     }
     //Clear everything
