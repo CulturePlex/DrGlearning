@@ -74,7 +74,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	}
 					if(activityModel.data.activity_type=='quiz'){
 						activityModel.setImage('image',activity.image,this);
-                		activityModel.data.image_url=activity.image_url.trim();
+                		activityModel.data.image_url=activity.image_url;
                 		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer.trim();

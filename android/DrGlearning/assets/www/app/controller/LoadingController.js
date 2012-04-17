@@ -130,7 +130,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     				if(careerModel.data.timestamp<career.timestamp){
 	                    				console.log("Checking for update.")
 	    								//careerModel.data.update=true;
-	    								//careerModel.save();
+	    								careerModel.save();
 		                    		}
                     			}
 	                    	}
