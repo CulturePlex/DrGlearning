@@ -164,6 +164,7 @@ var GraphEditor = {
       return;
     }
     var newList = []
+    edgeNumber--;
     for(var i=0;i<json.length;i++) {
       if (i!=edgeNumber) {
         newList.push(json[i]);

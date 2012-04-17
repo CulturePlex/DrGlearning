@@ -292,7 +292,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 			}
 		}
 		console.log('el primer nivelse suponeq es:'+levels[0]);
-		return levels[0];
+		return -1;
 	},
 	/*
 	 * Return activity id
