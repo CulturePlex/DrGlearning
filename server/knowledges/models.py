@@ -49,6 +49,9 @@ class Career(models.Model):
             exported_activities.append(a.export())
         return exported_activities
 
+    class Meta:
+        unique_together = ('name', 'user')
+
 
 class GenuineUser(User):
     has_authenticity = models.BooleanField(default=True)
