@@ -14,7 +14,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     puntos: null,
     bounds: null,
     view: null,
-	helpFlag:false,
 	zoomFlag:false,
     init: function(){
 		this.helpFlag=false;
@@ -66,10 +65,11 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         activityView.add(elmapa);
         activityView.show();
         view.add(activityView);
-		if(!this.helpFlag)
+        if(!newActivity.data.helpviewed)
 		{
+			newActivity.data.helpviewed=true;
+			newActivity.save();
 			this.getApplication().getController('LevelController').helpAndQuery();
-			this.helpFlag=true;
 		}
     },
     empezar: function(view, activity){

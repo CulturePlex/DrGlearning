@@ -82,10 +82,12 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         activityView.show();
         view.add(activityView);
         Ext.Viewport.setMasked(false);
-        if (!this.helpFlag) {
-            this.getApplication().getController('LevelController').helpAndQuery();
-            this.helpFlag = true;
-        }
+		if(!this.activity.data.help)
+		{
+			this.activity.data.help=true;
+			this.activity.save();
+			this.getApplication().getController('LevelController').helpAndQuery();
+		}
         this.loading=false;
     },
     showAnswers: function(){
