@@ -54,10 +54,11 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		activityView.show();
 		view.add(activityView);
 		Ext.Viewport.setMasked(false);
-		if(!this.helpFlag)
+		if(!this.activity.data.helpviewed)
 		{
+			this.activity.data.helpviewed=true;
+			this.activity.save();
 			this.getApplication().getController('LevelController').helpAndQuery();
-			this.helpFlag=true;
 		}
 		this.showSeconds();
 	},

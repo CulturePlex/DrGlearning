@@ -12,6 +12,16 @@ function getJSON(){
 
 }
 
+//Format answer and grappelli delete link
+function formatAnswer(answer){
+  var index = $('#answer-list > li').size();
+  var element = $('<li>').text(answer);
+  element.append($('<ul class="actions">')
+    .append($('<li class="delete-link">')
+      .append($('<a onClick="removeAnswer(' + index + ')">').text("Delete"))));
+  return element;
+};
+
 //Remove answer function
 function removeAnswer(index){
   var json = getJSON();
@@ -22,7 +32,7 @@ function removeAnswer(index){
   $('#answer-list').remove();
   $('#answer-widget').append('<ol id="answer-list"></ol>')
     for(var i=0;i<json.length;i++){
-      $('#answer-list').append('<li>'+json[i]+'</li>');
+      $('#answer-list').append(formatAnswer(json[i]));
     }
 };
 
@@ -41,16 +51,6 @@ $(document).ready(function(){
     $('#answer-widget').append('<ol id="answer-list"></ol>')
 
     $('#answer-widget').css('width', '300px');
-
-    //Format answer and grappelli delete link
-    var formatAnswer = function(answer){
-      var index = $('#answer-list > li').size();
-      var element = $('<li>').text(answer);
-      element.append($('<ul class="actions">')
-        .append($('<li class="delete-link">')
-          .append($('<a onClick="removeAnswer(' + index + ')">').text("Delete"))));
-      return element;
-    };
     
     //Add answer function
     $('#add-answer').click(function(){
