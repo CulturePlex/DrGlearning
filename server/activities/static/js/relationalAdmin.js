@@ -124,7 +124,7 @@ var GraphEditor = {
     }
   },
 
-  addEdge: function(_source, _type, _target){
+  addEdge: function(_source, _type, _target, _properties){
     // Only prompts if the parameter is not sent
     var edgeSource = _source !== undefined ? _source : $('#source-node').val();
     var edgeType = _type !== undefined ? _type: $('#edge-type').val();
@@ -132,6 +132,16 @@ var GraphEditor = {
 
     // Inverse edge type
     var edgeInverseType = $('#edge-inverse-type').val();
+    
+    // Taking inverse relationship property if edge comes from GEXF import
+    debugger;
+    if (edgeInverseType === undefined) {
+      if (_properties.hasOwnProperty('inverse')) {
+        edgeInverseType = _properties.inverse;
+      } else {
+        edgeInverseType = "";
+      }
+    }
     // Discard only-white strings
     edgeInverseType =  (edgeInverseType.search(/^\s*$/) == -1) ? edgeInverseType : "";
     
@@ -148,7 +158,8 @@ var GraphEditor = {
       return;
     }
     var json = this.getGraphEdgesJSON();
-    var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType, "inverse": edgeInverseType};
+    var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType,
+                  "inverse": edgeInverseType, "properties": _properties};
     json.push(newEdge);
     this.setGraphEdgesJSON(json);
     if (this.USES_DRAWER) {
