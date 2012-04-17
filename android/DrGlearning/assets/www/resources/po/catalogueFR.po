@@ -1,0 +1,198 @@
+# French texts for DrGlearning
+# CulturePlex Lab 2012.
+# Lista de Carreras , CareersListView.js
+
+msgid ""
+msgstr ""
+
+"lang: fr"
+
+# Menus
+
+msgid "Unable to install"
+msgstr "Impossible d�installer"
+
+msgid "You need data connection to install careers"
+msgstr "Pour installer les carri�res vous avez besoin de la connexion de donn�es"
+
+msgid "Install Career?"
+msgstr "Installer Carri�re?"
+
+msgid "Are you sure you want to install this career?"
+msgstr "Vous souhaitez installer cette carri�re?"
+
+msgid "Downloading Career..."
+msgstr "Chargement de carri�re..."
+
+msgid "Uninstall Career?"
+msgstr "D�sinstaller carri�re?"
+
+msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
+msgstr "Si vous d�sinstallez cette carri�re, tous vos points seront perdus. Vous souhaitez d�sinstaller cette carri�re?"
+ 
+msgid "Update Career?"
+msgstr "Mise � jour la carri�re?"
+
+msgid "Are you sure you want to update this career?"
+msgstr "Vous souhaitez mise � jour cette carri�re?"
+
+msgid "Problem finded"
+msgstr "Un probl�me trouv�"
+
+msgid "Unable to install this career, delete some installed careers."
+msgstr "Il n�y a pas assez d�espace, supprimer des carri�res"
+
+msgid "There is not connection to Internet, you cant start this activity!"
+msgstr "Pas de connexion internet. Activit� ne commencera pas!"
+
+msgid "No careers installed, click on Add Career Button to start"
+msgstr "Aucune carri�re install�e, clique bouton Ajoute Carri�re pour commencer"
+
+msgid "Dr. Glearning"
+msgstr "Dr. Glearning"
+
+msgid "Start"
+msgstr "Commencer"
+
+msgid "All"
+msgstr "Tout"
+
+msgid "In progress"
+msgstr "En cours"
+
+msgid "Not Yet"
+msgstr "Pas encore"
+
+msgid "Add Career"
+msgstr "Ajoute carri�re"
+
+msgid "back"
+msgstr "retour"
+
+msgid "CulturePlex Lab."
+msgstr "CulturePlex Lab."
+
+# Settings
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "English"
+msgstr "Anglais"
+
+msgid "Username"
+msgstr "Nom d�utilisateur"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Import user"
+msgstr "Importer utilisateur"
+
+msgid "Export user"
+msgstr "Exporter utilisateur"
+
+msgid "Save"
+msgstr "Sauvegarder"
+
+msgid "Copy and paste in your new device:"
+msgstr "Copier et coller dans votre nouvel appareil:"
+
+msgid "Paste your previous ID:"
+msgstr "Collez votre ID pr�c�dente:"
+
+# Activities
+
+msgid "Loading activity..."
+msgstr "Chargement de l�activit�..."
+
+msgid "Right!"
+msgstr "Correct!"
+
+msgid "obtained score:"
+msgstr "Score:"
+
+msgid "Wrong!"
+msgstr "Oops! R�essayez!"
+
+msgid "Oooh, it isnt the correct place"
+msgstr "Uh oh, ce n�est pas le lieu correct"
+
+
+msgid "Answer: "
+msgstr "R�ponse: "
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Answer the question:"
+msgstr "R�pondez � la question:"
+
+msgid "Congratulations!"
+msgstr "F�licitation!"
+
+# Geospatial Activity
+
+msgid "Confirm"
+msgstr "Confirmez le lieu"
+
+# Linguistic Activity
+
+msgid "Try"
+msgstr "R�v�ler la lettre"
+
+msgid "Solve"
+msgstr "R�soudre"
+
+# Temporal Activity
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Before"
+msgstr "Avant"
+
+msgid "After"
+msgstr "Apr�s"
+
+# Relational Activity
+
+msgid "Constraint Passed"
+msgstr "Contrainte r�ussi"
+
+msgid "Constraint Not Passed Yet"
+msgstr "Contrainte n�est pas encore r�ussi"
+
+msgid "Undo"
+msgstr "D�faire"
+
+# Quiz and Visual Activities
+
+msgid "Oooh, it wasnt the correct answer"
+msgstr "Uh oh, mauvaise r�ponse"
+
+# Help and Question
+
+msgid "Question"
+msgstr "Question"
+
+msgid "Help"
+msgstr "Aide"
+
+msgid "Look at the image and answer the question!"
+msgstr "Regardez l�image et r�pondre � la question!"
+
+msgid "You should to guess if the event in the text was before or after the event in the image"
+msgstr "Devinez si l��v�nement dans le texte �tait avant ou apr�s l��v�nement dans l�image"
+
+msgid "You should go from one consept to another according with the constraints"
+msgstr "Passez d�un article � l�autre jusqu�� que vous compl�tez les conditions"
+
+msgid "You have to choose the correct option"
+msgstr "Choisissez la bonne option"
+
+msgid "You should find the correct location in the map"
+msgstr "Trouvez l�emplacement sur la carte"
+
+msgid "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"
+msgstr "D�vinez le(s) mot(s) cach�(s). Pour obtenir un indice, r�l�vez les lettres ; l�image peut aider aussi!"
