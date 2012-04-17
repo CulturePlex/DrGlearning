@@ -14,43 +14,43 @@ msgstr ""
 # Menus
 
 msgid "Unable to install"
-msgstr "Impossible d’installer"
+msgstr "Impossible dâ€™installer"
 
 msgid "You need data connection to install careers"
-msgstr "Pour installer les carrières vous avez besoin de la connexion de données"
+msgstr "Pour installer les carriÃ¨res vous avez besoin de la connexion de donnÃ©es"
 
 msgid "Install Career?"
-msgstr "Installer Carrière?"
+msgstr "Installer CarriÃ¨re?"
 
 msgid "Are you sure you want to install this career?"
-msgstr "Vous souhaitez installer cette carrière?"
+msgstr "Vous souhaitez installer cette carriÃ¨re?"
 
 msgid "Downloading Career..."
-msgstr "Chargement de carrière..."
+msgstr "Chargement de carriÃ¨re..."
 
 msgid "Uninstall Career?"
-msgstr "Désinstaller carrière?"
+msgstr "DÃ©sinstaller carriÃ¨re?"
 
 msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
-msgstr "Si vous désinstallez cette carrière, tous vos points seront perdus. Vous souhaitez désinstaller cette carrière?"
+msgstr "Si vous dÃ©sinstallez cette carriÃ¨re, tous vos points seront perdus. Vous souhaitez dÃ©sinstaller cette carriÃ¨re?"
  
 msgid "Update Career?"
-msgstr "Mise à jour la carrière?"
+msgstr "Mise Ã  jour la carriÃ¨re?"
 
 msgid "Are you sure you want to update this career?"
-msgstr "Vous souhaitez mise à jour cette carrière?"
+msgstr "Vous souhaitez mise Ã  jour cette carriÃ¨re?"
 
 msgid "Problem finded"
-msgstr "Un problème trouvé"
+msgstr "Un problÃ¨me trouvÃ©"
 
 msgid "Unable to install this career, delete some installed careers."
-msgstr "Il n’y a pas assez d’espace, supprimer des carrières"
+msgstr "Il nâ€™y a pas assez dâ€™espace, supprimer des carriÃ¨res"
 
 msgid "There is not connection to Internet, you cant start this activity!"
-msgstr "Pas de connexion internet. Activité ne commencera pas!"
+msgstr "Pas de connexion internet. ActivitÃ© ne commencera pas!"
 
 msgid "No careers installed, click on Add Career Button to start"
-msgstr "Aucune carrière installée, clique bouton Ajoute Carrière pour commencer"
+msgstr "Aucune carriÃ¨re installÃ©e, clique bouton Ajoute CarriÃ¨re pour commencer"
 
 msgid "Dr. Glearning"
 msgstr "Dr. Glearning"
@@ -68,7 +68,7 @@ msgid "Not Yet"
 msgstr "Pas encore"
 
 msgid "Add Career"
-msgstr "Ajoute carrière"
+msgstr "Ajoute carriÃ¨re"
 
 msgid "back"
 msgstr "retour"
@@ -85,7 +85,7 @@ msgid "English"
 msgstr "Anglais"
 
 msgid "Username"
-msgstr "Nom d’utilisateur"
+msgstr "Nom dâ€™utilisateur"
 
 msgid "Email"
 msgstr "Email"
@@ -103,12 +103,12 @@ msgid "Copy and paste in your new device:"
 msgstr "Copier et coller dans votre nouvel appareil:"
 
 msgid "Paste your previous ID:"
-msgstr "Collez votre ID précédente:"
+msgstr "Collez votre ID prÃ©cÃ©dente:"
 
 # Activities
 
 msgid "Loading activity..."
-msgstr "Chargement de l’activité..."
+msgstr "Chargement de lâ€™activitÃ©..."
 
 msgid "Right!"
 msgstr "Correct!"
@@ -117,23 +117,23 @@ msgid "obtained score:"
 msgstr "Score:"
 
 msgid "Wrong!"
-msgstr "Oops! Réessayez!"
+msgstr "Oops! RÃ©essayez!"
 
 msgid "Oooh, it isnt the correct place"
-msgstr "Uh oh, ce n’est pas le lieu correct"
+msgstr "Uh oh, ce nâ€™est pas le lieu correct"
 
 
 msgid "Answer: "
-msgstr "Réponse: "
+msgstr "RÃ©ponse: "
 
 msgid "Cancel"
 msgstr "Annuler"
 
 msgid "Answer the question:"
-msgstr "Répondez à la question:"
+msgstr "RÃ©pondez Ã  la question:"
 
 msgid "Congratulations!"
-msgstr "Félicitation!"
+msgstr "FÃ©licitation!"
 
 # Geospatial Activity
 
@@ -143,10 +143,10 @@ msgstr "Confirmez le lieu"
 # Linguistic Activity
 
 msgid "Try"
-msgstr "Révéler la lettre"
+msgstr "RÃ©vÃ©ler la lettre"
 
 msgid "Solve"
-msgstr "Résoudre"
+msgstr "RÃ©soudre"
 
 # Temporal Activity
 
@@ -157,23 +157,23 @@ msgid "Before"
 msgstr "Avant"
 
 msgid "After"
-msgstr "Après"
+msgstr "AprÃ¨s"
 
 # Relational Activity
 
 msgid "Constraint Passed"
-msgstr "Contrainte réussi"
+msgstr "Contrainte rÃ©ussi"
 
 msgid "Constraint Not Passed Yet"
-msgstr "Contrainte n’est pas encore réussi"
+msgstr "Contrainte nâ€™est pas encore rÃ©ussi"
 
 msgid "Undo"
-msgstr "Défaire"
+msgstr "DÃ©faire"
 
 # Quiz and Visual Activities
 
 msgid "Oooh, it wasnt the correct answer"
-msgstr "Uh oh, mauvaise réponse"
+msgstr "Uh oh, mauvaise rÃ©ponse"
 
 # Help and Question
 
@@ -184,19 +184,19 @@ msgid "Help"
 msgstr "Aide"
 
 msgid "Look at the image and answer the question!"
-msgstr "Regardez l’image et répondre à la question!"
+msgstr "Regardez lâ€™image et rÃ©pondre Ã  la question!"
 
 msgid "You should to guess if the event in the text was before or after the event in the image"
-msgstr "Devinez si l’événement dans le texte était avant ou après l’événement dans l’image"
+msgstr "Devinez si lâ€™Ã©vÃ©nement dans le texte Ã©tait avant ou aprÃ¨s lâ€™Ã©vÃ©nement dans lâ€™image"
 
 msgid "You should go from one consept to another according with the constraints"
-msgstr "Passez d’un article à l’autre jusqu’à que vous complétez les conditions"
+msgstr "Passez dâ€™un article Ã  lâ€™autre jusquâ€™Ã  que vous complÃ©tez les conditions"
 
 msgid "You have to choose the correct option"
 msgstr "Choisissez la bonne option"
 
 msgid "You should find the correct location in the map"
-msgstr "Trouvez l’emplacement sur la carte"
+msgstr "Trouvez lâ€™emplacement sur la carte"
 
 msgid "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"
-msgstr "Dévinez le(s) mot(s) caché(s). Pour obtenir un indice, rélévez les lettres ; l’image peut aider aussi!"
+msgstr "DÃ©vinez le(s) mot(s) cachÃ©(s). Pour obtenir un indice, rÃ©lÃ©vez les lettres ; lâ€™image peut aider aussi!"
