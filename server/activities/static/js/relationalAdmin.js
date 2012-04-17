@@ -406,6 +406,8 @@ var GraphEditor = {
     this.clearLists();
     //Set nodes
     var nodes = this.getGraphNodesJSON();
+    var startSelected = false;
+    var endSelected = false;
     var nodeTypes = {};
     var startOption;
     var endOption;
@@ -416,10 +418,12 @@ var GraphEditor = {
       if (nodes[i].hasOwnProperty('start')){
         this.sourcePath = i;
         startOption = new Option(i, i, true, true);
+        startSelected = true;
       }
       if (nodes[i].hasOwnProperty('end')){
         this.targetPath = i;
         endOption = new Option(i, i, true, true);
+        endSelected = true;
       }
       nodeTypes[nodes[i]["type"]] = {};
       $('#_start_node').append(startOption);
@@ -427,6 +431,13 @@ var GraphEditor = {
 
       // Update chosen selects with new content
       $('.chzn-select').trigger("liszt:updated");
+    }
+    //Set default start and end node
+    if (!startSelected && Object.keys(nodes).length > 0) {
+      this.setStart();
+    }
+    if (!endSelected && Object.keys(nodes).length > 0) {
+      this.setFinish();
     }
     //Set edges
     var edges = this.getGraphEdgesJSON();
