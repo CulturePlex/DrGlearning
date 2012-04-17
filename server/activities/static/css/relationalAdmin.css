@@ -29,3 +29,7 @@ ol#constraint-list {
 .actions li.delete-link {
   text-decoration: none;
 }
+
+li.item {
+  clear: right;
+}
