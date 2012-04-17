@@ -42,6 +42,12 @@ Ext.define('DrGlearning.view.CareersList', {
 				        '</tpl>',
 					'</div>',
 				'</div>',
+				'<div style="display:table; width:100%;">',
+				'<img hspace="2" vertical-align= "middle" height="25" src="resources/images/level_icons/iletratum.png">',
+				'<img hspace="2" vertical-align= "middle" height="25" src="resources/images/level_icons/college.png">',
+				'<img hspace="2" vertical-align= "middle" height="25" src="resources/images/level_icons/primaryB.png">',
+				'<img hspace="2" vertical-align= "middle" height="25" src="resources/images/level_icons/secondaryB.png">',
+				'</div>',
 		    '</tpl>'
 		),
 		
