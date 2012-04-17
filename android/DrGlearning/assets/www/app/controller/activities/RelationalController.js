@@ -59,7 +59,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 							console.log(graphNodes[i]);
 							console.log(edge.source);
 							if (nodo == edge.source) {
-								tipo = nodo;
+								tipo = graphNodes[nodo]["type"];
 							}
 						}
 						console.log(tipo);
@@ -72,7 +72,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 							console.log(edge.target);
 							if (nodo == edge.target) {
 								console.log(nodo);
-								tipo = nodo;
+								tipo = graphNodes[nodo]["type"];
 							}
 						}
 						console.log(tipo);
