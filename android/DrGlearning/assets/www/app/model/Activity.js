@@ -60,6 +60,9 @@ Ext.define('DrGlearning.model.Activity', {
 		}, {
 			name : "successful",
 			type : "boolean"
+		}, {
+			name : "helpviewed",
+			type : "boolean"
 		}
 		/*-----------------------
 		Temporal Activities

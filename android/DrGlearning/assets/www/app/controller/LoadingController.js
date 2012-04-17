@@ -13,6 +13,10 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	},
 	
 	onLaunch: function() {
+		//Add trim to prototype
+		String.prototype.trim = function(){ return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[\n\r]$/,"");}
+
+		//Aplication start
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		console.log('Loading...');
@@ -35,12 +39,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			localStorage.maxSize=2600000;
 			localStorage.actualSize=0;
 			console.log("New user");
-			if(window.device != undefined){
+			if(this.getApplication().getController('GlobalSettingsController').isDevice()){
 				var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());	
 			}else{
 				var digest=this.SHA1("test"+" "+new Date().getTime());
 			}
-			
 			console.log(digest);
 			//var userModel=Ext.ModelManager.getModel('DrGlearning.model.User');
 			//user.set('uniqueid:', digest);
@@ -50,7 +53,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			userModel.save();
 			
 		}
-		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
+
+		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
+				//console.log("Listo0");
 				//Register user if needed
 				var user=usersStore.first();
 				if(user != undefined && user.data.serverid==""){
@@ -130,7 +135,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    	//if(localStorage.maxSize!=undefined){
 	                    		this.getLoading().hide();
 	                    		Ext.Viewport.setMasked(false);
-		                    	this.getApplication().getController('CareersListController').initializate();	
+	                    		this.getApplication().getController('CareersListController').initializate();
+	                    		this.getApplication().getController('CareersListController').index();
+	                    		
+	                    			
+	            	          		
 	                    	//}
 	                    			
 
@@ -145,7 +154,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    	  	//Ext.Viewport.setMasked(false);
 	    	  	//console.log("Listo2");
 	          	this.getLoading().hide();
-	          	this.getApplication().getController('CareersListController').initializate();		
+	          	Ext.Viewport.setMasked(false);
+	          	this.getApplication().getController('CareersListController').initializate();
+	          	this.getApplication().getController('CareersListController').index();
 	      }
 	    },
 		

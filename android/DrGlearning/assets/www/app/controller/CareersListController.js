@@ -70,7 +70,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
             
             }
         });
-        this.index();
     },
     /*
      * Showing Installed Careers.
@@ -96,6 +95,13 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
+        if(localStorage.selectedcareer != undefined &&  localStorage.selectedcareer != 0){
+        	Ext.Msg.confirm("Last career", "Return to last career?", function(answer){
+        		if (answer == 'yes') {
+        			this.getApplication().getController('CareersListController').addOrStartCareer(undefined,undefined,undefined,Ext.getStore('Careers').getById(localStorage.selectedcareer));
+        		}
+        	},this);
+        }
     },
     /*
      * Method call when tap on a Carrer Item in the list.
@@ -122,7 +128,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             
         }
         else {
-			if(e.touch.target.id=="uninstall")
+			if(e!= undefined && e.touch.target.id=="uninstall")
 			{
 				Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function(answer, pako){
                 if (answer == 'yes') {
@@ -130,7 +136,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 					this.index();
                 }
             }, this);
-			}else if(e.touch.target.id=="update")
+			}else if(e!= undefined && e.touch.target.id=="update")
 			{	
 				Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer, pako){
 				if (answer == 'yes') {
@@ -141,6 +147,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			}else
 			{
 				this.getApplication().getController('CareerController').updateCareer(career);
+				localStorage.selectedcareer=career.data.id;
 	            this.getCareersframe().hide();				
 			}
             

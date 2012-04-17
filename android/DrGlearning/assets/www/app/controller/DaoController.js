@@ -39,46 +39,47 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	var activity=response;
                 	var activityModel=new DrGlearning.model.Activity({
                 		id : activity.id,
-                		name : activity.name,
+                		name : activity.name.trim(),
                 		careerId : id,
-                		activity_type : activity.activity_type,
-                		language_code : activity.language_code,
+                		activity_type : activity.activity_type.trim(),
+                		language_code : activity.language_code.trim(),
                 		level_type : activity.level_type,
                 		level_order : activity.level_order,
                 		level_required : activity.level_required,
-                		query : activity.query,
-                		timestamp : activity.timestamp,
-                		resource_uri : activity.resource_uri,
-                		reward: activity.reward,
+                		query : activity.query.trim(),
+                		timestamp : activity.timestamp.trim(),
+                		resource_uri : activity.resource_uri.trim(),
+                		reward: activity.reward.trim(),
                 		score: 0,
                 		played: false,
-                		successful: false
+                		successful: false,
+                		helpviewed: false
                 		
                 	});
                 	if(activityModel.data.activity_type=='linguistic'){
                 		activityModel.setImage('image',activity.image,this);
-                		activityModel.data.image_url=activity.image_url;
-                		activityModel.data.locked_text=activity.locked_text;
-                		activityModel.data.answer=activity.answer;
+                		activityModel.data.image_url=activity.image_url.trim();
+                		activityModel.data.locked_text=activity.locked_text.trim();
+                		activityModel.data.answer=activity.answer.trim();
                 	}
                 	if(activityModel.data.activity_type=='visual'){
                 		activityModel.setImage('image',activity.image,this);
-                		activityModel.data.image_url=activity.image_url;
+                		activityModel.data.image_url=activity.image_url.trim();
                 		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
-                		activityModel.data.correct_answer=activity.correct_answer;
+                		activityModel.data.correct_answer=activity.correct_answer.trim();
                 		activityModel.set('obfuscated_image',activity.obfuscated_image);
-                		activityModel.data.obfuscated_image_url=activity.obfuscated_image_url;
-                		activityModel.data.time=activity.time;
+                		activityModel.data.obfuscated_image_url=activity.obfuscated_image_url.trim();
+                		activityModel.data.time=activity.time.trim();
                 	}
 					if(activityModel.data.activity_type=='quiz'){
 						activityModel.setImage('image',activity.image,this);
-                		activityModel.data.image_url=activity.image_url;
+                		activityModel.data.image_url=activity.image_url.trim();
                 		//activityModel.data.image=activity.image;
                 		activityModel.data.answers=activity.answers;
-                		activityModel.data.correct_answer=activity.correct_answer;
+                		activityModel.data.correct_answer=activity.correct_answer.trim();
                 		//activityModel.set('obfuscated_image',activity.obfuscated_image);
-                		activityModel.data.time=activity.time;
+                		activityModel.data.time=activity.time.trim();
                 	}
                 	if(activityModel.data.activity_type=='relational'){
                 		activityModel.data.graph_nodes=activity.graph_nodes;
@@ -87,13 +88,13 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	}
                 	if(activityModel.data.activity_type=='temporal'){
                 		activityModel.setImage('image',activity.image,this);
-                		activityModel.data.image_url=activity.image_url;
-                		activityModel.data.image_datetime=activity.image_datetime;
-                		activityModel.data.query_datetime=activity.query_datetime;
+                		activityModel.data.image_url=activity.image_url.trim();
+                		activityModel.data.image_datetime=activity.image_datetime.trim();
+                		activityModel.data.query_datetime=activity.query_datetime.trim();
                 	}
                 	if(activityModel.data.activity_type=='geospatial'){
-                		activityModel.data.area=activity.area;
-                		activityModel.data.point=activity.points;
+                		activityModel.data.area=activity.area.trim();
+                		activityModel.data.point=activity.points.trim();
                 		activityModel.data.radius=activity.radius;
                 	}
                 	activitiesToInstall.push(activityModel);
@@ -411,7 +412,8 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		reward: activity.reward,
                                     		score: 0,
                                     		played: false,
-                                    		successful: false
+                                    		successful: false,
+                                    		helpviewed: false,
                                     		
                                     	});
                                 	}

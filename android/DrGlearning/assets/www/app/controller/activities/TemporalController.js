@@ -44,10 +44,11 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 		activityView.show();
 		view.add(activityView);
 		Ext.Viewport.setMasked(false);
-		if(!this.helpFlag)
+		if(!this.activity.data.help)
 		{
+			this.activity.data.help=true;
+			this.activity.save();
 			this.getApplication().getController('LevelController').helpAndQuery();
-			this.helpFlag=true;
 		}
 	},
 	before: function() {

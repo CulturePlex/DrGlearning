@@ -39,6 +39,7 @@ Ext.define('DrGlearning.controller.CareerController', {
      * Back to installed careers list.
      */
     toCareers: function(){
+    	localStorage.selectedcareer=0;
         var view1 = this.getCareerframe();
         view1.hide();
         this.careersListController.index();
