@@ -129,8 +129,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     				console.log(careerModel.data.timestamp<career.timestamp);
                     				if(careerModel.data.timestamp<career.timestamp){
 	                    				console.log("Checking for update.")
-	    								careerModel.data.update=true;
-	    								careerModel.save();
+	    								//careerModel.data.update=true;
+	    								//careerModel.save();
 		                    		}
                     			}
 	                    	}
