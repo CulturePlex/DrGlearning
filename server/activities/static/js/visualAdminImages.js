@@ -25,7 +25,11 @@ $(document).ready(function(){
     $('#id_obfuscated_image').hide();
     $('#obfuscated_64').hide();
   }
-  document.getElementById('id_image').addEventListener('change', handleFile, false);
+  try {
+    document.getElementById('id_image').addEventListener('change', handleFile, false);
+  } catch (TypeError) {
+    console.log("No image field found");
+  }
 });
 
 

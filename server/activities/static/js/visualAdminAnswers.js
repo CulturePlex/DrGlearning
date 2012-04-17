@@ -30,10 +30,38 @@ function removeAnswer(index){
   }
   $('#id_answers').text(JSON.stringify(json));
   $('#answer-list').remove();
-  $('#answer-widget').append('<ol id="answer-list"></ol>')
-    for(var i=0;i<json.length;i++){
-      $('#answer-list').append(formatAnswer(json[i]));
-    }
+  $('#answer-widget').append('<ol id="answer-list"></ol>');
+  for(var i=0;i<json.length;i++){
+    $('#answer-list').append(formatAnswer(json[i]));
+  }
+  createCorrectAnswerSelect();
+};
+
+function createCorrectAnswerSelect(){
+  var option = null;
+  var previousValue = null;
+
+  var existingAnswers = getJSON();
+  var widgetId = 'id_correct_answer';
+  var widgetName = 'correct_answer';
+
+  // Append new select after current widget
+  var newSelect = $('<select>');
+  $('#'+widgetId).after(newSelect);
+  previousValue = $('#'+widgetId).val();
+  console.log("Previous", previousValue);
+  
+  // Create its options
+  $.each(existingAnswers, function(i, answer){
+    option = $('<option>').attr('value', answer).text(answer);
+    newSelect.append(option);
+  });
+
+  // Set previous value and delete old widget
+  $('#'+widgetId).remove();
+  newSelect.attr('id', widgetId);
+  newSelect.attr('name', widgetName);
+  newSelect.val(previousValue);
 };
 
 $(document).ready(function(){
@@ -60,6 +88,7 @@ $(document).ready(function(){
         var json = getJSON();
         json.push(newAnswer);
         $('#id_answers').text(JSON.stringify(json));
+        createCorrectAnswerSelect();
     }
     });
     
@@ -68,5 +97,6 @@ $(document).ready(function(){
     $.each(existingAnswers, function(i, answer){
       $('#answer-list').append(formatAnswer(answer));
     });
+    createCorrectAnswerSelect();
 
 });

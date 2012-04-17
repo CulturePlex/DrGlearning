@@ -115,9 +115,12 @@ class LinguisticAdmin(ActivityAdmin):
     pass
 
 
+class QuizAdmin(VisualAdmin):
+    exclude = ('time', 'image', 'obfuscated_image', 'user')
+
 admin.site.register(Relational, RelationalAdmin)
 admin.site.register(Visual, VisualAdmin)
-admin.site.register(Quiz, VisualAdmin)
+admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Geospatial, GeospatialAdmin)
 admin.site.register(Temporal, TemporalAdmin)
 admin.site.register(Linguistic, LinguisticAdmin)

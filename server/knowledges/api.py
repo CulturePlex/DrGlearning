@@ -22,7 +22,7 @@ class CareerResource(ModelResource):
                                         full=True)
 
     class Meta:
-        queryset = Career.objects.all()
+        queryset = Career.objects.filter(published=True)
 
     def dehydrate(self, bundle):
         # Career creator name

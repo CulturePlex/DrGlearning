@@ -124,7 +124,7 @@ var GraphEditor = {
     }
   },
 
-  addEdge: function(_source, _type, _target){
+  addEdge: function(_source, _type, _target, _properties){
     // Only prompts if the parameter is not sent
     var edgeSource = _source !== undefined ? _source : $('#source-node').val();
     var edgeType = _type !== undefined ? _type: $('#edge-type').val();
@@ -132,6 +132,15 @@ var GraphEditor = {
 
     // Inverse edge type
     var edgeInverseType = $('#edge-inverse-type').val();
+    
+    // Taking inverse relationship property if edge comes from GEXF import
+    if (edgeInverseType === undefined) {
+      if (_properties.hasOwnProperty('inverse')) {
+        edgeInverseType = _properties.inverse;
+      } else {
+        edgeInverseType = "";
+      }
+    }
     // Discard only-white strings
     edgeInverseType =  (edgeInverseType.search(/^\s*$/) == -1) ? edgeInverseType : "";
     
@@ -148,7 +157,8 @@ var GraphEditor = {
       return;
     }
     var json = this.getGraphEdgesJSON();
-    var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType, "inverse": edgeInverseType};
+    var newEdge = {"source": edgeSource, "target": edgeTarget, "type": edgeType,
+                  "inverse": edgeInverseType, "properties": _properties};
     json.push(newEdge);
     this.setGraphEdgesJSON(json);
     if (this.USES_DRAWER) {
@@ -327,6 +337,12 @@ var GraphEditor = {
   loadGEXF: function(){
         function handleFileSelect(evt) {
         GraphEditor.progressBar.show();
+
+        // Clean previous information to have a clean graph
+        GraphEditor.setGraphNodesJSON({});
+        GraphEditor.setGraphEdgesJSON([]);
+        GraphEditor.setConstraints([]);
+
         var files = evt.target.files; // FileList object
     
         for (var i = 0, f; f = files[i]; i++) {
@@ -395,6 +411,8 @@ var GraphEditor = {
     this.clearLists();
     //Set nodes
     var nodes = this.getGraphNodesJSON();
+    var startSelected = false;
+    var endSelected = false;
     var nodeTypes = {};
     var startOption;
     var endOption;
@@ -405,10 +423,12 @@ var GraphEditor = {
       if (nodes[i].hasOwnProperty('start')){
         this.sourcePath = i;
         startOption = new Option(i, i, true, true);
+        startSelected = true;
       }
       if (nodes[i].hasOwnProperty('end')){
         this.targetPath = i;
         endOption = new Option(i, i, true, true);
+        endSelected = true;
       }
       nodeTypes[nodes[i]["type"]] = {};
       $('#_start_node').append(startOption);
@@ -416,6 +436,13 @@ var GraphEditor = {
 
       // Update chosen selects with new content
       $('.chzn-select').trigger("liszt:updated");
+    }
+    //Set default start and end node
+    if (!startSelected && Object.keys(nodes).length > 0) {
+      this.setStart();
+    }
+    if (!endSelected && Object.keys(nodes).length > 0) {
+      this.setFinish();
     }
     //Set edges
     var edges = this.getGraphEdgesJSON();
