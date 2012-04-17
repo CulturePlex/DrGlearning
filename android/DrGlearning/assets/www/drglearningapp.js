@@ -1,6 +1,6 @@
 var i18n = new Jed({
   // Output by a .po file conversion
-  locale_data : catalogueEN,
+  locale_data : catalogueFR,
   "domain" : "messages"
 });
 

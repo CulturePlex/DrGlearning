@@ -204,7 +204,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 					uitype = 'decline';
                     constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
                 }
-                constraintsTextNew[i] += 'Nodes of type ';
+                constraintsTextNew[i] += i18n.gettext('The number of ');
                 constraintsTextNew[i] += constraints[i]["type"] + ' should be ';
                 constraintsTextNew[i] += verboseOperator[constraints[i]["operator"]] + ' ';
                 constraintsTextNew[i] += constraints[i]["value"];

@@ -1,7 +1,3 @@
-                                                                     
-                                                                     
-                                                                     
-                                             
 # French texts for DrGlearning
 # CulturePlex Lab 2012.
 # Lista de Carreras , CareersListView.js
@@ -14,43 +10,43 @@ msgstr ""
 # Menus
 
 msgid "Unable to install"
-msgstr "Impossible d’installer"
+msgstr "Impossible dï¿½installer"
 
 msgid "You need data connection to install careers"
-msgstr "Pour installer les carrières vous avez besoin de la connexion de données"
+msgstr "Pour installer les carriï¿½res vous avez besoin de la connexion de donnï¿½es"
 
 msgid "Install Career?"
-msgstr "Installer Carrière?"
+msgstr "Installer Carriï¿½re?"
 
 msgid "Are you sure you want to install this career?"
-msgstr "Vous souhaitez installer cette carrière?"
+msgstr "Vous souhaitez installer cette carriï¿½re?"
 
 msgid "Downloading Career..."
-msgstr "Chargement de carrière..."
+msgstr "Chargement de carriï¿½re..."
 
 msgid "Uninstall Career?"
-msgstr "Désinstaller carrière?"
+msgstr "Dï¿½sinstaller carriï¿½re?"
 
 msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
-msgstr "Si vous désinstallez cette carrière, tous vos points seront perdus. Vous souhaitez désinstaller cette carrière?"
+msgstr "Si vous dï¿½sinstallez cette carriï¿½re, tous vos points seront perdus. Vous souhaitez dï¿½sinstaller cette carriï¿½re?"
  
 msgid "Update Career?"
-msgstr "Mise à jour la carrière?"
+msgstr "Mise ï¿½ jour la carriï¿½re?"
 
 msgid "Are you sure you want to update this career?"
-msgstr "Vous souhaitez mise à jour cette carrière?"
+msgstr "Vous souhaitez mise ï¿½ jour cette carriï¿½re?"
 
 msgid "Problem finded"
-msgstr "Un problème trouvé"
+msgstr "Un problï¿½me trouvï¿½"
 
 msgid "Unable to install this career, delete some installed careers."
-msgstr "Il n’y a pas assez d’espace, supprimer des carrières"
+msgstr "Il nï¿½y a pas assez dï¿½espace, supprimer des carriï¿½res"
 
 msgid "There is not connection to Internet, you cant start this activity!"
-msgstr "Pas de connexion internet. Activité ne commencera pas!"
+msgstr "Pas de connexion internet. Activitï¿½ ne commencera pas!"
 
 msgid "No careers installed, click on Add Career Button to start"
-msgstr "Aucune carrière installée, clique bouton Ajoute Carrière pour commencer"
+msgstr "Aucune carriï¿½re installï¿½e, clique bouton Ajoute Carriï¿½re pour commencer"
 
 msgid "Dr. Glearning"
 msgstr "Dr. Glearning"
@@ -68,7 +64,7 @@ msgid "Not Yet"
 msgstr "Pas encore"
 
 msgid "Add Career"
-msgstr "Ajoute carrière"
+msgstr "Ajoute carriï¿½re"
 
 msgid "back"
 msgstr "retour"
@@ -85,7 +81,7 @@ msgid "English"
 msgstr "Anglais"
 
 msgid "Username"
-msgstr "Nom d’utilisateur"
+msgstr "Nom dï¿½utilisateur"
 
 msgid "Email"
 msgstr "Email"
@@ -103,12 +99,12 @@ msgid "Copy and paste in your new device:"
 msgstr "Copier et coller dans votre nouvel appareil:"
 
 msgid "Paste your previous ID:"
-msgstr "Collez votre ID précédente:"
+msgstr "Collez votre ID prï¿½cï¿½dente:"
 
 # Activities
 
 msgid "Loading activity..."
-msgstr "Chargement de l’activité..."
+msgstr "Chargement de lï¿½activitï¿½..."
 
 msgid "Right!"
 msgstr "Correct!"
@@ -117,23 +113,23 @@ msgid "obtained score:"
 msgstr "Score:"
 
 msgid "Wrong!"
-msgstr "Oops! Réessayez!"
+msgstr "Oops! Rï¿½essayez!"
 
 msgid "Oooh, it isnt the correct place"
-msgstr "Uh oh, ce n’est pas le lieu correct"
+msgstr "Uh oh, ce nï¿½est pas le lieu correct"
 
 
 msgid "Answer: "
-msgstr "Réponse: "
+msgstr "Rï¿½ponse: "
 
 msgid "Cancel"
 msgstr "Annuler"
 
 msgid "Answer the question:"
-msgstr "Répondez à la question:"
+msgstr "Rï¿½pondez ï¿½ la question:"
 
 msgid "Congratulations!"
-msgstr "Félicitation!"
+msgstr "Fï¿½licitation!"
 
 # Geospatial Activity
 
@@ -143,10 +139,10 @@ msgstr "Confirmez le lieu"
 # Linguistic Activity
 
 msgid "Try"
-msgstr "Révéler la lettre"
+msgstr "Rï¿½vï¿½ler la lettre"
 
 msgid "Solve"
-msgstr "Résoudre"
+msgstr "Rï¿½soudre"
 
 # Temporal Activity
 
@@ -157,23 +153,26 @@ msgid "Before"
 msgstr "Avant"
 
 msgid "After"
-msgstr "Après"
+msgstr "Aprï¿½s"
 
 # Relational Activity
 
 msgid "Constraint Passed"
-msgstr "Contrainte réussi"
+msgstr "Contrainte rï¿½ussi"
 
 msgid "Constraint Not Passed Yet"
-msgstr "Contrainte n’est pas encore réussi"
+msgstr "Contrainte nï¿½est pas encore rï¿½ussi"
+
+msgid "The number of "
+msgstr "The number of "
 
 msgid "Undo"
-msgstr "Défaire"
+msgstr "Dï¿½faire"
 
 # Quiz and Visual Activities
 
 msgid "Oooh, it wasnt the correct answer"
-msgstr "Uh oh, mauvaise réponse"
+msgstr "Uh oh, mauvaise rï¿½ponse"
 
 # Help and Question
 
@@ -184,19 +183,19 @@ msgid "Help"
 msgstr "Aide"
 
 msgid "Look at the image and answer the question!"
-msgstr "Regardez l’image et répondre à la question!"
+msgstr "Regardez lï¿½image et rï¿½pondre ï¿½ la question!"
 
 msgid "You should to guess if the event in the text was before or after the event in the image"
-msgstr "Devinez si l’événement dans le texte était avant ou après l’événement dans l’image"
+msgstr "Devinez si lï¿½ï¿½vï¿½nement dans le texte ï¿½tait avant ou aprï¿½s lï¿½ï¿½vï¿½nement dans lï¿½image"
 
 msgid "You should go from one consept to another according with the constraints"
-msgstr "Passez d’un article à l’autre jusqu’à que vous complétez les conditions"
+msgstr "Passez dï¿½un article ï¿½ lï¿½autre jusquï¿½ï¿½ que vous complï¿½tez les conditions"
 
 msgid "You have to choose the correct option"
 msgstr "Choisissez la bonne option"
 
 msgid "You should find the correct location in the map"
-msgstr "Trouvez l’emplacement sur la carte"
+msgstr "Trouvez lï¿½emplacement sur la carte"
 
 msgid "You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image"
-msgstr "Dévinez le(s) mot(s) caché(s). Pour obtenir un indice, rélévez les lettres ; l’image peut aider aussi!"
+msgstr "Dï¿½vinez le(s) mot(s) cachï¿½(s). Pour obtenir un indice, rï¿½lï¿½vez les lettres ; lï¿½image peut aider aussi!"

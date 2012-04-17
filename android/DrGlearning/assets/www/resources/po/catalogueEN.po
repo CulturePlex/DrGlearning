@@ -163,6 +163,9 @@ msgstr "Constraint Passed"
 msgid "Constraint Not Passed Yet"
 msgstr "Constraint Not Yet Passed"
 
+msgid "The number of "
+msgstr "The number of "
+
 msgid "Undo"
 msgstr "Undo"
 
