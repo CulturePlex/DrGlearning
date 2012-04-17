@@ -150,10 +150,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         
         function constraintPassed(constraint){
+			var counted = [];
             var elementCount = 0;
             var constraintValue = parseInt(constraint["value"]);
             for (var i = 0; i < playerPath.length; i++) {
-                if (constraint["type"] === graphNodes[playerPath[i]]["type"]) {
+                if (constraint["type"] === graphNodes[playerPath[i]]["type"] && counted.indexOf(playerPath[i]) == -1) {
+					counted.push(playerPath[i]);
                     elementCount++;
                 }
             }
