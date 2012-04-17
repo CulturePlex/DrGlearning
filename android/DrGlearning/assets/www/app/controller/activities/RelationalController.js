@@ -50,6 +50,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var edge;
 			var written=[];
 			var tipo="error";
+			blankOption="Choose";
 			for (var i = 0; i < graphEdges.length; i++) {
 				edge = graphEdges[i];
 				console.log(graphNodes);
@@ -57,25 +58,25 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 						for( var nodo in graphNodes ){
 							console.log(graphNodes[i]);
 							console.log(edge.source);
-							if (nodo == edge.target) {
-								tipo = nodo.type;
+							if (nodo == edge.source) {
+								tipo = nodo;
 							}
 						}
 						console.log(tipo);
-						blankOption += " " + tipo + " or";
+						blankOption += " " + tipo;
 						written.push(tipo);
 				}
 				if (edge.source === nodeName ) {
 						for( var nodo in graphNodes ){
 							console.log(nodo);
-							console.log(edge.source);
-							if (nodo == edge.source) {
+							console.log(edge.target);
+							if (nodo == edge.target) {
 								console.log(nodo);
 								tipo = nodo;
 							}
 						}
 						console.log(tipo);
-						blankOption += " " + tipo + " or";
+						blankOption += " " + tipo;
 						written.push(tipo);
 				}
 			}
@@ -178,6 +179,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         function getContraintsHTML(){
             var constraintClass;
             var icontype;
+			var uitype;
             allConstraintsPassed = true;
             activityView.down('toolbar[customId=constraintsbar]').removeAll();
             activityView.down('toolbar[customId=constraintsbar]').add({
@@ -189,6 +191,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 if (constraintPassed(constraints[i])) {
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
+					uitype = 'confirm';
                     constraintState[i] = i18n.gettext('Constraint Passed');
                     
                 }
@@ -196,6 +199,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     constraintClass = "relational-constraints";
                     allConstraintsPassed = false;
                     icontype = 'delete';
+					uitype = 'decline';
                     constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
                 }
                 constraintsTextNew[i] += 'Nodes of type ';
@@ -205,6 +209,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 activityView.down('toolbar[customId=constraintsbar]').add({
                     xtype: 'button',
                     iconCls: icontype,
+					ui: uitype,
                     customId: i,
                     listeners: {
                         tap: function(i){
