@@ -42,7 +42,8 @@ TIME_ZONE = 'America/Toronto'
 LANGUAGE_CODE = 'en-ca'
 LANGUAGES = (
   ('en', ugettext('English')),
-  ('es', ugettext('Español')),
+# Not spanish for the time being
+#  ('es', ugettext('Español')),
 )
 
 SITE_ID = 1
