@@ -63,7 +63,15 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 							}
 						}
 						console.log(tipo);
-						blankOption += " " + tipo;
+						if(blankOption == "Choose")
+						{
+							blankOption += " " + tipo.toLowerCase();	
+						}
+						else
+						{
+							blankOption += ", " + tipo.toLowerCase();
+						}
+						
 						written.push(tipo);
 				}
 				if (edge.source === nodeName ) {
@@ -76,7 +84,14 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 							}
 						}
 						console.log(tipo);
-						blankOption += " " + tipo;
+						if(blankOption == "Choose")
+						{
+							blankOption += " " + tipo.toLowerCase();	
+						}
+						else
+						{
+							blankOption += ", " + tipo.toLowerCase();
+						}
 						written.push(tipo);
 				}
 			}
