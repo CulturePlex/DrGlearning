@@ -59,7 +59,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		var html = "<div id='centro' align='middle'><p>" + levelData.name + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
 		if (this.getApplication().getController('DaoController').isApproved(career,levelData))
 		{
-			html = "<div id='centro' align='middle'><p>" + levelData.name + "</p><div><img style=' position:absolute; top:50px;left:50px;' src='resources/images/approved-stamp.png' width='150'><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
+			html = "<div id='centro' style='text-align:center;'><p>" + levelData.name + "</p><div><img style=' position:absolute; top:50px;left: 50%; margin-left: -75px;' src='resources/images/approved-stamp.png' width='150'><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
 		}
 		console.log(levelData);
         return html;
