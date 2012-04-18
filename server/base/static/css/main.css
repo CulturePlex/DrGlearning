@@ -1,0 +1,55 @@
+body {
+	margin-top: 1.0em;
+	background-color: #ffffff;
+	background: url("../img/bg.png") repeat scroll 0 0 transparent;
+    color: #333333;
+}
+h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+    padding: 0;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+#sample
+{
+    float:left;
+}
+#logoandbuttons
+{
+}
+#buttons
+{
+    width:90%;
+    margin: 0px auto;
+}
+
+#txtlzr {
+    padding-left:4px;
+    width: 600px;
+    height: 40px;
+}
+.qrcode
+{
+    padding: 10px 0px 10px 0px;
+}
+.qrcodes
+{
+    padding: 60px 0px 60px 0px;
+}
+.platform
+{
+   float:right;
+}
+.download
+{
+   width:130px;
+}
+.downloadtext
+{
+   float:left;
+}
+.create
+{
+   width:220px;
+   margin:5px;
+}
