@@ -1,7 +1,3 @@
-                                                                     
-                                                                     
-                                                                     
-                                             
 # French texts for DrGlearning
 # CulturePlex Lab 2012.
 # Lista de Carreras , CareersListView.js
@@ -177,6 +173,11 @@ msgid "Undo"
 msgstr "Défaire"
 
 # Quiz and Visual Activities
+
+# Visual Activity
+
+msgid " sec."
+msgstr " sec."
 
 msgid "Oooh, it wasnt the correct answer"
 msgstr "Uh oh, mauvaise réponse"

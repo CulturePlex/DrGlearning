@@ -134,6 +134,10 @@ msgstr "Answer the question:"
 msgid "Congratulations!"
 msgstr "Congratulations!"
 
+# Visual Activity
+msgid " sec."
+msgstr " sec."
+
 # Geospatial Activity
 
 msgid "Confirm"

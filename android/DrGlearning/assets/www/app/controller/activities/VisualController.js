@@ -69,7 +69,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		this.activityView.down('container[customId=options]').removeAll();
 		this.activityView.down('container[customId=options]').removeAll();
 		
-        this.activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
+        this.activityView.down('label[customId=time]').setHtml(this.currentTime + i18n.gettext(" sec."));
 		var that= this;		
         this.secondtemp = setInterval(function(){
             that.showSeconds();
@@ -126,7 +126,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     
         if (this.parado == false && this.loading == false) {
 			this.currentTime--;
-            activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
+            activityView.down('label[customId=time]').setHtml(this.currentTime + i18n.gettext(" sec."));
             if (this.currentTime < 0) {
                 clearInterval(this.secondtemp);
                 this.showAnswers();
