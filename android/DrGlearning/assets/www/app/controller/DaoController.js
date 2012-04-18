@@ -114,7 +114,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		    		}
                 },failure:function(){
                 	Ext.Viewport.setMasked(false);
-                	º.alert('Unable to install', 'Try again later.', Ext.emptyFn);
+                	Ext.Msg.alert('Unable to install', 'Try again later.', Ext.emptyFn);
                 }
             });
 		}
@@ -169,7 +169,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		console.log("Careers finded: "+career.getCount());
 		career.each(function(item) {
 			//var temp=eval('('+item.data.knowledges+')');
-			console.log(item.data.knowledges);
+			//console.log(item.data.knowledges);
 			var carrerKnowledges=item.data.knowledges;
 			for(x in carrerKnowledges){
 				var exist=false;
@@ -200,7 +200,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return carrers;
 	},
 	activityPlayed:function(activityID,successful,score){
-		console.log('Peticion de jugada!!!!!');
+		//console.log('Peticion de jugada!!!!!');
 		var carrersStore=Ext.getStore('Careers');
 		var activitiesStore=Ext.getStore('Activities');
 		var activity=activitiesStore.getById(activityID);
@@ -225,8 +225,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 		activity.save();
 		//Make carrer started if needed
 		var carrer=Ext.getStore('Careers').getById(activity.data.careerId);
-		console.log('Necesita actualizar la carrera?');
-		console.log(carrer.data.started);
+		//console.log('Necesita actualizar la carrera?');
+		//console.log(carrer.data.started);
 		if(!carrer.data.started){
 			console.log('Marcando como empezada!! '+activity.data.careerId);
 			carrer.data.started=true;
@@ -256,7 +256,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 					return true;
 				}
 			});
-			//offlineScoreOld.erao ase();
+			if(offlineScoreOld != undefined){
+				offlineScoreOld.erase();	
+			}
 			this.updateOfflineScores();
 		}else{
 			var offlineScore=offlineScoreStore.queryBy(function(record) {
@@ -346,9 +348,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 		}
 		return approved;
 	},
-	updateCareer:function(careerID){
+	updateCareer:function(careerID,callback,scope){
 		console.log("Updating career "+careerID);
-		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
+		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
 			var careersStore=Ext.getStore('Careers');
 			var activityStore=Ext.getStore('Activities');
 			var career=careersStore.getById(careerID);
@@ -367,14 +369,17 @@ Ext.define('DrGlearning.controller.DaoController', {
                     	career.data.knowledges=newCareer.knowledges;
                     	career.data.timestamp=newCareer.timestamp;
                    		var activities=new Array();
-                    	for(cont in newCareer.activities){
-                    		console.log(cont);
+                   		for(cont in newCareer.activities){
                     		activities[cont]=newCareer.activities[cont].full_activity_url;
                     	}
                     	career.data.activities=activities;
                     	//activities=activities.split(",");
-                    	var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
-                    	for (cont in activities){
+                		var activitiesOld=activityStore.queryBy(function(record) {
+                			return record.data.careerId==careerID;
+                		});
+                		var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+                    	var activitiesID=new Array();
+                		for (cont in activities){
                     		Ext.data.JsonP.request({
                 				scope: this,
                                 url: HOST+'/'+activities[cont]+'?format=jsonp',
@@ -384,88 +389,114 @@ Ext.define('DrGlearning.controller.DaoController', {
                                 },
                                 success:function(response, opts){
                                 	var activity=response;
+                                	activitiesID.push(activity.id);
                                 	if(activityStore.getById(activity.id)!=undefined){
                                 		var activityModel=activityStore.getById(activity.id);
-                                		activityModel.data.name=activity.name;
-                                		activityModel.data.activity_type=activity.activity_type;
-                                		activityModel.data.language_code=activity.language_code;
+                                		activityModel.data.name=activity.name.trim();
+                                		activityModel.data.activity_type=activity.activity_type.trim();
+                                		activityModel.data.language_code=activity.language_code.trim();
                                 		activityModel.data.level_type=activity.level_type;
                                 		activityModel.data.level_order=activity.level_order;
                                 		activityModel.data.level_required=activity.level_required;
-                                		activityModel.data.query=activity.query;
-                                		activityModel.data.timestamp=activity.timestamp;
-                                		activityModel.data.resource_uri=activity.resource_uri;
-                                		activityModel.data.reward=activity.reward;
+                                		activityModel.data.query=activity.query.trim();
+                                		activityModel.data.timestamp=activity.timestamp.trim();
+                                		activityModel.data.resource_uri=activity.resource_uri.trim();
+                                		activityModel.data.reward=activity.reward.trim();
                                 	}else{
                                 		var activityModel=new DrGlearning.model.Activity({
                                     		id : activity.id,
-                                    		name : activity.name,
+                                    		name : activity.name.trim(),
                                     		careerId : careerID,
-                                    		activity_type : activity.activity_type,
-                                    		language_code : activity.language_code,
+                                    		activity_type : activity.activity_type.trim(),
+                                    		language_code : activity.language_code.trim(),
                                     		level_type : activity.level_type,
                                     		level_order : activity.level_order,
                                     		level_required : activity.level_required,
-                                    		query : activity.query,
-                                    		timestamp : activity.timestamp,
-                                    		resource_uri : activity.resource_uri,
-                                    		reward: activity.reward,
+                                    		query : activity.query.trim(),
+                                    		timestamp : activity.timestamp.trim(),
+                                    		resource_uri : activity.resource_uri.trim(),
+                                    		reward: activity.reward.trim(),
                                     		score: 0,
                                     		played: false,
                                     		successful: false,
                                     		helpviewed: false,
-                                    		
                                     	});
                                 	}
                                     	if(activityModel.data.activity_type=='linguistic'){
-                                    		activityModel.set('image',activity.image);
-                                    		activityModel.data.locked_text=activity.locked_text;
-                                    		activityModel.data.answer=activity.answer;
+                                    		activityModel.setImage('image',activity.image,this);
+                                    		activityModel.data.image_url=activity.image_url.trim();
+                                    		activityModel.data.locked_text=activity.locked_text.trim();
+                                    		activityModel.data.answer=activity.answer.trim();
                                     	}
                                     	if(activityModel.data.activity_type=='visual'){
-                                    		activityModel.set('image',activity.image);
+                                    		activityModel.setImage('image',activity.image,this);
+                                    		activityModel.data.image_url=activity.image_url.trim();
                                     		//activityModel.data.image=activity.image;
                                     		activityModel.data.answers=activity.answers;
-                                    		activityModel.data.correct_answer=activity.correct_answer;
+                                    		activityModel.data.correct_answer=activity.correct_answer.trim();
                                     		activityModel.set('obfuscated_image',activity.obfuscated_image);
-                                    		activityModel.data.time=activity.time;
+                                    		activityModel.data.obfuscated_image_url=activity.obfuscated_image_url.trim();
+                                    		activityModel.data.time=activity.time.trim();
                                     	}
 										if(activityModel.data.activity_type=='quiz'){
-                                    		activityModel.set('image',activity.image);
-                                    		//activityModel.data.image=activity.image;
-                                    		activityModel.data.answers=activity.answers;
-                                    		activityModel.data.correct_answer=activity.correct_answer;
-                                    		//activityModel.set('obfuscated_image',activity.obfuscated_image);
-                                    		activityModel.data.time=activity.time;
+											activityModel.setImage('image',activity.image,this);
+					                		activityModel.data.image_url=activity.image_url;
+					                		//activityModel.data.image=activity.image;
+					                		activityModel.data.answers=activity.answers;
+					                		activityModel.data.correct_answer=activity.correct_answer.trim();
+					                		//activityModel.set('obfuscated_image',activity.obfuscated_image);
+					                		activityModel.data.time=activity.time.trim();
                                     	}
                                     	if(activityModel.data.activity_type=='relational'){
                                     		activityModel.data.graph_nodes=activity.graph_nodes;
                                     		activityModel.data.graph_edges=activity.graph_edges;
-                                        activityModel.data.constraints=activity.constraints;
+                                    		activityModel.data.constraints=activity.constraints;
                                     	}
                                     	if(activityModel.data.activity_type=='temporal'){
-                                    		activityModel.set('image',activity.image);
-                                    		activityModel.data.image_datetime=activity.image_datetime;
-                                    		activityModel.data.query_datetime=activity.query_datetime;
+                                    		activityModel.setImage('image',activity.image,this);
+                                    		activityModel.data.image_url=activity.image_url.trim();
+                                    		activityModel.data.image_datetime=activity.image_datetime.trim();
+                                    		activityModel.data.query_datetime=activity.query_datetime.trim();
                                     	}
                                     	if(activityModel.data.activity_type=='geospatial'){
-                                    		activityModel.data.area=activity.area;
-                                    		activityModel.data.point=activity.points;
+                                    		activityModel.data.area=activity.area.trim();
+                                    		activityModel.data.point=activity.points.trim();
                                     		activityModel.data.radius=activity.radius;
                                     	}
                                     	activityModel.save();
+                                },failure:function(){
+                                	Ext.Viewport.setMasked(false);
+                                	Ext.Msg.alert('Unable to install', 'Try again later.', Ext.emptyFn);
                                 }
-                            });
+                    		});
                     	}
-                    	career.data.update=false;
+                		var exist=false;
+                		for(cont in activitiesOld.keys){
+                			exist=false;
+                			for(cont2 in activitiesID){
+                				if(activitiesOld.keys[cont] == activitiesID[cont2]){
+                					exist=true;
+                					break;
+                				}
+                			}
+                			if(!exist){
+                				activitiesOld.getByKey(activitiesOld.keys[cont]).erase();
+                			}
+                			
+                		}
+                		career.data.update=false;
                     	career.save();
                     	careersStore.sync();
                     	careersStore.load();
+                    	Ext.Viewport.setMasked(false);
+                    	callback(scope);
                     }
                 });
     			
       }else{
-    	  // no internet connection
+    	  	Ext.Viewport.setMasked(false);
+    	  	Ext.Msg.alert(i18n.gettext('Problem finded'), 'Unable to update this career. Try again later', Ext.emptyFn);
+			return;
       }
 	},
 	deleteCareer:function(careerID){

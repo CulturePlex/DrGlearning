@@ -99,6 +99,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         	Ext.Msg.confirm("Last career", "Return to last career?", function(answer){
         		if (answer == 'yes') {
         			this.getApplication().getController('CareersListController').addOrStartCareer(undefined,undefined,undefined,Ext.getStore('Careers').getById(localStorage.selectedcareer));
+        		}else{
+        			localStorage.selectedcareer=0;
         		}
         	},this);
         }
@@ -140,9 +142,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			{	
 				Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer, pako){
 				if (answer == 'yes') {
+					Ext.Viewport.setMasked({
+                	    xtype: 'loadmask',
+                	    message: i18n.gettext('Downloading Career...'),
+             	       	indicator: true,
+            			html: "<img src='resources/images/ic_launcher.png'>"    	
+            			});
                     this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
-					this.index();
-                }
+				}
 			}, this);
 			}else
 			{
@@ -205,6 +212,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * career).
      */
     addCareer: function(){
+    	localStorage.selectedcareer=0;
 		var view12 = this.getCareersframe();
     	view12.down('title').setTitle(i18n.gettext('Careers'));
         knowledgeFields = this.daoController.getknowledgesFields();
