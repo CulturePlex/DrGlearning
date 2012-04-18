@@ -115,7 +115,7 @@ class LinguisticAdmin(ActivityAdmin):
     pass
 
 
-class QuizAdmin(VisualAdmin):
+class QuizAdmin(ActivityAdmin):
     exclude = ('time', 'image', 'obfuscated_image', 'user')
 
     def change_view(self, request, object_id, extra_content=None):
@@ -124,6 +124,20 @@ class QuizAdmin(VisualAdmin):
             request.FILES['image'] = getattr(old_quiz, 'image')
             request.FILES['obfuscated_image'] = getattr(old_quiz, 'obfuscated_image')
         return super(QuizAdmin, self).change_view(request, object_id, extra_content)
+
+    def save_model(self, request, obj, form, change):
+        if request.POST and request.POST.get('obfuscated_64'):
+            file_type, file_data = request.POST['obfuscated_64'].split('base64,')
+            filename = tempfile.mktemp()
+            tmpfile = open(filename, 'wb')
+            tmpfile.write(file_data.decode('base64'))
+            tmpfile.close()
+            f = open(filename)
+            obj.obfuscated_image.save('pixelated.png', File(f), True)
+        obj.save()
+
+    class Media:
+        js = ('js/visualAdminAnswers.js', 'js/visualAdminImages.js')
 
 
 admin.site.register(Relational, RelationalAdmin)
