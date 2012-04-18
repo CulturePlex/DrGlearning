@@ -24,6 +24,9 @@ msgstr "Are you sure you want to install this career?"
 msgid "Downloading Career..."
 msgstr "Downloading Career..."
 
+msgid "Calculating free space..."
+msgstr "Calculating free space..."
+
 msgid "Uninstall Career?"
 msgstr "Uninstall Career?"
 
