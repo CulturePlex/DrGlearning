@@ -87,6 +87,18 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    success:function(response, opts){
 	                    	console.log("Careers retrieved");
 	                    	var careers=response["objects"];
+	                    	careersStore.each(function(record) {
+	                    		var exist=false;
+	                    		for(cont in careers){
+	                    			if(careers[cont].id == record.data.id){
+	                    				exist=true;
+	                    				break;
+	                    			}
+	                    		}
+	                    		if(!exist){
+	                    			record.erase();
+	                    		}
+							},this);
 	                    	for (cont in careers) {
 	                    		var career=careers[cont];
 	                    		//its a new career?
@@ -129,7 +141,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     				console.log(careerModel.data.timestamp<career.timestamp);
                     				if(careerModel.data.timestamp<career.timestamp){
 	                    				console.log("Checking for update.")
-	    								//careerModel.data.update=true;
+	    								careerModel.data.update=true;
 	    								careerModel.save();
 		                    		}
                     			}
