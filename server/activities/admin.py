@@ -118,6 +118,14 @@ class LinguisticAdmin(ActivityAdmin):
 class QuizAdmin(VisualAdmin):
     exclude = ('time', 'image', 'obfuscated_image', 'user')
 
+    def change_view(self, request, object_id, extra_content=None):
+    if '_saveasnew' in request.POST:
+        old_quiz = Quiz.objects.get(id=object_id)
+        request.FILES['image'] = getattr(old_quiz, 'image')
+        request.FILES['obfuscated_image'] = getattr(old_quiz, 'obfuscated_image')
+    return super(QuizAdmin, self).change_view(request, object_id, extra_content)
+
+
 admin.site.register(Relational, RelationalAdmin)
 admin.site.register(Visual, VisualAdmin)
 admin.site.register(Quiz, QuizAdmin)
