@@ -24,7 +24,8 @@ urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
 
     # base
-    url(r'^', include('base.urls')),
+     url(r'^', include('base.urls')),
+#    url(r'^', include(admin.site.urls)),
 
     # accounts
     url(r'^accounts/', include('accounts.urls')),
