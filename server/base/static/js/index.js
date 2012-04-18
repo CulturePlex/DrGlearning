@@ -1,9 +1,9 @@
     $(function() {
 
-        var list = ['What do you know about art?'
-                  ,'What do you know about history?'
-                  , 'What do you know about music?'
-                  , 'What do you know about poetry?'];
+        var list = [' art?'
+                  ,' history?'
+                  , ' music?'
+                  , ' poetry?'];
 
         var txt = $('#txtlzr');
 

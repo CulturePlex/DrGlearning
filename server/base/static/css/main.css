@@ -24,9 +24,13 @@ h1 {
 }
 
 #txtlzr {
-    padding-left:4px;
-    width: 600px;
+    padding-left:9px;
+    width: 300px;
     height: 40px;
+}
+#question {
+    margin-top:3px;
+    float:left;
 }
 .qrcode
 {
