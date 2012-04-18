@@ -71,14 +71,47 @@ Ext.define('DrGlearning.controller.CareersListController', {
             }
         });
     },
-    /*
+	//getting the string name of a level giving its index
+	getLevelName: function(index) {
+		var levelStrings = ["illetratum", "primary", "secondary", "highschool", "college", "master", "phd", "postdoc", "professor", "emeritus"];
+		return levelStrings[index];
+	},
+	 /*
      * Showing Installed Careers.
      */
     index: function(){
+		var store = Ext.getStore('Careers');
 		
-        var store = Ext.getStore('Careers');
-        store.clearFilter();
+		store.clearFilter();
         store.filter("installed", true);
+		
+		// Updating levels in career models
+		console.log(store.getData());
+		for (index in store.getData().items)
+		{
+			console.log(store.getAt(index).data.installed);
+			if(store.getAt(index).data.installed)
+			{
+				//store.getAt(index).data.successed_levels=[];
+				var levelstemp = new Array();
+       			levelstemp = this.getApplication().getController('DaoController').getLevels('' + store.getAt(index).data.id);
+				for(level in levelstemp)
+				{
+					store.getAt(index).data[this.getLevelName(level)]="exists";
+					console.log(store.getAt(index).data);
+					console.log(this.getLevelName(level));
+					if(this.getApplication().getController('DaoController').isApproved(store.getAt(index).data.id,Ext.getStore('Levels').getAt(level).data))
+					{
+						store.getAt(index).data[this.getLevelName(level)]="successed";
+					}
+				}
+			}
+			console.log(store.getAt(index).data);
+			console.log(store.getAt(index).data);
+		}
+		
+		// Indexing list
+        
         var view1 = this.getCareersframe();
         if (view1) {
             view1.hide();
@@ -104,6 +137,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         		}
         	},this);
         }
+		
     },
     /*
      * Method call when tap on a Carrer Item in the list.

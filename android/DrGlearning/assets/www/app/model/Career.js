@@ -43,7 +43,41 @@ Ext.define('DrGlearning.model.Career', {
 		},{
 			name : "size",
 			type : "int"
-		}],
+		},
+		//A string field for eachlevel, "exists" means exists but not successed and "successed" means exists and successed
+		{
+			name: "illetratum",
+			type: "string",
+		},{
+			name: "primary",
+			type: "string",
+		},{
+			name: "secondary",
+			type: "string",
+		},{
+			name: "highschool",
+			type: "string",
+		},{
+			name: "college",
+			type: "string",
+		},{
+			name: "master",
+			type: "string",
+		},{
+			name: "phd",
+			type: "string",
+		},{
+			name: "post-doc",
+			type: "string",
+		},{
+			name: "professor",
+			type: "string",
+		},{
+			name: "emeritus",
+			type: "string",
+		},
+		
+		],
 		proxy : {
 			type : 'localstorage',
 			id : 'DrGlearningCareers'

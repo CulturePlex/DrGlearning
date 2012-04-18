@@ -336,6 +336,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 	//Tell us if a level is approved or not
 	isApproved:function(careerID,level)
 	{
+		console.log(careerID);
+		console.log(level);
 		var approved=true;
 		var activities=this.getActivitiesByLevel(careerID,level.customId);
 		console.log(activities);
