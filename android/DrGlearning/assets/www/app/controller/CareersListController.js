@@ -92,17 +92,19 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			console.log(store.getAt(index).data.installed);
 			if(store.getAt(index).data.installed)
 			{
-				//store.getAt(index).data.successed_levels=[];
 				var levelstemp = new Array();
        			levelstemp = this.getApplication().getController('DaoController').getLevels('' + store.getAt(index).data.id);
-				for(level in levelstemp)
+				console.log(levelstemp);
+				for(var i=0;i<levelstemp.length;i++)
 				{
-					store.getAt(index).data[this.getLevelName(level)]="exists";
+					console.log('el level es: ');
+					console.log(Ext.getStore('Levels').getAt(levelstemp[i]-1).data);
+					store.getAt(index).data[this.getLevelName(levelstemp[i]-1)]="exists";
 					console.log(store.getAt(index).data);
-					console.log(this.getLevelName(level));
-					if(this.getApplication().getController('DaoController').isApproved(store.getAt(index).data.id,Ext.getStore('Levels').getAt(level).data))
+					console.log(this.getLevelName(levelstemp[i]-1));
+					if(this.getApplication().getController('DaoController').isApproved(store.getAt(index).data.id,Ext.getStore('Levels').getAt(levelstemp[i]-1).data))
 					{
-						store.getAt(index).data[this.getLevelName(level)]="successed";
+						store.getAt(index).data[this.getLevelName(levelstemp[i]-1)]="successed";
 					}
 				}
 			}
