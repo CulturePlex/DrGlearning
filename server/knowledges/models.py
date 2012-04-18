@@ -51,6 +51,8 @@ class Career(models.Model):
 
     class Meta:
         unique_together = ('name', 'user')
+        verbose_name = _("course")
+        verbose_name_plural = _("courses")
 
 
 class GenuineUser(User):
