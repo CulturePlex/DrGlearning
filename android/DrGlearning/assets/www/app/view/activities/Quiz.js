@@ -12,6 +12,7 @@ Ext.define('DrGlearning.view.activities.Quiz', {
             xtype: 'container',
             id: 'image',
 			margin: 10,
+			centered:true,
         	},
 			{
                 xtype: 'toolbar',
