@@ -13,43 +13,40 @@ msgid "Unable to install"
 msgstr "Impossible d’installer"
 
 msgid "You need data connection to install careers"
-msgstr "Pour installer les carrières vous avez besoin de la connexion de données"
+msgstr "Pour installer les cours vous avez besoin de la connexion de données"
 
 msgid "Install Career?"
-msgstr "Installer Carrière?"
+msgstr "Installer le Cours?"
 
 msgid "Are you sure you want to install this career?"
-msgstr "Vous souhaitez installer cette carrière?"
+msgstr "Vous souhaitez installer ce cours?"
 
 msgid "Downloading Career..."
-msgstr "Chargement de carrière..."
-
-msgid "Calculating free space..."
-msgstr "Calcul d'espace libre..."
+msgstr "Chargement de cours..."
 
 msgid "Uninstall Career?"
-msgstr "Désinstaller carrière?"
+msgstr "Désinstaller le cours?"
 
 msgid "If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"
-msgstr "Si vous désinstallez cette carrière, tous vos points seront perdus. Vous souhaitez désinstaller cette carrière?"
+msgstr "Si vous désinstallez ce cours, tous vos points seront perdus. Vous souhaitez désinstaller ce cours?"
  
 msgid "Update Career?"
-msgstr "Mise à jour la carrière?"
+msgstr "Mise à jour le cours?"
 
 msgid "Are you sure you want to update this career?"
-msgstr "Vous souhaitez mise à jour cette carrière?"
+msgstr "Vous souhaitez mise à jour ce cours?"
 
 msgid "Problem finded"
 msgstr "Un problème trouvé"
 
 msgid "Unable to install this career, delete some installed careers."
-msgstr "Il n’y a pas assez d’espace, supprimer des carrières"
+msgstr "Il n’y a pas assez d’espace, supprimer des cours"
 
 msgid "There is not connection to Internet, you cant start this activity!"
 msgstr "Pas de connexion internet. Activité ne commencera pas!"
 
 msgid "No careers installed, click on Add Career Button to start"
-msgstr "Aucune carrière installée, clique bouton Ajoute Carrière pour commencer"
+msgstr "Aucun cours installé, clique bouton Ajouter cours pour commencer"
 
 msgid "Dr. Glearning"
 msgstr "Dr. Glearning"
@@ -67,7 +64,7 @@ msgid "Not Yet"
 msgstr "Pas encore"
 
 msgid "Add Career"
-msgstr "Ajoute carrière"
+msgstr "Ajouter cours"
 
 msgid "back"
 msgstr "retour"
@@ -166,18 +163,10 @@ msgstr "Contrainte réussi"
 msgid "Constraint Not Passed Yet"
 msgstr "Contrainte n’est pas encore réussi"
 
-msgid "The number of "
-msgstr "The number of "
-
 msgid "Undo"
 msgstr "Défaire"
 
 # Quiz and Visual Activities
-
-# Visual Activity
-
-msgid " sec."
-msgstr " sec."
 
 msgid "Oooh, it wasnt the correct answer"
 msgstr "Uh oh, mauvaise réponse"

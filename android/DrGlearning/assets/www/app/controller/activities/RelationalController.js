@@ -72,7 +72,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 								blankOption += ", " + tipo.toLowerCase();
 							}
 						}
-						console.log(written);
 						written.push(tipo);	
 						
 				}
@@ -96,7 +95,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 								blankOption += ", " + tipo.toLowerCase();
 							}
 						}
-						console.log(written);
 						if(written.indexOf(tipo) == -1)
 						{
 							
@@ -292,7 +290,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             activityView.down('container[customId=scorebar]').removeAll();
             getContraintsHTML();
             for (var i = 0; i < playerPath.length; i++) {
-                console.log(playerEdgePath);
                 if (i != 0) {
                     var edgeText = '<p class="relational">' + playerEdgePath[i - 1] + '</p>';
                     
