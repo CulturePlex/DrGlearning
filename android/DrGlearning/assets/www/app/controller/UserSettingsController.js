@@ -23,27 +23,32 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 		view.show();
 		var usernameField = view.down('textfield[id=username]');
 		var emailField = view.down('textfield[id=email]');
-		var user = userStore.first();
+		var user = userStore.getAt(0);
 		emailField.setValue(user.data.email);
 		usernameField.setValue(user.data.name);
 	},
 	saveSettings : function() {
-		var userStore = Ext.getStore('Users');
-		userStore.load();
+		//var userStore = Ext.getStore('Users');
+		//userStore.load();
 		var view = this.getSettings();
-		var usernameField = view.down('textfield[id=username]').getValue();
-		var emailField = view.down('textfield[id=email]').getValue();
-		var user = userStore.first();
-		user.set('name', usernameField);
-		user.set('email', emailField);
-		user.save();
-		userStore.sync();
+		//var usernameField = view.down('textfield[id=username]').getValue();
+		//var emailField = view.down('textfield[id=email]').getValue();
+		//var user = userStore.getAt(0);
+		//user.set('name', usernameField);
+		//user.set('email', emailField);
+		//user.save();
+		//userStore.sync();
+		var locale = view.down('selectfield[id=locale]').getValue();
+		if(localStorage.catalogue!=locale){
+			localStorage.catalogue=locale;
+			Ext.Msg.alert(i18n.gettext('Language changed'),i18n.gettext('You need to restart this app to see the changes') , Ext.emptyFn);
+		}
 		view.hide();
 	},
 	exportUser : function() {
 		var userStore = Ext.getStore('Users');
 		userStore.load();
-		var user = userStore.first();
+		var user = userStore.getAt(0);
 		var view = this.getSettings();
 		view.hide();
 		new Ext.MessageBox().show({
@@ -67,7 +72,7 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 	importUser : function() {
 		var userStore = Ext.getStore('Users');
 		userStore.load();
-		var user = userStore.first();
+		var user = userStore.getAt(0);
 		var view = this.getSettings();
 		view.hide();
 		var saveButton = Ext.create('Ext.Button', {

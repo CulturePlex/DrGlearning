@@ -102,6 +102,15 @@ msgstr "CulturePlex Lab."
 
 # Settings
 
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Language changed"
+msgstr "Language changed"
+
+msgid "You need to restart this app to see the changes"
+msgstr "You need to restart this app to see the changes"
+
 
 msgid "Language"
 msgstr "Language"

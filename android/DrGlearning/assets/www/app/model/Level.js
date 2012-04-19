@@ -11,13 +11,13 @@ Ext.define('DrGlearning.model.Level', {
 			name : "description",
 			type : "string"
 		} ],
-		proxy : {
+		/*proxy : {
 			type : 'ajax',
 			url : 'resources/json/levels.json',
 			reader : {
 				type : 'json',
 				rootProperty : 'levels'
 			}
-		}
+		}*/
 	}
 });

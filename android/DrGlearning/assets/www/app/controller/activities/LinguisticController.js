@@ -35,11 +35,13 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
  	       	indicator: true,
 			//html: "<img src='resources/images/activity_icons/linguistic.png'>",
     	});
+		this.puntos=90;
 		this.activity= newActivity;
 		view.down('component[customId=activity]').destroy();
 		activityView = Ext.create('DrGlearning.view.activities.Linguistic');
 		//Initializate values
 		this.squaresBlack=[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true];
+		console.log(this.activity);
 		this.loquedText=this.activity.data.locked_text.split("");
 		console.log("DEBUG");
 		console.log('*'+this.activity.data.locked_text+'*');

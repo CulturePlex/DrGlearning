@@ -14,8 +14,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	
 	onLaunch: function() {
 		//Add trim to prototype
-		String.prototype.trim = function(){ return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[\n\r]$/,"");}
-
+		String.prototype.trim = function(){return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[\n\r]$/,'');};
 		//Aplication start
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
@@ -57,7 +56,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
 				//console.log("Listo0");
 				//Register user if needed
-				var user=usersStore.first();
+				var user=usersStore.getAt(0);
 				if(user != undefined && user.data.serverid==""){
 					console.log("Registering user");
 					var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
@@ -88,16 +87,18 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    	console.log("Careers retrieved");
 	                    	var careers=response["objects"];
 	                    	careersStore.each(function(record) {
-	                    		var exist=false;
-	                    		for(cont in careers){
-	                    			if(careers[cont].id == record.data.id){
-	                    				exist=true;
-	                    				break;
-	                    			}
-	                    		}
-	                    		if(!exist){
-	                    			record.erase();
-	                    		}
+	                    		if(!record.data.installed){
+		                    		var exist=false;
+		                    		for(cont in careers){
+		                    			if(careers[cont].id == record.data.id){
+		                    				exist=true;
+		                    				break;
+		                    			}
+		                    		}
+		                    		if(!exist){
+		                    			record.erase();
+		                    		}
+		                    	}
 							},this);
 	                    	for (cont in careers) {
 	                    		var career=careers[cont];

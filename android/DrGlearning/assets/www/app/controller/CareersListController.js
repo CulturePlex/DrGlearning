@@ -148,7 +148,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.selectedcareer = career;
         console.log(this.selectedcareer);
         if (career.data.installed == false) {
-        	if(navigator.network != undefined && navigator.network.connection.type==Connection.NONE){
+        	if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
         		Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
         	}else{
         		Ext.Msg.confirm(i18n.gettext("Install Career?"), i18n.gettext("Are you sure you want to install this career?"), function(answer, pako){

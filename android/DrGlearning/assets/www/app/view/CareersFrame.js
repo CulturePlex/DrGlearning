@@ -119,12 +119,12 @@ Ext.define('DrGlearning.view.CareersFrame', {
             },
             id: 'toolbarBottomSettings',
             items: [{
-                //id: 'settings',
-               	//text: 'Settings',
-            	//xtype:'button',
+                id: 'settings',
+               	text: i18n.gettext('Settings'),
+            	xtype:'button',
 				
-            	xtype:'panel',
-				html:'<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
+            	//xtype:'panel',
+				//html:'<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
             	
             }]
         

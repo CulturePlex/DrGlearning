@@ -1,8 +1,24 @@
-var i18n = new Jed({
-  // Output by a .po file conversion
-  locale_data : catalogueEN,
-  "domain" : "messages"
-});
+//Locale
+if(localStorage.catalogue==undefined){
+	var i18n = new Jed({
+		  locale_data : catalogueEN,
+		  "domain" : "messages"
+	});
+	localStorage.catalogue='en';
+}else if(localStorage.catalogue=='en'){
+	var i18n = new Jed({
+		  locale_data : catalogueEN,
+		  "domain" : "messages"
+	});	
+	localStorage.catalogue='en';
+}else if(localStorage.catalogue=='fr'){
+	var i18n = new Jed({
+		  locale_data : catalogueFR,
+		  "domain" : "messages"
+	});
+	localStorage.catalogue='fr';
+}
+
 
 
 Ext.Loader.setConfig({

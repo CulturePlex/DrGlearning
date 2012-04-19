@@ -238,9 +238,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 	updateScore:function(activityID,score){
 		var offlineScoreStore=Ext.getStore('OfflineScores');
 		var usersStore = Ext.getStore('Users');
-		var user=usersStore.first();
+		var user=usersStore.getAt(0);
 		var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
-		if(navigator.network == undefined || navigator.network.connection.type!=Connection.NONE){
+		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
 			Ext.data.JsonP.request({
 				scope: this,
 			    url: HOST+"/api/v1/highscore/?format=jsonp",
@@ -255,12 +255,9 @@ Ext.define('DrGlearning.controller.DaoController', {
 			});
 			var offlineScoreOld=offlineScoreStore.queryBy(function(record) {
 				if(record.data.activity_id==activityID){
-					return true;
+					record.erase();
 				}
 			});
-			if(offlineScoreOld != undefined){
-				offlineScoreOld.erase();	
-			}
 			this.updateOfflineScores();
 		}else{
 			var offlineScore=offlineScoreStore.queryBy(function(record) {
@@ -317,7 +314,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 	updateOfflineScores:function(){
 		var offlineScoreStore=Ext.getStore('OfflineScores');
 		var usersStore = Ext.getStore('Users');
-		var user=usersStore.first();
+		var user=usersStore.getAt(0);
 		var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 		offlineScoreStore.each(function(item) {
 			Ext.data.JsonP.request({
