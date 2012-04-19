@@ -57,7 +57,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			
 		}
 		this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);
-		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_'));
+		activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g,'_ '));
 		activityView.down('label[customId=responses]').setHtml('');
 		console.log(this.activity.data.locked_text.toLowerCase());
 		console.log(this.activity.data.answer.toLowerCase());
@@ -107,7 +107,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			if(this.loquedTextFinded[cont]){
 				loqued=loqued+this.loquedText[cont];
 			}else{
-				loqued=loqued+"_";
+				loqued=loqued+"_ ";
 			}
 		}
 		loquedView.setHtml(loqued);
