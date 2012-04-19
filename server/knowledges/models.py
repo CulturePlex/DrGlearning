@@ -41,6 +41,13 @@ class Career(models.Model):
 
     def save(self, *args, **kwargs):
         self = image_resize(self)
+        counter = 0
+        career = Career.objects.filter(user=self.user, name=self.name)
+        original_name = self.name
+        while career.exists():
+            counter += 1
+            self.name = "%s-%d" % (original_name, counter)
+            career = Career.objects.filter(user=self.user, name=self.name)
         super(Career, self).save(*args, **kwargs)
 
     def export(self):
