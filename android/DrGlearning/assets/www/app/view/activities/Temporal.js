@@ -18,6 +18,8 @@ Ext.define('DrGlearning.view.activities.Temporal', {
             xtype: 'container',
             id: 'image',
 			margin: 10,
+			centered:true,
+
         	},
 			{
                 xtype: 'toolbar',

@@ -38,7 +38,8 @@ class CareerAdmin(GuardedModelAdmin):
                                                     extra_context=context)
 
     def save_model(self, request, obj, form, change):
-        obj.user = request.user
+        if obj.user_id == None  or not request.user.is_superuser:
+            obj.user = request.user
         obj.save()
 
 

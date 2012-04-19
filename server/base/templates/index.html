@@ -51,12 +51,12 @@
 <form action="https://docs.google.com/spreadsheet/formResponse?formkey=dEJaVUtZVFV6MXBRanp0TjUzNWM3Y3c6MQ&amp;embedded=true&amp;ifq" method="POST" id="ss-form">
 <br>
 <h3>{% trans "Stay tuned!" %}</h3>
-<div>{% trans "We are almost ready to open the free registration, but in the mean time" %}</div>
+<div class="legend" >{% trans "We are almost ready to open the free registration, but in the mean time" %}</div>
 <input type="text" name="entry.0.single" value="" class="ss-q-short" id="entry_0" placeholder="{% trans "Leave us your e-mail" %}">
-<input type="submit" name="submit" value="{% trans "OK!" %}">
+<input type="submit" name="submit" class="btn okbutton" value="{% trans 'OK!' %}">
 <input type="hidden" name="pageNumber" value="0">
 <input type="hidden" name="backupCache" value="">
-<label class="ss-q-help" for="entry_0">{% trans "Your e-mail won't be used for any porpuse than notify you when the platform is available" %}</label>
+<label class="helptext" for="entry_0">{% trans "Your e-mail won't be used for any porpuse than notify you when the platform is available" %}</label>
 </form>
 
     </div>
@@ -84,8 +84,10 @@
           <div class="qrcode"><img src="{{ STATIC_PREFIX }}img/symbian.png"></div>
           <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/symbian/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "wgz" %}</span></a></p>
         </div>
+        <div class="span12">
+          <h3>Or test the <a href="/client/">app</a> in <a href="https://www.google.com/chrome">Gloogle Chrome</a> with <a href="http://ripple.tinyhippos.com/download">Ripple Emulator</a>.</h3>
+        </div>
       </div>
-
       <hr>
 
       <footer>

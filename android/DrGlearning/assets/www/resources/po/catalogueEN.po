@@ -14,6 +14,8 @@ msgstr ""
 
 # Menus
 
+msgid "Careers"
+msgstr "Courses"
 
 msgid "Unable to install"
 msgstr "Unable to install"
