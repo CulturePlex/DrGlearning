@@ -3,7 +3,7 @@ import datetime
 import json
 import jsonfield
 import tempfile
-from os import path
+from os import path, remove
 from PIL import Image
 from StringIO import StringIO
 
@@ -113,6 +113,8 @@ class Activity(models.Model):
                 suf = SimpleUploadedFile(file_name + extension, f.read(), content_type='image/' + extension)
 
                 image_field.save("%s.%s" % (file_name, extension), suf, save=False)
+                # Remove temporal file. What about working on memory?
+                remove(filename)
                 
             elif isinstance(field_type, GeometryField):
                 value = json.loads(value)
