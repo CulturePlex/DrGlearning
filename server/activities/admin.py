@@ -15,10 +15,12 @@ from activities.models import (Relational, Visual, Geospatial,
 from knowledges.models import Career
 
 class ActivityAdmin(GuardedModelAdmin):
-
     user_can_access_owned_objects_only = True
 
-    list_filter = ['career']
+    list_display = ("name", "query", "reward", "career", "level_type",
+                    "language_code")
+    list_filter = ("career", "language_code", "level_type")
+    search_fields = ("name", "query", "reward")
     exclude = ('user',)
     save_as = True
 

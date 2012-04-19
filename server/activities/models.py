@@ -53,7 +53,7 @@ class Activity(models.Model):
     )
     name = models.CharField(_("name"), max_length=255)
     career = models.ForeignKey(Career)
-    language_code = models.CharField(_("language code"), max_length=2,
+    language_code = models.CharField(_("language"), max_length=2,
                                     choices=LAN_CHOICES)
     timestamp = models.DateTimeField(auto_now=True)
     query = models.CharField(_("query"), max_length=255)

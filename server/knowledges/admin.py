@@ -18,6 +18,9 @@ class CareerAdmin(GuardedModelAdmin):
     autocomplete_lookup_fields = {
         'm2m': ['knowledge_field'],
     }
+    list_display = ("name", "published", "description")
+    list_filter = ("published", )
+    search_fields = ("name", "published", "description")
 
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
