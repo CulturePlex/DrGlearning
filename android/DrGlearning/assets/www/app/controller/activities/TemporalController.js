@@ -54,7 +54,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	before: function() {
 		this.puntos=100;
 		if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-			Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+this.puntos, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);
@@ -68,7 +68,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 	after: function() {
 		this.puntos=100;
 		if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
-			Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+this.puntos, function(){
 				this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 				this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 			},this);

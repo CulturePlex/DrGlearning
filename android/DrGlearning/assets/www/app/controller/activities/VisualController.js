@@ -109,7 +109,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		
         this.puntos = 100;
         if (event.target.textContent == this.activity.data.correct_answer) {
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+ this.puntos, function(){
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward +' '+ i18n.gettext("obtained score:") + this.puntos, function(){
 				activityView.down('container[customId=options]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);

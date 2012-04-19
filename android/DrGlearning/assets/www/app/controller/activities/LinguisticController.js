@@ -214,7 +214,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
 			answer = show.down('#importvalue').getValue();
 			if (answer.toLowerCase() == this.activity.data.answer.toLowerCase()) 
 			{
-				Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+this.puntos, function(){
+				Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+this.puntos, function(){
 					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);

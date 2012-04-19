@@ -356,7 +356,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         function successfulGame(context){
             this.puntos = 500;
             if (allConstraintsPassed) {
-                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+ this.puntos, function(){
+                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+ this.puntos, function(){
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
                     console.log(DrGlearning);
                     DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);

@@ -93,7 +93,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		if (event.target.textContent == this.activity.data.correct_answer) 
 		{
 			activityView.down('container[customId=time]').down('button[text='+this.activity.data.correct_answer+']').setUi('confirm-small');		
-			Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+i18n.gettext("obtained score:")+this.puntos, function(){
+			Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+this.puntos, function(){
 					this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id,true,this.puntos);
 					this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
 				}, this);
