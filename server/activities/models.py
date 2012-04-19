@@ -15,7 +15,7 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.models.fields import DateTimeField
 from django.db.models.fields.files import ImageField
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -195,6 +195,12 @@ class Activity(models.Model):
     class Meta:
         verbose_name_plural = "Activities"
         ordering = ['level_type', 'level_order']
+
+
+def timestamp_on_delete(sender, instance, signal, *args, **kwargs):
+    instance.career.timestamp = datetime.datetime.now()
+    instance.career.save()
+pre_delete.connect(timestamp_on_delete, sender=Activity)
 
 
 class Relational(Activity):
