@@ -12,6 +12,10 @@ Ext.define('DrGlearning.view.activities.Visual', {
             xtype: 'container',
             id: 'image',
 			margin: 10,
+			centered:true,
+			style:{
+				align:'center'
+			}
         	},
 			{
             xtype: 'container',

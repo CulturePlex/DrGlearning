@@ -41,7 +41,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var graphEdges = newActivity.data.graph_edges;
         var constraints = newActivity.data.constraints;
         
-        console.log(graphNodes);
         
         /** This function receives a nodeName and searches into edges
          * data for all the related nodes. It returns a Sencha field.Select
@@ -53,46 +52,56 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 			blankOption="Choose";
 			for (var i = 0; i < graphEdges.length; i++) {
 				edge = graphEdges[i];
-				console.log(graphNodes);
-				if (edge.target === nodeName && edge.inverse != undefined) {
+				if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='') {
 						for( var nodo in graphNodes ){
-							console.log(graphNodes[i]);
-							console.log(edge.source);
 							if (nodo == edge.source) {
 								tipo = graphNodes[nodo]["type"];
 							}
 						}
-						console.log(tipo);
 						if(blankOption == "Choose")
 						{
-							blankOption += " " + tipo.toLowerCase();	
+						if(written.indexOf(tipo) == -1)
+							{
+								blankOption += " " + tipo.toLowerCase();	
+							}
 						}
 						else
 						{
-							blankOption += ", " + tipo.toLowerCase();
+							if(written.indexOf(tipo) == -1)
+							{
+								blankOption += ", " + tipo.toLowerCase();
+							}
 						}
+						console.log(written);
+						written.push(tipo);	
 						
-						written.push(tipo);
 				}
 				if (edge.source === nodeName ) {
 						for( var nodo in graphNodes ){
-							console.log(nodo);
-							console.log(edge.target);
 							if (nodo == edge.target) {
-								console.log(nodo);
 								tipo = graphNodes[nodo]["type"];
 							}
 						}
-						console.log(tipo);
 						if(blankOption == "Choose")
 						{
-							blankOption += " " + tipo.toLowerCase();	
+							if(written.indexOf(tipo) == -1)
+							{
+								blankOption += " " + tipo.toLowerCase();	
+							}
 						}
 						else
 						{
-							blankOption += ", " + tipo.toLowerCase();
+							if(written.indexOf(tipo) == -1)
+							{
+								blankOption += ", " + tipo.toLowerCase();
+							}
 						}
-						written.push(tipo);
+						console.log(written);
+						if(written.indexOf(tipo) == -1)
+						{
+							
+							written.push(tipo);	
+						}
 				}
 			}
             var options = [{
@@ -100,8 +109,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             }];
             for (var i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
-				console.log(edge.inverse);
-                if (edge.target === nodeName && edge.inverse != undefined) {
+                if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='') {
 					
                     options.push({
                         text: edge.inverse + ' ' + edge.source,
@@ -356,7 +364,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         function successfulGame(context){
             this.puntos = 500;
             if (allConstraintsPassed) {
-                Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + i18n.gettext(" obtained score: ") + this.puntos, function(){
+                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+ this.puntos, function(){
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
                     console.log(DrGlearning);
                     DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
