@@ -79,7 +79,9 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		activityModel.data.answers=activity.answers;
                 		activityModel.data.correct_answer=activity.correct_answer.trim();
                 		//activityModel.set('obfuscated_image',activity.obfuscated_image);
-                		activityModel.data.time=activity.time.trim();
+                		if (activity.time) {
+                		    activityModel.data.time=activity.time.trim();
+                		}
                 	}
                 	if(activityModel.data.activity_type=='relational'){
                 		activityModel.data.graph_nodes=activity.graph_nodes;
