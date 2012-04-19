@@ -59,3 +59,31 @@ h1 {
    width:220px;
    margin:5px;
 }
+.helptext {
+    vertical-align: top;
+    display: block;
+    font-style: italic;
+    color: gray;
+    font-size: 0.8em;
+}
+.button {
+    vertical-align: top;
+    display: block;
+    font-style: italic;
+    color: gray;
+    font-size: 0.8em;
+}
+.okbutton {
+    vertical-align: top;
+    display: block;
+    font-style: italic;
+    color: gray;
+    font-size: 0.8em;
+}
+.ss-q-short{
+    margin-bottom:-2px;
+}
+.legend{
+    margin-bottom:5px;
+}
+
