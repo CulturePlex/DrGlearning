@@ -43,10 +43,11 @@ class Career(models.Model):
         self = image_resize(self)
         counter = 0
         career = Career.objects.filter(user=self.user, name=self.name)
+        career = career.exclude(id=self.id)
         original_name = self.name
-        while career.exists():
+        while career:
             counter += 1
-            self.name = "%s-%d" % (original_name, counter)
+            self.name = u"%s %d" % (original_name, counter)
             career = Career.objects.filter(user=self.user, name=self.name)
         super(Career, self).save(*args, **kwargs)
 
