@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import tempfile
 
 from django.conf import settings
@@ -90,6 +91,8 @@ class VisualAdmin(ActivityAdmin):
             tmpfile.close()
             f = open(filename)
             obj.obfuscated_image.save('pixelated.png', File(f), True)
+            # Remove temporal file. What about working on memory?
+            os.remove(filename)
         obj.save()
 
     class Media:
