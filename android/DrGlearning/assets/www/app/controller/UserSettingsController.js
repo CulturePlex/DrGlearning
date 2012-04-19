@@ -101,7 +101,7 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 			show.hide();
 			user.data.uniqueid = show.down('#importvalue').getValue();
 			user.save();
-			userStore.sync();
+			this.destroy(show);
 		});
 		cancelButton.setHandler(function() {
 			show.hide();

@@ -8,9 +8,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
     },
     activityView: null,
+    activity:null,
     updateActivity: function(view, newActivity){
-    
-        this.activity = newActivity;
+    	this.activity = newActivity;
         view.down('component[customId=activity]').destroy();
         activityView = Ext.create('DrGlearning.view.activities.Relational');
         this.activityView = activityView;
@@ -126,6 +126,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     }
             }
             return Ext.create('Ext.form.Select', {
+            	scope:this,
                 options: options,
                 listeners: {
                     change: function(field, newValue, oldValue){
@@ -346,7 +347,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 text: i18n.gettext('Undo'),
                 handler: function(){
                     stepBack();
-                }
+                },
+                scope:this,
             });
             gamePanel.add(option);
             gamePanel.add(endNode);
@@ -358,10 +360,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             scroller.scrollBy(0, 58);
         }
         
-        function successfulGame(context){
+        function successfulGame(){
             this.puntos = 500;
             if (allConstraintsPassed) {
-                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+ this.puntos, function(){
+            	Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward+' '+i18n.gettext("obtained score:")+ this.puntos, function(){
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
                     console.log(DrGlearning);
                     DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
