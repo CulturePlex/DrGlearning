@@ -22,7 +22,9 @@ h1 {
     width:90%;
     margin: 0px auto;
 }
-
+#apps {
+    margin-bottom:15px;
+}
 #txtlzr {
     padding-left:9px;
     width: 300px;
