@@ -82,7 +82,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		activitieslist.refresh();
         var level = Ext.getStore('Levels').getAt(newLevel - 1);
 		Ext.getStore('Activities').sort('level_order');
-		Ext.getStore('Activities').sort('successful');
+		//Ext.getStore('Activities').sort('successful');
 		Ext.getStore('Activities').clearFilter();
 		Ext.getStore('Activities').filter('careerId',newCareer.data.id);
 		Ext.getStore('Activities').filter('level_type',newLevel);

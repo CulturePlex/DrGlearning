@@ -28,8 +28,8 @@
       <!-- Main hero unit for a primary marketing message or call to action -->
         <h1>Dr. Glearning</h1>
         <h2>
-          <div id="question">How much do you know about </div>
-            <div id="txtlzr">How much do you know about</div>
+          <div id="question">{% trans "How much do you know about" %}</div>
+            <div id="txtlzr"></div>
         </h2>
         <div class="container">
             <div id="sample">
@@ -43,42 +43,53 @@
                     <img src="{{ STATIC_PREFIX }}img/drglearning.png" width="244px" >
                 </div>
                 <div id="buttons">
-                    <a class="btn btn-primary btn-large create" href="/admin/">Create Courses &raquo;</a>
-                    <a class="btn btn-primary btn-large create" href="#apps">Download App &raquo;</a>
+                    <a class="btn btn-primary btn-large create" href="/admin/">{% trans "Create Courses" %} &raquo;</a>
+                    <a class="btn btn-primary btn-large create" href="#apps">{% trans "Download App" %} &raquo;</a>
                 </div>
             </div>
         </div>
+<form action="https://docs.google.com/spreadsheet/formResponse?formkey=dEJaVUtZVFV6MXBRanp0TjUzNWM3Y3c6MQ&amp;embedded=true&amp;ifq" method="POST" id="ss-form">
+<br>
+<h3>{% trans "Stay tuned!" %}</h3>
+<div>{% trans "We are almost ready to open the free registration, but in the mean time" %}</div>
+<input type="text" name="entry.0.single" value="" class="ss-q-short" id="entry_0" placeholder="{% trans "Leave us your e-mail" %}">
+<input type="submit" name="submit" value="{% trans "OK!" %}">
+<input type="hidden" name="pageNumber" value="0">
+<input type="hidden" name="backupCache" value="">
+<label class="ss-q-help" for="entry_0">{% trans "Your e-mail won't be used for any porpuse than notify you when the platform is available" %}</label>
+</form>
+
     </div>
 
       <!-- Example row of columns -->
 
       <div class="row qrcodes">
         <div class="span3" id="apps">
-          <h2>iOS</h2>
+          <h2>{% trans "iOS" %}</h2>
           <div class="qrcode"><img src="{{ STATIC_PREFIX }}img/ios.png"></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/ios/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">Download &raquo; </text><span class="platform">ipa</span></a></p>
+          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/ios/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "ipa" %}</span></a></p>
         </div>
         <div class="span3">
-          <h2>Android</h2>
+          <h2>{% trans "Android" %}</h2>
           <div class="qrcode"><img src="{{ STATIC_PREFIX }}img/android.png"></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/android/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">Download &raquo; </text><span class="platform">apk</span></a></p>
+          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/android/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "apk" %}</span></a></p>
         </div>
         <div class="span3">
-          <h2>BlackBerry</h2>
+          <h2>{% trans "BlackBerry" %}</h2>
           <div class="qrcode"><img src="{{ STATIC_PREFIX }}img/ios.png"></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/blackberry/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">Download &raquo; </text><span class="platform">OTA</span></a></p>
+          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/blackberry/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "OTA" %}</span></a></p>
         </div>
         <div class="span3">
-          <h2>symbian</h2>
+          <h2>{% trans "symbian" %}</h2>
           <div class="qrcode"><img src="{{ STATIC_PREFIX }}img/symbian.png"></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/symbian/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">Download &raquo; </text><span class="platform">wgz</span></a></p>
+          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/symbian/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "wgz" %}</span></a></p>
         </div>
       </div>
 
       <hr>
 
       <footer>
-        <p>&copy; <a href="http://cultureplex.ca/" title="CulturePlex Lab." alt="CulturePlex Lab.">CulturePlex Lab.</a> 2012</p>
+        <p>&copy; <a href="http://cultureplex.ca/" title="CulturePlex Lab." alt="CulturePlex Lab.">{% trans "CulturePlex Lab." %}</a> {% trans "2012" %}</p>
       </footer>
 
     </div> <!-- /container -->
