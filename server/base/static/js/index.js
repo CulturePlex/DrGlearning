@@ -1,8 +1,12 @@
     $(function() {
 
         var list = [' art?'
-                  ,' history?'
+                  , ' science?'
+                  , ' history?'
                   , ' music?'
+                  , ' math?'
+                  , ' biology?'
+                  , ' algorithmics?'
                   , ' poetry?'];
 
         var txt = $('#txtlzr');
