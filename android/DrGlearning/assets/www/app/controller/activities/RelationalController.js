@@ -112,7 +112,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     options.push({
                         text: edge.inverse + ' ' + edge.source,
                         value: edge.source,
-                        edgeType: edge.type,
+                        edgeType: edge.inverse,
                         width: '100%'
                     });
                 }
