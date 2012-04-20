@@ -60,7 +60,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 			this.activity.save();
 			this.getApplication().getController('LevelController').helpAndQuery();
 		}
-		this.showSeconds();
+		if (this.currentTime) {
+			this.showSeconds();
+		}
 	},
 	showAnswers: function() {
 		clearInterval(this.finishtemp);
