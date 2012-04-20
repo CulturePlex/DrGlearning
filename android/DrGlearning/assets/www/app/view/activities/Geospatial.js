@@ -35,7 +35,7 @@ Ext.define('DrGlearning.view.activities.Geospatial', {
                     {
 						xtype: 'button',
 						customId: 'backtolevel',
-						text: 'Back',
+						text: i18n.gettext('Back'),
 						ui: 'back',
 					},
 					{

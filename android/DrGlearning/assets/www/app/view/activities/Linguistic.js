@@ -81,7 +81,7 @@ Ext.define('DrGlearning.view.activities.Linguistic', {
                     {
 						xtype: 'button',
 						customId: 'backtolevel',
-						text: 'Back',
+						text: i18n.gettext('Back'),
 						ui: 'back',
 						controller: 'DrGlearning.controller.Career',
 						action: 'index'
