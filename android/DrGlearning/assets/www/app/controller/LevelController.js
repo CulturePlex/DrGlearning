@@ -151,6 +151,9 @@ Ext.define('DrGlearning.controller.LevelController', {
 		
 		
         view.show();
+        if (typeof(MathJax) !== "undefined") {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
     },
     
     getActivityHtml: function(activityData){

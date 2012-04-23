@@ -49,6 +49,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 			this.loadingImages(view,activityView);
 		}
 		this.showAnswers();
+		if (typeof(MathJax) !== "undefined") {
+    		MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+		}
 	
 	},loadingImages:function(view,activityView){
 		activityView.show();
