@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
 from base.utils import image_resize
+from knowledges.templatetags.knowledges_extras import api_url
 
 
 class Knowledge(models.Model):
@@ -24,10 +25,18 @@ class Knowledge(models.Model):
 
 
 class Career(models.Model):
+
+    def qrcode(self):
+        image_src = "http://chart.apis.google.com/chart?cht=qr&chs=80x80&chl=%s" % \
+                api_url('career', self.id)
+        return '<img class="course-qrcode" src="%s">' % image_src
+    qrcode.allow_tags = True
+
     MODE_CHOICES = (
         ('explore', _("Explore")),
         ('exam', _("Exam"))
     )
+
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
     user = models.ForeignKey(User, verbose_name="user")
