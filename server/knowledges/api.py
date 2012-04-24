@@ -22,7 +22,15 @@ class CareerResource(ModelResource):
                                         full=True)
 
     class Meta:
-        queryset = Career.objects.filter(published=True)
+        queryset = Career.objects.all()
+
+
+    def get_object_list(self, request):
+        if request.GET.has_key('testing'):
+            return Career.objects.all()
+        else:
+            return Career.objects.filter(published=True)
+
 
     def dehydrate(self, bundle):
         # Career creator name

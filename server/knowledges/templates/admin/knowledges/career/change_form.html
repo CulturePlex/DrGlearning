@@ -1,5 +1,7 @@
 {% extends "admin/change_form.html" %}
 
+{% load knowledges_extras %}
+
 {% block after_field_sets %}
 <script type="text/javascript">
 function closePopup(win) {
@@ -80,6 +82,14 @@ function closePopup(win) {
                  </div>
             {% endif %}
     </fieldset>
+    <fieldset class="module">
+        <h2>Course creator tools</h2>
+        <div class="row cells-1">
+            <div class="column span-4">
+                <a href="{% test_url 'career' object_id %}" target="_blank">Course preview</a>
+                <img id="course-qr-code" src="http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl={{ 'career'|api_url:object_id }}">
+            </div>
+
 {% endif %}
 
 {% endblock %}
