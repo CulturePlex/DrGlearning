@@ -210,7 +210,7 @@ class Relational(Activity):
     constraints = jsonfield.JSONField(default="[]")
     graph_nodes = jsonfield.JSONField(default="{}")
     graph_edges = jsonfield.JSONField(default="[]")
-    path_limit = models.IntegerField(default=0)
+    path_limit = models.IntegerField(default=10)
 
 
 class Visual(Activity):
