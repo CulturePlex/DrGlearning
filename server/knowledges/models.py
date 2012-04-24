@@ -24,11 +24,19 @@ class Knowledge(models.Model):
 
 
 class Career(models.Model):
+    MODE_CHOICES = (
+        ('explore', _("Explore")),
+        ('exam', _("Exam"))
+    )
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
     user = models.ForeignKey(User, verbose_name="user")
     positive_votes = models.IntegerField(default=0)
     negative_votes = models.IntegerField(default=0)
+    career_type = models.CharField(max_length=20,
+                                    verbose_name=_("Course type"),
+                                    choices=MODE_CHOICES,
+                                    default="explore")
     timestamp = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
     image = models.ImageField(upload_to="images", blank=True, null=True)
