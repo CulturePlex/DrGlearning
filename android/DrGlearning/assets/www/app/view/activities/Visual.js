@@ -55,13 +55,14 @@ Ext.define('DrGlearning.view.activities.Visual', {
 			{
                 xtype: 'container',
                 docked: 'bottom',
+				padding:10,
 				ui:'neutral',
-				padding: 10,
                 items:[{
                         xtype: 'label',
+						style: 'text-align:center',
 						customId: 'time',
 						name: 'query',
-                        title: 'Error'
+                        title: 'Error',
                     },
 					{
                         xtype: 'container',
