@@ -62,6 +62,7 @@ class Activity(models.Model):
     level_order = models.IntegerField(_("order"), default=0)
     level_required = models.BooleanField(_("required"), default=True)
     reward = models.CharField(_("reward"), max_length=255, default="OK!")
+    penalty = models.CharField(_("penalty"), max_length=255, default="Ooops, try again!")
     
     # Needed for objects permissions. It should be autoassigned to
     # the career owner user
