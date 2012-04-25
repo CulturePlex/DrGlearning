@@ -163,7 +163,6 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'olwidget',
-    'qrcode',
 )
 
 AUTHENTICATION_BACKENDS = (
