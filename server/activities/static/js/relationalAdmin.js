@@ -24,6 +24,8 @@ var GraphEditor = {
   scoredNodesId: "id_scored_nodes",
   constraintsId: "id_constraints",
 
+  CONSTRAINTS_LIMIT: 5,
+
   progressBar: {
     show: function() {
       GraphEditor._stopRefreshing = true;
@@ -525,12 +527,18 @@ var GraphEditor = {
 
     $('.controlpanel').before(activityWidget);
     $('#add-constraint').click(function(){
+
+      var constraints = GraphEditor.getConstraints();
+      // Constraints limit = 5
+      if (constraints.length >= GraphEditor.CONSTRAINTS_LIMIT) {
+          alert("You reached the limit of constraints: " + GraphEditor.CONSTRAINTS_LIMIT);
+          return;
+      }
       var newConstraint = {
         type: $('#constraint-types').val(),
         operator: $('#constraint-operator').val(),
         value: $('#constraint-value').val()
       };
-      var constraints = GraphEditor.getConstraints();
       constraints.push(newConstraint);
       GraphEditor.setConstraints(constraints);
       GraphEditor.refresh();
