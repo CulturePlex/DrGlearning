@@ -503,6 +503,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 	deleteCareer:function(careerID){
 		var careersStore=Ext.getStore('Careers');
 		var activityStore=Ext.getStore('Activities');
+		console.log(careerID);
 		var career=careersStore.getById(careerID);
 		career.data.installed = false;
 		career.data.started =false;
