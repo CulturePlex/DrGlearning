@@ -24,8 +24,8 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 		var usernameField = view.down('textfield[id=username]');
 		var emailField = view.down('textfield[id=email]');
 		var user = userStore.getAt(0);
-		emailField.setValue(user.data.email);
-		usernameField.setValue(user.data.name);
+		//emailField.setValue(user.data.email);
+		//usernameField.setValue(user.data.name);
 	},
 	saveSettings : function() {
 		//var userStore = Ext.getStore('Users');

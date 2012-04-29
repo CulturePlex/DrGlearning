@@ -3,6 +3,7 @@ Ext.define('DrGlearning.view.Settings', {
 	xtype : 'settings',
 
 	config : {
+		
 		modal : true,
 		centered : true,
 		hideOnMaskTap : true,
@@ -11,7 +12,7 @@ Ext.define('DrGlearning.view.Settings', {
 
 		// we always want the sheet to be 400px wide and to be as tall as the
 		// device allows
-		 width: 300,
+		//width: 300,
 		// top: 0,
 		// bottom: 0,
 		// right: 0,
@@ -28,6 +29,7 @@ Ext.define('DrGlearning.view.Settings', {
 		},{
             xtype: 'selectfield',
             id: 'locale',
+			ui:'dark',
             label: i18n.gettext('Language'),
             labelAlign: 'top',
             margin: 5,
