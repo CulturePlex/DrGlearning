@@ -54,11 +54,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
             'selectfield[name=knnowledge_field]': {
                 change: this.filterCareersByKnowledge
             },
-            
             'button[id=settings]': {
                 tap: this.getApplication().getController('UserSettingsController').settings
             
             },
+			'button[id=updateAll]': {
+                tap: this.updateAll
+            
+            },			
             'button[id=save]': {
                 tap: this.getApplication().getController('UserSettingsController').saveSettings
             
@@ -82,11 +85,20 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * Showing Installed Careers.
      */
     index: function(){
+		
+		
+		
         var store = Ext.getStore('Careers');
         
         store.clearFilter();
         store.filter("installed", true);
+		store.filter("update", true);
+		var numberOfUpdates=store.getCount();
+		
+		
         
+		store.clearFilter();
+        store.filter("installed", true);
         // Updating levels in career models
         console.log(store.getData());
         for (index in store.getData().items) {
@@ -112,7 +124,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         
         // Indexing list
         
-        var view1 = this.getCareersframe();
+      	var view1 = this.getCareersframe();
+
         if (view1) {
             view1.hide();
         }
@@ -123,6 +136,13 @@ Ext.define('DrGlearning.controller.CareersListController', {
         if (store.getCount() == 0) {
             view1.down('careerslist').hide();
         }
+		if(numberOfUpdates > 0)
+		{
+			view1.down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').show();
+		}else
+		{
+			view1.down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
+		}
         view1.down('toolbar[id=toolbarTopNormal]').show();
         view1.down('toolbar[id=toolbarBottomSettings]').show();
         view1.down('toolbar[id=toolbarTopAdd]').hide();
@@ -375,6 +395,33 @@ Ext.define('DrGlearning.controller.CareersListController', {
             "</br>"
         }
         return html;
+    },
+	updateAll: function() {
+		var store = Ext.getStore('Careers');
+        
+        store.clearFilter();
+        store.filter("installed", true);
+		store.filter("update", true);
+		this.updatesLeft=store.getCount();
+		Ext.Viewport.setMasked({
+	         xtype: 'loadmask',
+	         message: i18n.gettext('Updating Courses...'),
+	         indicator: true,
+	         html: "<img src='resources/images/ic_launcher.png'>"
+        });
+		store.each(function (career) {
+			this.getApplication().getController('DaoController').updateCareer(career.data.id, this.updateFinished, this);
+		},this);
+		store.clearFilter();
+		store.filter("installed", true);
+	 },
+	 updateFinished: function(scope){
+        this.updatesLeft--;
+		if(this.updatesLeft==0){
+			Ext.Viewport.setMasked(false);
+			this.index();
+		}
+        
     },
 });
 

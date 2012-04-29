@@ -113,7 +113,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             docked: 'bottom',
             
             layout: {
-                type: 'vbox',
+                type: 'hbox',
                 pack:'center',
                 align: 'center'
             },
@@ -121,6 +121,15 @@ Ext.define('DrGlearning.view.CareersFrame', {
             items: [{
                 id: 'settings',
                	text: i18n.gettext('Settings'),
+            	xtype:'button',
+				
+            	//xtype:'panel',
+				//html:'<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
+            	
+            },
+			{
+                id: 'updateAll',
+               	text: i18n.gettext('Update all'),
             	xtype:'button',
 				
             	//xtype:'panel',
