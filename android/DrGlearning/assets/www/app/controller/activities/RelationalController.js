@@ -52,7 +52,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 			blankOption="Choose";
 			for (var i = 0; i < graphEdges.length; i++) {
 				edge = graphEdges[i];
-				if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='') {
+				if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='' && playerPath.indexOf(nodeName) == 0) {
 						for( var nodo in graphNodes ){
 							if (nodo == edge.source) {
 								tipo = graphNodes[nodo]["type"];
@@ -75,7 +75,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
 						written.push(tipo);	
 						
 				}
-				if (edge.source === nodeName ) {
+				if (edge.source === nodeName  && playerPath.indexOf(nodeName) == 0) {
 						for( var nodo in graphNodes ){
 							if (nodo == edge.target) {
 								tipo = graphNodes[nodo]["type"];
@@ -107,7 +107,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             }];
             for (var i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
-                if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='') {
+				console.log(playerPath);
+				console.log(edge.target);
+				console.log();
+                if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='' && playerPath.indexOf(nodeName) == 0) {
 					
                     options.push({
                         text: edge.inverse + ' ' + edge.source,
@@ -117,7 +120,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     });
                 }
                 else 
-                    if (edge.source === nodeName ) {
+                    if (edge.source === nodeName && playerPath.indexOf(nodeName) == 0 ) {
                         options.push({
                             text:  edge.type + ' ' + edge.target,
                             value: edge.target,
