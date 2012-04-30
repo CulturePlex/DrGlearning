@@ -107,9 +107,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             }];
             for (var i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
-				console.log(playerPath);
-				console.log(edge.target);
-				console.log();
                 if (edge.target === nodeName && edge.inverse != undefined && edge.inverse !='' && playerPath.indexOf(nodeName) == 0) {
 					
                     options.push({

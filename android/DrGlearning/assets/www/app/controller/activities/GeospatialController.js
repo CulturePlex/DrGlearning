@@ -65,14 +65,14 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         activityView.add(elmapa);
         activityView.show();
         view.add(activityView);
-        if(!newActivity.data.helpviewed)
+         if(!newActivity.data.helpviewed)
 		{
 			newActivity.data.helpviewed=true;
 			newActivity.save();
 			this.getApplication().getController('LevelController').helpAndQuery();
 		}
     },
-    empezar: function(view, activity){
+    empezar: function (view, activity){
         //Initializing map variable
         var elmapa = view.down('map');
         view.add(elmapa);

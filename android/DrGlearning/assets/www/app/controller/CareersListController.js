@@ -8,7 +8,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
     config: {
         refs: {
-            mainView: 'mainview',
+            main: 'mainview',
             careersframe: 'careersframe',
             settings: 'settings',
         }
@@ -50,7 +50,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
             'button[id=back]': {
                 tap: this.index
             },
-            
+			 'button[id=refresh]': {
+                tap: this.refresh
+            },
             'selectfield[name=knnowledge_field]': {
                 change: this.filterCareersByKnowledge
             },
@@ -106,20 +108,13 @@ Ext.define('DrGlearning.controller.CareersListController', {
             if (store.getAt(index).data.installed) {
                 var levelstemp = new Array();
                 levelstemp = this.getApplication().getController('DaoController').getLevels('' + store.getAt(index).data.id);
-                console.log(levelstemp);
                 for (var i = 0; i < levelstemp.length; i++) {
-                    console.log('el level es: ');
-                    console.log(Ext.getStore('Levels').getAt(levelstemp[i] - 1).data);
                     store.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
-                    console.log(store.getAt(index).data);
-                    console.log(this.getLevelName(levelstemp[i] - 1));
                     if (this.getApplication().getController('DaoController').isApproved(store.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
                         store.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
                     }
                 }
             }
-            console.log(store.getAt(index).data);
-            console.log(store.getAt(index).data);
         }
         
         // Indexing list
@@ -165,7 +160,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
      */
     addOrStartCareer: function(list, itemIndex, item, career, e){
         this.selectedcareer = career;
-        console.log(this.selectedcareer);
         if (career.data.installed == false) {
             if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
@@ -196,7 +190,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
                         handler: function(){
                             this.parent.hide();
                             Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function(answer, pako){
-                                console.log(this.career.data.id);
                                 if (answer == 'yes') {
                                     this.getApplication().getController('DaoController').deleteCareer(this.career.data.id, this.installFinished, this);
                                     this.index();
@@ -224,7 +217,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
 							handler: function(){
                             this.parent.hide();
                             Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer, pako){
-                                console.log(this.career.data.id);
                                 if (answer == 'yes') {
                                      Ext.Viewport.setMasked({
 					                 xtype: 'loadmask',
@@ -242,7 +234,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
 	                        handler: function(){
 	                            this.parent.hide();
 	                            Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function(answer, pako){
-	                                console.log(this.career.data.id);
 	                                if (answer == 'yes') {
 	                                    this.getApplication().getController('DaoController').deleteCareer(this.career.data.id, this.installFinished, this);
 	                                    this.index();
@@ -277,7 +268,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     localStorage.selectedcareer = career.data.id;
                     this.getCareersframe().hide();
                 }
-            
         }
     },
     /*
@@ -304,7 +294,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
         if (careerStateSelected.getValue() == 'inProgress') {
             store.filter("started", true);
         }
-        console.log(store);
         store.load();
     },
     
@@ -333,7 +322,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var view12 = this.getCareersframe();
         view12.down('title').setTitle(i18n.gettext('Careers'));
         knowledgeFields = this.daoController.getknowledgesFields();
-        console.log(knowledgeFields);
         view12.down('careerslist').show();
         view12.down('careerslist').refresh();
         options = [{
@@ -421,6 +409,10 @@ Ext.define('DrGlearning.controller.CareersListController', {
 			Ext.Viewport.setMasked(false);
 			this.index();
 		}
+        
+    },
+	refresh: function(scope){
+       this.getApplication().getController('LoadingController').onLaunch();
         
     },
 });

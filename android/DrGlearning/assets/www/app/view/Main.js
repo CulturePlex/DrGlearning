@@ -9,6 +9,7 @@ Ext.define('DrGlearning.view.Main', {
     config: {
         fullscreen: true,
         layout: 'fit'
-    }
+    },
+	items:[{xtype:'button',text:'asdads'}]
 
 });
