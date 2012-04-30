@@ -15,6 +15,10 @@
 	
 }
 
+.x-button-label{
+	white-space:normal;
+}
+
 .query{
 	font-size:12;
 }

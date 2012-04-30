@@ -412,7 +412,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
         
     },
 	refresh: function(scope){
-       this.getApplication().getController('LoadingController').onLaunch();
         
     },
 });
