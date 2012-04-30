@@ -65,6 +65,11 @@ Ext.define('DrGlearning.view.activities.Visual', {
                         title: 'Error',
                     },
 					{
+                        xtype: 'button',
+						customId:'skip',
+						text: i18n.gettext('Skip'),
+                    },
+					{
                         xtype: 'container',
 						customId: 'options',
                     }

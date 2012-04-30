@@ -26,6 +26,9 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         this.control({
             'button[customId=respuesta]': {
                 tap: this.tryIt
+            },
+			'button[customId=skip]': {
+                tap: this.skip
             }
         });
     },
@@ -92,6 +95,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     },
     showAnswers: function(){
         activityView.down('label[customId=time]').setHtml('');
+		activityView.down('button[customId=skip]').hide();
 		this.activityView.down('container[id=obImage]').setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
         for (var i = 0; i < this.respuestas.length; i++) {
            activityView.down('container[customId=options]').add({
@@ -137,6 +141,10 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                 this.showAnswers();
             }
         }
+    },
+	skip: function(){
+         clearInterval(this.secondtemp);
+         this.showAnswers();
     },
     stop: function(){
         clearInterval(this.secondtemp);
