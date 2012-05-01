@@ -1,15 +1,19 @@
+//Global Words to skip JSLint validation//
+/*global Ext i18n google GeoJSON activityView*/
+
 Ext.define('DrGlearning.controller.activities.RelationalController', {
     extend: 'Ext.app.Controller',
     config: {
         fullscreen: true,
         refs: {
             relational: 'activities.relational',
-            activityframe: 'activityframe',
+            activityframe: 'activityframe'
         }
     },
     activityView: null,
     activity:null,
-    updateActivity: function(view, newActivity){
+    updateActivity: function (view, newActivity)
+	{
     	this.activity = newActivity;
         view.down('component[customId=activity]').destroy();
         activityView = Ext.create('DrGlearning.view.activities.Relational');
@@ -302,11 +306,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                         items: [{
                             xtype: 'panel',
                             html: '<img height=25 src="resources/images/arrowdown.png">',
-							margin: '5px',
+							margin: '5px'
                         }, {
                             xtype: 'panel',
                             html: edgeText
-                        }],
+                        }]
                     });
                     
                     
@@ -320,10 +324,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     items: [{
                         xtype: 'panel',
                         html: '<img height=25 src="resources/images/record.png">',
-						margin: '5px',
+						margin: '5px'
                     }, {
                         xtype: 'panel',
-                        html: getNodeHTML(playerPath[i]),
+                        html: getNodeHTML(playerPath[i])
                     }]
                 });
                 
@@ -332,23 +336,23 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var endNode = Ext.create('Ext.Container', {
                 layout: {
                     type: 'hbox',
-                    align: 'middle',
+                    align: 'middle'
                 },
                 items: [{
                     xtype: 'panel',
                     html: '<img height=25 src="resources/images/speaker.png">',
-					margin: '5px',
+					margin: '5px'
                 }, {
                     xtype: 'panel',
                     html: getNodeHTML(pathGoal)
-                }],
+                }]
             });
             var button = Ext.create('Ext.Button', {
                 text: i18n.gettext('Undo'),
                 handler: function(){
                     stepBack();
                 },
-                scope:this,
+                scope:this
             });
             gamePanel.add(option);
             gamePanel.add(endNode);

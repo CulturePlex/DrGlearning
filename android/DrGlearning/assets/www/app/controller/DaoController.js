@@ -1,4 +1,3 @@
-
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
     requires: ['DrGlearning.controller.GlobalSettingsController'],
@@ -420,7 +419,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		score: 0,
                                     		played: false,
                                     		successful: false,
-                                    		helpviewed: false,
+                                    		helpviewed: false
                                     	});
                                 	}
                                     	if(activityModel.data.activity_type=='linguistic'){

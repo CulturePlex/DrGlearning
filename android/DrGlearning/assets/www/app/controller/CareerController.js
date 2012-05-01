@@ -32,7 +32,7 @@ Ext.define('DrGlearning.controller.CareerController', {
             },
             'button[id=backToCareers]': {
                 tap: this.toCareers
-            },
+            }
         });
     },
     /*
@@ -85,7 +85,7 @@ Ext.define('DrGlearning.controller.CareerController', {
             console.log(level);
             levelButtonHtml = this.getLevelHtml(newCareer.data.id,level.data);
             levelscarousel.add({
-                html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>',
+                html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>'
             
             });
             /**
@@ -139,7 +139,7 @@ Ext.define('DrGlearning.controller.CareerController', {
 		Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Loading level...',
-            indicator: true,
+            indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
         var view1 = this.getCareerframe();

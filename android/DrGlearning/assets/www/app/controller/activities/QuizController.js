@@ -10,11 +10,11 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         autoCreate: true,
         xtype: 'mainview'
     }],	
-	activity:null,
-	respuestas:null,
-	currentTime:null,
-	finishtemp:null,
-	secondtemp:null,
+	activity: null,
+	respuestas: null,
+	currentTime: null,
+	finishtemp: null,
+	secondtemp: null,
 	init: function(){
 		this.levelController = this.getApplication().getController('LevelController');
 		this.control({
@@ -27,7 +27,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 		Ext.Viewport.setMasked({
     	    xtype: 'loadmask',
     	    message: i18n.gettext('Loading activity...'),
- 	       	indicator: true,
+ 	       	indicator: true
 			//html: "<img src='resources/images/activity_icons/quiz.png'>",
     	});
 		this.activity= newActivity;

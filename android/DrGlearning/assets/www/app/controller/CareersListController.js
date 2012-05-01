@@ -10,7 +10,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         refs: {
             main: 'mainview',
             careersframe: 'careersframe',
-            settings: 'settings',
+            settings: 'settings'
         }
     },
     selectedcareer: null,
@@ -413,6 +413,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
     },
 	refresh: function(scope){
         
-    },
+    }
 });
 
