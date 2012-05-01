@@ -31,7 +31,8 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         });
         
     },
-    updateActivity: function(view, newActivity){
+    updateActivity: function (view, newActivity)
+	{
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: i18n.gettext('Loading activity...'),
@@ -149,11 +150,11 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             else {
                 table = table + '<td></td>';
             }
-            if (((parseInt(cont) + 1) % 5) === 0) {
+            if (((parseInt(cont,10) + 1) % 5) === 0) {
                 table = table + '</tr>';
                 //console.log('cierra con el '+cont);
             }
-            if (((parseInt(cont) + 1) % 5) === 0 && (parseInt(cont) + 1) != 25) 
+            if (((parseInt(cont,10) + 1) % 5) === 0 && (parseInt(cont,10) + 1) !== 25) 
 			{
                 table = table + '<tr>';
                 //console.log('abre con el '+cont);

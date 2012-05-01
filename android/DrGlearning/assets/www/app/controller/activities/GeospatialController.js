@@ -174,7 +174,8 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
 		{
         
             // ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
-            if (view.bandera == true) {
+            if (view.bandera === true) 
+			{
                 if (view.marker) {
                     view.marker.setMap(null);
                 }
