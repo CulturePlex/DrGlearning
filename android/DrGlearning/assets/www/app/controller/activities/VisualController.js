@@ -1,5 +1,5 @@
 //Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView event clearInterval setInterval*/
+/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning*/
 
 Ext.define('DrGlearning.controller.activities.VisualController', {
     extend: 'Ext.app.Controller',
@@ -56,7 +56,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             listeners: {
                 painted: function ()
 				{
-                    console.log('show');
+                    //console.log('show');
                     DrGlearning.app.getApplication().getController('activities.VisualController').startGame();
                 }
             }
@@ -146,7 +146,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     },
     showSeconds: function ()
 	{
-    
+     
         if (this.parado === false && this.loading === false) 
 		{
             this.currentTime--;

@@ -4,6 +4,10 @@
  *
  * Controller to manage Careers List Menu and Logic.
  */
+
+//Global Words to skip JSLint validation//
+/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning localStorage document*/
+
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
     config: {
@@ -23,13 +27,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
     /*
      * Initializate Controller.
      */
-    initializate: function(){
+    initializate: function ()
+	{
         document.body.style.background = "";
-        console.log(document.body.style.background);
+        //console.log(document.body.style.background);
         this.careerController = this.getApplication().getController('CareerController');
         this.levelController = this.getApplication().getController('LevelController');
         this.daoController = this.getApplication().getController('DaoController');
-        console.log(this);
+        //console.log(this);
         Ext.create('DrGlearning.view.Main');
         this.control({
             'careerslist': {
@@ -79,34 +84,31 @@ Ext.define('DrGlearning.controller.CareersListController', {
         });
     },
     //getting the string name of a level giving its index
-    getLevelName: function(index){
+    getLevelName: function (index)
+	{
         var levelStrings = ["illetratum", "primary", "secondary", "highschool", "college", "master", "phd", "postdoc", "professor", "emeritus"];
         return levelStrings[index];
     },
     /*
      * Showing Installed Careers.
      */
-    index: function(){
-		
-		
-		
+    index: function ()
+	{
         var store = Ext.getStore('Careers');
-        
         store.clearFilter();
         store.filter("installed", true);
 		store.filter("update", true);
-		var numberOfUpdates=store.getCount();
-		
-		
-        
+		var numberOfUpdates = store.getCount();
 		store.clearFilter();
         store.filter("installed", true);
         // Updating levels in career models
-        console.log(store.getData());
-        for (index in store.getData().items) {
-            console.log(store.getAt(index).data.installed);
-            if (store.getAt(index).data.installed) {
-                var levelstemp = new Array();
+        //console.log(store.getData());
+        for (var index in store.getData().items) 
+		{
+            //console.log(store.getAt(index).data.installed);
+            if (store.getAt(index).data.installed) 
+			{
+                var levelstemp = [];
                 levelstemp = this.getApplication().getController('DaoController').getLevels('' + store.getAt(index).data.id);
                 for (var i = 0; i < levelstemp.length; i++) {
                     store.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
@@ -143,9 +145,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
-        if (localStorage.selectedcareer != undefined && localStorage.selectedcareer != 0) {
-            Ext.Msg.confirm("Last career", "Return to last career?", function(answer){
-                if (answer == 'yes') {
+        if (localStorage.selectedcareer !== undefined && localStorage.selectedcareer !== 0) 
+		{
+            Ext.Msg.confirm("Last career", "Return to last career?", function (answer)
+			{
+                if (answer === 'yes') {
                     this.getApplication().getController('CareersListController').addOrStartCareer(undefined, undefined, undefined, Ext.getStore('Careers').getById(localStorage.selectedcareer));
                 }
                 else {
@@ -158,15 +162,19 @@ Ext.define('DrGlearning.controller.CareersListController', {
     /*
      * Method call when tap on a Carrer Item in the list.
      */
-    addOrStartCareer: function(list, itemIndex, item, career, e){
+    addOrStartCareer: function (list, itemIndex, item, career, e)
+	{
         this.selectedcareer = career;
-        if (career.data.installed == false) {
+        if (career.data.installed === false) 
+		{
             if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
             }
             else {
-                Ext.Msg.confirm(i18n.gettext("Install Career?"), i18n.gettext("Are you sure you want to install this career?"), function(answer, pako){
-                    if (answer == 'yes') {
+                Ext.Msg.confirm(i18n.gettext("Install Career?"), i18n.gettext("Are you sure you want to install this career?"), function (answer, pako)
+				{
+                    if (answer === 'yes') 
+					{
                         Ext.Viewport.setMasked({
                             xtype: 'loadmask',
                             message: i18n.gettext('Downloading Career...'),
@@ -182,15 +190,16 @@ Ext.define('DrGlearning.controller.CareersListController', {
         else {
 			this.career = career;
             var that = this;
-            if (e != undefined && e.touch.target.id == "uninstall") {
+            if (e !== undefined && e.touch.target.id == "uninstall") {
                 this.actionSheet = Ext.create('Ext.ActionSheet', {
                     items: [{
                         text: 'Uninstall course',
                         ui: 'decline',
                         handler: function(){
                             this.parent.hide();
-                            Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function(answer, pako){
-                                if (answer == 'yes') {
+                            Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function (answer, pako)
+							{
+                                if (answer === 'yes') {
                                     this.getApplication().getController('DaoController').deleteCareer(this.career.data.id, this.installFinished, this);
                                     this.index();
                                 }

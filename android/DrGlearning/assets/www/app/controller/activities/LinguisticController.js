@@ -142,7 +142,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         var temp;
         //console.log('Probando getTable');
         //console.log(squares.length);
-        for (cont in squaresBlack) 
+        for(cont in squaresBlack) 
 		{
             if (squaresBlack[cont]) {
                 table = table + '<td BGCOLOR="BLACK" style="border: inset 0pt" width="20%"></td>';
@@ -150,11 +150,11 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             else {
                 table = table + '<td></td>';
             }
-            if (((parseInt(cont,10) + 1) % 5) === 0) {
+            if (((parseInt(cont, 10) + 1) % 5) === 0) {
                 table = table + '</tr>';
                 //console.log('cierra con el '+cont);
             }
-            if (((parseInt(cont,10) + 1) % 5) === 0 && (parseInt(cont,10) + 1) !== 25) 
+            if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25) 
 			{
                 table = table + '<tr>';
                 //console.log('abre con el '+cont);
