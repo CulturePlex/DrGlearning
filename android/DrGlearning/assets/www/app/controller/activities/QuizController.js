@@ -1,4 +1,8 @@
 //Global Words to skip JSLint validation//
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 /*global Ext i18n google GeoJSON activityView MathJax clearInterval event*/
 
 Ext.define('DrGlearning.controller.activities.QuizController', {
@@ -18,8 +22,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     currentTime: null,
     finishtemp: null,
     secondtemp: null,
-    init: function ()
-	{
+    init: function () {
+        "use strict";
         this.levelController = this.getApplication().getController('LevelController');
         this.control({
             'button[customId=respuestaQuiz]': {
@@ -27,8 +31,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }
         });
     },
-    updateActivity: function (view, newActivity) 
-	{
+    updateActivity: function (view, newActivity) {
+        "use strict";
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: i18n.gettext('Loading activity...'),
@@ -41,7 +45,6 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             view.down('component[customId=activity]').destroy();
         }
         activityView = Ext.create('DrGlearning.view.activities.Quiz');
-        
         this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
         this.respuestas = this.activity.data.answers;
         var opciones = 6;
@@ -59,8 +62,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         }
         
     },
-    loadingImages: function(view, activityView)
-	{
+    loadingImages: function (view, activityView)
+    {
         activityView.show();
         view.add(activityView);
         Ext.Viewport.setMasked(false);
@@ -74,7 +77,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         }
     },
     showAnswers: function ()
-	{
+    {
         clearInterval(this.finishtemp);
         clearInterval(this.secondtemp);
         
@@ -100,20 +103,20 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         
     },
     showSeconds: function ()
-	{
+    {
         activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
         this.currentTime--;
     },
     tryIt: function ()
-	{
+    {
     
     
         this.puntos = 100;
         if (event.target.textContent === this.activity.data.correct_answer) 
-		{
+        {
             activityView.down('container[customId=time]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm-small');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
-			{
+            {
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
             }, this);
@@ -121,7 +124,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         else {
             activityView.down('container[customId=time]').down('button[text=' + event.target.textContent + ']').setUi('decline-small');
             Ext.Msg.alert(i18n.gettext('Wrong!'), ('Oooh, it isnt the correct answer'), function ()
-			{
+            {
                 this.getApplication().getController('LevelController').tolevel();
             }, this);
         }
@@ -129,7 +132,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         
     },
     stop: function ()
-	{
+    {
         clearInterval(this.finishtemp);
         clearInterval(this.secondtemp);
     }
