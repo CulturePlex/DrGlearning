@@ -100,7 +100,20 @@ msgstr "Back"
 msgid "CulturePlex Lab."
 msgstr "CulturePlex Lab."
 
+msgid "Congrats!"
+msgstr "Congrats!"
 
+msgid "You have complete the "
+msgstr "You have complete the "
+
+msgid " level! It was the last Level, you have finished this career!"
+msgstr " level! It was the last Level, you have finished this career!"
+
+msgid " level! Next Level: "
+msgstr " level! Next Level: "
+
+msgid " level! It was the last Level, you have finished this career!" 
+msgstr " level! It was the last Level, you have finished this career!"
 
 # Settings
 

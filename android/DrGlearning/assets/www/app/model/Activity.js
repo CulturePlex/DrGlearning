@@ -147,6 +147,9 @@ Ext.define('DrGlearning.model.Activity', {
 		}, {
 			name : "constraints",
 			type : "auto"
+		}, {
+			name : "path_limit",
+			type : "auto"
 		}
 		/*-------------------------
 		Geospatial Activities

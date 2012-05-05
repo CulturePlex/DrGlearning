@@ -6,7 +6,7 @@
  */
 
 //Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning localStorage document*/
+/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning document*/
 
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
@@ -55,7 +55,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             'button[id=back]': {
                 tap: this.index
             },
-			 'button[id=refresh]': {
+			'button[id=refresh]': {
                 tap: this.refresh
             },
             'selectfield[name=knnowledge_field]': {
@@ -92,7 +92,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     /*
      * Showing Installed Careers.
      */
-    index: function ()
+    index: function ()  
 	{
         var store = Ext.getStore('Careers');
         store.clearFilter();
@@ -121,7 +121,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         
         // Indexing list
         
-      	var view1 = this.getCareersframe();
+		var view1 = this.getCareersframe();
 
         if (view1) {
             view1.hide();
@@ -130,7 +130,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var view1 = this.getCareersframe();
         view1.down('title').setTitle(i18n.gettext('Dr. Glearning'));
         this.filterCareers();
-        if (store.getCount() == 0) {
+		if (store.getCount() == 0) {
             view1.down('careerslist').hide();
         }
 		if(numberOfUpdates > 0)
@@ -145,17 +145,18 @@ Ext.define('DrGlearning.controller.CareersListController', {
         view1.down('toolbar[id=toolbarTopAdd]').hide();
         view1.down('toolbar[id=toolbarBottomAdd]').hide();
         view1.show();
-        if (localStorage.selectedcareer !== undefined && localStorage.selectedcareer !== 0) 
+		console.log(localStorage.selectedcareer);
+        if (localStorage.selectedcareer != undefined && localStorage.selectedcareer != 0) 
 		{
             Ext.Msg.confirm("Last career", "Return to last career?", function (answer)
 			{
-                if (answer === 'yes') {
+                if (answer == 'yes') {
                     this.getApplication().getController('CareersListController').addOrStartCareer(undefined, undefined, undefined, Ext.getStore('Careers').getById(localStorage.selectedcareer));
                 }
                 else {
                     localStorage.selectedcareer = 0;
                 }
-            }, this);
+            }, this); 
         }
         
     },

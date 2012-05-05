@@ -22,6 +22,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     currentTime: null,
     finishtemp: null,
     secondtemp: null,
+	activityView: null,
     init: function () {
         "use strict";
         this.levelController = this.getApplication().getController('LevelController');
@@ -44,17 +45,17 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             view.down('component[customId=activity]').hide();
             view.down('component[customId=activity]').destroy();
         }
-        activityView = Ext.create('DrGlearning.view.activities.Quiz');
-        this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
+        this.activityView = Ext.create('DrGlearning.view.activities.Quiz');
+        this.getApplication().getController('ActivityController').addQueryAndButtons(this.activityView, newActivity);
         this.respuestas = this.activity.data.answers;
         var opciones = 6;
         var time = newActivity.data.time;
         this.currentTime = time;
         if (newActivity.data.image_url) {
-            newActivity.getImage('image', 'image', activityView.down('[id=image]'), this, view, activityView, false);
+            newActivity.getImage('image', 'image', this.activityView.down('[id=image]'), this, view, this.activityView, false);
         }
         else {
-            this.loadingImages(view, activityView);
+            this.loadingImages(view, this.activityView);
         }
         this.showAnswers();
         if (typeof(MathJax) !== "undefined") {
@@ -90,7 +91,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }
         };
         for (var i = 0; i < this.respuestas.length; i++) {
-            activityView.down('container[customId=time]').add({
+            this.activityView.down('container[customId=time]').add({
                 xtype: 'button',
                 text: this.respuestas[i],
                 ui: 'small',
@@ -98,13 +99,13 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
                 customId: 'respuestaQuiz'
             });
         }
-        activityView.down('label[customId=time]').setHtml("");
-        activityView.add(opciones);
+        this.activityView.down('label[customId=time]').setHtml("");
+        this.activityView.add(opciones);
         
     },
     showSeconds: function ()
     {
-        activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
+        this.activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
         this.currentTime--;
     },
     tryIt: function ()
@@ -114,7 +115,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.puntos = 100;
         if (event.target.textContent === this.activity.data.correct_answer) 
         {
-            activityView.down('container[customId=time]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm-small');
+            this.activityView.down('container[customId=time]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm-small');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
             {
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
@@ -122,7 +123,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }, this);
         }
         else {
-            activityView.down('container[customId=time]').down('button[text=' + event.target.textContent + ']').setUi('decline-small');
+            this.activityView.down('container[customId=time]').down('button[text=' + event.target.textContent + ']').setUi('decline-small');
             Ext.Msg.alert(i18n.gettext('Wrong!'), ('Oooh, it isnt the correct answer'), function ()
             {
                 this.getApplication().getController('LevelController').tolevel();
