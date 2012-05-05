@@ -83,9 +83,11 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		}
                 	}
                 	if(activityModel.data.activity_type=='relational'){
+						console.log(activity);
                 		activityModel.data.graph_nodes=activity.graph_nodes;
                 		activityModel.data.graph_edges=activity.graph_edges;
                 		activityModel.data.constraints=activity.constraints;
+						activityModel.data.path_limit=activity.path_limit;
                 	}
                 	if(activityModel.data.activity_type=='temporal'){
                 		activityModel.setImage('image',activity.image,this);

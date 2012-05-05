@@ -149,7 +149,7 @@ Ext.define('DrGlearning.model.Activity', {
 			type : "auto"
 		}, {
 			name : "path_limit",
-			type : "auto"
+			type : "int"
 		}
 		/*-------------------------
 		Geospatial Activities
@@ -201,5 +201,5 @@ Ext.define('DrGlearning.model.Activity', {
     		}
     	}
     	
-	},
+	}
 });

@@ -15,6 +15,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     updateActivity: function (view, newActivity)
 	{
         this.activity = newActivity;
+		console.log(this.activity);
         view.down('component[customId=activity]').destroy();
         activityView = Ext.create('DrGlearning.view.activities.Relational');
         this.activityView = activityView;
@@ -258,6 +259,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         /** Given the last step, it refreshes the user interface to mark the
          * actual walked path and next options available */
         function refresh(option){
+			console.log(newActivity);
             activityView.removeAll();
             var scorePanel = Ext.create('Ext.Panel', {
                 html: '<p>Score: ' + getPathScore() + '</p>'
@@ -328,7 +330,14 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 },
                 scope: this
             });
-            gamePanel.add(option);
+			if(playerPath.length>newActivity.data.path_limit && newActivity.data.path_limit > 0)
+			{
+				gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('This is a wrong way, please try undo')+"<div>"});
+			}
+            else
+			{
+				gamePanel.add(option);
+			}
             gamePanel.add(endNode);
             gamePanel.add(button);
             activityView.add(gamePanel);
@@ -395,7 +404,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             }
             else 
                 if (graphNodes[i].hasOwnProperty("end")) {
-                    console.log(pathGoal);
                     pathGoal = i;
                 }
             

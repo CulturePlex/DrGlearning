@@ -249,6 +249,10 @@ msgstr "Constraint Not Yet Passed"
 msgid "Undo"
 msgstr "Undo"
 
+msgid "This is a wrong way, please try undo"
+msgstr "This is a wrong way, please try undo"
+
+
 
 # Quiz and Visual Activities
 

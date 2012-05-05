@@ -33,6 +33,12 @@
 	text-align: center;
 }
 
+.warning {
+	color: #FF3535;
+	background-color: #FFFFFF;
+	text-align: center
+}
+
 li.relational-constraints {
 	background-color: #FF3535;
 	text-align: left;

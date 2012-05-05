@@ -193,6 +193,9 @@ msgstr "Contrainte n’est pas encore réussi"
 msgid "Undo"
 msgstr "Défaire"
 
+msgid "This is a wrong way, please try undo"
+msgstr "This is a wrong way, please try undo"
+
 # Quiz and Visual Activities
 
 msgid "Oooh, it wasnt the correct answer"
