@@ -69,7 +69,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 tap: this.updateAll
             
             },			
-            'button[id=save]': {
+            'button[id=saveSettings]': {
                 tap: this.getApplication().getController('UserSettingsController').saveSettings
             
             },
@@ -80,8 +80,17 @@ Ext.define('DrGlearning.controller.CareersListController', {
             'button[id=import]': {
                 tap: this.getApplication().getController('UserSettingsController').importUser
             
+            },   
+			'button[id=backFromSettings]': {
+                tap: this.toCareersFromSettings
             }
         });
+    },
+	toCareersFromSettings: function ()
+	{
+        localStorage.selectedcareer = 0;
+        this.getSettings().hide();
+        this.index();
     },
     //getting the string name of a level giving its index
     getLevelName: function (index)

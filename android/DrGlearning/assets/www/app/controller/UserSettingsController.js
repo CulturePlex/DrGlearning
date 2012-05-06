@@ -21,6 +21,7 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 			Ext.Viewport.add(view);
 		}
 		view.show();
+		this.getCareersframe().hide();
 		var usernameField = view.down('textfield[id=username]');
 		var emailField = view.down('textfield[id=email]');
 		var user = userStore.getAt(0);
@@ -44,6 +45,7 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 			Ext.Msg.alert(i18n.gettext('Language changed'),i18n.gettext('You need to restart this app to see the changes') , Ext.emptyFn);
 		}
 		view.hide();
+		this.getCareersframe().show();
 	},
 	exportUser : function() {
 		var userStore = Ext.getStore('Users');
@@ -61,7 +63,7 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 				id : 'id',
 				labelAlign : 'top',
 				value : user.data.uniqueid,
-				clearIcon : false,
+				clearIcon : false
 			} ],
 			multiline : true,
 			buttons : Ext.Msg.OK,
@@ -77,11 +79,11 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 		view.hide();
 		var saveButton = Ext.create('Ext.Button', {
 			scope : this,
-			text : i18n.gettext('Save'),
+			text : i18n.gettext('Save')
 		});
 		var cancelButton = Ext.create('Ext.Button', {
 			scope : this,
-			text : i18n.gettext('Cancel'),
+			text : i18n.gettext('Cancel')
 		});
 		var show = new Ext.MessageBox().show({
 			id : 'info',
@@ -92,10 +94,10 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 				labelAlign : 'top',
 				clearIcon : false,
 				value : '',
-				id : 'importvalue',
+				id : 'importvalue'
 			} ],
 			buttons : [ cancelButton, saveButton ],
-			icon : Ext.Msg.INFO,
+			icon : Ext.Msg.INFO
 		});
 		saveButton.setHandler(function() {
 			show.hide();
@@ -110,5 +112,5 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 	},
 	importUserAction : function(ola, adios) {
 		console.log('Not implemented');
-	},
+	}
 });
