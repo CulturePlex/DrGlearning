@@ -18,9 +18,7 @@ config: {
         },{
             xtype: 'selectfield',
             id: 'locale',
-			ui:'dark',
             label: i18n.gettext('Language'),
-            labelAlign: 'top',
             margin: 5,
             options: [
                 {text: 'English',  value: 'en'},
