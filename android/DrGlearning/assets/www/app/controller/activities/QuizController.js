@@ -25,6 +25,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 	activityView: null,
 	latexLoaded:false,
 	imageLoaded:false,
+	correctAnswerId:null,
     init: function () {
         "use strict";
         this.levelController = this.getApplication().getController('LevelController');
@@ -109,11 +110,16 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }
         };
         for (var i = 0; i < this.respuestas.length; i++) {
+			if(this.respuestas[i] == this.activity.data.correct_answer)
+			{
+				this.correctAnswerId = i;
+			}
             this.activityView.down('container[customId=time]').add({
                 xtype: 'button',
                 text: this.respuestas[i],
                 margin: 3,
-                customId: 'respuestaQuiz'
+                customId: 'respuestaQuiz',
+				answerNo:i
             });
         }
         this.activityView.down('label[customId=time]').setHtml("");
@@ -125,12 +131,12 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.activityView.down('label[customId=time]').setHtml(this.currentTime + "s");
         this.currentTime--;
     },
-    tryIt: function ()
+    tryIt: function (target)
     {
-    
-    
         this.puntos = 100;
-        if (event.target.textContent === this.activity.data.correct_answer) 
+		console.log(target.config.answerNo);
+		console.log(this.activity.data.correct_answer);
+        if (target.config.answerNo === this.correctAnswerId) 
         {
             this.activityView.down('container[customId=time]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
@@ -140,7 +146,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }, this);
         }
         else {
-            this.activityView.down('container[customId=time]').down('button[text=' + event.target.textContent + ']').setUi('decline');
+            this.activityView.down('container[customId=time]').down('button[text=' + target.config.text + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty , function ()
             {
                 this.getApplication().getController('LevelController').tolevel();
