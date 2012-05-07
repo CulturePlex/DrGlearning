@@ -332,11 +332,19 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             });
 			if(playerPath.length>newActivity.data.path_limit && newActivity.data.path_limit > 0)
 			{
-				gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('This is a wrong way, please try undo')+"<div>"});
+				gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
 			}
             else
 			{
-				gamePanel.add(option);
+				console.log(option.getOptions().length);
+				if (option.getOptions().length > 1)
+				{
+					gamePanel.add(option);	
+				}else
+				{
+					gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
+				}
+				
 			}
             gamePanel.add(endNode);
             gamePanel.add(button);
