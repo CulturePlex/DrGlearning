@@ -111,7 +111,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             activityView.down('container[customId=options]').add({
                 xtype: 'button',
                 text: this.respuestas[i],
-                ui: 'small',
                 margin: 3,
                 customId: 'respuesta'
             });
@@ -131,13 +130,13 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
 		{
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
 			{
-                activityView.down('container[customId=options]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm-small');
+                activityView.down('container[customId=options]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm');
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
                 this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
             }, this);
         }
         else {
-            activityView.down('container[customId=options]').down('button[text=' + event.target.textContent + ']').setUi('decline-small');
+            activityView.down('container[customId=options]').down('button[text=' + event.target.textContent + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it isnt the correct answer'), function ()
 			{
                 this.getApplication().getController('LevelController').tolevel();

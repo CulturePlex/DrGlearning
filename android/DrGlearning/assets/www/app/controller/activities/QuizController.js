@@ -94,7 +94,6 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             this.activityView.down('container[customId=time]').add({
                 xtype: 'button',
                 text: this.respuestas[i],
-                ui: 'small',
                 margin: 3,
                 customId: 'respuestaQuiz'
             });
@@ -115,7 +114,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.puntos = 100;
         if (event.target.textContent === this.activity.data.correct_answer) 
         {
-            this.activityView.down('container[customId=time]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm-small');
+            this.activityView.down('container[customId=time]').down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
             {
                 this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
@@ -123,7 +122,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }, this);
         }
         else {
-            this.activityView.down('container[customId=time]').down('button[text=' + event.target.textContent + ']').setUi('decline-small');
+            this.activityView.down('container[customId=time]').down('button[text=' + event.target.textContent + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), ('Oooh, it isnt the correct answer'), function ()
             {
                 this.getApplication().getController('LevelController').tolevel();

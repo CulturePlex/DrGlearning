@@ -7,6 +7,7 @@ config: {
             {
             xtype: 'toolbar',
             docked: 'top',
+			layout: 'vbox',
             items: [{
                 xtype: 'spacer'
             }, {
@@ -16,13 +17,15 @@ config: {
                 xtype: 'spacer'
             }]
         },{
+            xtype: 'spacer'
+        },{
             xtype: 'selectfield',
             id: 'locale',
             label: i18n.gettext('Language'),
             margin: 5,
             options: [
                 {text: 'English',  value: 'en'},
-                {text: 'French',  value: 'fr'},
+                {text: 'French',  value: 'fr'}
             ]
         },/*, {
 			xtype : 'textfield',
