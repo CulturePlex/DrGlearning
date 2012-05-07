@@ -23,6 +23,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     finishtemp: null,
     secondtemp: null,
 	activityView: null,
+	latexLoaded:false,
+	imageLoaded:false,
     init: function () {
         "use strict";
         this.levelController = this.getApplication().getController('LevelController');
@@ -46,6 +48,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             view.down('component[customId=activity]').destroy();
         }
         this.activityView = Ext.create('DrGlearning.view.activities.Quiz');
+		this.view = view;
         this.getApplication().getController('ActivityController').addQueryAndButtons(this.activityView, newActivity);
         this.respuestas = this.activity.data.answers;
         var opciones = 6;
@@ -63,10 +66,10 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         }
         
     },
-    loadingImages: function (view, activityView)
+    loadingComplete: function ()
     {
-        activityView.show();
-        view.add(activityView);
+        this.activityView.show();
+        this.view.add(this.activityView);
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.helpviewed) {
             this.activity.data.helpviewed = true;
@@ -77,6 +80,21 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             this.showSeconds();
         }
     },
+	loadingImages: function (view, activityView)
+	{
+		this.imageLoaded=true;
+		//if (this.latexLoaded) {
+			this.loadingComplete();
+		//}		
+	},
+	loadingLatex: function ()
+	{
+		this.latexLoaded=true;
+		if(this.imageLoaded)
+		{
+			this.loadingComplete();
+		}
+	},
     showAnswers: function ()
     {
         clearInterval(this.finishtemp);
