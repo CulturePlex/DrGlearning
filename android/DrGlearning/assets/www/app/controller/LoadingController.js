@@ -34,7 +34,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    	    message: i18n.gettext('Calculating free space...'),
 	 	       	indicator: true
 	    	});
-			//this.getApplication().getController('MaxStorageSizeController').initTest(this);
+			this.getApplication().getController('MaxStorageSizeController').initTest(this);
 			localStorage.maxSize=2600000;
 			localStorage.actualSize=0;
 			console.log("New user");

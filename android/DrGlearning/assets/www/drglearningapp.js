@@ -1,5 +1,5 @@
 /*jshint
-    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true,
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
@@ -7,6 +7,7 @@
 */
 
 // Locale
+
 if (localStorage.catalogue === 'es') {
     var i18n = new Jed({
         locale_data : catalogueES,
@@ -27,6 +28,8 @@ if (localStorage.catalogue === 'es') {
     });
     localStorage.catalogue = 'en';
 }
+
+var _ = i18n.getText;
 
 Ext.Loader.setConfig({
     enabled : true

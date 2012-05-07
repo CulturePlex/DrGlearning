@@ -1,5 +1,10 @@
-//Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON*/
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR
+*/
 
 Ext.define('DrGlearning.controller.activities.GeospatialController', {
     extend: 'Ext.app.Controller',
@@ -90,7 +95,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             google.maps.event.clearListeners(map, 'idle');
         });
         //Getting target points of activity
-        var multipunto = eval("(" + activity.data.point + ')');
+        var multipunto = "(" + activity.data.point + ')';
         var googleOptions = {
             strokeColor: "#00FFFF",
             strokeWeight: 0,
