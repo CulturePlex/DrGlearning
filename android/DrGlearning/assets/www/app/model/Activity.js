@@ -52,6 +52,9 @@ Ext.define('DrGlearning.model.Activity', {
 			name : "reward",
 			type : "string"
 		}, {
+			name : "penalty",
+			type : "string"
+		}, {
 			name : "score",
 			type : "int"
 		}, {

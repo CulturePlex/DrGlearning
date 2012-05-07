@@ -137,7 +137,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         }
         else {
             activityView.down('container[customId=options]').down('button[text=' + event.target.textContent + ']').setUi('decline');
-            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it isnt the correct answer'), function ()
+            Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
 			{
                 this.getApplication().getController('LevelController').tolevel();
             }, this);

@@ -49,6 +49,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		timestamp : activity.timestamp.trim(),
                 		resource_uri : activity.resource_uri.trim(),
                 		reward: activity.reward.trim(),
+						penalty: activity.penalty.trim(),
                 		score: 0,
                 		played: false,
                 		successful: false,

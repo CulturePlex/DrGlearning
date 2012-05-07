@@ -241,7 +241,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
                 }, this);
             }
             else {
-                Ext.Msg.alert('Wrong!', 'Oooh, it isnt the correct answer', function ()
+                Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
 				{
                     this.getApplication().getController('LevelController').tolevel();
                 }, this);

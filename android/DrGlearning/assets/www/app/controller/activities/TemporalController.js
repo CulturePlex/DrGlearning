@@ -84,7 +84,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
             }, this);
         }
         else {
-            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it wasnt the correct answer'), function ()
+            Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
 			{
                 this.getApplication().getController('LevelController').tolevel();
             }, this);
