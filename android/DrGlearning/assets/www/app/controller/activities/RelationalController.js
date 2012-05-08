@@ -241,14 +241,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     ui: uitype,
                     customId: i,
                     listeners: {
-                        tap: function (i)
-                        {
-                            showConstraint(i);
-                        }
+                        tap: showConstraint
                     }
                 });
-                
-                
             }
             activityView.down('toolbar[customId=constraintsbar]').add({
                 xtype: 'spacer'
@@ -256,8 +251,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var constraintsText = '</ul></p>';
             return constraintsText;
         }
-        
-        
         /** Given the last step, it refreshes the user interface to mark the
          * actual walked path and next options available */
         function refresh(option)
@@ -403,6 +396,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         
         function showConstraint(button)
         {
+
             Ext.Msg.alert(constraintState[button.config.customId], constraintsTextNew[button.config.customId], function ()
             {
             }, this);

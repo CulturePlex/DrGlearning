@@ -80,7 +80,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             google.maps.event.clearListeners(map, 'idle');
         });
         //Getting target points of activity
-        var multipunto = eval("(" + activity.data.point + ')');
+        var multipunto = JSON.parse(activity.data.point);
         var googleOptions = {
             strokeColor: "#00FFFF",
             strokeWeight: 0,
@@ -95,7 +95,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         //Getting radius allowed for the user
         this.radius = parseFloat(activity.data.radius);
         //Getting playable area
-        var jsonfromserver = eval("(" + activity.data.area + ')');
+        var jsonfromserver = JSON.parse(activity.data.area);
         var googleVector = new GeoJSON(jsonfromserver, googleOptions);
         googleVector.color = "#FFOOOO";
         var puntosPoligono = googleVector.getPath();
@@ -105,7 +105,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             bounds.extend(puntosPoligono.b[i]);
         }
         //Fitting map to playable area and setting minZoom
-        senchaMap.getMap().fitBounds(bounds); // ------------------------------>Aqui esta el pete
+        senchaMap.getMap().fitBounds(bounds);
         var minZoom = map.getZoom();
         //limiting zoom
         google.maps.event.addListener(map, "zoom_changed", function (e1)
