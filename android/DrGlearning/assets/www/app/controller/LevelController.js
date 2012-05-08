@@ -85,7 +85,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		//Ext.getStore('Activities').sort('successful');
 		Ext.getStore('Activities').clearFilter();
 		Ext.getStore('Activities').filter('careerId',newCareer.data.id);
-		Ext.getStore('Activities').filter('level_type',newLevel);
+		Ext.getStore('Activities').filter({filterFn: function(item) { return item.data.level_type == newLevel; }});
 		console.log(Ext.getStore('Activities'));
 	
         /*var activitieslist = Ext.create('Ext.List', {

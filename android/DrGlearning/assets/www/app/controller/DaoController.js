@@ -86,6 +86,11 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	if(activityModel.data.activity_type=='relational'){
 						console.log(activity);
                 		activityModel.data.graph_nodes=activity.graph_nodes;
+                		for (x in activity.graph_edges){
+                			if(activity.graph_edges[x].inverse == undefined){
+                				activity.graph_edges[x]['inverse']="";
+                			}
+                		}
                 		activityModel.data.graph_edges=activity.graph_edges;
                 		activityModel.data.constraints=activity.constraints;
 						activityModel.data.path_limit=activity.path_limit;
@@ -158,11 +163,17 @@ Ext.define('DrGlearning.controller.DaoController', {
 	getActivitiesByLevel: function(careerId,level){
 		
 		var activities=Ext.getStore('Activities').queryBy(function(record) {
-			return record.data.careerId==careerId && record.data.level_type==level;
+			if(record.data.careerId==careerId && record.data.level_type==''+level){
+				console.log('Nivel '+level);
+				console.log(record.data.level_type);
+				return true;	
+			}else{
+				return false;
+			}
 		});
-		console.log("ORDEN");
-		console.log(level);
-		console.log(careerId);
+		//console.log("ORDEN");
+		//console.log(level);
+		//console.log(careerId);
 		return activities;
 	},
 	getknowledgesFields:function(){
@@ -441,7 +452,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		activityModel.data.correct_answer=activity.correct_answer.trim();
                                     		activityModel.set('obfuscated_image',activity.obfuscated_image);
                                     		activityModel.data.obfuscated_image_url=activity.obfuscated_image_url.trim();
-                                    		activityModel.data.time=activity.time.trim();
+                                    		activityModel.data.time=activity.time;
                                     	}
 										if(activityModel.data.activity_type=='quiz'){
 											activityModel.setImage('image',activity.image,this);
@@ -450,7 +461,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 					                		activityModel.data.answers=activity.answers;
 					                		activityModel.data.correct_answer=activity.correct_answer.trim();
 					                		//activityModel.set('obfuscated_image',activity.obfuscated_image);
-					                		activityModel.data.time=activity.time.trim();
+					                		activityModel.data.time=activity.time;
                                     	}
                                     	if(activityModel.data.activity_type=='relational'){
                                     		activityModel.data.graph_nodes=activity.graph_nodes;

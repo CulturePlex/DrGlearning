@@ -23,6 +23,14 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		console.log(this.getApplication().getController('GlobalSettingsController').isDevice());
 		//view.show();
 		
+		//Seeing if course test is needed
+		var testCourse=this.getParameter('course');
+		if(testCourse!="null" && testCourse!=undefined){
+			console.log("Installing Test course");
+			console.log(testCourse);
+			this.installTestCourse(testCourse);
+		}
+		
 		var careersStore = Ext.getStore('Careers');
 		careersStore.load();
 		Ext.getStore('Activities').load();
@@ -181,6 +189,50 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			ms += new Date().getTime();
 			while (new Date() < ms){}
 		} ,
+		
+		installTestCourse:function(url){
+			var careersStore = Ext.getStore('Careers');
+			careersStore.load();
+			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+			Ext.data.JsonP.request({
+                url: HOST+url+'?format=jsonp',
+                scope   : this,
+                success:function(response, opts){
+                	console.log("Career retrieved");
+                	var career=response;
+                	careersStore.each(function(record) {
+                		if(record.data.installed){
+                    		if(career.id == record.data.id){
+                    			console.log('Test course ')
+                    			this.getApplication().getController('DaoController').deleteCareer(career.id);
+                    		}
+                    	}
+                    },this);
+                			var careerModel=new DrGlearning.model.Career({
+                					id : career.id,
+                    				negative_votes : career.negative_votes,
+                    				positive_votes : career.positive_votes,
+                    				name : career.name,
+                    				description : career.description,
+                    				creator : career.creator,
+                    				resource_uri : career.resource_uri,
+                    				knowledges : career.knowledges,
+                    				timestamp : career.timestamp,
+                    				installed : true,
+                					started : false,
+                					update : false,
+                					size: career.size
+                			});
+                			var activities=new Array();
+                			for(cont in career.activities){
+                				activities[cont]=career.activities[cont].full_activity_url;
+                			}
+                			careerModel.set('activities',activities);
+                			careerModel.save();
+                			this.getApplication().getController('DaoController').installCareer(career.id,function(){Ext.Viewport.setMasked(null);},this);
+                }
+            });
+		},
 		
 		/**
 		*
@@ -355,6 +407,29 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		 
 			return temp.toLowerCase();
 		 
+		},
+		
+		getParameter:function(param){
+			var queryString=window.location.search;
+			var parameterName = param + "=";
+			   if ( queryString.length > 0 ) {
+			      // Find the beginning of the string
+			      begin = queryString.indexOf ( parameterName );
+			      // If the parameter name is not found, skip it, otherwise return the value
+			      if ( begin != -1 ) {
+			         // Add the length (integer) to the beginning
+			         begin += parameterName.length;
+			         // Multiple parameters are separated by the "&" sign
+			         end = queryString.indexOf ( "&" , begin );
+			      if ( end == -1 ) {
+			         end = queryString.length
+			      }
+			      // Return the string
+			      return unescape ( queryString.substring ( begin, end ) );
+			   }
+			   // Return "null" if no parameter has been found
+			   return "null";
+			   }
 		}
 
 
