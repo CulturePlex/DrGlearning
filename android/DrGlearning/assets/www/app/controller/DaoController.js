@@ -50,6 +50,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		timestamp : activity.timestamp.trim(),
                 		resource_uri : activity.resource_uri.trim(),
                 		reward: activity.reward.trim(),
+                		penalty: activity.penalty.trim(),
                 		score: 0,
                 		played: false,
                 		successful: false,
@@ -403,6 +404,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                 		activityModel.data.timestamp=activity.timestamp.trim();
                                 		activityModel.data.resource_uri=activity.resource_uri.trim();
                                 		activityModel.data.reward=activity.reward.trim();
+                                		activityModel.data.penalty=activity.penalty.trim();
                                 	}else{
                                 		var activityModel=new DrGlearning.model.Activity({
                                     		id : activity.id,
@@ -417,6 +419,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		timestamp : activity.timestamp.trim(),
                                     		resource_uri : activity.resource_uri.trim(),
                                     		reward: activity.reward.trim(),
+                                    		penalty: activity.penalty.trim(),
                                     		score: 0,
                                     		played: false,
                                     		successful: false,

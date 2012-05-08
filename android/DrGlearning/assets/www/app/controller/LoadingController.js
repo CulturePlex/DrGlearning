@@ -19,6 +19,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		Ext.create('DrGlearning.view.Loading');
 		this.getLoading().show();
 		console.log('Loading...');
+		console.log('Is device?');
+		console.log(this.getApplication().getController('GlobalSettingsController').isDevice());
 		//view.show();
 		
 		var careersStore = Ext.getStore('Careers');
