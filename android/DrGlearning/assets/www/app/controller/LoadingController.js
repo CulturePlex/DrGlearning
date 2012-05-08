@@ -195,7 +195,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			careersStore.load();
 			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 			Ext.data.JsonP.request({
-                url: HOST+url+'?format=jsonp',
+                url: HOST+url+'?testing=true&format=jsonp',
                 scope   : this,
                 success:function(response, opts){
                 	console.log("Career retrieved");
