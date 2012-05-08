@@ -43,10 +43,6 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         this.radius = null;
         this.activity = newActivity;
         view.down('component[customId=activity]').destroy();
-        if (view.down('component[customId=activity]')) {
-            view.down('component[customId=activity]').hide();
-            view.down('component[customId=activity]').destroy();
-        }
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
         this.activityController.addQueryAndButtons(activityView, newActivity);
         //Initializing map 
