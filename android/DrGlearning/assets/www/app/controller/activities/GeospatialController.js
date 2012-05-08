@@ -89,9 +89,9 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             fillColor: "#6699ff",
             clickable: false
         };
-        var googlePuntos = new GeoJSON(multipunto, googleOptions);
+        var geoPoints = new GeoJSON(multipunto, googleOptions);
         //Getting first of target points as the only one valid
-        this.target = new google.maps.LatLng(googlePuntos[0].position.lat(), googlePuntos[0].position.lng());
+        this.target = new google.maps.LatLng(geoPoints[0].position.lat(), geoPoints[0].position.lng());
         //Getting radius allowed for the user
         this.radius = parseFloat(activity.data.radius);
         //Getting playable area
