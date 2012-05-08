@@ -1,5 +1,9 @@
 //Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView*/
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+/*global Ext i18n google GeoJSON activityView MathJax clearInterval event*/
 
 Ext.define('DrGlearning.controller.activities.RelationalController', {
     extend: 'Ext.app.Controller',
@@ -13,12 +17,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     activityView: null,
     activity: null,
     updateActivity: function (view, newActivity)
-	{
+    {
         this.activity = newActivity;
-		console.log(this.activity);
+        console.log(this.activity);
         view.down('component[customId=activity]').destroy();
-        activityView = Ext.create('DrGlearning.view.activities.Relational');
-        this.activityView = activityView;
+        var activityView = Ext.create('DrGlearning.view.activities.Relational');
         this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
         
         var daocontroller = this.getApplication().getController('DaoController');
@@ -38,7 +41,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             get: "greater or equal than",
             eq: "equals to",
             neq: "different to"
-        }
+        };
         
         //Import graph nodes and edges from database
         var graphNodes = newActivity.data.graph_nodes;
@@ -49,13 +52,13 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         /** This function receives a nodeName and searches into edges
          * data for all the related nodes. It returns a Sencha field.Select
          * object with all the options available */
-        function createSelectFromNode (nodeName)
-		{
+        function createSelectFromNode(nodeName)
+        {
             var edge;
             var written = [];
             var tipo = "error";
             blankOption = "Choose";
-			var nodo;
+            var nodo;
             for (var i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
                 if (edge.target === nodeName && edge.inverse !== undefined && edge.inverse !== '' && playerPath.indexOf(edge.source) === -1) {
@@ -102,7 +105,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var options = [{
                 text: blankOption
             }];
-            for (var i = 0; i < graphEdges.length; i++) {
+            for (i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
                 if (edge.target === nodeName && edge.inverse !== undefined && edge.inverse !== '' && playerPath.indexOf(edge.source) === -1) {
                     options.push({
@@ -113,21 +116,21 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     });
                 }
                 else 
-                    if (edge.source === nodeName && playerPath.indexOf(edge.target) === -1) 
-					{
-                        options.push({
+                if (edge.source === nodeName && playerPath.indexOf(edge.target) === -1) 
+                {
+                    options.push({
                             text: edge.type + ' ' + edge.target,
                             value: edge.target,
                             edgeType: edge.type
                         });
-                    }
+                }
             }
             return Ext.create('Ext.form.Select', {
                 scope: this,
                 options: options,
                 listeners: {
                     change: function (field, newValue, oldValue)
-					{
+                    {
                         if (newValue.data.text !== blankOption) {
                             option.hide();
                             playerEdgePath.push(newValue.raw.edgeType);
@@ -145,12 +148,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
          * Otherwise, it pushes the step into the players path and queries
          * all the posible next steps to the edges data */
         function takeStep(step)
-		{
+        {
         
             pathPosition = step;
             //TODO Add constraints
             if (step === pathGoal) 
-			{
+            {
                 successfulGame();
                 return null;
             }
@@ -159,7 +162,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 if (graphNodes[pathPosition] !== undefined) {
                     if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
                         Ext.Msg.alert(i18n.gettext('Congratulations!'), 'You get ' + graphNodes[pathPosition].score + ' points!', function ()
-						{
+                        {
                         }, this);
                     }
                 }
@@ -168,22 +171,22 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         
         function getNodeHTML(nodeName)
-		{
+        {
             return '<p class="relational">' + nodeName + ' (' + graphNodes[nodeName].type + ')' + '</p>';
         }
         
         function constraintPassed(constraint)
-		{
+        {
             var counted = [];
             var elementCount = 0;
-            var constraintValue = parseInt(constraint.value,10);
+            var constraintValue = parseInt(constraint.value, 10);
             for (var i = 0; i < playerPath.length; i++) {
                 if (constraint.type === graphNodes[playerPath[i]].type && counted.indexOf(playerPath[i]) === -1) {
                     counted.push(playerPath[i]);
                     elementCount++;
                 }
             }
-            switch (constraint["operator"]) {
+            switch (constraint.operator) {
             case "eq":
                 return (elementCount === constraintValue);
             case "neq":
@@ -203,7 +206,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var constraintsTextNew = [];
         var constraintState = [];
         function getContraintsHTML()
-		{
+        {
             var constraintClass;
             var icontype;
             var uitype;
@@ -230,9 +233,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
                 }
                 constraintsTextNew[i] += i18n.gettext('The number of ');
-                constraintsTextNew[i] += constraints[i]["type"] + ' should be ';
+                constraintsTextNew[i] += constraints[i].type + ' should be ';
                 constraintsTextNew[i] += verboseOperator[constraints[i].operator] + ' ';
-                constraintsTextNew[i] += constraints[i]["value"];
+                constraintsTextNew[i] += constraints[i].value;
                 activityView.down('toolbar[customId=constraintsbar]').add({
                     xtype: 'button',
                     iconCls: icontype,
@@ -240,7 +243,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     customId: i,
                     listeners: {
                         tap: function(i)
-						{
+                        {
                             showConstraint(i);
                         }
                     }
@@ -255,11 +258,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             return constraintsText;
         }
         
-		
+        
         /** Given the last step, it refreshes the user interface to mark the
          * actual walked path and next options available */
         function refresh(option){
-			console.log(newActivity);
             activityView.removeAll();
             var scorePanel = Ext.create('Ext.Panel', {
                 html: '<p>Score: ' + getPathScore() + '</p>'
@@ -325,27 +327,29 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var button = Ext.create('Ext.Button', {
                 text: i18n.gettext('Undo'),
                 handler: function ()
-				{
+                {
                     stepBack();
                 },
                 scope: this
             });
-			if(playerPath.length>newActivity.data.path_limit && newActivity.data.path_limit > 0)
-			{
-				gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
-			}
+            if(playerPath.length>newActivity.data.path_limit && newActivity.data.path_limit > 0)
+            {
+                gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
+            }
             else
-			{
-				console.log(option.getOptions().length);
-				if (option.getOptions().length > 1)
-				{
-					gamePanel.add(option);	
-				}else
-				{
-					gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
-				}
-				
-			}
+            {
+                if(option)
+                {
+                    if (option.getOptions().length > 1)
+                    {
+                        gamePanel.add(option);    
+                    }else
+                    {
+                        gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
+                    }
+                }
+                
+            }
             gamePanel.add(endNode);
             gamePanel.add(button);
             activityView.add(gamePanel);
@@ -355,9 +359,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             scroller.scrollBy(0, 58);
         }
         
-		
+        
         function stepBack()
-		{
+        {
             var previousStep;
             if (playerPath.length > 1) {
                 previousStep = playerPath[playerPath.length - 2];
@@ -371,7 +375,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         
         function getPathScore()
-		{
+        {
             var score = 0;
             var node;
             for (var i = 0; i < playerPath.length; i++) {
@@ -386,11 +390,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         
         function successfulGame()
-		{
+        {
             this.puntos = 500;
             if (allConstraintsPassed) {
                 Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
-				{
+                {
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
                     DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
                 }, this);
@@ -398,15 +402,15 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         
         function showConstraint(button)
-		{
+        {
             Ext.Msg.alert(constraintState[button.config.customId], constraintsTextNew[button.config.customId], function ()
-			{
+            {
             }, this);
         }
         
         //Set the initial step as the initial node and the goal
         for (var i in graphNodes) 
-		{
+        {
             if (graphNodes[i].hasOwnProperty("start")) {
                 pathStart = i;
             }
@@ -421,7 +425,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         option = takeStep(pathStart);
         refresh(option);
         if (!this.activity.data.helpviewed) 
-		{
+        {
             this.activity.data.helpviewe = true;
             this.activity.save();
             this.getApplication().getController('LevelController').helpAndQuery();
