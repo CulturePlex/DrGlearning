@@ -19,7 +19,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
     updateActivity: function (view, newActivity)
     {
         this.activity = newActivity;
-        console.log(this.activity);
         view.down('component[customId=activity]').destroy();
         var activityView = Ext.create('DrGlearning.view.activities.Relational');
         this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
@@ -242,7 +241,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     ui: uitype,
                     customId: i,
                     listeners: {
-                        tap: function(i)
+                        tap: function (i)
                         {
                             showConstraint(i);
                         }
@@ -261,7 +260,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         
         /** Given the last step, it refreshes the user interface to mark the
          * actual walked path and next options available */
-        function refresh(option){
+        function refresh(option)
+        {
             activityView.removeAll();
             var scorePanel = Ext.create('Ext.Panel', {
                 html: '<p>Score: ' + getPathScore() + '</p>'
@@ -332,20 +332,20 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 },
                 scope: this
             });
-            if(playerPath.length>newActivity.data.path_limit && newActivity.data.path_limit > 0)
+            if (playerPath.length > newActivity.data.path_limit && newActivity.data.path_limit > 0)
             {
-                gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
+                gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
             }
             else
             {
-                if(option)
+                if (option)
                 {
                     if (option.getOptions().length > 1)
                     {
                         gamePanel.add(option);    
-                    }else
+                    } else
                     {
-                        gamePanel.add({xtype:'panel',html:"<div class='warning'>"+i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.')+"<div>"});
+                        gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
                     }
                 }
                 
@@ -382,7 +382,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 node = graphNodes[playerPath[i]];
                 if (node !== undefined) {
                     if (node.score !== undefined) {
-                        score += parseInt(node.score);
+                        score += parseInt(node.score, 10);
                     }
                 }
             }
@@ -396,7 +396,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
                 {
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
-                    DrGlearning.app.getController('LevelController').nextActivity(newActivity.data.level_type);
+                    this.levelController.nextActivity(newActivity.data.level_type);
                 }, this);
             }
         }
@@ -415,12 +415,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 pathStart = i;
             }
             else 
-                if (graphNodes[i].hasOwnProperty("end")) {
-                    pathGoal = i;
-                }
-            
+            if (graphNodes[i].hasOwnProperty("end")) {
+                pathGoal = i;
+            }
         }
-        
         //Execute first step
         option = takeStep(pathStart);
         refresh(option);
