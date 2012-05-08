@@ -28,7 +28,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
 	correctAnswerId:null,
     init: function () {
         "use strict";
-		console.log("lokoooooooooooo");
+        this.activityController = this.getApplication().getController('ActivityController');
+        this.levelController = this.getApplication().getController('LevelController');
         this.control({
             'button[customId=respuestaQuiz]': {
                 tap: this.tryIt
@@ -50,7 +51,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         }
         this.activityView = Ext.create('DrGlearning.view.activities.Quiz');
 		this.view = view;
-        addQueryAndButtons(this.activityView, newActivity);
+        this.activityController.addQueryAndButtons(this.activityView, newActivity);
         this.respuestas = this.activity.data.answers;
         var time = newActivity.data.time;
         this.currentTime = time;

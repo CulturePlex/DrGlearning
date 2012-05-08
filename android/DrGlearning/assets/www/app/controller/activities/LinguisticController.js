@@ -18,7 +18,9 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
     puntos: null,
     imagesrc: null,
     init: function(){
+        this.activityController = this.getApplication().getController('ActivityController');
         this.levelController = this.getApplication().getController('LevelController');
+        this.daoController = this.getApplication().getController('DaoController');
         this.control({
             'button[customId=solve]': {
                 tap: this.solve
@@ -62,7 +64,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             }
             
         }
-        this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
+        this.activityController.addQueryAndButtons(activityView, newActivity);
         activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
         activityView.down('label[customId=responses]').setHtml('');
         //console.log(this.activity.data.locked_text.toLowerCase());
@@ -86,7 +88,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         if (!this.activity.data.helpviewed) {
             this.activity.data.helpviewed = true;
             this.activity.save();
-            this.getApplication().getController('LevelController').helpAndQuery();
+            this.levelController.helpAndQuery();
         }
     },
     tryIt: function ()
@@ -125,10 +127,10 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         //console.log('*' + this.activity.data.answer + '*');
         if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
 		{
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + i18n.gettext("obtained score:") + this.puntos, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
 			{
-                this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
-                this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
+                this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
+                this.levelController.nextActivity(this.activity.data.level_type);
             }, this);
         }
     },
@@ -236,14 +238,14 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             if (answer.toLowerCase() === this.activity.data.answer.toLowerCase()) {
                 Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
 				{
-                    this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
-                    this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
+                    this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
+                    this.levelController.nextActivity(this.activity.data.level_type);
                 }, this);
             }
             else {
                 Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
 				{
-                    this.getApplication().getController('LevelController').tolevel();
+                    this.levelController.tolevel();
                 }, this);
             }
         });

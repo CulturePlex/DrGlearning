@@ -241,7 +241,7 @@ Ext.define('DrGlearning.controller.LevelController', {
                         }
                         else 
                             if (newActivity.data.activity_type == 'quiz') {
-                                Ext.Create('DrGlearning.controller.activities.QuizController').updateActivity(view, newActivity);
+                                this.getApplication().getController('activities.QuizController').updateActivity(view, newActivity);
                             }
         view.show();
     },
