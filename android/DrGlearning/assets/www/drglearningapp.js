@@ -53,5 +53,6 @@ Ext.application({
     launch: function () {
         "use strict";
         this.getController('LoadingController').onLaunch();
+        this.levelController = this.getApplication().getController('LevelController');
     }
 });
