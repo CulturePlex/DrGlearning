@@ -1,4 +1,3 @@
-
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
     requires: ['DrGlearning.controller.GlobalSettingsController'],
@@ -85,9 +84,11 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		}
                 	}
                 	if(activityModel.data.activity_type=='relational'){
+						console.log(activity);
                 		activityModel.data.graph_nodes=activity.graph_nodes;
                 		activityModel.data.graph_edges=activity.graph_edges;
                 		activityModel.data.constraints=activity.constraints;
+						activityModel.data.path_limit=activity.path_limit;
                 	}
                 	if(activityModel.data.activity_type=='temporal'){
                 		activityModel.setImage('image',activity.image,this);
@@ -423,7 +424,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                     		score: 0,
                                     		played: false,
                                     		successful: false,
-                                    		helpviewed: false,
+                                    		helpviewed: false
                                     	});
                                 	}
                                     	if(activityModel.data.activity_type=='linguistic'){

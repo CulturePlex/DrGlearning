@@ -74,6 +74,15 @@ Ext.define('DrGlearning.view.CareersFrame', {
                 id: 'back',
 				text: i18n.gettext('Back'),
 				ui: 'back'
+            },
+			{
+				xtype:'spacer'
+			},
+			{
+                xtype: 'button',
+                name: 'refresh',
+                id: 'refresh',
+				text: i18n.gettext('Refresh'),
             }]
         
         },{

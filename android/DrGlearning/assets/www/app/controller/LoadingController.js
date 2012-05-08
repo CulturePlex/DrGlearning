@@ -36,7 +36,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    	    message: i18n.gettext('Calculating free space...'),
 	 	       	indicator: true
 	    	});
-			//this.getApplication().getController('MaxStorageSizeController').initTest(this);
+			this.getApplication().getController('MaxStorageSizeController').initTest(this);
 			localStorage.maxSize=2600000;
 			localStorage.actualSize=0;
 			console.log("New user");
@@ -152,7 +152,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    	console.log("Careers stored after loading = "+careersStore.getCount());
 	                    	//if(localStorage.maxSize!=undefined){
 	                    		this.getLoading().hide();
-	                    		Ext.Viewport.setMasked(false);
 	                    		this.getApplication().getController('CareersListController').initializate();
 	                    		this.getApplication().getController('CareersListController').index();
 	                    		

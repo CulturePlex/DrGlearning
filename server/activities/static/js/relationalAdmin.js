@@ -513,7 +513,7 @@ var GraphEditor = {
         '<option value="let">less or equal than</option>' +
         '<option value="gt">greater than</option>' +
         '<option value="get">greater or equal than</option>' +
-        '<option value="eq">equals to</option>' +
+        '<option value="eq">equal to</option>' +
         '<option value="neq">different to</option>' +
         '</select>' +
         '<input type="text" id="constraint-value" size="3"/>' +

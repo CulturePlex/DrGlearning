@@ -4,6 +4,10 @@
  *
  * Controller to manage Activity Logic. Is parent Class of each specific activity.
  */
+
+//Global Words to skip JSLint validation//
+/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning*/
+
 Ext.define('DrGlearning.controller.ActivityController', {
     extend: 'Ext.app.Controller',
     requires: ['DrGlearning.store.Careers', 'DrGlearning.store.Levels', 'DrGlearning.controller.DaoController'],
@@ -22,39 +26,42 @@ Ext.define('DrGlearning.controller.ActivityController', {
     /*
      * Initializate Controller.
      */
-    init: function(){
+    init: function ()
+	{
     
     },
-    addQueryAndButtons: function(activityView, newActivity){
-    	console.log(activityView);
+    addQueryAndButtons: function (activityView, newActivity)
+	{
+        //console.log(activityView);
         activityView.down('toolbar[customId=query]').add({
             xtype: 'titlebar',
             name: 'label_name',
-			customId: 'query_label',
+            customId: 'query_label',
             id: 'label_id',
-			cls:'query',
+            cls: 'query',
             title: newActivity.data.query,
-            flex:1,
-			ui: 'neutral',
-			style: 'font-size:13px'
-		
-			
+            flex: 1,
+            ui: 'neutral',
+            style: 'font-size:13px'
+        
+        
         });
-		var that= this;
-		activityView.down('toolbar[customId=query]').down('titlebar').setListeners({
-			tap: {
-				fn: function(e,that,eso){
-					DrGlearning.app.getApplication().getController('LevelController').more();
-				},
-				element: 'element'
-			}
-		});
+        var that = this;
+        activityView.down('toolbar[customId=query]').down('titlebar').setListeners({
+            tap: {
+                fn: function ()
+				{
+                    DrGlearning.app.getApplication().getController('LevelController').more();
+                },
+                element: 'element'
+            }
+        });
         activityView.down('toolbar[customId=query]').add({
             xtype: 'button',
             text: '?',
             ui: 'round',
             id: 'help',
-			pack:'middle'
+            pack: 'middle'
         });
     }
 });

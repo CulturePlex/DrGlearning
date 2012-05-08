@@ -1,43 +1,33 @@
 Ext.define('DrGlearning.view.Settings', {
-	extend : 'Ext.Sheet',
+	extend : 'Ext.Container',
 	xtype : 'settings',
-
-	config : {
-		
-		modal : true,
-		centered : true,
-		hideOnMaskTap : true,
-
-		ui : 'detail',
-
-		// we always want the sheet to be 400px wide and to be as tall as the
-		// device allows
-		//width: 300,
-		// top: 0,
-		// bottom: 0,
-		// right: 0,
-
-		layout : {
-			type : 'vbox',
-			align : 'stretch'
-		},
-
-		items : [ {
-
-			xtype : 'title',
-			title : 'Settings'
-		},{
+config: {
+    	fullscreen: true,
+        items: [
+            {
+            xtype: 'toolbar',
+            docked: 'top',
+			layout: 'vbox',
+            items: [{
+                xtype: 'spacer'
+            }, {
+                xtype: 'title',
+                title: i18n.gettext("Settings")
+            }, {
+                xtype: 'spacer'
+            }]
+        },{
+            xtype: 'spacer'
+        },{
             xtype: 'selectfield',
             id: 'locale',
-			ui:'dark',
             label: i18n.gettext('Language'),
-            labelAlign: 'top',
             margin: 5,
             options: [
                 {text: 'English',  value: 'en'},
-                {text: 'French',  value: 'fr'},
+                {text: 'French',  value: 'fr'}
             ]
-        }/*, {
+        },/*, {
 			xtype : 'textfield',
 			label : i18n.gettext('Username'),
 			name : 'username',
@@ -59,11 +49,29 @@ Ext.define('DrGlearning.view.Settings', {
 			xtype : 'button',
 			text : i18n.gettext('Export user'),
 			id : 'export'
-		}*/, {
-			xtype : 'button',
-			text : i18n.gettext('Save'),
-			id : 'save'
-		}
+		}*/{
+                xtype: 'toolbar',
+                docked: 'bottom',
+                items:[
+                    {
+                        xtype: 'button',
+						id: 'backFromSettings',
+                        text: i18n.gettext('Back'),
+						ui:'back',
+                        
+                    },
+					{
+						 xtype: 'spacer' 
+					},
+					{
+                        xtype: 'button',
+                        text: i18n.gettext('Save'),
+						id: 'saveSettings',
+                        
+                    }
+					]
+                
+            }
 		
 		]
 	},

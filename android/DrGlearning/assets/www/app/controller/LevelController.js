@@ -9,7 +9,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     config: {
         refs: {
             levelframe: 'levelframe',
-            activityframe: 'activityframe',
+            activityframe: 'activityframe'
         }
     },
     activityView: null,
@@ -58,7 +58,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: i18n.gettext('Loading level...'),
-            indicator: true,
+            indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
         Ext.create('DrGlearning.view.LevelFrame');
@@ -94,8 +94,8 @@ Ext.define('DrGlearning.controller.LevelController', {
             store: this.getApplication().getStore('Activities'),
             //grouped: true
         });
-		detail.add(activitieslist);*/
-        /*activitiescarousel.removeAll();
+		detail.add(activitieslist);
+        activitiescarousel.removeAll();
          this.carousel=activitiescarousel;
          var flechaizqHtml="<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.previous();'><img src='resources/images/flechaizq.png' alt='flecha'></a></div>";
          var flechaderHtml="<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>";
@@ -110,7 +110,7 @@ Ext.define('DrGlearning.controller.LevelController', {
          }
          var iconoactivityHtml = this.getActivityHtml(activity.data);
          //var iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + activityIconHtml</div>";
-         /*if(activity.data.successful)
+         if(activity.data.successful)
          {
          iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto;height:100%; width:70%;top:0;left:15%;background-color:#999999;'>" + activity.data.name + "<div bottom='0'>Score: " + activity.data.score + "<img src=resources/images/tick.png></div></div>";
          }
@@ -271,17 +271,18 @@ Ext.define('DrGlearning.controller.LevelController', {
                 }
                 this.getApplication().getController('CareersListController').index();
                 this.getActivityframe().hide();
-                setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! It was the last Level, you have finished this career!', function(){}, this);", 50);
+                Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.gettext('You have complete the ') + prevLevelString + i18n.gettext(' level! It was the last Level, you have finished this career!'), function(){}, this);;
             }
             else {
                 this.getApplication().getController('CareerController').updateCareer(this.getApplication().getController('CareersListController').selectedcareer);
                 this.getLevelframe().hide();
                 this.getActivityframe().hide();
                 if (currentLevel != -1) {
-                    setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! Next Level: " + currentLevelString + "', function(){}, this);", 50);
+					
+                    Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.gettext('You have complete the ') + prevLevelString +  i18n.gettext(' level! Next Level: ') + currentLevelString , function(){}, this);
                 }
                 else {
-                    setTimeout("Ext.Msg.alert('Congrats!', 'You have complete the " + prevLevelString + " level! It was the last Level, you have finished this career!', function(){}, this);", 50);
+                   Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.gettext('You have complete the ') + prevLevelString + i18n.gettext(' level! It was the last Level, you have finished this career!'), function(){}, this);
                 }
             }
         }
@@ -293,7 +294,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Loading level...',
-            indicator: true,
+            indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         }); 
         if (this.getActivityframe()) {

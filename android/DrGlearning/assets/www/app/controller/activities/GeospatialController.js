@@ -1,86 +1,83 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON
+*/
+
 Ext.define('DrGlearning.controller.activities.GeospatialController', {
     extend: 'Ext.app.Controller',
-    config: {
-        refs: {
-            activityframe: 'activityframe',
-        }
-    },
-    mapa: null,
-    elmarker: null,
-    elpunto: null,
-    radio: null,
+
+    marker: null,
+    target: null,
+    radius: null,
     activity: null,
-    distancia: null,
-    puntos: null,
-    bounds: null,
-    view: null,
-	zoomFlag:false,
-    init: function(){
-		this.helpFlag=false;
+    zoomFlag: false,
+    mouseFlag: false,
+
+    init: function ()
+    {
+        this.helpFlag = false;
         this.levelController = this.getApplication().getController('LevelController');
         this.careersListController = this.getApplication().getController('CareersListController');
+        this.activityController = this.getApplication().getController('ActivityController');
+        this.daoController = this.getApplication().getController('DaoController');
         this.control({
             'button[customId=confirm]': {
                 tap: this.confirm
             }
         });
     },
-    updateActivity: function(view, newActivity){
-		Ext.Viewport.setMasked({
-    	    xtype: 'loadmask',
-    	    message: i18n.gettext('Loading activity...'),
-			//html: "<img src='resources/images/activity_icons/geospatial.png'>",
- 	       	indicator: true
-    	});
-        this.elmarker = null;
-        this.elpunto = null;
-        this.radio = null;
-		this.view=view;	
+    updateActivity: function (view, newActivity)
+    {
+        Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: i18n.gettext('Loading activity...'),
+            //html: "<img src='resources/images/activity_icons/geospatial.png'>",
+            indicator: true
+        });
+        this.marker = null;
+        this.target = null;
+        this.radius = null;
         this.activity = newActivity;
         view.down('component[customId=activity]').destroy();
-        if (view.down('component[customId=activity]')) {
-            view.down('component[customId=activity]').hide();
-            view.down('component[customId=activity]').destroy();
-        }
         var activityView = Ext.create('DrGlearning.view.activities.Geospatial');
-        this.getApplication().getController('ActivityController').addQueryAndButtons(activityView,newActivity);;
-                                         
-        
+        this.activityController.addQueryAndButtons(activityView, newActivity);
         //Initializing map 
-        console.log(Ext.ComponentQuery.query('map'));
-        var elmapa = Ext.create('Ext.Map', {
+        var senchaMap = Ext.create('Ext.Map', {
             mapOptions: {
                 mapTypeControl: false,
-                streetViewControl: false,
+                streetViewControl: false
             }
         });
         var that = this;
         //Starting activity after the map is render
-		google.maps.event.addListener(elmapa.getMap(), "idle", function(){
-            that.empezar(activityView, newActivity);
-			
+        google.maps.event.addListener(senchaMap.getMap(), "idle", function ()
+        {
+            that.start(activityView, newActivity);
         });
-
-        
-        activityView.add(elmapa);
+        activityView.add(senchaMap);
         activityView.show();
         view.add(activityView);
-        if(!newActivity.data.helpviewed)
-		{
-			newActivity.data.helpviewed=true;
-			newActivity.save();
-			this.getApplication().getController('LevelController').helpAndQuery();
-		}
+        if (!newActivity.data.helpviewed) {
+            newActivity.data.helpviewed = true;
+            newActivity.save();
+            this.levelController.helpAndQuery();
+        }
     },
-    empezar: function(view, activity){
+    start: function (view, activity)
+    {
         //Initializing map variable
-        var elmapa = view.down('map');
-        view.add(elmapa);
-        var map = elmapa.getMap();
+        var senchaMap = view.down('map');
+        view.add(senchaMap);
+        var map = senchaMap.getMap();
         google.maps.event.clearListeners(map, 'idle');
-		google.maps.event.addListener(elmapa.getMap(), "idle", function(){
+        google.maps.event.addListener(senchaMap.getMap(), "idle", function ()
+        {
             Ext.Viewport.setMasked(false);
-			google.maps.event.clearListeners(map, 'idle');
+            google.maps.event.clearListeners(map, 'idle');
         });
         //Getting target points of activity
         var multipunto = eval("(" + activity.data.point + ')');
@@ -93,40 +90,33 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             clickable: false
         };
         var googlePuntos = new GeoJSON(multipunto, googleOptions);
-        
         //Getting first of target points as the only one valid
-        elpunto = new google.maps.LatLng(googlePuntos[0].position.lat(), googlePuntos[0].position.lng());
-        console.log(elpunto);
-        
-        //Getting radio allowed for the user
-        radio = parseFloat(activity.data.radius);
-        
+        this.target = new google.maps.LatLng(googlePuntos[0].position.lat(), googlePuntos[0].position.lng());
+        //Getting radius allowed for the user
+        this.radius = parseFloat(activity.data.radius);
         //Getting playable area
         var jsonfromserver = eval("(" + activity.data.area + ')');
-        googleVector = new GeoJSON(jsonfromserver, googleOptions);
+        var googleVector = new GeoJSON(jsonfromserver, googleOptions);
         googleVector.color = "#FFOOOO";
         var puntosPoligono = googleVector.getPath();
         var bounds = new google.maps.LatLngBounds();
-		//bounds.union(puntosPoligono);
-        for (i = 0; i < puntosPoligono.b.length; i++) {
+        //bounds.union(puntosPoligono);
+        for (var i = 0; i < puntosPoligono.b.length; i++) {
             bounds.extend(puntosPoligono.b[i]);
         }
-        
         //Fitting map to playable area and setting minZoom
-        elmapa.getMap().fitBounds(bounds);    // ------------------------------>Aqui esta el pete
+        senchaMap.getMap().fitBounds(bounds); // ------------------------------>Aqui esta el pete
         var minZoom = map.getZoom();
-		
         //limiting zoom
-        google.maps.event.addListener(map, "zoom_changed", function(e1){
-            if (map.getZoom() < minZoom-1) {
-                map.setZoom(minZoom);				
+        google.maps.event.addListener(map, "zoom_changed", function (e1)
+        {
+            if (map.getZoom() < minZoom - 1) {
+                map.setZoom(minZoom);
             }
         });
-        //Creating listener to recenter map when is out of playable area				
-        google.maps.event.addListener(map, "center_changed", function(e1){
-            checkBounds();
-        });
-        function checkBounds(){
+        //Function to check if the window is in the allowed area
+        function checkBounds()
+        {
             // Perform the check and return if OK
             if (bounds.contains(map.getCenter())) {
                 return;
@@ -155,57 +145,58 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             }
             map.setCenter(new google.maps.LatLng(Y, X));
         }
-		
+        //Creating listener to recenter map when is out of playable area				
+        google.maps.event.addListener(map, "center_changed", function (e1)
+        {
+            checkBounds();
+        });
+        var that = this;
         //Creating eventlisteners to set mark when click
-        google.maps.event.addListener(map, "mouseup", function(e){
-        
+        google.maps.event.addListener(map, "mouseup", function (e)
+        {
             // ESTO SOLO DEBE EJECUTARSE SI NO SE HA MOVIDO, BANDERA nos indica si se ha movido el cursor mientras movíamos o no.
-            if (view.bandera == true) {
-                if (view.marker) {
-                    view.marker.setMap(null);
+            if (that.mouseFlag === true) 
+            {
+                if (that.marker) {
+                    that.marker.setMap(null);
                 }
-                if (view.circle) {
-                    view.circle.setMap(null);
-                }
-                
-                view.circle = new google.maps.Circle({
-                    center: e.latLng,
-                    radius: radio,
-                    //map: map,
-                    clickable: false
-                });
-				var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png');
-                view.marker = new google.maps.Marker({
+                var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png');
+                that.marker = new google.maps.Marker({
                     map: map,
                     position: e.latLng,
                     flat: true,
-					clickable: false,
-					icon:markerIcon
+                    clickable: false,
+                    icon: markerIcon
                 });
-                elmarker = view.marker;
             }
-        });
-        google.maps.event.addListener(map, "mousemove", function(e){
-            view.bandera = false;
-        });
-        google.maps.event.addListener(map, "mousedown", function(e){
-            view.bandera = true;
-        });
+        }, that);
+        google.maps.event.addListener(map, "mousemove", function (e)
+        {
+            that.mouseFlag = false;
+        }, that);
+        google.maps.event.addListener(map, "mousedown", function (e)
+        {
+            that.mouseFlag = true;
+        }, that);
     },
-	
-	//Confirmation function to try a location
-    confirm: function(){
-        this.distancia = Math.sqrt(Math.pow(elmarker.position.lat() - elpunto.lat(), 2) + Math.pow(elmarker.position.lng() - elpunto.lng(), 2)) * 60000;
-        this.puntos = parseInt(100 - (this.distancia * 100) / radio);
-        if (this.distancia < radio) {
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward+' '+i18n.gettext("obtained score:")+this.puntos, function(distancia){
-                this.getApplication().getController('DaoController').activityPlayed(this.activity.data.id, true, this.puntos);
-                this.getApplication().getController('LevelController').nextActivity(this.activity.data.level_type);
+    
+    //Confirmation function to try a location
+    confirm: function ()
+    {
+        var score = 0;
+        var distance = Math.sqrt(Math.pow(this.marker.position.lat() - this.target.lat(), 2) + Math.pow(this.marker.position.lng() - this.target.lng(), 2)) * 60000;
+        score = parseInt(100 - (distance * 100) / this.radius, 10);
+        if (distance < this.radius) {
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + score, function ()
+            {
+                this.daoController.activityPlayed(this.activity.data.id, true, score);
+                this.levelController.nextActivity(this.activity.data.level_type);
             }, this);
         }
         else {
-            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it isnt the correct place'), function(){
-                this.getApplication().getController('LevelController').tolevel();
+            Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
+            {
+                this.levelController.tolevel();
             }, this);
         }
     }

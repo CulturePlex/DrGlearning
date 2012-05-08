@@ -5,7 +5,22 @@
 }
 
 .activityImage{
-        max-width: 100%;
+    max-width: 100%;
+}
+
+.itemlist{
+    border: 3px grey solid;
+    border-width: 0px 0px 0px 0px;
+    padding: 3px;
+}
+img.tick{
+    margin-left:5px;
+}
+.score{
+    margin-bottom:3px;
+    font-size:14px;
+    color: black;
+    text-shadow: -1px 0 yellow, 0 1px yellow, 1px 0 yellow, 0 -1px yellow;
 }
 
 .helpicon{
@@ -13,6 +28,10 @@
 	height: 80%;
 	vertical-align: middle;
 	
+}
+
+.x-button-label{
+	white-space:normal;
 }
 
 .query{
@@ -27,6 +46,12 @@
 .relational {
 	font-size: small;
 	text-align: center;
+}
+
+.warning {
+	color: #FF3535;
+	background-color: #FFFFFF;
+	text-align: center
 }
 
 li.relational-constraints {

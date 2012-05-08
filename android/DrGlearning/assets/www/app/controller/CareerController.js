@@ -4,6 +4,10 @@
  *
  * Controller to manage Career Menu and Logic
  */
+
+//Global Words to skip JSLint validation//
+/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning localStorage careerController*/
+
 Ext.define('DrGlearning.controller.CareerController', {
     extend: 'Ext.app.Controller',
     config: {
@@ -14,14 +18,15 @@ Ext.define('DrGlearning.controller.CareerController', {
         }
     },
     carousel: null,
-	/*
-    flechaizqHtml: "",//"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.previous();'><img src='resources/images/arrowleft.png' alt='flecha' height=30></a></div>",
-    flechaderHtml: "",//"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.next();'><img src='resources/images/arrowright.png' alt='flecha' height=30></a></div>",
-    */
+    /*
+     flechaizqHtml: "",//"<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.previous();'><img src='resources/images/arrowleft.png' alt='flecha' height=30></a></div>",
+     flechaderHtml: "",//"<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:careerController.carousel.next();'><img src='resources/images/arrowright.png' alt='flecha' height=30></a></div>",
+     */
     /*
      * Initializate Controller.
      */
-    launch: function(){
+    launch: function ()
+	{
         this.careersListController = this.getApplication().getController('CareersListController');
         this.levelController = this.getApplication().getController('LevelController');
         this.daoController = this.getApplication().getController('DaoController');
@@ -32,14 +37,15 @@ Ext.define('DrGlearning.controller.CareerController', {
             },
             'button[id=backToCareers]': {
                 tap: this.toCareers
-            },
+            }
         });
     },
     /*
      * Back to installed careers list.
      */
-    toCareers: function(){
-    	localStorage.selectedcareer=0;
+    toCareers: function ()
+	{
+        localStorage.selectedcareer = 0;
         var view1 = this.getCareerframe();
         view1.hide();
         this.careersListController.index();
@@ -47,45 +53,47 @@ Ext.define('DrGlearning.controller.CareerController', {
     /*
      * Showing Career
      */
-    tocareer: function(){
+    tocareer: function ()
+	{
         var view1 = this.getCareerframe();
         view1.show();
     },
     /*
      * Getting the properly Html to show Level icon.
      */
-    getLevelHtml: function(career,levelData){
+    getLevelHtml: function (career, levelData)
+	{
         var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
-		var html = "<div id='centro' align='middle'><p>" + levelData.name + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
-		if (this.getApplication().getController('DaoController').isApproved(career,levelData))
-		{
-			html = "<div id='centro' style='text-align:center;'><p>" + levelData.name + "</p><div><img style=' position:absolute; top:50px;left: 50%; margin-left: -75px;' src='resources/images/approved-stamp.png' width='150'><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
-		}
-		console.log(levelData);
+        var html = "<div id='centro' align='middle'><p>" + levelData.name + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
+        if (this.getApplication().getController('DaoController').isApproved(career, levelData)) {
+            html = "<div id='centro' style='text-align:center;'><p>" + levelData.name + "</p><div><img style=' position:absolute; top:50px;left: 50%; margin-left: -75px;' src='resources/images/approved-stamp.png' width='150'><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
+        }
+        //console.log(levelData);
         return html;
     },
     /*
      * Update Career View.
      */
-    updateCareer: function(newCareer){
+    updateCareer: function (newCareer)
+	{
         careerController = this.getApplication().getController('CareerController');
         var view = this.getCareerframe();
         var detail = view.down('careerdetail');
         var description = detail.down('careerdescription');
-		var levelscarousel = detail.down('carousel');
+        var levelscarousel = detail.down('carousel');
         description.setData(newCareer.data);
-        var levelstemp = new Array();
+        var levelstemp = [];
         levelstemp = this.getApplication().getController('DaoController').getLevels('' + newCareer.data.id);
         var items = [];
         var levelButtonHtml;
         this.carousel = levelscarousel;
-		levelscarousel.removeAll();
+        levelscarousel.removeAll();
         for (var i = 0; i < levelstemp.length; i++) {
             var level = Ext.getStore('Levels').getAt(levelstemp[i] - 1);
-            console.log(level);
-            levelButtonHtml = this.getLevelHtml(newCareer.data.id,level.data);
+            //console.log(level);
+            levelButtonHtml = this.getLevelHtml(newCareer.data.id, level.data);
             levelscarousel.add({
-                html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>',
+                html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>'
             
             });
             /**
@@ -136,10 +144,10 @@ Ext.define('DrGlearning.controller.CareerController', {
      * Start a Level.
      */
     startLevel: function(){
-		Ext.Viewport.setMasked({
+        Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Loading level...',
-            indicator: true,
+            indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
         var view1 = this.getCareerframe();
