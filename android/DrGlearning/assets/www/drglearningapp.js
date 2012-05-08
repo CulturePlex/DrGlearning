@@ -7,29 +7,28 @@
 */
 
 // Locale
+var i18n;
 
 if (localStorage.catalogue === 'es') {
-    var i18n = new Jed({
+    i18n = new Jed({
         locale_data : catalogueES,
         "domain": "messages"
     });
     localStorage.catalogue = 'es';
 } else if (localStorage.catalogue === 'fr') {
-    var i18n = new Jed({
+    i18n = new Jed({
         locale_data : catalogueFR,
         "domain": "messages"
     });
     localStorage.catalogue = 'fr';
 } else {
     // English by default
-    var i18n = new Jed({
+    i18n = new Jed({
         locale_data : catalogueEN,
         "domain": "messages"
     });
     localStorage.catalogue = 'en';
 }
-
-var _ = i18n.getText;
 
 Ext.Loader.setConfig({
     enabled : true
