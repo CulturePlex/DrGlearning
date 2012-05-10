@@ -25,33 +25,33 @@ class Knowledge(models.Model):
 
 
 class Career(models.Model):
-
-    def qrcode(self):
-        image_src = "http://chart.apis.google.com/chart?cht=qr&chs=80x80&chl=%s" % \
-                api_url('career', self.id)
-        return '<img class="course-qrcode" src="%s">' % image_src
-    qrcode.allow_tags = True
-
     MODE_CHOICES = (
         ('explore', _("Explore")),
         ('exam', _("Exam"))
     )
-
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
     user = models.ForeignKey(User, verbose_name="user")
-    positive_votes = models.IntegerField(default=0)
-    negative_votes = models.IntegerField(default=0)
+    positive_votes = models.IntegerField(_("positive votes"), default=0,
+                                        help_text=_("Negative votes received"))
+    negative_votes = models.IntegerField(_("negative votes"), default=0,
+                                        help_text=_("Negative votes received"))
     career_type = models.CharField(max_length=20,
-                                    verbose_name=_("Course type"),
-                                    choices=MODE_CHOICES,
-                                    default="explore")
+                                   verbose_name=_("course type"),
+                                   choices=MODE_CHOICES,
+                                   default="explore")
     timestamp = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=False)
-    image = models.ImageField(upload_to="images", blank=True, null=True)
+    image = models.ImageField(_("image"), upload_to="images",
+                              blank=True, null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
-                                             verbose_name="knowledge field",
+                                             verbose_name=_("knowledge field"),
                                              related_name="knowledge_fields")
+
+    class Meta:
+        unique_together = ('name', 'user')
+        verbose_name = _("course")
+        verbose_name_plural = _("courses")
 
     def __unicode__(self):
         return u"%s" % self.name
@@ -74,10 +74,11 @@ class Career(models.Model):
             exported_activities.append(a.export())
         return exported_activities
 
-    class Meta:
-        unique_together = ('name', 'user')
-        verbose_name = _("course")
-        verbose_name_plural = _("courses")
+    def qrcode(self):
+        image_src = "http://chart.apis.google.com/chart?cht=qr&chs=80x80&chl=%s" % \
+                api_url('career', self.id)
+        return '<img class="course-qrcode" src="%s">' % image_src
+    qrcode.allow_tags = True
 
 
 class GenuineUser(User):
