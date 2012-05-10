@@ -98,7 +98,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     showAnswers: function () 
     {
         this.timeLabel.setHtml('');
-        activityView.down('button[customId=skip]').hide();
+        this.activityView.down('button[customId=skip]').hide();
         this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
         for (var i = 0; i < this.answers.length; i++) {
             this.optionsContainer.add({

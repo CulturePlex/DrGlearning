@@ -208,6 +208,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     },
     
     updateActivity: function(newActivity){
+        console.log(this);
         this.currentActivity = newActivity;
         Ext.create('DrGlearning.view.ActivityFrame');
         var view = this.getActivityframe();
@@ -342,10 +343,11 @@ Ext.define('DrGlearning.controller.LevelController', {
             }, this);
         }
     },
-    more: function(){
-		var text = this.currentActivity.data.query;
+    more: function(that){
+        console.log(that);
+        var text = that.currentActivity.data.query;
         Ext.Msg.alert(i18n.gettext('Question'), text, function(){
-        }, this);
+        }, that);
         
     },
 	helpAndQuery: function(){

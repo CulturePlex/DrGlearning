@@ -10,25 +10,13 @@
 
 Ext.define('DrGlearning.controller.ActivityController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.store.Careers', 'DrGlearning.store.Levels', 'DrGlearning.controller.DaoController'],
-    views: ['LevelFrame', 'ActivityFrame'],
-    stores: ['Careers', 'Levels', 'Activities', 'Users'],
-    refs: [{
-        ref: 'levelframe',
-        selector: 'levelframe',
-        xtype: 'levelframe'
-    }, {
-        ref: 'activityframe',
-        selector: 'activityframe',
-        xtype: 'activityframe'
-    }],
     activityView: null,
     /*
      * Initializate Controller.
      */
     init: function ()
 	{
-    
+        this.levelController = this.getApplication().getController('LevelController');
     },
     addQueryAndButtons: function (activityView, newActivity)
 	{
@@ -43,15 +31,13 @@ Ext.define('DrGlearning.controller.ActivityController', {
             flex: 1,
             ui: 'neutral',
             style: 'font-size:13px'
-        
-        
         });
         var that = this;
         activityView.down('toolbar[customId=query]').down('titlebar').setListeners({
             tap: {
                 fn: function ()
 				{
-                    DrGlearning.app.getApplication().getController('LevelController').more();
+                    that.levelController.more(that.levelController);
                 },
                 element: 'element'
             }
