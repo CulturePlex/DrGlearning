@@ -69,9 +69,15 @@
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
         });
+        // MathJax
         yepnope({
             test: typeof(MathJax) == "undefined",
             yep: "resources/js/mathjax/MathJax.js",
+        });
+        // JSON
+        yepnope({
+            test: typeof(JSON) == "undefined",
+            yep: "resources/js/json2.min.js",
         });
         // Debud mode
         yepnope({
