@@ -224,7 +224,7 @@ GOOGLE_API_KEY = 'AIzaSyD1ibezws-sdp2Suvn97eSakILyQsY8Wno'
 GOOGLE_ANALYTICS_CODE = "UA-1613313-11"
 
 # Other settings
-EMULATOR_URL = "http://beta.drglearning.com/client/"
+EMULATOR_URL = "http://drglearning.com/client/"
 MAX_KNOWLEDGE_FIELDS = 5
 
 try:

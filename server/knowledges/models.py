@@ -26,8 +26,9 @@ class Knowledge(models.Model):
 
 class Career(models.Model):
     MODE_CHOICES = (
-        ('explore', _("Explore")),
-        ('exam', _("Exam"))
+        ('explore', _("Explore, it allows players to play any level any time")),
+        ('exam', _("Exam, it requires to pass the current level before "
+                   "playing the next one"))
     )
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
@@ -37,11 +38,14 @@ class Career(models.Model):
     negative_votes = models.IntegerField(_("negative votes"), default=0,
                                         help_text=_("Negative votes received"))
     career_type = models.CharField(max_length=20,
-                                   verbose_name=_("course type"),
+                                   verbose_name=_("modality"),
                                    choices=MODE_CHOICES,
                                    default="explore")
     timestamp = models.DateTimeField(auto_now=True)
-    published = models.BooleanField(default=False)
+    published = models.BooleanField(_("published"), default=False,
+                                    help_text=_("Whether show or not this "
+                                                "course in the "
+                                                "public list of courses"))
     image = models.ImageField(_("image"), upload_to="images",
                               blank=True, null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
@@ -76,12 +80,6 @@ class Career(models.Model):
         for a in self.activity_set.all():
             exported_activities.append(a.export())
         return exported_activities
-
-    def qrcode(self):
-        image_src = "http://chart.apis.google.com/chart?cht=qr&chs=80x80&chl=%s" % \
-                api_url('career', self.id)
-        return '<img class="course-qrcode" src="%s">' % image_src
-    qrcode.allow_tags = True
 
 
 class GenuineUser(User):
