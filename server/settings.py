@@ -223,7 +223,9 @@ GOOGLE_API = "http://maps.google.com/maps/api/js?v=3&sensor=false"
 GOOGLE_API_KEY = 'AIzaSyD1ibezws-sdp2Suvn97eSakILyQsY8Wno'
 GOOGLE_ANALYTICS_CODE = "UA-1613313-11"
 
+# Other settings
 EMULATOR_URL = "http://beta.drglearning.com/client/"
+MAX_KNOWLEDGE_FIELDS = 5
 
 try:
     from local_settings import *

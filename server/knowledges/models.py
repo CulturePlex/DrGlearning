@@ -45,8 +45,11 @@ class Career(models.Model):
     image = models.ImageField(_("image"), upload_to="images",
                               blank=True, null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
-                                             verbose_name=_("knowledge field"),
-                                             related_name="knowledge_fields")
+                                             verbose_name=_("knowledge fields"),
+                                             related_name="knowledge_fields",
+                                         help_text=_("Choose the 5 knowledges "
+                                                     "fields that suit better "
+                                                     "your course"))
 
     class Meta:
         unique_together = ('name', 'user')
