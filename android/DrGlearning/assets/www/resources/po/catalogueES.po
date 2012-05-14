@@ -251,6 +251,12 @@ msgstr "Condición no superada"
 msgid "Undo"
 msgstr "Deshacer"
 
+msgid "Sorry, from here you cannot reach "
+msgstr "Lo siento, desde aquí no puedes llegar a "
+
+msgid ". Try undo."
+msgstr ". Prueba a deshacer."
+
 
 # Quiz and Visual Activities
 

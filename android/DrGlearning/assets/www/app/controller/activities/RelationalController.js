@@ -343,7 +343,13 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 }
                 
             }
-            gamePanel.add(endNode);
+            if (option)
+            {
+                if (option.getOptions().length > 1)
+                {
+                    gamePanel.add(endNode);
+                }
+            }
             gamePanel.add(button);
             activityView.add(gamePanel);
             activityView.show();

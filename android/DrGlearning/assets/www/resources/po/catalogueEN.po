@@ -252,6 +252,12 @@ msgstr "Constraint Not Yet Passed"
 msgid "Undo"
 msgstr "Undo"
 
+msgid "Sorry, from here you cannot reach "
+msgstr "Sorry, from here you cannot reach "
+
+msgid ". Try undo."
+msgstr ". Try undo."
+
 
 # Quiz and Visual Activities
 
