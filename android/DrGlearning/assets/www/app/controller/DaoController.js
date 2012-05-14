@@ -164,8 +164,8 @@ Ext.define('DrGlearning.controller.DaoController', {
 		
 		var activities=Ext.getStore('Activities').queryBy(function(record) {
 			if(record.data.careerId==careerId && record.data.level_type==''+level){
-				console.log('Nivel '+level);
-				console.log(record.data.level_type);
+				//console.log('Nivel '+level);
+				//console.log(record.data.level_type);
 				return true;	
 			}else{
 				return false;
@@ -355,7 +355,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 		console.log(activities);
 		for(var j=0;j<activities.items.length;j++){
 			
-			console.log(activities.items[j]);
+			//console.log(activities.items[j]);
 			if(!activities.items[j].data.successful){
 				approved=false; 
 			}

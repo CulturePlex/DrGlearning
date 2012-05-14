@@ -87,66 +87,6 @@ Ext.define('DrGlearning.controller.LevelController', {
 		Ext.getStore('Activities').filter('careerId',newCareer.data.id);
 		Ext.getStore('Activities').filter({filterFn: function(item) { return item.data.level_type == newLevel; }});
 		console.log(Ext.getStore('Activities'));
-	
-        /*var activitieslist = Ext.create('Ext.List', {
-            fullscreen: true,
-            //itemTpl: '<div class="contact">{firstName} <strong>{lastName}</strong></div>',
-            store: this.getApplication().getStore('Activities'),
-            //grouped: true
-        });
-		detail.add(activitieslist);
-        activitiescarousel.removeAll();
-         this.carousel=activitiescarousel;
-         var flechaizqHtml="<div id='flechaizq' style='position:absolute;top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.previous();'><img src='resources/images/flechaizq.png' alt='flecha'></a></div>";
-         var flechaderHtml="<div id='flechader' style='position:absolute;right:0; top:50%; margin-top:-23px;'><a href= 'javascript:levelController.carousel.next();'><img src='resources/images/flecha.png' alt='flecha'></a></div>";
-         var currentActivity = this.getApplication().getController('DaoController').getCurrenActivity(newCareer.data.id,newLevel).data.id;
-         var startingIndex=0;
-         
-         for(var i=0;i<activities.length;i++)
-         {
-         var activity=activities.getAt(i);
-         if(activity.data.id==currentActivity){
-         startingIndex=i;
-         }
-         var iconoactivityHtml = this.getActivityHtml(activity.data);
-         //var iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto; width:70%;top:0;left:15%;'>" + activity.data.name + activityIconHtml</div>";
-         if(activity.data.successful)
-         {
-         iconoactivityHtml = "<div customId='centro' align='center' style='position:absolute;margin:0 auto 0 auto;height:100%; width:70%;top:0;left:15%;background-color:#999999;'>" + activity.data.name + "<div bottom='0'>Score: " + activity.data.score + "<img src=resources/images/tick.png></div></div>";
-         }
-         if (i == 0) {
-         if (i == activities.length - 1) {
-         activitiescarousel.add({
-         html: iconoactivityHtml,
-         name: 'a',
-         myId: activity.data.id
-         });
-         }else
-         {
-         activitiescarousel.add({
-         html: iconoactivityHtml + flechaderHtml,
-         name: 'a',
-         myId: activity.data.id
-         });
-         }
-         }else if(i == activities.length-1)
-         {
-         activitiescarousel.add({
-         html: flechaizqHtml + iconoactivityHtml,
-         name: 'a',
-         myId: activity.data.id
-         });
-         }else
-         {
-         activitiescarousel.add({
-         html: flechaizqHtml + iconoactivityHtml + flechaderHtml,
-         name: 'a',
-         myId: activity.data.id
-         });
-         }
-         }
-         activitiescarousel.setActiveItem(startingIndex);
-         detail.add(activitiescarousel);*/
         view.down('title[id=title]').setTitle(newCareer.data.name);
 		
 		
@@ -165,45 +105,11 @@ Ext.define('DrGlearning.controller.LevelController', {
         return html;
         
     },
-    
-    /*startActivity: function(){
-    
-        var view1 = this.getLevelframe();
-        var detail = view1.down('leveldetail');
-        var activitiescarousel = detail.down('carousel');
-        console.log(activitiescarousel.getActiveItem());
-        //this.getActivityFrameView().create();
-        var temp = Ext.getStore('Activities').queryBy(function(record){
-            return record.data.id == activitiescarousel.getActiveItem().config.myId;
-        }, this);
-        console.log(temp);
-        newActivity = temp.items[0];
-        //console.log('no era un numero');
-        this.updateActivity(newActivity);
-        if (this.getLevelframe()) {
-            this.getLevelframe().hide();
-        }
-        //this.activityView=view;
-    
-    },*/
 	startActivity: function(list, itemIndex, item, activity,e){
-    
-        /*var view1 = this.getLevelframe();
-        var detail = view1.down('leveldetail');
-        var activitiescarousel = detail.down('carousel');
-        console.log(activitiescarousel.getActiveItem());
-        //this.getActivityFrameView().create();
-        var temp = Ext.getStore('Activities').queryBy(function(record){
-            return record.data.id == activitiescarousel.getActiveItem().config.myId;
-        }, this);
-        console.log(temp);
-        newActivity = temp.items[0];*/
-        //console.log('no era un numero');
         this.updateActivity(activity);
         if (this.getLevelframe()) {
             this.getLevelframe().hide();
         }
-        //this.activityView=view;
     
     },
     
@@ -287,8 +193,6 @@ Ext.define('DrGlearning.controller.LevelController', {
                 }
             }
         }
-        
-        //console.log(currentActivity);
     
     },
     tolevel: function(){
