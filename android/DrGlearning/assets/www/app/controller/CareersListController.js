@@ -145,7 +145,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().down('toolbar[id=toolbarTopAdd]').hide();
         this.getCareersframe().down('toolbar[id=toolbarBottomAdd]').hide();
         this.getCareersframe().show();
-        if (parseInt(localStorage.selectedcareer,10) !== 0) 
+        if (parseInt(localStorage.selectedcareer,10) !== 0 && localStorage.selectedcareer!==undefined) 
         {
             Ext.Msg.confirm("Last career", "Return to last career?", function (answer)
             {

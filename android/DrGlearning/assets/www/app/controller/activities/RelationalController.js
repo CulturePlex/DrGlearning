@@ -360,7 +360,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 previousStep = playerPath[playerPath.length - 2];
                 playerPath.splice(playerPath.length - 2, 2);
                 playerEdgePath.splice(playerEdgePath.length - 1, 1);
-                if(option)
+                if (option)
                 {
                     option.hide();
                 }
