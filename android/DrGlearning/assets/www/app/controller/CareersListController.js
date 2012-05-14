@@ -206,11 +206,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
             if (e !== undefined && e.touch.target.id == "uninstall") {
                 this.actionSheet = Ext.create('Ext.ActionSheet', {
                     items: [{
-                        text: 'Uninstall course',
+                            text: i18n.gettext('Check for course updates'),
+                            ui: 'confirm'
+                        },{
+                        text: i18n.gettext('Uninstall course'),
                         ui: 'decline',
                         handler: function(){
                             this.parent.hide();
-                            Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function (answer, pako)
+                            Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function (answer)
                             {
                                 if (answer === 'yes') {
                                     this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
@@ -219,7 +222,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                             }, that);
                         }
                     }, {
-                        text: 'Cancel',
+                        text: i18n.gettext('Cancel'),
                         handler: function(){
                             this.parent.hide();
                         }
@@ -234,11 +237,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 if (e !== undefined && e.touch.target.id === "update") {
                     var actionSheet = Ext.create('Ext.ActionSheet', {
                         items: [{
-                            text: 'Update course',
+                            text: i18n.gettext('Update course'),
                             ui: 'confirm',
                             handler: function(){
                             this.parent.hide();
-                            Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer, pako){
+                            Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer){
                                 if (answer == 'yes') {
                                      Ext.Viewport.setMasked({
                                      xtype: 'loadmask',
@@ -251,7 +254,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                             }, that);
                         }
                         }, {
-                            text: 'Uninstall course',
+                            text: i18n.gettext('Uninstall course'),
                             ui: 'decline',
                             handler: function(){
                                 this.parent.hide();
@@ -263,7 +266,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                                 }, that);
                             }
                         }, {
-                            text: 'Cancel',
+                            text: i18n.gettext('Cancel'),
                             handler: function(){
                                 this.parent.hide();
                             }
