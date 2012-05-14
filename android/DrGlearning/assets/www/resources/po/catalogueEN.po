@@ -107,13 +107,13 @@ msgid "You have complete the "
 msgstr "You have complete the "
 
 msgid " level! It was the last Level, you have finished this career!"
-msgstr " level! It was the last Level, you have finished this career!"
+msgstr " level! It was the last Level, you have completed this course!"
 
 msgid " level! Next Level: "
 msgstr " level! Next Level: "
 
 msgid " level! It was the last Level, you have finished this career!" 
-msgstr " level! It was the last Level, you have finished this career!"
+msgstr " level! It was the last Level, you have completed this course!"
 
 # Settings
 
@@ -124,7 +124,7 @@ msgid "Language changed"
 msgstr "Language changed"
 
 msgid "You need to restart this app to see the changes"
-msgstr "You need to restart this app to see the changes"
+msgstr "You need to restart the app to see the changes"
 
 
 msgid "Language"
@@ -153,6 +153,9 @@ msgstr "Export user"
 
 msgid "Save"
 msgstr "Save"
+
+msgid "Refresh"
+msgstr "Refresh"
 
 
 msgid "Copy and paste in your new device:"
@@ -249,10 +252,6 @@ msgstr "Constraint Not Yet Passed"
 msgid "Undo"
 msgstr "Undo"
 
-msgid "This is a wrong way, please try undo"
-msgstr "This is a wrong way, please try undo"
-
-
 
 # Quiz and Visual Activities
 
@@ -277,7 +276,7 @@ msgstr "Look at the image and answer the question!"
 
 
 msgid "You should to guess if the event in the text was before or after the event in the image"
-msgstr "Guess whether the event in the text was before or after the event in the image"
+msgstr "According to the question say what was before and what was after"
 
 
 msgid "You should go from one consept to another according with the constraints"

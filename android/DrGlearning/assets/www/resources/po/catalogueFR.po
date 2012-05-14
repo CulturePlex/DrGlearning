@@ -76,19 +76,19 @@ msgid "CulturePlex Lab."
 msgstr "CulturePlex Lab."
 
 msgid "Congrats!"
-msgstr "Congrats!"
+msgstr "Félicitations!"
 
 msgid "You have complete the "
-msgstr "You have complete the "
+msgstr "Vous avez fini ce niveau "
 
 msgid " level! It was the last Level, you have finished this career!"
-msgstr " level! It was the last Level, you have finished this career!"
+msgstr " ! C´était le dernier niveau, vous avez fini ce cours!"
 
 msgid " level! Next Level: "
-msgstr " level! Next Level: "
+msgstr " ! Prochain niveau : "
 
 msgid " level! It was the last Level, you have finished this career!" 
-msgstr " level! It was the last Level, you have finished this career!"
+msgstr " ! C´était le dernier niveau, vous avez fini ce cours!"
 
 # Settings
 
@@ -127,6 +127,9 @@ msgstr "Copier et coller dans votre nouvel appareil:"
 
 msgid "Paste your previous ID:"
 msgstr "Collez votre ID précédente:"
+
+msgid "Refresh"
+msgstr "Refresh"
 
 # Activities
 
@@ -192,9 +195,6 @@ msgstr "Contrainte n’est pas encore réussi"
 
 msgid "Undo"
 msgstr "Défaire"
-
-msgid "This is a wrong way, please try undo"
-msgstr "This is a wrong way, please try undo"
 
 # Quiz and Visual Activities
 
