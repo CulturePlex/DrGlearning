@@ -18,12 +18,14 @@ Ext.define('DrGlearning.controller.LevelController', {
     /*
      * Initializate Controller.
      */
-    init: function(){
+    launch: function(){
         this.careersListController = this.getApplication().getController('CareersListController');
         this.careerController = this.getApplication().getController('CareerController');
         this.levelController = this.getApplication().getController('LevelController');
-        var view = Ext.create('DrGlearning.view.ActivityFrame');
-        view.hide();
+        
+        Ext.create('DrGlearning.view.ActivityFrame');
+        Ext.create('DrGlearning.view.LevelFrame');
+        
         this.control({
             'button[id=help]': {
                 tap: this.help
@@ -49,10 +51,8 @@ Ext.define('DrGlearning.controller.LevelController', {
         });
     },
     tolevels: function(){
-        if (this.getLevelframe()) {
-            this.getLevelframe().hide();
-        }
-        this.getApplication().getController('CareerController').tocareer();
+        this.getLevelframe().hide();
+        this.careerController.tocareer();
     },
     updateLevel: function(newCareer, newLevel){
 		Ext.Viewport.setMasked({
@@ -61,8 +61,7 @@ Ext.define('DrGlearning.controller.LevelController', {
             indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
-        Ext.create('DrGlearning.view.LevelFrame');
-        levelController = this.getApplication().getController('LevelController');
+
         this.selectedlevel = newLevel;
         var view = this.getLevelframe();
 		view.setListeners( {
@@ -97,10 +96,10 @@ Ext.define('DrGlearning.controller.LevelController', {
     },
     
     getActivityHtml: function(activityData){
-        var html = "<div id='centro' align='middle'><p align='top'>" + activityData.name + "</p><a href= 'javascript:levelController.startActivity();'><img src='resources/images/activity_icons/" + activityData.activity_type + ".png' align='bottom'></a></div>";
+        var html = "<div id='centro' align='middle'><p align='top'>" + activityData.name + "</p><a href= 'javascript:this.levelController.startActivity();'><img src='resources/images/activity_icons/" + activityData.activity_type + ".png' align='bottom'></a></div>";
         console.log(activityData.successful);
         if (activityData.successful == true) {
-            html = "<div id='centro' align='middle'><p align='top'>" + activityData.name + "</p><a href= 'javascript:levelController.startActivity();'><img src='resources/images/activity_icons/" + activityData.activity_type + ".png' align='bottom'></a></div><div bottom='0' align='center'>Score: " + activityData.score + "<img  height='30px' src=resources/images/tick.png></div>";
+            html = "<div id='centro' align='middle'><p align='top'>" + activityData.name + "</p><a href= 'javascript:this.levelController.startActivity();'><img src='resources/images/activity_icons/" + activityData.activity_type + ".png' align='bottom'></a></div><div bottom='0' align='center'>Score: " + activityData.score + "<img  height='30px' src=resources/images/tick.png></div>";
         }
         return html;
         
@@ -157,7 +156,7 @@ Ext.define('DrGlearning.controller.LevelController', {
             this.activityView.hide();
         }
         
-        var currentLevel = this.getApplication().getController('DaoController').getCurrenLevel(this.getApplication().getController('CareersListController').selectedcareer.data.id);
+        var currentLevel = this.getApplication().getController('DaoController').getCurrenLevel(this.careersListController.selectedcareer.data.id);
         var prevLevelString = Ext.getStore('Levels').getAt(prevLevel - 1).data.name;
 		if (currentLevel != -1) {
 			var currentLevelString = Ext.getStore('Levels').getAt(currentLevel - 1).data.name;
@@ -167,7 +166,7 @@ Ext.define('DrGlearning.controller.LevelController', {
 		}
         console.log(currentLevel);
         console.log(prevLevel);
-        var currentActivity = this.getApplication().getController('DaoController').getCurrenActivity(this.getApplication().getController('CareersListController').selectedcareer.data.id, parseInt(prevLevel));
+        var currentActivity = this.getApplication().getController('DaoController').getCurrenActivity(this.careersListController.selectedcareer.data.id, parseInt(prevLevel));
         if (currentActivity.data.successful == false) {
             this.updateActivity(currentActivity);
         }
@@ -176,12 +175,12 @@ Ext.define('DrGlearning.controller.LevelController', {
                 if (this.getLevelframe()) {
                     this.getLevelframe().hide();
                 }
-                this.getApplication().getController('CareersListController').index();
+                this.careersListController.index();
                 this.getActivityframe().hide();
                 Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.gettext('You have complete the ') + prevLevelString + i18n.gettext(' level! It was the last Level, you have finished this career!'), function(){}, this);;
             }
             else {
-                this.getApplication().getController('CareerController').updateCareer(this.getApplication().getController('CareersListController').selectedcareer);
+                this.careerController.updateCareer(this.careersListController.selectedcareer);
                 this.getLevelframe().hide();
                 this.getActivityframe().hide();
                 if (currentLevel != -1) {
@@ -208,7 +207,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         this.getApplication().getController('activities.VisualController').stop();
         this.getApplication().getController('activities.QuizController').stop();
         var view1 = this.getLevelframe();
-        this.updateLevel(this.getApplication().getController('CareersListController').selectedcareer, this.getApplication().getController('LevelController').selectedlevel);
+        this.updateLevel(this.careersListController.selectedcareer, this.levelController.selectedlevel);
 		
         view1.show();
     },

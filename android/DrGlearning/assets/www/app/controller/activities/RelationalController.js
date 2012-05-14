@@ -153,7 +153,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             //TODO Add constraints
             if (step === pathGoal) 
             {
-                successfulGame();
+                successfulGame(this);
                 return null;
             }
             else {
@@ -360,8 +360,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 previousStep = playerPath[playerPath.length - 2];
                 playerPath.splice(playerPath.length - 2, 2);
                 playerEdgePath.splice(playerEdgePath.length - 1, 1);
-                option.hide();
-                
+                if(option)
+                {
+                    option.hide();
+                }
                 option = takeStep(previousStep);
                 refresh(option);
             }
@@ -389,8 +391,8 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
                 {
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
-                    this.levelController.nextActivity(newActivity.data.level_type);
-                }, this);
+                    activitiescontroller.nextActivity(newActivity.data.level_type);
+                });
             }
         }
         

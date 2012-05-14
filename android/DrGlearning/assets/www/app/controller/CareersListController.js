@@ -5,8 +5,6 @@
  * Controller to manage Careers List Menu and Logic.
  */
 
-//Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning document*/
 
 Ext.define('DrGlearning.controller.CareersListController', {
     extend: 'Ext.app.Controller',
@@ -147,7 +145,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().down('toolbar[id=toolbarTopAdd]').hide();
         this.getCareersframe().down('toolbar[id=toolbarBottomAdd]').hide();
         this.getCareersframe().show();
-        if (localStorage.selectedcareer != 0) 
+        if (parseInt(localStorage.selectedcareer,10) !== 0) 
         {
             Ext.Msg.confirm("Last career", "Return to last career?", function (answer)
             {

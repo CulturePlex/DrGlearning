@@ -5,8 +5,6 @@
  * Controller to manage Activity Logic. Is parent Class of each specific activity.
  */
 
-//Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning*/
 
 Ext.define('DrGlearning.controller.ActivityController', {
     extend: 'Ext.app.Controller',

@@ -16,6 +16,10 @@
 img.tick{
     margin-left:5px;
 }
+
+.levelTitle{
+	font-weight: normal;
+}
 .score{
     margin-bottom:3px;
     font-size:14px;
