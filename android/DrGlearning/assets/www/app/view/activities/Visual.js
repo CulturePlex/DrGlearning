@@ -72,6 +72,12 @@ Ext.define('DrGlearning.view.activities.Visual', {
 					{
                         xtype: 'container',
 						customId: 'options',
+						minHeight:100,
+        				maxHeight:200,
+	        			scrollable: {
+                            direction: 'vertical',
+                            directionLock: true
+                        }
                     }
                     ]
                 

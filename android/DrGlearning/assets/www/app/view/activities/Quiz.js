@@ -6,6 +6,7 @@ Ext.define('DrGlearning.view.activities.Quiz', {
         id: 'activity',
         customId: 'activity',
         fullscreen: true,
+		scrollable:true,
         layout: 'vbox',
         items: [{
             xtype: 'container',
