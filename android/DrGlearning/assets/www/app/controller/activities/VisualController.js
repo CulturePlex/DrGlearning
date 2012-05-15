@@ -81,6 +81,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         }, 1000);
         this.imageContainer.show();
         this.obImageContainer.hide();
+        this.optionsContainer.hide();
     },
     
     loadingImages: function (view, activityView)
@@ -112,7 +113,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         //newImg.src = this.activity.getImageSrc
         //var widthTemp=var newImg = new Image();
         this.imageContainer.hide();
-        
+        this.optionsContainer.show();
         this.obImageContainer.show();
     },
     tryIt: function ()
