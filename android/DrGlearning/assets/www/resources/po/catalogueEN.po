@@ -20,7 +20,6 @@ msgstr "Courses"
 msgid "Unable to install"
 msgstr "Unable to install"
 
-
 msgid "You need data connection to install careers"
 msgstr "You need data connection to install courses"
 

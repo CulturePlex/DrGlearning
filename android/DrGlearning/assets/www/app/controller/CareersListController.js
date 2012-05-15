@@ -206,6 +206,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
             if (e !== undefined && e.touch.target.id == "uninstall") {
                 this.actionSheet = Ext.create('Ext.ActionSheet', {
                     items: [{
+                        text: i18n.gettext('Send scores'),
+                        },
+                        {
+                        text: i18n.gettext('Check for course updates'),
+                        },{
                         text: 'Uninstall course',
                         ui: 'decline',
                         handler: function(){
@@ -234,6 +239,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 if (e !== undefined && e.touch.target.id === "update") {
                     var actionSheet = Ext.create('Ext.ActionSheet', {
                         items: [{
+                        text: i18n.gettext('Send scores'),
+                        },{
                             text: 'Update course',
                             ui: 'confirm',
                             handler: function(){

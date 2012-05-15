@@ -47,6 +47,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var graphNodes = newActivity.data.graph_nodes;
         var graphEdges = newActivity.data.graph_edges;
         var constraints = newActivity.data.constraints;
+        var path_limit = newActivity.data.path_limit;
         
         /** This function receives a nodeName and searches into edges
          * data for all the related nodes. It returns a Sencha field.Select
@@ -160,7 +161,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 playerPath.push(step);
                 if (graphNodes[pathPosition] !== undefined) {
                     if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
-                        score += parseInt(graphNodes[pathPosition].score,10);
+                        score += parseInt(graphNodes[pathPosition].score, 10);
                         Ext.Msg.alert(i18n.gettext('Congratulations!'), 'You get ' + graphNodes[pathPosition].score + ' points!', function ()
                         {
                         
@@ -247,6 +248,39 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     }
                 });
             }
+            i++;
+            if (path_limit > 0)
+            {
+                constraintsTextNew[i] = "";
+                constraintState[i] = "";
+                if (playerPath.length <= path_limit) {
+                    constraintClass = "relational-constraint-passed";
+                    icontype = 'star';
+                    uitype = 'confirm';
+                    constraintState[i] = i18n.gettext('Constraint Passed');
+                }
+                else {
+                    constraintClass = "relational-constraints";
+                    allConstraintsPassed = false;
+                    icontype = 'delete';
+                    uitype = 'decline';
+                    constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
+                }
+                constraintsTextNew[i] += i18n.gettext('The number of ');
+                constraintsTextNew[i] += i18n.gettext('steps ') + ' should be ';
+                constraintsTextNew[i] += i18n.gettext('less than') + ' ' + path_limit;
+                activityView.down('toolbar[customId=constraintsbar]').add({
+                    xtype: 'button',
+                    iconCls: icontype,
+                    ui: uitype,
+                    customId: i,
+                    listeners: {
+                        tap: showConstraint
+                    }
+                });
+            
+            }
+            
             activityView.down('toolbar[customId=constraintsbar]').add({
                 xtype: 'spacer'
             });
@@ -327,7 +361,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 },
                 scope: this
             });
-            if (playerPath.length > newActivity.data.path_limit && newActivity.data.path_limit > 0)
+            if (playerPath.length > path_limit && path_limit > 0)
             {
                 gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
             }
@@ -393,9 +427,9 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         
         function successfulGame()
         {
-            if(score>100)
+            if (score > 100)
             {
-                score=100;
+                score = 100;
             }
             if (allConstraintsPassed) {
                 Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + score, function ()
