@@ -64,7 +64,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		}
 
 		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
-				//console.log("Listo0");
 				//Register user if needed
 				var user=usersStore.getAt(0);
 				if(user != undefined && user.data.serverid==""){
@@ -150,8 +149,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     				console.log(careerModel.data.timestamp);
                     				console.log(career.timestamp);
                     				console.log(careerModel.data.timestamp<career.timestamp);
-                    				if(careerModel.data.timestamp<career.timestamp){
-	                    				console.log("Checking for update.")
+                    				if(careerModel.data.timestamp<career.timestamp && !careerModel.data.installed){
+	                    				console.log("Checking for update.");
 	    								careerModel.data.update=true;
 	    								careerModel.save();
 		                    		}
@@ -191,6 +190,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		} ,
 		
 		installTestCourse:function(url){
+			Ext.Viewport.setMasked({
+	    	    xtype: 'loadmask',
+	    	    message: 'Installing test course...',
+	 	       	indicator: true
+	    	});
 			var careersStore = Ext.getStore('Careers');
 			careersStore.load();
 			var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
@@ -203,7 +207,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 	careersStore.each(function(record) {
                 		if(record.data.installed){
                     		if(career.id == record.data.id){
-                    			console.log('Test course ')
+                    			console.log('Test course ');
                     			this.getApplication().getController('DaoController').deleteCareer(career.id);
                     		}
                     	}
@@ -229,7 +233,10 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 			}
                 			careerModel.set('activities',activities);
                 			careerModel.save();
-                			this.getApplication().getController('DaoController').installCareer(career.id,function(){Ext.Viewport.setMasked(null);},this);
+                			careersStore.sync();
+                			careersStore.load();
+                			//Ext.Viewport.setMasked(false);
+                			this.getApplication().getController('DaoController').installCareer(career.id,function(){Ext.Viewport.setMasked(false);},this);
                 }
             });
 		},
@@ -422,7 +429,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			         // Multiple parameters are separated by the "&" sign
 			         end = queryString.indexOf ( "&" , begin );
 			      if ( end == -1 ) {
-			         end = queryString.length
+			         end = queryString.length;
 			      }
 			      // Return the string
 			      return unescape ( queryString.substring ( begin, end ) );

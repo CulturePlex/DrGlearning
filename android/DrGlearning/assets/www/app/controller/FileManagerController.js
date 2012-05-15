@@ -1,4 +1,7 @@
-
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 Ext.define('DrGlearning.controller.FileManagerController', {
     extend: 'Ext.app.Controller',
     
@@ -62,7 +65,7 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	    }
 
 	    function successDirectory(parent){
-	    	var imageName="image"+imageId+sufix+".b64"
+	    	var imageName="image"+imageId+sufix+".b64";
 	    	//console.log("Loading "+imageName);
 	    	parent.getFile(imageName, {create: true, exclusive: false}, successFile, fail);
 	    }

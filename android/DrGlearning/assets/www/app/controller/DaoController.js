@@ -1,3 +1,8 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
     requires: ['DrGlearning.controller.GlobalSettingsController'],
@@ -13,6 +18,11 @@ Ext.define('DrGlearning.controller.DaoController', {
 		return Ext.getStore('Carrers').findExact('installed',true);
 	},
     installCareer: function(id,callback,scope) {
+    	Ext.Viewport.setMasked({
+    	    xtype: 'loadmask',
+    	    message: 'Installing course...',
+ 	       	indicator: true
+    	});
     	var career=Ext.getStore('Careers').getById(id);
     	if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
     		Ext.Viewport.setMasked(false);
@@ -118,8 +128,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 	    localStorage.actualSize=parseInt(localStorage.actualSize)+career.data.size;
                 		Ext.getStore('Activities').sync();
                 		Ext.getStore('Activities').load();
-                		Ext.Viewport.setMasked(false);
-						callback(scope);
+                		callback(scope);
 		    		}
                 },failure:function(){
                 	Ext.Viewport.setMasked(false);

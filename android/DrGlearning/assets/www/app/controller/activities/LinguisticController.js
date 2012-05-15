@@ -1,5 +1,9 @@
 //Global Words to skip JSLint validation//
 /*global Ext i18n google GeoJSON activityView*/
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 
 Ext.define('DrGlearning.controller.activities.LinguisticController', {
     extend: 'Ext.app.Controller',

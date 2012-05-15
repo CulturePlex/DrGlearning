@@ -1,3 +1,7 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 Ext.define('DrGlearning.controller.UserSettingsController', {
 	extend : 'Ext.app.Controller',
 
