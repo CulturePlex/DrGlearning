@@ -59,6 +59,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
      */
     startGame: function ()
     {
+        this.score = 20;
         this.imageContainer = this.activityView.down('container[id=image]');
         this.optionsContainer = this.activityView.down('container[customId=options]');
         this.timeLabel = this.activityView.down('label[customId=time]');
@@ -119,7 +120,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     tryIt: function ()
     {
     
-        this.score = 100;
         if (event.target.textContent === this.activity.data.correct_answer) 
         {
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
@@ -154,6 +154,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         clearInterval(this.secondtemp);
         this.showAnswers();
+        this.score = parseInt(this.currentTime*100/this.activity.data.time,10);
     },
     stop: function ()
     {
