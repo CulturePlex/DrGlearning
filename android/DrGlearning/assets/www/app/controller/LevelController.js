@@ -138,7 +138,6 @@ Ext.define('DrGlearning.controller.LevelController', {
             }
             else 
                 if (newActivity.data.activity_type == 'relational') {
-                    console.log(newActivity.data);
                     this.relationalController.updateActivity(this.getActivityframe(), newActivity);
                 }
                 else 

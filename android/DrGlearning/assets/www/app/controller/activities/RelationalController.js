@@ -52,6 +52,11 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         /** This function receives a nodeName and searches into edges
          * data for all the related nodes. It returns a Sencha field.Select
          * object with all the options available */
+        function constraintFlash(index)
+        {
+            console.log(index);
+        }
+        
         function createSelectFromNode(nodeName)
         {
             var edge;
@@ -212,6 +217,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var constraintClass;
             var icontype;
             var uitype;
+            var oldStateTemp;
             allConstraintsPassed = true;
             activityView.down('toolbar[customId=constraintsbar]').removeAll();
             activityView.down('toolbar[customId=constraintsbar]').add({
@@ -220,14 +226,16 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             for (var i = 0; i < constraints.length; i++) {
                 constraintsTextNew[i] = "";
                 constraintState[i] = "";
+                
                 if (constraintPassed(constraints[i])) {
+                    setTimeout("console.log("+i+");",500);
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
                     uitype = 'confirm';
                     constraintState[i] = i18n.gettext('Constraint Passed');
-                    
                 }
                 else {
+                    setTimeout("console.log("+i+");",500);
                     constraintClass = "relational-constraints";
                     allConstraintsPassed = false;
                     icontype = 'delete';
@@ -361,21 +369,14 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 },
                 scope: this
             });
-            if (playerPath.length > path_limit && path_limit > 0)
+            if (option)
             {
-                gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
-            }
-            else
-            {
-                if (option)
+                if (option.getOptions().length > 1)
                 {
-                    if (option.getOptions().length > 1)
-                    {
-                        gamePanel.add(option);    
-                    } else
-                    {
-                        gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
-                    }
+                    gamePanel.add(option);    
+                } else
+                {
+                    gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
                 }
             }
             if (option)
@@ -447,6 +448,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             {
             }, this);
         }
+        
         
         //Set the initial step as the initial node and the goal
         for (var i in graphNodes) 
