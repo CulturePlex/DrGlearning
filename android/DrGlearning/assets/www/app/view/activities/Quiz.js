@@ -11,7 +11,7 @@ Ext.define('DrGlearning.view.activities.Quiz', {
         items: [{
             xtype: 'container',
             id: 'image',
-			margin: 10,
+			margin: '10 10 5 10',
 			centered:true,
         	},
 			{
@@ -52,7 +52,13 @@ Ext.define('DrGlearning.view.activities.Quiz', {
 				customId: 'time',
                 docked: 'bottom',
 				ui:'neutral',
-				padding: 10,
+				margin: '5 10 10 10',
+				minHeight:100,
+				maxHeight:200,
+				scrollable: {
+                    direction: 'vertical',
+                    directionLock: true
+                },
                 items:[{
                         xtype: 'label',
 						customId: 'time',

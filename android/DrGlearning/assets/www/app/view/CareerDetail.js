@@ -1,10 +1,10 @@
 Ext.define('DrGlearning.view.CareerDetail', {
     extend: 'Ext.Panel',
-	xtype: 'careerdetail',
+    xtype: 'careerdetail',
     requires: [
-		'DrGlearning.view.CareerDescription',
-		'DrGlearning.model.Level',
-		'DrGlearning.store.Levels'
+        'DrGlearning.view.CareerDescription',
+        'DrGlearning.model.Level',
+        'DrGlearning.store.Levels'
     ],
     config: {
         layout: 'vbox',
@@ -12,24 +12,13 @@ Ext.define('DrGlearning.view.CareerDetail', {
             flex: 1
         },
         items: [
-		{
-	        xtype: 'careerdescription',
+        {
+            xtype: 'careerdescription',
         },
-		{
-	        xtype: 'carousel',
-			customId: 'levelscarousel',
-			listeners: {
-                element: 'element',
-                delegate: 'a.navigation',
-                tap: function(e,img,asd,thisObj){
-					if(e.target.nodeName == "IMG")
-					{
-						careerController.startLevel();
-					}
-                }
-            }
-        }
-        ],
-	},
-	
+        {
+            xtype: 'carousel',
+            customId: 'levelscarousel',
+        }]
+    },
+    
 });

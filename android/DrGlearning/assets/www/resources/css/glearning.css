@@ -16,6 +16,10 @@
 img.tick{
     margin-left:5px;
 }
+
+.levelTitle{
+	font-weight: normal;
+}
 .score{
     margin-bottom:3px;
     font-size:14px;
@@ -35,7 +39,7 @@ img.tick{
 }
 
 .query{
-	font-size:12;
+	font-size:13;
 }
 
 .querymia{
@@ -45,12 +49,10 @@ img.tick{
 
 .relational {
 	font-size: small;
-	text-align: center;
 }
 
 .warning {
 	color: #FF3535;
-	background-color: #FFFFFF;
 	text-align: center
 }
 

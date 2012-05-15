@@ -1,13 +1,33 @@
 # -*- coding: utf-8 -*-
+from django import forms
+from django.conf import settings
 from django.contrib import admin
+from django.utils.translation import gettext as _
 
 from guardian.admin import GuardedModelAdmin
 
-from knowledges.models import Knowledge, Career, GenuineUser
 from activities.models import Activity
+from knowledges.models import Knowledge, Career, GenuineUser
+from knowledges.templatetags.knowledges_extras import api_url
+
+
+class CareerAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Career
+
+    def clean_knowledge_field(self):
+        knowledge_fields = self.cleaned_data["knowledge_field"].distinct()
+        if knowledge_fields.count() > settings.MAX_KNOWLEDGE_FIELDS:
+            raise forms.ValidationError(_("Sorry, you can only choose %s "
+                                          "different knowledge fields"
+                                          % settings.MAX_KNOWLEDGE_FIELDS))
+        else:
+            return knowledge_fields
 
 
 class CareerAdmin(GuardedModelAdmin):
+    form = CareerAdminForm
     exclude = ("user", )
     readonly_fields = ("positive_votes", "negative_votes")
     # Setting this attribute to True makes the magic of "hiding" not owned objects
@@ -44,6 +64,19 @@ class CareerAdmin(GuardedModelAdmin):
         if obj.user_id == None  or not request.user.is_superuser:
             obj.user = request.user
         obj.save()
+
+
+    def qrcode(self, obj):
+        career_url = api_url('career', obj.id)
+        image_size = "80x80"
+        image_src = "http://chart.apis.google.com/chart?cht=qr&chs=%s&chl=%s" \
+                    % (image_size, career_url)
+        return u"""<a href="%s?course=%s" alt="%s" title="%s">
+            <img class="course-qrcode" src="%s">
+            </a>""" % (settings.EMULATOR_URL, career_url, obj.name, obj.name,
+                       image_src)
+    qrcode.allow_tags = True
+    qrcode.short_description = _("QR-Code")
 
 
 admin.site.register(Knowledge)

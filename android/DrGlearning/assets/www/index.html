@@ -13,6 +13,7 @@
 	<script type="text/javascript" charset="utf-8" src="resources/js/jed.js"></script>
 	<script type="text/javascript" charset="utf-8" src="resources/js/catalogueEN.js"></script>
 	<script type="text/javascript" charset="utf-8" src="resources/js/catalogueFR.js"></script>
+	<script type="text/javascript" charset="utf-8" src="resources/js/catalogueES.js"></script>
     <script type="text/javascript" charset="utf-8" src="resources/js/yepnope.1.5.3-min.js"></script>
     <script type="text/javascript" charset="utf-8" src="options.js"></script>
     <script type="text/javascript" charset="utf-8" src="http://maps.google.com/maps/api/js?key=AIzaSyD1ibezws-sdp2Suvn97eSakILyQsY8Wno&sensor=true&v=3"></script>
@@ -69,9 +70,15 @@
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
         });
+        // MathJax
         yepnope({
             test: typeof(MathJax) == "undefined",
             yep: "resources/js/mathjax/MathJax.js",
+        });
+        // JSON
+        yepnope({
+            test: typeof(JSON) == "undefined",
+            yep: "resources/js/json2.min.js",
         });
         // Debud mode
         yepnope({

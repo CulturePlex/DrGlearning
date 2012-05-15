@@ -23,7 +23,7 @@ class Account(models.Model):
                                               choices=TYPE_CHOICES,
                                               blank=True,
                                               null=True)
-    careers = models.IntegerField(_('careers'), blank=True, null=True)
+    careers = models.IntegerField(_('courses'), blank=True, null=True)
     storage = models.IntegerField(_('storage'), blank=True, null=True,
                                   help_text=_('MB'))
     privacy = models.NullBooleanField(_('privacy'), blank=True, null=True,
@@ -57,7 +57,7 @@ class UserProfile(UserenaLanguageBaseProfile):
     account = models.ForeignKey(Account, verbose_name=_('account'),
                                 related_name="users")
     trusted = models.BooleanField(_('trusted'), default=False, editable=False,
-                                  help_text=_('It the user is trusted'))
+                                  help_text=_('If the user is trusted'))
     image = models.ImageField(upload_to="images", null=True, blank=True)
 
     def save(self, *args, **kwargs):

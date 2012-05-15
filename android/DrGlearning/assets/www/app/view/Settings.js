@@ -25,7 +25,8 @@ config: {
             margin: 5,
             options: [
                 {text: 'English',  value: 'en'},
-                {text: 'French',  value: 'fr'}
+                {text: 'French',  value: 'fr'},
+                {text: 'Spanish',  value: 'es'}
             ]
         },/*, {
 			xtype : 'textfield',

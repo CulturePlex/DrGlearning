@@ -59,6 +59,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
      */
     startGame: function ()
     {
+        this.score = 20;
         this.imageContainer = this.activityView.down('container[id=image]');
         this.optionsContainer = this.activityView.down('container[customId=options]');
         this.timeLabel = this.activityView.down('label[customId=time]');
@@ -81,6 +82,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         }, 1000);
         this.imageContainer.show();
         this.obImageContainer.hide();
+        this.optionsContainer.hide();
     },
     
     loadingImages: function (view, activityView)
@@ -98,7 +100,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     showAnswers: function () 
     {
         this.timeLabel.setHtml('');
-        activityView.down('button[customId=skip]').hide();
+        this.activityView.down('button[customId=skip]').hide();
         this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
         for (var i = 0; i < this.answers.length; i++) {
             this.optionsContainer.add({
@@ -112,13 +114,12 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         //newImg.src = this.activity.getImageSrc
         //var widthTemp=var newImg = new Image();
         this.imageContainer.hide();
-        
+        this.optionsContainer.show();
         this.obImageContainer.show();
     },
     tryIt: function ()
     {
     
-        this.score = 100;
         if (event.target.textContent === this.activity.data.correct_answer) 
         {
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
@@ -153,6 +154,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         clearInterval(this.secondtemp);
         this.showAnswers();
+        this.score = parseInt(this.currentTime*100/this.activity.data.time,10);
     },
     stop: function ()
     {

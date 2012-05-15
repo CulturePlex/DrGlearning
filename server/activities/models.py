@@ -31,47 +31,60 @@ add_introspection_rules([], ["^django\.contrib\.gis"])
 
 class Activity(models.Model):
     LAN_CHOICES = (
-        ("en", _("English")),
-        ("es", _("Español")),
-        ("fr", _("Français")),
-        ("de", _("Deutsch")),
-        ("pt", _("Português")),
-        ("ch", _("中國")),
-        ("jp", _("日語")),
+        ("en", _(u"English")),
+        ("es", _(u"Español")),
+        ("fr", _(u"Français")),
+        ("de", _(u"Deutsch")),
+        ("pt", _(u"Português")),
+        ("ch", _(u"中國")),
+        ("jp", _(u"日語")),
     )
     TYPE_CHOICES = (
-        (1, _("Illetratum")),
-        (2, _("Primary")),
-        (3, _("Secondary")),
-        (4, _("High School")),
-        (5, _("College")),
-        (6, _("Master")),
-        (7, _("PhD.")),
-        (8, _("Post-Doc")),
-        (9, _("Professor")),
-        (10, _("Emeritus")),
+        (1, _(u"Illetratum")),
+        (2, _(u"Primary")),
+        (3, _(u"Secondary")),
+        (4, _(u"High School")),
+        (5, _(u"College")),
+        (6, _(u"Master")),
+        (7, _(u"PhD.")),
+        (8, _(u"Post-Doc")),
+        (9, _(u"Professor")),
+        (10, _(u"Emeritus")),
     )
     name = models.CharField(_("name"), max_length=255)
-    career = models.ForeignKey(Career)
+    career = models.ForeignKey(Career, verbose_name=_("Course"))
     language_code = models.CharField(_("language"), max_length=2,
-                                    choices=LAN_CHOICES)
+                                     choices=LAN_CHOICES,
+                                     help_text=_("Language of the "
+                                                 "activity"))
     timestamp = models.DateTimeField(auto_now=True)
-    query = models.CharField(_("query"), max_length=255)
+    query = models.CharField(_("query"), max_length=255,
+                             help_text=_("Main question of the activity"))
     level_type = models.PositiveSmallIntegerField(_("level"),
-                                            choices=TYPE_CHOICES)
-    level_order = models.IntegerField(_("order"), default=0)
-    level_required = models.BooleanField(_("required"), default=True)
-    reward = models.CharField(_("reward"), max_length=255, default="OK!")
-    penalty = models.CharField(_("penalty"), max_length=255, default="Ooops, try again!")
-    
+                                            choices=TYPE_CHOICES,
+                                            help_text=_("'Degree' of level "
+                                                        "of difficulty"))
+    level_order = models.IntegerField(_("order"), default=0,
+                                      help_text=_("Order by which the "
+                                                  "activities will be shwon "
+                                                  "in the mobile application"))
+    level_required = models.BooleanField(_("required"), default=True,
+                                         help_text=_("Is this level required "
+                                                     "to pass the course?"))
+    reward = models.CharField(_("reward"), max_length=255, default=_("Nice!"),
+                              help_text=_("Reward text to show when the "
+                                          "activity is successfully overcame"))
+    penalty = models.CharField(_("penalty"), max_length=255,
+                               default=_("Ooops, try again!"),
+                               help_text=_("Penalty text to show when the"
+                                           "activity is not overcame"))
     # Needed for objects permissions. It should be autoassigned to
     # the career owner user
     user = models.ForeignKey(User, verbose_name="user", null=True)
-
-    activity_subtypes = ['linguistic', 'relational', 'geospatial', 'visual', 
-                        'quiz', 'temporal']
+    activity_subtypes = ['linguistic', 'relational', 'geospatial', 'visual',
+                         'quiz', 'temporal']
     field_blacklist = ['activity_ptr', 'user', 'highscore', 'id', 'career',
-                        'timestamp']
+                       'timestamp']
 
     @classmethod
     def serialize(cls):
@@ -95,7 +108,6 @@ class Activity(models.Model):
             new_activity = Temporal()
         else:
             return ValueError
-
         # Populate fields from import
         data_dict.pop('_type')
         for field, value in data_dict.iteritems():
@@ -111,12 +123,12 @@ class Activity(models.Model):
                 f = open(filename)
                 image_field = getattr(new_activity, field)
                 file_name = path.splitext(filename.rpartition('/')[-1])[0]
-                suf = SimpleUploadedFile(file_name + extension, f.read(), content_type='image/' + extension)
-
-                image_field.save("%s.%s" % (file_name, extension), suf, save=False)
+                suf = SimpleUploadedFile(file_name + extension, f.read(),
+                                         content_type='image/' + extension)
+                image_field.save("%s.%s" % (file_name, extension), suf,
+                                 save=False)
                 # Remove temporal file. What about working on memory?
                 remove(filename)
-                
             elif isinstance(field_type, GeometryField):
                 value = json.loads(value)
                 if value['type'] == 'Polygon':
@@ -133,21 +145,16 @@ class Activity(models.Model):
                         points.append(new_point)
                     multipoint = MultiPoint(points)
                     setattr(new_activity, field, multipoint)
-
             elif isinstance(field_type, DateTimeField):
                 date = datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S")
                 setattr(new_activity, field, date)
-
             else:
                 setattr(new_activity, field, value)
-
         # Asign career fields
         new_activity.career = career
         new_activity.user = career.user
-
         # Save new instance
         new_activity.save()
-        
 
     def __unicode__(self):
         return u"%s (Level:%s, Order:%s)" % (self.name,
@@ -160,13 +167,12 @@ class Activity(models.Model):
                 sub_obj = getattr(self, sub)
                 if sub_obj:
                     return sub_obj.sub_activity_size()
-        print "WARNING: 0 sized activity"
         return 0
-
 
     def sub_activity_size(self):
         size = 0
-        fields = [f for f in self._meta.fields if not isinstance(f, ImageField)]
+        fields = [f for f in self._meta.fields
+                  if not isinstance(f, ImageField)]
         for field in fields:
             size += len(unicode(getattr(self, field.name)))
         return size
@@ -188,15 +194,13 @@ class Activity(models.Model):
                         f for f in sub_obj._meta.fields \
                         if f.name not in self.field_blacklist and \
                         f.name not in self.activity_subtypes]
-
                 activity = jsonify_fields(sub_obj, exportable_fields)
-
                 # Extra type meta field
                 activity["_type"] = sub
                 return activity
 
     class Meta:
-        verbose_name_plural = "Activities"
+        verbose_name_plural = _("Activities")
         ordering = ['level_type', 'level_order']
 
 
@@ -207,52 +211,96 @@ pre_delete.connect(timestamp_on_delete, sender=Activity)
 
 
 class Relational(Activity):
-    constraints = jsonfield.JSONField(default="[]")
-    graph_nodes = jsonfield.JSONField(default="{}")
-    graph_edges = jsonfield.JSONField(default="[]")
-    path_limit = models.IntegerField(default=10)
+    constraints = jsonfield.JSONField(_("constraints"),
+                                      default="[]",
+                                      help_text=_("Set of constraints that "
+                                                  "must be validated to "
+                                                  "pass the activity"))
+    graph_nodes = jsonfield.JSONField(_("nodes"), default="{}")
+    graph_edges = jsonfield.JSONField(_("relationships"), default="[]")
+    path_limit = models.IntegerField(_("Path limit"), default=10,
+                                     help_text=_("Max length allowed of the "
+                                                 "path to reach "
+                                                 "the ending node from the "
+                                                 "starting node"))
 
 
 class Visual(Activity):
-    image = models.ImageField(upload_to="images")
-    obfuscated_image = models.ImageField(upload_to="images", null=True,
-                                                            blank=True)
-    answers = jsonfield.JSONField(default="[]")
-    correct_answer = models.CharField(max_length=80)
-    time = models.CharField(max_length=10, help_text="Seconds")
+    image = models.ImageField(_("image"), upload_to="images")
+    obfuscated_image = models.ImageField(_("obfuscated image"),
+                                         upload_to="images",
+                                         null=True, blank=True,
+                                         help_text=_("This will be shwon "
+                                                     "after the time elapsed. "
+                                                     "if it is not provided, "
+                                                     "one will be generated"))
+    answers = jsonfield.JSONField(_("answers"), default="[]")
+    correct_answer = models.CharField(_("right answer"), max_length=80)
+    time = models.CharField(_("countdown time"), max_length=10,
+                            help_text=_("Expresed in seconds"))
 
 
 class Quiz(Activity):
-    image = models.ImageField(upload_to="images", null=True, blank=True)
-    obfuscated_image = models.ImageField(upload_to="images", null=True,
-                                                            blank=True)
-    answers = jsonfield.JSONField(default="[]")
-    correct_answer = models.CharField(max_length=80)
-    time = models.CharField(max_length=10, help_text="Seconds",
-            null=True, blank=True)
+    image = models.ImageField(_("image"), upload_to="images",
+                              null=True, blank=True,
+                              help_text=_("Optional image to show as tip"))
+    obfuscated_image = models.ImageField(_("obfuscated image"),
+                                         upload_to="images",
+                                         null=True, blank=True,
+                                         help_text=_("This will be shwon "
+                                                     "after the time elapsed. "
+                                                     "if it is not provided, "
+                                                     "one will be generated"))
+    answers = jsonfield.JSONField(_("possible answers"), default="[]",
+                                  help_text=_("Set of possible answers shown"))
+    correct_answer = models.CharField(_("right answer"), max_length=80)
+    time = models.CharField(_("countdown time"), max_length=10,
+                            null=True, blank=True,
+                            help_text=_("Optional time for countdown. "
+                                        "Expresed in seconds"))
 
     class Meta:
-        verbose_name_plural = "quizes"
+        verbose_name_plural = _("quizes")
 
 
 class Geospatial(Activity):
-    points = models.MultiPointField()
-    radius = models.FloatField(help_text="Meters")
-    area = models.PolygonField()
+    points = models.MultiPointField(_("points"),
+                                    help_text=_("Point or points in the World "
+                                                "to find"))
+    radius = models.FloatField(_("radius"),
+                               help_text=_("Expreseed in meters"))
+    area = models.PolygonField(_("are"),
+                               help_text=_("Define the boundaries to find "
+                                           "the point or points"))
     #overriding the default manager
     objects = models.GeoManager()
 
 
 class Temporal(Activity):
-    image = models.ImageField(upload_to="images") 
-    image_datetime = models.DateTimeField()
-    query_datetime = models.DateTimeField()
+    image = models.ImageField(_("image"), upload_to="images",
+                              help_text=_("Image to be recorded"))
+    image_datetime = models.DateTimeField(_("image date & time"),
+                                          help_text=_("This date and time "
+                                                      "will compared with the "
+                                                      "query date and time"))
+    query_datetime = models.DateTimeField(_("query date & time"),)
 
 
 class Linguistic(Activity):
-    locked_text = models.CharField(max_length=255)
-    image = models.ImageField(upload_to="images")
-    answer = models.CharField(max_length=255)
+    locked_text = models.CharField(_("locked text"), max_length=255,
+                                   help_text=_("This text will be unlocked "
+                                               "using the letters provided by" 
+                                               "the player. It will used as "
+                                               "a hint, unless it is equal to "
+                                               "the answer for the query"))
+    image = models.ImageField(_("image"), upload_to="images",
+                              help_text=_("Image for tip"))
+    answer = models.CharField(_("answer"), max_length=255,
+                              help_text=_("Answer to the query. If the answer "
+                                          "and the locked text are equal, the "
+                                          "activity will be considered passed "
+                                          "when the locked text will be "
+                                          "unlocked"))
 
     def save(self, *args, **kwargs):
         self.locked_text = self.locked_text.strip()
