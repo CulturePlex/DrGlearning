@@ -32,6 +32,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var pathStart, pathGoal, pathPosition;
         var option;
         var allConstraintsPassed = false;
+        var score = 20;
         
         var verboseOperator = {
             lt: "less than",
@@ -46,7 +47,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var graphNodes = newActivity.data.graph_nodes;
         var graphEdges = newActivity.data.graph_edges;
         var constraints = newActivity.data.constraints;
-        
         
         /** This function receives a nodeName and searches into edges
          * data for all the related nodes. It returns a Sencha field.Select
@@ -160,8 +160,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 playerPath.push(step);
                 if (graphNodes[pathPosition] !== undefined) {
                     if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
+                        score += parseInt(graphNodes[pathPosition].score,10);
                         Ext.Msg.alert(i18n.gettext('Congratulations!'), 'You get ' + graphNodes[pathPosition].score + ' points!', function ()
                         {
+                        
                         }, this);
                     }
                 }
@@ -341,7 +343,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                         gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
                     }
                 }
-                
             }
             if (option)
             {
@@ -377,24 +378,27 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         
         function getPathScore()
         {
-            var score = 0;
             var node;
+            var newScore;
             for (var i = 0; i < playerPath.length; i++) {
                 node = graphNodes[playerPath[i]];
                 if (node !== undefined) {
                     if (node.score !== undefined) {
-                        score += parseInt(node.score, 10);
+                        newScore = parseInt(node.score, 10);
                     }
                 }
             }
-            return score;
+            return newScore;
         }
         
         function successfulGame()
         {
-            this.puntos = 500;
+            if(score>100)
+            {
+                score=100;
+            }
             if (allConstraintsPassed) {
-                Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
+                Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + score, function ()
                 {
                     daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
                     activitiescontroller.nextActivity(newActivity.data.level_type);
