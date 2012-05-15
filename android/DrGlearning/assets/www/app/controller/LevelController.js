@@ -99,7 +99,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         var level = this.levelsStore.getAt(newLevel - 1);
         this.activitiesStore.sort('level_order');
         this.activitiesStore.clearFilter();
-        this.activitiesStore.filter('careerId',newCareer.data.id);
+        this.activitiesStore.filter({filterFn: function(item) { return item.data.careerId == newCareer.data.id; }});
         this.activitiesStore.filter({filterFn: function(item) { return item.data.level_type == newLevel; }});
         this.levelTitle.setTitle(newCareer.data.name);
         this.getLevelframe().show();
