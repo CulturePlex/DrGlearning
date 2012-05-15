@@ -129,6 +129,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 		Ext.getStore('Activities').sync();
                 		Ext.getStore('Activities').load();
                 		callback(scope);
+                		Ext.Viewport.setMasked(false);
 		    		}
                 },failure:function(){
                 	Ext.Viewport.setMasked(false);
