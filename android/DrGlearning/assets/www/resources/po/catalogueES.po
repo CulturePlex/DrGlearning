@@ -115,6 +115,18 @@ msgstr " ! Siguiente nivel: "
 msgid " level! It was the last Level, you have finished this career!" 
 msgstr " ! Era el último nivel. ¡Terminaste este curso!"
 
+msgid "Update course"
+msgstr "Update course"
+
+msgid "Uninstall course"
+msgstr "Uninstall course"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Check for course updates"
+msgstr "Check for course updates"
+
 # Settings
 
 msgid "Settings"

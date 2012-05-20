@@ -435,7 +435,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             if (allConstraintsPassed) {
                 Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + score, function ()
                 {
-                    daocontroller.activityPlayed(newActivity.data.id, true, this.puntos);
+                    daocontroller.activityPlayed(newActivity.data.id, true, score);
                     activitiescontroller.nextActivity(newActivity.data.level_type);
                 });
             }
