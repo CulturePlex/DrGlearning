@@ -50,6 +50,7 @@ Ext.application({
     models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User'],
     stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users'],
     autoCreateViewport : true,
+    requires: ['Ext.Anim'],
     launch: function () {
         "use strict";
         this.getController('LoadingController').onLaunch();

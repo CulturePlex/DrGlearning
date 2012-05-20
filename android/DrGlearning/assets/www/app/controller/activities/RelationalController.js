@@ -52,11 +52,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         /** This function receives a nodeName and searches into edges
          * data for all the related nodes. It returns a Sencha field.Select
          * object with all the options available */
-        function constraintFlash(index)
-        {
-            console.log(index);
-        }
-        
         function createSelectFromNode(nodeName)
         {
             var edge;
@@ -212,18 +207,22 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         }
         var constraintsTextNew = [];
         var constraintState = [];
+        var constraintBoolean = [];
         function getContraintsHTML()
         {
             var constraintClass;
             var icontype;
             var uitype;
             var oldStateTemp;
+            var temp;
+            var changed;
             allConstraintsPassed = true;
             activityView.down('toolbar[customId=constraintsbar]').removeAll();
             activityView.down('toolbar[customId=constraintsbar]').add({
                 xtype: 'spacer'
             });
             for (var i = 0; i < constraints.length; i++) {
+                changed = false;
                 constraintsTextNew[i] = "";
                 constraintState[i] = "";
                 
@@ -232,7 +231,13 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
                     uitype = 'confirm';
+                    console.log(constraintBoolean[i]);
+                    if(constraintBoolean[i] !== true && constraintBoolean[i]!== undefined)
+                    {
+                        changed=true;
+                    }
                     constraintState[i] = i18n.gettext('Constraint Passed');
+                    constraintBoolean[i] = true;
                 }
                 else {
                     setTimeout("console.log("+i+");",500);
@@ -240,53 +245,123 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     allConstraintsPassed = false;
                     icontype = 'delete';
                     uitype = 'decline';
+                    console.log(constraintBoolean[i]);
+                    if(constraintBoolean[i] !== false && constraintBoolean[i]!== undefined)
+                    {
+                        changed=true;
+                    }
                     constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
+                    constraintBoolean[i] = false;
                 }
                 constraintsTextNew[i] += i18n.gettext('The number of ');
                 constraintsTextNew[i] += constraints[i].type + ' should be ';
                 constraintsTextNew[i] += verboseOperator[constraints[i].operator] + ' ';
                 constraintsTextNew[i] += constraints[i].value;
-                activityView.down('toolbar[customId=constraintsbar]').add({
-                    xtype: 'button',
-                    iconCls: icontype,
-                    ui: uitype,
-                    customId: i,
-                    listeners: {
-                        tap: showConstraint
-                    }
-                });
+                /*
+                 * If state of constraint has changed button has animation fade
+                 */
+                if(changed===true)
+                {
+                    temp = {
+                        xtype: 'button',
+                        iconCls: icontype,
+                        ui: uitype,
+                        customId: i,
+                        listeners: {
+                            tap: showConstraint,
+                            painted: function()
+                                  {
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:0});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:1000});
+                                  }
+                        },
+                        
+                    };
+                }
+                else
+                {
+                    temp = {
+                        xtype: 'button',
+                        iconCls: icontype,
+                        ui: uitype,
+                        customId: i,
+                        listeners: {
+                            tap: showConstraint,
+                        },
+                        
+                    };
+                }
+                activityView.down('toolbar[customId=constraintsbar]').add(temp);
             }
             i++;
             if (path_limit > 0)
             {
+                changed = false;
                 constraintsTextNew[i] = "";
                 constraintState[i] = "";
                 if (playerPath.length <= path_limit) {
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
                     uitype = 'confirm';
+                    if(constraintBoolean[i] !== true)
+                    {
+                        changed=true;
+                    }
                     constraintState[i] = i18n.gettext('Constraint Passed');
+                    constraintBoolean[i] = true;
                 }
                 else {
                     constraintClass = "relational-constraints";
                     allConstraintsPassed = false;
                     icontype = 'delete';
                     uitype = 'decline';
+                    if(constraintBoolean[i] !== false)
+                    {
+                        changed=true;
+                    }
                     constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
+                    constraintBoolean[i] = false;
                 }
                 constraintsTextNew[i] += i18n.gettext('The number of ');
                 constraintsTextNew[i] += i18n.gettext('steps ') + ' should be ';
                 constraintsTextNew[i] += i18n.gettext('less than') + ' ' + path_limit;
-                activityView.down('toolbar[customId=constraintsbar]').add({
-                    xtype: 'button',
-                    iconCls: icontype,
-                    ui: uitype,
-                    customId: i,
-                    listeners: {
-                        tap: showConstraint
-                    }
-                });
-            
+                /*
+                 * If state of constraint has changed button has animation fade
+                 */
+                if(changed===true)
+                {
+                    temp = {
+                        xtype: 'button',
+                        iconCls: icontype,
+                        ui: uitype,
+                        customId: i,
+                        listeners: {
+                            tap: showConstraint,
+                            painted: function()
+                                  {
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:0});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500});
+                                  }
+                        },
+                        
+                    };
+                }
+                else
+                {
+                    temp = {
+                        xtype: 'button',
+                        iconCls: icontype,
+                        ui: uitype,
+                        customId: i,
+                        listeners: {
+                            tap: showConstraint,
+                        },
+                        
+                    };
+                }
+                activityView.down('toolbar[customId=constraintsbar]').add(temp);
             }
             
             activityView.down('toolbar[customId=constraintsbar]').add({
