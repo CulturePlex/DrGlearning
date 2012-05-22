@@ -116,6 +116,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                    		console.log("Careers stored "+careersStore.getCount());
 	                    		if(careersStore.findExact('id',parseInt(career.id))==-1){
 	                    			console.log("New Career found -> id="+career.id);
+	                    			console.log(career);
 	                    			var careerModel=new DrGlearning.model.Career({
 	                    					id : career.id,
 	                        				negative_votes : career.negative_votes,
@@ -129,7 +130,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                        				installed : false,
 	                    					started : false,
 	                    					update : false,
-	                    					size: career.size
+	                    					size: career.size,
+	                    					career_type: career.career_type
 	                    			});
 	                    			var activities=new Array();
 	                    			for(cont in career.activities){
