@@ -185,6 +185,8 @@ Ext.define('DrGlearning.controller.LevelController', {
                 this.getLevelframe().hide();
                 this.getActivityframe().hide();
                 if (currentLevel != -1) {
+                    this.careersListController.updateLevelsState();
+                    this.careerController.updateCareer(this.careerController.selectedCareer);
                     this.shareScores( i18n.gettext('You have complete the ') + prevLevelString +  i18n.gettext(' level! Next Level: ') + currentLevelString );
                 }
                 else {

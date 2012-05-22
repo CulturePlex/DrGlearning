@@ -109,21 +109,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var numberOfUpdates = this.careersStore.getCount();
         this.careersStore.clearFilter();
         this.careersStore.filter("installed", true);
-        // Updating levels in career models
-        for (var index in this.careersStore.getData().items) 
-        {
-            if (this.careersStore.getAt(index).data.installed) 
-            {
-                var levelstemp = [];
-                levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
-                for (var i = 0; i < levelstemp.length; i++) {
-                    this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
-                    if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
-                        this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
-                    }
-                }
-            }
-        }
+        this.updateLevelsState();
         
         // Indexing list
         
@@ -159,6 +145,54 @@ Ext.define('DrGlearning.controller.CareersListController', {
         }
         
     },
+    
+    // Updating levels in career models
+    updateLevelsState: function ()
+    {
+        for (var index in this.careersStore.getData().items) 
+        {
+            if (this.careersStore.getAt(index).data.installed) 
+            {
+                var levelstemp = [];
+                levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
+                //If Exam Career, Else -> Explore Career
+                if (this.careersStore.getAt(index).data["career_type"] === "exam")
+                {
+                    // nestLevelFound is an integer variable to save if is the first level allowed or anything else
+                    var nextLevelFound = 0;
+                    for (var i = 0; i < levelstemp.length; i++) {
+                        nextLevelFound--;
+                        if (nextLevelFound < 1)
+                        {
+                            this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "notallowed";
+                        }
+                        if (i === 0 && !this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data))
+                        {
+                        this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
+                        console.log('hola');
+                        nextLevelFound = 1;
+                        }
+                        if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
+                            this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
+                            console.log(this.getLevelName(levelstemp[i] - 1));
+                            console.log(this.getLevelName(levelstemp[i+1] -1));
+                            this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i+1] - 1)] = "exists";
+                            nextLevelFound = 2;
+                        }
+                    }
+                }else
+                {
+                    for (var i = 0; i < levelstemp.length; i++) {
+                        this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
+                        if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
+                            this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
+                        }
+                    }
+                }
+            }
+        }
+    },
+    
     toCareersFromSettings: function ()
     {
         localStorage.selectedcareer = 0;

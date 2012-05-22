@@ -47,7 +47,7 @@ Ext.define('DrGlearning.model.Career', {
             name : "career_type",
             type : "string"
         },
-        //A string field for eachlevel, "exists" means exists but not successed and "successed" means exists and successed
+        //A string field for eachlevel, "exists" means exists but not successed and allowed, and "successed" means exists and successed, "notallowed" means not allowed (for exam careers)
         {
             name: "illetratum",
             type: "string",
