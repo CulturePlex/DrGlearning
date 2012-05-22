@@ -43,7 +43,7 @@ Ext.define('DrGlearning.view.CareersList', {
 				        	'</tpl>',
 						'</tpl>',
 						'<tpl if= "installed == false">',
-				       		'<img hspace="2" vertical-align= "middle" height="25" src="resources/images/plus.png">',
+				       		'<img hspace="2" class = "installIcon" vertical-align= "middle" height="25" src="resources/images/plus.png">',
 				        '</tpl>',
 					'</div>',
 				'</div>',

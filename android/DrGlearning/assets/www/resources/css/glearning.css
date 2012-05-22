@@ -40,6 +40,14 @@ height: 90%;
 vertical-align: middle;
 }
 
+.installIcon {
+margin-top: 8px;
+float: left;
+height: 32px;
+vertical-align: middle;
+margin-left: 8px;
+}
+
 
 .x-button-label{
 	white-space:normal;

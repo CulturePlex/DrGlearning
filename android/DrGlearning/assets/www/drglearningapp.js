@@ -36,7 +36,7 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'DrGlearning',
-    views: ['Loading', 'CareerFrame', 'CareersListEmpty', 'Main', 'LevelFrame',
+    views: ['Loading', 'CareerFrame','Main', 'LevelFrame',
             'CareersList', 'ActivityFrame', 'activities.Geospatial',
             'activities.Visual', 'activities.Linguistic', 'activities.Temporal',
             'activities.Relational', 'activities.Quiz', 'Settings'],

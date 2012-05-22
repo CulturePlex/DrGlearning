@@ -85,7 +85,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
             }]
         
         },{
-            xtype: 'careerslistempty',
+            xtype: 'panel',
             layout: 'vbox',
             items:[{xtype:'spacer'},
                     {xtype:'container',
