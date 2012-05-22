@@ -122,6 +122,10 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     
         if (event.target.textContent === this.activity.data.correct_answer) 
         {
+            if(this.score < 20)
+            {
+                this.score = 20;
+            }
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
             {
                 this.optionsContainer.down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm');

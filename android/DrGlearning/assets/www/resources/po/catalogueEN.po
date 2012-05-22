@@ -127,7 +127,16 @@ msgid "Check for course updates"
 msgstr "Check for course updates"
 
 msgid "Level Locked"
+msgstr "Level Locked"
+
+msgid "You cant play this level until you complete every previous one"
 msgstr "You cant play this level until you complete every previous one"
+
+msgid "Exam Modality"
+msgstr "Exam Modality"
+
+msgid "In Exam Modality Courses you should complete each level before you can play the next one."
+msgstr "In Exam Modality Courses you should complete each level before you can play the next one."
 
 # Settings
 

@@ -33,6 +33,14 @@ img.tick{
 	
 }
 
+.examIcon {
+margin-top: 8px;
+float: left;
+height: 90%;
+vertical-align: middle;
+}
+
+
 .x-button-label{
 	white-space:normal;
 }

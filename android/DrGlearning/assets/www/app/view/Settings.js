@@ -2,7 +2,9 @@ Ext.define('DrGlearning.view.Settings', {
 	extend : 'Ext.Container',
 	xtype : 'settings',
 config: {
+
     	fullscreen: true,
+    	
         items: [
             {
             xtype: 'toolbar',

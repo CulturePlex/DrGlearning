@@ -16,8 +16,6 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
 		var userStore = Ext.getStore('Users');
 		userStore.load();
 		var view = this.getSettings();
-		console.log('Settings');
-		console.log(view);
 		if (!view) {
 			view = Ext.create('DrGlearning.view.Settings');
 		}

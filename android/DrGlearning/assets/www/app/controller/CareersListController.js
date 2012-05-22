@@ -315,9 +315,16 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     actionSheet.show();
                 }
                 else {
-                    this.getApplication().getController('CareerController').updateCareer(career);
-                    localStorage.selectedcareer = career.data.id;
-                    this.getCareersframe().hide();
+                    if(e !== undefined && e.touch.target.id === "examInfo")
+                    {
+                        Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality Courses you should complete each level before you can play the next one.'), function(){
+            }, this);
+                    }else
+                    {
+                        this.getApplication().getController('CareerController').updateCareer(career);
+                        localStorage.selectedcareer = career.data.id;
+                        this.getCareersframe().hide();
+                    }
                 }
         }
     },
