@@ -275,6 +275,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                                       Ext.Anim.run(this, 'fade', {out:false, duration:500});
                                       Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:500});
                                       Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:1000});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:1500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:2000});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:2500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:3000});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:3500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:4000});
                                   }
                         },
                         
@@ -305,7 +311,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
                     uitype = 'confirm';
-                    if(constraintBoolean[i] !== true)
+                    if(constraintBoolean[i] === false)
                     {
                         changed=true;
                     }
@@ -317,7 +323,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     allConstraintsPassed = false;
                     icontype = 'delete';
                     uitype = 'decline';
-                    if(constraintBoolean[i] !== false)
+                    if(constraintBoolean[i] === true)
                     {
                         changed=true;
                     }
@@ -343,6 +349,14 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                                   {
                                       Ext.Anim.run(this, 'fade', {out:true, duration:0});
                                       Ext.Anim.run(this, 'fade', {out:false, duration:500});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:1000});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:1500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:2000});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:2500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:3000});
+                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:3500});
+                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:4000});
                                   }
                         },
                         
