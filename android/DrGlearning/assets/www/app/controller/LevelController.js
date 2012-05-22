@@ -39,6 +39,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         this.activitieslist= this.getLevelframe().down('list[customId=activitiesList]');
         this.levelTitle = this.getLevelframe().down('title[id=title]');
         this.activityTitle = this.getActivityframe().down('title[customId=title]');
+        this.careerFrame = 
         
         this.control({
             'button[id=help]': {
@@ -75,36 +76,45 @@ Ext.define('DrGlearning.controller.LevelController', {
      * Updating and Showing Level view.
      */
     updateLevel: function(newCareer, newLevel){
-        Ext.Viewport.setMasked({
-            xtype: 'loadmask',
-            message: i18n.gettext('Loading level...'),
-            indicator: true
-            //html: "<img src='resources/images/activity_icons/visual.png'>",
-        });
-
-        this.selectedlevel = newLevel;
-        this.getLevelframe().setListeners( {
-                painted: function(){
-                    Ext.Viewport.setMasked(false);
-                }
-            });
-        var filesImgs=["iletratumB.png","primaryB.png","secondaryB.png","highschoolB.png","collegeB.png","masterB.png","PhDB.png","post-docB.png","professorB.png","emeritusB.png"];
-        this.activitieslist.setStyle( {
-                        backgroundImage: 'url(resources/images/level_icons/'+filesImgs[newLevel-1]+')',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
-                        backgroundFilter: 'alpha(opacity=60)'
-            });
-        this.activitieslist.refresh();
         var level = this.levelsStore.getAt(newLevel - 1);
-        this.activitiesStore.sort('level_order');
-        this.activitiesStore.clearFilter();
-        this.activitiesStore.filter({filterFn: function(item) { return item.data.careerId == newCareer.data.id; }});
-        this.activitiesStore.filter({filterFn: function(item) { return item.data.level_type == newLevel; }});
-        this.levelTitle.setTitle(newCareer.data.name);
-        this.getLevelframe().show();
-        if (typeof(MathJax) !== "undefined") {
-            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        if (newCareer.data[level.data.name.toLowerCase()] === "exists" || newCareer.data[level.data.name.toLowerCase()] === "successed")
+        {
+            this.careerController.careerFrame.hide();
+            Ext.Viewport.setMasked({
+                xtype: 'loadmask',
+                message: i18n.gettext('Loading level...'),
+                indicator: true
+                //html: "<img src='resources/images/activity_icons/visual.png'>",
+            });
+
+            this.selectedlevel = newLevel;
+            this.getLevelframe().setListeners( {
+                    painted: function(){
+                        Ext.Viewport.setMasked(false);
+                    }
+                });
+            var filesImgs=["iletratumB.png","primaryB.png","secondaryB.png","highschoolB.png","collegeB.png","masterB.png","PhDB.png","post-docB.png","professorB.png","emeritusB.png"];
+            this.activitieslist.setStyle( {
+                            backgroundImage: 'url(resources/images/level_icons/'+filesImgs[newLevel-1]+')',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            backgroundFilter: 'alpha(opacity=60)'
+                });
+            this.activitieslist.refresh();
+            this.activitiesStore.sort('level_order');
+            this.activitiesStore.clearFilter();
+            this.activitiesStore.filter({filterFn: function(item) { return item.data.careerId == newCareer.data.id; }});
+            this.activitiesStore.filter({filterFn: function(item) { return item.data.level_type == newLevel; }});
+            this.levelTitle.setTitle(newCareer.data.name);
+            this.getLevelframe().show();
+            if (typeof(MathJax) !== "undefined") {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+            }
+        }
+        else
+        {
+            Ext.Msg.alert(i18n.gettext('Level Locked'), i18n.gettext('You cant play this level until you complete every previous one'), function(){
+            }, this);
         }
     },
     /*

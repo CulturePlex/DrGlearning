@@ -122,18 +122,15 @@ Ext.define('DrGlearning.controller.CareerController', {
      * Start a Level.
      */
     startLevel: function(){
-        Ext.Viewport.setMasked({
+        /*Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Loading level...',
             indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
-        });
+        });*/
         var view1 = this.careerFrame;
         var detail = view1.down('careerdetail');
         var levelscarousel = detail.down('carousel');
         this.levelController.updateLevel(this.careersListController.selectedcareer, this.daoController.getLevels(this.careersListController.selectedcareer.data.id)[levelscarousel.getActiveIndex()]);
-        if (this.careerFrame) {
-            this.careerFrame.hide();
-        }
     }
 });

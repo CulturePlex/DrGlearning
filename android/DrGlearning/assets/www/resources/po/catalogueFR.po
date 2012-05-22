@@ -90,6 +90,12 @@ msgstr " ! Prochain niveau : "
 msgid " level! It was the last Level, you have finished this career!" 
 msgstr " ! C´était le dernier niveau, vous avez fini ce cours!"
 
+msgid "Level Locked"
+msgstr "Level Locked"
+
+msgid "You cant play this level until you complete every previous one"
+msgstr "You cant play this level until you complete every previous one"
+
 # Settings
 
 msgid "Settings"
