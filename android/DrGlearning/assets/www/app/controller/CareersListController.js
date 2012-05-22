@@ -214,6 +214,13 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.selectedcareer = career;
         if (career.data.installed === false) 
         {
+            if(e !== undefined && e.touch.target.id === "examInfo")
+            {
+                Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality Courses you should complete each level before you can play the next one.'), function(){
+                }, this);
+            }
+            else
+            {
             if (!this.globalSettingsController.hasNetwork()) {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
             }
@@ -232,7 +239,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     }
                 }, this);
             }
-            
+            }
         }
         else {
             this.career = career;

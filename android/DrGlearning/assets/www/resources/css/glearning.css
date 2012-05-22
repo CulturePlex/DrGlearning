@@ -34,21 +34,24 @@ img.tick{
 }
 
 .examIcon {
-margin-top: 8px;
-float: left;
-height: 90%;
-vertical-align: middle;
+    margin-top: 12px;
+    float: left;
+    vertical-align: middle;
+}
+
+.configIcon {
+    margin-top: 8px;
+    float: right;
+    width: 42px;
+    vertical-align: middle;
 }
 
 .installIcon {
-margin-top: 8px;
-float: left;
-height: 32px;
+margin-top: 12px;
+float: right;
+width: 34px;
 vertical-align: middle;
-margin-left: 8px;
 }
-
-
 .x-button-label{
 	white-space:normal;
 }
