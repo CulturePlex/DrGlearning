@@ -233,7 +233,7 @@ Ext.define('DrGlearning.controller.LevelController', {
                     
                     centered:true,
                     
-                    html: '<p>'+text+'</p>' + '<p> You got 78 points! </p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.drglearning.com" data-text="Hey i got points in Dr. Glearning!" data-via="drglearning" data-size="large" data-count="none">Tweet</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>',//+
+                    html: '<p>'+text+'</p>' + '<p> You got 78 points! </p><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.drglearning.com" data-text="Hey i got points in Dr. Glearning!" data-via="drglearning" data-size="large" data-count="none">Tweet it!</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script><p><a>Share it in Facebook!</a></p>',//+
                     //'<iframe src="http://www.facebook.com/plugins/like.php?href=YOUR_URL" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px"></iframe>'
                     // Make it hidden by default
                     hidden: true,
