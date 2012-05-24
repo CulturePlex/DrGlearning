@@ -108,16 +108,27 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         for (var i = 0; i < this.answers.length; i++) {
             if (this.answers[i].trim() === this.activity.data.correct_answer)
             {
-                console.log('hola');
-                this.correctAnswerId = i;
+                this.timeContainer.add({
+                    xtype: 'button',
+                    text: this.answers[i].trim(),
+                    margin: 3,
+                    customId: 'respuestaQuiz',
+                    answerNo: i+1,
+                    correctAnswer: true
+                });
+                this.correctAnswerId = i+1;
+            }else
+            {
+                console.log(this.answers[i].trim());
+                console.log(i);
+                this.timeContainer.add({
+                    xtype: 'button',
+                    text: this.answers[i].trim(),
+                    margin: 3,
+                    customId: 'respuestaQuiz',
+                    answerNo: i+1
+                });
             }
-            this.timeContainer.add({
-                xtype: 'button',
-                text: this.answers[i].trim(),
-                margin: 3,
-                customId: 'respuestaQuiz',
-                answerNo: i
-            });
         }
         this.timeLabel.setHtml("");
         this.activityView.add(options);
@@ -133,7 +144,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.puntos = 100;
         if (target.config.answerNo === this.correctAnswerId) 
         {
-            this.timeContainer.down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm');
+            this.timeContainer.down('button[correctAnswer=true]').setUi('confirm');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
@@ -141,7 +152,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }, this);
         }
         else {
-            this.timeContainer.down('button[text=' + target.config.text + ']').setUi('decline');
+        console.log(target.config.answerNo);
+            this.timeContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
                 this.levelController.tolevel();

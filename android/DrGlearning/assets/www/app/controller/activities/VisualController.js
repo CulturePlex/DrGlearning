@@ -103,28 +103,42 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         this.activityView.down('button[customId=skip]').hide();
         this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
         for (var i = 0; i < this.answers.length; i++) {
-            this.optionsContainer.add({
-                xtype: 'button',
-                text: this.answers[i].trim(),
-                margin: 3,
-                customId: 'respuesta'
-            });
-            console.log(this.answers[i].trim());
+        if (this.answers[i].trim() === this.activity.data.correct_answer)
+            {
+                this.optionsContainer.add({
+                    xtype: 'button',
+                    text: this.answers[i].trim(),
+                    margin: 3,
+                    customId: 'respuesta',
+                    answerNo: i+1,
+                    correctAnswer: true
+                });
+                this.correctAnswerId = i+1;
+            }else
+            {
+                this.optionsContainer.add({
+                    xtype: 'button',
+                    text: this.answers[i].trim(),
+                    margin: 3,
+                    customId: 'respuesta',
+                    answerNo: i+1,
+                });
+                console.log(this.answers[i].trim());
+            }
         }
         this.imageContainer.hide();
         this.optionsContainer.show();
         this.obImageContainer.show();
     },
-    tryIt: function ()
+    tryIt: function (target)
     {
-        console.log(event.target.textContent);
-        if (event.target.textContent === this.activity.data.correct_answer) 
+        if (target.config.answerNo === this.correctAnswerId) 
         {
             if(this.score < 20)
             {
                 this.score = 20;
             }
-            this.optionsContainer.down('button[text=' + event.target.textContent + ']').setUi('confirm');
+            this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
@@ -132,7 +146,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             }, this);
         }
         else {
-            this.optionsContainer.down('button[text=' + event.target.textContent + ']').setUi('decline');
+            this.optionsContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
                 this.levelController.tolevel();
