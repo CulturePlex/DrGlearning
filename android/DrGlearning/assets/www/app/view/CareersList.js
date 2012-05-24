@@ -41,7 +41,7 @@ Ext.define('DrGlearning.view.CareersList', {
 				       		'<img class = "configIcon" id="uninstall" src="resources/images/settings.png">',
 							'</tpl>',
 				        	'<tpl if= "update == true">',
-				        	'<img hspace="2" vertical-align= "middle" id="update" height="45" src="resources/images/settingsU.png">',
+				        	'<img class = "configIcon" "middle" id="update" src="resources/images/settingsU.png">',
 				        	'</tpl>',
 						'</tpl>',
 						'<tpl if= "installed == false">',
