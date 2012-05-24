@@ -106,13 +106,14 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             }
         };
         for (var i = 0; i < this.answers.length; i++) {
-            if (this.answers[i] === this.activity.data.correct_answer)
+            if (this.answers[i].trim() === this.activity.data.correct_answer)
             {
+                console.log('hola');
                 this.correctAnswerId = i;
             }
             this.timeContainer.add({
                 xtype: 'button',
-                text: this.answers[i],
+                text: this.answers[i].trim(),
                 margin: 3,
                 customId: 'respuestaQuiz',
                 answerNo: i

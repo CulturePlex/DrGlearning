@@ -105,30 +105,28 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         for (var i = 0; i < this.answers.length; i++) {
             this.optionsContainer.add({
                 xtype: 'button',
-                text: this.answers[i],
+                text: this.answers[i].trim(),
                 margin: 3,
                 customId: 'respuesta'
             });
+            console.log(this.answers[i].trim());
         }
-        //var newImg = new Image();
-        //newImg.src = this.activity.getImageSrc
-        //var widthTemp=var newImg = new Image();
         this.imageContainer.hide();
         this.optionsContainer.show();
         this.obImageContainer.show();
     },
     tryIt: function ()
     {
-    
+        console.log(event.target.textContent);
         if (event.target.textContent === this.activity.data.correct_answer) 
         {
             if(this.score < 20)
             {
                 this.score = 20;
             }
+            this.optionsContainer.down('button[text=' + event.target.textContent + ']').setUi('confirm');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
             {
-                this.optionsContainer.down('button[text=' + this.activity.data.correct_answer + ']').setUi('confirm');
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                 this.levelController.nextActivity(this.activity.data.level_type);
             }, this);
