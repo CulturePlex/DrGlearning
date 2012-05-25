@@ -11,11 +11,11 @@ Ext.define('DrGlearning.controller.DaoController', {
         
     },
     
-    onLaunch: function() {
-        
+    launch: function() {
+        this.careersStore = Ext.getStore('Careers');
     },
     getInstalled: function() {
-        return Ext.getStore('Carrers').findExact('installed',true);
+        return this.careersStore.findExact('installed',true);
     },
     installCareer: function(id,callback,scope) {
         Ext.Viewport.setMasked({
@@ -23,7 +23,7 @@ Ext.define('DrGlearning.controller.DaoController', {
             message: 'Installing course...',
                 indicator: true
         });
-        var career=Ext.getStore('Careers').getById(id);
+        var career=this.careersStore.getById(id);
         if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
             Ext.Viewport.setMasked(false);
             Ext.Msg.alert(i18n.gettext('Problem finded'), i18n.gettext('Unable to install this carrer, delete some installed careers.'), Ext.emptyFn);
@@ -122,7 +122,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                         for(cont in activitiesToInstall){
                             activitiesToInstall[cont].save();
                         }
-                        var career=Ext.getStore('Careers').getById(id);
+                        var career=this.careersStore.getById(id);
                         career.set('installed',true);
                         career.save();
                         localStorage.actualSize=parseInt(localStorage.actualSize)+career.data.size;
@@ -188,7 +188,7 @@ Ext.define('DrGlearning.controller.DaoController', {
     },
     getknowledgesFields:function(){
         var knowledges=new Array();
-        var career=Ext.getStore('Careers');
+        var career=this.careersStore;
         console.log(career);
         career.clearFilter();
         console.log("Careers finded: "+career.getCount());
@@ -213,7 +213,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         return knowledges;
     },
     getCarresByKnowledge:function(Knowledge){
-        var carrers=Ext.getStore('Carrers').queryBy(function(record) {
+        var carrers=this.careersStore.queryBy(function(record) {
             var knowledges=record.data.knowledges;
             for(x in knowledges){
                 if(knowledges[x]==Knowledge){
@@ -227,7 +227,6 @@ Ext.define('DrGlearning.controller.DaoController', {
     activityPlayed:function(activityID,successful,score){
     
         //console.log('Peticion de jugada!!!!!');
-        var carrersStore=Ext.getStore('Careers');
         var activitiesStore=Ext.getStore('Activities');
         var activity=activitiesStore.getById(activityID);
         if(successful){
@@ -251,7 +250,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         activity.data.played=true;
         activity.save();
         //Make carrer started if needed
-        var carrer=Ext.getStore('Careers').getById(activity.data.careerId);
+        var carrer=this.careersStore.getById(activity.data.careerId);
         //console.log('Necesita actualizar la carrera?');
         //console.log(carrer.data.started);
         if(!carrer.data.started){
@@ -378,7 +377,7 @@ Ext.define('DrGlearning.controller.DaoController', {
     updateCareer:function(careerID,callback,scope){
         console.log("Updating career "+careerID);
         if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
-            var careersStore=Ext.getStore('Careers');
+            var careersStore=this.careersStore;
             var activityStore=Ext.getStore('Activities');
             var career=careersStore.getById(careerID);
             var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
@@ -529,7 +528,7 @@ Ext.define('DrGlearning.controller.DaoController', {
       }
     },
     deleteCareer:function(careerID){
-        var careersStore=Ext.getStore('Careers');
+        var careersStore=this.careersStore;
         var activityStore=Ext.getStore('Activities');
         console.log(careerID);
         var career=careersStore.getById(careerID);
