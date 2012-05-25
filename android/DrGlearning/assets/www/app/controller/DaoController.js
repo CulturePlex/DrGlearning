@@ -5,18 +5,16 @@
 
 Ext.define('DrGlearning.controller.DaoController', {
     extend: 'Ext.app.Controller',
-    requires: ['DrGlearning.controller.GlobalSettingsController'],
-    
-    init: function(){
-        
-    },
-    
-    launch: function() {
+
+    init: function() {
+        this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
         this.careersStore = Ext.getStore('Careers');
     },
+
     getInstalled: function() {
         return this.careersStore.findExact('installed',true);
     },
+
     installCareer: function(id,callback,scope) {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
@@ -31,12 +29,11 @@ Ext.define('DrGlearning.controller.DaoController', {
         }
         var activities=career.data.activities;
         
-        
         var activitiesInstalled=0;
         for (cont in activities){
             var activitiesToInstall=new Array();
             var size=0;
-            var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+            var HOST = this.globalSettingsController.getServerURL();
             Ext.data.JsonP.request({
                 scope: this,
                 url: HOST+'/'+activities[cont]+'?format=jsonp',
@@ -263,8 +260,8 @@ Ext.define('DrGlearning.controller.DaoController', {
         var offlineScoreStore=Ext.getStore('OfflineScores');
         var usersStore = Ext.getStore('Users');
         var user=usersStore.getAt(0);
-        var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
-        if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
+        var HOST = this.globalSettingsController.getServerURL();
+        if(this.globalSettingsController.hasNetwork()){
             Ext.data.JsonP.request({
                 scope: this,
                 url: HOST+"/api/v1/highscore/?format=jsonp",
@@ -340,7 +337,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         var offlineScoreStore=Ext.getStore('OfflineScores');
         var usersStore = Ext.getStore('Users');
         var user=usersStore.getAt(0);
-        var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+        var HOST = this.globalSettingsController.getServerURL();
         offlineScoreStore.each(function(item) {
             Ext.data.JsonP.request({
                 scope: this,
@@ -376,11 +373,11 @@ Ext.define('DrGlearning.controller.DaoController', {
     },
     updateCareer:function(careerID,callback,scope){
         console.log("Updating career "+careerID);
-        if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
+        if(this.globalSettingsController.hasNetwork()){
             var careersStore=this.careersStore;
             var activityStore=Ext.getStore('Activities');
             var career=careersStore.getById(careerID);
-            var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+            var HOST = this.globalSettingsController.getServerURL();
                 //Career request
                 Ext.data.JsonP.request({
                     url: HOST+'/api/v1/career/'+careerID+'/?format=jsonp',
@@ -403,7 +400,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                         var activitiesOld=activityStore.queryBy(function(record) {
                             return record.data.careerId==careerID;
                         });
-                        var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+                        var HOST = this.globalSettingsController.getServerURL();
                         var activitiesID=new Array();
                         for (cont in activities){
                             Ext.data.JsonP.request({
