@@ -156,7 +156,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 var levelstemp = [];
                 levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
                 //If Exam Career, Else -> Explore Career
-                if (this.careersStore.getAt(index).data["career_type"] === "exam")
+                if (this.careersStore.getAt(index).data.career_type === "exam")
                 {
                     // nestLevelFound is an integer variable to save if is the first level allowed or anything else
                     var nextLevelFound = 0;
@@ -182,17 +182,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     }
                 }else
                 {
-                    console.log("carrera: ");
-                    console.log(this.careersStore.getAt(index));
-                    console.log("niveles: ");
-                    console.log(levelstemp);
-                    
-                    
-                    for (var i = 0; i < levelstemp.length; i++) {
-                    console.log(this.getLevelName(levelstemp[i] - 1));
-                        this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
-                        if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
-                            this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
+                    for (var j = 0; j < levelstemp.length; j++) {
+                    console.log(this.getLevelName(levelstemp[j] - 1));
+                        this.careersStore.getAt(index).data[this.getLevelName(levelstemp[j] - 1)] = "exists";
+                        if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[j] - 1).data)) {
+                            this.careersStore.getAt(index).data[this.getLevelName(levelstemp[j] - 1)] = "successed";
                         }
                     }
                 }
@@ -451,7 +445,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.careersStore.filter("installed", true);
         this.careersStore.filter("update", true);
         this.updatesLeft=this.careersStore.getCount();
-        console.log(this.careersStore.getCount());
         Ext.Viewport.setMasked({
              xtype: 'loadmask',
              message: i18n.gettext('Updating Courses...'),
