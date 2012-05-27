@@ -77,6 +77,7 @@ Ext.define('DrGlearning.controller.LevelController', {
      */
     updateLevel: function(newCareer, newLevel){
         var level = this.levelsStore.getAt(newLevel - 1);
+        console.log(level.data.name.toLowerCase().split(' ').join(''));
         if (newCareer.data[level.data.name.toLowerCase()] === "exists" || newCareer.data[level.data.name.toLowerCase()] === "successed")
         {
             this.careerController.careerFrame.hide();
@@ -113,6 +114,8 @@ Ext.define('DrGlearning.controller.LevelController', {
         }
         else
         {
+            console.log(newCareer.data[level.data.name.toLowerCase()]);
+            console.log(newCareer.data[level.data.name.toLowerCase()]);
             Ext.Msg.alert(i18n.gettext('Level Locked'), i18n.gettext('You cant play this level until you complete every previous one'), function(){
             }, this);
         }

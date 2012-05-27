@@ -182,7 +182,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     }
                 }else
                 {
+                    console.log("carrera: ");
+                    console.log(this.careersStore.getAt(index));
+                    console.log("niveles: ");
+                    console.log(levelstemp);
+                    
+                    
                     for (var i = 0; i < levelstemp.length; i++) {
+                    console.log(this.getLevelName(levelstemp[i] - 1));
                         this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
                         if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
                             this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
@@ -202,7 +209,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     //getting the string name of a level giving its index
     getLevelName: function (index)
     {
-        var levelStrings = ["illetratum", "primary", "secondary", "highschool", "college", "master", "phd", "postdoc", "professor", "emeritus"];
+        var levelStrings = ["illetratum", "primary", "secondary", "high school", "college", "master", "phd", "post-doc", "professor", "emeritus"];
         return levelStrings[index];
     },
 
