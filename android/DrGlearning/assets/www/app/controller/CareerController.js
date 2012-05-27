@@ -90,7 +90,7 @@ Ext.define('DrGlearning.controller.CareerController', {
      */
     updateCareer: function (newCareer)
 	{
-	    this.daoController.updateOfflineScores();
+	    //this.daoController.updateOfflineScores();
 	    this.selectedCareer = newCareer;
         var view = this.careerFrame;
         var detail = view.down('careerdetail');

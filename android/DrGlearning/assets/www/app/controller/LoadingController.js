@@ -174,7 +174,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    			//Ext.Viewport.setMasked(false);
 		    	  	//console.log();
 		    	  	//console.log("Listo1");
-	    			this.getApplication().getController('DaoController').updateOfflineScores();
+	    			//this.getApplication().getController('DaoController').updateOfflineScores();
 	    			
 	      }else{
 	    	  	//Ext.Viewport.setMasked(false);
