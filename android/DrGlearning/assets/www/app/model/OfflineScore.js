@@ -24,6 +24,9 @@ Ext.define('DrGlearning.model.OfflineScore', {
 		}, {
 			name : "score",
 			type : "string"
+		}, {
+			name : "timestamp",
+			type : "string"
 		} ],
 		proxy : {
 			type : 'localstorage',

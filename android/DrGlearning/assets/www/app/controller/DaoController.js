@@ -222,7 +222,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         return carrers;
     },
     activityPlayed:function(activityID,successful,score){
-    
+        this.updateScore(activityID,score,new Date().getTime());
         //console.log('Peticion de jugada!!!!!');
         var activitiesStore=Ext.getStore('Activities');
         var activity=activitiesStore.getById(activityID);
@@ -230,8 +230,6 @@ Ext.define('DrGlearning.controller.DaoController', {
             if(activity.data.successful){
                 if(activity.data.score<parseInt(score)){
                     activity.data.score=parseInt(score);
-                    this.updateScore(activityID,score);
-                    console.log('jajaja');
                 }
             }else{
                 activity.data.score=parseInt(score);
@@ -248,27 +246,25 @@ Ext.define('DrGlearning.controller.DaoController', {
         activity.save();
         //Make carrer started if needed
         var carrer=this.careersStore.getById(activity.data.careerId);
-        //console.log('Necesita actualizar la carrera?');
-        //console.log(carrer.data.started);
         if(!carrer.data.started){
-            console.log('Marcando como empezada!! '+activity.data.careerId);
             carrer.data.started=true;
             carrer.save();
         }
     },
-    updateScore:function(activityID,score){
+    updateScore:function(activityID,score,timestamp){
         var offlineScoreStore=Ext.getStore('OfflineScores');
         var usersStore = Ext.getStore('Users');
         var user=usersStore.getAt(0);
         var HOST = this.globalSettingsController.getServerURL();
-        if(this.globalSettingsController.hasNetwork()){
+        /*if(this.globalSettingsController.hasNetwork()){
             Ext.data.JsonP.request({
                 scope: this,
                 url: HOST+"/api/v1/highscore/?format=jsonp",
                 params: {
                     player_code: user.data.uniqueid,
                     activity_id: activityID,
-                    score: score
+                    score: score,
+                    timestamp: timestamp
                 },
                 success: function(response){
                     console.log("Score successfully updated");
@@ -281,21 +277,23 @@ Ext.define('DrGlearning.controller.DaoController', {
             });
             this.updateOfflineScores();
         }else{
+        */
         
-            var offlineScore=offlineScoreStore.queryBy(function(record) {
+            /*var offlineScore=offlineScoreStore.queryBy(function(record) {
                 if(record.data.activity_id==activityID){
                     return true;
                 }
-            });
+            });*/
             var offlineScoreModel=new DrGlearning.model.OfflineScore({
                 activity_id : activityID,
-                score : score
+                score : score,
+                timestamp: timestamp
             });
-            if(offlineScore.getCount()!=0){
+            /*if(offlineScore.getCount()!=0){
                 offlineScoreModel.set('id',offlineScore.first().data.id);
-            }
+            }*/
             offlineScoreModel.save();
-        }
+        //}
     },
     /*
      * Return level id
@@ -345,7 +343,8 @@ Ext.define('DrGlearning.controller.DaoController', {
                 params: {
                     player_code: user.data.uniqueid,
                     activity_id: item.data.activityID,
-                    score: item.data.score
+                    score: item.data.score,
+                    timestamp: item.data.timestamp
                 },
                 success: function(response){
                     console.log("Score successfully updated");
