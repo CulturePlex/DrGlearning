@@ -188,10 +188,10 @@ Ext.define('DrGlearning.controller.DaoController', {
         var career=this.careersStore;
         console.log(career);
         career.clearFilter();
-        console.log("Careers finded: "+career.getCount());
+        console.log(career.getCount());
         career.each(function(item) {
             //var temp=eval('('+item.data.knowledges+')');
-            //console.log(item.data.knowledges);
+            console.log(item.data.knowledges);
             var carrerKnowledges=item.data.knowledges;
             for(x in carrerKnowledges){
                 var exist=false;

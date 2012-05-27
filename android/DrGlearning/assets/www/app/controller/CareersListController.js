@@ -28,6 +28,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         document.body.style.background = "";
         Ext.create('DrGlearning.view.Main');
         Ext.create('DrGlearning.view.CareersFrame');
+        this.careersStore = Ext.getStore('Careers');
+        this.daoController = this.getApplication().getController('DaoController');
     },
 
     /*
@@ -38,12 +40,13 @@ Ext.define('DrGlearning.controller.CareersListController', {
 
         this.careerController = this.getApplication().getController('CareerController');
         this.levelController = this.getApplication().getController('LevelController');
-        this.daoController = this.getApplication().getController('DaoController');
+
         this.userSettingsController = this.getApplication().getController('UserSettingsController');
         this.CareersListController = this.getApplication().getController('CareersListController');
         this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
+        this.loadingController = this.getApplication().getController('LoadingController');
 
-        this.careersStore = Ext.getStore('Careers');
+
 
 
         this.control({
@@ -382,6 +385,22 @@ Ext.define('DrGlearning.controller.CareersListController', {
      * career).
      */
     addCareer: function(){
+        this.careersStore.clearFilter();
+        console.log(this.careersStore.getCount());
+        if(this.careersStore.getCount()===0)
+        {
+            this.loadingController.careersRequest();
+        }
+        else
+        {
+            this.showCareersToInstall();
+        }
+    },
+    /*
+     * Searching for specific career by writing in searchbox.
+     */
+    showCareersToInstall: function()
+    {
         localStorage.selectedcareer = 0;
         this.getCareersframe().down('title').setTitle(i18n.gettext('Careers'));
         knowledgeFields = this.daoController.getknowledgesFields();
@@ -409,9 +428,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().down('careerslist').refresh();
         this.filterCareersByKnowledge();
     },
-    /*
-     * Searching for specific career by writing in searchbox.
-     */
     search: function(values, form){
         form = form.toLowerCase();
         var filters = [];
@@ -463,7 +479,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         
     },
     refresh: function(scope){
-        
+        this.loadingController.careersRequest();
     }
 });
 
