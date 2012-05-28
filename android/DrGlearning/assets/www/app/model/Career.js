@@ -3,7 +3,7 @@ Ext.define('DrGlearning.model.Career', {
     config : {
         fields : [ {
             name : "id",
-            type : "string"
+            type : "int"
         }, {
             name : "activities",
             type : "auto"

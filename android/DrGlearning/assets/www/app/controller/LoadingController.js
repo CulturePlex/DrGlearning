@@ -138,6 +138,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     			}
                     		}
                     		if(!exist){
+                    		    
                     			record.erase();
                     		}
                     	}
@@ -145,9 +146,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 	for (cont in careers) {
                 		var career=careers[cont];
                 		//its a new career?
-                		console.log(career.id);
+                		console.log(parseInt(career.id));
                 		console.log("Careers stored "+this.careersStore.getCount());
-                		if(this.careersStore.findExact('id',parseInt(career.id))==-1){
+                		console.log(this.careersStore);
+                		console.log(this.careersStore.findExact('id',parseInt(career.id)));
+                		if(this.careersStore.findExact('id',parseInt(career.id))===-1){
                 			console.log("New Career found -> id="+career.id);
                 			console.log(career);
                 			var careerModel=new DrGlearning.model.Career({
