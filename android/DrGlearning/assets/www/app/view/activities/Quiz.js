@@ -6,8 +6,8 @@ Ext.define('DrGlearning.view.activities.Quiz', {
         id: 'activity',
         customId: 'activity',
         fullscreen: true,
+        layout:'card',
 		scrollable:true,
-        layout: 'vbox',
         items: [{
             xtype: 'container',
             id: 'image',
@@ -16,7 +16,6 @@ Ext.define('DrGlearning.view.activities.Quiz', {
         	},
 			{
                 xtype: 'toolbar',
-				
                 docked: 'top',
                 ui: 'neutral',
 				customId: 'query',
@@ -24,9 +23,7 @@ Ext.define('DrGlearning.view.activities.Quiz', {
 		            type: 'hbox',
 					pack : 'center' 
 		        },
-
 				height:40,
-                               
             },
 			{
                 xtype: 'toolbar',
@@ -44,21 +41,15 @@ Ext.define('DrGlearning.view.activities.Quiz', {
 					{
 						 xtype: 'spacer' 
 					}]
-                
             }
 			,
 			{
                 xtype: 'container',
 				customId: 'time',
+				style: 'opacity: 0.8;',
                 docked: 'bottom',
 				ui:'neutral',
 				margin: '5 10 10 10',
-				minHeight:100,
-				maxHeight:200,
-				scrollable: {
-                    direction: 'vertical',
-                    directionLock: true
-                },
                 items:[{
                         xtype: 'label',
 						customId: 'time',

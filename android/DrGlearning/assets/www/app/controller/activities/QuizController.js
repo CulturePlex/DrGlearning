@@ -102,8 +102,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             layout: {
                 type: 'vbox',
                 pack: 'center',
-                align: 'middle'
-            }
+                align: 'middle',
+            },
+            style: 'opacity: 0.5;'
         };
         for (var i = 0; i < this.answers.length; i++) {
             if (this.answers[i].trim() === this.activity.data.correct_answer)
@@ -114,7 +115,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
                     margin: 3,
                     customId: 'respuestaQuiz',
                     answerNo: i+1,
-                    correctAnswer: true
+                    correctAnswer: true,
+                    
                 });
                 this.correctAnswerId = i+1;
             }else
