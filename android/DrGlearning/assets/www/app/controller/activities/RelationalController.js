@@ -271,8 +271,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                                   {
                                       Ext.Anim.run(this, 'fade', {out:false ,duration:500});
                                       Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:10});
-                                      Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:520});
-                                      Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:1030});
                                       Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:1540});
                                       Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:2050});
                                       Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:2560});
@@ -344,8 +342,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                                   {
                                       Ext.Anim.run(this, 'fade', {out:false ,duration:501});
                                       Ext.Anim.run(this, 'fade', {out:true, duration:501, delay:20});
-                                      Ext.Anim.run(this, 'fade', {out:false, duration:501, delay:530});
-                                      Ext.Anim.run(this, 'fade', {out:true, duration:501, delay:1040});
                                       Ext.Anim.run(this, 'fade', {out:false, duration:501, delay:1550});
                                       Ext.Anim.run(this, 'fade', {out:true, duration:501, delay:2060});
                                       Ext.Anim.run(this, 'fade', {out:false, duration:501, delay:2570});

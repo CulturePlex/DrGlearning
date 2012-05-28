@@ -66,8 +66,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		}
 
 		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
+		
 				//Register user if needed
 				var user=usersStore.getAt(0);
+				console.log(user);
+				console.log(user);
 				if(user != undefined && user.data.serverid==""){
 					console.log("Registering user");
 					var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();

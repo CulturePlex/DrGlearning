@@ -344,7 +344,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                     player_code: user.data.uniqueid,
                     activity_id: item.data.activityID,
                     score: item.data.score,
-                    timestamp: item.data.timestamp
+                    //timestamp: item.data.timestamp
                 },
                 success: function(response){
                     console.log("Score successfully updated");
