@@ -8,6 +8,11 @@
     max-width: 100%;
 }
 
+.imageBehindButtons{
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
 .itemlist{
     border: 3px grey solid;
     border-width: 0px 0px 0px 0px;
