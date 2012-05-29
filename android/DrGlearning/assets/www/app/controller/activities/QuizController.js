@@ -21,6 +21,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     latexLoaded: false,
     imageLoaded: false,
     correctAnswerId: null,
+    imageUrl: null,
 
     init: function () {
         "use strict";
@@ -50,9 +51,11 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.answers = this.activity.data.answers;
         this.currentTime = newActivity.data.time;
         this.activityController.addQueryAndButtons(this.activityView, newActivity);
-
+        this.timeContainer = this.activityView.down('panel[customId=time]');
+        this.imageUrl = this.activity.getImage('image', 'image', this.activityView.down('[id=image]'), this, undefined, this.activityView, false);
         if (newActivity.data.image_url) {
             newActivity.getImage('image', 'image', this.activityView.down('[id=image]'), this, view, this.activityView, false);
+            this.loadingImages(view, this.activityView);
         }
         else {
             this.loadingImages(view, this.activityView);
@@ -67,6 +70,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     {
         this.activityView.show();
         this.view.add(this.activityView);
+        console.log(this.imageUrl);
+        this.timeContainer.setStyle({backgroundImage: 'url('+this.imageUrl+')'});
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.helpviewed) {
             this.activity.data.helpviewed = true;
@@ -76,8 +81,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         if (this.currentTime) {
             this.showSeconds();
         }
-        this.timeContainer = this.activityView.down('container[customId=time]');
-        this.timeLabel = this.activityView.down('label[customId=time]');
+        
     },
     loadingImages: function (view, activityView)
     {
@@ -96,16 +100,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     },
     showAnswers: function ()
     {
-        clearInterval(this.secondtemp);
-        var options = Ext.create('Ext.Container');
-        options.config = {
-            layout: {
-                type: 'vbox',
-                pack: 'center',
-                align: 'middle',
-            },
-            style: 'opacity: 0.5;'
-        };
+        this.timeContainer.add({xtype:'spacer'});
         for (var i = 0; i < this.answers.length; i++) {
             if (this.answers[i].trim() === this.activity.data.correct_answer)
             {
@@ -116,6 +111,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
                     customId: 'respuestaQuiz',
                     answerNo: i+1,
                     correctAnswer: true,
+                    style: 'opacity: 0.8;'
                     
                 });
                 this.correctAnswerId = i+1;
@@ -128,18 +124,11 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
                     text: this.answers[i].trim(),
                     margin: 3,
                     customId: 'respuestaQuiz',
-                    answerNo: i+1
+                    answerNo: i+1,
+                    style: 'opacity: 0.8;'
                 });
             }
         }
-        this.timeLabel.setHtml("");
-        this.activityView.add(options);
-        
-    },
-    showSeconds: function ()
-    {
-        this.timeLabel.setHtml(this.currentTime + "s");
-        this.currentTime--;
     },
     tryIt: function (target)
     {
@@ -164,8 +153,4 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         
         
     },
-    stop: function ()
-    {
-        clearInterval(this.secondtemp);
-    }
 });

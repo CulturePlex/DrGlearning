@@ -71,7 +71,9 @@ Ext.define('DrGlearning.controller.DaoController', {
                     }
                     if(activityModel.data.activity_type=='visual'){
                         activityModel.setImage('image',activity.image,this);
+                        activityModel.setImage('obImage',activity.obfuscated_image,this);
                         activityModel.data.image_url=activity.image_url.trim();
+                        activityModel.data.obfuscated_image_url=activity.obfuscated_image_url.trim();
                         //activityModel.data.image=activity.image;
                         activityModel.data.answers=activity.answers;
                         activityModel.data.correct_answer=activity.correct_answer.trim();
@@ -323,7 +325,6 @@ Ext.define('DrGlearning.controller.DaoController', {
         var activities=this.getActivitiesByLevel(carrerID,level);
         
         for(var j=0;j<activities.items.length;j++){
-            console.log(activities.items[j]);
             if(!activities.items[j].data.successful){
                 return activities.items[j]; 
             }
@@ -336,7 +337,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         var usersStore = Ext.getStore('Users');
         var user=usersStore.getAt(0);
         var HOST = this.globalSettingsController.getServerURL();
-        offlineScoreStore.each(function(item) {
+        /*offlineScoreStore.each(function(item) {
             Ext.data.JsonP.request({
                 scope: this,
                 url: HOST+'/api/v1/highscore/?format=jsonp',
@@ -351,7 +352,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                     item.erase();
                 }
             });
-        },this);    
+        },this);    */
     },
     //Tell us if a level is approved or not
     isApproved:function(careerID,level)

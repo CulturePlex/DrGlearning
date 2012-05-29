@@ -276,7 +276,6 @@ Ext.define('DrGlearning.controller.LevelController', {
             this.getActivityframe().hide();
         }
         this.visualController.stop();
-        this.quizController.stop();
         this.updateLevel(this.careersListController.selectedcareer, this.levelController.selectedlevel);
         this.getLevelframe().show();
     },

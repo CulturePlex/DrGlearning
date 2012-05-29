@@ -6,22 +6,14 @@ Ext.define('DrGlearning.view.activities.Visual', {
         id: 'activity',
         customId: 'activity',
         fullscreen: true,
-		scrollable:true,
-        layout: 'vbox',
+        layout: 'fit',
         items: [{
             xtype: 'container',
             id: 'image',
-			margin: 10,
-			centered:true,
-        	},
-			{
-            xtype: 'container',
-            id: 'obImage',
-			margin: 10,
+			cls:'imageBehindButtons'
         	},
 			{
                xtype: 'toolbar',
-				
                 docked: 'top',
                 ui: 'neutral',
 				customId: 'query',
@@ -29,9 +21,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
 		            type: 'hbox',
 					pack : 'center' 
 		        },
-
 				height:40,
-                               
             },
 			{
                 xtype: 'toolbar',
@@ -54,9 +44,8 @@ Ext.define('DrGlearning.view.activities.Visual', {
 			,
 			{
                 xtype: 'container',
-                docked: 'bottom',
 				padding:10,
-				ui:'neutral',
+				docked:'bottom',
                 items:[{
                         xtype: 'label',
 						style: 'text-align:center',
@@ -68,19 +57,15 @@ Ext.define('DrGlearning.view.activities.Visual', {
                         xtype: 'button',
 						customId:'skip',
 						text: i18n.gettext('Skip'),
-                    },
-					{
-                        xtype: 'container',
-						customId: 'options',
-						minHeight:100,
-        				maxHeight:200,
-	        			scrollable: {
-                            direction: 'vertical',
-                            directionLock: true
-                        }
                     }
                     ]
                 
+            },
+			{
+                xtype: 'panel',
+                layout: 'vbox',
+				customId: 'options',
+				cls:'imageBehindButtons'
             }
 		]
     },

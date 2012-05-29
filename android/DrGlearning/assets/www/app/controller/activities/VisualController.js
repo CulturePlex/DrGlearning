@@ -13,6 +13,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     score: null,
     isStopped: false,
     loading: null,
+    imageUrl: null,
     init: function ()
     {
         this.isStopped = false;
@@ -61,12 +62,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         this.score = 20;
         this.imageContainer = this.activityView.down('container[id=image]');
-        this.optionsContainer = this.activityView.down('container[customId=options]');
+        this.optionsContainer = this.activityView.down('panel[customId=options]');
         this.timeLabel = this.activityView.down('label[customId=time]');
         this.obImageContainer = this.activityView.down('container[id=obImage]');
 
         this.imageContainer.setHtml('');
-        this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
+        this.imageUrl = this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
+        this.obImageUrl = this.activity.getImage('obfuscated_image', 'obfuscated_image', this.imageContainer, this, this.view, this.activityView, false);
+        console.log(this.obImageUrl);
         this.activityController.addQueryAndButtons(this.activityView, this.activity);
         this.answers = this.activity.data.answers;
         var time = this.activity.data.time;
@@ -81,7 +84,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             that.showSeconds();
         }, 1000);
         this.imageContainer.show();
-        this.obImageContainer.hide();
         this.optionsContainer.hide();
     },
     
@@ -89,6 +91,9 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         activityView.show();
         view.add(activityView);
+        this.imageContainer = this.activityView.down('container[id=image]');
+        console.log(this.imageUrl);
+        this.imageContainer.setStyle({backgroundImage: 'url('+this.imageUrl+')'});
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.help) {
             this.activity.data.help = true;
@@ -101,7 +106,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         this.timeLabel.setHtml('');
         this.activityView.down('button[customId=skip]').hide();
-        this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
+        console.log(this.optionsContainer);
+        this.optionsContainer.add({xtype:'spacer'});
         for (var i = 0; i < this.answers.length; i++) {
         if (this.answers[i].trim() === this.activity.data.correct_answer)
             {
@@ -111,7 +117,8 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                     margin: 3,
                     customId: 'respuesta',
                     answerNo: i+1,
-                    correctAnswer: true
+                    correctAnswer: true,
+                    style: 'opacity: 0.9;'
                 });
                 this.correctAnswerId = i+1;
             }else
@@ -122,13 +129,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                     margin: 3,
                     customId: 'respuesta',
                     answerNo: i+1,
+                    style: 'opacity: 0.9;'
                 });
                 console.log(this.answers[i].trim());
             }
         }
         this.imageContainer.hide();
         this.optionsContainer.show();
-        this.obImageContainer.show();
+        this.optionsContainer.setStyle({backgroundImage: 'url('+this.obImageUrl+')'});
     },
     tryIt: function (target)
     {

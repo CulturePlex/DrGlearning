@@ -78,8 +78,10 @@ Ext.define('DrGlearning.controller.FileManagerController', {
 	    	if(isTable){
 	    		controller.loadingImages(view,newActivity,value);
 	    	}else{
-	    		component.setHtml('<img id="image" alt="imagen" src="'+value+'" />');
+	    		//component.setHtml('<img id="image" alt="imagen" src="'+value+'" />');
+	    		
 		    	controller.loadingImages(view,newActivity);	
+		    	return value;
 	    	}
 	    	
 	      };
