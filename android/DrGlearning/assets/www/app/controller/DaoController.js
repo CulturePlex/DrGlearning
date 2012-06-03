@@ -124,6 +124,11 @@ Ext.define('DrGlearning.controller.DaoController', {
                         var career=this.careersStore.getById(id);
                         career.set('installed',true);
                         career.save();
+                        this.careersStore.sync();
+                        this.careersStore.load();
+                        career.set('id',id);
+                        console.log(career);
+                        console.log(this.careersStore.find('id',id));
                         localStorage.actualSize=parseInt(localStorage.actualSize)+career.data.size;
                         Ext.getStore('Activities').sync();
                         Ext.getStore('Activities').load();
@@ -525,6 +530,7 @@ Ext.define('DrGlearning.controller.DaoController', {
       }
     },
     deleteCareer:function(careerID){
+        console.log(this.careersStore.findExact('id',parseInt(careerID)));
         var careersStore=this.careersStore;
         var activityStore=Ext.getStore('Activities');
         console.log(careerID);
@@ -545,5 +551,6 @@ Ext.define('DrGlearning.controller.DaoController', {
         career.save();
         careersStore.sync();
         careersStore.load();
+        console.log(this.careersStore.findExact('id',parseInt(careerID)));
     }
 });

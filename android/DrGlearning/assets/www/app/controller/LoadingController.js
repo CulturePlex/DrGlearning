@@ -129,6 +129,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 	console.log("Careers retrieved");
                 	var careers=response["objects"];
                 	this.careersStore.each(function(record) {
+                	
                 		if(!record.data.installed){
                     		var exist=false;
                     		for(cont in careers){
@@ -146,15 +147,17 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 	for (cont in careers) {
                 		var career=careers[cont];
                 		//its a new career?
-                		console.log(parseInt(career.id));
+                		console.log(career.name);
                 		console.log("Careers stored "+this.careersStore.getCount());
                 		console.log(this.careersStore);
-                		console.log(this.careersStore.findExact('id',parseInt(career.id)));
-                		if(this.careersStore.findExact('id',parseInt(career.id))===-1){
+                		console.log(parseInt(career.id));
+                		this.careersStore.load();
+                		console.log(this.careersStore.find('id',career.id));
+                		if(this.careersStore.find('id',career.id) === -1){
                 			console.log("New Career found -> id="+career.id);
                 			console.log(career);
                 			var careerModel=new DrGlearning.model.Career({
-                					id : career.id,
+                					id : parseInt(career.id),
                     				negative_votes : career.negative_votes,
                     				positive_votes : career.positive_votes,
                     				name : career.name,
@@ -169,17 +172,19 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 					size: career.size,
                 					career_type: career.career_type
                 			});
+                			console.log(career.id);
                 			var activities=new Array();
                 			for(cont in career.activities){
                 				activities[cont]=career.activities[cont].full_activity_url;
                 			}
                 			careerModel.set('activities',activities);
                 			careerModel.save();
+                			console.log(careerModel.id);
                 			console.log("Careers stored after add = "+this.careersStore.getCount());
                 		}else{
                 			console.log("Career already exist -> id="+career.id);
                 			//Watch for updates
-                			var careerModel=this.careersStore.getById(career.id);
+                			var careerModel=this.careersStore.getAt(this.careersStore.find('id',career.id));
                 			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
                 			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
                 			console.log("Actual timestamp "+careerModel.data.timestamp);
@@ -251,8 +256,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 			}
                 			careerModel.set('activities',activities);
                 			careerModel.save();
-                			this.careersStore.sync();
-                			this.careersStore.load();
                 			//Ext.Viewport.setMasked(false);
                 			this.getApplication().getController('DaoController').installCareer(career.id,function(){Ext.Viewport.setMasked(false);},this);
                 }
