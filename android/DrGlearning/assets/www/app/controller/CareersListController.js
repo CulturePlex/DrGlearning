@@ -62,9 +62,9 @@ Ext.define('DrGlearning.controller.CareersListController', {
             'searchfield[id=searchbox]': {
                 change: this.search
             },
-            'selectfield[name=state]': {
+            /*'selectfield[name=state]': {
                 change: this.filterCareers
-            },
+            },*/
             'button[id=back]': {
                 tap: this.index
             },
@@ -389,7 +389,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
         console.log(this.careersStore.getCount());
         if(this.careersStore.getCount()===0)
         {
-            this.loadingController.careersRequest();
+            //this.loadingController.careersRequest();
+            this.showCareersToInstall();
         }
         else
         {
@@ -430,7 +431,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     },
     search: function(values, form){
         form = form.toLowerCase();
-        var filters = [];
+        /*var filters = [];
         filters.push(new Ext.util.Filter({
             filterFn: function(item){
                 return item.data.installed === false;
@@ -443,9 +444,15 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 item.data.description.toLowerCase().indexOf(form) !=
                 -1;
             }
-        }));
+        }));*/
+        this.loadingController.careersRequest(form);
         this.careersStore.clearFilter();
-        this.careersStore.filter(filters);
+        //this.careersStore.filter(filters);
+        this.careersStore.each(function(record){
+            if(record.data.installed === false){
+                record.erase();
+            }
+        });
         this.careersStore.load();
         this.getCareersframe().down('careerslist').refresh();
     },

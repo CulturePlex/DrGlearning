@@ -77,12 +77,12 @@ Ext.define('DrGlearning.view.CareersFrame', {
             {
                 xtype:'spacer'
             },
-            {
+            /*{
                 xtype: 'button',
                 name: 'refresh',
                 id: 'refresh',
                 text: i18n.gettext('Refresh')
-            }]
+            }*/]
         
         },{
             xtype: 'panel',

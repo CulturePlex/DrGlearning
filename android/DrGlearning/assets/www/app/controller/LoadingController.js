@@ -8,11 +8,14 @@ Ext.define('DrGlearning.controller.LoadingController', {
     	            loadingpanel: 'loadingpanel',
     	        }
     },
+    
+    offset : 0,
 
     init: function(){
         this.daoController = this.getApplication().getController('DaoController');
 		this.careersStore = Ext.getStore('Careers');
-		this.careersListController = this.getApplication().getController('CareersListController')
+		this.careersListController = this.getApplication().getController('CareersListController');
+		this.offset = 0;
 	},
 	
 	onLaunch: function() {
@@ -120,7 +123,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	      }
 	    },
 	    
-	    careersRequest: function (){
+	    careersRequest: function (searchString){
             this.daoController.updateOfflineScores();
 	        Ext.Viewport.setMasked({
                  xtype: 'loadmask',
@@ -132,7 +135,13 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			Ext.data.JsonP.request({
                 url: HOST+"/api/v1/career/?format=jsonp",
                 scope   : this,
+                params: {
+                    offset: this.offset,
+                    //name__startswith: "M"
+                },
                 success:function(response, opts){
+                	console.log(this.offset);
+                    this.offset = response["meta"].limit;
                 	console.log("Careers retrieved");
                 	var careers=response["objects"];
                 	this.careersStore.each(function(record) {
@@ -147,7 +156,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     		}
                     		if(!exist){
                     		    
-                    			record.erase();
+                    			//record.erase();
                     		}
                     	}
 					},this);
