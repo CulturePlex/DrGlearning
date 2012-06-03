@@ -59,19 +59,22 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			//var userModel=Ext.ModelManager.getModel('DrGlearning.model.User');
 			//user.set('uniqueid:', digest);
 			var userModel=new DrGlearning.model.User({
-				uniqueid:digest
+				uniqueid:digest,
+				serverid:''
 			});
 			userModel.save();
+			console.log(userModel);
 			
 		}
 
 		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
-		
+		        
 				//Register user if needed
 				var user=usersStore.getAt(0);
+				console.log(usersStore);
 				console.log(user);
-				console.log(user);
-				if(user != undefined && user.data.serverid==""){
+				if(user != undefined && user.data.serverid===''){
+				    console.log('holassssss');
 					console.log("Registering user");
 					var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 					Ext.data.JsonP.request({
