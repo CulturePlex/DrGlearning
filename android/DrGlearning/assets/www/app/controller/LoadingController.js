@@ -10,6 +10,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
     },
 
     init: function(){
+        this.daoController = this.getApplication().getController('DaoController');
 		this.careersStore = Ext.getStore('Careers');
 		this.careersListController = this.getApplication().getController('CareersListController')
 	},
@@ -70,6 +71,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
 		        
 				//Register user if needed
+				usersStore.sync();
+				usersStore.load();
 				var user=usersStore.getAt(0);
 				console.log(usersStore);
 				console.log(user);
@@ -118,6 +121,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    },
 	    
 	    careersRequest: function (){
+            this.daoController.updateOfflineScores();
 	        Ext.Viewport.setMasked({
                  xtype: 'loadmask',
                  message: i18n.gettext('Retrieving Courses...'),
