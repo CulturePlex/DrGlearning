@@ -22,6 +22,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     career: null,
     //Global variable to keep search string
     form: null,
+    installing : false,
     /*
      * Initializate Controller.
      */
@@ -115,7 +116,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.careersStore.clearFilter();
         this.careersStore.filter("installed", true);
         this.updateLevelsState();
-        
+        this.installing = false;
         // Indexing list
         
         this.getCareersframe().show();
@@ -401,6 +402,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
      */
     showCareersToInstall: function()
     {
+        this.installing = true;
         localStorage.selectedcareer = 0;
         this.getCareersframe().down('title').setTitle(i18n.gettext('Careers'));
         knowledgeFields = this.daoController.getknowledgesFields();
@@ -455,12 +457,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.careersStore.clearFilter();
         //this.careersStore.filter(filters);
         this.careersStore.each(function(record){
-            if(record.data.installed === false){
+            console.log(record.data.installed);
+            if(!record.data.installed){
+            console.log('borrada');
                 record.erase();
             }
         });
         this.careersStore.load();
-        this.getCareersframe().down('careerslist').refresh();
+        //this.getCareersframe().down('careerslist').refresh();
     },
     getData: function(newActivity){
         var html = "";

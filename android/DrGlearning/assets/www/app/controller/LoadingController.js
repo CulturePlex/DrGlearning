@@ -115,7 +115,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    },
 	    
 	    careersRequest: function (searchString){
-	        console.log(searchString);
 	        if( this.searchString != searchString )
 	        {
 	            this.searchString = searchString;
@@ -123,11 +122,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	            localStorage.total_count = 1;
 	            localStorage.current_count = 0;
 	        }
-			console.log(parseInt(localStorage.current_count));
-			console.log(parseInt(localStorage.total_count));
-	        if(parseInt(localStorage.current_count)  < parseInt(localStorage.total_count) && !this.retrieving)
+	        if(parseInt(localStorage.current_count)  < parseInt(localStorage.total_count) && !this.retrieving && this.careersListController.installing == true)
 			{
-			this.retrieving =true;
+                console.log(localStorage.current_count);
+                console.log(localStorage.total_count);
+			    this.retrieving =true;
                 this.daoController.updateOfflineScores();
 	            Ext.Viewport.setMasked({
                      xtype: 'loadmask',
@@ -162,7 +161,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         		}
                         		if(!exist){
                         		    
-                        			record.erase();
+                        			//record.erase();
                         		}
                         	}
 					    },this);
@@ -170,8 +169,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     		var career=careers[cont];
                     		//its a new career?
                     		this.careersStore.load();
+                    		localStorage.current_count ++;
                     		if(this.careersStore.find('id',career.id) === -1){
-                    		    
                     			var careerModel=new DrGlearning.model.Career({
                     					id : parseInt(career.id),
                         				negative_votes : career.negative_votes,
@@ -188,7 +187,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     					size: career.size,
                     					career_type: career.career_type
                     			});
-                               	localStorage.current_count ++;
+                               	
                     			var activities=new Array();
                     			for(cont in career.activities){
                     				activities[cont]=career.activities[cont].full_activity_url;
@@ -196,7 +195,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     			careerModel.set('activities',activities);
                     			careerModel.save();
                     		}else{
-                    		console.log('existe');
+                    		    console.log('existe');
                     			//Watch for updates
                     			var careerModel=this.careersStore.getAt(this.careersStore.find('id',career.id));
                     			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);

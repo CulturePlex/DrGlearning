@@ -5,6 +5,12 @@ Ext.define('DrGlearning.store.Careers', {
     	model: 'DrGlearning.model.Career',
         autoLoad: true,
         autoSync: true,
+        /*sorters: [
+            {
+                property : 'name',
+                direction: 'DESC'
+            },
+        ],*/
     },
     listeners: { 
         exception: function(){ 
