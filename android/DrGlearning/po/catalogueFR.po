@@ -21,8 +21,14 @@ msgstr "Pour installer les cours vous avez besoin de la connexion de données"
 msgid "Install Career?"
 msgstr "Installer le Cours?"
 
-msgid "Are you sure you want to install this career?"
-msgstr "Vous souhaitez installer ce cours?"
+msgid "Install "
+msgstr "Instaler "
+
+msgid " Career?"
+msgstr ""
+
+msgid " Are you sure you want to install this career?"
+msgstr " Vous souhaitez installer ce cours?"
 
 msgid "Downloading Career..."
 msgstr "Chargement de cours..."

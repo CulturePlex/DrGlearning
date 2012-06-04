@@ -230,7 +230,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
             }
             else {
-                Ext.Msg.confirm(i18n.gettext("Install Career?"), i18n.gettext("Are you sure you want to install this career?"), function (answer, pako)
+                Ext.Msg.confirm(i18n.gettext("Install ")+career.data.name+i18n.gettext(" Career?"), career.data.description + i18n.gettext(" Are you sure you want to install this career?"), function (answer, pako)
                 {
                     if (answer === 'yes') 
                     {
@@ -252,7 +252,10 @@ Ext.define('DrGlearning.controller.CareersListController', {
             if (e !== undefined && e.touch.target.id == "uninstall") {
                 this.actionSheet = Ext.create('Ext.ActionSheet', {
                     items: [{
-                        text: i18n.gettext('Send scores')
+                        text: i18n.gettext('Send scores'),
+                        handler: function(){
+                            this.parent.hide();
+                            that.daoController.updateOfflineScores();}
                         },
                         {
                         text: i18n.gettext('Check for course updates')

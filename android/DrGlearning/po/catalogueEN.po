@@ -23,13 +23,14 @@ msgstr "Unable to install"
 msgid "You need data connection to install careers"
 msgstr "You need data connection to install courses"
 
+msgid "Install "
+msgstr "Install "
 
-msgid "Install Career?"
-msgstr "Install Course?"
+msgid " Career?"
+msgstr " Course?"
 
-
-msgid "Are you sure you want to install this career?"
-msgstr "Are you sure you want to install this course?"
+msgid " Are you sure you want to install this career?"
+msgstr " Are you sure you want to install this course?"
 
 
 msgid "Downloading Career..."

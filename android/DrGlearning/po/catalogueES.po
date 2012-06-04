@@ -28,9 +28,14 @@ msgstr "Necesitas conexión a la red para instalar cursos"
 msgid "Install Career?"
 msgstr "¿Instalar curso?"
 
+msgid "Install "
+msgstr "Instalar "
 
-msgid "Are you sure you want to install this career?"
-msgstr "¿Estás seguro que quieres instalar este curso?"
+msgid " Career?"
+msgstr ""
+
+msgid " Are you sure you want to install this career?"
+msgstr " ¿Estás seguro que quieres instalar este curso?"
 
 
 msgid "Downloading Career..."

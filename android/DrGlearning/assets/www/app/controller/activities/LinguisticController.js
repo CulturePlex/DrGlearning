@@ -51,11 +51,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         activityView = Ext.create('DrGlearning.view.activities.Linguistic');
         //Initializate values
         this.squaresBlack = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
-        //console.log(this.activity);
         this.loquedText = this.activity.data.locked_text.split("");
-        //console.log("DEBUG");
-        //console.log('*'+this.activity.data.locked_text+'*');
-        //console.log(this.loquedText);
         this.loquedTextFinded = [];
         var cont;
         for (cont in this.loquedText) 
@@ -71,8 +67,6 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         this.activityController.addQueryAndButtons(activityView, newActivity);
         activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
         activityView.down('label[customId=responses]').setHtml('');
-        //console.log(this.activity.data.locked_text.toLowerCase());
-        //console.log(this.activity.data.answer.toLowerCase());
         if (this.activity.data.locked_text.toLowerCase() === this.activity.data.answer.toLowerCase()) {
             activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer: '));
         }
@@ -129,8 +123,6 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             }
         }
         loquedView.setHtml(loqued);
-        //console.log('*' + loqued + '*');
-        //console.log('*' + this.activity.data.answer + '*');
         if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
 		{
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
@@ -148,8 +140,6 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         var squaresBlack = this.squaresBlack;
         var cont;
         var temp;
-        //console.log('Probando getTable');
-        //console.log(squares.length);
         for(cont in squaresBlack) 
 		{
             if (squaresBlack[cont]) {
@@ -160,12 +150,10 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             }
             if (((parseInt(cont, 10) + 1) % 5) === 0) {
                 table = table + '</tr>';
-                //console.log('cierra con el '+cont);
             }
             if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25) 
 			{
                 table = table + '<tr>';
-                //console.log('abre con el '+cont);
             }
         }
         table = table + '</tr></table>';
@@ -192,9 +180,6 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             }
         }
         var neededWhiteSquares = Math.floor((goodLetters * 25) / this.loquedTextFinded.length);
-        //console.log('goodLetters='+goodLetters);
-        //console.log('whiteSquares='+whiteSquares);
-        //console.log('neededWhiteSquares='+neededWhiteSquares);
         while (goodLetters > 0 && whiteSquares < neededWhiteSquares) {
             var random = Math.floor(Math.random() * keysBlack.length);
             this.squaresBlack[keysBlack[random]] = false;
@@ -212,7 +197,6 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
     
     solve: function ()
 	{
-        //console.log(this.activity.data.answer);
         var answer;
         var saveButton = Ext.create('Ext.Button', {
             scope: this,
