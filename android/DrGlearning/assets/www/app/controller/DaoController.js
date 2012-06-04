@@ -193,12 +193,9 @@ Ext.define('DrGlearning.controller.DaoController', {
     getknowledgesFields:function(){
         var knowledges=new Array();
         var career=this.careersStore;
-        console.log(career);
         career.clearFilter();
-        console.log(career.getCount());
         career.each(function(item) {
             //var temp=eval('('+item.data.knowledges+')');
-            console.log(item.data.knowledges);
             var carrerKnowledges=item.data.knowledges;
             for(x in carrerKnowledges){
                 var exist=false;
@@ -212,8 +209,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                 }
             }
         },this);
-        console.log("Knowledges finded: "+knowledges.length);
-        console.log(knowledges);
         return knowledges;
     },
     getCarresByKnowledge:function(Knowledge){
@@ -306,20 +301,15 @@ Ext.define('DrGlearning.controller.DaoController', {
      * Return level id
      */
     getCurrenLevel:function(carrerID){
-        console.log('la carrera es:'+carrerID);
         var levels=this.getLevels(carrerID);
-        console.log('los niveles son:'+levels);
         for(var i=0;i<=levels.length;i++){
             var activities=this.getActivitiesByLevel(carrerID,levels[i]);
             for(var j=0;j<activities.items.length;j++){
-                console.log(activities.items[j]);
                 if(!activities.items[j].data.successful){
-                    console.log('devolviendo: '+levels[i]);
                     return levels[i]; 
                 }
             }
         }
-        console.log('el primer nivelse suponeq es:'+levels[0]);
         return -1;
     },
     /*
@@ -334,7 +324,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                 return activities.items[j]; 
             }
         }
-        console.log(activities.items[0].data.id);
         return activities.items[0];
     },
     updateOfflineScores:function(){
@@ -362,11 +351,8 @@ Ext.define('DrGlearning.controller.DaoController', {
     //Tell us if a level is approved or not
     isApproved:function(careerID,level)
     {
-        console.log(careerID);
-        console.log(level);
         var approved=true;
         var activities=this.getActivitiesByLevel(careerID,level.customId);
-        console.log(activities);
         for(var j=0;j<activities.items.length;j++){
             
             //console.log(activities.items[j]);
@@ -388,7 +374,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                     url: HOST+'/api/v1/career/'+careerID+'/?format=jsonp',
                     scope   : this,
                     success:function(response, opts){
-                        console.log("Updating career");
                         var newCareer=response;
                             //if(careersStore.findExact("id",career.id)==-1){
                         career.data.name=newCareer.name;
@@ -530,10 +515,8 @@ Ext.define('DrGlearning.controller.DaoController', {
       }
     },
     deleteCareer:function(careerID){
-        console.log(this.careersStore.findExact('id',parseInt(careerID)));
         var careersStore=this.careersStore;
         var activityStore=Ext.getStore('Activities');
-        console.log(careerID);
         var career=careersStore.getById(careerID);
         career.data.installed = false;
         career.data.started =false;
@@ -551,6 +534,5 @@ Ext.define('DrGlearning.controller.DaoController', {
         career.save();
         careersStore.sync();
         careersStore.load();
-        console.log(this.careersStore.findExact('id',parseInt(careerID)));
     }
 });

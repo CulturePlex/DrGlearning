@@ -20,6 +20,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
     knowledgeFields: null,
     actionSheet: null,
     career: null,
+    //Global variable to keep search string
+    form: null,
     /*
      * Initializate Controller.
      */
@@ -146,6 +148,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 }
             }, this); 
         }
+        this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scroll', function() {});
         
     },
     
@@ -386,7 +389,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
      */
     addCareer: function(){
         this.careersStore.clearFilter();
-        console.log(this.careersStore.getCount());
         if(this.careersStore.getCount()===0)
         {
             //this.loadingController.careersRequest();
@@ -419,6 +421,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         }
         this.getCareersframe().down('selectfield[name=knnowledge_field]').setOptions(options);
         this.careersStore.clearFilter();
+        this.getCareersframe().down('searchfield').setValue(localStorage.form);
         this.careersStore.filter('installed', false);
         this.getCareersframe().down('careerslist').refresh();
         this.getCareersframe().down('toolbar[id=toolbarTopNormal]').hide();
@@ -428,9 +431,15 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().show();
         this.getCareersframe().down('careerslist').refresh();
         this.filterCareersByKnowledge();
+        this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scroll', function(scroller, x , y) {
+          var distanceToEnd = scroller.maxPosition.y - scroller.position.y;
+          if (distanceToEnd < 300) {
+               this.loadingController.careersRequest(localStorage.form);
+         }
+        }, this, {buffer: 300});
     },
     search: function(values, form){
-        form = form.toLowerCase();
+        localStorage.form = form.toLowerCase();
         /*var filters = [];
         filters.push(new Ext.util.Filter({
             filterFn: function(item){
@@ -445,7 +454,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 -1;
             }
         }));*/
-        this.loadingController.careersRequest(form);
+        this.loadingController.careersRequest(localStorage.form);
         this.careersStore.clearFilter();
         //this.careersStore.filter(filters);
         this.careersStore.each(function(record){

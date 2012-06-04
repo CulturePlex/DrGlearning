@@ -7,9 +7,10 @@
  * by Ext.List
  */
 Ext.define('DrGlearning.view.CareersList', {
-	extend: 'Ext.List',
+	extend: 'Ext.dataview.List',
     xtype : 'careerslist',
     config: {
+        scrollToTopOnRefresh:false,
 		ui:'careers',
         store: 'Careers',
 		disableSelection: true,
