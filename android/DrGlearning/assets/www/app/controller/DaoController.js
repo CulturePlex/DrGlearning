@@ -93,7 +93,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                         }
                     }
                     if(activityModel.data.activity_type=='relational'){
-                        console.log(activity);
                         activityModel.data.graph_nodes=activity.graph_nodes;
                         for (x in activity.graph_edges){
                             if(activity.graph_edges[x].inverse == undefined){
@@ -127,8 +126,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                         this.careersStore.sync();
                         this.careersStore.load();
                         career.set('id',id);
-                        console.log(career);
-                        console.log(this.careersStore.find('id',id));
                         localStorage.actualSize=parseInt(localStorage.actualSize)+career.data.size;
                         Ext.getStore('Activities').sync();
                         Ext.getStore('Activities').load();
@@ -342,7 +339,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                     //timestamp: item.data.timestamp
                 },
                 success: function(response){
-                    console.log("Score successfully updated");
                     item.erase();
                 }
             });
