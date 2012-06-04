@@ -146,7 +146,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         localStorage.total_count = response["meta"].total_count;
                     	console.log("Careers retrieved");
                     	var careers=response["objects"];
-                    	localStorage.current_count += response["objects"].length;
+
                     	this.careersStore.each(function(record) {
                     	
                     		if(!record.data.installed){
@@ -184,6 +184,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     					size: career.size,
                     					career_type: career.career_type
                     			});
+                               	localStorage.current_count ++;
                     			var activities=new Array();
                     			for(cont in career.activities){
                     				activities[cont]=career.activities[cont].full_activity_url;
