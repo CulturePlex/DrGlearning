@@ -22,11 +22,17 @@ class CareerResource(ModelResource):
                                         full=True)
 
     class Meta:
+        filtering = {
+            "name": ('exact', 'startswith', 'endswith', 'icontains',
+                     'contains'),
+            "knowledge_field": ("in", "name__icontains", "name__exact"),
+        }
         queryset = Career.objects.all()
-
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
 
     def get_object_list(self, request):
-        if request.GET.has_key('testing'):
+        if 'testing' in request.GET:
             return Career.objects.all()
         else:
             return Career.objects.filter(published=True)
@@ -36,7 +42,6 @@ class CareerResource(ModelResource):
         # Career creator name
         bundle.data["creator"] = bundle.obj.user.get_full_name() or \
                                                     bundle.obj.user.username
-
         # Career size in bytes
         size = 0
         for activity in bundle.data["activities"]:
@@ -45,7 +50,6 @@ class CareerResource(ModelResource):
         for field in fields:
             size += len(unicode(getattr(bundle.obj, field.name)))
         bundle.data["size"] = size
-
         return dehydrate_fields(bundle)
 
     def alter_list_data_to_serialize(self, request, data):
