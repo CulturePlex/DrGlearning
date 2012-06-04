@@ -148,7 +148,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 }
             }, this); 
         }
-        this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scroll', function() {});
+        this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function() {});
         
     },
     
@@ -180,8 +180,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
                         }
                         if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
                             this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
-                            console.log(this.getLevelName(levelstemp[i] - 1));
-                            console.log(this.getLevelName(levelstemp[i+1] -1));
                             this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i+1] - 1)] = "exists";
                             nextLevelFound = 2;
                         }
@@ -189,7 +187,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 }else
                 {
                     for (var j = 0; j < levelstemp.length; j++) {
-                    console.log(this.getLevelName(levelstemp[j] - 1));
                         this.careersStore.getAt(index).data[this.getLevelName(levelstemp[j] - 1)] = "exists";
                         if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[j] - 1).data)) {
                             this.careersStore.getAt(index).data[this.getLevelName(levelstemp[j] - 1)] = "successed";
@@ -431,7 +428,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().show();
         this.getCareersframe().down('careerslist').refresh();
         this.filterCareersByKnowledge();
-        this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scroll', function(scroller, x , y) {
+        this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function(scroller, x , y) {
           var distanceToEnd = scroller.maxPosition.y - scroller.position.y;
           if (distanceToEnd < 300) {
                this.loadingController.careersRequest(localStorage.form);
