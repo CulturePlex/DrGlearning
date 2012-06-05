@@ -370,20 +370,20 @@ Ext.define('DrGlearning.controller.CareersListController', {
     },
     
     filterCareersByKnowledge: function(){
-        this.careersStore.clearFilter();
-        this.careersStore.filter("installed", false);
         var knowledgeSelectField = Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0];
         var value = knowledgeSelectField.getValue();
-        if (value != 'All') {
-            this.careersStore.filterBy(function(record, id){
-                var bool = false;
-                for (i = 0; i < record.data.knowledges.length; i++) {
-                    bool = bool || record.data.knowledges[i].name == knowledgeSelectField.getValue();
+        if(value !== 'All')
+        {
+            localStorage.requestType = "knowledge";
+            this.loadingController.careersRequest(localStorage.form,value);
+            this.careersStore.clearFilter();
+            this.careersStore.each(function(record){
+                if(!record.data.installed){
+                    record.erase();
                 }
-                return bool;
             });
+            this.careersStore.load();
         }
-        this.careersStore.load();
     },
     /*
      * Showing not installed carrers (menu to install new
@@ -445,6 +445,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     search: function(values, form){
         if(form !== "")
         {
+            localStorage.requestType = "search";
             localStorage.form = form.toLowerCase();
             /*var filters = [];
             filters.push(new Ext.util.Filter({
@@ -460,7 +461,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     -1;
                 }
             }));*/
-            this.loadingController.careersRequest(localStorage.form);
+            this.loadingController.careersRequest(localStorage.form,'');
             this.careersStore.clearFilter();
             //this.careersStore.filter(filters);
             this.careersStore.each(function(record){
