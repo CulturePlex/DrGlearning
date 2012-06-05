@@ -8,7 +8,7 @@ Ext.define('DrGlearning.store.Knowledges', {
         sorters: [
             {
                 property : 'name',
-                direction: 'DESC'
+                direction: 'ASC'
             },
         ]
     },
