@@ -122,7 +122,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    },
 	    
 	    careersRequest: function (searchString,knowledgeValue){
-	        if (localStorage.requestType === "search")
+	        console.log(localStorage.searchRequest);
+	        if (localStorage.requestType === true)
 	        {
 	            console.log(searchString);
 	            console.log(localStorage.searchString);
@@ -229,6 +230,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
             }
             else
             {
+                console.log(localStorage.knowledgeValue);
+                console.log(knowledgeValue);
 	            if( localStorage.knowledgeValue != knowledgeValue )
 	            {
 	                localStorage.knowledgeValue = knowledgeValue;
@@ -254,13 +257,13 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         scope   : this,
                         params: {
                             offset: localStorage.offset,
-                            knowledge_field__name: localStorage.knowledgeValue
+                            knowledge_field__in: localStorage.knowledgeValue
                         },
                         success:function(response, opts){
                         	console.log(response["meta"]);
                             localStorage.offset = response["meta"].limit;
                             localStorage.total_count = response["meta"].total_count;
-                        	console.log("Careers retrieved");
+                        	console.log(response["objects"]);
                         	var careers=response["objects"];
 
                         	this.careersStore.each(function(record) {

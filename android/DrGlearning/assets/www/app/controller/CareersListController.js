@@ -374,7 +374,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var value = knowledgeSelectField.getValue();
         if(value !== 'All')
         {
-            localStorage.requestType = "knowledge";
+            localStorage.searchRequest = false;
             this.loadingController.careersRequest(localStorage.form,value);
             this.careersStore.clearFilter();
             this.careersStore.each(function(record){
@@ -417,7 +417,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
             value: 'All'
         }];
         this.knowledgesStore.each(function(record) {
-            console.log(record.data.name);
             options.push({
                 text: record.data.name,
                 value: record.data.name
@@ -426,6 +425,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().down('selectfield[name=knnowledge_field]').setOptions(options);
         this.careersStore.clearFilter();
         this.getCareersframe().down('searchfield').setValue(localStorage.form);
+        this.getCareersframe().down('selectfield[name=knnowledge_field]').setValue(localStorage.knowledgeValue);
         this.careersStore.filter('installed', false);
         this.getCareersframe().down('careerslist').refresh();
         this.getCareersframe().down('toolbar[id=toolbarTopNormal]').hide();
@@ -438,14 +438,14 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function(scroller, x , y) {
           var distanceToEnd = scroller.maxPosition.y - scroller.position.y;
           if (distanceToEnd < 300) {
-               this.loadingController.careersRequest(localStorage.form);
+               this.loadingController.careersRequest(localStorage.form,localStorage.knowledgeValue);
          }
         }, this, {buffer: 300});
     },
     search: function(values, form){
         if(form !== "")
         {
-            localStorage.requestType = "search";
+            localStorage.searchRequest = true;
             localStorage.form = form.toLowerCase();
             /*var filters = [];
             filters.push(new Ext.util.Filter({
