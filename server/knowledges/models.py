@@ -50,7 +50,7 @@ class Career(models.Model):
                               blank=True, null=True)
     knowledge_field = models.ManyToManyField(Knowledge,
                                              verbose_name=_("knowledge fields"),
-                                             related_name="knowledge_fields",
+                                             related_name="careers",
                                          help_text=_("Choose the 5 knowledges "
                                                      "fields that suit better "
                                                      "your course"))

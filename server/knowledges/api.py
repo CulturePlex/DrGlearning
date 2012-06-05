@@ -1,7 +1,7 @@
 from django.db.models.fields.files import ImageField
 
 from tastypie import fields
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, ALL_WITH_RELATIONS
 
 from activities.api import ActivityUpdateResource
 from base.utils import dehydrate_fields
@@ -15,6 +15,7 @@ class KnowledgeResource(ModelResource):
         filtering = {
             "name": ('exact', 'startswith', 'endswith', 'icontains',
                      'contains'),
+            "id": ('exact', 'in'),
         }
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']
@@ -32,7 +33,7 @@ class CareerResource(ModelResource):
         filtering = {
             "name": ('exact', 'startswith', 'endswith', 'icontains',
                      'contains'),
-            "knowledge_field": ("in", "name__icontains", "name__exact"),
+            "knowledges": ALL_WITH_RELATIONS,
         }
         queryset = Career.objects.all()
         list_allowed_methods = ['get']
