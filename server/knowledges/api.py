@@ -9,8 +9,15 @@ from knowledges.models import Knowledge, Career
 
 
 class KnowledgeResource(ModelResource):
+
     class Meta:
         queryset = Knowledge.objects.all()
+        filtering = {
+            "name": ('exact', 'startswith', 'endswith', 'icontains',
+                     'contains'),
+        }
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
 
 
 class CareerResource(ModelResource):
@@ -36,7 +43,6 @@ class CareerResource(ModelResource):
             return Career.objects.all()
         else:
             return Career.objects.filter(published=True)
-
 
     def dehydrate(self, bundle):
         # Career creator name

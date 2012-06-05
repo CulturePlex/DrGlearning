@@ -1,5 +1,6 @@
-from tastypie import fields
+from datetime import datetime
 
+from tastypie import fields
 from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 
@@ -14,8 +15,8 @@ def is_valid_jsonp(request_type, request, required_fields):
     for rf in required_fields:
         if rf not in request.GET:
             return False
-    return request_type=="list" and \
-                "callback" in request.GET
+    return (request_type == "list"
+            and "callback" in request.GET)
 
 
 class PlayerResource(ModelResource):
@@ -36,24 +37,34 @@ class PlayerResource(ModelResource):
     def dehydrate(self, bundle):
         return dehydrate_fields(bundle)
 
-class HighScoreResource(ModelResource):
+
+class ScoreResource(ModelResource):
     player = fields.ForeignKey(PlayerResource, 'player')
     activity = fields.ForeignKey(ActivityResource, 'activity')
 
     def dispatch(self, request_type, request, **kwargs):
-        required_fields = ('player_code', 'activity_id', 'score')
+        required_fields = ('player_code', 'activity_id', 'score', 'token')
         if is_valid_jsonp(request_type, request, required_fields):
             player = Player.objects.get(code=request.GET["player_code"])
-            activity = Activity.objects.get(pk=request.GET["activity_id"])
-            hs = HighScore(player=player,
-                            activity=activity,
-                            score=request.GET["score"])
-            hs.save()
-            kwargs["pk"] = hs.id
-            request_type = "detail"
-        return super(HighScoreResource, self).dispatch(request_type,
-                                                    request,
-                                                    **kwargs)
+            if player.token == request.GET["token"]:
+                activity = Activity.objects.get(pk=request.GET["activity_id"])
+                activity_timestamp = datetime.now()
+                if request.GET["timestamp"]:
+                    try:
+                        timestamp = float(request.GET["timestamp"])
+                        activity_timestamp = datetime.fromtimestamp(timestamp)
+                    except TypeError:
+                        pass
+                hs = HighScore(player=player,
+                               activity=activity,
+                               score=request.GET["score"],
+                               activity_timestamp=activity_timestamp)
+                hs.save()
+                kwargs["pk"] = hs.id
+                request_type = "detail"
+        return super(ScoreResource, self).dispatch(request_type,
+                                                   request,
+                                                   **kwargs)
 
     class Meta:
         queryset = HighScore.objects.all()
