@@ -338,7 +338,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                     player_code: user.data.uniqueid,
                     activity_id: item.data.activity_id,
                     score: parseFloat(item.data.score),
-                    timestamp: 1338853440,
+                    timestamp: item.data.timestamp,
                     token: user.data.token
                 },
                 success: function(response){

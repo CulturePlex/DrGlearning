@@ -71,7 +71,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.activityView.show();
         this.view.add(this.activityView);
         console.log(this.imageUrl);
-        this.timeContainer.setHtml(this.imageUrl);
+        //this.timeContainer.setHtml(this.imageUrl);
         this.timeContainer.setStyle({backgroundImage: 'url('+this.imageUrl+')'});
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.helpviewed) {

@@ -123,7 +123,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    
 	    careersRequest: function (searchString,knowledgeValue){
 	        console.log(localStorage.searchRequest);
-	        if (localStorage.requestType === true)
+	        console.log(localStorage.searchRequest == "true");
+	        if (localStorage.searchRequest == "true")
 	        {
 	            console.log(searchString);
 	            console.log(localStorage.searchString);
@@ -159,6 +160,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                             localStorage.offset = response["meta"].limit;
                             localStorage.total_count = response["meta"].total_count;
                         	console.log("Careers retrieved");
+                        	console.log(response["objects"]);
                         	var careers=response["objects"];
 
                         	this.careersStore.each(function(record) {
@@ -180,7 +182,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         	for (cont in careers) {
                         		var career=careers[cont];
                         		//its a new career?
-                        		this.careersStore.load();
+                        		//this.careersStore.load();
                         		localStorage.current_count ++;
                         		if(this.careersStore.find('id',career.id) === -1){
                         			var careerModel=new DrGlearning.model.Career({
@@ -206,6 +208,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         			}
                         			careerModel.set('activities',activities);
                         			careerModel.save();
+                        			this.careersStore.load();
+                        			this.careersStore.sync();
+							        console.log(this.careersStore);
                         		}else{
                         		    console.log('existe');
                         			//Watch for updates
@@ -215,15 +220,17 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     				if(careerModel.data.timestamp<career.timestamp && !careerModel.data.installed){
 								        careerModel.data.update=true;
 								        careerModel.save();
+
                             		}
                     			}
                         	}
                         	this.careersListController.showCareersToInstall();
                             Ext.Viewport.setMasked(false);
-                            this.retrieving =false;
+                            this.retrieving = false;
                         },
                         failure:function(){
                             Ext.Viewport.setMasked(false);
+                            this.retrieving = false;
                         }
                      });
                 }
@@ -311,6 +318,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         			}
                         			careerModel.set('activities',activities);
                         			careerModel.save();
+                        			this.careersStore.load();
+                        			this.careersStore.sync();
                         		}else{
                         		    console.log('existe');
                         			//Watch for updates
@@ -329,6 +338,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         },
                         failure:function(){
                             Ext.Viewport.setMasked(false);
+                            this.retrieving = false;
                         }
                      });
                  }

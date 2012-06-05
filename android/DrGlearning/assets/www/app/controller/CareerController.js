@@ -56,6 +56,7 @@ Ext.define('DrGlearning.controller.CareerController', {
     tocareer: function ()
 	{
         var view1 = this.careerFrame;
+        this.daoController.updateOfflineScores();
         view1.show();
     },
     /*
@@ -63,8 +64,6 @@ Ext.define('DrGlearning.controller.CareerController', {
      */
     getLevelHtml: function (career, levelData)
 	{
-	    console.log("obteniendo nivel: " + levelData.name + ",su estado es: " + career.data[levelData.name.toLowerCase()]);
-	    console.log(career);
         var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
         var html = "<div id='centro' align='middle'><p class='levelTitle'>" + levelData.name + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
         if (this.daoController.isApproved(career.data.id, levelData)) {
