@@ -52,25 +52,26 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.currentTime = newActivity.data.time;
         this.activityController.addQueryAndButtons(this.activityView, newActivity);
         this.timeContainer = this.activityView.down('panel[customId=time]');
-        this.imageUrl = this.activity.getImage('image', 'image', this.activityView.down('[id=image]'), this, undefined, this.activityView, false);
-        if (newActivity.data.image_url) {
+        //this.imageUrl = this.activity.getImage('image', 'image', this.activityView.down('[id=image]'), this, undefined, this.activityView, false);
+        /*if (newActivity.data.image_url) {
             newActivity.getImage('image', 'image', this.activityView.down('[id=image]'), this, view, this.activityView, false);
             this.loadingImages(view, this.activityView);
         }
         else {
             this.loadingImages(view, this.activityView);
-        }
+        }*/
         this.showAnswers();
         if (typeof(MathJax) !== "undefined") {
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
-        
+        newActivity.getImage('image', 'image', null, this, view, this.activityView, true);
     },
     loadingComplete: function ()
     {
         this.activityView.show();
         this.view.add(this.activityView);
         console.log(this.imageUrl);
+        this.timeContainer.setHtml(this.imageUrl);
         this.timeContainer.setStyle({backgroundImage: 'url('+this.imageUrl+')'});
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.helpviewed) {
@@ -83,8 +84,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         }
         
     },
-    loadingImages: function (view, activityView)
+    loadingImages: function (view, activityView,value)
     {
+        this.imageUrl = value;
         this.imageLoaded = true;
         //if (this.latexLoaded) {
         this.loadingComplete();

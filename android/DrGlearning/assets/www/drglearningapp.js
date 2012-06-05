@@ -47,8 +47,8 @@ Ext.application({
                   'activities.LinguisticController', 'activities.RelationalController',
                   'UserSettingsController', 'FileManagerController',
                   'MaxStorageSizeController', 'activities.QuizController'],
-    models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User'],
-    stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users'],
+    models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User','Knowledge'],
+    stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users','Knowledges'],
     autoCreateViewport : true,
     requires: ['Ext.Anim'],
     launch: function () {

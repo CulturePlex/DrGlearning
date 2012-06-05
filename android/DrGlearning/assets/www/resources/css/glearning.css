@@ -4,13 +4,20 @@
     background-size: contain;
 }
 
+.popup {
+    background-color: black;
+    font-size:14px;
+    color: rgba(190, 224, 247, 0.9);
+    text-shadow: rgba(0, 0, 0, 0.5) 0 -0.08em 0;
+    text-align: center;
+    line-height: 1.4em;
+}
+
 .activityImage{
     max-width: 100%;
 }
 
 .imageBehindButtons{
-    background-repeat: no-repeat;
-    background-size: 100%;
 }
 
 .itemlist{

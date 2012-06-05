@@ -175,7 +175,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         
         var activities=Ext.getStore('Activities').queryBy(function(record) {
             if(record.data.careerId==careerId && record.data.level_type==''+level){
-                //console.log('Nivel '+level);
+                //console.log('Nivel ' +level);
                 //console.log(record.data.level_type);
                 return true;    
             }else{
@@ -221,6 +221,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         return carrers;
     },
     activityPlayed:function(activityID,successful,score){
+        console.log(new Date().getTime());
         this.updateScore(activityID,score,new Date().getTime());
         //console.log('Peticion de jugada!!!!!');
         var activitiesStore=Ext.getStore('Activities');
@@ -324,6 +325,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         return activities.items[0];
     },
     updateOfflineScores:function(){
+        console.log('sending scores...');
         var offlineScoreStore=Ext.getStore('OfflineScores');
         var usersStore = Ext.getStore('Users');
         var user=usersStore.getAt(0);
@@ -331,15 +333,17 @@ Ext.define('DrGlearning.controller.DaoController', {
         offlineScoreStore.each(function(item) {
             Ext.data.JsonP.request({
                 scope: this,
-                url: HOST+'/api/v1/highscore/?format=jsonp',
+                url: HOST+'/api/v1/score/?format=jsonp',
                 params: {
                     player_code: user.data.uniqueid,
-                    activity_id: item.data.activityID,
-                    score: item.data.score,
-                    //timestamp: item.data.timestamp
+                    activity_id: item.data.activity_id,
+                    score: parseFloat(item.data.score),
+                    timestamp: 1338853440,
+                    token: user.data.token
                 },
                 success: function(response){
                     item.erase();
+                    console.log("scores successfully sent");
                 }
             });
         },this);

@@ -6,10 +6,19 @@ Ext.define('DrGlearning.model.User', {
                     	  name: "id",
                     	  type: "string"
                       },{
-                    	  name: "name",
+                    	  name: "display_name",
                     	  type: "string"
                       },{
                     	  name: "email",
+                    	  type: "string"
+                      },{
+                    	  name: "image",
+                    	  type: "string"
+                      },{
+                    	  name: "resource_uri",
+                    	  type: "string"
+                      },{
+                    	  name: "token",
                     	  type: "string"
                       },{
                     	  name: "uniqueid",

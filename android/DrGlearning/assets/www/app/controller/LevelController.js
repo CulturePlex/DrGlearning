@@ -248,15 +248,10 @@ Ext.define('DrGlearning.controller.LevelController', {
                     // Style the content and make it scrollable
                     styleHtmlContent: true,
                     scrollable: true,
+                    styleHtmlCls : 'popup',
+                    styleHtmlContent :true,
 
                     // Insert a title docked at the top with a title
-                    items: [
-                        {
-                            docked: 'top',
-                            xtype: 'toolbar',
-                            title: i18n.gettext('Congrats!')
-                        }
-                    ]
                 });
                 Ext.Viewport.add(scores);
                 scores.show();

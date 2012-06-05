@@ -197,28 +197,16 @@ Ext.define('DrGlearning.model.Activity', {
 	},
     getImage: function(name,targetId,component,controller,view,activityView,isTable) {
     	//return scope.getApplication().getController('FileManagerController').retrieveImage(fieldName+this.data.id,targetId);
-    	console.log();
     	try{
 	    	if(window.device != undefined && LocalFileSystem!=undefined){
 	    		//console.log('Recuperamos de disco.');
-	    		return controller.getApplication().getController('FileManagerController').retrieveImage(this.data.id,name,component,controller,view,activityView,isTable);
-	    		controller.loadingImages(view,activityView);
+	    		controller.getApplication().getController('FileManagerController').retrieveImage(this.data.id,name,component,controller,view,activityView,isTable);
 	    	}else{
 	    		if(isTable){
 	    			controller.loadingImages(view,activityView,controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url);
 	    		}else{
-	        		console.log(name);
-	        		console.log(this.data.name);
-	        		if(name==="image")
-	        		{
-	        		    console.log('a entrao');
-	            		controller.loadingImages(view,activityView);
-	        			return controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url;
-	        		}else
-	        		{
-	        			controller.loadingImages(view,activityView);
-	        			return controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.obfuscated_image_url;
-	        		}
+	    			component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" />');
+	        		controller.loadingImages(view,activityView);	
 	    		}
 	    	}
 	    }catch (e) {
@@ -226,9 +214,10 @@ Ext.define('DrGlearning.model.Activity', {
 			if(isTable){
     			controller.loadingImages(view,activityView,controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url);
     		}else{
-    			return controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url;
+    			component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" />');
         		controller.loadingImages(view,activityView);	
     		}
 		}
-	},
+    	
+	}
 });

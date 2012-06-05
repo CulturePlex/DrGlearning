@@ -14,6 +14,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
     init: function(){
         this.daoController = this.getApplication().getController('DaoController');
 		this.careersStore = Ext.getStore('Careers');
+		this.knowledgesStore = Ext.getStore('Knowledges');
 		this.careersListController = this.getApplication().getController('CareersListController');
 		this.offset = 0;
 	},
@@ -38,9 +39,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
 		this.careersStore.load();
 		Ext.getStore('Activities').load();
 		var usersStore = Ext.getStore('Users');
-		//console.log(usersStore);
+		console.log(usersStore.getCount());
 		//Create user if needed
-		if(usersStore.getCount()==0 ){
+		if(usersStore.getCount()==0){
 			//First calculate max localstorage size
 			Ext.Viewport.setMasked({
 	    	    xtype: 'loadmask',
@@ -61,17 +62,22 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			//user.set('uniqueid:', digest);
 			var userModel=new DrGlearning.model.User({
 				uniqueid:digest,
-				serverid:''
+				token:''
 			});
 			userModel.save();
 		}
 
 		if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
+		        if(this.knowledgesStore.getCount() == 0)
+		        {
+                    this.knowledgesRequest();
+                }
 				//Register user if needed
 				usersStore.sync();
 				usersStore.load();
 				var user=usersStore.getAt(0);
-				if(user != undefined && user.data.serverid===''){
+				console.log(user);
+				if(user !== undefined && user.data.token === ''){
 					console.log("Registering user");
 					var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
 					Ext.data.JsonP.request({
@@ -79,15 +85,16 @@ Ext.define('DrGlearning.controller.LoadingController', {
 					    url: HOST+"/api/v1/player/?format=jsonp",
 					    params: {
 					    	code: user.data.uniqueid,
-					    	display_name: user.data.name,
-					    	email: user.data.email
 					    },
 					    success: function(response){
-					    	console.log("User successfully registered");
-							console.log(response.id);
+
+							console.log(response);
+					    	user.data.token=response.token;
 					    	user.data.serverid=response.id;
-					    	user.save();
+					    	user.data.resource_uri=response.resource_uri;
+					    	//user.save();
 					    	usersStore.sync();
+    				    	console.log("User successfully registered");
 					    }
 					});
 					usersStore.sync();
@@ -115,9 +122,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	    },
 	    
 	    careersRequest: function (searchString){
-	        if( this.searchString != searchString )
+	        console.log(searchString);
+	        console.log(localStorage.searchString);
+	        if( localStorage.searchString != searchString )
 	        {
-	            this.searchString = searchString;
+	            localStorage.searchString = searchString;
 	            localStorage.offset = 0;
 	            localStorage.total_count = 1;
 	            localStorage.current_count = 0;
@@ -140,7 +149,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     scope   : this,
                     params: {
                         offset: localStorage.offset,
-                        //name__startswith: "M"
+                        name__contains: localStorage.searchString
                     },
                     success:function(response, opts){
                     	console.log(response["meta"]);
@@ -216,7 +225,34 @@ Ext.define('DrGlearning.controller.LoadingController', {
                  });
             }
         },
-		
+        knowledgesRequest: function (){
+	        console.log('retrieving knowledges');
+	        localStorage.knowledgeFields = [];
+		    var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+		    Ext.data.JsonP.request({
+                url: HOST+"/api/v1/knowledge/?format=jsonp",
+                scope   : this,
+                success:function(response, opts){
+                	console.log(response);
+                	console.log("Knowledges retrieved");
+                	var knowledges=response["objects"];
+               		this.knowledgesStore.removeAll(); 
+                	for (cont in knowledges) {
+                		var knowledge=knowledges[cont];
+            			var knowledgeModel=new DrGlearning.model.Knowledge({
+                				name : knowledge.name,
+                				resource_uri : knowledge.resource_uri
+            			});
+            			knowledgeModel.save();
+            			this.knowledgesStore.sync();
+				        this.knowledgesStore.load();
+                    }
+            		console.log(localStorage.knowledgeFields);
+                },
+                failure:function(){
+                }
+           });
+        },
 		pausecomp:function (ms) {
 			ms += new Date().getTime();
 			while (new Date() < ms){}
