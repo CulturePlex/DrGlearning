@@ -16,6 +16,14 @@ class CareerAdminForm(forms.ModelForm):
     class Meta:
         model = Career
 
+    def clean_published(self):
+        published = self.cleaned_data["published"]
+        if published and self.instance.activity_set.count() == 0:
+            raise forms.ValidationError(_("Sorry, you can only publish "
+                                          "courses with at least one activity"))
+        else:
+            return published
+
     def clean_knowledge_field(self):
         knowledge_fields = self.cleaned_data["knowledge_field"].distinct()
         if knowledge_fields.count() > settings.MAX_KNOWLEDGE_FIELDS:
@@ -38,8 +46,9 @@ class CareerAdmin(GuardedModelAdmin):
     autocomplete_lookup_fields = {
         'm2m': ['knowledge_field'],
     }
-    list_display = ("name", "published", "description", "qrcode")
-    list_filter = ("published", )
+    list_display = ("name", "published", "description", "activities",
+                    "qrcode")
+    list_filter = ("published", "knowledge_field")
     search_fields = ("name", "published", "description")
 
     def get_activity_type(self, a):
@@ -65,7 +74,6 @@ class CareerAdmin(GuardedModelAdmin):
             obj.user = request.user
         obj.save()
 
-
     def qrcode(self, obj):
         career_url = api_url('career', obj.id)
         image_size = "80x80"
@@ -77,6 +85,10 @@ class CareerAdmin(GuardedModelAdmin):
                        image_src)
     qrcode.allow_tags = True
     qrcode.short_description = _("QR-Code")
+
+    def activities(self, obj):
+        return obj.activity_set.count()
+    activities.short_description = _("# Activities")
 
 
 admin.site.register(Knowledge)
