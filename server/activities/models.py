@@ -234,7 +234,10 @@ class Visual(Activity):
                                                      "after the time elapsed. "
                                                      "if it is not provided, "
                                                      "one will be generated"))
-    answers = jsonfield.JSONField(_("answers"), default="[]")
+    answers = jsonfield.JSONField(_("answers"), default="[]",
+                                  help_text=_("Set of possible answers shown. "
+                                              "You can add a maximum of %s" \
+                                  % settings.MAX_ANSWERS_FOR_QUIZZ_VISUAL))
     correct_answer = models.CharField(_("right answer"), max_length=80)
     time = models.CharField(_("countdown time"), max_length=10,
                             help_text=_("Expresed in seconds"))
@@ -252,7 +255,9 @@ class Quiz(Activity):
                                                      "if it is not provided, "
                                                      "one will be generated"))
     answers = jsonfield.JSONField(_("possible answers"), default="[]",
-                                  help_text=_("Set of possible answers shown"))
+                                  help_text=_("Set of possible answers shown. "
+                                              "You can add a maximum of %s" \
+                                  % settings.MAX_ANSWERS_FOR_QUIZZ_VISUAL))
     correct_answer = models.CharField(_("right answer"), max_length=80)
     time = models.CharField(_("countdown time"), max_length=10,
                             null=True, blank=True,
