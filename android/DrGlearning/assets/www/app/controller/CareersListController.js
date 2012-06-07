@@ -373,6 +373,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
 
         var knowledgeSelectField = Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0];
         var value = knowledgeSelectField.getValue();
+        console.log(value);
+        console.log(localStorage.knowledgeValue);
         if(localStorage.knowledgeValue != value)
         {
         //localStorage.searchRequest = "false";
@@ -448,7 +450,6 @@ Ext.define('DrGlearning.controller.CareersListController', {
     search: function(values, form){
         if(form !== "")
         {
-            localStorage.searchRequest = "true";
             localStorage.form = form.toLowerCase();
             /*var filters = [];
             filters.push(new Ext.util.Filter({

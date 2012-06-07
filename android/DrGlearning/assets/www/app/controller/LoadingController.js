@@ -253,7 +253,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
             			knowledgeModel.save();
 
                     }
-            		console.log(localStorage.knowledgeFields);
                 },
                 failure:function(){
                 }
