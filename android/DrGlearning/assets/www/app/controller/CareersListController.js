@@ -375,6 +375,10 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var value = knowledgeSelectField.getValue();
         console.log(value);
         console.log(localStorage.knowledgeValue);
+        if(localStorage.form == undefined)
+        {
+            localStorage.form = '';
+        }
         if(localStorage.knowledgeValue != value)
         {
         //localStorage.searchRequest = "false";
@@ -382,7 +386,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             this.careersStore.clearFilter();
             this.careersStore.each(function(record){
                 if(!record.data.installed){
-                    record.erase();
+                    //record.erase();
                 }
             });
             this.careersStore.load();
@@ -448,34 +452,31 @@ Ext.define('DrGlearning.controller.CareersListController', {
         }, this, {buffer: 300});
     },
     search: function(values, form){
-        if(form !== "")
-        {
-            localStorage.form = form.toLowerCase();
-            /*var filters = [];
-            filters.push(new Ext.util.Filter({
-                filterFn: function(item){
-                    return item.data.installed === false;
-                }
-            }));
-            filters.push(new Ext.util.Filter({
-                filterFn: function(item){
-                    return item.data.name.toLowerCase().indexOf(form) !=
-                    -1 ||
-                    item.data.description.toLowerCase().indexOf(form) !=
-                    -1;
-                }
-            }));*/
-            this.loadingController.careersRequest(localStorage.form,localStorage.knowledgeValue);
-            this.careersStore.clearFilter();
-            //this.careersStore.filter(filters);
-            this.careersStore.each(function(record){
-                if(!record.data.installed){
-                    record.erase();
-                }
-            });
-            this.careersStore.load();
-            //this.getCareersframe().down('careerslist').refresh();
-        }
+        localStorage.form = form.toLowerCase();
+        /*var filters = [];
+        filters.push(new Ext.util.Filter({
+            filterFn: function(item){
+                return item.data.installed === false;
+            }
+        }));
+        filters.push(new Ext.util.Filter({
+            filterFn: function(item){
+                return item.data.name.toLowerCase().indexOf(form) !=
+                -1 ||
+                item.data.description.toLowerCase().indexOf(form) !=
+                -1;
+            }
+        }));*/
+        this.loadingController.careersRequest(localStorage.form,localStorage.knowledgeValue);
+        this.careersStore.clearFilter();
+        //this.careersStore.filter(filters);
+        this.careersStore.each(function(record){
+            if(!record.data.installed){
+                //record.erase();
+            }
+        });
+        this.careersStore.load();
+        //this.getCareersframe().down('careerslist').refresh();
     },
     getData: function(newActivity){
         var html = "";

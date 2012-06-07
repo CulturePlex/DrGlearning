@@ -128,6 +128,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	                localStorage.offset = 0;
 	                localStorage.total_count = 1;
 	                localStorage.current_count = 0;
+	                this.careersStore.each(function(record) {
+                        		if(!record.data.installed){
+                            		record.erase();
+                            	}
+					},this);
 	            }
 	            if(parseInt(localStorage.current_count)  < parseInt(localStorage.total_count) && !this.retrieving && this.careersListController.installing == true)
 			    {
@@ -141,8 +146,11 @@ Ext.define('DrGlearning.controller.LoadingController', {
                          html: "<img src='resources/images/ic_launcher.png'>"
                     });
 			        var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
-			        var searchParams;
-			        if(localStorage.knowledgeValue!== 'All')
+			        var searchParams = {
+		                offset: localStorage.offset,
+		                name__contains: localStorage.searchString
+			        };
+			        if(localStorage.knowledgeValue!== 'All' && localStorage.knowledgeValue !=='')
 			        {
 			            searchParams={
 			                offset: localStorage.offset,
@@ -150,11 +158,18 @@ Ext.define('DrGlearning.controller.LoadingController', {
                             knowledges__name: localStorage.knowledgeValue
                         };
 			        }
-			        else
+			        if(localStorage.knowledgeValue!== 'All' && localStorage.knowledgeValue ==='')
 			        {
 			            searchParams={
 			                offset: localStorage.offset,
-                            name__contains: localStorage.searchString,
+                            knowledges__name: localStorage.knowledgeValue,
+                        };
+			        }
+			        if(localStorage.knowledgeValue=== 'All' && localStorage.knowledgeValue !=='')
+			        {
+			            searchParams={
+			                offset: localStorage.offset,
+                            name__contains: localStorage.searchString
                         };
 			        }
 			        Ext.data.JsonP.request({
@@ -164,6 +179,8 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         success:function(response, opts){
                             localStorage.offset = response["meta"].limit;
                             localStorage.total_count = response["meta"].total_count;
+                            console.log(localStorage.offset);
+                            console.log(localStorage.total_count);
                         	var careers=response["objects"];
                         	this.careersStore.each(function(record) {
                         		if(!record.data.installed){
@@ -176,7 +193,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                             		}
                             		if(!exist){
                             		    
-                            			record.erase();
+                            			//record.erase();
                             		}
                             	}
 					        },this);
