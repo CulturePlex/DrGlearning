@@ -370,11 +370,12 @@ Ext.define('DrGlearning.controller.CareersListController', {
     },
     
     filterCareersByKnowledge: function(){
-        /*var knowledgeSelectField = Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0];
+
+        var knowledgeSelectField = Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0];
         var value = knowledgeSelectField.getValue();
-        if(value !== 'All')
+        if(localStorage.knowledgeValue != value)
         {
-            localStorage.searchRequest = "false";
+        //localStorage.searchRequest = "false";
             this.loadingController.careersRequest(localStorage.form,value);
             this.careersStore.clearFilter();
             this.careersStore.each(function(record){
@@ -383,7 +384,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 }
             });
             this.careersStore.load();
-        }*/
+        }
     },
     /*
      * Showing not installed carrers (menu to install new
@@ -461,7 +462,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     -1;
                 }
             }));*/
-            this.loadingController.careersRequest(localStorage.form,'');
+            this.loadingController.careersRequest(localStorage.form,localStorage.knowledgeValue);
             this.careersStore.clearFilter();
             //this.careersStore.filter(filters);
             this.careersStore.each(function(record){

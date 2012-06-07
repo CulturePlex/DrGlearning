@@ -120,25 +120,17 @@ Ext.define('DrGlearning.controller.LoadingController', {
 	          	this.getApplication().getController('CareersListController').index();
 	      }
 	    },
-	    
-	    careersRequest: function (searchString,knowledgeValue){
-	        console.log(localStorage.searchRequest);
-	        console.log(localStorage.searchRequest == "true");
-	        if (localStorage.searchRequest == "true")
-	        {
-	            console.log(searchString);
-	            console.log(localStorage.searchString);
-	            if( localStorage.searchString != searchString )
+        careersRequest: function (searchString,knowledgeValue){
+	            if( localStorage.searchString != searchString || localStorage.knowledgeValue != knowledgeValue)
 	            {
 	                localStorage.searchString = searchString;
+	                localStorage.knowledgeValue = knowledgeValue;
 	                localStorage.offset = 0;
 	                localStorage.total_count = 1;
 	                localStorage.current_count = 0;
 	            }
 	            if(parseInt(localStorage.current_count)  < parseInt(localStorage.total_count) && !this.retrieving && this.careersListController.installing == true)
 			    {
-                    console.log(localStorage.current_count);
-                    console.log(localStorage.total_count);
 			        this.retrieving =true;
                     this.daoController.updateOfflineScores();
 	                Ext.Viewport.setMasked({
@@ -148,23 +140,31 @@ Ext.define('DrGlearning.controller.LoadingController', {
                          html: "<img src='resources/images/ic_launcher.png'>"
                     });
 			        var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
+			        var searchParams;
+			        if(localStorage.knowledgeValue!== 'All')
+			        {
+			            searchParams={
+			                offset: localStorage.offset,
+                            name__contains: localStorage.searchString,
+                            knowledges__name: localStorage.knowledgeValue
+                        };
+			        }
+			        else
+			        {
+			            searchParams={
+			                offset: localStorage.offset,
+                            name__contains: localStorage.searchString,
+                        };
+			        }
 			        Ext.data.JsonP.request({
                         url: HOST+"/api/v1/career/?format=jsonp",
                         scope   : this,
-                        params: {
-                            offset: localStorage.offset,
-                            name__contains: localStorage.searchString
-                        },
+                        params: searchParams,
                         success:function(response, opts){
-                        	console.log(response["meta"]);
                             localStorage.offset = response["meta"].limit;
                             localStorage.total_count = response["meta"].total_count;
-                        	console.log("Careers retrieved");
-                        	console.log(response["objects"]);
                         	var careers=response["objects"];
-
                         	this.careersStore.each(function(record) {
-                        	
                         		if(!record.data.installed){
                             		var exist=false;
                             		for(cont in careers){
@@ -175,14 +175,12 @@ Ext.define('DrGlearning.controller.LoadingController', {
                             		}
                             		if(!exist){
                             		    
-                            			//record.erase();
+                            			record.erase();
                             		}
                             	}
 					        },this);
                         	for (cont in careers) {
                         		var career=careers[cont];
-                        		//its a new career?
-                        		//this.careersStore.load();
                         		localStorage.current_count ++;
                         		if(this.careersStore.find('id',career.id) === -1){
                         			var careerModel=new DrGlearning.model.Career({
@@ -215,8 +213,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         		    console.log('existe');
                         			//Watch for updates
                         			var careerModel=this.careersStore.getAt(this.careersStore.find('id',career.id));
-                        			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
-                        			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
                     				if(careerModel.data.timestamp<career.timestamp && !careerModel.data.installed){
 								        careerModel.data.update=true;
 								        careerModel.save();
@@ -234,115 +230,6 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         }
                      });
                 }
-            }
-            else
-            {
-                console.log(localStorage.knowledgeValue);
-                console.log(knowledgeValue);
-	            if( localStorage.knowledgeValue != knowledgeValue )
-	            {
-	                localStorage.knowledgeValue = knowledgeValue;
-	                localStorage.offset = 0;
-	                localStorage.total_count = 1;
-	                localStorage.current_count = 0;
-	            }
-	            if(parseInt(localStorage.current_count)  < parseInt(localStorage.total_count) && !this.retrieving && this.careersListController.installing == true)
-			    {
-                    console.log(localStorage.current_count);
-                    console.log(localStorage.total_count);
-			        this.retrieving =true;
-                    this.daoController.updateOfflineScores();
-	                Ext.Viewport.setMasked({
-                         xtype: 'loadmask',
-                         message: i18n.gettext('Retrieving Courses...'),
-                         indicator: true,
-                         html: "<img src='resources/images/ic_launcher.png'>"
-                    });
-			        var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
-			        Ext.data.JsonP.request({
-                        url: HOST+"/api/v1/career/?format=jsonp",
-                        scope   : this,
-                        params: {
-                            offset: localStorage.offset,
-                            knowledge_field__in: localStorage.knowledgeValue
-                        },
-                        success:function(response, opts){
-                        	console.log(response["meta"]);
-                            localStorage.offset = response["meta"].limit;
-                            localStorage.total_count = response["meta"].total_count;
-                        	console.log(response["objects"]);
-                        	var careers=response["objects"];
-
-                        	this.careersStore.each(function(record) {
-                        	
-                        		if(!record.data.installed){
-                            		var exist=false;
-                            		for(cont in careers){
-                            			if(careers[cont].id == record.data.id){
-                            				exist=true;
-                            				break;
-                            			}
-                            		}
-                            		if(!exist){
-                            		    
-                            			//record.erase();
-                            		}
-                            	}
-					        },this);
-                        	for (cont in careers) {
-                        		var career=careers[cont];
-                        		//its a new career?
-                        		this.careersStore.load();
-                        		localStorage.current_count ++;
-                        		if(this.careersStore.find('id',career.id) === -1){
-                        			var careerModel=new DrGlearning.model.Career({
-                        					id : parseInt(career.id),
-                            				negative_votes : career.negative_votes,
-                            				positive_votes : career.positive_votes,
-                            				name : career.name,
-                            				description : career.description,
-                            				creator : career.creator,
-                            				resource_uri : career.resource_uri,
-                            				knowledges : career.knowledges,
-                            				timestamp : career.timestamp,
-                            				installed : false,
-                        					started : false,
-                        					update : false,
-                        					size: career.size,
-                        					career_type: career.career_type
-                        			});
-                                   	
-                        			var activities=new Array();
-                        			for(cont in career.activities){
-                        				activities[cont]=career.activities[cont].full_activity_url;
-                        			}
-                        			careerModel.set('activities',activities);
-                        			careerModel.save();
-                        			this.careersStore.load();
-                        			this.careersStore.sync();
-                        		}else{
-                        		    console.log('existe');
-                        			//Watch for updates
-                        			var careerModel=this.careersStore.getAt(this.careersStore.find('id',career.id));
-                        			//console.log("actual timestamp: "+careerModel.data.timestamp+" - new timestamp: "+career.timestamp);
-                        			//console.log(" "+Date.parse(careerModel.data.timestamp)+" vs "+Date.parse(career.timestamp));
-                    				if(careerModel.data.timestamp<career.timestamp && !careerModel.data.installed){
-								        careerModel.data.update=true;
-								        careerModel.save();
-                            		}
-                    			}
-                        	}
-                        	this.careersListController.showCareersToInstall();
-                            Ext.Viewport.setMasked(false);
-                            this.retrieving =false;
-                        },
-                        failure:function(){
-                            Ext.Viewport.setMasked(false);
-                            this.retrieving = false;
-                        }
-                     });
-                 }
-            }
         },
         knowledgesRequest: function (){
 	        console.log('retrieving knowledges');
@@ -372,6 +259,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 }
            });
         },
+        
+        
+        
 		pausecomp:function (ms) {
 			ms += new Date().getTime();
 			while (new Date() < ms){}
