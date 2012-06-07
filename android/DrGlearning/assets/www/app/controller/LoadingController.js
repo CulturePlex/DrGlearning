@@ -133,6 +133,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
 			    {
 			        this.retrieving =true;
                     this.daoController.updateOfflineScores();
+                    this.knowledgesRequest();
 	                Ext.Viewport.setMasked({
                          xtype: 'loadmask',
                          message: i18n.gettext('Retrieving Courses...'),
@@ -250,8 +251,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                 				resource_uri : knowledge.resource_uri
             			});
             			knowledgeModel.save();
-            			this.knowledgesStore.sync();
-				        this.knowledgesStore.load();
+
                     }
             		console.log(localStorage.knowledgeFields);
                 },

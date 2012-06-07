@@ -407,6 +407,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
      */
     showCareersToInstall: function()
     {
+        this.loadingController.knowledgesStore.sync();
+		this.loadingController.knowledgesStore.load();
         this.installing = true;
         localStorage.selectedcareer = 0;
         this.getCareersframe().down('title').setTitle(i18n.gettext('Careers'));
