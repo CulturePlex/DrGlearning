@@ -29,7 +29,9 @@ class BaseQuizAndVisualForm(forms.ModelForm):
             raise forms.ValidationError(_("Sorry, you can only add "
                                           "up to %s possible answers" \
                                           % max_answers))
-        elif not all(map(lambda x: len(x) > max_chars, answers)):
+        elif not all(map(lambda x: \
+                         len(x) <= settings.MAX_ANSWERS_CHARS_FOR_QUIZZ_VISUAL,
+                         answers)):
             raise forms.ValidationError(_("Sorry, answers cannot be more than "
                                           "%s characters long" % max_chars))
         else:

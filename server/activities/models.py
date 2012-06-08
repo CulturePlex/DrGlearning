@@ -21,7 +21,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
-from base.utils import image_resize, jsonify_fields
+from base.utils import jsonify_fields
 from knowledges.models import Career
 from south.modelsinspector import add_introspection_rules
 
@@ -178,7 +178,6 @@ class Activity(models.Model):
         return size
 
     def save(self, *args, **kwargs):
-        self = image_resize(self)
         self.user = self.career.user
         self.timestamp = datetime.datetime.now()
         self.career.timestamp = self.timestamp

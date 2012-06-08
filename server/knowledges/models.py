@@ -6,7 +6,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
-from base.utils import image_resize
 from knowledges.templatetags.knowledges_extras import api_url
 
 
@@ -64,7 +63,6 @@ class Career(models.Model):
         return u"%s" % self.name
 
     def save(self, *args, **kwargs):
-        self = image_resize(self)
         counter = 0
         career = Career.objects.filter(user=self.user, name=self.name)
         career = career.exclude(id=self.id)

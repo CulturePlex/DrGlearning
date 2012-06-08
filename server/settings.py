@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from os import path
 
-from django.utils.translation import gettext_lazy as _
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ugettext = lambda s: s
@@ -227,7 +225,7 @@ GOOGLE_ANALYTICS_CODE = "UA-1613313-11"
 EMULATOR_URL = "http://drglearning.com/client/"
 MAX_KNOWLEDGE_FIELDS = 5
 MAX_ANSWERS_FOR_QUIZZ_VISUAL = 6
-MAX_ANSWERS_CHARS_FOR_QUIZZ_VISUAL = 40
+MAX_ANSWERS_CHARS_FOR_QUIZZ_VISUAL = 50
 MAX_ANSWERS_CHARS_FOR_LINGUISTIC = 20
 
 try:

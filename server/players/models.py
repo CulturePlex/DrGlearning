@@ -4,7 +4,6 @@ import hashlib
 from django.db import models
 from django.conf import settings
 
-from base.utils import image_resize
 from activities.models import Activity
 
 
@@ -19,7 +18,6 @@ class Player(models.Model):
         return self.code
 
     def save(self, *args, **kwargs):
-        self = image_resize(self)
         if not self.id and self.code and not self.token:
             token_key = u"%s-%s-%s" \
                         % (settings.SECRET_KEY,

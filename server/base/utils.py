@@ -25,17 +25,15 @@ def jsonify_fields(instance, fields=None):
             if not image:
                 # TODO Should we send the field with a blank value?
                 continue
-            
             # Original url for debugging
             if DEBUG:
-                data[field_name+'_url'] = image
-
+                data[field_name + '_url'] = image
             # base64 transformation
             image_path = image.path
             ext = image_path.split('.')[-1]
-            image_data = open(image_path,"rb").read()
-            data[field_name] = "data:image/%s;base64,%s" % (ext,
-                    base64.encodestring(image_data))
+            image_data = open(image_path, "rb").read()
+            data[field_name] = "data:image/%s;base64,%s" \
+                               % (ext, base64.encodestring(image_data))
         # If geometry export to geojson
         elif isinstance(f, GeometryField):
             geo_object = getattr(instance, field_name)
@@ -52,24 +50,3 @@ def dehydrate_fields(bundle, child_obj=None):
         child_obj = bundle.obj
     bundle.data.update(jsonify_fields(child_obj))
     return bundle
-
-
-def image_resize(self):
-    if hasattr(self, "image") and self.image:
-        if self.image.width > MAX_IMAGE_SIZE or \
-                self.image.height > MAX_IMAGE_SIZE:
-            filename = self.image.name
-            small_image = Image.open(StringIO(self.image.read()))
-            small_image.thumbnail((MAX_IMAGE_SIZE,
-                                    MAX_IMAGE_SIZE))
-            temp_file = StringIO()
-            file_extension = os.path.splitext(filename)[1][1:]
-            if file_extension.lower() == "jpg":
-                file_extension = "jpeg"
-            small_image.save(temp_file, file_extension)
-            image_content = ContentFile(temp_file.getvalue())
-            self.image.save(filename, image_content)
-    return self
-
-
-
