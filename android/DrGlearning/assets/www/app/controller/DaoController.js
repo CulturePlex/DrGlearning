@@ -8,6 +8,7 @@ Ext.define('DrGlearning.controller.DaoController', {
 
     init: function() {
         this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
+        this.careersListController = this.getApplication().getController('CareersListController');
         this.careersStore = Ext.getStore('Careers');
     },
 
@@ -361,6 +362,34 @@ Ext.define('DrGlearning.controller.DaoController', {
             }
         }
         return approved;
+    },
+    checkForCareerUpdate: function(career)
+    {
+        Ext.Viewport.setMasked({
+            xtype: 'loadmask',
+            message: i18n.gettext('Checkng for Updates...'),
+            indicator: true,
+        });
+        var HOST = this.globalSettingsController.getServerURL();
+        Ext.data.JsonP.request({
+            url: HOST+"/api/v1/career/"+ career.data.id+ "/?format=jsonp",
+            scope: this,
+            success:function(response, opts){
+                console.log(response);
+    			if(career.data.timestamp < response.timestamp){
+				            career.data.update=true;
+				            career.save();
+                            console.log('updated');
+                            this.careersStore.load();
+            	}
+            	this.careersListController.index();
+                Ext.Viewport.setMasked(false);
+                this.retrieving = false;
+            },
+            failure:function(){
+                Ext.Viewport.setMasked(false);
+            }
+         });
     },
     updateCareer:function(careerID,callback,scope){
         console.log("Updating career "+careerID);

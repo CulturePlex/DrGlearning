@@ -259,7 +259,11 @@ Ext.define('DrGlearning.controller.CareersListController', {
                             that.daoController.updateOfflineScores();}
                         },
                         {
-                        text: i18n.gettext('Check for course updates')
+                        text: i18n.gettext('Check for course updates'),
+                        handler: function(){
+                            this.parent.hide();
+                            that.daoController.checkForCareerUpdate(that.career);
+                        }
                         },{
                         text: 'Uninstall course',
                         ui: 'decline',
