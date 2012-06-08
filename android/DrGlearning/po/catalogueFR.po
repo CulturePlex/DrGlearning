@@ -4,6 +4,14 @@
 
 msgid ""
 msgstr ""
+"Project-Id-Version: drglearning\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: CulturePlex Apps <apps@cultureplex.ca>\n"
+"Language-Team: The CulturePlex Lab\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 "lang: fr"
 
@@ -87,8 +95,8 @@ msgstr "Félicitations!"
 msgid "You have complete the "
 msgstr "Vous avez fini ce niveau "
 
-msgid " level! It was the last Level, you have finished this career!"
-msgstr " ! C´était le dernier niveau, vous avez fini ce cours!"
+#msgid " level! It was the last Level, you have finished this career!"
+#msgstr " ! C´était le dernier niveau, vous avez fini ce cours!"
 
 msgid " level! Next Level: "
 msgstr " ! Prochain niveau : "
@@ -155,8 +163,8 @@ msgstr "Update course"
 msgid "Uninstall course"
 msgstr "Uninstall course"
 
-msgid "Cancel"
-msgstr "Cancel"
+#msgid "Cancel"
+#msgstr "Cancel"
 
 msgid "Check for course updates"
 msgstr "Check for course updates"
