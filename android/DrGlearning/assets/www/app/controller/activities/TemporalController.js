@@ -54,7 +54,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
     {
         this.score = 100;
         if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-            Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                 this.levelController.nextActivity(this.activity.data.level_type);
@@ -62,7 +62,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
         }
         else 
         {
-            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext('Oooh, it wasnt the correct answer'), function ()
+            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext("Ooh, that wasn't the right answer"), function ()
             {
                 this.levelController.tolevel();
             }, this);
@@ -73,7 +73,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
 
         if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
             this.score = 100;
-            Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                 this.levelController.nextActivity(this.activity.data.level_type);

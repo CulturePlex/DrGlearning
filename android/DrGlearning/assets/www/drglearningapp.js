@@ -12,20 +12,23 @@ var i18n;
 if (localStorage.catalogue === 'es') {
     i18n = new Jed({
         locale_data : catalogueES,
-        "domain": "messages"
+        "domain": "messages",
+        "plural_forms" : "nplurals=2; plural=(n != 1);"
     });
     localStorage.catalogue = 'es';
 } else if (localStorage.catalogue === 'fr') {
     i18n = new Jed({
         locale_data : catalogueFR,
-        "domain": "messages"
+        "domain": "messages",
+        "plural_forms" : "nplurals=2; plural=(n != 1);"
     });
     localStorage.catalogue = 'fr';
 } else {
     // English by default
     i18n = new Jed({
         locale_data : catalogueEN,
-        "domain": "messages"
+        "domain": "messages",
+        "plural_forms" : "nplurals=2; plural=(n != 1);"
     });
     localStorage.catalogue = 'en';
 }
@@ -36,7 +39,7 @@ Ext.Loader.setConfig({
 
 Ext.application({
     name: 'DrGlearning',
-    views: ['Loading', 'CareerFrame','Main', 'LevelFrame',
+    views: ['Loading', 'CareerFrame', 'Main', 'LevelFrame',
             'CareersList', 'ActivityFrame', 'activities.Geospatial',
             'activities.Visual', 'activities.Linguistic', 'activities.Temporal',
             'activities.Relational', 'activities.Quiz', 'Settings'],
@@ -47,8 +50,8 @@ Ext.application({
                   'activities.LinguisticController', 'activities.RelationalController',
                   'UserSettingsController', 'FileManagerController',
                   'MaxStorageSizeController', 'activities.QuizController'],
-    models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User','Knowledge'],
-    stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users','Knowledges'],
+    models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User', 'Knowledge'],
+    stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users', 'Knowledges'],
     autoCreateViewport : true,
     requires: ['Ext.Anim'],
     launch: function () {

@@ -26,7 +26,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var daocontroller = this.getApplication().getController('DaoController');
         var careerscontroller = this.getApplication().getController('CareersListController');
         var activitiescontroller = this.getApplication().getController('LevelController');
-        var blankOption = "Choose";
+        var blankOption = i18n.gettext("Choose");
         var playerPath = [];
         var playerEdgePath = [];
         var pathStart, pathGoal, pathPosition;
@@ -35,12 +35,12 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var score = 20;
         
         var verboseOperator = {
-            lt: "less than",
-            lte: "less or equal than",
-            gt: "greater than",
-            get: "greater or equal than",
-            eq: "equals to",
-            neq: "different to"
+            lt: i18n.gettext("less than"),
+            lte: i18n.gettext("less or equal than"),
+            gt: i18n.gettext("greater than"),
+            get: i18n.gettext("greater or equal than"),
+            eq: i18n.gettext("equal to"),
+            neq: i18n.gettext("different to")
         };
         
         //Import graph nodes and edges from database
@@ -57,7 +57,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             var edge;
             var written = [];
             var tipo = "error";
-            blankOption = "Choose";
+            blankOption = i18n.gettext("Choose");
             var nodo;
             for (var i = 0; i < graphEdges.length; i++) {
                 edge = graphEdges[i];
@@ -67,7 +67,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                             tipo = graphNodes[nodo].type;
                         }
                     }
-                    if (blankOption === "Choose") {
+                    if (blankOption === i18n.gettext("Choose")) {
                         if (written.indexOf(tipo) === -1) {
                             blankOption += " " + tipo.toLowerCase();
                         }
@@ -86,7 +86,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                             tipo = graphNodes[nodo].type;
                         }
                     }
-                    if (blankOption === "Choose") {
+                    if (blankOption === i18n.gettext("Choose")) {
                         if (written.indexOf(tipo) === -1) {
                             blankOption += " " + tipo.toLowerCase();
                         }
@@ -162,7 +162,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 if (graphNodes[pathPosition] !== undefined) {
                     if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
                         score += parseInt(graphNodes[pathPosition].score, 10);
-                        Ext.Msg.alert(i18n.gettext('Congratulations!'), 'You get ' + graphNodes[pathPosition].score + ' points!', function ()
+                        Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.translate('You got %d points!').fetch(graphNodes[pathPosition].score), function ()
                         {
                         
                         }, this);
@@ -194,8 +194,10 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
             case "neq":
                 return (elementCount !== constraintValue);
             case "let":
+            case "lte":
                 return (elementCount <= constraintValue);
             case "get":
+            case "gte":
                 return (elementCount >= constraintValue);
             case "lt":
                 return (elementCount < constraintValue);
@@ -227,15 +229,15 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 constraintState[i] = "";
                 
                 if (constraintPassed(constraints[i])) {
-                    setTimeout("console.log("+i+");",500);
+                    setTimeout("console.log("+ i +");", 500);
                     constraintClass = "relational-constraint-passed";
                     icontype = 'star';
                     uitype = 'confirm';
-                    if(constraintBoolean[i] !== true && constraintBoolean[i]!== undefined)
+                    if(constraintBoolean[i] !== true && constraintBoolean[i] !== undefined)
                     {
                         changed=true;
                     }
-                    constraintState[i] = i18n.gettext('Constraint Passed');
+                    constraintState[i] = i18n.gettext('Fulfilled condition');
                     constraintBoolean[i] = true;
                 }
                 else {
@@ -244,17 +246,39 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     allConstraintsPassed = false;
                     icontype = 'delete';
                     uitype = 'decline';
-                    if(constraintBoolean[i] !== false && constraintBoolean[i]!== undefined)
+                    if(constraintBoolean[i] !== false && constraintBoolean[i] !== undefined)
                     {
                         changed=true;
                     }
-                    constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
+                    constraintState[i] = i18n.gettext('Condition not fulfilled yet');
                     constraintBoolean[i] = false;
                 }
-                constraintsTextNew[i] += i18n.gettext('The number of ');
-                constraintsTextNew[i] += constraints[i].type + ' should be ';
-                constraintsTextNew[i] += verboseOperator[constraints[i].operator] + ' ';
-                constraintsTextNew[i] += constraints[i].value;
+                switch (constraints[i].operator) {
+                case "eq":
+                    constraintsTextNew[i] += i18n.translate("Pass through %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    break;
+                case "neq":
+                    constraintsTextNew[i] += i18n.translate("Pass through other than %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    break;
+                case "let":
+                case "lte":
+                    constraintsTextNew[i] += i18n.translate("Pass through %1$s or fewer %2$s").fetch(constraints[i].value, constraints[i].type);
+                    break;
+                case "gte":
+                case "get":
+                    constraintsTextNew[i] += i18n.translate("Pass through %1$s or more %2$s").fetch(constraints[i].value, constraints[i].type);
+                    break;
+                case "lt":
+                    constraintsTextNew[i] += i18n.translate("Pass through less than %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    break;
+                case "gt":
+                    constraintsTextNew[i] += i18n.translate("Pass through more than %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    break;
+                }
+//                constraintsTextNew[i] += i18n.gettext('The number of ');
+//                constraintsTextNew[i] += constraints[i].type + ' should be ';
+//                constraintsTextNew[i] += verboseOperator[constraints[i].operator] + ' ';
+//                constraintsTextNew[i] += constraints[i].value;
                 /*
                  * If state of constraint has changed button has animation fade
                  */
@@ -308,7 +332,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     {
                         changed=true;
                     }
-                    constraintState[i] = i18n.gettext('Constraint Passed');
+                    constraintState[i] = i18n.gettext('Fulfilled condition');
                     constraintBoolean[i] = true;
                 }
                 else {
@@ -320,12 +344,13 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     {
                         changed=true;
                     }
-                    constraintState[i] = i18n.gettext('Constraint Not Passed Yet');
+                    constraintState[i] = i18n.gettext('Condition not fulfilled yet');
                     constraintBoolean[i] = false;
                 }
-                constraintsTextNew[i] += i18n.gettext('The number of ');
-                constraintsTextNew[i] += i18n.gettext('steps ') + ' should be ';
-                constraintsTextNew[i] += i18n.gettext('less than') + ' ' + path_limit;
+                constraintsTextNew[i] += i18n.translate('Your path must have %d or fewer steps').fetch(path_limit);
+//                constraintsTextNew[i] += i18n.gettext('The number of ');
+//                constraintsTextNew[i] += i18n.gettext('steps ') + ' should be ';
+//                constraintsTextNew[i] += i18n.gettext('less than') + ' ' + path_limit;
                 /*
                  * If state of constraint has changed button has animation fade
                  */
@@ -378,7 +403,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         {
             activityView.removeAll();
             var scorePanel = Ext.create('Ext.Panel', {
-                html: '<p>Score: ' + getPathScore() + '</p>'
+                html: '<p>'+ i18n.gettext("Score") +": "+ getPathScore() + '</p>'
             });
             var gamePanel = Ext.create('Ext.Panel', {
                 padding: 10
@@ -453,7 +478,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     gamePanel.add(option);    
                 } else
                 {
-                    gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach ') + pathGoal + i18n.gettext('. Try undo.') + "<div>"});
+                    gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach') +" "+ pathGoal +". "+ i18n.gettext('Try undo') + "<div>"});
                 }
             }
             if (option)
@@ -510,7 +535,7 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 score = 100;
             }
             if (allConstraintsPassed) {
-                Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("obtained score:") + score, function ()
+                Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("Score") +": "+ score, function ()
                 {
                     daocontroller.activityPlayed(newActivity.data.id, true, score);
                     activitiescontroller.nextActivity(newActivity.data.level_type);

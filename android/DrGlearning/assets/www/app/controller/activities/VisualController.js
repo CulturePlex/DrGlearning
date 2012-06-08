@@ -33,7 +33,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: 'Loading activity...',
+            message: i18n.gettext('Loading activity...'),
             indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
@@ -77,7 +77,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         this.optionsContainer.removeAll();
         this.optionsContainer.removeAll();
         
-        this.timeLabel.setHtml(this.currentTime + i18n.gettext(" sec."));
+        this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(this.currentTime));
         var that = this;
         this.secondtemp = setInterval(function () 
         {
@@ -147,7 +147,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                 this.score = 20;
             }
             this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                 this.levelController.nextActivity(this.activity.data.level_type);

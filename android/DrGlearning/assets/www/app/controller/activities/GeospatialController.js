@@ -121,7 +121,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
             if (bounds.contains(map.getCenter())) {
                 return;
             }
-            // It`s not OK, so find the nearest allowed point and move there
+            // It's not OK, so find the nearest allowed point and move there
             var C = map.getCenter();
             var X = C.lng();
             var Y = C.lat();
@@ -187,7 +187,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         var distance = Math.sqrt(Math.pow(this.marker.position.lat() - this.target.lat(), 2) + Math.pow(this.marker.position.lng() - this.target.lng(), 2)) * 60000;
         score = parseInt(100 - (distance * 100) / this.radius, 10);
         if (distance < this.radius) {
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + score, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +":"+ + score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, score);
                 this.levelController.nextActivity(this.activity.data.level_type);

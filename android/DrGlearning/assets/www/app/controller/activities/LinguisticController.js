@@ -38,7 +38,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         
     },
     updateActivity: function (view, newActivity)
-	{
+    {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: i18n.gettext('Loading activity...'),
@@ -55,7 +55,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         this.loquedTextFinded = [];
         var cont;
         for (cont in this.loquedText) 
-		{
+        {
             if (this.loquedText[cont] === " ") {
                 this.loquedTextFinded[cont] = true;
             }
@@ -68,14 +68,14 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
         activityView.down('label[customId=responses]').setHtml('');
         if (this.activity.data.locked_text.toLowerCase() === this.activity.data.answer.toLowerCase()) {
-            activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer: '));
+            activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') +": ");
         }
         activityView.down('label[customId=responses]').setHtml('');
         this.respuestas = this.activity.data.answers;
         newActivity.getImage('image', 'image', null, this, view, activityView, true);
     },
     loadingImages: function (view, activityView, value)
-	{
+    {
         this.imagesrc = value;
         var table = this.getTable();
         activityView.down('panel[customId=image]').setHtml(table);
@@ -90,7 +90,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         }
     },
     tryIt: function ()
-	{
+    {
         var letterView = activityView.down('textfield[customId=letter]');
         var responseView = activityView.down('label[customId=responses]');
         var loquedView = activityView.down('label[customId=loqued]');
@@ -124,9 +124,9 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         }
         loquedView.setHtml(loqued);
         if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
-		{
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
-			{
+        {
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+            {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                 this.levelController.nextActivity(this.activity.data.level_type);
             }, this);
@@ -134,14 +134,14 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
     },
     
     getTable: function ()
-	{
+    {
         var table = '<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT="170" BACKGROUND="' + this.imagesrc + '"><tr>';
         //var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
         var squaresBlack = this.squaresBlack;
         var cont;
         var temp;
         for(cont in squaresBlack) 
-		{
+        {
             if (squaresBlack[cont]) {
                 table = table + '<td BGCOLOR="BLACK" style="border: inset 0pt" width="20%"></td>';
             }
@@ -152,7 +152,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
                 table = table + '</tr>';
             }
             if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25) 
-			{
+            {
                 table = table + '<tr>';
             }
         }
@@ -161,7 +161,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
     },
     
     goodLetter: function ()
-	{
+    {
         var cont;
         var goodLetters = 1;
         var whiteSquares = 0;
@@ -196,7 +196,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
     },
     
     solve: function ()
-	{
+    {
         var answer;
         var saveButton = Ext.create('Ext.Button', {
             scope: this,
@@ -208,7 +208,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         });
         var show = new Ext.MessageBox().show({
             id: 'info',
-            title: i18n.gettext('Answer the question:'),
+            title: i18n.gettext('Answer the question') +":",
             msg: this.activity.data.query,
             items: [{
                 xtype: 'textfield',
@@ -221,7 +221,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
             icon: Ext.Msg.INFO
         });
         saveButton.setHandler(function ()
-		{
+        {
             show.hide();
             answer = show.down('#importvalue').getValue();
             if (answer.toLowerCase() === this.activity.data.answer.toLowerCase()) {
@@ -229,8 +229,8 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
                 {
                     this.score=50;
                 }
-                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
-				{
+                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                {
                     this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                     this.levelController.nextActivity(this.activity.data.level_type);
                 }, this);
@@ -241,14 +241,14 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
                     this.score=0;
                 }
                 Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
-				{
+                {
                     this.daoController.activityPlayed(this.activity.data.id, false, this.score);
                     this.levelController.tolevel();
                 }, this);
             }
         });
         cancelButton.setHandler(function ()
-		{
+        {
             show.hide();
             this.destroy(show);
         });

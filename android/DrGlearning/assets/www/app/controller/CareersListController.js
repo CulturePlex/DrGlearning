@@ -140,7 +140,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().show();
         if (parseInt(localStorage.selectedcareer,10) !== 0 && localStorage.selectedcareer!==undefined) 
         {
-            Ext.Msg.confirm("Last career", "Return to last career?", function (answer)
+            Ext.Msg.confirm(i18n.gettext("Last course"), i18n.gettext("Return to the last course?"), function (answer)
             {
                 if (answer == 'yes') {
                     this.CareersListController.addOrStartCareer(undefined, undefined, undefined, this.careersStore.getById(localStorage.selectedcareer));
@@ -223,7 +223,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         {
             if(e !== undefined && e.touch.target.id === "examInfo")
             {
-                Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality Courses you should complete each level before you can play the next one.'), function(){
+                Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality, Courses you should complete each level before you can play the next one.'), function(){
                 }, this);
             }
             else
@@ -232,13 +232,13 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
             }
             else {
-                Ext.Msg.confirm(i18n.gettext("Install ")+career.data.name+i18n.gettext(" Career?"), career.data.description +'<p>' + i18n.gettext(" Are you sure you want to install this career?")+'</p>', function (answer, pako)
+                Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description +' <p>' + i18n.gettext("Are you sure you want to install this course?")+'</p>', function (answer, pako)
                 {
                     if (answer === 'yes') 
                     {
                         Ext.Viewport.setMasked({
                             xtype: 'loadmask',
-                            message: i18n.gettext('Downloading Career...'),
+                            message: i18n.gettext('Downloading Course...'),
                             indicator: true,
                             html: "<img src='resources/images/ic_launcher.png'>"
                         });
@@ -254,23 +254,23 @@ Ext.define('DrGlearning.controller.CareersListController', {
             if (e !== undefined && e.touch.target.id == "uninstall") {
                 this.actionSheet = Ext.create('Ext.ActionSheet', {
                     items: [{
-                        text: i18n.gettext('Send scores'),
+                        text: i18n.gettext('Sync. your scores'),
                         handler: function(){
                             this.parent.hide();
                             that.daoController.updateOfflineScores();}
                         },
                         {
-                        text: i18n.gettext('Check for course updates'),
+                        text: i18n.gettext('Check for courses updates'),
                         handler: function(){
                             this.parent.hide();
                             that.daoController.checkForCareerUpdate(that.career);
                         }
                         },{
-                        text: 'Uninstall course',
+                        text: i18n.gettext('Uninstall course'),
                         ui: 'decline',
                         handler: function(){
                             this.parent.hide();
-                            Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function (answer)
+                            Ext.Msg.confirm(i18n.gettext("Uninstall Course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function (answer)
                             {
                                 if (answer === 'yes') {
                                     this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
@@ -294,17 +294,17 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 if (e !== undefined && e.touch.target.id === "update") {
                     var actionSheet = Ext.create('Ext.ActionSheet', {
                         items: [{
-                        text: i18n.gettext('Send scores')
+                        text: i18n.gettext('Sync. your scores')
                         },{
-                            text: 'Update course',
+                            text: i18n.gettext('Update course'),
                             ui: 'confirm',
                             handler: function(){
                             this.parent.hide();
-                            Ext.Msg.confirm(i18n.gettext("Update Career?"), i18n.gettext("Are you sure you want to update this career?"), function(answer){
+                            Ext.Msg.confirm(i18n.gettext("Update course?"), i18n.gettext("Are you sure you want to update this course?"), function(answer){
                                 if (answer == 'yes') {
                                      Ext.Viewport.setMasked({
                                      xtype: 'loadmask',
-                                     message: i18n.gettext('Updating Career...'),
+                                     message: i18n.gettext('Updating course...'),
                                      indicator: true,
                                      html: "<img src='resources/images/ic_launcher.png'>"
                                      });
@@ -317,7 +317,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                             ui: 'decline',
                             handler: function(){
                                 this.parent.hide();
-                                Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost.Are you sure you want to uninstall this career?"), function(answer, pako){
+                                Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost. Are you sure you want to uninstall this career?"), function(answer, pako){
                                     if (answer == 'yes') {
                                         this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
                                         this.index();
@@ -338,7 +338,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 else {
                     if(e !== undefined && e.touch.target.id === "examInfo")
                     {
-                        Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality Courses you should complete each level before you can play the next one.'), function(){
+                        Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality Courses, you should complete each level before you can play the next one.'), function(){
             }, this);
                     }else
                     {
@@ -422,7 +422,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
 		this.loadingController.knowledgesStore.load();
         this.installing = true;
         localStorage.selectedcareer = 0;
-        this.getCareersframe().down('title').setTitle(i18n.gettext('Careers'));
+        this.getCareersframe().down('title').setTitle(i18n.gettext('Courses'));
         
         this.getCareersframe().down('careerslist').show();
         this.getCareersframe().down('careerslist').refresh();

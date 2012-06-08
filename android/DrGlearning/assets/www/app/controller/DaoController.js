@@ -25,7 +25,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         var career=this.careersStore.getById(id);
         if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
             Ext.Viewport.setMasked(false);
-            Ext.Msg.alert(i18n.gettext('Problem finded'), i18n.gettext('Unable to install this carrer, delete some installed careers.'), Ext.emptyFn);
+            Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to install this course, delete some installed careers.'), Ext.emptyFn);
             return;
         }
         var activities=career.data.activities;
@@ -135,7 +135,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                     }
                 },failure:function(){
                     Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert('Unable to install', 'Try again later.', Ext.emptyFn);
+                    Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
                 }
             });
         }
@@ -483,7 +483,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                                         activityModel.save();
                                 },failure:function(){
                                     Ext.Viewport.setMasked(false);
-                                    Ext.Msg.alert('Unable to install', 'Try again later.', Ext.emptyFn);
+                                    Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
                                 }
                             });
                         }
@@ -513,7 +513,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 
       }else{
               Ext.Viewport.setMasked(false);
-              Ext.Msg.alert(i18n.gettext('Problem finded'), 'Unable to update this career. Try again later', Ext.emptyFn);
+              Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to update this career. Try again later'), Ext.emptyFn);
             return;
       }
     },

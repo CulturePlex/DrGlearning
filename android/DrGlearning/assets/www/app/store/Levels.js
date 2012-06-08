@@ -9,7 +9,7 @@ Ext.define('DrGlearning.store.Levels', {
 	            {
             "customId":"1",
             "name":"Illetratum",
-            "description":"Don’t know anything about this? Learn your basics here!"
+            "description":"Don't know anything about this? Learn your basics here!"
         },
         {
             "customId":"2",
