@@ -231,7 +231,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
             }
             else {
-                Ext.Msg.confirm(i18n.gettext("Install ")+career.data.name+i18n.gettext(" Career?"), career.data.description + i18n.gettext(" Are you sure you want to install this career?"), function (answer, pako)
+                Ext.Msg.confirm(i18n.gettext("Install ")+career.data.name+i18n.gettext(" Career?"), career.data.description +'<p>' + i18n.gettext(" Are you sure you want to install this career?")+'</p>', function (answer, pako)
                 {
                     if (answer === 'yes') 
                     {
