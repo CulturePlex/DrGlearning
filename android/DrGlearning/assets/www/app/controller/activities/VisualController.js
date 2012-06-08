@@ -157,6 +157,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             this.optionsContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
+                this.daoController.activityPlayed(this.activity.data.id, false, this.score);
                 this.levelController.tolevel();
             }, this);
         }

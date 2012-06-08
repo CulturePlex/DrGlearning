@@ -151,6 +151,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             }, this); 
         }
         this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function() {});
+        this.getCareersframe().down('careerslist').refresh();
         
     },
     

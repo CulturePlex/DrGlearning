@@ -20,7 +20,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
             message: 'Installing course...',
-                indicator: true
+            indicator: true
         });
         var career=this.careersStore.getById(id);
         if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
@@ -254,47 +254,14 @@ Ext.define('DrGlearning.controller.DaoController', {
     },
     updateScore:function(activityID,score,timestamp){
         var offlineScoreStore=Ext.getStore('OfflineScores');
-        var usersStore = Ext.getStore('Users');
-        var user=usersStore.getAt(0);
-        var HOST = this.globalSettingsController.getServerURL();
-        /*if(this.globalSettingsController.hasNetwork()){
-            Ext.data.JsonP.request({
-                scope: this,
-                url: HOST+"/api/v1/highscore/?format=jsonp",
-                params: {
-                    player_code: user.data.uniqueid,
-                    activity_id: activityID,
-                    score: score,
-                    timestamp: timestamp
-                },
-                success: function(response){
-                    console.log("Score successfully updated");
-                }
-            });
-            var offlineScoreOld=offlineScoreStore.queryBy(function(record) {
-                if(record.data.activity_id==activityID){
-                    record.erase();
-                }
-            });
-            this.updateOfflineScores();
-        }else{
-        */
-        
-            /*var offlineScore=offlineScoreStore.queryBy(function(record) {
-                if(record.data.activity_id==activityID){
-                    return true;
-                }
-            });*/
-            var offlineScoreModel=new DrGlearning.model.OfflineScore({
-                activity_id : activityID,
-                score : score,
-                timestamp: timestamp
-            });
-            /*if(offlineScore.getCount()!=0){
-                offlineScoreModel.set('id',offlineScore.first().data.id);
-            }*/
-            offlineScoreModel.save();
-        //}
+        var offlineScoreModel=new DrGlearning.model.OfflineScore({
+            activity_id : activityID,
+            score : score,
+            timestamp: timestamp
+        });
+        offlineScoreModel.save();
+        offlineScoreStore.sync();
+        offlineScoreStore.load();
     },
     /*
      * Return level id
@@ -331,6 +298,7 @@ Ext.define('DrGlearning.controller.DaoController', {
         var usersStore = Ext.getStore('Users');
         var user=usersStore.getAt(0);
         var HOST = this.globalSettingsController.getServerURL();
+        console.log(offlineScoreStore.getCount());
         offlineScoreStore.each(function(item) {
             Ext.data.JsonP.request({
                 scope: this,
@@ -343,8 +311,13 @@ Ext.define('DrGlearning.controller.DaoController', {
                     token: user.data.token
                 },
                 success: function(response){
-                    item.erase();
+                    offlineScoreStore.sync();
+                    offlineScoreStore.load();
+                    offlineScoreStore.remove(item);
+                    offlineScoreStore.sync();
+                    offlineScoreStore.load();
                     console.log("scores successfully sent");
+                    console.log(offlineScoreStore.getCount());
                 }
             });
         },this);
@@ -532,6 +505,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                         career.save();
                         careersStore.sync();
                         careersStore.load();
+                        this.careersListController.index();
                         Ext.Viewport.setMasked(false);
                         callback(scope);
                     }

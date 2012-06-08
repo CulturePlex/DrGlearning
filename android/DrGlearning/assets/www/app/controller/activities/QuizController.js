@@ -134,9 +134,9 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     },
     tryIt: function (target)
     {
-        this.puntos = 100;
         if (target.config.answerNo === this.correctAnswerId) 
         {
+            this.puntos = 100;
             this.timeContainer.down('button[correctAnswer=true]').setUi('confirm');
             Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
             {
@@ -149,6 +149,8 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             this.timeContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
+                this.puntos = 0;
+                this.daoController.activityPlayed(this.activity.data.id, false, this.puntos);
                 this.levelController.tolevel();
             }, this);
         }

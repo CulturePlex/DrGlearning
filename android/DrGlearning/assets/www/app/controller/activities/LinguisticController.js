@@ -242,6 +242,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
                 }
                 Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
 				{
+                    this.daoController.activityPlayed(this.activity.data.id, false, this.score);
                     this.levelController.tolevel();
                 }, this);
             }

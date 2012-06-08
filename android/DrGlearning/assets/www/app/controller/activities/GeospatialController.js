@@ -196,6 +196,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
         else {
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
+                this.daoController.activityPlayed(this.activity.data.id, false, score);
                 this.levelController.tolevel();
             }, this);
         }

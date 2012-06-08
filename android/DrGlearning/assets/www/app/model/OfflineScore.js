@@ -17,7 +17,7 @@ Ext.define('DrGlearning.model.OfflineScore', {
 	config : {
 		fields : [ {
 			name : "id",
-			type : "string"
+			type : "int"
 		}, {
 			name : "activity_id",
 			type : "string"

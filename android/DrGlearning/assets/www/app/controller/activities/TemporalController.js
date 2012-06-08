@@ -70,8 +70,9 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
     },
     after: function ()
     {
-        this.score = 100;
+
         if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
+            this.score = 100;
             Ext.Msg.alert(i18n.gettext('Success!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
@@ -79,8 +80,10 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
             }, this);
         }
         else {
+            this.score = 0;
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
+                this.daoController.activityPlayed(this.activity.data.id, false, this.score);
                 this.levelController.tolevel();
             }, this);
         }
