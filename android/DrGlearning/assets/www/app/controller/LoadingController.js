@@ -6,11 +6,10 @@ Ext.define('DrGlearning.controller.LoadingController', {
     	        {
     				loading : 'loading',
     	            loadingpanel: 'loadingpanel',
+                    careersframe: 'careersframe',
     	        }
     },
-    
     retrieving : false,
-    
     init: function(){
         this.daoController = this.getApplication().getController('DaoController');
 		this.careersStore = Ext.getStore('Careers');
@@ -123,6 +122,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
         careersRequest: function (searchString,knowledgeValue){
 	            if( localStorage.searchString != searchString || localStorage.knowledgeValue != knowledgeValue)
 	            {
+	                this.getCareersframe().down('careerslist').hide();
+	                this.getCareersframe().down('panel[customId=emptyList]').hide();
+	                this.getCareersframe().down('button[customId=addCareer]').hide();
 	                localStorage.searchString = searchString;
 	                localStorage.knowledgeValue = knowledgeValue;
 	                localStorage.offset = 0;
@@ -133,7 +135,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
                             		record.erase();
                             	}
 					},this);
+
 	            }
+	            
 	            if(parseInt(localStorage.current_count)  < parseInt(localStorage.total_count) && !this.retrieving && this.careersListController.installing == true)
 			    {
 			        this.retrieving =true;
@@ -177,6 +181,9 @@ Ext.define('DrGlearning.controller.LoadingController', {
                         scope   : this,
                         params: searchParams,
                         success:function(response, opts){
+        	                this.getCareersframe().down('careerslist').show();
+	                        this.getCareersframe().down('panel[customId=emptyList]').show();
+	                        this.getCareersframe().down('button[customId=addCareer]').show();
                             localStorage.offset = response["meta"].limit;
                             localStorage.total_count = response["meta"].total_count;
                             console.log(localStorage.offset);
