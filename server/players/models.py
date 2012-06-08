@@ -38,4 +38,4 @@ class HighScore(models.Model):
     score = models.FloatField()
 
     def __unicode__(self):
-        return "%.2f %s (%s)" % (self.score, self.player, self.activity)
+        return u"%.2f %s (%s)" % (self.score, self.player, self.activity)
