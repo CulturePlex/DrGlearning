@@ -119,8 +119,8 @@ msgstr " level! It was the last Level, you have completed this course!"
 msgid " level! Next Level: "
 msgstr " level! Next Level: "
 
-#msgid " level! It was the last Level, you have finished this career!" 
-#msgstr " level! It was the last Level, you have completed this course!"
+# msgid " level! It was the last Level, you have finished this career!" 
+# msgstr " level! It was the last Level, you have completed this course!"
 
 msgid "Update course"
 msgstr "Update course"
@@ -224,8 +224,8 @@ msgid "Answer: "
 msgstr "Answer: "
 
 
-#msgid "Cancel"
-#msgstr "Cancel"
+# msgid "Cancel"
+# msgstr "Cancel"
 
 
 msgid "Answer the question:"
