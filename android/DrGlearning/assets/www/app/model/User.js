@@ -3,33 +3,33 @@ Ext.define('DrGlearning.model.User', {
     config: {
              fields: [
                       {
-                    	  name: "id",
-                    	  type: "string"
+                          name: "id",
+                          type: "string"
                       },{
-                    	  name: "display_name",
-                    	  type: "string"
+                          name: "display_name",
+                          type: "string"
                       },{
-                    	  name: "email",
-                    	  type: "string"
+                          name: "email",
+                          type: "string"
                       },{
-                    	  name: "image",
-                    	  type: "string"
+                          name: "image",
+                          type: "string"
                       },{
-                    	  name: "resource_uri",
-                    	  type: "string"
+                          name: "resource_uri",
+                          type: "string"
                       },{
-                    	  name: "token",
-                    	  type: "string"
+                          name: "token",
+                          type: "string"
                       },{
-                    	  name: "uniqueid",
-                    	  type: "string"
+                          name: "uniqueid",
+                          type: "string"
                       },{
-                    	  name: "serverid",
-                    	  type: "string"
+                          name: "serverid",
+                          type: "string"
                       }],
              proxy: {
-            	 type: 'localstorage',
-            	 id  : 'DrGlearningUser'
+                 type: 'localstorage',
+                 id  : 'DrGlearningUser'
              }
     }
 });

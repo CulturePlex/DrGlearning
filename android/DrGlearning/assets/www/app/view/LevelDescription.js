@@ -6,6 +6,5 @@ Ext.define('DrGlearning.view.LevelDescription', {
         cls: 'detail-card',
         styleHtmlContent: true,
         html: ''
-        
     }
 });

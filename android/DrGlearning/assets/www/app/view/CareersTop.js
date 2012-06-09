@@ -24,26 +24,22 @@ Ext.define('DrGlearning.view.CareersTop', {
                         xtype: 'selectfield',
                         name: 'estado',
                         options: [
-                            {text: i18n.gettext('In progress'), value: 'both'},
+                            {text: i18n.gettext('In Progress'), value: 'both'},
                             {text: i18n.gettext('Not Yet'), value: 'male'}
                         ]
                     },
-					{ xtype: 'spacer' },
+                    { xtype: 'spacer' },
                     {
                         xtype: 'button',
-                        text: i18n.gettext('Add Career')
+                        text: i18n.gettext('Add Course')
                     }
-					]
+                    ]
                 
             }
         ],
-
         layout: {
             type: 'vbox',
             align: 'stretch'
         }
     },
-    
-    
-    
 });

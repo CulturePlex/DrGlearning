@@ -1,59 +1,59 @@
 Ext.define('DrGlearning.view.CareerFrame', {
     extend: 'Ext.Container',
-	xtype: 'careerframe',
+    xtype: 'careerframe',
     requires: [
-		'DrGlearning.view.CareerDetail',	
+        'DrGlearning.view.CareerDetail',
     ],
-	config: {
-		fullscreen: true,
-		
+    config: {
+        fullscreen: true,
+        
         items: [
             {
-				ref: 'toolbar',
+                ref: 'toolbar',
                 xtype: 'toolbar',
                 docked: 'top',
-				name: 'up',
+                name: 'up',
                 items: [
                     {
                         xtype: 'title',
-						id: 'title',
-						name: 'title',
-                        title: 'Career Name',
-						maxWidth: '100%',
-						centered:true,
+                        id: 'title',
+                        name: 'title',
+                        title: i18n.gettext('Course Name'),
+                        maxWidth: '100%',
+                        centered:true,
                     },
                 ]
             },
-			{
+            {
                 xtype: 'toolbar',
                 docked: 'bottom',
                 items:[
                     {
                         xtype: 'button',
-						id: 'backToCareers',
+                        id: 'backToCareers',
                         text: i18n.gettext('Back'),
-						ui:'back',
+                        ui:'back',
                         
                     },
-					{
-						 xtype: 'spacer' 
-					},
-					{
+                    {
+                         xtype: 'spacer' 
+                    },
+                    {
                         xtype: 'button',
                         text: i18n.gettext('Start'),
-						id: 'startLevel',
-						customId: 'startLevel'
+                        id: 'startLevel',
+                        customId: 'startLevel'
                         
                     }
-					]
+                    ]
                 
             },
-			{
-				xtype: 'careerdetail',
-			
-				
-				
-			}
+            {
+                xtype: 'careerdetail',
+            
+                
+                
+            }
         ],
 
         layout: 'fit'

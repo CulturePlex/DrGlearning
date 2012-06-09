@@ -34,7 +34,7 @@ Ext.define('DrGlearning.view.LevelDetail', {
                 '</tpl>',
             '</tpl>'
         ),
-        }    
+        }   
         ]
     }
 });

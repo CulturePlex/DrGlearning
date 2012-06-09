@@ -3,35 +3,8 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed catalogueEN catalogueES catalogueFR
+    Ext Jed messages
 */
-
-// Locale
-var i18n;
-
-if (localStorage.catalogue === 'es') {
-    i18n = new Jed({
-        locale_data : catalogueES,
-        "domain": "messages",
-        "plural_forms" : "nplurals=2; plural=(n != 1);"
-    });
-    localStorage.catalogue = 'es';
-} else if (localStorage.catalogue === 'fr') {
-    i18n = new Jed({
-        locale_data : catalogueFR,
-        "domain": "messages",
-        "plural_forms" : "nplurals=2; plural=(n != 1);"
-    });
-    localStorage.catalogue = 'fr';
-} else {
-    // English by default
-    i18n = new Jed({
-        locale_data : catalogueEN,
-        "domain": "messages",
-        "plural_forms" : "nplurals=2; plural=(n != 1);"
-    });
-    localStorage.catalogue = 'en';
-}
 
 Ext.Loader.setConfig({
     enabled : true

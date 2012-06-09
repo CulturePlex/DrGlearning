@@ -13,24 +13,24 @@ COMUNES:
  */
 
 Ext.define('DrGlearning.model.OfflineScore', {
-	extend : 'Ext.data.Model',
-	config : {
-		fields : [ {
-			name : "id",
-			type : "int"
-		}, {
-			name : "activity_id",
-			type : "string"
-		}, {
-			name : "score",
-			type : "string"
-		}, {
-			name : "timestamp",
-			type : "string"
-		} ],
-		proxy : {
-			type : 'localstorage',
-			id : 'DrGlearningOfflineScore'
-		}
-	}
+    extend : 'Ext.data.Model',
+    config : {
+        fields : [ {
+            name : "id",
+            type : "int"
+        }, {
+            name : "activity_id",
+            type : "string"
+        }, {
+            name : "score",
+            type : "string"
+        }, {
+            name : "timestamp",
+            type : "string"
+        } ],
+        proxy : {
+            type : 'localstorage',
+            id : 'DrGlearningOfflineScore'
+        }
+    }
 });

@@ -349,13 +349,13 @@ Ext.define('DrGlearning.controller.DaoController', {
             scope: this,
             success:function(response, opts){
                 console.log(response);
-    			if(career.data.timestamp < response.timestamp){
-				            career.data.update=true;
-				            career.save();
+                if(career.data.timestamp < response.timestamp){
+                            career.data.update=true;
+                            career.save();
                             console.log('updated');
                             this.careersStore.load();
-            	}
-            	this.careersListController.index();
+                }
+                this.careersListController.index();
                 Ext.Viewport.setMasked(false);
                 this.retrieving = false;
             },

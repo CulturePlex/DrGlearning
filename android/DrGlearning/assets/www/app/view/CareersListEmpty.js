@@ -1,9 +1,8 @@
 Ext.define('DrGlearning.view.CareersListEmpty', {
     extend: 'Ext.Panel',
     xtype: 'careerslistempty',
-	
-	items:[
-		{xtype:'button',
-		text:'asdasd'}
-		]
+    items:[
+        {xtype:'button',
+        text:''}
+        ]
 });

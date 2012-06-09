@@ -112,7 +112,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     {
         this.careersStore.clearFilter();
         this.careersStore.filter("installed", true);
-		this.careersStore.filter("update", true);
+        this.careersStore.filter("update", true);
         var numberOfUpdates = this.careersStore.getCount();
         this.careersStore.clearFilter();
         this.careersStore.filter("installed", true);
@@ -419,7 +419,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     showCareersToInstall: function()
     {
         this.loadingController.knowledgesStore.sync();
-		this.loadingController.knowledgesStore.load();
+        this.loadingController.knowledgesStore.load();
         this.installing = true;
         localStorage.selectedcareer = 0;
         this.getCareersframe().down('title').setTitle(i18n.gettext('Courses'));

@@ -1,56 +1,56 @@
 Ext.define('DrGlearning.view.LevelFrame', {
     extend: 'Ext.Container',
-	xtype: 'levelframe',
+    xtype: 'levelframe',
     requires: [
-		'DrGlearning.view.LevelDetail',	
+        'DrGlearning.view.LevelDetail',
     ],
-	config: {
-		fullscreen: true,
+    config: {
+        fullscreen: true,
         items: [
             {
-				ref: 'toolbar',
+                ref: 'toolbar',
                 xtype: 'toolbar',
                 docked: 'top',
-				name: 'up',
+                name: 'up',
                 items: [
                     {
                         xtype: 'title',
-						id: 'title',
-						name: 'title',
-                        title: 'Career Name',
-						centered:true,
+                        id: 'title',
+                        name: 'title',
+                        title: i18n.gettext('Course Name'),
+                        centered:true,
                     },
                   
                 ]
             },
-			{
+            {
                 xtype: 'toolbar',
                 docked: 'bottom',
                 items:[
                     {
                         xtype: 'button',
-						id: 'backtolevels',
+                        id: 'backtolevels',
                         text: i18n.gettext('Back'),
-						ui:'back',
-						controller: 'DrGlearning.controller.Career',
-						action: 'index',
+                        ui:'back',
+                        controller: 'DrGlearning.controller.Career',
+                        action: 'index',
                         
                     }/*,
-					{
-						 xtype: 'spacer' 
-					},
-					{
+                    {
+                         xtype: 'spacer' 
+                    },
+                    {
                         xtype: 'button',
                         text: 'Start',
-						id: 'startActivity'
+                        id: 'startActivity'
                         
-                  	}*/
-					]
+                      }*/
+                    ]
                 
             },
-			{
-				xtype: 'leveldetail',
-			}
+            {
+                xtype: 'leveldetail',
+            }
         ],
 
         layout: 'fit'
