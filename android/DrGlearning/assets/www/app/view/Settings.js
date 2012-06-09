@@ -28,8 +28,9 @@ config: {
             value: localStorage.locale,
             options: [
                 {text: 'English',  value: 'en'},
+                {text: 'Español',  value: 'es_ES'},
                 {text: 'Français',  value: 'fr'},
-                {text: 'Español',  value: 'es'}
+                {text: 'Português',  value: 'pt_BR'}
             ]
         },/*, {
             xtype : 'textfield',

@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.net
+
+[drglearning.app]
+file_filter = po/<lang>.po
+source_file = po/en.po
+source_lang = en
+

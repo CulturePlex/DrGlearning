@@ -1,24 +1,22 @@
-# Spanish texts for Dr Glearning
+# English texts for Dr Glearning
 # Copyright (C) CulturePlex Lab.
 # This file is distributed under the same license as the DrGlearning package.
-# CulturePlex Lab. <apps@cultureplex.ca>, 2012.
 # 
-#, fuzzy
-
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: drglearning 0.2.2\n"
+"Project-Id-Version: Dr. Glearning\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-09 18:37-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2012-06-09 23:28+0000\n"
 "Last-Translator: CulturePlex Lab. <apps@cultureplex.ca>\n"
-"Language-Team: Spanish <apps@cultureplex.ca>\n"
-"Language: \n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.net/projects/p/drglearning/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"lang: es"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"lang: en\n"
 
 #: ../assets/www/app/store/Levels.js:11
 msgid "Illetratum"
@@ -117,7 +115,7 @@ msgstr ""
 #: ../assets/www/app/controller/DaoController.js:486
 #: ../assets/www/app/controller/CareersListController.js:232
 msgid "Unable to install"
-msgstr ""
+msgstr "Não foi possível instalar"
 
 #: ../assets/www/app/controller/DaoController.js:138
 #: ../assets/www/app/controller/DaoController.js:486
@@ -134,7 +132,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/UserSettingsController.js:47
 msgid "Language changed"
-msgstr ""
+msgstr "Linguagem alterada"
 
 #: ../assets/www/app/controller/UserSettingsController.js:47
 msgid "You need to restart this app to see the changes"
@@ -142,7 +140,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/UserSettingsController.js:59
 msgid "Export user"
-msgstr ""
+msgstr "Exportar usuário"
 
 #: ../assets/www/app/controller/UserSettingsController.js:60
 #: ../assets/www/app/controller/UserSettingsController.js:63
@@ -152,18 +150,18 @@ msgstr ""
 #: ../assets/www/app/controller/UserSettingsController.js:84
 #: ../assets/www/app/view/Settings.js:72
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: ../assets/www/app/controller/UserSettingsController.js:88
 #: ../assets/www/app/controller/activities/LinguisticController.js:207
 #: ../assets/www/app/controller/CareersListController.js:282
 #: ../assets/www/app/controller/CareersListController.js:328
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: ../assets/www/app/controller/UserSettingsController.js:92
 msgid "Import user"
-msgstr ""
+msgstr "Importar usuário"
 
 #: ../assets/www/app/controller/UserSettingsController.js:93
 msgid "Paste your code here"
@@ -209,7 +207,7 @@ msgstr ""
 #: ../assets/www/app/controller/LevelController.js:304
 #: ../assets/www/app/controller/LevelController.js:310
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: ../assets/www/app/controller/LevelController.js:288
 #: ../assets/www/app/controller/LevelController.js:334
@@ -237,11 +235,11 @@ msgstr ""
 #: ../assets/www/app/controller/LevelController.js:308
 #: ../assets/www/app/controller/LevelController.js:358
 msgid "Look at the image and answer the question!"
-msgstr ""
+msgstr "Olhe para a imagem e responda a questão!"
 
 #: ../assets/www/app/controller/LevelController.js:320
 msgid "Question"
-msgstr ""
+msgstr "Questão"
 
 #: ../assets/www/app/controller/LevelController.js:329
 #: ../assets/www/app/controller/LevelController.js:335
@@ -292,7 +290,7 @@ msgstr[1] ""
 #: ../assets/www/app/controller/activities/TemporalController.js:76
 #: ../assets/www/app/controller/activities/RelationalController.js:521
 msgid "Right!"
-msgstr ""
+msgstr "Certo!"
 
 #: ../assets/www/app/controller/activities/VisualController.js:150
 #: ../assets/www/app/controller/activities/LinguisticController.js:128
@@ -320,7 +318,7 @@ msgstr ""
 #: ../assets/www/app/controller/activities/LinguisticController.js:203
 #: ../assets/www/app/view/activities/Linguistic.js:94
 msgid "Solve"
-msgstr ""
+msgstr "Resolver"
 
 #: ../assets/www/app/controller/activities/LinguisticController.js:211
 msgid "Answer the question"
@@ -339,7 +337,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/activities/RelationalController.js:155
 msgid "Congratulations!"
-msgstr ""
+msgstr "Parabéns!"
 
 #: ../assets/www/app/controller/activities/RelationalController.js:155
 #, perl-format
@@ -393,7 +391,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/activities/RelationalController.js:450
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #: ../assets/www/app/controller/activities/RelationalController.js:464
 msgid "Sorry, from here you cannot reach"
@@ -406,7 +404,7 @@ msgstr ""
 #: ../assets/www/app/controller/CareersListController.js:124
 #: ../assets/www/app/view/CareersFrame.js:14
 msgid "Dr. Glearning"
-msgstr ""
+msgstr "Dr. Glearning"
 
 #: ../assets/www/app/controller/CareersListController.js:143
 msgid "Last course"
@@ -418,17 +416,17 @@ msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:226
 msgid "Exam Modality"
-msgstr ""
+msgstr "Modalidde de Prova"
 
 #: ../assets/www/app/controller/CareersListController.js:226
 msgid ""
-"In Exam Modality, Courses you should complete each level before you can play "
-"the next one."
+"In Exam Modality, Courses you should complete each level before you can play"
+" the next one."
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:232
 msgid "You need data connection to install courses"
-msgstr ""
+msgstr "Você precisa de uma conexão de dados para instalar cursos"
 
 #: ../assets/www/app/controller/CareersListController.js:235
 #, perl-format
@@ -455,22 +453,22 @@ msgstr ""
 #: ../assets/www/app/controller/CareersListController.js:269
 #: ../assets/www/app/controller/CareersListController.js:316
 msgid "Uninstall course"
-msgstr ""
+msgstr "Desinstalar curso"
 
 #: ../assets/www/app/controller/CareersListController.js:273
 msgid "Uninstall Course?"
-msgstr ""
+msgstr "Desinstalar Curso?"
 
 #: ../assets/www/app/controller/CareersListController.js:273
 #: ../assets/www/app/controller/CareersListController.js:320
 msgid ""
-"If you uninstall this course, all your points will be lost. Are you sure you "
-"want to uninstall this course?"
+"If you uninstall this course, all your points will be lost. Are you sure you"
+" want to uninstall this course?"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:299
 msgid "Update course"
-msgstr ""
+msgstr "Atualizar curso"
 
 #: ../assets/www/app/controller/CareersListController.js:303
 msgid "Update course?"
@@ -478,7 +476,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:303
 msgid "Are you sure you want to update this course?"
-msgstr ""
+msgstr "Tem certeza que quer atualizar este curso?"
 
 #: ../assets/www/app/controller/CareersListController.js:307
 msgid "Updating course"
@@ -494,13 +492,13 @@ msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:341
 msgid ""
-"In Exam courses, you are supposed to pass each level before playing the next "
-"one"
+"In Exam courses, you are supposed to pass each level before playing the next"
+" one"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:425
 msgid "Courses"
-msgstr ""
+msgstr "Cursos"
 
 #: ../assets/www/app/controller/CareersListController.js:500
 msgid "Updating courses"
@@ -522,20 +520,20 @@ msgstr ""
 #: ../assets/www/app/view/activities/Relational.js:39
 #: ../assets/www/app/view/activities/Temporal.js:39
 msgid "Back"
-msgstr ""
+msgstr "Voltar"
 
 #: ../assets/www/app/view/CareerFrame.js:43
 msgid "Start"
-msgstr ""
+msgstr "Iniciar"
 
 #: ../assets/www/app/view/CareersFrame.js:28
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: ../assets/www/app/view/CareersFrame.js:32
 #: ../assets/www/app/view/CareersTop.js:27
 msgid "In progress"
-msgstr ""
+msgstr "Em andamento"
 
 #: ../assets/www/app/view/CareersFrame.js:36
 #: ../assets/www/app/view/CareersTop.js:28
@@ -555,12 +553,12 @@ msgstr ""
 #: ../assets/www/app/view/CareersFrame.js:132
 #: ../assets/www/app/view/Settings.js:17
 msgid "Settings"
-msgstr ""
+msgstr "Configurações"
 
 #: ../assets/www/app/view/CareersFrame.js:135
 #: ../assets/www/app/view/CareersFrame.js:142
 msgid "CulturePlex Lab."
-msgstr ""
+msgstr "CulturePlex Lab."
 
 #: ../assets/www/app/view/CareersFrame.js:139
 msgid "Update all"
@@ -568,7 +566,7 @@ msgstr ""
 
 #: ../assets/www/app/view/Settings.js:26
 msgid "Language"
-msgstr ""
+msgstr "Linguagem"
 
 #: ../assets/www/app/view/ActivityFrame.js:18
 msgid "Activity name"
@@ -588,8 +586,8 @@ msgstr ""
 
 #: ../assets/www/app/view/activities/Temporal.js:47
 msgid "Before"
-msgstr ""
+msgstr "Antes"
 
 #: ../assets/www/app/view/activities/Temporal.js:53
 msgid "After"
-msgstr ""
+msgstr "Depois"
