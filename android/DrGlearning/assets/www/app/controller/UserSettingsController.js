@@ -56,11 +56,11 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
         var view = this.getSettings();
         view.hide();
         new Ext.MessageBox().show({
-            title : 'Export user',
-            msg : i18n.gettext('Copy and paste in your new device') +":",
+            title : i18n.gettext('Export user'),
+            msg : i18n.gettext('Copy and paste this code in another device') +":",
             items : [ {
                 xtype : 'textfield',
-                label : i18n.gettext('Copy and paste in your new device') +":",
+                label : i18n.gettext('Copy and paste this code in another device') +":",
                 name : 'id',
                 id : 'id',
                 labelAlign : 'top',
@@ -89,8 +89,8 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
         });
         var show = new Ext.MessageBox().show({
             id : 'info',
-            title : 'Import user',
-            msg : i18n.gettext('Paste your previous ID:'),
+            title : i18n.gettext('Import user'),
+            msg : i18n.gettext('Paste your code here') +":",
             items : [ {
                 xtype : 'textfield',
                 labelAlign : 'top',

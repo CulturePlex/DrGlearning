@@ -33,7 +33,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i18n.gettext('Loading activity...'),
+            message: i18n.gettext('Loading activity') +"…",
             indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         });
@@ -168,7 +168,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         if (this.isStopped === false && this.loading === false) 
         {
             this.currentTime--;
-            this.timeLabel.setHtml(this.currentTime + i18n.gettext(" sec."));
+            this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(this.currentTime));
             if (this.currentTime < 0) {
                 clearInterval(this.secondtemp);
                 this.showAnswers();

@@ -15,7 +15,7 @@ Ext.define('DrGlearning.view.ActivityFrame', {
                         xtype: 'title',
                         customId: 'title',
                         name: 'title',
-                        title: i18n.gettext('Activity Name'),
+                        title: i18n.gettext('Activity name'),
                         centered: true
                     }
                 ]

@@ -54,7 +54,7 @@ Ext.define('DrGlearning.store.Levels', {
         {
             "customId":"10",
             "name":i18n.gettext("Emeritus"),
-            "description":i18n.gettext("Nobody knows more about this than you? We’ll see...")
+            "description":i18n.gettext("Nobody knows more about this than you? We'll see…")
         }
             ]
 

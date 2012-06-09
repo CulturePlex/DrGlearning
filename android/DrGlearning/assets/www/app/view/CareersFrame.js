@@ -29,18 +29,18 @@ Ext.define('DrGlearning.view.CareersFrame', {
                     value: 'all'
                 },
                 {
-                    text: i18n.gettext('In Progress'),
+                    text: i18n.gettext('In progress'),
                     value: 'inProgress'
                 }, 
                 {
-                    text: i18n.gettext('Not Yet'),
+                    text: i18n.gettext('Not started yet'),
                     value: 'notYet'
                 }]
             }, {
                 xtype: 'spacer'
             }, {
                 xtype: 'button',
-                text: i18n.gettext('Add Course'),
+                text: i18n.gettext('Add course'),
                 id: 'addCareer'
             }]
         
@@ -94,7 +94,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                         {xtype:'spacer'},
                         {
                             xtype:'panel',
-                            html:'<p align="center" >'+i18n.gettext("No courses installed, click on Add Career Button to start")+' </p>',
+                            html:'<p align="center" >'+i18n.gettext("No courses installed, click on 'Add course' to start")+' </p>',
                             customId:'emptyList'
                         },
                         {xtype:'spacer'}
@@ -105,7 +105,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                         {xtype:'spacer'},
                         {
                             xtype:'button',
-                            text:i18n.gettext('Add Course'),
+                            text:i18n.gettext('Add course'),
                             width:'150px',
                             align:'center',
                             customId:'addCareer'

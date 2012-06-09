@@ -34,7 +34,7 @@ Ext.define('DrGlearning.controller.activities.GeospatialController', {
     {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i18n.gettext('Loading activity...'),
+            message: i18n.gettext('Loading activity') +"…",
             //html: "<img src='resources/images/activity_icons/geospatial.png'>",
             indicator: true
         });

@@ -229,7 +229,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             else
             {
             if (!this.globalSettingsController.hasNetwork()) {
-                Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install careers'), Ext.emptyFn);
+                Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install courses'), Ext.emptyFn);
             }
             else {
                 Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description +' <p>' + i18n.gettext("Are you sure you want to install this course?")+'</p>', function (answer, pako)
@@ -238,7 +238,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                     {
                         Ext.Viewport.setMasked({
                             xtype: 'loadmask',
-                            message: i18n.gettext('Downloading Course...'),
+                            message: i18n.gettext('Downloading course') +"…",
                             indicator: true,
                             html: "<img src='resources/images/ic_launcher.png'>"
                         });
@@ -304,7 +304,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                                 if (answer == 'yes') {
                                      Ext.Viewport.setMasked({
                                      xtype: 'loadmask',
-                                     message: i18n.gettext('Updating course...'),
+                                     message: i18n.gettext('Updating course') +"…",
                                      indicator: true,
                                      html: "<img src='resources/images/ic_launcher.png'>"
                                      });
@@ -317,7 +317,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                             ui: 'decline',
                             handler: function(){
                                 this.parent.hide();
-                                Ext.Msg.confirm(i18n.gettext("Uninstall Career?"), i18n.gettext("If you uninstall this career, all your points will be lost. Are you sure you want to uninstall this career?"), function(answer, pako){
+                                Ext.Msg.confirm(i18n.gettext("Uninstall course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function(answer, pako){
                                     if (answer == 'yes') {
                                         this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
                                         this.index();
@@ -338,7 +338,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 else {
                     if(e !== undefined && e.touch.target.id === "examInfo")
                     {
-                        Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality Courses, you should complete each level before you can play the next one.'), function(){
+                        Ext.Msg.alert(i18n.gettext('Exam course!'), i18n.gettext('In Exam courses, you are supposed to pass each level before playing the next one'), function(){
             }, this);
                     }else
                     {
@@ -497,7 +497,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.updatesLeft=this.careersStore.getCount();
         Ext.Viewport.setMasked({
              xtype: 'loadmask',
-             message: i18n.gettext('Updating Courses...'),
+             message: i18n.gettext('Updating courses') +"…",
              indicator: true,
              html: "<img src='resources/images/ic_launcher.png'>"
         });

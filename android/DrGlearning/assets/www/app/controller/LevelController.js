@@ -82,7 +82,7 @@ Ext.define('DrGlearning.controller.LevelController', {
             this.careerController.careerFrame.hide();
             Ext.Viewport.setMasked({
                 xtype: 'loadmask',
-                message: i18n.gettext('Loading level...'),
+                message: i18n.gettext('Loading level') +"…",
                 indicator: true
                 //html: "<img src='resources/images/activity_icons/visual.png'>",
             });
@@ -113,7 +113,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         }
         else
         {
-            Ext.Msg.alert(i18n.gettext('Level Locked'), i18n.gettext("You can't play this level until you complete the previous one"), function(){
+            Ext.Msg.alert(i18n.gettext('Level locked'), i18n.gettext("You can't play this level until you complete the previous one"), function(){
             }, this);
         }
     },
@@ -188,8 +188,7 @@ Ext.define('DrGlearning.controller.LevelController', {
                 }
                 this.careersListController.index();
                 this.getActivityframe().hide();
-                this.shareScores(i18n.translate("You have completed the level %s!").fetch(prevLevelString) +" "+ i18n.gettext("It was the last one, so you have passed this course!"));
-                // this.shareScores( i18n.gettext('You have complete the ') + prevLevelString + i18n.gettext(' level! It was the last Level, you have finished this career!'));
+                this.shareScores(i18n.translate("You have completed the %s level! It was the last one, so you have passed this course!").fetch(prevLevelString));
             }
             else {
                 this.careerController.updateCareer(this.careersListController.selectedcareer);
@@ -198,12 +197,10 @@ Ext.define('DrGlearning.controller.LevelController', {
                 if (currentLevel != -1) {
                     this.careersListController.updateLevelsState();
                     this.careerController.updateCareer(this.careerController.selectedCareer);
-                    this.shareScores(i18n.translate("You have completed the level %s!").fetch(prevLevelString) +" "+ i18n.translate("The next one is %s").fetch(currentLevelString));
-                    // this.shareScores( i18n.gettext('You have complete the ') + prevLevelString +  i18n.gettext(' level! Next Level: ') + currentLevelString );
+                    this.shareScores(i18n.translate("You have completed the %s level! The next one is %s").fetch(prevLevelString, currentLevelString));
                 }
                 else {
-                    this.shareScores(i18n.translate("You have completed the level %s!").fetch(prevLevelString) +" "+ i18n.gettext("It was the last one, so you have passed this course!"));
-                // this.shareScores(i18n.gettext('You have complete the ') + prevLevelString + i18n.gettext(' level! It was the last Level, you have finished this career!'));
+                    this.shareScores(i18n.translate("You have completed the %s level! It was the last one, so you have passed this course!").fetch(prevLevelString));
                 }
             }
         }
@@ -266,7 +263,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     tolevel: function(){
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i18n.gettext('Loading level...'),
+            message: i18n.gettext('Loading level') +"…",
             indicator: true
             //html: "<img src='resources/images/activity_icons/visual.png'>",
         }); 
@@ -329,38 +326,38 @@ Ext.define('DrGlearning.controller.LevelController', {
         if (this.currentActivity.data.activity_type == 'linguistic') {
             text += " <br>  <br>";
             text += i18n.gettext("You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image");
-            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'geospatial') {
             text += " <br>  <br>";
             text += i18n.gettext("You should find the correct location in the map");
-            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'quiz') {
             text += " <br>  <br>";
             text += i18n.gettext("You have to choose the correct option");
-            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'relational') {
             text += " <br>  <br>";
             text += i18n.gettext("You should go from one consept to another according with the constraints");
-            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'temporal') {
             text += " <br>  <br>";
             text += i18n.gettext("You should to guess if the event in the text was before or after the event in the image");
-            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'visual') {
             text += " <br>  <br>";
             text += i18n.gettext("Look at the image and answer the question!");
             this.visualController.stopNotClear();
-            Ext.Msg.alert(i18n.gettext('Question and Help'), text, function(){
+            Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
                 this.visualController.restart();
             }, this);
         }

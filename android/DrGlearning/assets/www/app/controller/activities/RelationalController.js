@@ -33,16 +33,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
         var option;
         var allConstraintsPassed = false;
         var score = 20;
-        
-        var verboseOperator = {
-            lt: i18n.gettext("less than"),
-            lte: i18n.gettext("less or equal than"),
-            gt: i18n.gettext("greater than"),
-            get: i18n.gettext("greater or equal than"),
-            eq: i18n.gettext("equal to"),
-            neq: i18n.gettext("different to")
-        };
-        
         //Import graph nodes and edges from database
         var graphNodes = newActivity.data.graph_nodes;
         var graphEdges = newActivity.data.graph_edges;
@@ -255,30 +245,26 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                 }
                 switch (constraints[i].operator) {
                 case "eq":
-                    constraintsTextNew[i] += i18n.translate("Pass through %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    constraintsTextNew[i] += i18n.translate("Pass through %s %s").fetch(constraints[i].value, constraints[i].type);
                     break;
                 case "neq":
-                    constraintsTextNew[i] += i18n.translate("Pass through other than %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    constraintsTextNew[i] += i18n.translate("Pass through other than %s %s").fetch(constraints[i].value, constraints[i].type);
                     break;
                 case "let":
                 case "lte":
-                    constraintsTextNew[i] += i18n.translate("Pass through %1$s or fewer %2$s").fetch(constraints[i].value, constraints[i].type);
+                    constraintsTextNew[i] += i18n.translate("Pass through %s or fewer %s").fetch(constraints[i].value, constraints[i].type);
                     break;
                 case "gte":
                 case "get":
-                    constraintsTextNew[i] += i18n.translate("Pass through %1$s or more %2$s").fetch(constraints[i].value, constraints[i].type);
+                    constraintsTextNew[i] += i18n.translate("Pass through %s or more %s").fetch(constraints[i].value, constraints[i].type);
                     break;
                 case "lt":
-                    constraintsTextNew[i] += i18n.translate("Pass through less than %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    constraintsTextNew[i] += i18n.translate("Pass through less than %s %s").fetch(constraints[i].value, constraints[i].type);
                     break;
                 case "gt":
-                    constraintsTextNew[i] += i18n.translate("Pass through more than %1$s %2$s").fetch(constraints[i].value, constraints[i].type);
+                    constraintsTextNew[i] += i18n.translate("Pass through more than %s %s").fetch(constraints[i].value, constraints[i].type);
                     break;
                 }
-//                constraintsTextNew[i] += i18n.gettext('The number of ');
-//                constraintsTextNew[i] += constraints[i].type + ' should be ';
-//                constraintsTextNew[i] += verboseOperator[constraints[i].operator] + ' ';
-//                constraintsTextNew[i] += constraints[i].value;
                 /*
                  * If state of constraint has changed button has animation fade
                  */
@@ -348,9 +334,6 @@ Ext.define('DrGlearning.controller.activities.RelationalController', {
                     constraintBoolean[i] = false;
                 }
                 constraintsTextNew[i] += i18n.translate('Your path must have %d or fewer steps').fetch(path_limit);
-//                constraintsTextNew[i] += i18n.gettext('The number of ');
-//                constraintsTextNew[i] += i18n.gettext('steps ') + ' should be ';
-//                constraintsTextNew[i] += i18n.gettext('less than') + ' ' + path_limit;
                 /*
                  * If state of constraint has changed button has animation fade
                  */

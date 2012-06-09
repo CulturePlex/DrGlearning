@@ -19,13 +19,13 @@ Ext.define('DrGlearning.controller.DaoController', {
     installCareer: function(id,callback,scope) {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: 'Installing course...',
+            message: i18n.gettext('Installing course') +"…",
             indicator: true
         });
         var career=this.careersStore.getById(id);
         if(parseInt(localStorage.actualSize)+parseInt(career.data.size)>parseInt(localStorage.maxSize)){
             Ext.Viewport.setMasked(false);
-            Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to install this course, delete some installed careers.'), Ext.emptyFn);
+            Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to install this course, delete some installed courses'), Ext.emptyFn);
             return;
         }
         var activities=career.data.activities;
@@ -340,7 +340,7 @@ Ext.define('DrGlearning.controller.DaoController', {
     {
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i18n.gettext('Checkng for Updates...'),
+            message: i18n.gettext('Checking for updates') +"…",
             indicator: true,
         });
         var HOST = this.globalSettingsController.getServerURL();
@@ -513,7 +513,7 @@ Ext.define('DrGlearning.controller.DaoController', {
                 
       }else{
               Ext.Viewport.setMasked(false);
-              Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to update this career. Try again later'), Ext.emptyFn);
+              Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to update this course. Try again later'), Ext.emptyFn);
             return;
       }
     },

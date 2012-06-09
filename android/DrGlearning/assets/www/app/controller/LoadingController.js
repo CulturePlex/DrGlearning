@@ -44,7 +44,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
             //First calculate max localstorage size
             Ext.Viewport.setMasked({
                 xtype: 'loadmask',
-                message: i18n.gettext('Calculating free space...'),
+                message: i18n.gettext("Loading") +"… "+ i18n.gettext("The first time may take a long, so don't worry"),
                     indicator: true
             });
             this.getApplication().getController('MaxStorageSizeController').initTest(this);
@@ -145,7 +145,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                     this.knowledgesRequest();
                     Ext.Viewport.setMasked({
                          xtype: 'loadmask',
-                         message: i18n.gettext('Retrieving Courses...'),
+                         message: i18n.gettext('Retrieving courses') +"…",
                          indicator: true,
                          html: "<img src='resources/images/ic_launcher.png'>"
                     });
@@ -293,7 +293,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
         installTestCourse:function(url){
             Ext.Viewport.setMasked({
                 xtype: 'loadmask',
-                message: i18n.gettext('Installing testing course...'),
+                message: i18n.gettext('Installing testing course') +"…",
                     indicator: true
             });
             this.careersStore.load();
