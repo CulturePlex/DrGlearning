@@ -1,15 +1,12 @@
 #!/bin/sh
-> ../assets/www/resources/js/catalogueEN.js
-echo "var catalogueEN = " >> ../assets/www/resources/js/catalogueEN.js
-pojson convert messages catalogueEN.po >> ../assets/www/resources/js/catalogueEN.js
-echo ";" >> ../assets/www/resources/js/catalogueEN.js 
 
-> ../assets/www/resources/js/catalogueFR.js
-echo "var catalogueFR = " >> ../assets/www/resources/js/catalogueFR.js
-pojson convert messages catalogueFR.po >> ../assets/www/resources/js/catalogueFR.js
-echo ";" >> ../assets/www/resources/js/catalogueFR.js 
-
-> ../assets/www/resources/js/catalogueES.js
-echo "var catalogueES = " >> ../assets/www/resources/js/catalogueES.js
-pojson convert messages catalogueES.po >> ../assets/www/resources/js/catalogueES.js
-echo ";" >> ../assets/www/resources/js/catalogueES.js 
+for LANG in en es fr
+do
+    echo "Generating" $LANG ":" ../assets/www/resources/js/locales/$LANG.js
+    echo '// Locale '$LANG'
+var i18n = new Jed({
+    "locale_data": '`pojson convert -e utf-8 messages $LANG.po`',
+    "domain": "messages",
+    "plural_forms": "nplurals=2; plural=(n != 1);"
+});' >> ../assets/www/resources/js/$LANG.js
+done
