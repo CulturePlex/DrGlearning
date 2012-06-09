@@ -1,10 +1,10 @@
 Ext.define('DrGlearning.store.OfflineScores', {
-	extend  : 'Ext.data.Store',
+    extend  : 'Ext.data.Store',
     requires: ['DrGlearning.model.OfflineScore'],
-	config: {
-		model: 'DrGlearning.model.OfflineScore',
-	    autoLoad: true,
-	    autoSync: true,
+    config: {
+        model: 'DrGlearning.model.OfflineScore',
+        autoLoad: true,
+        autoSync: true,
     },
 
 

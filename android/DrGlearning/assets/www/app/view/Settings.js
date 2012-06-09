@@ -25,6 +25,7 @@ config: {
             id: 'locale',
             label: i18n.gettext('Language'),
             margin: 5,
+            value: localStorage.locale,
             options: [
                 {text: 'English',  value: 'en'},
                 {text: 'Français',  value: 'fr'},

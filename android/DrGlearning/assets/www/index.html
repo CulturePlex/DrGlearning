@@ -20,16 +20,6 @@
     <script type="text/javascript" charset="utf-8" src="resources/js/base64writer.js"></script>
     <script type="text/javascript" charset="utf-8" src="resources/js/GeoJSON.js"></script>
     <script type="text/javascript" charset="utf-8" src="resources/js/maps.google.polygon.containsLatLng.js"></script>
-    <script>
-        // Fix for problem  with android 3.x and 4.x which is
-        // the browser has a problem with urls with ? and this
-        // bug has not been fixed by google. See:
-        // http://code.google.com/p/android/issues/detail?id=17535 or
-        // http://www.sencha.com/forum/showthread.php?162322-Sencha-Touch-2-PhoneGap-are-not-working-on-Android-4/page3&highlight=Loader
-        //
-        //Ext.Loader.setConfig({ disableCaching: false });
-        //Ext.Ajax.setDisableCaching(false);
-    </script>
     <script type="text/x-mathjax-config">
         // MathJax configuration for TeX and ASCIIMath inputs
         MathJax.Hub.Config({
@@ -49,7 +39,6 @@
           }
         });
     </script>
-    <script type="text/javascript" charset="utf-8" src="drglearningapp.js"></script>
     <script type="text/javascript" charset="utf-8">
         function onDeviceReady() {
             // Now safe to use the PhoneGap API
@@ -59,34 +48,33 @@
             }
         }
         // Loaders
-        // Locales
-        yepnope({
-            test: ["es", "fr", "en"].indexOf(localStorage.catalogue) >= 0,
-            yep: "resources/js/locales/"+ localStorage.catalogue +".js",
+        yepnope([{
+            // Locales
+            test: ["es", "fr", "en"].indexOf(localStorage.locale) >= 0,
+            yep: "resources/js/locales/"+ localStorage.locale +".js",
             nope: "resources/js/locales/en.js"
-        });
-        // PhoneGap local vs. PhoneGap:Build
-        yepnope({
+        }, {
+            // PhoneGap local vs. PhoneGap:Build
             test: typeof(PhoneGap) == "undefined",
             nope: "resources/js/cordova-1.7.0.js",
             complete: function() {
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
-        });
-        // MathJax
-        yepnope({
+        }, {
+            // MathJax
             test: typeof(MathJax) == "undefined",
             yep: "resources/js/mathjax/MathJax.js"
-        });
-        // JSON
-        yepnope({
+        }, {
+            // JSON
             test: typeof(JSON) == "undefined",
             yep: "resources/js/json2.min.js"
-        });
-        // Debud mode
-        yepnope({
+        }, {
+            // Debud mode
             test: typeof(DEBUG) != "undefined" && DEBUG,
             yep: "http://debug.phonegap.com/target/target-script-min.js#drglearning"
-        });
+        }, {
+            // Main
+            load: "drglearningapp.js"
+        }]);
     </script>
 </html>
