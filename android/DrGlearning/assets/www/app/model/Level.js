@@ -7,7 +7,10 @@ Ext.define('DrGlearning.model.Level', {
         }, {
             name : "name",
             type : "string"
-        }, {
+        },{
+            name : "nameBeauty",
+            type : "string"
+        },{
             name : "description",
             type : "string"
         } ],

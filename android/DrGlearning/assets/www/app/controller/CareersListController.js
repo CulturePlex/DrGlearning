@@ -32,6 +32,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         Ext.create('DrGlearning.view.Main');
         Ext.create('DrGlearning.view.CareersFrame');
         this.careersStore = Ext.getStore('Careers');
+        this.levelsStore = Ext.getStore('Levels');
         this.knowledgesStore = Ext.getStore('Knowledges');
         this.daoController = this.getApplication().getController('DaoController');
     },
@@ -164,12 +165,22 @@ Ext.define('DrGlearning.controller.CareersListController', {
             {
                 var levelstemp = [];
                 levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
+                console.log(levelstemp);
+                for (var j = 0; j < this.levelsStore.getCount(); j++)
+                {
+                    console.log(j);
+                    this.careersStore.getAt(index).data[this.getLevelName(j -1)] = 'caca';
+                    
+                }
+                console.log(this.careersStore.getAt(index));
                 //If Exam Career, Else -> Explore Career
                 if (this.careersStore.getAt(index).data.career_type === "exam")
                 {
                     // nextLevelFound is an integer variable to save if is the first level allowed or anything else
                     var nextLevelFound = 0;
+
                     for (var i = 0; i < levelstemp.length; i++) {
+                    console.log(levelstemp[i]);
                         nextLevelFound--;
                         if (nextLevelFound < 1)
                         {
@@ -209,7 +220,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
     //getting the string name of a level giving its index
     getLevelName: function (index)
     {
-        var levelStrings = ["illetratum", "primary", "secondary", "high school", "college", "master", "phd", "post-doc", "professor", "emeritus"];
+        var levelStrings = ["illetratum", "primary", "secondary", "highschool", "college", "master", "phd", "postdoc", "professor", "emeritus"];
         return levelStrings[index];
     },
 
@@ -218,7 +229,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         var html = '';
         var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
         for (var cont in career.data.levels) {
-            html = html + "<img src='resources/images/level_icons/" + filesImgs[career.data.levels[cont] - 1] + "' height='45' >";
+            html = html + "<img src='resources/images/level_icons/" + filesImgs[career.data.levels[cont] - 1] + "' height='40' >";
         }
         return html;
     },
@@ -365,6 +376,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         /*
          * if(scope.id!='Careers') { scope=this; }
          */
+        Ext.Viewport.setMasked(false);
         scope.index();
     },
     /*

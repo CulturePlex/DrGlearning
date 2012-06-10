@@ -76,8 +76,9 @@ Ext.define('DrGlearning.controller.LevelController', {
      * Updating and Showing Level view.
      */
     updateLevel: function(newCareer, newLevel){
+        console.log('hola');
         var level = this.levelsStore.getAt(newLevel - 1);
-        if (newCareer.data[level.data.name.toLowerCase()] === "exists" || newCareer.data[level.data.name.toLowerCase()] === "successed")
+        if (newCareer.data[level.data.name.toLowerCase()] === "exists" || newCareer.data[level.data.name.toLowerCase()] === "successed" || newCareer.data.career_type === "explore")
         {
             this.careerController.careerFrame.hide();
             Ext.Viewport.setMasked({

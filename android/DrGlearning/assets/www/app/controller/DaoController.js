@@ -131,7 +131,6 @@ Ext.define('DrGlearning.controller.DaoController', {
                         Ext.getStore('Activities').sync();
                         Ext.getStore('Activities').load();
                         callback(scope);
-                        Ext.Viewport.setMasked(false);
                     }
                 },failure:function(){
                     Ext.Viewport.setMasked(false);
@@ -481,33 +480,37 @@ Ext.define('DrGlearning.controller.DaoController', {
                                             activityModel.data.radius=activity.radius;
                                         }
                                         activityModel.save();
+                                        var exist=false;
+                                        for(cont in activitiesOld.keys){
+                                            exist=false;
+                                            for(cont2 in activitiesID){
+                                                if(activitiesOld.keys[cont] == activitiesID[cont2]){
+                                                    exist=true;
+                                                    break;
+                                                }
+                                            }
+                                            if(!exist){
+                                                console.log(activitiesOld);
+                                                console.log(activitiesID);
+                                                activitiesOld.getByKey(activitiesOld.keys[cont]).erase();
+                                            }
+                                            
+                                        }
+                                        this.careersListController.updateLevelsState();
+                                        career.data.update=false;
+                                        career.save();
+                                        this.careersStore.sync();
+                                        this.careersStore.load();
+                                        Ext.getStore('Activities').sync();
+                                        Ext.getStore('Activities').load();
+                                        callback(scope);
                                 },failure:function(){
                                     Ext.Viewport.setMasked(false);
                                     Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
                                 }
                             });
                         }
-                        var exist=false;
-                        for(cont in activitiesOld.keys){
-                            exist=false;
-                            for(cont2 in activitiesID){
-                                if(activitiesOld.keys[cont] == activitiesID[cont2]){
-                                    exist=true;
-                                    break;
-                                }
-                            }
-                            if(!exist){
-                                activitiesOld.getByKey(activitiesOld.keys[cont]).erase();
-                            }
-                            
-                        }
-                        career.data.update=false;
-                        career.save();
-                        careersStore.sync();
-                        careersStore.load();
-                        this.careersListController.index();
-                        Ext.Viewport.setMasked(false);
-                        callback(scope);
+                        
                     }
                 });
                 

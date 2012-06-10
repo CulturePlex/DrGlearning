@@ -73,7 +73,7 @@ Ext.define('DrGlearning.model.Career', {
             name: "phd",
             type: "string",
         },{
-            name: "post-doc",
+            name: "postdoc",
             type: "string",
         },{
             name: "professor",
