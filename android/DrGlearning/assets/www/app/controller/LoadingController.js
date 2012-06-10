@@ -210,6 +210,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
                                 if(this.careersStore.find('id',career.id) === -1){
                                     var careerModel=new DrGlearning.model.Career({
                                             id : parseInt(career.id),
+                                            levels : career.levels,
                                             negative_votes : career.negative_votes,
                                             positive_votes : career.positive_votes,
                                             name : career.name,

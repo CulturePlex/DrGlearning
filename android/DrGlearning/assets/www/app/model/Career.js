@@ -8,6 +8,9 @@ Ext.define('DrGlearning.model.Career', {
             name : "activities",
             type : "auto"
         }, {
+            name : "levels",
+            type : "auto"
+        }, {
             name : "negative_votes",
             type : "string"
         }, {

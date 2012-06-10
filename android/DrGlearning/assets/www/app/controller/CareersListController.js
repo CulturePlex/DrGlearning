@@ -167,7 +167,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 //If Exam Career, Else -> Explore Career
                 if (this.careersStore.getAt(index).data.career_type === "exam")
                 {
-                    // nestLevelFound is an integer variable to save if is the first level allowed or anything else
+                    // nextLevelFound is an integer variable to save if is the first level allowed or anything else
                     var nextLevelFound = 0;
                     for (var i = 0; i < levelstemp.length; i++) {
                         nextLevelFound--;
@@ -213,6 +213,15 @@ Ext.define('DrGlearning.controller.CareersListController', {
         return levelStrings[index];
     },
 
+    getLevelsIconsHtml: function (career)
+    {
+        var html = '';
+        var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
+        for (var cont in career.data.levels) {
+            html = html + "<img src='resources/images/level_icons/" + filesImgs[career.data.levels[cont] - 1] + "' height='45' >";
+        }
+        return html;
+    },
     /*
      * Method call when tap on a Carrer Item in the list.
      */
@@ -232,7 +241,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install courses'), Ext.emptyFn);
             }
             else {
-                Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description +' <p>' + i18n.gettext("Are you sure you want to install this course?")+'</p>', function (answer, pako)
+                Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description + '<p>' + this.getLevelsIconsHtml(career) + '</p><p>' + i18n.gettext("Are you sure you want to install this course?")+'</p>', function (answer, pako)
                 {
                     if (answer === 'yes') 
                     {
@@ -375,11 +384,8 @@ Ext.define('DrGlearning.controller.CareersListController', {
     },
     
     filterCareersByKnowledge: function(){
-
         var knowledgeSelectField = Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0];
         var value = knowledgeSelectField.getValue();
-        console.log(value);
-        console.log(localStorage.knowledgeValue);
         if(localStorage.form == undefined)
         {
             localStorage.form = '';
