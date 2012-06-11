@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the DrGlearning package.
 # 
 # Translators:
+# Translators:
 # CulturePlex Lab. <apps@cultureplex.ca>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Dr. Glearning\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-11 14:25-0400\n"
-"PO-Revision-Date: 2012-06-11 18:31+0000\n"
+"PO-Revision-Date: 2012-06-11 19:21+0000\n"
 "Last-Translator: versae <versae@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/drglearning/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -174,7 +175,7 @@ msgid "Answer the question"
 msgstr ""
 
 #: ../assets/www/app/controller/activities/TemporalController.js:65
-msgid "Ooh, that wasn't the right answer"
+msgid "Oh, oh. That isn't the right answer"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:125
@@ -187,7 +188,7 @@ msgid "Last course"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:144
-msgid "Return to the last course?"
+msgid "Return to last course"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:246
@@ -196,8 +197,8 @@ msgstr "Modalité d'examen"
 
 #: ../assets/www/app/controller/CareersListController.js:246
 msgid ""
-"In Exam Modality, Courses you should complete each level before you can play"
-" the next one."
+"In Exam Modality courses you should complete each level before you can play "
+"the next one."
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:252
@@ -225,7 +226,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:277
 #: ../assets/www/app/controller/CareersListController.js:317
-msgid "Sync. your scores"
+msgid "Sync your scores"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:283
@@ -292,7 +293,7 @@ msgstr "La langue a changé"
 
 #: ../assets/www/app/controller/UserSettingsController.js:47
 msgid "You need to restart the app to see the changes"
-msgstr ""
+msgstr "Il faudra relancer votre application pour que les changements apparaissent."
 
 #: ../assets/www/app/controller/UserSettingsController.js:59
 msgid "Export user"
@@ -386,18 +387,18 @@ msgstr "Aide"
 
 #: ../assets/www/app/controller/LevelController.js:289
 #: ../assets/www/app/controller/LevelController.js:335
-msgid "You should find the correct location in the map"
+msgid "Find the correct location on the map"
 msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:294
 #: ../assets/www/app/controller/LevelController.js:341
-msgid "You have to choose the correct option"
+msgid "Choose the right option"
 msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:299
 #: ../assets/www/app/controller/LevelController.js:347
 msgid "Go from one item to another until you fulfill all the conditions"
-msgstr ""
+msgstr "Passez d’un article à l’autre jusqu’à que vous complétez les conditions"
 
 #: ../assets/www/app/controller/LevelController.js:304
 #: ../assets/www/app/controller/LevelController.js:353
@@ -555,7 +556,7 @@ msgstr "En cours"
 
 #: ../assets/www/app/view/CareersFrame.js:36
 #: ../assets/www/app/view/CareersTop.js:28
-msgid "Not started yet"
+msgid "Not yet started"
 msgstr ""
 
 #: ../assets/www/app/view/CareersFrame.js:43

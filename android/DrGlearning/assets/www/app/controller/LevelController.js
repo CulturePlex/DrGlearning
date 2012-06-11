@@ -286,12 +286,12 @@ Ext.define('DrGlearning.controller.LevelController', {
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'geospatial') {
-            text = i18n.gettext("You should find the correct location in the map");
+            text = i18n.gettext("Find the correct location on the map");
             Ext.Msg.alert(i18n.gettext('Help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'quiz') {
-            text = i18n.gettext("You have to choose the correct option");
+            text = i18n.gettext("Choose the right option");
             Ext.Msg.alert(i18n.gettext('Help'), text, function(){
             }, this);
         }
@@ -332,13 +332,13 @@ Ext.define('DrGlearning.controller.LevelController', {
         }
         if (this.currentActivity.data.activity_type == 'geospatial') {
             text += " <br>  <br>";
-            text += i18n.gettext("You should find the correct location in the map");
+            text += i18n.gettext("Find the correct location on the map");
             Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'quiz') {
             text += " <br>  <br>";
-            text += i18n.gettext("You have to choose the correct option");
+            text += i18n.gettext("Choose the right option");
             Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }

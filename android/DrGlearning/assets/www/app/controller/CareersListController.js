@@ -141,7 +141,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         this.getCareersframe().show();
         if (parseInt(localStorage.selectedcareer,10) !== 0 && localStorage.selectedcareer!==undefined) 
         {
-            Ext.Msg.confirm(i18n.gettext("Last course"), i18n.gettext("Return to the last course?"), function (answer)
+            Ext.Msg.confirm(i18n.gettext("Last course"), i18n.gettext("Return to last course"), function (answer)
             {
                 if (answer == 'yes') {
                     this.CareersListController.addOrStartCareer(undefined, undefined, undefined, this.careersStore.getById(localStorage.selectedcareer));
@@ -243,7 +243,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
         {
             if(e !== undefined && e.touch.target.id === "examInfo")
             {
-                Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality, Courses you should complete each level before you can play the next one.'), function(){
+                Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality courses you should complete each level before you can play the next one.'), function(){
                 }, this);
             }
             else
@@ -274,7 +274,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
             if (e !== undefined && e.touch.target.id == "uninstall") {
                 this.actionSheet = Ext.create('Ext.ActionSheet', {
                     items: [{
-                        text: i18n.gettext('Sync. your scores'),
+                        text: i18n.gettext('Sync your scores'),
                         handler: function(){
                             this.parent.hide();
                             that.daoController.updateOfflineScores();}
@@ -314,7 +314,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 if (e !== undefined && e.touch.target.id === "update") {
                     var actionSheet = Ext.create('Ext.ActionSheet', {
                         items: [{
-                        text: i18n.gettext('Sync. your scores')
+                        text: i18n.gettext('Sync your scores')
                         },{
                             text: i18n.gettext('Update course'),
                             ui: 'confirm',

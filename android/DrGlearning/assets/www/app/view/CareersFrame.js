@@ -33,7 +33,7 @@ Ext.define('DrGlearning.view.CareersFrame', {
                     value: 'inProgress'
                 }, 
                 {
-                    text: i18n.gettext('Not started yet'),
+                    text: i18n.gettext('Not yet started'),
                     value: 'notYet'
                 }]
             }, {

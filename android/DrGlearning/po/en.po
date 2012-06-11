@@ -1,23 +1,23 @@
 # English texts for Dr Glearning
 # Copyright (C) CulturePlex Lab.
 # This file is distributed under the same license as the DrGlearning package.
-# CulturePlex Lab. <apps@cultureplex.ca>, 2012.
-#
-#, fuzzy
+# 
+# Translators:
+#   <versae@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: drglearning 0.2.2\n"
+"Project-Id-Version: Dr. Glearning\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-11 14:25-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: CulturePlex Lab. <apps@cultureplex.ca>\n"
-"Language-Team: English <apps@cultureplex.ca>\n"
-"Language: \n"
+"PO-Revision-Date: 2012-06-11 18:31+0000\n"
+"Last-Translator: versae <versae@gmail.com>\n"
+"Language-Team: English (http://www.transifex.net/projects/p/drglearning/language/en/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"lang: en"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"lang: en\n"
 
 #: ../assets/www/app/controller/LoadingController.js:47
 msgid "Loading"
@@ -174,7 +174,7 @@ msgid "Answer the question"
 msgstr ""
 
 #: ../assets/www/app/controller/activities/TemporalController.js:65
-msgid "Ooh, that wasn't the right answer"
+msgid "Oh, oh. That isn't the right answer"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:125
@@ -187,7 +187,7 @@ msgid "Last course"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:144
-msgid "Return to the last course?"
+msgid "Return to last course"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:246
@@ -196,7 +196,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:246
 msgid ""
-"In Exam Modality, Courses you should complete each level before you can play "
+"In Exam Modality courses you should complete each level before you can play "
 "the next one."
 msgstr ""
 
@@ -225,7 +225,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:277
 #: ../assets/www/app/controller/CareersListController.js:317
-msgid "Sync. your scores"
+msgid "Sync your scores"
 msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:283
@@ -386,12 +386,12 @@ msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:289
 #: ../assets/www/app/controller/LevelController.js:335
-msgid "You should find the correct location in the map"
+msgid "Find the correct location on the map"
 msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:294
 #: ../assets/www/app/controller/LevelController.js:341
-msgid "You have to choose the correct option"
+msgid "Choose the right option"
 msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:299
@@ -555,7 +555,7 @@ msgstr ""
 
 #: ../assets/www/app/view/CareersFrame.js:36
 #: ../assets/www/app/view/CareersTop.js:28
-msgid "Not started yet"
+msgid "Not yet started"
 msgstr ""
 
 #: ../assets/www/app/view/CareersFrame.js:43

@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the DrGlearning package.
 # 
 # Translators:
+# Translators:
+#   <eortegag@uwo.ca>, 2012.
 #   <versae@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Dr. Glearning\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-11 14:25-0400\n"
-"PO-Revision-Date: 2012-06-11 18:31+0000\n"
+"PO-Revision-Date: 2012-06-11 19:21+0000\n"
 "Last-Translator: versae <versae@gmail.com>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.net/projects/p/drglearning/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -174,8 +176,8 @@ msgid "Answer the question"
 msgstr "Responde la pregunta"
 
 #: ../assets/www/app/controller/activities/TemporalController.js:65
-msgid "Ooh, that wasn't the right answer"
-msgstr "Oh oh, esa no es la opción correcta"
+msgid "Oh, oh. That isn't the right answer"
+msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:125
 #: ../assets/www/app/view/CareersFrame.js:14
@@ -187,8 +189,8 @@ msgid "Last course"
 msgstr "Curso anterior"
 
 #: ../assets/www/app/controller/CareersListController.js:144
-msgid "Return to the last course?"
-msgstr "¿Volver al curso anterior?"
+msgid "Return to last course"
+msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:246
 msgid "Exam Modality"
@@ -196,9 +198,9 @@ msgstr "Modalidad Examen"
 
 #: ../assets/www/app/controller/CareersListController.js:246
 msgid ""
-"In Exam Modality, Courses you should complete each level before you can play"
-" the next one."
-msgstr "En los cursos de Modalidad Examen debes completar cada nivel antes de pasar a los siguientes."
+"In Exam Modality courses you should complete each level before you can play "
+"the next one."
+msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:252
 #: ../assets/www/app/controller/DaoController.js:137
@@ -225,8 +227,8 @@ msgstr "Descargando curso"
 
 #: ../assets/www/app/controller/CareersListController.js:277
 #: ../assets/www/app/controller/CareersListController.js:317
-msgid "Sync. your scores"
-msgstr "Sincronizar puntuaciones"
+msgid "Sync your scores"
+msgstr ""
 
 #: ../assets/www/app/controller/CareersListController.js:283
 msgid "Check for courses updates"
@@ -276,7 +278,7 @@ msgstr "¡Examen!"
 msgid ""
 "In Exam Modality courses you should complete each level before moving on to "
 "the following ones"
-msgstr ""
+msgstr "En los cursos de Modalidad Examen debes completar cada nivel antes de pasar a los siguientes"
 
 #: ../assets/www/app/controller/CareersListController.js:443
 msgid "Courses"
@@ -292,7 +294,7 @@ msgstr "El idioma ha cambiado"
 
 #: ../assets/www/app/controller/UserSettingsController.js:47
 msgid "You need to restart the app to see the changes"
-msgstr ""
+msgstr "Necesitas reiniciar la aplicación para ver los cambios"
 
 #: ../assets/www/app/controller/UserSettingsController.js:59
 msgid "Export user"
@@ -353,7 +355,7 @@ msgstr "Nivel bloqueado"
 
 #: ../assets/www/app/controller/LevelController.js:117
 msgid "You can't play this level until you have completed every previous one"
-msgstr ""
+msgstr "No puedes jugar este nivel hasta que hay completado los anteriores"
 
 #: ../assets/www/app/controller/LevelController.js:192
 #: ../assets/www/app/controller/LevelController.js:204
@@ -361,7 +363,7 @@ msgstr ""
 msgid ""
 "You have completed the %s level! It was the last level, you have finished "
 "this course!"
-msgstr ""
+msgstr "¡Has completado el nivel %s! Era el último nivel. ¡Terminaste este curso!"
 
 #: ../assets/www/app/controller/LevelController.js:201
 #, perl-format
@@ -373,7 +375,7 @@ msgstr "¡Has completado el nivel %s! El siguiente es %s"
 msgid ""
 "Guess the hidden message. Unlock letters to get a hint; the image might help"
 " too!"
-msgstr ""
+msgstr "Adivina la(s) palabra(s) escondida(s). Descubre las letras para obtener una pista; la imagen puede ser útil también"
 
 #: ../assets/www/app/controller/LevelController.js:285
 #: ../assets/www/app/controller/LevelController.js:290
@@ -386,23 +388,23 @@ msgstr "Ayuda"
 
 #: ../assets/www/app/controller/LevelController.js:289
 #: ../assets/www/app/controller/LevelController.js:335
-msgid "You should find the correct location in the map"
-msgstr "Encuentra el lugar correcto en el mapa"
+msgid "Find the correct location on the map"
+msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:294
 #: ../assets/www/app/controller/LevelController.js:341
-msgid "You have to choose the correct option"
-msgstr "Elige la opción correcta"
+msgid "Choose the right option"
+msgstr ""
 
 #: ../assets/www/app/controller/LevelController.js:299
 #: ../assets/www/app/controller/LevelController.js:347
 msgid "Go from one item to another until you fulfill all the conditions"
-msgstr ""
+msgstr "Ve de un concepto a otro hasta cumplir todas las condiciones"
 
 #: ../assets/www/app/controller/LevelController.js:304
 #: ../assets/www/app/controller/LevelController.js:353
 msgid "According to the question, say what was before and what was after"
-msgstr ""
+msgstr "De acuerdo con la pregunta elige qué fue antes y qué fue después"
 
 #: ../assets/www/app/controller/LevelController.js:309
 #: ../assets/www/app/controller/LevelController.js:359
@@ -555,8 +557,8 @@ msgstr "En proceso"
 
 #: ../assets/www/app/view/CareersFrame.js:36
 #: ../assets/www/app/view/CareersTop.js:28
-msgid "Not started yet"
-msgstr "Sin empezar"
+msgid "Not yet started"
+msgstr ""
 
 #: ../assets/www/app/view/CareersFrame.js:43
 #: ../assets/www/app/view/CareersFrame.js:108

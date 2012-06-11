@@ -25,7 +25,7 @@ Ext.define('DrGlearning.view.CareersTop', {
                         name: 'estado',
                         options: [
                             {text: i18n.gettext('In progress'), value: 'both'},
-                            {text: i18n.gettext('Not started yet'), value: 'male'}
+                            {text: i18n.gettext('Not yet started'), value: 'male'}
                         ]
                     },
                     { xtype: 'spacer' },

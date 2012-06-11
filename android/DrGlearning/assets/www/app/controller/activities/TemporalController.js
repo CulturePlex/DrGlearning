@@ -62,7 +62,7 @@ Ext.define('DrGlearning.controller.activities.TemporalController', {
         }
         else 
         {
-            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext("Ooh, that wasn't the right answer"), function ()
+            Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext("Oh, oh. That isn't the right answer"), function ()
             {
                 this.levelController.tolevel();
             }, this);
