@@ -1,0 +1,593 @@
+# English texts for Dr Glearning
+# Copyright (C) CulturePlex Lab.
+# This file is distributed under the same license as the DrGlearning package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Dr. Glearning\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-06-09 18:37-0400\n"
+"PO-Revision-Date: 2012-06-09 23:28+0000\n"
+"Last-Translator: CulturePlex Lab. <apps@cultureplex.ca>\n"
+"Language-Team: English <apps@cultureplex.ca>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"lang: en\n"
+
+#: ../assets/www/app/store/Levels.js:11
+msgid "Illetratum"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:12
+msgid "Don't know anything about this? Learn your basics here!"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:16
+msgid "Primary"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:17
+msgid "Now you have an idea. But there’s so much more to learn!"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:21
+msgid "Secondary"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:22
+msgid "Keep going!"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:26
+msgid "High School"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:27
+msgid "For every thing you know there is another one you don’t!"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:31
+msgid "College"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:32
+msgid "You’ve done your courses. Now is the time to prove it!"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:36
+msgid "Master"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:37
+msgid "I’m starting to think you might be good after all"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:41
+msgid "PhD"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:42
+msgid "If you’re still here you must really love this"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:46
+msgid "Post-Doc"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:47
+msgid "Think you're an expert? Can you become a professor now?"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:51
+msgid "Professor"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:52
+msgid "Want to try to teach me a lesson?"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:56
+msgid "Emeritus"
+msgstr ""
+
+#: ../assets/www/app/store/Levels.js:57
+msgid "Nobody knows more about this than you? We'll see…"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:22
+msgid "Installing course"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:28
+#: ../assets/www/app/controller/DaoController.js:516
+msgid "Something happened"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:28
+msgid "Unable to install this course, delete some installed courses"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:138
+#: ../assets/www/app/controller/DaoController.js:486
+#: ../assets/www/app/controller/CareersListController.js:232
+msgid "Unable to install"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:138
+#: ../assets/www/app/controller/DaoController.js:486
+msgid "Try again later"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:343
+msgid "Checking for updates"
+msgstr ""
+
+#: ../assets/www/app/controller/DaoController.js:516
+msgid "Unable to update this course. Try again later"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:47
+msgid "Language changed"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:47
+msgid "You need to restart this app to see the changes"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:59
+msgid "Export user"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:60
+#: ../assets/www/app/controller/UserSettingsController.js:63
+msgid "Copy and paste this code in another device"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:84
+#: ../assets/www/app/view/Settings.js:72
+msgid "Save"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:88
+#: ../assets/www/app/controller/activities/LinguisticController.js:207
+#: ../assets/www/app/controller/CareersListController.js:282
+#: ../assets/www/app/controller/CareersListController.js:328
+msgid "Cancel"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:92
+msgid "Import user"
+msgstr ""
+
+#: ../assets/www/app/controller/UserSettingsController.js:93
+msgid "Paste your code here"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:85
+#: ../assets/www/app/controller/LevelController.js:266
+msgid "Loading level"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:116
+msgid "Level locked"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:116
+msgid "You can't play this level until you complete the previous one"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:191
+#: ../assets/www/app/controller/LevelController.js:203
+#, perl-format
+msgid ""
+"You have completed the %s level! It was the last one, so you have passed "
+"this course!"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:200
+#, perl-format
+msgid "You have completed the %s level! The next one is %s"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:283
+#: ../assets/www/app/controller/LevelController.js:328
+msgid ""
+"You should to guess a sentence with help of the image and the tip text, you "
+"can unlock letters in the hide tip and parts of the image"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:284
+#: ../assets/www/app/controller/LevelController.js:289
+#: ../assets/www/app/controller/LevelController.js:294
+#: ../assets/www/app/controller/LevelController.js:299
+#: ../assets/www/app/controller/LevelController.js:304
+#: ../assets/www/app/controller/LevelController.js:310
+msgid "Help"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:288
+#: ../assets/www/app/controller/LevelController.js:334
+msgid "You should find the correct location in the map"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:293
+#: ../assets/www/app/controller/LevelController.js:340
+msgid "You have to choose the correct option"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:298
+#: ../assets/www/app/controller/LevelController.js:346
+msgid ""
+"You should go from one consept to another according with the constraints"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:303
+#: ../assets/www/app/controller/LevelController.js:352
+msgid ""
+"You should to guess if the event in the text was before or after the event "
+"in the image"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:308
+#: ../assets/www/app/controller/LevelController.js:358
+msgid "Look at the image and answer the question!"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:320
+msgid "Question"
+msgstr ""
+
+#: ../assets/www/app/controller/LevelController.js:329
+#: ../assets/www/app/controller/LevelController.js:335
+#: ../assets/www/app/controller/LevelController.js:341
+#: ../assets/www/app/controller/LevelController.js:347
+#: ../assets/www/app/controller/LevelController.js:353
+#: ../assets/www/app/controller/LevelController.js:360
+msgid "Question and help"
+msgstr ""
+
+#: ../assets/www/app/controller/LoadingController.js:47
+msgid "Loading"
+msgstr ""
+
+#: ../assets/www/app/controller/LoadingController.js:47
+msgid "The first time may take a long, so don't worry"
+msgstr ""
+
+#: ../assets/www/app/controller/LoadingController.js:148
+msgid "Retrieving courses"
+msgstr ""
+
+#: ../assets/www/app/controller/LoadingController.js:296
+msgid "Installing testing course"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/GeospatialController.js:37
+#: ../assets/www/app/controller/activities/VisualController.js:36
+#: ../assets/www/app/controller/activities/LinguisticController.js:44
+#: ../assets/www/app/controller/activities/QuizController.js:41
+#: ../assets/www/app/controller/activities/TemporalController.js:29
+msgid "Loading activity"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/VisualController.js:80
+#: ../assets/www/app/controller/activities/VisualController.js:171
+#, perl-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../assets/www/app/controller/activities/VisualController.js:150
+#: ../assets/www/app/controller/activities/LinguisticController.js:128
+#: ../assets/www/app/controller/activities/LinguisticController.js:232
+#: ../assets/www/app/controller/activities/QuizController.js:141
+#: ../assets/www/app/controller/activities/TemporalController.js:57
+#: ../assets/www/app/controller/activities/TemporalController.js:76
+#: ../assets/www/app/controller/activities/RelationalController.js:521
+msgid "Right!"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/VisualController.js:150
+#: ../assets/www/app/controller/activities/LinguisticController.js:128
+#: ../assets/www/app/controller/activities/LinguisticController.js:232
+#: ../assets/www/app/controller/activities/QuizController.js:141
+#: ../assets/www/app/controller/activities/TemporalController.js:57
+#: ../assets/www/app/controller/activities/TemporalController.js:76
+#: ../assets/www/app/controller/activities/RelationalController.js:389
+#: ../assets/www/app/controller/activities/RelationalController.js:521
+msgid "Score"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/VisualController.js:158
+#: ../assets/www/app/controller/activities/LinguisticController.js:243
+#: ../assets/www/app/controller/activities/QuizController.js:150
+#: ../assets/www/app/controller/activities/TemporalController.js:65
+#: ../assets/www/app/controller/activities/TemporalController.js:84
+msgid "Wrong!"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/LinguisticController.js:71
+msgid "Answer"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/LinguisticController.js:203
+#: ../assets/www/app/view/activities/Linguistic.js:94
+msgid "Solve"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/LinguisticController.js:211
+msgid "Answer the question"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/TemporalController.js:65
+msgid "Ooh, that wasn't the right answer"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:29
+#: ../assets/www/app/controller/activities/RelationalController.js:50
+#: ../assets/www/app/controller/activities/RelationalController.js:60
+#: ../assets/www/app/controller/activities/RelationalController.js:79
+msgid "Choose"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:155
+msgid "Congratulations!"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:155
+#, perl-format
+msgid "You got %d points!"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:230
+#: ../assets/www/app/controller/activities/RelationalController.js:321
+msgid "Fulfilled condition"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:243
+#: ../assets/www/app/controller/activities/RelationalController.js:333
+msgid "Condition not fulfilled yet"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:248
+#, perl-format
+msgid "Pass through %s %s"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:251
+#, perl-format
+msgid "Pass through other than %s %s"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:255
+#, perl-format
+msgid "Pass through %s or fewer %s"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:259
+#, perl-format
+msgid "Pass through %s or more %s"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:262
+#, perl-format
+msgid "Pass through less than %s %s"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:265
+#, perl-format
+msgid "Pass through more than %s %s"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:336
+#, perl-format
+msgid "Your path must have %d or fewer steps"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:450
+msgid "Undo"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:464
+msgid "Sorry, from here you cannot reach"
+msgstr ""
+
+#: ../assets/www/app/controller/activities/RelationalController.js:464
+msgid "Try undo"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:124
+#: ../assets/www/app/view/CareersFrame.js:14
+msgid "Dr. Glearning"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:143
+msgid "Last course"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:143
+msgid "Return to the last course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:226
+msgid "Exam Modality"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:226
+msgid ""
+"In Exam Modality, Courses you should complete each level before you can play"
+" the next one."
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:232
+msgid "You need data connection to install courses"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:235
+#, perl-format
+msgid "Install the course %s?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:235
+msgid "Are you sure you want to install this course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:241
+msgid "Downloading course"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:257
+#: ../assets/www/app/controller/CareersListController.js:297
+msgid "Sync. your scores"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:263
+msgid "Check for courses updates"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:269
+#: ../assets/www/app/controller/CareersListController.js:316
+msgid "Uninstall course"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:273
+msgid "Uninstall Course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:273
+#: ../assets/www/app/controller/CareersListController.js:320
+msgid ""
+"If you uninstall this course, all your points will be lost. Are you sure you"
+" want to uninstall this course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:299
+msgid "Update course"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:303
+msgid "Update course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:303
+msgid "Are you sure you want to update this course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:307
+msgid "Updating course"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:320
+msgid "Uninstall course?"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:341
+msgid "Exam course!"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:341
+msgid ""
+"In Exam courses, you are supposed to pass each level before playing the next"
+" one"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:425
+msgid "Courses"
+msgstr ""
+
+#: ../assets/www/app/controller/CareersListController.js:500
+msgid "Updating courses"
+msgstr ""
+
+#: ../assets/www/app/view/LevelFrame.js:20
+#: ../assets/www/app/view/CareerFrame.js:21
+msgid "Course Name"
+msgstr ""
+
+#: ../assets/www/app/view/LevelFrame.js:33
+#: ../assets/www/app/view/CareerFrame.js:34
+#: ../assets/www/app/view/CareersFrame.js:74
+#: ../assets/www/app/view/Settings.js:63
+#: ../assets/www/app/view/activities/Linguistic.js:84
+#: ../assets/www/app/view/activities/Quiz.js:27
+#: ../assets/www/app/view/activities/Visual.js:33
+#: ../assets/www/app/view/activities/Geospatial.js:38
+#: ../assets/www/app/view/activities/Relational.js:39
+#: ../assets/www/app/view/activities/Temporal.js:39
+msgid "Back"
+msgstr ""
+
+#: ../assets/www/app/view/CareerFrame.js:43
+msgid "Start"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:28
+msgid "All"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:32
+#: ../assets/www/app/view/CareersTop.js:27
+msgid "In progress"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:36
+#: ../assets/www/app/view/CareersTop.js:28
+msgid "Not started yet"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:43
+#: ../assets/www/app/view/CareersFrame.js:108
+#: ../assets/www/app/view/CareersTop.js:34
+msgid "Add course"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:97
+msgid "No courses installed, click on 'Add course' to start"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:132
+#: ../assets/www/app/view/Settings.js:17
+msgid "Settings"
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:135
+#: ../assets/www/app/view/CareersFrame.js:142
+msgid "CulturePlex Lab."
+msgstr ""
+
+#: ../assets/www/app/view/CareersFrame.js:139
+msgid "Update all"
+msgstr ""
+
+#: ../assets/www/app/view/Settings.js:26
+msgid "Language"
+msgstr ""
+
+#: ../assets/www/app/view/ActivityFrame.js:18
+msgid "Activity name"
+msgstr ""
+
+#: ../assets/www/app/view/activities/Linguistic.js:59
+msgid "Try"
+msgstr ""
+
+#: ../assets/www/app/view/activities/Visual.js:59
+msgid "Skip"
+msgstr ""
+
+#: ../assets/www/app/view/activities/Geospatial.js:46
+msgid "Confirm"
+msgstr ""
+
+#: ../assets/www/app/view/activities/Temporal.js:47
+msgid "Before"
+msgstr ""
+
+#: ../assets/www/app/view/activities/Temporal.js:53
+msgid "After"
+msgstr ""
