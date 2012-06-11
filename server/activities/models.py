@@ -69,8 +69,9 @@ class Activity(models.Model):
                                                   "activities will be shwon "
                                                   "in the mobile application"))
     level_required = models.BooleanField(_("required"), default=True,
-                                         help_text=_("Is this level required "
-                                                     "to pass the course?"))
+                                         help_text=_("Is this activity "
+                                                     "required to pass the "
+                                                     "level?"))
     reward = models.CharField(_("reward"), max_length=255, default=_("Nice!"),
                               help_text=_("Reward text to show when the "
                                           "activity is successfully overcame"))
