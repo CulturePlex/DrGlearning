@@ -13,7 +13,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     score: null,
     isStopped: false,
     loading: null,
-    imageUrl: null,
     init: function ()
     {
         this.isStopped = false;
@@ -62,14 +61,12 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         this.score = 20;
         this.imageContainer = this.activityView.down('container[id=image]');
-        this.optionsContainer = this.activityView.down('panel[customId=options]');
+        this.optionsContainer = this.activityView.down('container[customId=options]');
         this.timeLabel = this.activityView.down('label[customId=time]');
         this.obImageContainer = this.activityView.down('container[id=obImage]');
 
         this.imageContainer.setHtml('');
-        this.imageUrl = this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
-        this.obImageUrl = this.activity.getImage('obfuscated_image', 'obfuscated_image', this.imageContainer, this, this.view, this.activityView, false);
-        console.log(this.obImageUrl);
+        this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
         this.activityController.addQueryAndButtons(this.activityView, this.activity);
         this.answers = this.activity.data.answers;
         var time = this.activity.data.time;
@@ -77,13 +74,14 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         this.optionsContainer.removeAll();
         this.optionsContainer.removeAll();
         
-        this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime)));
+        this.timeLabel.setHtml(this.currentTime + i18n.gettext(" sec."));
         var that = this;
         this.secondtemp = setInterval(function () 
         {
             that.showSeconds();
         }, 1000);
         this.imageContainer.show();
+        //this.obImageContainer.hide();
         this.optionsContainer.hide();
     },
     
@@ -91,9 +89,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         activityView.show();
         view.add(activityView);
-        this.imageContainer = this.activityView.down('container[id=image]');
-        console.log(this.imageUrl);
-        this.imageContainer.setStyle({backgroundImage: 'url('+this.imageUrl+')'});
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.help) {
             this.activity.data.help = true;
@@ -106,7 +101,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
     {
         this.timeLabel.setHtml('');
         this.activityView.down('button[customId=skip]').hide();
-        console.log(this.optionsContainer);
+        //this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
         this.optionsContainer.add({xtype:'spacer'});
         for (var i = 0; i < this.answers.length; i++) {
         if (this.answers[i].trim() === this.activity.data.correct_answer)
@@ -118,6 +113,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                     customId: 'respuesta',
                     answerNo: i+1,
                     correctAnswer: true,
+                    answerNo: i+1,
                     style: 'opacity: 0.9;'
                 });
                 this.correctAnswerId = i+1;
@@ -134,9 +130,11 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                 console.log(this.answers[i].trim());
             }
         }
-        this.imageContainer.hide();
+        //this.imageContainer.hide();
+        this.imageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
         this.optionsContainer.show();
-        this.optionsContainer.setStyle({backgroundImage: 'url('+this.obImageUrl+')'});
+        this.optionsContainer.setStyle({backgroundImage: this.obImageUrl});
+        //this.obImageContainer.show();
     },
     tryIt: function (target)
     {
@@ -147,7 +145,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
                 this.score = 20;
             }
             this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                 this.levelController.nextActivity(this.activity.data.level_type);
@@ -157,7 +155,6 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
             this.optionsContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
-                this.daoController.activityPlayed(this.activity.data.id, false, this.score);
                 this.levelController.tolevel();
             }, this);
         }
@@ -168,7 +165,7 @@ Ext.define('DrGlearning.controller.activities.VisualController', {
         if (this.isStopped === false && this.loading === false) 
         {
             this.currentTime--;
-            this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime)));
+            this.timeLabel.setHtml(this.currentTime + i18n.gettext(" sec."));
             if (this.currentTime < 0) {
                 clearInterval(this.secondtemp);
                 this.showAnswers();

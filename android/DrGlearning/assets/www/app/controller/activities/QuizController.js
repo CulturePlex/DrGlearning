@@ -21,7 +21,6 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     latexLoaded: false,
     imageLoaded: false,
     correctAnswerId: null,
-    imageUrl: null,
 
     init: function () {
         "use strict";
@@ -38,7 +37,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         "use strict";
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i18n.gettext('Loading activity') +"…",
+            message: i18n.gettext('Loading activity...'),
             indicator: true
             //html: "<img src='resources/images/activity_icons/quiz.png'>",
         });
@@ -51,28 +50,23 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         this.answers = this.activity.data.answers;
         this.currentTime = newActivity.data.time;
         this.activityController.addQueryAndButtons(this.activityView, newActivity);
-        this.timeContainer = this.activityView.down('panel[customId=time]');
-        //this.imageUrl = this.activity.getImage('image', 'image', this.activityView.down('[id=image]'), this, undefined, this.activityView, false);
+
         /*if (newActivity.data.image_url) {
-            newActivity.getImage('image', 'image', this.activityView.down('[id=image]'), this, view, this.activityView, false);
-            this.loadingImages(view, this.activityView);
+            //newActivity.getImage('image', 'image', this.activityView.down('[id=image]'), this, view, this.activityView, false);
         }
-        else {
+        else {*/
             this.loadingImages(view, this.activityView);
-        }*/
+        //}
         this.showAnswers();
         if (typeof(MathJax) !== "undefined") {
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
-        newActivity.getImage('image', 'image', null, this, view, this.activityView, true);
+        
     },
     loadingComplete: function ()
     {
         this.activityView.show();
         this.view.add(this.activityView);
-        console.log(this.imageUrl);
-        //this.timeContainer.setHtml(this.imageUrl);
-        this.timeContainer.setStyle({backgroundImage: 'url('+this.imageUrl+')'});
         Ext.Viewport.setMasked(false);
         if (!this.activity.data.helpviewed) {
             this.activity.data.helpviewed = true;
@@ -82,11 +76,11 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         if (this.currentTime) {
             this.showSeconds();
         }
-        
+        this.timeContainer = this.activityView.down('container[customId=timecontainer]');
+        //this.timeLabel = this.activityView.down('label[customId=time]');
     },
-    loadingImages: function (view, activityView,value)
+    loadingImages: function (view, activityView)
     {
-        this.imageUrl = value;
         this.imageLoaded = true;
         //if (this.latexLoaded) {
         this.loadingComplete();
@@ -102,18 +96,26 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
     },
     showAnswers: function ()
     {
-        this.timeContainer.add({xtype:'spacer'});
+        clearInterval(this.secondtemp);
+        var options = Ext.create('Ext.Container');
+        options.config = {
+            layout: {
+                type: 'vbox',
+                pack: 'center',
+                align: 'middle',
+            },
+            style: 'opacity: 0.5;'
+        };
         for (var i = 0; i < this.answers.length; i++) {
             if (this.answers[i].trim() === this.activity.data.correct_answer)
             {
-                this.timeContainer.add({
+                this.activityView.down('container[customId=timecontainer]').add({
                     xtype: 'button',
                     text: this.answers[i].trim(),
                     margin: 3,
                     customId: 'respuestaQuiz',
                     answerNo: i+1,
                     correctAnswer: true,
-                    style: 'opacity: 0.8;'
                     
                 });
                 this.correctAnswerId = i+1;
@@ -121,24 +123,31 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             {
                 console.log(this.answers[i].trim());
                 console.log(i);
-                this.timeContainer.add({
+                this.activityView.down('container[customId=timecontainer]').add({
                     xtype: 'button',
                     text: this.answers[i].trim(),
                     margin: 3,
                     customId: 'respuestaQuiz',
-                    answerNo: i+1,
-                    style: 'opacity: 0.8;'
+                    answerNo: i+1
                 });
             }
         }
+        //this.timeLabel.setHtml("");
+        this.activityView.add(options);
+        
+    },
+    showSeconds: function ()
+    {
+        //this.timeLabel.setHtml(this.currentTime + "s");
+        this.currentTime--;
     },
     tryIt: function (target)
     {
+        this.puntos = 100;
         if (target.config.answerNo === this.correctAnswerId) 
         {
-            this.puntos = 100;
             this.timeContainer.down('button[correctAnswer=true]').setUi('confirm');
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.puntos, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
                 this.levelController.nextActivity(this.activity.data.level_type);
@@ -149,10 +158,14 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
             this.timeContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
             Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
             {
-                this.puntos = 0;
-                this.daoController.activityPlayed(this.activity.data.id, false, this.puntos);
                 this.levelController.tolevel();
             }, this);
         }
+        
+        
     },
+    stop: function ()
+    {
+        clearInterval(this.secondtemp);
+    }
 });

@@ -44,6 +44,7 @@ Ext.define('DrGlearning.view.activities.Visual', {
             ,
             {
                 xtype: 'container',
+                customId: 'timecontainer',
                 padding:10,
                 docked:'bottom',
                 items:[{
