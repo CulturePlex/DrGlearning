@@ -141,7 +141,7 @@ class RelationalAdmin(ActivityAdmin):
 
 class VisualAdmin(ActivityAdmin):
     form = VisualAdminForm
-    exclude = ('obfuscated_image', 'user')
+    exclude = ('user', )
 
     class Media:
         js = ('js/visualAdminAnswers.js', 'js/visualAdminImages.js')
