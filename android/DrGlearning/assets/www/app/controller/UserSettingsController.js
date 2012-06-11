@@ -44,7 +44,7 @@ Ext.define('DrGlearning.controller.UserSettingsController', {
         var locale = view.down('selectfield[id=locale]').getValue();
         if(localStorage.locale != locale){
             localStorage.locale = locale;
-            Ext.Msg.alert(i18n.gettext('Language changed'),i18n.gettext('You need to restart this app to see the changes') , Ext.emptyFn);
+            Ext.Msg.alert(i18n.gettext('Language changed'),i18n.gettext('You need to restart the app to see the changes') , Ext.emptyFn);
         }
         view.hide();
         this.getCareersframe().show();

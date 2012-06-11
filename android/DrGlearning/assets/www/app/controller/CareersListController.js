@@ -358,7 +358,7 @@ Ext.define('DrGlearning.controller.CareersListController', {
                 else {
                     if(e !== undefined && e.touch.target.id === "examInfo")
                     {
-                        Ext.Msg.alert(i18n.gettext('Exam course!'), i18n.gettext('In Exam courses, you are supposed to pass each level before playing the next one'), function(){
+                        Ext.Msg.alert(i18n.gettext('Exam course!'), i18n.gettext('In Exam Modality courses you should complete each level before moving on to the following ones'), function(){
             }, this);
                     }else
                     {

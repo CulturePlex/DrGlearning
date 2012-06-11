@@ -114,7 +114,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         }
         else
         {
-            Ext.Msg.alert(i18n.gettext('Level locked'), i18n.gettext("You can't play this level until you complete the previous one"), function(){
+            Ext.Msg.alert(i18n.gettext('Level locked'), i18n.gettext("You can't play this level until you have completed every previous one"), function(){
             }, this);
         }
     },
@@ -189,7 +189,7 @@ Ext.define('DrGlearning.controller.LevelController', {
                 }
                 this.careersListController.index();
                 this.getActivityframe().hide();
-                this.shareScores(i18n.translate("You have completed the %s level! It was the last one, so you have passed this course!").fetch(prevLevelString));
+                this.shareScores(i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString));
             }
             else {
                 this.careerController.updateCareer(this.careersListController.selectedcareer);
@@ -201,7 +201,7 @@ Ext.define('DrGlearning.controller.LevelController', {
                     this.shareScores(i18n.translate("You have completed the %s level! The next one is %s").fetch(prevLevelString, currentLevelString));
                 }
                 else {
-                    this.shareScores(i18n.translate("You have completed the %s level! It was the last one, so you have passed this course!").fetch(prevLevelString));
+                    this.shareScores(i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString));
                 }
             }
         }
@@ -281,7 +281,7 @@ Ext.define('DrGlearning.controller.LevelController', {
     help: function(){
         var text = "help!";
         if (this.currentActivity.data.activity_type == 'linguistic') {
-            text = i18n.gettext("You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image");
+            text = i18n.gettext("Guess the hidden message. Unlock letters to get a hint; the image might help too!");
             Ext.Msg.alert(i18n.gettext('Help'), text, function(){
             }, this);
         }
@@ -296,12 +296,12 @@ Ext.define('DrGlearning.controller.LevelController', {
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'relational') {
-            text = i18n.gettext("You should go from one consept to another according with the constraints");
+            text = i18n.gettext("Go from one item to another until you fulfill all the conditions");
             Ext.Msg.alert(i18n.gettext('Help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'temporal') {
-            text = i18n.gettext("You should to guess if the event in the text was before or after the event in the image");
+            text = i18n.gettext("According to the question, say what was before and what was after");
             Ext.Msg.alert(i18n.gettext('Help'), text, function(){
             }, this);
         }
@@ -326,7 +326,7 @@ Ext.define('DrGlearning.controller.LevelController', {
         var text = this.currentActivity.data.query;
         if (this.currentActivity.data.activity_type == 'linguistic') {
             text += " <br>  <br>";
-            text += i18n.gettext("You should to guess a sentence with help of the image and the tip text, you can unlock letters in the hide tip and parts of the image");
+            text += i18n.gettext("Guess the hidden message. Unlock letters to get a hint; the image might help too!");
             Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
@@ -344,13 +344,13 @@ Ext.define('DrGlearning.controller.LevelController', {
         }
         if (this.currentActivity.data.activity_type == 'relational') {
             text += " <br>  <br>";
-            text += i18n.gettext("You should go from one consept to another according with the constraints");
+            text += i18n.gettext("Go from one item to another until you fulfill all the conditions");
             Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
         if (this.currentActivity.data.activity_type == 'temporal') {
             text += " <br>  <br>";
-            text += i18n.gettext("You should to guess if the event in the text was before or after the event in the image");
+            text += i18n.gettext("According to the question, say what was before and what was after");
             Ext.Msg.alert(i18n.gettext('Question and help'), text, function(){
             }, this);
         }
