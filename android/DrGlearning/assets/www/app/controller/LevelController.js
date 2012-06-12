@@ -189,7 +189,8 @@ Ext.define('DrGlearning.controller.LevelController', {
                 }
                 this.careersListController.index();
                 this.getActivityframe().hide();
-                this.shareScores(i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString));
+                //this.shareScores(i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString));
+                Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString) , function(){}, this);
             }
             else {
                 this.careerController.updateCareer(this.careersListController.selectedcareer);
@@ -198,10 +199,12 @@ Ext.define('DrGlearning.controller.LevelController', {
                 if (currentLevel != -1) {
                     this.careersListController.updateLevelsState();
                     this.careerController.updateCareer(this.careerController.selectedCareer);
-                    this.shareScores(i18n.translate("You have completed the %s level! The next one is %s").fetch(prevLevelString, currentLevelString));
+                    //this.shareScores(i18n.translate("You have completed the %s level! The next one is %s").fetch(prevLevelString, currentLevelString));
+                    Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.translate("You have completed the %s level! The next one is %s").fetch(prevLevelString, currentLevelString) , function(){}, this);
                 }
                 else {
-                    this.shareScores(i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString));
+                    //this.shareScores(i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString));
+                    Ext.Msg.alert(i18n.gettext('Congrats!'), i18n.translate("You have completed the %s level! It was the last level, you have finished this course!").fetch(prevLevelString) , function(){}, this);
                 }
             }
         }

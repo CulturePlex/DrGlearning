@@ -6,10 +6,6 @@
     Ext Jed messages
 */
 
-Ext.Loader.setConfig({
-    enabled : true
-});
-
 Ext.application({
     name: 'DrGlearning',
     views: ['Loading', 'CareerFrame', 'Main', 'LevelFrame',
@@ -32,4 +28,10 @@ Ext.application({
         this.getController('LoadingController').onLaunch();
         this.levelController = this.getApplication().getController('LevelController');
     }
+});
+
+Ext.override(Ext.MessageBox,{
+'yesButton':'quewqeqewqewqewqeqwewqe',
+'cancelButton':'canceladsfadsfafadsffads'
+
 });
