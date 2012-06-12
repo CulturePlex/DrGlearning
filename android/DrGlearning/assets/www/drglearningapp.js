@@ -34,8 +34,19 @@ Ext.application({
     }
 });
 
-Ext.override(Ext.MessageBox,{
-'yesButton':'quewqeqewqewqewqeqwewqe',
-'cancelButton':'canceladsfadsfafadsffads'
-
+var MB = Ext.MessageBox;
+Ext.apply(MB, {
+		YES: { text: i18n.gettext('Yes'), itemId: 'yes', ui: 'action' }
 });
+Ext.apply(MB, {
+		NO: { text: i18n.gettext('No'), itemId: 'no' }
+});
+Ext.apply(MB, {
+		YESNO: [Ext.MessageBox.NO, Ext.MessageBox.YES]
+});
+
+Ext.picker.PickerView.applyDoneButton(i18n.gettext('Done'));
+Ext.picker.PickerView.applyCancelButton(i18n.gettext('Cancel'));
+
+
+
