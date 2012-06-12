@@ -44,7 +44,7 @@ Ext.define('DrGlearning.controller.LoadingController', {
             //First calculate max localstorage size
             Ext.Viewport.setMasked({
                 xtype: 'loadmask',
-                message: i18n.gettext("Loading") +"… "+ i18n.gettext("The first time may take a long, so don't worry"),
+                message: i18n.gettext("Loading") +"…<br/>"+ i18n.gettext("The first time, it might take a bit to load. Don't worry"),
                     indicator: true
             });
             this.getApplication().getController('MaxStorageSizeController').initTest(this);
