@@ -1,6 +1,6 @@
 // Locale en
 var i18n = new Jed({
-    "locale_data": {"messages": {"": {"Content-Transfer-Encoding": "8bit", "Content-Type": "text/plain; charset=UTF-8", "Language": "", "Language-Team": "LANGUAGE <LL@li.org>", "Last-Translator": "FULL NAME <EMAIL@ADDRESS>", "MIME-Version": "1.0", "PO-Revision-Date": "YEAR-MO-DA HO:MI+ZONE", "POT-Creation-Date": "2012-06-11 20:26-0400", "Project-Id-Version": "drglearning 0.2.2", "Report-Msgid-Bugs-To": ""}}},
+    "locale_data": {"messages": {"": {"Content-Transfer-Encoding": "8bit", "Content-Type": "text/plain; charset=UTF-8", "Language": "en", "Language-Team": "English (http://www.transifex.net/projects/p/drglearning/language/en/)", "Last-Translator": "versae <versae@gmail.com>", "MIME-Version": "1.0", "PO-Revision-Date": "2012-06-11 19:21+0000", "POT-Creation-Date": "2012-06-11 14:25-0400", "Plural-Forms": "nplurals=2; plural=(n != 1)", "Project-Id-Version": "Dr. Glearning", "Report-Msgid-Bugs-To": "", "lang": "en"}}},
     "domain": "messages",
     "plural_forms": "nplurals=2; plural=(n != 1);"
 });
