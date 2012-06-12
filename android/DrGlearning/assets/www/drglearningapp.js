@@ -6,6 +6,10 @@
     Ext Jed messages
 */
 
+Ext.Loader.setConfig({
+    enabled : true
+});
+
 Ext.application({
     name: 'DrGlearning',
     views: ['Loading', 'CareerFrame', 'Main', 'LevelFrame',
