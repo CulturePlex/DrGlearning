@@ -1,61 +1,71 @@
-Ext.define('DrGlearning.view.CareerFrame', {
-    extend: 'Ext.Container',
-    xtype: 'careerframe',
-    requires: [
-        'DrGlearning.view.CareerDetail',
-    ],
-    config: {
-        fullscreen: true,
-        
-        items: [
-            {
-                ref: 'toolbar',
-                xtype: 'toolbar',
-                docked: 'top',
-                name: 'up',
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.view.CareerFrame', {
+            extend: 'Ext.Container',
+            xtype: 'careerframe',
+            requires: [
+                'DrGlearning.view.CareerDetail',
+            ],
+            config: {
+                fullscreen: true,
+                
                 items: [
                     {
-                        xtype: 'title',
-                        id: 'title',
-                        name: 'title',
-                        title: i18n.gettext('Course Name'),
-                        maxWidth: '100%',
-                        centered:true,
+                        ref: 'toolbar',
+                        xtype: 'toolbar',
+                        docked: 'top',
+                        name: 'up',
+                        items: [
+                            {
+                                xtype: 'title',
+                                id: 'title',
+                                name: 'title',
+                                title: i18n.gettext('Course Name'),
+                                maxWidth: '100%',
+                                centered:true,
+                            },
+                        ]
                     },
-                ]
-            },
-            {
-                xtype: 'toolbar',
-                docked: 'bottom',
-                items:[
                     {
-                        xtype: 'button',
-                        id: 'backToCareers',
-                        text: i18n.gettext('Back'),
-                        ui:'back',
+                        xtype: 'toolbar',
+                        docked: 'bottom',
+                        items:[
+                            {
+                                xtype: 'button',
+                                id: 'backToCareers',
+                                text: i18n.gettext('Back'),
+                                ui:'back',
+                                
+                            },
+                            {
+                                 xtype: 'spacer' 
+                            },
+                            {
+                                xtype: 'button',
+                                text: i18n.gettext('Start'),
+                                id: 'startLevel',
+                                customId: 'startLevel'
+                                
+                            }
+                            ]
                         
                     },
                     {
-                         xtype: 'spacer' 
-                    },
-                    {
-                        xtype: 'button',
-                        text: i18n.gettext('Start'),
-                        id: 'startLevel',
-                        customId: 'startLevel'
+                        xtype: 'careerdetail',
+                    
+                        
                         
                     }
-                    ]
-                
-            },
-            {
-                xtype: 'careerdetail',
-            
-                
-                
-            }
-        ],
+                ],
 
-        layout: 'fit'
-    }
-});
+                layout: 'fit'
+            }
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

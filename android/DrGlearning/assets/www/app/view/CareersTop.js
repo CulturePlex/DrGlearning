@@ -9,37 +9,48 @@
  * Loans based on the values selected (see the onFilter method in app/controllers/loans.js).
  * 
  */
-Ext.define('DrGlearning.view.CareersTop', {
-    extend: 'Ext.Container',
-    xtype: 'careerstop',
 
-    config: {
-        items: [
-            {
-                xtype: 'toolbar',
-                docked: 'top',
-                ui: 'gray',
-                items:[
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.view.CareersTop', {
+            extend: 'Ext.Container',
+            xtype: 'careerstop',
+
+            config: {
+                items: [
                     {
-                        xtype: 'selectfield',
-                        name: 'estado',
-                        options: [
-                            {text: i18n.gettext('In progress'), value: 'both'},
-                            {text: i18n.gettext('Not yet started'), value: 'male'}
-                        ]
-                    },
-                    { xtype: 'spacer' },
-                    {
-                        xtype: 'button',
-                        text: i18n.gettext('Add course')
+                        xtype: 'toolbar',
+                        docked: 'top',
+                        ui: 'gray',
+                        items:[
+                            {
+                                xtype: 'selectfield',
+                                name: 'estado',
+                                options: [
+                                    {text: i18n.gettext('In progress'), value: 'both'},
+                                    {text: i18n.gettext('Not yet started'), value: 'male'}
+                                ]
+                            },
+                            { xtype: 'spacer' },
+                            {
+                                xtype: 'button',
+                                text: i18n.gettext('Add course')
+                            }
+                            ]
+                        
                     }
-                    ]
-                
-            }
-        ],
-        layout: {
-            type: 'vbox',
-            align: 'stretch'
-        }
-    },
-});
+                ],
+                layout: {
+                    type: 'vbox',
+                    align: 'stretch'
+                }
+            },
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

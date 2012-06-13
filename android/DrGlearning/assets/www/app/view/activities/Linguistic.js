@@ -1,103 +1,111 @@
-Ext.define('DrGlearning.view.activities.Linguistic', {
+try {
+    (function () {
+    // Exceptions Catcher Begins
 
-    extend: 'Ext.Panel',
-    xtype: 'linguistic',
-    config: {
-        id: 'activity',
-        customId: 'activity',
-        fullscreen: true,
-        scrollable:true,
-        layout: 'vbox',
-        items: [
-                            {
-                xtype: 'toolbar',
-                
-                docked: 'top',
-                ui: 'neutral',
-                customId: 'query',
-                layout: {
-                    type: 'hbox',
-                    pack : 'center' 
-                },
+        Ext.define('DrGlearning.view.activities.Linguistic', {
 
-            },
-                             {
-                                xtype: 'panel',
-                                id: 'image',
-                                customId: 'image',
-                                margin: 10,
-                            },{
-                                xtype: 'container',
-                                layout: 'hbox',
-                                items: [
-                                        {
-                                            xtype: 'label',
-                                            html: 'TIP: ',
-                                            customId: 'tip',
-                                            margin: 10,
-                                            
-                                        },{
-                                            xtype: 'label',
-                                            customId: 'loqued',
-                                            margin: 10,
-                                            
-                                        }]
-                            },{
+            extend: 'Ext.Panel',
+            xtype: 'linguistic',
+            config: {
+                id: 'activity',
+                customId: 'activity',
+                fullscreen: true,
+                scrollable:true,
+                layout: 'vbox',
+                items: [
+                                    {
+                        xtype: 'toolbar',
+                        
+                        docked: 'top',
+                        ui: 'neutral',
+                        customId: 'query',
+                        layout: {
+                            type: 'hbox',
+                            pack : 'center' 
+                        },
+
+                    },
+                                     {
+                                        xtype: 'panel',
+                                        id: 'image',
+                                        customId: 'image',
+                                        margin: 10,
+                                    },{
                                         xtype: 'container',
                                         layout: 'hbox',
                                         items: [
-                                        {
-                                            xtype: 'textfield',
-                                            customId: 'letter',
-                                            name: 'letter',
-                                            maxLength: 1,
-                                            margin: 10,
-                                            flex: 2
-                                        },{
-                                            xtype: 'button',
-                                            customId: 'try',
-                                            text: i18n.gettext('Try'),
-                                            ui:'small',
-                                            flex: 1,
-                                            margin: 10,
-                                                
-                                        }
-                                        ]
+                                                {
+                                                    xtype: 'label',
+                                                    html: 'TIP: ',
+                                                    customId: 'tip',
+                                                    margin: 10,
+                                                    
+                                                },{
+                                                    xtype: 'label',
+                                                    customId: 'loqued',
+                                                    margin: 10,
+                                                    
+                                                }]
+                                    },{
+                                                xtype: 'container',
+                                                layout: 'hbox',
+                                                items: [
+                                                {
+                                                    xtype: 'textfield',
+                                                    customId: 'letter',
+                                                    name: 'letter',
+                                                    maxLength: 1,
+                                                    margin: 10,
+                                                    flex: 2
+                                                },{
+                                                    xtype: 'button',
+                                                    customId: 'try',
+                                                    text: i18n.gettext('Try'),
+                                                    ui:'small',
+                                                    flex: 1,
+                                                    margin: 10,
+                                                        
+                                                }
+                                                ]
+                                            },
+                                    {
+                                        xtype: 'label',
+                                        customId: 'responses',
+                                        margin: 10,
                                     },
+                                    
+                                    
+                                   
+                               
+                    
+                    {
+                        xtype: 'toolbar',
+                        docked: 'bottom',
+                        items:[
                             {
-                                xtype: 'label',
-                                customId: 'responses',
-                                margin: 10,
+                                xtype: 'button',
+                                customId: 'backtolevel',
+                                text: i18n.gettext('Back'),
+                                ui: 'back',
+                                controller: 'DrGlearning.controller.Career',
+                                action: 'index'
                             },
-                            
-                            
-                           
-                       
-            
-            {
-                xtype: 'toolbar',
-                docked: 'bottom',
-                items:[
-                    {
-                        xtype: 'button',
-                        customId: 'backtolevel',
-                        text: i18n.gettext('Back'),
-                        ui: 'back',
-                        controller: 'DrGlearning.controller.Career',
-                        action: 'index'
-                    },
-                    {
-                         xtype: 'spacer' 
-                    },{
-                        xtype: 'button',
-                        customId: 'solve',
-                        text: i18n.gettext('Solve'),
-                    },
-                    ]
-                
-            }
-        ]
-    },
+                            {
+                                 xtype: 'spacer' 
+                            },{
+                                xtype: 'button',
+                                customId: 'solve',
+                                text: i18n.gettext('Solve'),
+                            },
+                            ]
+                        
+                    }
+                ]
+            },
+        });
 
-
-});
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

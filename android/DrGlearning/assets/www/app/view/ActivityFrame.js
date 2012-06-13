@@ -1,33 +1,43 @@
-Ext.define('DrGlearning.view.ActivityFrame', {
-    extend: 'Ext.Container',
-    xtype: 'activityframe',
-    
-    config: {
-        fullscreen: true,
-        items: [
-            {
-                ref: 'toolbar',
-                xtype: 'toolbar',
-                docked: 'top',
-                name: 'up',
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.view.ActivityFrame', {
+            extend: 'Ext.Container',
+            xtype: 'activityframe',
+            
+            config: {
+                fullscreen: true,
                 items: [
                     {
-                        xtype: 'title',
-                        customId: 'title',
-                        name: 'title',
-                        title: i18n.gettext('Activity name'),
-                        centered: true
+                        ref: 'toolbar',
+                        xtype: 'toolbar',
+                        docked: 'top',
+                        name: 'up',
+                        items: [
+                            {
+                                xtype: 'title',
+                                customId: 'title',
+                                name: 'title',
+                                title: i18n.gettext('Activity name'),
+                                centered: true
+                            }
+                        ]
+                    },
+                    {
+                        xtype:'panel',
+                        id:'activity',
+                        customId:'activity'
                     }
-                ]
-            },
-            {
-                xtype:'panel',
-                id:'activity',
-                customId:'activity'
-            }
-            
-        ],
+                    
+                ],
 
-        layout: 'fit'
-    }
-});
+                layout: 'fit'
+            }
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

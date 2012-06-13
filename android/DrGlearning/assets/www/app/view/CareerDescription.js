@@ -1,12 +1,22 @@
-Ext.define('DrGlearning.view.CareerDescription', {
-   extend: 'Ext.Component',
-    xtype: 'careerdescription',
-    requires: ['Ext.XTemplate'],
-    config: {
-        cls: 'card',
-        styleHtmlContent: true,
-        tpl: Ext.create('Ext.XTemplate',
-            "<p font-size:'18' >{description}</p>"
-        )
-    }
-});
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.view.CareerDescription', {
+           extend: 'Ext.Component',
+            xtype: 'careerdescription',
+            requires: ['Ext.XTemplate'],
+            config: {
+                cls: 'card',
+                styleHtmlContent: true,
+                tpl: Ext.create('Ext.XTemplate',
+                    "<p font-size:'18' >{description}</p>"
+                )
+            }
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

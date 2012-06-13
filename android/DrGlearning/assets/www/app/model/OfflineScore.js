@@ -12,25 +12,35 @@ COMUNES:
  
  */
 
-Ext.define('DrGlearning.model.OfflineScore', {
-    extend : 'Ext.data.Model',
-    config : {
-        fields : [ {
-            name : "id",
-            type : "int"
-        }, {
-            name : "activity_id",
-            type : "string"
-        }, {
-            name : "score",
-            type : "string"
-        }, {
-            name : "timestamp",
-            type : "string"
-        } ],
-        proxy : {
-            type : 'localstorage',
-            id : 'DrGlearningOfflineScore'
-        }
-    }
-});
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.model.OfflineScore', {
+            extend : 'Ext.data.Model',
+            config : {
+                fields : [ {
+                    name : "id",
+                    type : "int"
+                }, {
+                    name : "activity_id",
+                    type : "string"
+                }, {
+                    name : "score",
+                    type : "string"
+                }, {
+                    name : "timestamp",
+                    type : "string"
+                } ],
+                proxy : {
+                    type : 'localstorage',
+                    id : 'DrGlearningOfflineScore'
+                }
+            }
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

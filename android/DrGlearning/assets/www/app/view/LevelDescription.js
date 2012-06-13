@@ -1,10 +1,20 @@
-Ext.define('DrGlearning.view.LevelDescription', {
-   extend: 'Ext.Component',
-    xtype: 'leveldescription',
-    requires: ['Ext.XTemplate'],
-    config: {
-        cls: 'detail-card',
-        styleHtmlContent: true,
-        html: ''
-    }
-});
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.view.LevelDescription', {
+           extend: 'Ext.Component',
+            xtype: 'leveldescription',
+            requires: ['Ext.XTemplate'],
+            config: {
+                cls: 'detail-card',
+                styleHtmlContent: true,
+                html: ''
+            }
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

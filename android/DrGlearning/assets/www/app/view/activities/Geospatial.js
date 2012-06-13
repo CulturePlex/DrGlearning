@@ -1,56 +1,63 @@
-Ext.define('DrGlearning.view.activities.Geospatial', {
-    
-    extend: 'Ext.Panel',
-    xtype : 'geospatial',
-	poligono: null,
-    marker:null,
-	circle:null,
-	bandera:null,
-    config: {
-		customId:'activity',
-		id:'activity',
-        title: 'Map',
-        iconCls: 'maps',
-        layout: 'fit',
-        fullscreen: true,
-        items: [
-			{
-              xtype: 'toolbar',
-				
-                docked: 'top',
-                ui: 'neutral',
-				customId: 'query',
-				layout: {
-		            type: 'hbox',
-					pack : 'center' 
-		        },
+try {
+    (function () {
+    // Exceptions Catcher Begins
 
-				height:40,
-                               
-            },
-			{
-				xtype: 'toolbar',
-                docked: 'bottom',
-                items:[
+        Ext.define('DrGlearning.view.activities.Geospatial', {
+            extend: 'Ext.Panel',
+            xtype : 'geospatial',
+            poligono: null,
+            marker:null,
+            circle:null,
+            bandera:null,
+            config: {
+                customId:'activity',
+                id:'activity',
+                title: 'Map',
+                iconCls: 'maps',
+                layout: 'fit',
+                fullscreen: true,
+                items: [
                     {
-						xtype: 'button',
-						customId: 'backtolevel',
-						text: i18n.gettext('Back'),
-						ui: 'back',
-					},
-					{
-						 xtype: 'spacer' 
-					},
-					{
-                        xtype: 'button',
-                        text: i18n.gettext("Confirm"),
-						id: 'confirm',
-						customId:'confirm'
+                      xtype: 'toolbar',
+                        
+                        docked: 'top',
+                        ui: 'neutral',
+                        customId: 'query',
+                        layout: {
+                            type: 'hbox',
+                            pack : 'center' 
+                        },
+                        height:40,
+                    },
+                    {
+                        xtype: 'toolbar',
+                        docked: 'bottom',
+                        items:[
+                            {
+                                xtype: 'button',
+                                customId: 'backtolevel',
+                                text: i18n.gettext('Back'),
+                                ui: 'back',
+                            },
+                            {
+                                 xtype: 'spacer' 
+                            },
+                            {
+                                xtype: 'button',
+                                text: i18n.gettext("Confirm"),
+                                id: 'confirm',
+                                customId:'confirm'
+                            }
+                        ]
                     }
-				]
-			}
-		]
-    }
-	
-	
-});
+                ]
+            }
+            
+            
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}

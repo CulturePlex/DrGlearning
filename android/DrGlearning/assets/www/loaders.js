@@ -3,8 +3,9 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace
+    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert
 */
+
 function onDeviceReady() {
     // Now safe to use the PhoneGap API
     console.log('LAUNCH!!!');
@@ -12,18 +13,32 @@ function onDeviceReady() {
         this.getController('LoadingController').onLaunch();
     }
 }
+
 // Loaders
 yepnope([{
     // Debug mode remote
     test: typeof(DEBUG) !== "undefined" && DEBUG === "remote",
     yep: "http://debug.phonegap.com/target/target-script-min.js#drglearning"
 }, {
+    // Debug mode Firebug
+    test: typeof(DEBUG) !== "undefined" && DEBUG === "firebug",
+    yep: "https://getfirebug.com/firebug-lite-debug.js"
+}, {
     // Debug mode console
     test: typeof(DEBUG) !== "undefined" && DEBUG,
-    yep: [
-        "https://getfirebug.com/firebug-lite-debug.js",
-        "resources/js/stacktrace-min-0.3.js"
-    ]
+    yep: "resources/js/stacktrace-min-0.3.js",
+    complete: function () {
+        if (typeof(FBL) !== "undefined") {
+            FBL.Firebug.chrome.close();
+            window.console = FBL.Firebug.Console || {log: window.alert};
+        }
+        if (typeof(printStackTrace) !== "undefined") {
+            window.StackTrace = function (ex) {
+                window.alert(printStackTrace().join("\n-> ") + "\n @ " + ex);
+                console.log(ex);
+            };
+        }
+    }
 }, {
     // Locales
     test: ["es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0,
@@ -46,17 +61,5 @@ yepnope([{
     yep: "resources/js/json2.min.js"
 }, {
     // Main
-    load: "drglearningapp.js",
-    complete: function () {
-        if (typeof(FBL) !== "undefined") {
-            FBL.Firebug.chrome.close();
-            window.console = FBL.Firebug.Console || {log: window.alert};
-        }
-        if (typeof(printStackTrace) !== "undefined") {
-            window.StackTrace = function (ex) {
-                console.log(printStackTrace().join("\n-> "));
-                console.log(ex);
-            };
-        }
-    }
+    load: "drglearningapp.js"
 }]);
