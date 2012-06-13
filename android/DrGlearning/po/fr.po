@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Dr. Glearning\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-11 14:25-0400\n"
-"PO-Revision-Date: 2012-06-13 16:05+0000\n"
+"PO-Revision-Date: 2012-06-13 17:18+0000\n"
 "Last-Translator: ncaldas <n.mejiacaldas@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/drglearning/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +60,7 @@ msgstr "Université"
 
 #: ../assets/www/app/store/Levels.js:37
 msgid "You’ve done your courses. Now is the time to prove it!"
-msgstr ""
+msgstr "Vous avez fini vos cours. Le moment est venu pour le prouver!"
 
 #: ../assets/www/app/store/Levels.js:42
 msgid "Master"
@@ -76,7 +76,7 @@ msgstr "Doctorat"
 
 #: ../assets/www/app/store/Levels.js:49
 msgid "If you’re still here you must really love this"
-msgstr ""
+msgstr "Si vous êtes toujours ici, vous devez aimer ceci"
 
 #: ../assets/www/app/store/Levels.js:54
 msgid "Post-Doc"
@@ -92,7 +92,7 @@ msgstr "Professeur"
 
 #: ../assets/www/app/store/Levels.js:61
 msgid "Want to try to teach me a lesson?"
-msgstr ""
+msgstr "Veuillez m'enseigner un cours?"
 
 #: ../assets/www/app/store/Levels.js:66
 msgid "Emeritus"
@@ -100,16 +100,16 @@ msgstr "Émérite"
 
 #: ../assets/www/app/store/Levels.js:67
 msgid "Nobody knows more about this than you? We'll see…"
-msgstr ""
+msgstr "Personne ne sait plus que toi? On verra..."
 
 #: ../assets/www/app/controller/DaoController.js:22
 msgid "Installing course"
-msgstr ""
+msgstr "Installation de cours"
 
 #: ../assets/www/app/controller/DaoController.js:28
 #: ../assets/www/app/controller/DaoController.js:519
 msgid "Something happened"
-msgstr ""
+msgstr "Quelque chose est arrivé"
 
 #: ../assets/www/app/controller/DaoController.js:28
 msgid "Unable to install this course, delete some installed courses"
@@ -124,11 +124,11 @@ msgstr "Impossible d’installer"
 #: ../assets/www/app/controller/DaoController.js:137
 #: ../assets/www/app/controller/DaoController.js:509
 msgid "Try again later"
-msgstr ""
+msgstr "Réessayez plus tard"
 
 #: ../assets/www/app/controller/DaoController.js:342
 msgid "Checking for updates"
-msgstr ""
+msgstr "Recherche de mises à jour"
 
 #: ../assets/www/app/controller/DaoController.js:519
 msgid "Unable to update this course. Try again later"
@@ -169,7 +169,7 @@ msgstr "Importer utilisateur"
 
 #: ../assets/www/app/controller/UserSettingsController.js:93
 msgid "Paste your code here"
-msgstr ""
+msgstr "Collez votre code ici"
 
 #: ../assets/www/app/controller/LevelController.js:86
 #: ../assets/www/app/controller/LevelController.js:267
@@ -261,7 +261,7 @@ msgstr ""
 
 #: ../assets/www/app/controller/LoadingController.js:148
 msgid "Retrieving courses"
-msgstr ""
+msgstr "Récupére les cours"
 
 #: ../assets/www/app/controller/LoadingController.js:297
 msgid "Installing testing course"
