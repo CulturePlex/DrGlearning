@@ -37,7 +37,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         "use strict";
         Ext.Viewport.setMasked({
             xtype: 'loadmask',
-            message: i18n.gettext('Loading activity...'),
+            message: i18n.gettext('Loading activity') +"…",
             indicator: true
             //html: "<img src='resources/images/activity_icons/quiz.png'>",
         });
@@ -147,7 +147,7 @@ Ext.define('DrGlearning.controller.activities.QuizController', {
         if (target.config.answerNo === this.correctAnswerId) 
         {
             this.timeContainer.down('button[correctAnswer=true]').setUi('confirm');
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.puntos, function ()
+            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.puntos, function ()
             {
                 this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
                 this.levelController.nextActivity(this.activity.data.level_type);

@@ -208,7 +208,7 @@ Ext.define('DrGlearning.controller.activities.LinguisticController', {
         });
         var show = new Ext.MessageBox().show({
             id: 'info',
-            title: i18n.gettext('Answer the question') +":",
+            title: i18n.gettext('Answer the question') +": ",
             msg: this.activity.data.query,
             items: [{
                 xtype: 'textfield',
