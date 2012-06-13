@@ -45,8 +45,15 @@ Ext.apply(MB, {
 		YESNO: [Ext.MessageBox.NO, Ext.MessageBox.YES]
 });
 
-Ext.picker.PickerView.applyDoneButton(i18n.gettext('Done'));
-Ext.picker.PickerView.applyCancelButton(i18n.gettext('Cancel'));
+var Pick= Ext.picker;
+Ext.apply(Pick, {
+		CANCEL: { text: i18n.gettext('Cancel'), itemId: 'cancel' }
+});
+Ext.apply(Pick, {
+		DONE: { text: i18n.gettext('Done'), itemId: 'done' }
+});
 
+Ext.apply(Ext.MessageBox, {
+            OK    : {text: i18n.gettext('OK'),     itemId: 'ok',  ui: 'action'}});
 
 
