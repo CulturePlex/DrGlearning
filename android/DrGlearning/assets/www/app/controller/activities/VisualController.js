@@ -1,193 +1,205 @@
-//Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning*/
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+/*global
+    Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning
+*/
 
-Ext.define('DrGlearning.controller.activities.VisualController', {
-    extend: 'Ext.app.Controller',
-    view: null,
-    activity: null,
-    activityView: null,
-    answers: null,
-    finishtemp: null,
-    secondtemp: null,
-    currentTime: 0,
-    score: null,
-    isStopped: false,
-    loading: null,
-    init: function ()
-    {
-        this.isStopped = false;
-        this.levelController = this.getApplication().getController('LevelController');
-        this.activityController = this.getApplication().getController('ActivityController');
-        this.daoController = this.getApplication().getController('DaoController');
-        this.control({
-            'button[customId=respuesta]': {
-                tap: this.tryIt
+try {
+    (function () {
+    // Exceptions Catcher Begins
+
+        Ext.define('DrGlearning.controller.activities.VisualController', {
+            extend: 'Ext.app.Controller',
+            view: null,
+            activity: null,
+            activityView: null,
+            answers: null,
+            finishtemp: null,
+            secondtemp: null,
+            currentTime: 0,
+            score: null,
+            isStopped: false,
+            loading: null,
+            init: function ()
+            {
+                this.isStopped = false;
+                this.levelController = this.getApplication().getController('LevelController');
+                this.activityController = this.getApplication().getController('ActivityController');
+                this.daoController = this.getApplication().getController('DaoController');
+                this.control({
+                    'button[customId=respuesta]': {
+                        tap: this.tryIt
+                    },
+                    'button[customId=skip]': {
+                        tap: this.skip
+                    }
+                });
             },
-            'button[customId=skip]': {
-                tap: this.skip
-            }
-        });
-    },
-    updateActivity: function (view, newActivity) 
-    {
-        Ext.Viewport.setMasked({
-            xtype: 'loadmask',
-            message: i18n.gettext('Loading activity') +"…",
-            indicator: true
-            //html: "<img src='resources/images/activity_icons/visual.png'>",
-        });
-        this.loading = true;
-        this.view = view;
-        this.activity = newActivity;
-        view.down('[customId=activity]').destroy();
-        var activityView = Ext.create('DrGlearning.view.activities.Visual', 
-        {
-            listeners: {
-                painted: function ()
+            updateActivity: function (view, newActivity) 
+            {
+                Ext.Viewport.setMasked({
+                    xtype: 'loadmask',
+                    message: i18n.gettext('Loading activity') + "…",
+                    indicator: true
+                    //html: "<img src='resources/images/activity_icons/visual.png'>",
+                });
+                this.loading = true;
+                this.view = view;
+                this.activity = newActivity;
+                view.down('[customId=activity]').destroy();
+                var activityView = Ext.create('DrGlearning.view.activities.Visual', 
                 {
-                    DrGlearning.app.getApplication().getController('activities.VisualController').startGame();
-                }
-            }
-        });
-        this.activityView = activityView;
-        view.add(activityView);
-        activityView.show();
-        
-    },
-    /**We wait for the painted event of the view to start the game...
-     *
-     */
-    startGame: function ()
-    {
-        this.score = 20;
-        this.imageContainer = this.activityView.down('container[id=image]');
-        this.optionsContainer = this.activityView.down('container[customId=options]');
-        this.timeLabel = this.activityView.down('label[customId=time]');
-        this.obImageContainer = this.activityView.down('container[id=obImage]');
-
-        this.imageContainer.setHtml('');
-        this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
-        this.activityController.addQueryAndButtons(this.activityView, this.activity);
-        this.answers = this.activity.data.answers;
-        var time = this.activity.data.time;
-        this.currentTime = time;
-        this.optionsContainer.removeAll();
-        this.optionsContainer.removeAll();
-        
-        this.timeLabel.setHtml(this.currentTime + i18n.gettext(" sec."));
-        var that = this;
-        this.secondtemp = setInterval(function () 
-        {
-            that.showSeconds();
-        }, 1000);
-        this.imageContainer.show();
-        //this.obImageContainer.hide();
-        this.optionsContainer.hide();
-    },
-    
-    loadingImages: function (view, activityView)
-    {
-        activityView.show();
-        view.add(activityView);
-        Ext.Viewport.setMasked(false);
-        if (!this.activity.data.help) {
-            this.activity.data.help = true;
-            this.activity.save();
-            this.levelController.helpAndQuery();
-        }
-        this.loading = false;
-    },
-    showAnswers: function () 
-    {
-        this.timeLabel.setHtml('');
-        this.activityView.down('button[customId=skip]').hide();
-        //this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
-        this.optionsContainer.add({xtype:'spacer'});
-        for (var i = 0; i < this.answers.length; i++) {
-        if (this.answers[i].trim() === this.activity.data.correct_answer)
-            {
-                this.optionsContainer.add({
-                    xtype: 'button',
-                    text: this.answers[i].trim(),
-                    margin: 3,
-                    customId: 'respuesta',
-                    answerNo: i+1,
-                    correctAnswer: true,
-                    answerNo: i+1,
-                    style: 'opacity: 0.9;'
+                    listeners: {
+                        painted: function ()
+                        {
+                            DrGlearning.app.getApplication().getController('activities.VisualController').startGame();
+                        }
+                    }
                 });
-                this.correctAnswerId = i+1;
-            }else
-            {
-                this.optionsContainer.add({
-                    xtype: 'button',
-                    text: this.answers[i].trim(),
-                    margin: 3,
-                    customId: 'respuesta',
-                    answerNo: i+1,
-                    style: 'opacity: 0.9;'
-                });
-                console.log(this.answers[i].trim());
-            }
-        }
-        //this.imageContainer.hide();
-        this.imageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
-        this.optionsContainer.show();
-        this.optionsContainer.setStyle({backgroundImage: this.obImageUrl});
-        //this.obImageContainer.show();
-    },
-    tryIt: function (target)
-    {
-        if (target.config.answerNo === this.correctAnswerId) 
-        {
-            if(this.score < 20)
+                this.activityView = activityView;
+                view.add(activityView);
+                activityView.show();
+                
+            },
+            /**We wait for the painted event of the view to start the game...
+             *
+             */
+            startGame: function ()
             {
                 this.score = 20;
-            }
-            this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
-            Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("obtained score:") + this.score, function ()
+                this.imageContainer = this.activityView.down('container[id=image]');
+                this.optionsContainer = this.activityView.down('container[customId=options]');
+                this.timeLabel = this.activityView.down('label[customId=time]');
+                this.obImageContainer = this.activityView.down('container[id=obImage]');
+
+                this.imageContainer.setHtml('');
+                this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
+                this.activityController.addQueryAndButtons(this.activityView, this.activity);
+                this.answers = this.activity.data.answers;
+                var time = this.activity.data.time;
+                this.currentTime = time;
+                this.optionsContainer.removeAll();
+                this.optionsContainer.removeAll();
+                this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime)));
+                var that = this;
+                this.secondtemp = setInterval(function () 
+                {
+                    that.showSeconds();
+                }, 1000);
+                this.imageContainer.show();
+                //this.obImageContainer.hide();
+                this.optionsContainer.hide();
+            },
+            
+            loadingImages: function (view, activityView)
             {
-                this.daoController.activityPlayed(this.activity.data.id, true, this.score);
-                this.levelController.nextActivity(this.activity.data.level_type);
-            }, this);
-        }
-        else {
-            this.optionsContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
-            Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
+                activityView.show();
+                view.add(activityView);
+                Ext.Viewport.setMasked(false);
+                if (!this.activity.data.help) {
+                    this.activity.data.help = true;
+                    this.activity.save();
+                    this.levelController.helpAndQuery();
+                }
+                this.loading = false;
+            },
+            showAnswers: function () 
             {
-                this.levelController.tolevel();
-            }, this);
-        }
-    },
-    showSeconds: function ()
-    {
-     
-        if (this.isStopped === false && this.loading === false) 
-        {
-            this.currentTime--;
-            this.timeLabel.setHtml(this.currentTime + i18n.gettext(" sec."));
-            if (this.currentTime < 0) {
+                this.timeLabel.setHtml('');
+                this.activityView.down('button[customId=skip]').hide();
+                //this.obImageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
+                this.optionsContainer.add({xtype: 'spacer'});
+                for (var i = 0; i < this.answers.length; i++) {
+                    if (this.answers[i].trim() === this.activity.data.correct_answer)
+                    {
+                        this.optionsContainer.add({
+                            xtype: 'button',
+                            text: this.answers[i].trim(),
+                            margin: 3,
+                            customId: 'respuesta',
+                            answerNo: i + 1,
+                            correctAnswer: true,
+                            style: 'opacity: 0.9;'
+                        });
+                        this.correctAnswerId = i + 1;
+                    } else {
+                        this.optionsContainer.add({
+                            xtype: 'button',
+                            text: this.answers[i].trim(),
+                            margin: 3,
+                            customId: 'respuesta',
+                            answerNo: i + 1,
+                            style: 'opacity: 0.9;'
+                        });
+                        console.log(this.answers[i].trim());
+                    }
+                }
+                //this.imageContainer.hide();
+                this.imageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
+                this.optionsContainer.show();
+                this.optionsContainer.setStyle({backgroundImage: this.obImageUrl});
+                //this.obImageContainer.show();
+            },
+            tryIt: function (target)
+            {
+                if (target.config.answerNo === this.correctAnswerId) 
+                {
+                    if(this.score < 20)
+                    {
+                        this.score = 20;
+                    }
+                    this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                    {
+                        this.daoController.activityPlayed(this.activity.data.id, true, this.score);
+                        this.levelController.nextActivity(this.activity.data.level_type);
+                    }, this);
+                }
+                else {
+                    this.optionsContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
+                    Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
+                    {
+                        this.levelController.tolevel();
+                    }, this);
+                }
+            },
+            showSeconds: function ()
+            {
+             
+                if (this.isStopped === false && this.loading === false) 
+                {
+                    this.currentTime--;
+                    this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime)));
+                    if (this.currentTime < 0) {
+                        clearInterval(this.secondtemp);
+                        this.showAnswers();
+                    }
+                }
+            },
+            skip: function ()
+            {
                 clearInterval(this.secondtemp);
                 this.showAnswers();
+                this.score = parseInt(this.currentTime * 100 / this.activity.data.time, 10);
+            },
+            stop: function ()
+            {
+                clearInterval(this.secondtemp);
+            },
+            stopNotClear: function ()
+            {
+                this.isStopped = true;
+            },
+            restart: function ()
+            {
+                this.isStopped = false;
             }
-        }
-    },
-    skip: function ()
-    {
-        clearInterval(this.secondtemp);
-        this.showAnswers();
-        this.score = parseInt(this.currentTime*100/this.activity.data.time,10);
-    },
-    stop: function ()
-    {
-        clearInterval(this.secondtemp);
-    },
-    stopNotClear: function ()
-    {
-        this.isStopped = true;
-    },
-    restart: function ()
-    {
-        this.isStopped = false;
-    }
-});
+        });
+
+    // Exceptions Catcher End
+    })();
+} catch (ex) {
+    StackTrace(ex);
+}
