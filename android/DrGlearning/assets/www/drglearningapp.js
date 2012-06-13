@@ -3,7 +3,7 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed messages
+    Ext Jed i18n
 */
 
 Ext.Loader.setConfig({
@@ -34,26 +34,24 @@ Ext.application({
     }
 });
 
-var MB = Ext.MessageBox;
-Ext.apply(MB, {
-		YES: { text: i18n.gettext('Yes'), itemId: 'yes', ui: 'action' }
+Ext.apply(Ext.MessageBox, {
+    YES: {text: i18n.gettext('Yes'), itemId: 'yes', ui: 'action'}
 });
-Ext.apply(MB, {
-		NO: { text: i18n.gettext('No'), itemId: 'no' }
+Ext.apply(Ext.MessageBox, {
+    NO: {text: i18n.gettext('No'), itemId: 'no'}
 });
-Ext.apply(MB, {
-		YESNO: [Ext.MessageBox.NO, Ext.MessageBox.YES]
-});
-
-var Pick= Ext.picker;
-Ext.apply(Pick, {
-		CANCEL: { text: i18n.gettext('Cancel'), itemId: 'cancel' }
-});
-Ext.apply(Pick, {
-		DONE: { text: i18n.gettext('Done'), itemId: 'done' }
+Ext.apply(Ext.MessageBox, {
+    YESNO: [Ext.MessageBox.NO, Ext.MessageBox.YES]
 });
 
 Ext.apply(Ext.MessageBox, {
-            OK    : {text: i18n.gettext('OK'),     itemId: 'ok',  ui: 'action'}});
+    OK: {text: i18n.gettext('OK'), itemId: 'ok', ui: 'action'}
+});
 
+Ext.apply(Ext.picker, {
+    CANCEL: {text: i18n.gettext('Cancel'), itemId: 'cancel'}
+});
 
+Ext.apply(Ext.picker, {
+    DONE: {text: i18n.gettext('Done'), itemId: 'done'}
+});
