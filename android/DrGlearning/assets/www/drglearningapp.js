@@ -3,7 +3,7 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed i18n
+    Ext Jed i18n StackTrace
 */
 
 try {

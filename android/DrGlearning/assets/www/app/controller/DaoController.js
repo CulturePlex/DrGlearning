@@ -66,8 +66,8 @@ try {
                                 played: false,
                                 successful: false,
                                 helpviewed: false
-                                
                             });
+                            console.log(activity.image);
                             if(activityModel.data.activity_type=='linguistic'){
                                 activityModel.setImage('image',activity.image,this);
                                 activityModel.data.image_url=activity.image_url.trim();
