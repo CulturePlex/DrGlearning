@@ -17,14 +17,13 @@ try {
                 },
                 items: [
                 {
-                    xtype: 'careerdescription',
+                    xtype: 'careerdescription'
                 },
                 {
                     xtype: 'carousel',
-                    customId: 'levelscarousel',
+                    customId: 'levelscarousel'
                 }]
-            },
-            
+            }
         });
 
     // Exceptions Catcher End

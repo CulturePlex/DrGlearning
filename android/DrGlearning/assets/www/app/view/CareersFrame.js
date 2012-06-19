@@ -80,7 +80,7 @@ try {
                     },
                     {
                         xtype:'spacer'
-                    },
+                    }
                     /*{
                         xtype: 'button',
                         name: 'refresh',

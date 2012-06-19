@@ -15,12 +15,10 @@ try {
                     xtype: 'container',
                     id: 'image',
                     margin: 10,
-                    centered:true,
-
+                    centered:true
                     },
                     {
                         xtype: 'toolbar',
-                        
                         docked: 'top',
                         ui: 'neutral',
                         customId: 'query',
@@ -28,9 +26,7 @@ try {
                             type: 'hbox',
                             pack : 'center' 
                         },
-
-                        height:40,
-                                       
+                        height:40
                     },
                     {
                         xtype: 'toolbar',
@@ -41,7 +37,7 @@ try {
                                 customId: 'backtolevel',
                                 id: 'backtolevel',
                                 text: i18n.gettext('Back'),
-                                ui: 'back',
+                                ui: 'back'
                             },
                             {
                                  xtype: 'spacer' 
@@ -50,22 +46,19 @@ try {
                                 xtype: 'button',
                                 text: i18n.gettext('Before'),
                                 customId: 'before',
-                                ui: 'normal',
+                                ui: 'normal'
                             },
                             {
                                 xtype: 'button',
                                 text: i18n.gettext('After'),
                                 customId: 'after',
-                                ui: 'normal',
+                                ui: 'normal'
                             }]
                         
                     }
                 ]
-            },
-            
-            
+            }
         });
-
     // Exceptions Catcher End
     })();
 } catch (ex) {

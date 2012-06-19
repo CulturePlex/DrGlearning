@@ -2,10 +2,10 @@
     forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
-/*global
-    Ext i18n google GeoJSON activityView event clearInterval setInterval DrGlearning
-*/
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
+*/
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -61,7 +61,6 @@ try {
                 this.activityView = activityView;
                 view.add(activityView);
                 activityView.show();
-                
             },
             /**We wait for the painted event of the view to start the game...
              *
@@ -82,7 +81,7 @@ try {
                 this.currentTime = time;
                 this.optionsContainer.removeAll();
                 this.optionsContainer.removeAll();
-                this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime)));
+                this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime, 10)));
                 var that = this;
                 this.secondtemp = setInterval(function () 
                 {
@@ -133,7 +132,6 @@ try {
                             answerNo: i + 1,
                             style: 'opacity: 0.9;'
                         });
-                        console.log(this.answers[i].trim());
                     }
                 }
                 //this.imageContainer.hide();
@@ -146,12 +144,12 @@ try {
             {
                 if (target.config.answerNo === this.correctAnswerId) 
                 {
-                    if(this.score < 20)
+                    if (this.score < 20)
                     {
                         this.score = 20;
                     }
                     this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
@@ -171,7 +169,7 @@ try {
                 if (this.isStopped === false && this.loading === false) 
                 {
                     this.currentTime--;
-                    this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime)));
+                    this.timeLabel.setHtml(i18n.translate("%d second", "%d seconds").fetch(parseInt(this.currentTime, 10)));
                     if (this.currentTime < 0) {
                         clearInterval(this.secondtemp);
                         this.showAnswers();

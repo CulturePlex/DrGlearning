@@ -1,31 +1,27 @@
-//Global Words to skip JSLint validation//
 /*jshint
     forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
-/*global Ext i18n google GeoJSON activityView MathJax clearInterval event*/
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace MathJax
+*/
 try {
     (function () {
     // Exceptions Catcher Begins
-
         Ext.define('DrGlearning.controller.activities.QuizController', {
             extend: 'Ext.app.Controller',
-
             view: null,
             activity: null,
             activityView: null,
-
             timeContainer: null,
             timeLabel: null,
-
             answers: null,
             currentTime: null,
             secondtemp: null,
             latexLoaded: false,
             imageLoaded: false,
             correctAnswerId: null,
-
             init: function () {
                 "use strict";
                 this.activityController = this.getApplication().getController('ActivityController');
@@ -41,25 +37,22 @@ try {
                 "use strict";
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
-                    message: i18n.gettext('Loading activity') +"…",
+                    message: i18n.gettext('Loading activity') + "…",
                     indicator: true
                     //html: "<img src='resources/images/activity_icons/quiz.png'>",
                 });
-
                 view.down('component[customId=activity]').destroy();
-
                 this.view = view;
                 this.activity = newActivity;
                 this.activityView = Ext.create('DrGlearning.view.activities.Quiz');
                 this.answers = this.activity.data.answers;
                 this.currentTime = newActivity.data.time;
                 this.activityController.addQueryAndButtons(this.activityView, newActivity);
-
                 /*if (newActivity.data.image_url) {
                     //newActivity.getImage('image', 'image', this.activityView.down('[id=image]'), this, view, this.activityView, false);
                 }
                 else {*/
-                    this.loadingImages(view, this.activityView);
+                this.loadingImages(view, this.activityView);
                 //}
                 this.showAnswers();
                 if (typeof(MathJax) !== "undefined") {
@@ -106,7 +99,7 @@ try {
                     layout: {
                         type: 'vbox',
                         pack: 'center',
-                        align: 'middle',
+                        align: 'middle'
                     },
                     style: 'opacity: 0.5;'
                 };
@@ -118,21 +111,18 @@ try {
                             text: this.answers[i].trim(),
                             margin: 3,
                             customId: 'respuestaQuiz',
-                            answerNo: i+1,
-                            correctAnswer: true,
-                            
+                            answerNo: i + 1,
+                            correctAnswer: true
                         });
-                        this.correctAnswerId = i+1;
-                    }else
+                        this.correctAnswerId = i + 1;
+                    } else
                     {
-                        console.log(this.answers[i].trim());
-                        console.log(i);
                         this.activityView.down('container[customId=timecontainer]').add({
                             xtype: 'button',
                             text: this.answers[i].trim(),
                             margin: 3,
                             customId: 'respuestaQuiz',
-                            answerNo: i+1
+                            answerNo: i + 1
                         });
                     }
                 }
@@ -151,14 +141,13 @@ try {
                 if (target.config.answerNo === this.correctAnswerId) 
                 {
                     this.timeContainer.down('button[correctAnswer=true]').setUi('confirm');
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.puntos, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.puntos, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
                         this.levelController.nextActivity(this.activity.data.level_type);
                     }, this);
                 }
                 else {
-                console.log(target.config.answerNo);
                     this.timeContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
                     Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
                     {

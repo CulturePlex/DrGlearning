@@ -31,7 +31,7 @@ try {
                     options: [
                         {text: 'English',  value: 'en'},
                         {text: 'Español',  value: 'es_ES'},
-                        {text: 'Français',  value: 'fr'},
+                        {text: 'Français',  value: 'fr'}
                         // {text: 'Português',  value: 'pt_BR'}
                     ]
                 },/*, {
@@ -64,8 +64,7 @@ try {
                                 xtype: 'button',
                                 id: 'backFromSettings',
                                 text: i18n.gettext('Back'),
-                                ui:'back',
-                                
+                                ui:'back'
                             },
                             {
                                  xtype: 'spacer' 
@@ -73,8 +72,7 @@ try {
                             {
                                 xtype: 'button',
                                 text: i18n.gettext('Save'),
-                                id: 'saveSettings',
-                                
+                                id: 'saveSettings'
                             }
                             ]
                         
@@ -109,7 +107,7 @@ try {
              * this.animationDuration }]); },
              */
             initialize : function() {
-            },
+            }
         });
 
     // Exceptions Catcher End

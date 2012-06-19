@@ -12,29 +12,25 @@ try {
                 id:'activity',
                 customId:'activity',
                 layout : {
-                type: 'vbox',
-                
+                type: 'vbox'
            },
                 fullscreen : true,
                 scrollable: true,
                 items : [ {
                     xtype : 'panel',
                     id : 'contentSencha',
-                    customId : 'contentSencha',
+                    customId : 'contentSencha'
                 }, 
                 {
                         xtype: 'toolbar',
-                        
                         docked: 'top',
                         ui: 'neutral',
-
                         customId: 'query',
                         layout: {
-                            type: 'hbox',
+                            type: 'hbox'
                         },
                         width:'100%',
-                        height:40,
-                                       
+                        height:40
                     },{
                     xtype : 'toolbar',
                     docked : 'bottom',

@@ -8,7 +8,7 @@ try {
             config: {
                 model: 'DrGlearning.model.Career',
                 autoLoad: true,
-                autoSync: true,
+                autoSync: true
                 /*sorters: [
                     {
                         property : 'name',

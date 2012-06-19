@@ -6,7 +6,7 @@ try {
             extend: 'Ext.Panel',
             xtype: 'leveldetail',
             requires: [
-                'DrGlearning.view.LevelDescription',
+                'DrGlearning.view.LevelDescription'
             ],
             config: {
                 layout: 'vbox',
@@ -37,7 +37,7 @@ try {
                             '</div>',
                         '</tpl>',
                     '</tpl>'
-                ),
+                )
                 }   
                 ]
             }

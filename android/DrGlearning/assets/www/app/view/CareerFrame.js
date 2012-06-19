@@ -6,11 +6,10 @@ try {
             extend: 'Ext.Container',
             xtype: 'careerframe',
             requires: [
-                'DrGlearning.view.CareerDetail',
+                'DrGlearning.view.CareerDetail'
             ],
             config: {
                 fullscreen: true,
-                
                 items: [
                     {
                         ref: 'toolbar',
@@ -24,8 +23,8 @@ try {
                                 name: 'title',
                                 title: i18n.gettext('Course Name'),
                                 maxWidth: '100%',
-                                centered:true,
-                            },
+                                centered:true
+                            }
                         ]
                     },
                     {
@@ -36,8 +35,7 @@ try {
                                 xtype: 'button',
                                 id: 'backToCareers',
                                 text: i18n.gettext('Back'),
-                                ui:'back',
-                                
+                                ui:'back'
                             },
                             {
                                  xtype: 'spacer' 
@@ -53,10 +51,7 @@ try {
                         
                     },
                     {
-                        xtype: 'careerdetail',
-                    
-                        
-                        
+                        xtype: 'careerdetail'
                     }
                 ],
 

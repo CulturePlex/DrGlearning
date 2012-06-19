@@ -1,22 +1,23 @@
-//Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView*/
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace MathJax
+*/
 try {
     (function () {
     // Exceptions Catcher Begins
-
         Ext.define('DrGlearning.controller.activities.TemporalController', {
             extend: 'Ext.app.Controller',
-
             activity: null,
             score: null,
-
             init: function ()
             {
                 this.levelController = this.getApplication().getController('LevelController');
                 this.activityController = this.getApplication().getController('ActivityController');
                 this.daoController = this.getApplication().getController('DaoController');
-
                 this.control({
                     'button[customId=after]': {
                         tap: this.after
@@ -30,7 +31,7 @@ try {
             {
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
-                    message: i18n.gettext('Loading activity') +"…",
+                    message: i18n.gettext('Loading activity') + "…",
                     indicator: true
                     //html: "<img src='resources/images/activity_icons/temporal.png'>",
                 });
@@ -58,7 +59,7 @@ try {
             {
                 this.score = 100;
                 if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
@@ -77,7 +78,7 @@ try {
 
                 if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
                     this.score = 100;
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);

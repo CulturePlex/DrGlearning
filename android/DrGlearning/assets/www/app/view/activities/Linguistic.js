@@ -22,14 +22,14 @@ try {
                         layout: {
                             type: 'hbox',
                             pack : 'center' 
-                        },
+                        }
 
                     },
                                      {
                                         xtype: 'panel',
                                         id: 'image',
                                         customId: 'image',
-                                        margin: 10,
+                                        margin: 10
                                     },{
                                         xtype: 'container',
                                         layout: 'hbox',
@@ -38,12 +38,12 @@ try {
                                                     xtype: 'label',
                                                     html: 'TIP: ',
                                                     customId: 'tip',
-                                                    margin: 10,
+                                                    margin: 10
                                                     
                                                 },{
                                                     xtype: 'label',
                                                     customId: 'loqued',
-                                                    margin: 10,
+                                                    margin: 10
                                                     
                                                 }]
                                     },{
@@ -63,7 +63,7 @@ try {
                                                     text: i18n.gettext('Try'),
                                                     ui:'small',
                                                     flex: 1,
-                                                    margin: 10,
+                                                    margin: 10
                                                         
                                                 }
                                                 ]
@@ -71,7 +71,7 @@ try {
                                     {
                                         xtype: 'label',
                                         customId: 'responses',
-                                        margin: 10,
+                                        margin: 10
                                     },
                                     
                                     
@@ -95,13 +95,13 @@ try {
                             },{
                                 xtype: 'button',
                                 customId: 'solve',
-                                text: i18n.gettext('Solve'),
-                            },
+                                text: i18n.gettext('Solve')
+                            }
                             ]
                         
                     }
                 ]
-            },
+            }
         });
 
     // Exceptions Catcher End

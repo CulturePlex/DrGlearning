@@ -46,7 +46,7 @@ try {
                     type: 'vbox',
                     align: 'stretch'
                 }
-            },
+            }
         });
 
     // Exceptions Catcher End

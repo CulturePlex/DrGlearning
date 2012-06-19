@@ -4,7 +4,7 @@
 */
 
 /*global
-    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace
 */
 
 try {
@@ -38,7 +38,7 @@ try {
             {
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
-                    message: i18n.gettext('Loading activity') +"…",
+                    message: i18n.gettext('Loading activity') + "…",
                     //html: "<img src='resources/images/activity_icons/geospatial.png'>",
                     indicator: true
                 });
@@ -191,7 +191,7 @@ try {
                 var distance = Math.sqrt(Math.pow(this.marker.position.lat() - this.target.lat(), 2) + Math.pow(this.marker.position.lng() - this.target.lng(), 2)) * 60000;
                 score = parseInt(100 - (distance * 100) / this.radius, 10);
                 if (distance < this.radius) {
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ + score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, score);
                         this.levelController.nextActivity(this.activity.data.level_type);

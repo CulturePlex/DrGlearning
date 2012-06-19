@@ -1,23 +1,21 @@
 /*jshint
     forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
-    undef:true, curly:true, browser:true, indent:4, maxerr:50
+    undef:true, curly:true, browser:true, indent:4, maxerr:50 noempty:false
 */
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace
+*/
 try {
     (function () {
     // Exceptions Catcher Begins
-
         Ext.define('DrGlearning.controller.UserSettingsController', {
             extend : 'Ext.app.Controller',
-
-            init : function() {
-
+            init : function () {
             },
-
-            onLaunch : function() {
-
+            onLaunch : function () {
             },
-            settings : function() {
+            settings : function () {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var view = this.getSettings();
@@ -35,7 +33,7 @@ try {
                 //emailField.setValue(user.data.email);
                 //usernameField.setValue(user.data.name);
             },
-            saveSettings : function() {
+            saveSettings : function () {
                 //var userStore = Ext.getStore('Users');
                 //userStore.load();
                 var view = this.getSettings();
@@ -47,14 +45,14 @@ try {
                 //user.save();
                 //userStore.sync();
                 var locale = view.down('selectfield[id=locale]').getValue();
-                if(localStorage.locale != locale){
+                if (localStorage.locale != locale) {
                     localStorage.locale = locale;
-                    Ext.Msg.alert(i18n.gettext('Language changed'),i18n.gettext('You need to restart the app to see the changes') , Ext.emptyFn);
+                    Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes'), Ext.emptyFn);
                 }
                 view.hide();
                 this.getCareersframe().show();
             },
-            exportUser : function() {
+            exportUser : function () {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);
@@ -62,10 +60,10 @@ try {
                 view.hide();
                 new Ext.MessageBox().show({
                     title : i18n.gettext('Export user'),
-                    msg : i18n.gettext('Copy and paste this code in another device') +":",
+                    msg : i18n.gettext('Copy and paste this code in another device') + ":",
                     items : [ {
                         xtype : 'textfield',
-                        label : i18n.gettext('Copy and paste this code in another device') +":",
+                        label : i18n.gettext('Copy and paste this code in another device') + ":",
                         name : 'id',
                         id : 'id',
                         labelAlign : 'top',
@@ -78,7 +76,7 @@ try {
                 });
 
             },
-            importUser : function() {
+            importUser : function () {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);
@@ -95,7 +93,7 @@ try {
                 var show = new Ext.MessageBox().show({
                     id : 'info',
                     title : i18n.gettext('Import user'),
-                    msg : i18n.gettext('Paste your code here') +":",
+                    msg : i18n.gettext('Paste your code here') + ":",
                     items : [ {
                         xtype : 'textfield',
                         labelAlign : 'top',
@@ -106,19 +104,19 @@ try {
                     buttons : [ cancelButton, saveButton ],
                     icon : Ext.Msg.INFO
                 });
-                saveButton.setHandler(function() {
+                saveButton.setHandler(function () {
                     show.hide();
                     user.data.uniqueid = show.down('#importvalue').getValue();
                     user.save();
                     this.destroy(show);
                 });
-                cancelButton.setHandler(function() {
+                cancelButton.setHandler(function () {
                     show.hide();
                     this.destroy(show);
                 });
             },
-            importUserAction : function(ola, adios) {
-                console.log('Not implemented');
+            importUserAction : function (ola, adios) {
+                //console.log('Not implemented');
             }
         });
 

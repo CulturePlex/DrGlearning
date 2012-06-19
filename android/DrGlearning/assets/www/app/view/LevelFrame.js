@@ -6,7 +6,7 @@ try {
             extend: 'Ext.Container',
             xtype: 'levelframe',
             requires: [
-                'DrGlearning.view.LevelDetail',
+                'DrGlearning.view.LevelDetail'
             ],
             config: {
                 fullscreen: true,
@@ -22,8 +22,8 @@ try {
                                 id: 'title',
                                 name: 'title',
                                 title: i18n.gettext('Course Name'),
-                                centered:true,
-                            },
+                                centered:true
+                            }
                           
                         ]
                     },
@@ -37,7 +37,7 @@ try {
                                 text: i18n.gettext('Back'),
                                 ui:'back',
                                 controller: 'DrGlearning.controller.Career',
-                                action: 'index',
+                                action: 'index'
                                 
                             }/*,
                             {
@@ -53,7 +53,7 @@ try {
                         
                     },
                     {
-                        xtype: 'leveldetail',
+                        xtype: 'leveldetail'
                     }
                 ],
                 layout: 'fit'

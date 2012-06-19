@@ -19,7 +19,7 @@ try {
                             type: 'hbox',
                             pack : 'center' 
                         },
-                        height:40,
+                        height:40
                     },
                     {
                         xtype: 'toolbar',
@@ -30,9 +30,8 @@ try {
                                 customId: 'backtolevel',
                                 text: i18n.gettext('Back'),
                                 ui: 'back',
-                                customId: 'backtolevel',
                                 controller: 'DrGlearning.controller.Career',
-                                action: 'index',
+                                action: 'index'
                             },
                             {
                                  xtype: 'spacer' 
@@ -42,10 +41,10 @@ try {
                         xtype: 'container',
                         customId: 'timecontainer',
                         padding:10,
-                        docked:'bottom',
-                    },
+                        docked:'bottom'
+                    }
                 ]
-            },
+            }
         });
 
     // Exceptions Catcher End

@@ -3,34 +3,39 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace Connection
+*/
+
+
 try {
     (function () {
     // Exceptions Catcher Begins
 
         Ext.define('DrGlearning.controller.GlobalSettingsController', {
             extend: 'Ext.app.Controller',
-            init: function(){
+            init: function () {
             },
-            onLaunch: function() {
+            onLaunch: function () {
             },
-            getServerURL: function() {
+            getServerURL: function () {
                 //return 'http://drglearning.testing.cultureplex.ca';
                 return 'http://beta.drglearning.com';
                 //return 'http://0.0.0.0:8000';
             },
-            isDevice: function() {
-                if(window.device == undefined){
+            isDevice: function () {
+                if (window.device === undefined) {
                     return false;
-                }else{
+                } else {
                     return true;
                 }
             },
-            hasNetwork: function() {
+            hasNetwork: function () {
                 //console.log(this.isDevice());
                 //console.log(navigator.network);
-                if(!this.isDevice() || (navigator.network !== "undefined"  && navigator.network.connection.type != Connection.NONE)){
+                if (!this.isDevice() || (navigator.network !== "undefined"  && navigator.network.connection.type !== Connection.NONE)) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             }

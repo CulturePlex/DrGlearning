@@ -1,17 +1,18 @@
-/**
- * @class DrGlearning.controller.Careers
- * @extends Ext.app.Controller
- *
- * Controller to manage Career Menu and Logic
- */
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
+*/
 try {
     (function () {
     // Exceptions Catcher Begins
 
         Ext.define('DrGlearning.controller.CareerController', {
             extend: 'Ext.app.Controller',
-            xtype:'careercontroller',
+            xtype: 'careercontroller',
             careerFrame: null,
             carousel: null,
 
@@ -68,20 +69,18 @@ try {
              */
             getLevelHtml: function (career, levelData)
             {
-            console.log(levelData);
                 var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
                 var html = "<div id='centro' align='middle'><p class='levelTitle'>" + levelData.nameBeauty + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
                 if (this.daoController.isApproved(career.data.id, levelData)) {
                     html = "<div id='centro' style='text-align:center;'><p class='levelTitle'>" + levelData.nameBeauty + "</p><div><img style=' position:absolute; top:50px;left: 50%; margin-left: -75px;' src='resources/images/approved-stamp.png' width='150'><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
-                }else
+                } else
                 {
                     if (career.data.career_type === "exam") {
-                        console.log(career.data[levelData.name.toLowerCase()]);
-                        if(career.data[levelData.name.toLowerCase()] === "exists")
+                        if (career.data[levelData.name.toLowerCase()] === "exists")
                         {
                             html = "<div id='centro' align='middle'><p class='levelTitle'>" + levelData.nameBeauty + "</p><div><img src='resources/images/level_icons/" + filesImgs[levelData.customId - 1] + "' align='bottom'></div></div>";
                         }
-                        if(career.data[levelData.name.toLowerCase()] === "notallowed")
+                        if (career.data[levelData.name.toLowerCase()] === "notallowed")
                         {
                             html = "<div id='centro' align='middle'><p class='levelTitle'>" + levelData.nameBeauty + "</p><div><img src='resources/images/padlock.png' align='bottom'></div></div>";
                         }
@@ -95,7 +94,6 @@ try {
             updateCareer: function (newCareer)
             {
                 this.daoController.updateOfflineScores();
-                console.log(newCareer);
                 this.selectedCareer = newCareer;
                 var view = this.careerFrame;
                 var detail = view.down('careerdetail');
@@ -112,11 +110,11 @@ try {
                     var level = this.levelsStore.getAt(levelstemp[i] - 1);
                     levelButtonHtml = this.getLevelHtml(newCareer, level.data);
                     levelscarousel.add({
-                        xtype:'button',
+                        xtype: 'button',
                         html: '<a class="navigation" direction="next">' + levelButtonHtml + '</a>',
-                        customId:'amigo',
+                        customId: 'amigo',
                         //I need to deactivate cls because we dont want to show it like button
-                        baseCls:'none'
+                        baseCls: 'none'
                     });
                 }
                 var activeItem = levelstemp.indexOf('' + this.daoController.getCurrenLevel(newCareer.data.id));
@@ -127,7 +125,7 @@ try {
             /*
              * Start a Level.
              */
-            startLevel: function(){
+            startLevel: function () {
                 /*Ext.Viewport.setMasked({
                     xtype: 'loadmask',
                     message: 'Loading level...',

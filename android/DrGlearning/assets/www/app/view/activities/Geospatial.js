@@ -27,7 +27,7 @@ try {
                             type: 'hbox',
                             pack : 'center' 
                         },
-                        height:40,
+                        height:40
                     },
                     {
                         xtype: 'toolbar',
@@ -37,7 +37,7 @@ try {
                                 xtype: 'button',
                                 customId: 'backtolevel',
                                 text: i18n.gettext('Back'),
-                                ui: 'back',
+                                ui: 'back'
                             },
                             {
                                  xtype: 'spacer' 

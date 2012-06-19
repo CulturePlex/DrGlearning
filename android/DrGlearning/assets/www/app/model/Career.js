@@ -57,35 +57,35 @@ try {
                 //A string field for eachlevel, "exists" means exists but not successed and allowed, and "successed" means exists and successed, "notallowed" means not allowed (for exam careers)
                 {
                     name: "illetratum",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "primary",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "secondary",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "highschool",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "college",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "master",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "phd",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "postdoc",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "professor",
-                    type: "string",
+                    type: "string"
                 },{
                     name: "emeritus",
-                    type: "string",
-                },
+                    type: "string"
+                }
                 
                 ],
                 proxy : {

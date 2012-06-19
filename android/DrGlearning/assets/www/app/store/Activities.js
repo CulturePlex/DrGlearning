@@ -13,8 +13,8 @@ try {
                           {
                               property : 'level_order',
                               direction: 'DESC'
-                          },
-                      ],
+                          }
+                      ]
             },
             listeners: { 
                 exception: function(){ 

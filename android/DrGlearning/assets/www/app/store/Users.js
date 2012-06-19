@@ -7,7 +7,7 @@ try {
             config: {
                 model: 'DrGlearning.model.User',
                 autoLoad: true,
-                autoSync: true,
+                autoSync: true
             },
             listeners: { 
                 exception: function(){ 

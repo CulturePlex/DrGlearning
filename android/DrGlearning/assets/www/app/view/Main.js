@@ -12,7 +12,7 @@ try {
             config: {
                 fullscreen: true,
                 layout: 'fit'
-            },
+            }
         });
 
     // Exceptions Catcher End

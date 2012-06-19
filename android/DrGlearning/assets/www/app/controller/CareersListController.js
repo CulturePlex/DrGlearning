@@ -1,10 +1,11 @@
-/**
- * @class DrGlearning.controller.CareersListController
- * @extends Ext.app.Controller
- *
- * Controller to manage Careers List Menu and Logic.
- */
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
+*/
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -130,10 +131,10 @@ try {
                 if (this.careersStore.getCount() === 0) {
                     this.getCareersframe().down('careerslist').hide();
                 }
-                if(numberOfUpdates > 0)
+                if (numberOfUpdates > 0)
                 {
                     this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').show();
-                }else
+                } else
                 {
                     this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
                 }
@@ -142,11 +143,11 @@ try {
                 this.getCareersframe().down('toolbar[id=toolbarTopAdd]').hide();
                 this.getCareersframe().down('toolbar[id=toolbarBottomAdd]').hide();
                 this.getCareersframe().show();
-                if (parseInt(localStorage.selectedcareer,10) !== 0 && localStorage.selectedcareer!==undefined) 
+                if (parseInt(localStorage.selectedcareer, 10) !== 0 && localStorage.selectedcareer !== undefined) 
                 {
                     Ext.Msg.confirm(i18n.gettext("Last course"), i18n.gettext("Return to last course"), function (answer)
                     {
-                        if (answer == 'yes') {
+                        if (answer === 'yes') {
                             this.CareersListController.addOrStartCareer(undefined, undefined, undefined, this.careersStore.getById(localStorage.selectedcareer));
                         }
                         else {
@@ -154,7 +155,7 @@ try {
                         }
                     }, this); 
                 }
-                this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function() {});
+                this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function () {});
                 this.getCareersframe().down('careerslist').refresh();
                 
             },
@@ -168,14 +169,11 @@ try {
                     {
                         var levelstemp = [];
                         levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
-                        console.log(levelstemp);
                         for (var j = 0; j < this.levelsStore.getCount(); j++)
                         {
-                            console.log(j);
-                            this.careersStore.getAt(index).data[this.getLevelName(j -1)] = 'caca';
+                            this.careersStore.getAt(index).data[this.getLevelName(j - 1)] = 'caca';
                             
                         }
-                        console.log(this.careersStore.getAt(index));
                         //If Exam Career, Else -> Explore Career
                         if (this.careersStore.getAt(index).data.career_type === "exam")
                         {
@@ -183,7 +181,6 @@ try {
                             var nextLevelFound = 0;
 
                             for (var i = 0; i < levelstemp.length; i++) {
-                            console.log(levelstemp[i]);
                                 nextLevelFound--;
                                 if (nextLevelFound < 1)
                                 {
@@ -191,19 +188,18 @@ try {
                                 }
                                 if (i === 0 && !this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data))
                                 {
-                                this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
-                                console.log('hola');
-                                nextLevelFound = 1;
+                                    this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "exists";
+                                    nextLevelFound = 1;
                                 }
                                 if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[i] - 1).data)) {
                                     this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i] - 1)] = "successed";
-                                    this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i+1] - 1)] = "exists";
+                                    this.careersStore.getAt(index).data[this.getLevelName(levelstemp[i + 1] - 1)] = "exists";
                                     nextLevelFound = 2;
                                 }
                             }
-                        }else
+                        } else
                         {
-                            for (var j = 0; j < levelstemp.length; j++) {
+                            for (j = 0; j < levelstemp.length; j++) {
                                 this.careersStore.getAt(index).data[this.getLevelName(levelstemp[j] - 1)] = "exists";
                                 if (this.daoController.isApproved(this.careersStore.getAt(index).data.id, Ext.getStore('Levels').getAt(levelstemp[j] - 1).data)) {
                                     this.careersStore.getAt(index).data[this.getLevelName(levelstemp[j] - 1)] = "successed";
@@ -231,7 +227,7 @@ try {
             {
                 var html = '';
                 var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
-                for (var cont in career.data.levels) {
+                for (var cont = 0; cont < career.data.levels.length ; cont++) {
                     html = html + "<img src='resources/images/level_icons/" + filesImgs[career.data.levels[cont] - 1] + "' height='40' >";
                 }
                 return html;
@@ -244,57 +240,111 @@ try {
                 this.selectedcareer = career;
                 if (career.data.installed === false) 
                 {
-                    if(e !== undefined && e.touch.target.id === "examInfo")
+                    if (e !== undefined && e.touch.target.id === "examInfo")
                     {
-                        Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality courses you should complete each level before you can play the next one.'), function(){
+                        Ext.Msg.alert(i18n.gettext('Exam Modality'), i18n.gettext('In Exam Modality courses you should complete each level before you can play the next one.'), function () {
                         }, this);
                     }
                     else
                     {
-                    if (!this.globalSettingsController.hasNetwork()) {
-                        Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install courses'), Ext.emptyFn);
-                    }
-                    else {
-                        Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description + '<p>' + this.getLevelsIconsHtml(career) + '</p><p>' + i18n.gettext("Are you sure you want to install this course?")+'</p>', function (answer, pako)
-                        {
-                            if (answer === 'yes') 
+                        if (!this.globalSettingsController.hasNetwork()) {
+                            Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install courses'), Ext.emptyFn);
+                        }
+                        else {
+                            Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description + '<p>' + this.getLevelsIconsHtml(career) + '</p><p>' + i18n.gettext("Are you sure you want to install this course?") + '</p>', function (answer, pako)
                             {
-                                Ext.Viewport.setMasked({
-                                    xtype: 'loadmask',
-                                    message: i18n.gettext('Downloading course') +"…",
-                                    indicator: true,
-                                    html: "<img src='resources/images/ic_launcher.png'>"
-                                });
-                                this.daoController.installCareer(career.data.id, this.installFinished, this);
-                            }
-                        }, this);
-                    }
+                                if (answer === 'yes') 
+                                {
+                                    Ext.Viewport.setMasked({
+                                        xtype: 'loadmask',
+                                        message: i18n.gettext('Downloading course') + "…",
+                                        indicator: true,
+                                        html: "<img src='resources/images/ic_launcher.png'>"
+                                    });
+                                    this.daoController.installCareer(career.data.id, this.installFinished, this);
+                                }
+                            }, this);
+                        }
                     }
                 }
                 else {
                     this.career = career;
                     var that = this;
-                    if (e !== undefined && e.touch.target.id == "uninstall") {
+                    if (e !== undefined && e.touch.target.id === "uninstall") {
                         this.actionSheet = Ext.create('Ext.ActionSheet', {
-                            items: [{
-                                text: i18n.gettext('Sync your scores'),
-                                handler: function(){
-                                    this.parent.hide();
-                                    that.daoController.updateOfflineScores();}
+                            items: 
+                            [
+                                {
+                                    text: i18n.gettext('Sync your scores'),
+                                    handler: function () {
+                                        this.parent.hide();
+                                        that.daoController.updateOfflineScores(); 
+                                    }
                                 },
                                 {
-                                text: i18n.gettext('Check for courses updates'),
-                                handler: function(){
-                                    this.parent.hide();
-                                    that.daoController.checkForCareerUpdate(that.career);
+                                    text: i18n.gettext('Check for courses updates'),
+                                    handler: function () {
+                                        this.parent.hide();
+                                        that.daoController.checkForCareerUpdate(that.career);
+                                    }
+                                },
+                                {
+                                    text: i18n.gettext('Uninstall course'),
+                                    ui: 'decline',
+                                    handler: function () 
+                                    {
+                                        this.parent.hide();
+                                        Ext.Msg.confirm(i18n.gettext("Uninstall Course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function (answer)
+                                        {
+                                            if (answer === 'yes') {
+                                                this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
+                                                this.index();
+                                            }
+                                        }, that);
+                                    }
+                                }, 
+                                {
+                                    text: i18n.gettext('Cancel'),
+                                    handler: function () {
+                                        this.parent.hide();
+                                    }
                                 }
-                                },{
+                            ]
+                        });
+                        
+                        Ext.Viewport.add(this.actionSheet);
+                        this.actionSheet.show();
+                    }
+                    else if (e !== undefined && e.touch.target.id === "update") 
+                    {
+                        var actionSheet = Ext.create('Ext.ActionSheet', {
+                            items: 
+                            [{
+                                text: i18n.gettext('Sync your scores')
+                            },
+                            {
+                                text: i18n.gettext('Update course'),
+                                ui: 'confirm',
+                                handler: function () {
+                                    this.parent.hide();
+                                    Ext.Msg.confirm(i18n.gettext("Update course?"), i18n.gettext("Are you sure you want to update this course?"), function (answer) {
+                                        if (answer === 'yes') {
+                                            Ext.Viewport.setMasked({
+                                                xtype: 'loadmask',
+                                                message: i18n.gettext('Updating course') + "…",
+                                                indicator: true,
+                                                html: "<img src='resources/images/ic_launcher.png'>"
+                                            });
+                                            this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
+                                        }
+                                    }, that);
+                                }
+                            }, {
                                 text: i18n.gettext('Uninstall course'),
                                 ui: 'decline',
-                                handler: function(){
+                                handler: function () {
                                     this.parent.hide();
-                                    Ext.Msg.confirm(i18n.gettext("Uninstall Course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function (answer)
-                                    {
+                                    Ext.Msg.confirm(i18n.gettext("Uninstall course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function (answer, pako) {
                                         if (answer === 'yes') {
                                             this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
                                             this.index();
@@ -303,79 +353,32 @@ try {
                                 }
                             }, {
                                 text: i18n.gettext('Cancel'),
-                                handler: function(){
+                                handler: function () {
                                     this.parent.hide();
                                 }
                             }]
                         });
                         
-                        Ext.Viewport.add(this.actionSheet);
-                        this.actionSheet.show();
-                        
+                        Ext.Viewport.add(actionSheet);
+                        actionSheet.show();
                     }
-                    else 
-                        if (e !== undefined && e.touch.target.id === "update") {
-                            var actionSheet = Ext.create('Ext.ActionSheet', {
-                                items: [{
-                                text: i18n.gettext('Sync your scores')
-                                },{
-                                    text: i18n.gettext('Update course'),
-                                    ui: 'confirm',
-                                    handler: function(){
-                                    this.parent.hide();
-                                    Ext.Msg.confirm(i18n.gettext("Update course?"), i18n.gettext("Are you sure you want to update this course?"), function(answer){
-                                        if (answer == 'yes') {
-                                             Ext.Viewport.setMasked({
-                                             xtype: 'loadmask',
-                                             message: i18n.gettext('Updating course') +"…",
-                                             indicator: true,
-                                             html: "<img src='resources/images/ic_launcher.png'>"
-                                             });
-                                             this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
-                                        }
-                                    }, that);
-                                }
-                                }, {
-                                    text: i18n.gettext('Uninstall course'),
-                                    ui: 'decline',
-                                    handler: function(){
-                                        this.parent.hide();
-                                        Ext.Msg.confirm(i18n.gettext("Uninstall course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function(answer, pako){
-                                            if (answer == 'yes') {
-                                                this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
-                                                this.index();
-                                            }
-                                        }, that);
-                                    }
-                                }, {
-                                    text: i18n.gettext('Cancel'),
-                                    handler: function(){
-                                        this.parent.hide();
-                                    }
-                                }]
-                            });
-                            
-                            Ext.Viewport.add(actionSheet);
-                            actionSheet.show();
+                    else {
+                        if (e !== undefined && e.touch.target.id === "examInfo")
+                        {
+                            Ext.Msg.alert(i18n.gettext('Exam course!'), i18n.gettext('In Exam Modality courses you should complete each level before moving on to the following ones'), function () {}, this);
+                        } else
+                        {
+                            this.getApplication().getController('CareerController').updateCareer(career);
+                            localStorage.selectedcareer = career.data.id;
+                            this.getCareersframe().hide();
                         }
-                        else {
-                            if(e !== undefined && e.touch.target.id === "examInfo")
-                            {
-                                Ext.Msg.alert(i18n.gettext('Exam course!'), i18n.gettext('In Exam Modality courses you should complete each level before moving on to the following ones'), function(){
-                    }, this);
-                            }else
-                            {
-                                this.getApplication().getController('CareerController').updateCareer(career);
-                                localStorage.selectedcareer = career.data.id;
-                                this.getCareersframe().hide();
-                            }
-                        }
+                    }
                 }
             },
             /*
              * Callback function for Career install finished.
              */
-            installFinished: function(scope){
+            installFinished: function (scope) {
                 /*
                  * if(scope.id!='Careers') { scope=this; }
                  */
@@ -385,36 +388,36 @@ try {
             /*
              * Filer Careers by started/not started atribute.
              */
-            filterCareers: function(){
+            filterCareers: function () {
                 this.careersStore.clearFilter();
                 this.careersStore.filter("installed", true);
                 var careerStateSelected = Ext.ComponentQuery.query('selectfield[name=state]')[0];
-                if (careerStateSelected.getValue() == 'notYet') {
+                if (careerStateSelected.getValue() === 'notYet') {
                     this.careersStore.filter("started", false);
                 }
-                if (careerStateSelected.getValue() == 'inProgress') {
+                if (careerStateSelected.getValue() === 'inProgress') {
                     this.careersStore.filter("started", true);
                 }
                 this.careersStore.load();
             },
             
-            filterCareersByKnowledge: function(){
+            filterCareersByKnowledge: function () {
                 var knowledgeSelectField = Ext.ComponentQuery.query('selectfield[name=knnowledge_field]')[0];
                 var value = knowledgeSelectField.getValue();
-                if(localStorage.form == undefined)
+                if (localStorage.form === undefined)
                 {
                     localStorage.form = '';
                 }
-                if(localStorage.knowledgeValue != value)
+                if (localStorage.knowledgeValue !== value)
                 {
                 //localStorage.searchRequest = "false";
-                    this.loadingController.careersRequest(localStorage.form,value);
+                    this.loadingController.careersRequest(localStorage.form, value);
                     this.careersStore.clearFilter();
-                    this.careersStore.each(function(record){
-                        if(!record.data.installed){
+                    /*this.careersStore.each(function (record) {
+                        if (!record.data.installed) {
                             //record.erase();
                         }
-                    });
+                    });*/
                     this.careersStore.load();
                 }
             },
@@ -422,9 +425,9 @@ try {
              * Showing not installed carrers (menu to install new
              * career).
              */
-            addCareer: function(){
+            addCareer: function () {
                 this.careersStore.clearFilter();
-                if(this.careersStore.getCount()===0)
+                if (this.careersStore.getCount() === 0)
                 {
                     //this.loadingController.careersRequest();
                     this.showCareersToInstall();
@@ -437,7 +440,7 @@ try {
             /*
              * Searching for specific career by writing in searchbox.
              */
-            showCareersToInstall: function()
+            showCareersToInstall: function ()
             {
                 this.loadingController.knowledgesStore.sync();
                 this.loadingController.knowledgesStore.load();
@@ -447,16 +450,16 @@ try {
                 
                 this.getCareersframe().down('careerslist').show();
                 this.getCareersframe().down('careerslist').refresh();
-                options = [{
+                var options = [{
                     text: 'All',
                     value: 'All'
                 }];
-                this.knowledgesStore.each(function(record) {
+                this.knowledgesStore.each(function (record) {
                     options.push({
                         text: record.data.name,
                         value: record.data.name
                     });
-                },this);
+                }, this);
                 this.getCareersframe().down('selectfield[name=knnowledge_field]').setOptions(options);
                 this.careersStore.clearFilter();
                 this.getCareersframe().down('searchfield').setValue(localStorage.form);
@@ -470,14 +473,14 @@ try {
                 this.getCareersframe().show();
                 this.getCareersframe().down('careerslist').refresh();
                 this.filterCareersByKnowledge();
-                this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function(scroller, x , y) {
-                  var distanceToEnd = scroller.maxPosition.y - scroller.position.y;
-                  if (distanceToEnd < 300) {
-                       this.loadingController.careersRequest(localStorage.form,localStorage.knowledgeValue);
-                 }
+                this.getCareersframe().down('careerslist').getScrollable().getScroller().on('scrollend', function (scroller, x, y) {
+                    var distanceToEnd = scroller.maxPosition.y - scroller.position.y;
+                    if (distanceToEnd < 300) {
+                        this.loadingController.careersRequest(localStorage.form, localStorage.knowledgeValue);
+                    }
                 }, this, {buffer: 300});
             },
-            search: function(values, form){
+            search: function (values, form) {
                 localStorage.form = form.toLowerCase();
                 /*var filters = [];
                 filters.push(new Ext.util.Filter({
@@ -493,47 +496,46 @@ try {
                         -1;
                     }
                 }));*/
-                this.loadingController.careersRequest(localStorage.form,localStorage.knowledgeValue);
+                this.loadingController.careersRequest(localStorage.form, localStorage.knowledgeValue);
                 this.careersStore.clearFilter();
                 //this.careersStore.filter(filters);
-                this.careersStore.each(function(record){
-                    if(!record.data.installed){
+                /*this.careersStore.each(function (record) {
+                    if (!record.data.installed) {
                         //record.erase();
                     }
-                });
+                });*/
                 this.careersStore.load();
                 //this.getCareersframe().down('careerslist').refresh();
             },
-            getData: function(newActivity){
+            getData: function (newActivity) {
                 var html = "";
-                for (var cont in newActivity.data) {
+                for (var cont = 0; cont < newActivity.data.length; cont++) {
                     html = html + " " + cont + ":" + newActivity.data[cont] + "</br>";
                 }
                 return html;
             },
-            updateAll: function() {
+            updateAll: function () {
                 this.careersStore.clearFilter();
                 this.careersStore.filter("installed", true);
                 this.careersStore.filter("update", true);
-                this.updatesLeft=this.careersStore.getCount();
+                this.updatesLeft = this.careersStore.getCount();
                 Ext.Viewport.setMasked({
-                     xtype: 'loadmask',
-                     message: i18n.gettext('Updating courses') +"…",
-                     indicator: true,
-                     html: "<img src='resources/images/ic_launcher.png'>"
+                    xtype: 'loadmask',
+                    message: i18n.gettext('Updating courses') + "…",
+                    indicator: true,
+                    html: "<img src='resources/images/ic_launcher.png'>"
                 });
                 this.careersStore.clearFilter();
                 this.careersStore.filter("installed", true);
-             },
-             updateFinished: function(scope){
+            },
+            updateFinished: function (scope) {
                 this.updatesLeft--;
-                if(this.updatesLeft===0){
+                if (this.updatesLeft === 0) {
                     Ext.Viewport.setMasked(false);
                     this.index();
                 }
-                
             },
-            refresh: function(scope){
+            refresh: function (scope) {
                 this.loadingController.careersRequest();
             }
         });

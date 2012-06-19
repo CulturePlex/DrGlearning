@@ -1,10 +1,11 @@
-/**
- * @class DrGlearning.controller.ActivityController
- * @extends Ext.app.Controller
- *
- * Controller to manage Activity Logic. Is parent Class of each specific activity.
- */
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
+*/
 try {
     (function () {
     // Exceptions Catcher Begins

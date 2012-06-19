@@ -13,7 +13,7 @@ try {
                     {
                         property : 'name',
                         direction: 'ASC'
-                    },
+                    }
                 ]
             },
             listeners: { 

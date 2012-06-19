@@ -1,14 +1,15 @@
-//Global Words to skip JSLint validation//
-/*global Ext i18n google GeoJSON activityView*/
 /*jshint
     forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace
+*/
+
 try {
     (function () {
     // Exceptions Catcher Begins
-
         Ext.define('DrGlearning.controller.activities.LinguisticController', {
             extend: 'Ext.app.Controller',
             config: {
@@ -19,13 +20,14 @@ try {
                 }
             },
             activity: null,
+            activityView: null,
             respuestas: null,
             squaresBlack: null,
             loquedText: null,
             loquedTextFinded: null,
             score: null,
             imagesrc: null,
-            init: function(){
+            init: function () {
                 this.activityController = this.getApplication().getController('ActivityController');
                 this.levelController = this.getApplication().getController('LevelController');
                 this.daoController = this.getApplication().getController('DaoController');
@@ -45,14 +47,14 @@ try {
             {
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
-                    message: i18n.gettext('Loading activity') +"…",
+                    message: i18n.gettext('Loading activity') + "…",
                     indicator: true
                     //html: "<img src='resources/images/activity_icons/linguistic.png'>",
                 });
                 this.score = 100;
                 this.activity = newActivity;
                 view.down('component[customId=activity]').destroy();
-                activityView = Ext.create('DrGlearning.view.activities.Linguistic');
+                this.activityView = Ext.create('DrGlearning.view.activities.Linguistic');
                 //Initializate values
                 this.squaresBlack = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
                 this.loquedText = this.activity.data.locked_text.split("");
@@ -68,15 +70,15 @@ try {
                     }
                     
                 }
-                this.activityController.addQueryAndButtons(activityView, newActivity);
-                activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
-                activityView.down('label[customId=responses]').setHtml('');
+                this.activityController.addQueryAndButtons(this.activityView, newActivity);
+                this.activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
+                this.activityView.down('label[customId=responses]').setHtml('');
                 if (this.activity.data.locked_text.toLowerCase() === this.activity.data.answer.toLowerCase()) {
-                    activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') +": ");
+                    this.activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') + ": ");
                 }
-                activityView.down('label[customId=responses]').setHtml('');
+                this.activityView.down('label[customId=responses]').setHtml('');
                 this.respuestas = this.activity.data.answers;
-                newActivity.getImage('image', 'image', null, this, view, activityView, true);
+                newActivity.getImage('image', 'image', null, this, view, this.activityView, true);
             },
             loadingImages: function (view, activityView, value)
             {
@@ -95,9 +97,9 @@ try {
             },
             tryIt: function ()
             {
-                var letterView = activityView.down('textfield[customId=letter]');
-                var responseView = activityView.down('label[customId=responses]');
-                var loquedView = activityView.down('label[customId=loqued]');
+                var letterView = this.activityView.down('textfield[customId=letter]');
+                var responseView = this.activityView.down('label[customId=responses]');
+                var loquedView = this.activityView.down('label[customId=loqued]');
                 var letter = letterView.getValue();
                 letterView.setValue('');
                 var cont;
@@ -109,12 +111,12 @@ try {
                     }
                 }
                 if (exist) {
-                    this.score-=5;
+                    this.score -= 5;
                     responseView.setHtml(responseView.getHtml() + letter + ' ');
                     this.goodLetter();
                 }
                 else {
-                    this.score-=10;
+                    this.score -= 10;
                     responseView.setHtml(responseView.getHtml() + letter.fontcolor("red") + ' ');
                 }
                 var loqued = "";
@@ -129,7 +131,7 @@ try {
                 loquedView.setHtml(loqued);
                 if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
                 {
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
@@ -144,7 +146,7 @@ try {
                 var squaresBlack = this.squaresBlack;
                 var cont;
                 var temp;
-                for(cont in squaresBlack) 
+                for (cont = 0; cont < squaresBlack.length; cont++)
                 {
                     if (squaresBlack[cont]) {
                         table = table + '<td BGCOLOR="BLACK" style="border: inset 0pt" width="20%"></td>';
@@ -174,7 +176,7 @@ try {
                         goodLetters++;
                     }
                 }
-                var keysBlack = new Array();
+                var keysBlack = [];
                 for (cont in this.squaresBlack) {
                     if (!this.squaresBlack[cont]) {
                         whiteSquares++;
@@ -195,7 +197,7 @@ try {
                     }
                     whiteSquares++;
                 }
-                activityView.down('panel[customId=image]').setHtml(this.getTable());
+                this.activityView.down('panel[customId=image]').setHtml(this.getTable());
                 
             },
             
@@ -212,7 +214,7 @@ try {
                 });
                 var show = new Ext.MessageBox().show({
                     id: 'info',
-                    title: i18n.gettext('Answer the question') +": ",
+                    title: i18n.gettext('Answer the question') + ": ",
                     msg: this.activity.data.query,
                     items: [{
                         xtype: 'textfield',
@@ -229,20 +231,20 @@ try {
                     show.hide();
                     answer = show.down('#importvalue').getValue();
                     if (answer.toLowerCase() === this.activity.data.answer.toLowerCase()) {
-                        if (this.score<50)
+                        if (this.score < 50)
                         {
-                            this.score=50;
+                            this.score = 50;
                         }
-                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") +": "+ this.score, function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
                         {
                             this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                             this.levelController.nextActivity(this.activity.data.level_type);
                         }, this);
                     }
                     else {
-                        if (this.score<0)
+                        if (this.score < 0)
                         {
-                            this.score=0;
+                            this.score = 0;
                         }
                         Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
                         {

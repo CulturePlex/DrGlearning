@@ -17,7 +17,7 @@ try {
                 },{
                     name : "description",
                     type : "string"
-                } ],
+                } ]
                 /*proxy : {
                     type : 'ajax',
                     url : 'resources/json/levels.json',

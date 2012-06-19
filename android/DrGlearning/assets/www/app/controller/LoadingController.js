@@ -1,3 +1,12 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
+*/
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -6,12 +15,12 @@ try {
         Ext.define('DrGlearning.controller.LoadingController', {
             extend: 'Ext.app.Controller',
             config: {
-                refs: 
-                        {
-                            loading : 'loading',
-                            loadingpanel: 'loadingpanel',
-                            careersframe: 'careersframe',
-                        }
+                refs:
+                    {
+                        loading : 'loading',
+                        loadingpanel: 'loadingpanel',
+                        careersframe: 'careersframe'
+                    }
             },
             retrieving : false,
             init: function(){
@@ -23,12 +32,13 @@ try {
             },
             
             onLaunch: function() {
+                console.log("loading............");
                 //Add trim to prototype
                 String.prototype.trim = function(){return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[\n\r]$/,'');};
                 //Aplication start
                 Ext.create('DrGlearning.view.Loading');
                 this.getLoading().show();
-                console.log('Loading...');
+                //console.log('Loading...');
                 console.log('Is device?');
                 console.log(this.getApplication().getController('GlobalSettingsController').isDevice());
                 //view.show();
@@ -116,7 +126,7 @@ try {
                             
                   }else{
                           //Ext.Viewport.setMasked(false);
-                          //console.log("Listo2");
+                          console.log("Listo2");
                           this.getLoading().hide();
                           Ext.Viewport.setMasked(false);
                           this.getApplication().getController('CareersListController').initializate();

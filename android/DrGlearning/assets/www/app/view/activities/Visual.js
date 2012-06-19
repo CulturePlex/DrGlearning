@@ -24,7 +24,7 @@ try {
                             type: 'hbox',
                             pack : 'center' 
                         },
-                        height:40,
+                        height:40
                     },
                     {
                         xtype: 'toolbar',
@@ -35,16 +35,13 @@ try {
                                 customId: 'backtolevel',
                                 text: i18n.gettext('Back'),
                                 ui: 'back',
-                                customId: 'backtolevel',
                                 controller: 'DrGlearning.controller.Career',
-                                action: 'index',
+                                action: 'index'
                             },
                             {
                                  xtype: 'spacer' 
                             }]
-                        
-                    }
-                    ,
+                    },
                     {
                         xtype: 'container',
                         customId: 'timecontainer',
@@ -55,12 +52,12 @@ try {
                                 style: 'text-align:center',
                                 customId: 'time',
                                 name: 'query',
-                                title: 'Error',
+                                title: 'Error'
                             },
                             {
                                 xtype: 'button',
                                 customId:'skip',
-                                text: i18n.gettext('Skip'),
+                                text: i18n.gettext('Skip')
                             }
                             ]
                         
@@ -72,11 +69,8 @@ try {
                         cls:'imageBehindButtons'
                     }
                 ]
-            },
-            
-            
+            }
         });
-
     // Exceptions Catcher End
     })();
 } catch (ex) {

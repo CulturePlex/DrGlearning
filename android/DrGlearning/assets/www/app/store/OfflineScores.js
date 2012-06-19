@@ -8,7 +8,7 @@ try {
             config: {
                 model: 'DrGlearning.model.OfflineScore',
                 autoLoad: true,
-                autoSync: true,
+                autoSync: true
             },
             listeners: { 
                 exception: function(){ 

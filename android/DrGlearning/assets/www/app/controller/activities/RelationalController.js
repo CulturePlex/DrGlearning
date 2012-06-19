@@ -1,9 +1,11 @@
-//Global Words to skip JSLint validation//
 /*jshint
     forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
-    undef:true, curly:true, browser:true, indent:4, maxerr:50
+    undef:true, curly:true, browser:true, indent:4, maxerr:50, loopfunc:true
 */
-/*global Ext i18n google GeoJSON activityView MathJax clearInterval event*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace
+*/
 
 try {
     (function () {
@@ -223,26 +225,24 @@ try {
                         constraintState[i] = "";
                         
                         if (constraintPassed(constraints[i])) {
-                            setTimeout("console.log("+ i +");", 500);
                             constraintClass = "relational-constraint-passed";
                             icontype = 'star';
                             uitype = 'confirm';
-                            if(constraintBoolean[i] !== true && constraintBoolean[i] !== undefined)
+                            if (constraintBoolean[i] !== true && constraintBoolean[i] !== undefined)
                             {
-                                changed=true;
+                                changed = true;
                             }
                             constraintState[i] = i18n.gettext('Fulfilled condition');
                             constraintBoolean[i] = true;
                         }
                         else {
-                            setTimeout("console.log("+i+");",500);
                             constraintClass = "relational-constraints";
                             allConstraintsPassed = false;
                             icontype = 'delete';
                             uitype = 'decline';
-                            if(constraintBoolean[i] !== false && constraintBoolean[i] !== undefined)
+                            if (constraintBoolean[i] !== false && constraintBoolean[i] !== undefined)
                             {
-                                changed=true;
+                                changed = true;
                             }
                             constraintState[i] = i18n.gettext('Condition not fulfilled yet');
                             constraintBoolean[i] = false;
@@ -272,7 +272,7 @@ try {
                         /*
                          * If state of constraint has changed button has animation fade
                          */
-                        if(changed===true)
+                        if (changed === true)
                         {
                             temp = {
                                 xtype: 'button',
@@ -281,16 +281,15 @@ try {
                                 customId: i,
                                 listeners: {
                                     tap: showConstraint,
-                                    painted: function()
-                                          {
-                                              Ext.Anim.run(this, 'fade', {out:false ,duration:500});
-                                              Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:10});
-                                              Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:1540});
-                                              Ext.Anim.run(this, 'fade', {out:true, duration:500, delay:2050});
-                                              Ext.Anim.run(this, 'fade', {out:false, duration:500, delay:2560});
-                                          }
-                                },
-                                
+                                    painted: function ()
+                                    {
+                                        Ext.Anim.run(this, 'fade', {out: false, duration: 500});
+                                        Ext.Anim.run(this, 'fade', {out: true, duration: 500, delay: 10});
+                                        Ext.Anim.run(this, 'fade', {out: false, duration: 500, delay: 1540});
+                                        Ext.Anim.run(this, 'fade', {out: true, duration: 500, delay: 2050});
+                                        Ext.Anim.run(this, 'fade', {out: false, duration: 500, delay: 2560});
+                                    }
+                                }
                             };
                         }
                         else
@@ -301,9 +300,8 @@ try {
                                 ui: uitype,
                                 customId: i,
                                 listeners: {
-                                    tap: showConstraint,
-                                },
-                                
+                                    tap: showConstraint
+                                }
                             };
                         }
                         activityView.down('toolbar[customId=constraintsbar]').add(temp);
@@ -318,9 +316,9 @@ try {
                             constraintClass = "relational-constraint-passed";
                             icontype = 'star';
                             uitype = 'confirm';
-                            if(constraintBoolean[i] === false)
+                            if (constraintBoolean[i] === false)
                             {
-                                changed=true;
+                                changed = true;
                             }
                             constraintState[i] = i18n.gettext('Fulfilled condition');
                             constraintBoolean[i] = true;
@@ -330,9 +328,9 @@ try {
                             allConstraintsPassed = false;
                             icontype = 'delete';
                             uitype = 'decline';
-                            if(constraintBoolean[i] === true)
+                            if (constraintBoolean[i] === true)
                             {
-                                changed=true;
+                                changed = true;
                             }
                             constraintState[i] = i18n.gettext('Condition not fulfilled yet');
                             constraintBoolean[i] = false;
@@ -341,7 +339,7 @@ try {
                         /*
                          * If state of constraint has changed button has animation fade
                          */
-                        if(changed===true)
+                        if (changed === true)
                         {
                             temp = {
                                 xtype: 'button',
@@ -350,16 +348,15 @@ try {
                                 customId: i,
                                 listeners: {
                                     tap: showConstraint,
-                                    painted: function()
-                                          {
-                                              Ext.Anim.run(this, 'fade', {out:false ,duration:501});
-                                              Ext.Anim.run(this, 'fade', {out:true, duration:501, delay:20});
-                                              Ext.Anim.run(this, 'fade', {out:false, duration:501, delay:1550});
-                                              Ext.Anim.run(this, 'fade', {out:true, duration:501, delay:2060});
-                                              Ext.Anim.run(this, 'fade', {out:false, duration:501, delay:2570});
-                                          }
-                                },
-                                
+                                    painted: function ()
+                                    {
+                                        Ext.Anim.run(this, 'fade', {out: false, duration: 501});
+                                        Ext.Anim.run(this, 'fade', {out: true, duration: 501, delay: 20});
+                                        Ext.Anim.run(this, 'fade', {out: false, duration: 501, delay: 1550});
+                                        Ext.Anim.run(this, 'fade', {out: true, duration: 501, delay: 2060});
+                                        Ext.Anim.run(this, 'fade', {out: false, duration: 501, delay: 2570});
+                                    }
+                                }
                             };
                         }
                         else
@@ -370,9 +367,8 @@ try {
                                 ui: uitype,
                                 customId: i,
                                 listeners: {
-                                    tap: showConstraint,
-                                },
-                                
+                                    tap: showConstraint
+                                }
                             };
                         }
                         activityView.down('toolbar[customId=constraintsbar]').add(temp);
@@ -390,7 +386,7 @@ try {
                 {
                     activityView.removeAll();
                     var scorePanel = Ext.create('Ext.Panel', {
-                        html: '<p>'+ i18n.gettext("Score") +": "+ getPathScore() + '</p>'
+                        html: '<p>' + i18n.gettext("Score") + ": " + getPathScore() + '</p>'
                     });
                     var gamePanel = Ext.create('Ext.Panel', {
                         padding: 10
@@ -465,7 +461,7 @@ try {
                             gamePanel.add(option);    
                         } else
                         {
-                            gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach') +" "+ pathGoal +". "+ i18n.gettext('Try undo') + "<div>"});
+                            gamePanel.add({xtype: 'panel', html: "<div class='warning'>" + i18n.gettext('Sorry, from here you cannot reach') + " " + pathGoal + ". " + i18n.gettext('Try undo') + "<div>"});
                         }
                     }
                     if (option)
@@ -522,7 +518,7 @@ try {
                         score = 100;
                     }
                     if (allConstraintsPassed) {
-                        Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("Score") +": "+ score, function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("Score") + ": " + score, function ()
                         {
                             daocontroller.activityPlayed(newActivity.data.id, true, score);
                             activitiescontroller.nextActivity(newActivity.data.level_type);
@@ -532,7 +528,6 @@ try {
                 
                 function showConstraint(button)
                 {
-
                     Ext.Msg.alert(constraintState[button.config.customId], constraintsTextNew[button.config.customId], function ()
                     {
                     }, this);

@@ -1,3 +1,13 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false, laxcomma: true
+    undef:true, curly:true, browser:true, indent:4, maxerr:50 noempty:false
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace LocalFileSystem
+*/
+
+
 /*
 COMUNES:
 -name: El nombre de la actividad
@@ -8,7 +18,7 @@ COMUNES:
 -query: Lo que se pregunta
 -timestamp: Sistema de versionado (p. ej. "2011-10-26T13:15:13.556255")
 -resource_uri: La uri de la actividad que estamos viendo.
--activity_ptr: Esto es interno de tastypie. Ignorarlo. Aun as�, el valor que tiene es el mismo que name.
+-activity_ptr: Esto es interno de tastypie. Ignorarlo. Aun así, el valor que tiene es el mismo que name.
 
  */
 
@@ -88,7 +98,7 @@ try {
                 }, {
                     name : "query_datetime",
                     type : "date"
-                },{
+                }, {
                     name : "image_url",
                     type : "string"
                 }
@@ -175,7 +185,7 @@ try {
                 }, {
                     name : "radius",
                     type : "string"
-                },{
+                }, {
                     name : "minZoom",
                     type : "int"
                 } ],
@@ -187,39 +197,39 @@ try {
                     id : 'DrGlearningActivity'
                 }
             },
-            setImage: function(fieldName, value,scope) {
-                try{
-                    if(window.device != undefined && LocalFileSystem!=undefined){
+            setImage: function (fieldName, value, scope) {
+                try {
+                    if (window.device != undefined && LocalFileSystem != undefined) {
                         //console.log('Estamos en un dispositivo movil');
                         //console.log('Almacenamos en disco.');
-                        scope.getApplication().getController('FileManagerController').storeImage(value,this.data.id,fieldName);
+                        scope.getApplication().getController('FileManagerController').storeImage(value, this.data.id, fieldName);
                     }
                 }catch (e) {
-                    console.log("Unable to access to LocalFileSystem");
+                    //console.log("Unable to access to LocalFileSystem");
                 }
 
             },
-            getImage: function(name,targetId,component,controller,view,activityView,isTable) {
+            getImage: function (name, targetId, component, controller, view, activityView, isTable) {
                 //return scope.getApplication().getController('FileManagerController').retrieveImage(fieldName+this.data.id,targetId);
-                try{
-                    if(window.device != undefined && LocalFileSystem!=undefined){
+                try {
+                    if (window.device != undefined && LocalFileSystem != undefined) {
                         //console.log('Recuperamos de disco.');
-                        controller.getApplication().getController('FileManagerController').retrieveImage(this.data.id,name,component,controller,view,activityView,isTable);
-                    }else{
-                        if(isTable){
-                            controller.loadingImages(view,activityView,controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url);
-                        }else{
-                            component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" width="100%"/>');
-                            controller.loadingImages(view,activityView);
+                        controller.getApplication().getController('FileManagerController').retrieveImage(this.data.id, name, component, controller, view, activityView, isTable);
+                    } else {
+                        if (isTable) {
+                            controller.loadingImages(view, activityView, controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url);
+                        } else {
+                            component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="' + controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url + '" width="100%"/>');
+                            controller.loadingImages(view, activityView);
                         }
                     }
                 }catch (e) {
-                    console.log("Unable to access to LocalFileSystem");
-                    if(isTable){
-                        controller.loadingImages(view,activityView,controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url);
-                    }else{
-                        component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="'+controller.getApplication().getController('GlobalSettingsController').getServerURL()+'/media/'+this.data.image_url+'" width="100%"/>');
-                        controller.loadingImages(view,activityView);
+                    //console.log("Unable to access to LocalFileSystem");
+                    if (isTable) {
+                        controller.loadingImages(view, activityView, controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url);
+                    } else {
+                        component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="' + controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url + '" width="100%"/>');
+                        controller.loadingImages(view, activityView);
                     }
                 }
 
