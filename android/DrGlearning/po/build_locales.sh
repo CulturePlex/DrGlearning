@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for LANG in en es_ES fr pt_BR
+for LANG in ar en es_ES fr pt_BR
 do
     echo "Generating" $LANG ":" ../assets/www/resources/js/locales/$LANG.js
     echo '// Locale '$LANG'

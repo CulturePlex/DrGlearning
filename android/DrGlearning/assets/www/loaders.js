@@ -93,7 +93,7 @@ try {
             }
         }, {
             // Locales
-            test: ["es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0,
+            test: ["ar", "es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0,
             yep: "resources/js/locales/" + localStorage.locale + ".js",
             nope: "resources/js/locales/en.js"
         }, {

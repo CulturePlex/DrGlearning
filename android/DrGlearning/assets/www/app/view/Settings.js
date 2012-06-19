@@ -27,12 +27,13 @@ try {
                     id: 'locale',
                     label: i18n.gettext('Language'),
                     margin: 5,
-                    value: localStorage.locale,
+                    value: localStorage.locale || "en",
                     options: [
-                        {text: 'English',  value: 'en'},
-                        {text: 'Español',  value: 'es_ES'},
-                        {text: 'Français',  value: 'fr'}
-                        // {text: 'Português',  value: 'pt_BR'}
+                        {text: 'لغة_عربية', value: 'ar'},
+                        {text: 'English', value: 'en'},
+                        {text: 'Español', value: 'es_ES'},
+                        {text: 'Français', value: 'fr'}
+                        // {text: 'Português', value: 'pt_BR'}
                     ]
                 },/*, {
                     xtype : 'textfield',

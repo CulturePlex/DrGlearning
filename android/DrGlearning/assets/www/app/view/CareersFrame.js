@@ -55,7 +55,7 @@ try {
                     ui:'neutral',
                     items: [{
                         xtype: 'searchfield',
-                        placeHolder: 'Search',
+                        placeHolder: i18n.gettext('Search'),
                         width: '40%',
                         name: 'searchfield',
                         id: 'searchbox'
