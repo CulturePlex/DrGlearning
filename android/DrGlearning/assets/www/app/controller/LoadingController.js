@@ -28,31 +28,32 @@ try {
                 this.careersStore = Ext.getStore('Careers');
                 this.knowledgesStore = Ext.getStore('Knowledges');
                 this.careersListController = this.getApplication().getController('CareersListController');
+                this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.offset = 0;
             },
             
             onLaunch: function() {
-                console.log("loading............");
+                this.globalSettingsController.showMessage("loading............");
                 //Add trim to prototype
                 String.prototype.trim = function(){return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[\n\r]$/,'');};
                 //Aplication start
                 Ext.create('DrGlearning.view.Loading');
                 this.getLoading().show();
-                //console.log('Loading...');
-                console.log('Is device?');
-                console.log(this.getApplication().getController('GlobalSettingsController').isDevice());
+                //this.globalSettingsController.showMessage('Loading...');
+                this.globalSettingsController.showMessage('Is device?');
+                this.globalSettingsController.showMessage(this.getApplication().getController('GlobalSettingsController').isDevice());
                 //view.show();
                 //Seeing if course test is needed
                 var testCourse=this.getParameter('course');
                 if(testCourse!="null" && testCourse!=undefined){
-                    console.log("Installing Test course");
-                    console.log(testCourse);
+                    this.globalSettingsController.showMessage("Installing Test course");
+                    this.globalSettingsController.showMessage(testCourse);
                     this.installTestCourse(testCourse);
                 }
                 this.careersStore.load();
                 Ext.getStore('Activities').load();
                 var usersStore = Ext.getStore('Users');
-                console.log(usersStore.getCount());
+                this.globalSettingsController.showMessage(usersStore.getCount());
                 //Create user if needed
                 if(usersStore.getCount()==0){
                     //First calculate max localstorage size
@@ -64,13 +65,13 @@ try {
                     this.getApplication().getController('MaxStorageSizeController').initTest(this);
                     localStorage.maxSize=2600000;
                     localStorage.actualSize=0;
-                    console.log("New user");
+                    this.globalSettingsController.showMessage("New user");
                     if(this.getApplication().getController('GlobalSettingsController').isDevice()){
                         var digest=this.SHA1(window.device.uuid+" "+new Date().getTime());
                     }else{
                         var digest=this.SHA1("test"+" "+new Date().getTime());
                     }
-                    console.log(digest);
+                    this.globalSettingsController.showMessage(digest);
                     //var userModel=Ext.ModelManager.getModel('DrGlearning.model.User');
                     //user.set('uniqueid:', digest);
                     var userModel=new DrGlearning.model.User({
@@ -89,9 +90,9 @@ try {
                         usersStore.sync();
                         usersStore.load();
                         var user=usersStore.getAt(0);
-                        console.log(user);
+                        this.globalSettingsController.showMessage(user);
                         if(user !== undefined && user.data.token === ''){
-                            console.log("Registering user");
+                            this.globalSettingsController.showMessage("Registering user");
                             var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
                             Ext.data.JsonP.request({
                                 scope: this,
@@ -101,13 +102,13 @@ try {
                                 },
                                 success: function(response){
 
-                                    console.log(response);
+                                    this.globalSettingsController.showMessage(response);
                                     user.data.token=response.token;
                                     user.data.serverid=response.id;
                                     user.data.resource_uri=response.resource_uri;
                                     //user.save();
                                     usersStore.sync();
-                                    console.log("User successfully registered");
+                                    this.globalSettingsController.showMessage("User successfully registered");
                                 }
                             });
                             usersStore.sync();
@@ -120,13 +121,13 @@ try {
                             this.getApplication().getController('CareersListController').index();
                             
                             //Ext.Viewport.setMasked(false);
-                              //console.log();
-                              //console.log("Listo1");
+                              //this.globalSettingsController.showMessage();
+                              //this.globalSettingsController.showMessage("Listo1");
                             //this.getApplication().getController('DaoController').updateOfflineScores();
                             
                   }else{
                           //Ext.Viewport.setMasked(false);
-                          console.log("Listo2");
+                          this.globalSettingsController.showMessage("Listo2");
                           this.getLoading().hide();
                           Ext.Viewport.setMasked(false);
                           this.getApplication().getController('CareersListController').initializate();
@@ -200,8 +201,8 @@ try {
                                     this.getCareersframe().down('button[customId=addCareer]').show();
                                     localStorage.offset = response["meta"].limit;
                                     localStorage.total_count = response["meta"].total_count;
-                                    console.log(localStorage.offset);
-                                    console.log(localStorage.total_count);
+                                    this.globalSettingsController.showMessage(localStorage.offset);
+                                    this.globalSettingsController.showMessage(localStorage.total_count);
                                     var careers=response["objects"];
                                     this.careersStore.each(function(record) {
                                         if(!record.data.installed){
@@ -248,9 +249,9 @@ try {
                                             careerModel.save();
                                             this.careersStore.load();
                                             this.careersStore.sync();
-                                            console.log(this.careersStore);
+                                            this.globalSettingsController.showMessage(this.careersStore);
                                         }else{
-                                            console.log('existe');
+                                            this.globalSettingsController.showMessage('existe');
                                             //Watch for updates
                                             var careerModel=this.careersStore.getAt(this.careersStore.find('id',career.id));
                                             if(careerModel.data.timestamp<career.timestamp && !careerModel.data.installed){
@@ -272,15 +273,15 @@ try {
                         }
                 },
                 knowledgesRequest: function (){
-                    console.log('retrieving knowledges');
+                    this.globalSettingsController.showMessage('retrieving knowledges');
                     localStorage.knowledgeFields = [];
                     var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
                     Ext.data.JsonP.request({
                         url: HOST+"/api/v1/knowledge/?format=jsonp",
                         scope   : this,
                         success:function(response, opts){
-                            console.log(response);
-                            console.log("Knowledges retrieved");
+                            this.globalSettingsController.showMessage(response);
+                            this.globalSettingsController.showMessage("Knowledges retrieved");
                             var knowledges=response["objects"];
                                this.knowledgesStore.removeAll(); 
                             for (cont in knowledges) {
@@ -317,12 +318,12 @@ try {
                         url: HOST+url+'?testing=true&format=jsonp',
                         scope   : this,
                         success:function(response, opts){
-                            console.log("Career retrieved");
+                            this.globalSettingsController.showMessage("Career retrieved");
                             var career=response;
                             this.careersStore.each(function(record) {
                                 if(record.data.installed){
                                     if(career.id == record.data.id){
-                                        console.log('Test course ');
+                                        this.globalSettingsController.showMessage('Test course ');
                                         this.getApplication().getController('DaoController').deleteCareer(career.id);
                                     }
                                 }

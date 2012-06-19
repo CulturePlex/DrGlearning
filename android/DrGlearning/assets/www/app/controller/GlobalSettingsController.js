@@ -15,6 +15,7 @@ try {
         Ext.define('DrGlearning.controller.GlobalSettingsController', {
             extend: 'Ext.app.Controller',
             init: function () {
+            this.showLog=false;
             },
             onLaunch: function () {
             },
@@ -37,6 +38,12 @@ try {
                     return true;
                 } else {
                     return false;
+                }
+            },
+            showMessage: function (message) {
+                if (this.showLog)
+                {
+                    console.log(message);
                 }
             }
         });
