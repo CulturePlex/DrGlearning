@@ -1,7 +1,7 @@
 body {
-	margin-top: 1.0em;
-	background-color: #ffffff;
-	background: url("../img/bg.png") repeat scroll 0 0 transparent;
+    margin-top: 1.0em;
+    background-color: #ffffff;
+    background: url("../img/bg.png") repeat scroll 0 0 transparent;
     color: #333333;
 }
 h1 {
@@ -13,6 +13,7 @@ h1 {
 #sample
 {
     float:left;
+    margin-left: 12px;
 }
 #logoandbuttons
 {
@@ -21,6 +22,7 @@ h1 {
 {
     width:90%;
     margin: 0px auto;
+    margin-top: 21px;
 }
 #apps {
     margin-bottom:15px;
@@ -40,7 +42,7 @@ h1 {
 }
 .qrcodes
 {
-    padding: 60px 0px 60px 0px;
+    padding: 0px;
 }
 .platform
 {
@@ -56,8 +58,10 @@ h1 {
 }
 .create
 {
-   width:220px;
-   margin:5px;
+/*   width:220px;*/
+/*   margin:5px;*/
+    width: 120px;
+    margin: 5px 10px 5px 0px;
 }
 .helptext {
     vertical-align: top;
@@ -87,3 +91,48 @@ h1 {
     margin-bottom:5px;
 }
 
+.label-inline {
+    font-size: inherit;
+    vertical-align: inherit;
+}
+
+#lemmas {
+    float: right;
+    position: relative;
+    width: 360px;
+    margin-top: 30px;
+}
+
+#lemmas .name {
+    font-family: 'Crafty Girls';
+    text-shadow: 0px 0px 1px black;
+}
+
+h1.name {
+    text-align: center;
+    font-family: 'Crafty Girls';
+    color: #1A7DFF;
+    text-shadow: 1px 1px 1px black;
+}
+
+#slogan {
+    font-family: 'Crafty Girls';
+    position: relative;
+    padding-bottom: 15px;
+    color: #FF9300;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 30px;
+    text-align: center;
+}
+
+#slogan .play {
+    color: #1A7DFF;
+}
+
+#slogan .learn {
+    color: #FF9300;
+}
+
+#slogan .grade {
+    color: ##3DC444;
+}

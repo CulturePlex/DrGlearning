@@ -16,6 +16,11 @@ body {
     background-color: #f2f2f2;
 }
 
+ .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container {
+    width: 910px;
+  }
 blockquote,q {
     quotes: inherit;
     font-size: 95%;
@@ -53,7 +58,9 @@ textarea {
 }
 
 button,input,select,textarea {
-    margin: 0;
+/*    margin: 0;*/
+    width: 104px;
+    margin: 5px 8px 5px 1px;
 }
 
 button {
@@ -531,7 +538,7 @@ select {
 .button,input[type="button"],input[type="submit"] {
     font-size: 105%;
     font-weight: 700;
-    color: #348E82;
+    color: #08C;
     text-decoration: none;
     width: auto;
     margin: auto;
@@ -542,17 +549,11 @@ select {
 }
 
 .button:hover,input[type="button"]:hover,input[type="submit"]:hover,input:active,textarea:active,select:active {
-    box-shadow: 0 1px 5px rgba(52,142,130,0.75);
-    -webkit-box-shadow: 0 1px 5px rgba(52,142,130,0.75);
-    -moz-box-shadow: 0 1px 5px rgba(52,142,130,0.75);
-    text-decoration: none;
+    color: #08C;
 }
 
 .button:active,input[type="button"]:active,input[type="submit"]:active {
-    box-shadow: 0 0 5px rgba(52,142,130,0.75);
-    -webkit-box-shadow: 0 0 5px rgba(52,142,130,0.75);
-    -moz-box-shadow: 0 0 5px rgba(52,142,130,0.75);
-    padding: 6px 7px 4px 9px;
+    color: #08C;
 }
 
 .helptext {
