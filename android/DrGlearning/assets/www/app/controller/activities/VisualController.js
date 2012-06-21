@@ -72,7 +72,6 @@ try {
                 this.optionsContainer = this.activityView.down('container[customId=options]');
                 this.timeLabel = this.activityView.down('label[customId=time]');
                 this.obImageContainer = this.activityView.down('container[id=obImage]');
-
                 this.imageContainer.setHtml('');
                 this.activity.getImage('image', 'image', this.imageContainer, this, this.view, this.activityView, false);
                 this.activityController.addQueryAndButtons(this.activityView, this.activity);

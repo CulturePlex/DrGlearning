@@ -211,7 +211,9 @@ try {
             },
             getImage: function (name, targetId, component, controller, view, activityView, isTable) {
                 //return scope.getApplication().getController('FileManagerController').retrieveImage(fieldName+this.data.id,targetId);
-                try {
+                component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="' + controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url + '" width="100%"/>');
+                controller.loadingImages(view, activityView);
+/*                try {
                     if (window.device != undefined && LocalFileSystem != undefined) {
                         //console.log('Recuperamos de disco.');
                         controller.getApplication().getController('FileManagerController').retrieveImage(this.data.id, name, component, controller, view, activityView, isTable);
@@ -231,8 +233,12 @@ try {
                         component.setHtml('<img class="activityImage" text-align="center" id="image" alt="imagen" src="' + controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url + '" width="100%"/>');
                         controller.loadingImages(view, activityView);
                     }
-                }
+                }*/
 
+            },
+            getImageLinguistic: function (name, targetId, component, controller, view, activityView, isTable) {
+                controller.loadingImages(view, activityView, controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url);
+                return controller.getApplication().getController('GlobalSettingsController').getServerURL() + '/media/' + this.data.image_url;
             }
         });
 

@@ -291,7 +291,6 @@ try {
                                         resource_uri : knowledge.resource_uri
                                 });
                                 knowledgeModel.save();
-
                             }
                         },
                         failure:function(){

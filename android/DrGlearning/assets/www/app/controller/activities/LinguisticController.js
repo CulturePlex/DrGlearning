@@ -78,7 +78,7 @@ try {
                 }
                 this.activityView.down('label[customId=responses]').setHtml('');
                 this.respuestas = this.activity.data.answers;
-                newActivity.getImage('image', 'image', null, this, view, this.activityView, true);
+                newActivity.getImageLinguistic('image', 'image', null, this, view, this.activityView, true);
             },
             loadingImages: function (view, activityView, value)
             {
