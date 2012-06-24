@@ -14,8 +14,21 @@ try {
 
         Ext.define('DrGlearning.controller.GlobalSettingsController', {
             extend: 'Ext.app.Controller',
+            knowledgesList: {
+                4:i18n.gettext('Literature'),
+                5:i18n.gettext('History'),
+                21:i18n.gettext('Geography'),
+                28:i18n.gettext('Business and Marketing'),
+                29:i18n.gettext('Humanities'),
+                30:i18n.gettext('Performing Arts'),
+                32:i18n.gettext('Religion and Theology'),
+                33:i18n.gettext('Visual Arts'),
+                47:i18n.gettext('Mathematics'),
+                54:i18n.gettext('Education'),
+                70:i18n.gettext('Space Sciences'),
+            },
             init: function () {
-            this.showLog=false;
+            this.showLog=true;
             },
             onLaunch: function () {
             },

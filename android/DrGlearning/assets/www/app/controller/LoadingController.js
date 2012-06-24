@@ -80,12 +80,8 @@ try {
                     });
                     userModel.save();
                 }
-
+                this.knowledgesRequest();
                 if(this.getApplication().getController('GlobalSettingsController').hasNetwork()){
-                        if(this.knowledgesStore.getCount() == 0)
-                        {
-                            this.knowledgesRequest();
-                        }
                         //Register user if needed
                         usersStore.sync();
                         usersStore.load();
@@ -277,17 +273,15 @@ try {
                     localStorage.knowledgeFields = [];
                     var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
                     Ext.data.JsonP.request({
-                        url: HOST+"/api/v1/knowledge/?format=jsonp",
+                        url: HOST + "/api/v1/knowledge/?format=jsonp",
                         scope   : this,
                         success:function(response, opts){
-                            this.globalSettingsController.showMessage(response);
-                            this.globalSettingsController.showMessage("Knowledges retrieved");
                             var knowledges=response["objects"];
-                               this.knowledgesStore.removeAll(); 
+                            this.knowledgesStore.removeAll(); 
                             for (cont in knowledges) {
                                 var knowledge=knowledges[cont];
                                 var knowledgeModel=new DrGlearning.model.Knowledge({
-                                        name : knowledge.name,
+                                        name : this.getKnowledgeFieldName(knowledge.id, knowledge.name),
                                         resource_uri : knowledge.resource_uri
                                 });
                                 knowledgeModel.save();
@@ -298,7 +292,18 @@ try {
                    });
                 },
                 
-                
+                getKnowledgeFieldName: function(id, name)
+                {
+                    var nameTemp;
+                    if (this.globalSettingsController.knowledgesList[id] !== undefined)
+                    {
+                        nameTemp = this.globalSettingsController.knowledgesList[id];
+                    } else
+                    {
+                        nameTemp = name;
+                    }
+                    return nameTemp;
+                },
                 
                 pausecomp:function (ms) {
                     ms += new Date().getTime();
