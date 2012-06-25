@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Dr. Glearning\n"
 "Report-Msgid-Bugs-To: https://github.com/CulturePlex/DrGlearning/issues\n"
 "POT-Creation-Date: 2012-06-11 14:25-0400\n"
-"PO-Revision-Date: 2012-06-19 20:48+0000\n"
-"Last-Translator: versae <versae@gmail.com>\n"
+"PO-Revision-Date: 2012-06-22 13:28+0000\n"
+"Last-Translator: mayasa.h <haithem.mayasa@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.net/projects/p/drglearning/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,15 +22,15 @@ msgstr ""
 
 #: ../assets/www/drglearningapp.js:42
 msgid "Yes"
-msgstr ""
+msgstr "نعم  "
 
 #: ../assets/www/drglearningapp.js:45
 msgid "No"
-msgstr ""
+msgstr "لا  "
 
 #: ../assets/www/drglearningapp.js:52
 msgid "OK"
-msgstr ""
+msgstr "حسناً "
 
 #: ../assets/www/drglearningapp.js:56
 #: ../assets/www/app/controller/activities/LinguisticController.js:213
@@ -50,7 +50,7 @@ msgstr "تحميل"
 
 #: ../assets/www/app/controller/LoadingController.js:62
 msgid "The first time, it might take a bit to load. Don't worry"
-msgstr ""
+msgstr "في المرة الأولى، قد يستغرق قليلا ليتم تحميلها. لا داعي للقلق"
 
 #: ../assets/www/app/controller/LoadingController.js:163
 msgid "Retrieving courses"
@@ -197,7 +197,7 @@ msgstr "جاوب على السؤال "
 
 #: ../assets/www/app/controller/activities/TemporalController.js:70
 msgid "Oh, oh. That isn't the right answer"
-msgstr ""
+msgstr "أوه، أوه. ليس هذا هو الجواب الصحيح"
 
 #: ../assets/www/app/controller/CareersListController.js:129
 #: ../assets/www/app/view/CareersFrame.js:18
@@ -210,7 +210,7 @@ msgstr "آخر مادة "
 
 #: ../assets/www/app/controller/CareersListController.js:148
 msgid "Return to last course"
-msgstr ""
+msgstr "عودة إلى المادة السابقة "
 
 #: ../assets/www/app/controller/CareersListController.js:245
 msgid "Exam Modality"
@@ -220,7 +220,7 @@ msgstr "شكل الامتحان"
 msgid ""
 "In Exam Modality courses you should complete each level before you can play "
 "the next one."
-msgstr ""
+msgstr "في إمتحان المادة، عليك أن تكمل كل مستوى قبل أن تتمكن من لعب المستوى القادم "
 
 #: ../assets/www/app/controller/CareersListController.js:251
 #: ../assets/www/app/controller/DaoController.js:144
@@ -248,7 +248,7 @@ msgstr "تحميل المادة "
 #: ../assets/www/app/controller/CareersListController.js:278
 #: ../assets/www/app/controller/CareersListController.js:323
 msgid "Sync your scores"
-msgstr ""
+msgstr "مزامنة علاماتك"
 
 #: ../assets/www/app/controller/CareersListController.js:285
 msgid "Check for courses updates"
@@ -379,11 +379,11 @@ msgstr "لا يمكنك لعب هذه المرحلة حتى إكمال المر�
 
 #: ../assets/www/app/controller/LevelController.js:151
 msgid "No Internet"
-msgstr ""
+msgstr "لا إنترنت"
 
 #: ../assets/www/app/controller/LevelController.js:151
 msgid "There is not connection to Internet, you cant start this activity!"
-msgstr ""
+msgstr "ليس هناك إتصال بشبكات الانترنت، لن تسطيع بدء هذا النشاط "
 
 #: ../assets/www/app/controller/LevelController.js:204
 #: ../assets/www/app/controller/LevelController.js:205
@@ -426,22 +426,22 @@ msgstr "مساعدة"
 #: ../assets/www/app/controller/LevelController.js:298
 #: ../assets/www/app/controller/LevelController.js:344
 msgid "Find the correct location on the map"
-msgstr ""
+msgstr "اعثر على الموقع الصحيح على الخريطة "
 
 #: ../assets/www/app/controller/LevelController.js:303
 #: ../assets/www/app/controller/LevelController.js:350
 msgid "Choose the right option"
-msgstr ""
+msgstr "إختر الخيار الصحيح "
 
 #: ../assets/www/app/controller/LevelController.js:308
 #: ../assets/www/app/controller/LevelController.js:356
 msgid "Go from one item to another until you fulfill all the conditions"
-msgstr ""
+msgstr "إنتقل من عنصر إلى أخر حتى تنتهي من تلبية جميع الشروط "
 
 #: ../assets/www/app/controller/LevelController.js:313
 #: ../assets/www/app/controller/LevelController.js:362
 msgid "According to the question, say what was before and what was after"
-msgstr ""
+msgstr "وفقاً لهذه مسألة، حدد ما  كان قبل وبعد "
 
 #: ../assets/www/app/controller/LevelController.js:318
 #: ../assets/www/app/controller/LevelController.js:368
@@ -595,7 +595,7 @@ msgstr "في تقدم"
 #: ../assets/www/app/view/CareersFrame.js:40
 #: ../assets/www/app/view/CareersTop.js:33
 msgid "Not yet started"
-msgstr ""
+msgstr "لم يبدأ بعد "
 
 #: ../assets/www/app/view/CareersFrame.js:47
 #: ../assets/www/app/view/CareersFrame.js:112
@@ -605,11 +605,11 @@ msgstr "أضف المادة "
 
 #: ../assets/www/app/view/CareersFrame.js:58
 msgid "Search"
-msgstr ""
+msgstr "بحث "
 
 #: ../assets/www/app/view/CareersFrame.js:88
 msgid "Refresh"
-msgstr ""
+msgstr "تحديث"
 
 #: ../assets/www/app/view/CareersFrame.js:101
 msgid "No courses installed, click on 'Add course' to start"
