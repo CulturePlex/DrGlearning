@@ -125,6 +125,7 @@ li.relational-constraint-passed {
 
 .rightalign {
     text-align:right;
+    direction:rtl;
 }
 
 .leftalign {
