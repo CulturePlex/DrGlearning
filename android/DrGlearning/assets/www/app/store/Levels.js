@@ -10,7 +10,7 @@ try {
                 autoLoad: true,
                 autoSync: true,
                 data : [
-                        {
+                {
                     "customId":"1",
                     "name":"Illetratum",
                     "nameBeauty":i18n.gettext("Illetratum"),

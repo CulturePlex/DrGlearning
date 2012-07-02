@@ -113,6 +113,7 @@ try {
 
                             //if(localStorage.maxSize!=undefined){
                             this.getLoading().hide();
+                            this.showTerms();
                             this.getApplication().getController('CareersListController').initializate();
                             this.getApplication().getController('CareersListController').index();
                             
@@ -125,10 +126,14 @@ try {
                           //Ext.Viewport.setMasked(false);
                           this.globalSettingsController.showMessage("Listo2");
                           this.getLoading().hide();
+                          this.showTerms();
                           Ext.Viewport.setMasked(false);
                           this.getApplication().getController('CareersListController').initializate();
                           this.getApplication().getController('CareersListController').index();
                   }
+                },
+                showTerms: function () {
+                    Ext.Msg.alert(i18n.gettext('Terms and Conditions'), '', function (){});
                 },
                 careersRequest: function (searchString,knowledgeValue){
                         if( localStorage.searchString != searchString || localStorage.knowledgeValue != knowledgeValue)

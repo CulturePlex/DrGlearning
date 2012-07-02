@@ -159,17 +159,41 @@ try {
                 }
                 else if (newActivity.data.activity_type === 'visual') 
                 {
-                    this.visualController.updateActivity(this.getActivityframe(), newActivity);
+                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        {
+                            this.tolevel();
+                        }, this);
+                    } else
+                    {
+                        this.visualController.updateActivity(this.getActivityframe(), newActivity);
+                    }
                 } else if (newActivity.data.activity_type === 'relational') {
                     this.relationalController.updateActivity(this.getActivityframe(), newActivity);
                 }
                 else 
                 if (newActivity.data.activity_type === 'temporal') {
-                    this.temporalController.updateActivity(this.getActivityframe(), newActivity);
+                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        {
+                            this.tolevel();
+                        }, this);
+                    } else
+                    {
+                        this.temporalController.updateActivity(this.getActivityframe(), newActivity);
+                    }
                 }
                 else 
                 if (newActivity.data.activity_type === 'linguistic') {
-                    this.linguisticController.updateActivity(this.getActivityframe(), newActivity);
+                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        {
+                            this.tolevel();
+                        }, this);
+                    } else
+                    {
+                        this.linguisticController.updateActivity(this.getActivityframe(), newActivity);
+                    }
                 }   
                 else 
                 if (newActivity.data.activity_type === 'quiz') {
