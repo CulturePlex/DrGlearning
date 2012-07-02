@@ -54,8 +54,9 @@ try {
                 Ext.getStore('Activities').load();
                 var usersStore = Ext.getStore('Users');
                 this.globalSettingsController.showMessage(usersStore.getCount());
-                //Create user if needed
+                //Create user if needed and block to run first app launch
                 if(usersStore.getCount()==0){
+                    localStorage.leftalign = true;
                     //First calculate max localstorage size
                     Ext.Viewport.setMasked({
                         xtype: 'loadmask',

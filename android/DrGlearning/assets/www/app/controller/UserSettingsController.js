@@ -46,6 +46,14 @@ try {
                 //userStore.sync();
                 var locale = view.down('selectfield[id=locale]').getValue();
                 if (localStorage.locale != locale) {
+                    if(locale === "ar")
+                    {
+                        console.log('hola');
+                        localStorage.leftalign = false;
+                    }else
+                    {
+                        localStorage.leftalign = true;
+                    }
                     localStorage.locale = locale;
                     Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes'), Ext.emptyFn);
                 }
