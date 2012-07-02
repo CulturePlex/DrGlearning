@@ -48,11 +48,10 @@ try {
                 if (localStorage.locale != locale) {
                     if(locale === "ar")
                     {
-                        console.log('hola');
-                        localStorage.leftalign = false;
+                        localStorage.alignCls = 'rightalign';
                     }else
                     {
-                        localStorage.leftalign = true;
+                        localStorage.alignCls = 'leftalign';
                     }
                     localStorage.locale = locale;
                     Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes'), Ext.emptyFn);

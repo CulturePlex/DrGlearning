@@ -122,3 +122,11 @@ li.relational-constraint-passed {
 	backgroundRepeat: 'no-repeat';
 	backgroundPosition: 'center';
 }
+
+.rightalign {
+    text-align:right;
+}
+
+.leftalign {
+    text-align:left;
+}

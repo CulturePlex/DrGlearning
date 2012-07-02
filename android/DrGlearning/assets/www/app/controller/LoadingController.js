@@ -56,7 +56,7 @@ try {
                 this.globalSettingsController.showMessage(usersStore.getCount());
                 //Create user if needed and block to run first app launch
                 if(usersStore.getCount()==0){
-                    localStorage.leftalign = true;
+                    localStorage.alignCls = 'leftAlign';
                     //First calculate max localstorage size
                     Ext.Viewport.setMasked({
                         xtype: 'loadmask',

@@ -28,9 +28,11 @@ try {
                         xtype: 'selectfield',
                         name: 'state',
                         width: '40%',
+                        inputCls: localStorage.alignCls,
                         options: [ {
                             text: i18n.gettext('All'),
-                            value: 'all'
+                            value: 'all',
+                            
                         },
                         {
                             text: i18n.gettext('In progress'),
