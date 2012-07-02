@@ -58,6 +58,7 @@ try {
                     items: [{
                         xtype: 'searchfield',
                         placeHolder: i18n.gettext('Search'),
+                        inputCls: localStorage.alignCls,
                         width: '40%',
                         name: 'searchfield',
                         id: 'searchbox'
