@@ -306,11 +306,7 @@ try {
                             token: user.data.token
                         },
                         success: function (response) {
-                            offlineScoreStore.sync();
-                            offlineScoreStore.load();
-                            offlineScoreStore.remove(item);
-                            offlineScoreStore.sync();
-                            offlineScoreStore.load();
+                            console.log(response);
                         }
                     });
                 }, this);
