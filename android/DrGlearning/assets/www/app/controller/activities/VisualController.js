@@ -28,6 +28,7 @@ try {
                 this.levelController = this.getApplication().getController('LevelController');
                 this.activityController = this.getApplication().getController('ActivityController');
                 this.daoController = this.getApplication().getController('DaoController');
+                this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.control({
                     'button[customId=respuesta]': {
                         tap: this.tryIt
@@ -134,7 +135,7 @@ try {
                     }
                 }
                 //this.imageContainer.hide();
-                this.imageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.activity.data.obfuscated_image + '" />');
+                this.imageContainer.setHtml('<img class="activityImage" width="100%" alt="imagen" src="' + this.globalSettingsController.getServerURL() + '/media/' + this.activity.data.obfuscated_image_url + '" />');
                 this.optionsContainer.show();
                 this.optionsContainer.setStyle({backgroundImage: this.obImageUrl});
                 //this.obImageContainer.show();

@@ -147,53 +147,53 @@ try {
                 this.currentActivity = newActivity;
                 this.activityTitle.setTitle(newActivity.data.name);
                 if (newActivity.data.activity_type === 'geospatial') {
-                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {
+                    {*/
                         this.geospatialController.updateActivity(this.getActivityframe(), newActivity);
-                    }
+                    //}
                 }
                 else if (newActivity.data.activity_type === 'visual') 
                 {
-                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {
+                    {*/
                         this.visualController.updateActivity(this.getActivityframe(), newActivity);
-                    }
+                    //}
                 } else if (newActivity.data.activity_type === 'relational') {
                     this.relationalController.updateActivity(this.getActivityframe(), newActivity);
                 }
                 else 
                 if (newActivity.data.activity_type === 'temporal') {
-                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {
+                    {*/
                         this.temporalController.updateActivity(this.getActivityframe(), newActivity);
-                    }
+                    //}
                 }
                 else 
                 if (newActivity.data.activity_type === 'linguistic') {
-                    if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {
+                    {*/
                         this.linguisticController.updateActivity(this.getActivityframe(), newActivity);
-                    }
+                    //}
                 }   
                 else 
                 if (newActivity.data.activity_type === 'quiz') {

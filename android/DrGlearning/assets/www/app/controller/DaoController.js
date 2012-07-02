@@ -71,25 +71,25 @@ try {
                                 helpviewed: false
                             });
                             if (activityModel.data.activity_type == 'linguistic') {
-                                activityModel.setImage('image', activity.image, this);
+                                //activityModel.setImage('image', activity.image, this);
                                 activityModel.data.image_url = activity.image_url.trim();
                                 activityModel.data.locked_text = activity.locked_text.trim();
                                 activityModel.data.answer = activity.answer.trim();
                             }
                             if (activityModel.data.activity_type == 'visual') {
-                                activityModel.setImage('image', activity.image, this);
-                                activityModel.setImage('obImage', activity.obfuscated_image, this);
+                                //activityModel.setImage('image', activity.image, this);
+                                //activityModel.setImage('obImage', activity.obfuscated_image, this);
                                 activityModel.data.image_url = activity.image_url.trim();
                                 activityModel.data.obfuscated_image_url = activity.obfuscated_image_url.trim();
                                 //activityModel.data.image=activity.image;
                                 activityModel.data.answers = activity.answers;
                                 activityModel.data.correct_answer = activity.correct_answer.trim();
-                                activityModel.set('obfuscated_image', activity.obfuscated_image);
+                                //activityModel.set('obfuscated_image', activity.obfuscated_image);
                                 activityModel.data.obfuscated_image_url = activity.obfuscated_image_url.trim();
                                 activityModel.data.time = activity.time.trim();
                             }
                             if (activityModel.data.activity_type == 'quiz') {
-                                activityModel.setImage('image', activity.image, this);
+                                //activityModel.setImage('image', activity.image, this);
                                 activityModel.data.image_url = activity.image_url;
                                 //activityModel.data.image=activity.image;
                                 activityModel.data.answers = activity.answers;
@@ -111,7 +111,7 @@ try {
                                 activityModel.data.path_limit = activity.path_limit;
                             }
                             if (activityModel.data.activity_type == 'temporal') {
-                                activityModel.setImage('image', activity.image, this);
+                                //activityModel.setImage('image', activity.image, this);
                                 activityModel.data.image_url = activity.image_url.trim();
                                 activityModel.data.image_datetime = activity.image_datetime.trim();
                                 activityModel.data.query_datetime = activity.query_datetime.trim();
