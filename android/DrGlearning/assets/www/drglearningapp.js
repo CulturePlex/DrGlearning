@@ -19,7 +19,7 @@ try {
             views: ['Loading', 'CareerFrame', 'Main', 'LevelFrame',
                     'CareersList', 'ActivityFrame', 'activities.Geospatial',
                     'activities.Visual', 'activities.Linguistic', 'activities.Temporal',
-                    'activities.Relational', 'activities.Quiz', 'Settings'],
+                    'activities.Relational', 'activities.Quiz', 'Settings','Terms'],
             controllers: ['LoadingController', 'GlobalSettingsController', 'DaoController',
                           'CareersListController', 'CareerController', 'LevelController',
                           'ActivityController', 'activities.GeospatialController',
