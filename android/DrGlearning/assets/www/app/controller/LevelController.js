@@ -159,41 +159,41 @@ try {
                 }
                 else if (newActivity.data.activity_type === 'visual') 
                 {
-                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {*/
+                    {
                         this.visualController.updateActivity(this.getActivityframe(), newActivity);
-                    //}
+                    }
                 } else if (newActivity.data.activity_type === 'relational') {
                     this.relationalController.updateActivity(this.getActivityframe(), newActivity);
                 }
                 else 
                 if (newActivity.data.activity_type === 'temporal') {
-                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {*/
+                    {
                         this.temporalController.updateActivity(this.getActivityframe(), newActivity);
-                    //}
+                    }
                 }
                 else 
                 if (newActivity.data.activity_type === 'linguistic') {
-                    /*if (navigator.network == undefined || navigator.network.connection.type == Connection.NONE) {
+                    if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
                         Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
                         {
                             this.tolevel();
                         }, this);
                     } else
-                    {*/
+                    {
                         this.linguisticController.updateActivity(this.getActivityframe(), newActivity);
-                    //}
+                    }
                 }   
                 else 
                 if (newActivity.data.activity_type === 'quiz') {
