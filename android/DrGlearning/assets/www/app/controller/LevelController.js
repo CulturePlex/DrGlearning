@@ -148,7 +148,7 @@ try {
                 this.activityTitle.setTitle(newActivity.data.name);
                 if (newActivity.data.activity_type === 'geospatial') {
                     if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
-                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to start this activity'), function ()
                         {
                             this.tolevel();
                         }, this);
@@ -160,7 +160,7 @@ try {
                 else if (newActivity.data.activity_type === 'visual') 
                 {
                     if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
-                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to start this activity'), function ()
                         {
                             this.tolevel();
                         }, this);
@@ -174,7 +174,7 @@ try {
                 else 
                 if (newActivity.data.activity_type === 'temporal') {
                     if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
-                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to start this activity'), function ()
                         {
                             this.tolevel();
                         }, this);
@@ -186,7 +186,7 @@ try {
                 else 
                 if (newActivity.data.activity_type === 'linguistic') {
                     if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
-                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('There is not connection to Internet, you cant start this activity!'), function ()
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to start this activity'), function ()
                         {
                             this.tolevel();
                         }, this);
