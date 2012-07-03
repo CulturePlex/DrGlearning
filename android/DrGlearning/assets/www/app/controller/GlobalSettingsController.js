@@ -81,7 +81,7 @@ try {
                 }
             },
             hasNetwork: function () {
-                console.log('el device');
+                /*console.log('el device');
                 console.log(this.isDevice());
                 console.log('navigator');
                 console.log(navigator);
@@ -90,7 +90,7 @@ try {
                 console.log('navigator.network.connection');
                 console.log(navigator.network.connection);
                 console.log('navigator.network.connection.type');
-                console.log(navigator.network.connection.type);
+                console.log(navigator.network.connection.type);*/
                 if (!this.isDevice() || (navigator.network !== "undefined"  && navigator.network.connection.type !== Connection.NONE)) {
                     return true;
                 } else {
