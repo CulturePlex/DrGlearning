@@ -25,6 +25,8 @@ try {
                 },{
                     xtype: 'selectfield',
                     id: 'locale',
+                    inputCls: localStorage.alignCls,
+                    labelCls: localStorage.alignCls,
                     label: i18n.gettext('Language'),
                     margin: 5,
                     value: localStorage.locale || "en",
