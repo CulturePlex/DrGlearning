@@ -4,7 +4,7 @@
 */
 
 /*global
-    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace Connection
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace Connection console
 */
 
 
@@ -61,12 +61,39 @@ try {
                 68: i18n.gettext('Life Sciences'),
                 69: i18n.gettext('Military Sciences'),
                 70: i18n.gettext('Space Sciences'),
-                71: i18n.gettext('Sports and Recreation'),
+                71: i18n.gettext('Sports and Recreation')
             },
             init: function () {
-            this.showLog=true;
+                this.showLog = true;
+                this.visualController = this.getApplication().getController('activities.VisualController');
+                this.careerController = this.getApplication().getController('CareerController');
+                this.levelController = this.getApplication().getController('LevelController');
+                this.careersListController = this.getApplication().getController('CareersListController');
             },
             onLaunch: function () {
+            },
+            toHome: function () {
+                Ext.Viewport.setMasked(false);
+                var view = this.levelController.getActivityframe();
+                if (typeof(view) !== 'undefined') {
+                    view.hide();
+                }
+                this.visualController.stop();
+            
+                var view1 = this.levelController.getLevelframe();
+                if (typeof(view1) !== 'undefined')
+                {
+                    view1.hide();
+                }
+                
+                localStorage.selectedcareer = 0;
+                
+                var view2 = this.careerController.careerFrame;
+                if (typeof(view1) !== 'undefined')
+                {
+                    view2.hide();
+                }
+                this.careersListController.index();
             },
             getServerURL: function () {
                 //return 'http://drglearning.testing.cultureplex.ca';

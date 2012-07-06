@@ -1,3 +1,11 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+/*global
+    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert StackTrace
+*/
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -21,7 +29,7 @@ try {
                         easing: 'ease-out'
                     },
                     
-                    centered:true,
+                    centered: true,
                     
                     html: '<iframe name="i1" src="terms.txt" width= 240 frameborder="0"/>',
                     //'<iframe src="http://www.facebook.com/plugins/like.php?href=YOUR_URL" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px"></iframe>'
@@ -50,23 +58,34 @@ try {
                             docked: 'bottom',
                             xtype: 'toolbar',
                             items: [
-                                {xtype:'spacer'},
-                                {xtype: 'button',
-                                text: i18n.gettext('I Agree'),
-                                ui: 'confirm',
-                                listeners : {
-                                     tap : function() {
-                                           this.parent.parent.hide();
-                                     }
-                                 }
+                                {xtype: 'spacer'},
+                                {
+                                    xtype: 'button',
+                                    text: i18n.gettext('I Agree'),
+                                    ui: 'confirm',
+                                    listeners : {
+                                        tap : function () {
+                                            this.parent.parent.hide();
+                                        }
+                                    }
                                 },
-                                {xtype:'spacer'}
+                                {xtype: 'spacer'},
+                                {
+                                    xtype: 'button',
+                                    text: i18n.gettext('Cancel'),
+                                    ui: 'decline',
+                                    listeners : {
+                                        tap : function () {
+                                            this.parent.parent.hide();
+                                        }
+                                    }
+                                },
+                                {xtype: 'spacer'}
                             ]
                         }
                     ]
-            }
-        });
-
+                }
+            });
     // Exceptions Catcher End
     })();
 } catch (ex) {
