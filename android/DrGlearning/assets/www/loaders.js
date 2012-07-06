@@ -34,12 +34,12 @@ function StackTrace(ex) {
     } else {
         console.log(ex);
     }
-}
-
-function ToHome() {
-    if (typeof(DrGlearning) !== 'undefined')
-    {
-        DrGlearning.app.getController('GlobalSettingsController').toHome();
+    if (typeof(DrGlearning) !== 'undefined') {
+        try {
+            DrGlearning.app.getController('GlobalSettingsController').toHome();
+        } catch (ex4) {
+            console.log("Failed at showing Home screen");
+        }
     }
 }
 
