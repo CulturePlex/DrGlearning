@@ -73,7 +73,7 @@ try {
             onLaunch: function () {
             },
             toHome: function () {
-                
+                Ext.Viewport.setMasked(false);
                 var view = this.levelController.getActivityframe();
                 if (typeof(view) !== 'undefined') {
                     view.hide();
