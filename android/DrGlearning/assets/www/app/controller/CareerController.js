@@ -53,7 +53,7 @@ try {
             toLearn: function ()
             {
                 var learn =  Ext.create('DrGlearning.view.Learn');
-                learn.setHtml('<iframe width= "100%" src="http://www.youtube.com/embed/LWgvwxsUN1Y" frameborder="0" allowfullscreen></iframe>');
+                learn.setHtml('<iframe width= "100%" src="http://www.youtube.com/embed/ebZHfxPBJU0" frameborder="0" allowfullscreen></iframe>');
                 Ext.Viewport.add(learn);
                 learn.show();
             },
