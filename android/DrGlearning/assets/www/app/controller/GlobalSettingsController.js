@@ -65,11 +65,35 @@ try {
             },
             init: function () {
                 this.showLog = true;
+                this.visualController = this.getApplication().getController('activities.VisualController');
+                this.careerController = this.getApplication().getController('CareerController');
+                this.levelController = this.getApplication().getController('LevelController');
                 this.careersListController = this.getApplication().getController('CareersListController');
             },
             onLaunch: function () {
             },
             toHome: function () {
+                
+                var view = this.levelController.getActivityframe();
+                if (typeof(view) !== 'undefined') {
+                    view.hide();
+                }
+                this.visualController.stop();
+            
+                var view1 = this.levelController.getLevelframe();
+                if (typeof(view1) !== 'undefined')
+                {
+                    view1.hide();
+                }
+                
+                localStorage.selectedcareer = 0;
+                
+                var view2 = this.careerController.careerFrame;
+                if (typeof(view1) !== 'undefined')
+                {
+                    view2.hide();
+                }
+                this.careersListController.index();
             },
             getServerURL: function () {
                 //return 'http://drglearning.testing.cultureplex.ca';
