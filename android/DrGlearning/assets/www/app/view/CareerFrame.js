@@ -42,6 +42,15 @@ try {
                             },
                             {
                                 xtype: 'button',
+                                id: 'learn',
+                                text: i18n.gettext('Learn'),
+                                customId:'learn'
+                            },
+                            {
+                                 xtype: 'spacer' 
+                            },
+                            {
+                                xtype: 'button',
                                 text: i18n.gettext('Start'),
                                 id: 'startLevel',
                                 customId: 'startLevel'
