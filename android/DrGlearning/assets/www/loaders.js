@@ -3,7 +3,7 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert
+    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert DrGlearning
 */
 
 function StackTrace(ex) {
@@ -31,6 +31,13 @@ function StackTrace(ex) {
         }
     } else {
         console.log(ex);
+    }
+}
+
+function ToHome() {
+    if(typeof(DrGlearning) !== 'undefined')
+    {
+        DrGlearning.app.getController('GlobalSettingsController').toHome();
     }
 }
 

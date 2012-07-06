@@ -4,7 +4,7 @@
 */
 
 /*global
-    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace Connection
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace Connection console
 */
 
 
@@ -61,12 +61,15 @@ try {
                 68: i18n.gettext('Life Sciences'),
                 69: i18n.gettext('Military Sciences'),
                 70: i18n.gettext('Space Sciences'),
-                71: i18n.gettext('Sports and Recreation'),
+                71: i18n.gettext('Sports and Recreation')
             },
             init: function () {
-            this.showLog=true;
+                this.showLog = true;
+                this.careersListController = this.getApplication().getController('CareersListController');
             },
             onLaunch: function () {
+            },
+            toHome: function () {
             },
             getServerURL: function () {
                 //return 'http://drglearning.testing.cultureplex.ca';

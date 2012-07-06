@@ -137,6 +137,7 @@ try {
                     var terms =  Ext.create('DrGlearning.view.Terms');
                     Ext.Viewport.add(terms);
                     terms.show();
+                    ToHome();
                     //Ext.Msg.alert(i18n.gettext('Terms and Conditions'), ' html: '<iframe scrolling="yes" src="http://www.google.com"></iframe>'', function (){});
                 },
                 careersRequest: function (searchString,knowledgeValue){

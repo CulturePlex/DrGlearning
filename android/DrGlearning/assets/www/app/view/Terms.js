@@ -73,7 +73,7 @@ try {
                                 {
                                     xtype: 'button',
                                     text: i18n.gettext('Cancel'),
-                                    ui: 'confirm',
+                                    ui: 'decline',
                                     listeners : {
                                         tap : function () {
                                             this.parent.parent.hide();
