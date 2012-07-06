@@ -6,24 +6,26 @@
     Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert
 */
 
+var VERSION = "0.2.2", TERMS_VERSION = "0.2.2";
+
 function StackTrace(ex) {
     var logger, msg;
     if (typeof(DEBUG) !== "undefined" && DEBUG) {
         try {
             msg = printStackTrace().join("\n-> ") + "\n @ " + ex;
-        } catch (ex) {
+        } catch (ex1) {
             msg = ex;
         }
         msg = (msg || "<None>").toString();
         try {
             navigator.notification.alert(msg);
-        } catch (ex) {
+        } catch (ex2) {
             try {
                 alert(msg);
-            } catch (ex) {
+            } catch (ex3) {
                 document.getElementById("stackLogger").style.display = "block";
                 logger = document.getElementById("stackLogger");
-                // It is a DOM element, so we have watch the space
+                // It is a DOM element, so we have to watch the space
                 logger.innerHTML = "LOG: " + msg.substring(0, 100) + "<br/>" + logger.innerHTML.substring(0, 300);
             }
         } finally {
@@ -40,36 +42,58 @@ try {
 
         function onDeviceReady() {
             // Now safe to use the PhoneGap API
-            if ((typeof(DEBUG) !== "undefined" && DEBUG === "alert") && (navigator && typeof(navigator.notification) !== "undefined")) {
-                window.console = {log: (function (msg) {
-                    navigator.notification.alert("LOG: " + msg);
-                })};
-            }
             console.log('LAUNCH!!!');
             if (typeof(this.getController) !== "undefined") {
                 this.getController('LoadingController').onLaunch();
             }
         }
 
-        // Loaders
-        yepnope([{
-            // Debug mode remote
-            test: typeof(DEBUG) !== "undefined" && DEBUG === "remote",
-            yep: "http://debug.phonegap.com/target/target-script-min.js#drglearning"
-        }, {
-            // Debug mode Firebug
-            test: typeof(DEBUG) !== "undefined" && DEBUG === "firebug",
-            yep: "https://getfirebug.com/firebug-lite-debug.js"
-        }, {
-            // Debug mode console
-            test: typeof(DEBUG) !== "undefined" && DEBUG,
-            yep: "resources/js/stacktrace-min-0.3.js",
-            complete: function () {
-                if (typeof(FBL) !== "undefined") {
-                    FBL.Firebug.chrome.close();
-                    window.console = FBL.Firebug.Console;
+        function load() {
+            // Loaders
+            yepnope([{
+                // Locales
+                test: ["es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0,
+                yep: "resources/js/locales/" + localStorage.locale + ".js",
+                nope: "resources/js/locales/en.js"
+            }, {
+                // PhoneGap local vs. PhoneGap:Build
+                test: typeof(PhoneGap) === "undefined",
+                nope: "resources/js/cordova-1.7.0.js",
+                complete: function () {
+                    document.addEventListener("deviceready", onDeviceReady, false);
                 }
-                if (typeof(DEBUG) !== "undefined") {
+            }, {
+                // MathJax
+                test: typeof(MathJax) === "undefined",
+                yep: "resources/js/mathjax/MathJax.js"
+            }, {
+                // JSON
+                test: typeof(JSON) === "undefined",
+                yep: "resources/js/json2.min.js"
+            }, {
+                // Main
+                load: "drglearningapp.js"
+            }]);
+        }
+
+        // Debug loaders
+        if (typeof(DEBUG) !== "undefined") {
+            yepnope([{
+                // Debug mode remote
+                test: DEBUG === "remote",
+                yep: "http://debug.phonegap.com/target/target-script-min.js#drglearning"
+            }, {
+                // Debug mode Firebug
+                test: DEBUG === "firebug",
+                yep: "https://getfirebug.com/firebug-lite-debug.js"
+            }, {
+                // Debug mode console
+                load: "resources/js/stacktrace-min-0.3.js",
+                complete: function () {
+                    if (typeof(FBL) !== "undefined") {
+                        FBL.Firebug.chrome.close();
+                        window.console = FBL.Firebug.Console;
+                    }
                     if (DEBUG === "alert") {
                         if (navigator && typeof(navigator.notification) !== "undefined") {
                             window.console = {log: (function (msg) {
@@ -89,32 +113,12 @@ try {
                             logger.innerHTML = "LOG: " + msg.substring(0, 100) + "<br/>" + logger.innerHTML.substring(0, 300);
                         })};
                     }
+                    load();
                 }
-            }
-        }, {
-            // Locales
-            test: ["ar", "es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0,
-            yep: "resources/js/locales/" + localStorage.locale + ".js",
-            nope: "resources/js/locales/en.js"
-        }, {
-            // PhoneGap local vs. PhoneGap:Build
-            test: typeof(PhoneGap) === "undefined",
-            nope: "resources/js/cordova.js",
-            complete: function () {
-                document.addEventListener("deviceready", onDeviceReady, false);
-            }
-        }, {
-            // MathJax
-            test: typeof(MathJax) === "undefined",
-            yep: "resources/js/mathjax/MathJax.js"
-        }, {
-            // JSON
-            test: typeof(JSON) === "undefined",
-            yep: "resources/js/json2.min.js"
-        }, {
-            // Main
-            load: "drglearningapp.js"
-        }]);
+            }]);
+        } else {
+            load();
+        }
 
     // Exceptions Catcher End
     })();
