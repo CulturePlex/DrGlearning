@@ -35,7 +35,7 @@ function StackTrace(ex) {
 }
 
 function ToHome() {
-    if(typeof(DrGlearning) !== 'undefined')
+    if (typeof(DrGlearning) !== 'undefined')
     {
         DrGlearning.app.getController('GlobalSettingsController').toHome();
     }
