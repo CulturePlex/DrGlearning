@@ -4,7 +4,7 @@ from tastypie import fields
 from tastypie.resources import ModelResource, ALL_WITH_RELATIONS
 
 from activities.api import ActivityUpdateResource
-from base.utils import dehydrate_fields
+from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
 
 
@@ -62,6 +62,26 @@ class CareerResource(ModelResource):
         bundle.data["size"] = size
         bundle.data["levels"] = sorted(levels)
         return dehydrate_fields(bundle)
+
+    def alter_detail_data_to_serialize(self, request, data):
+        width = request.GET.get("deviceWidth", 200)
+        height= request.GET.get("deviceHeight", 200)
+        if data.data["content_url"]:
+            data.data["content"] = get_oembed(data.data["content_url"],
+                                              maxwidth=width, maxheight=height,
+                                              format="json")
+        else:
+            data.data["content_url"] = None
+        for i in xrange(1, 11):
+            level_url = data.data["content_level%s_url" % i]
+            if level_url:
+                data.data["content_level%s" % i] = get_oembed(level_url,
+                                                              format="json",
+                                                              maxwidth=width,
+                                                              maxheight=height)
+            else:
+                data.data["content_level%s" % i] = None
+        return data
 
     def alter_list_data_to_serialize(self, request, data):
         # Filter careers without activities

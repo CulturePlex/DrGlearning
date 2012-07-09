@@ -53,6 +53,62 @@ class Career(models.Model):
                                          help_text=_("Choose the 5 knowledges "
                                                      "fields that suit better "
                                                      "your course"))
+    content_url = models.TextField(_("Course"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level1_url = models.TextField(_("Illetratum"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level2_url = models.TextField(_("Primary"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level3_url = models.TextField(_("Secondary"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level4_url = models.TextField(_("High School"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level5_url = models.TextField(_("College"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level6_url = models.TextField(_("Master"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level7_url = models.TextField(_("PhD."), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level8_url = models.TextField(_("Post-Doc"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level9_url = models.TextField(_("Professor"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+    content_level10_url = models.TextField(_("Emeritus"), default="",
+                                   blank=True, null=True,
+                                   help_text=_("URLs from YouTube, vimeo.com "
+                                               "or any other oEmbed compliant "
+                                               "site must work"))
+
 
     class Meta:
         unique_together = ('name', 'user')

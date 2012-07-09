@@ -127,7 +127,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'base64imagesizer.middleware.Base64ImageSizer'
+    'activities.middleware.Base64ImageSizer',
+    'knowledges.middleware.ContentURLEmbedder'
 )
 
 ROOT_URLCONF = 'urls'
@@ -216,10 +217,11 @@ ACCOUNT_FREE = {
     "storage": 100,
 }
 
-#API KEYS
+# API KEYS
 GOOGLE_API = "http://maps.google.com/maps/api/js?v=3&sensor=false"
 GOOGLE_API_KEY = 'AIzaSyD1ibezws-sdp2Suvn97eSakILyQsY8Wno'
 GOOGLE_ANALYTICS_CODE = "UA-1613313-11"
+EMBEDLY_API_KEY = "04ca8dcb8f484833b5557f27d016d315"
 
 # Other settings
 EMULATOR_URL = "http://drglearning.com/client/"

@@ -1,7 +1,11 @@
 import base64
+import urllib
+import urllib2
+import json
 
 from django.db.models.fields import DateTimeField
 from django.db.models.fields.files import ImageField
+from django.conf import settings
 from django.contrib.gis.db.models import GeometryField
 
 
@@ -50,3 +54,21 @@ def dehydrate_fields(bundle, child_obj=None):
         child_obj = bundle.obj
     bundle.data.update(jsonify_fields(child_obj))
     return bundle
+
+
+def get_oembed(url, **kwargs):
+    """
+    Embedly oEmbed Function
+    """
+    ACCEPTED_ARGS = ['maxwidth', 'maxheight', 'format']
+    api_url = 'http://api.embed.ly/1/oembed?'
+    params = {'url': url , 'key': settings.EMBEDLY_API_KEY }
+    for key, value in kwargs.items():
+        if key not in ACCEPTED_ARGS:
+            # raise ValueError("Invalid Argument %s" % key)
+            pass
+        else:
+            params[key] = value
+    oembed_call = "%s%s" % (api_url, urllib.urlencode(params))
+    return json.loads(urllib2.urlopen(oembed_call).read())
+

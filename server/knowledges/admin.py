@@ -2,6 +2,7 @@
 from django import forms
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminTextInputWidget
 from django.utils.translation import gettext as _
 
 from guardian.admin import GuardedModelAdmin
@@ -15,6 +16,14 @@ class CareerAdminForm(forms.ModelForm):
 
     class Meta:
         model = Career
+
+    def __init__(self, *args, **kwargs):
+        super(CareerAdminForm, self).__init__(*args, **kwargs)
+        widget = AdminTextInputWidget()
+        self.fields["content_url"].widget = widget
+        for i in range(1, 11):
+            widget = AdminTextInputWidget()
+            self.fields["content_level%s_url" % i].widget = widget
 
     def clean_published(self):
         published = self.cleaned_data["published"]
@@ -50,6 +59,22 @@ class CareerAdmin(GuardedModelAdmin):
                     "qrcode")
     list_filter = ("published", "knowledge_field")
     search_fields = ("name", "published", "description")
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'description', 'knowledge_field',
+                       'career_type', 'image',
+                       ('published', 'positive_votes', 'negative_votes'),)
+        }),
+        (_(u"Content"), {
+            'classes': ('collapse closed',),
+            'fields': ('content_url',
+                       'content_level1_url', 'content_level2_url',
+                       'content_level3_url', 'content_level4_url',
+                       'content_level5_url', 'content_level6_url',
+                       'content_level7_url', 'content_level8_url',
+                       'content_level9_url', 'content_level10_url',)
+        }),
+    )
 
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
