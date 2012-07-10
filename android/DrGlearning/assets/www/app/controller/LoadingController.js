@@ -181,14 +181,18 @@ try {
                             var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
                             var searchParams = {
                                 offset: localStorage.offset,
-                                name__contains: localStorage.searchString
+                                name__contains: localStorage.searchString,
+                                deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                                deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                             };
                             if(localStorage.knowledgeValue!== 'All' && localStorage.knowledgeValue !=='')
                             {
                                 searchParams={
                                     offset: localStorage.offset,
                                     name__contains: localStorage.searchString,
-                                    knowledges__name: localStorage.knowledgeValue
+                                    knowledges__name: localStorage.knowledgeValue,
+                                    deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                                 };
                             }
                             if(localStorage.knowledgeValue!== 'All' && localStorage.knowledgeValue ==='')
@@ -196,13 +200,17 @@ try {
                                 searchParams={
                                     offset: localStorage.offset,
                                     knowledges__name: localStorage.knowledgeValue,
+                                    deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                                 };
                             }
                             if(localStorage.knowledgeValue=== 'All' && localStorage.knowledgeValue !=='')
                             {
                                 searchParams={
                                     offset: localStorage.offset,
-                                    name__contains: localStorage.searchString
+                                    name__contains: localStorage.searchString,
+                                    deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                                 };
                             }
                             Ext.data.JsonP.request({
@@ -252,7 +260,7 @@ try {
                                                     started : false,
                                                     update : false,
                                                     size: career.size,
-                                                    career_type: career.career_type
+                                                    career_type: career.career_type,
                                             });
                                                
                                             var activities=new Array();
