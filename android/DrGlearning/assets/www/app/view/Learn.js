@@ -13,9 +13,10 @@ try {
             extend: 'Ext.Panel',
             xtype: 'learn',
             config: {
+                fullscreen: true,
                 // Make it modal so you can click the mask to hide the overlay
-                modal: true,
-                hideOnMaskTap: true,
+//                modal: true,
+//                hideOnMaskTap: true,
                 showAnimation: {
                     type: 'popIn',
                     duration: 250,
@@ -27,14 +28,11 @@ try {
                     easing: 'ease-out'
                 },
                 padding: 0,
-                centered: true,
-                //html: '<iframe name="i1" src="terms.txt" width= 240/>',
-                //'<iframe src="http://www.facebook.com/plugins/like.php?href=YOUR_URL" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px"></iframe>'
+//                centered: true,
                 // Make it hidden by default
                 hidden: true,
                 // Set the width and height of the panel
-                width: 300,
-                height: 209,
+//                layout: 'fit',
                 // Here we specify the #id of the element we created in `index.html`
                 contentEl: 'content',
                 // Style the content and make it scrollable
