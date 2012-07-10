@@ -50,6 +50,7 @@ try {
                             listeners : {
                                 tap : function () {
                                     this.parent.parent.hide();
+                                    DrGlearning.app.getController('CareerController').careerFrame.show();
                                 }
                             }
                             },

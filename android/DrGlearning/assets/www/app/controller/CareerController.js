@@ -56,6 +56,7 @@ try {
                 learn.setHtml('<iframe width= "100%" src="http://www.youtube.com/embed/ebZHfxPBJU0" frameborder="0" allowfullscreen></iframe>');
                 Ext.Viewport.add(learn);
                 learn.show();
+                this.careerFrame.hide();
             },
             /*
              * Back to installed careers list.
