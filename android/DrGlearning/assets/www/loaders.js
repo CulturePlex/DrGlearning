@@ -65,7 +65,7 @@ try {
             }, {
                 // PhoneGap local vs. PhoneGap:Build
                 test: typeof(PhoneGap) === "undefined",
-                nope: "resources/js/" + ((typeof(CORDOVA_PLATFORM) !== "undefined" && CORDOVA_PLATFORM) || "cordova.js"),
+                nope: "resources/js/cordova-1.7.0.js",
                 complete: function () {
                     document.addEventListener("deviceready", onDeviceReady, false);
                 }

@@ -426,15 +426,20 @@ try {
              * career).
              */
             addCareer: function () {
-                this.careersStore.clearFilter();
-                if (this.careersStore.getCount() === 0)
-                {
-                    //this.loadingController.careersRequest();
-                    this.showCareersToInstall();
-                }
-                else
-                {
-                    this.showCareersToInstall();
+                if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
+                    Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to install new careers'), function ()
+                        {}, this);
+                } else {
+                    this.careersStore.clearFilter();
+                    if (this.careersStore.getCount() === 0)
+                    {
+                        //this.loadingController.careersRequest();
+                        this.showCareersToInstall();
+                    }
+                    else
+                    {
+                        this.showCareersToInstall();
+                    }
                 }
             },
             /*
