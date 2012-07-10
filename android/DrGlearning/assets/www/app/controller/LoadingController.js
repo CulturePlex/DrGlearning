@@ -134,10 +134,19 @@ try {
                   }
                 },
                 showTerms: function () {
-                    var terms =  Ext.create('DrGlearning.view.Terms');
-                    Ext.Viewport.add(terms);
-                    terms.show();
-                    //Ext.Msg.alert(i18n.gettext('Terms and Conditions'), ' html: '<iframe scrolling="yes" src="http://www.google.com"></iframe>'', function (){});
+                    if( typeof( localStorage.terms_version ) === "undefined" )
+                    {
+                        var terms =  Ext.create('DrGlearning.view.Terms');
+                        Ext.Viewport.add(terms);
+                        terms.show();
+                        localStorage.terms_version = TERMS_VERSION;
+                    }
+                    if(TERMS_VERSION !== localStorage.terms_version)
+                    {
+                        var terms =  Ext.create('DrGlearning.view.Terms');
+                        Ext.Viewport.add(terms);
+                        terms.show();
+                    }
                 },
                 careersRequest: function (searchString,knowledgeValue){
                         if( localStorage.searchString != searchString || localStorage.knowledgeValue != knowledgeValue)
