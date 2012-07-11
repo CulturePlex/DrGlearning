@@ -71,7 +71,7 @@ class CareerResource(ModelResource):
                                               maxwidth=width, maxheight=height,
                                               format="json")
         else:
-            data.data["content_url"] = None
+            data.data["content"] = None
         for i in xrange(1, 11):
             level_url = data.data["content_level%s_url" % i]
             if level_url:
