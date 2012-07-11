@@ -7,6 +7,9 @@
 */
 
 var VERSION = "0.2.2", TERMS_VERSION = "0.2.2";
+if (typeof(CORDOVA_PLATFORM) === "undefined") {
+    var CORDOVA_PLATFORM = "cordova.js";
+}
 
 function StackTrace(ex) {
     var logger, msg;
@@ -34,9 +37,9 @@ function StackTrace(ex) {
     } else {
         console.log(ex);
     }
-    if (typeof(DrGlearning) !== 'undefined') {
+    if (typeof(DrGlearning) !== "undefined") {
         try {
-            DrGlearning.app.getController('GlobalSettingsController').toHome();
+            DrGlearning.app.getController("GlobalSettingsController").toHome();
         } catch (ex4) {
             console.log("Failed at showing Home screen");
         }
@@ -49,9 +52,9 @@ try {
 
         function onDeviceReady() {
             // Now safe to use the PhoneGap API
-            console.log('LAUNCH!!!');
+            console.log("LAUNCH!!!");
             if (typeof(this.getController) !== "undefined") {
-                this.getController('LoadingController').onLaunch();
+                this.getController("LoadingController").onLaunch();
             }
         }
 
@@ -65,7 +68,7 @@ try {
             }, {
                 // PhoneGap local vs. PhoneGap:Build
                 test: typeof(PhoneGap) === "undefined",
-                nope: "resources/js/cordova-1.7.0.js",
+                nope: "resources/js/" + CORDOVA_PLATFORM,
                 complete: function () {
                     document.addEventListener("deviceready", onDeviceReady, false);
                 }
