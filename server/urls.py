@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from tastypie.api import Api
 
-from knowledges.api import KnowledgeResource, CareerResource
+from knowledges.api import KnowledgeResource, CareerResource, EmbedResource
 from activities.api import ActivityResource, ActivityUpdateResource
 from players.api import ScoreResource, PlayerResource
 # from django.contrib import admin
@@ -15,6 +15,7 @@ admin.autodiscover()
 v1_api = Api(api_name='v1')
 v1_api.register(KnowledgeResource())
 v1_api.register(CareerResource())
+v1_api.register(EmbedResource())
 v1_api.register(ActivityResource())
 v1_api.register(ActivityUpdateResource())
 v1_api.register(PlayerResource())
