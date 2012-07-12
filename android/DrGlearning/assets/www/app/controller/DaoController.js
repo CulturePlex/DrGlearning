@@ -145,6 +145,27 @@ try {
                         }
                     });
                 }
+                console.log(career);
+                Ext.data.JsonP.request({
+                    scope: this,
+                    url: HOST + '/' + career.data.contents + '?format=jsonp',
+                    params: {
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                    },
+                    success: function (response, opts) {
+                        console.log(response);
+                        for(var uri in response)
+                        {
+                            console.log(response[uri]);
+                            career.set(uri,response[uri]);
+                        }
+                        console.log(career);
+                    },
+                    failure: function () {
+                        console.log('fallo');
+                    }
+                });
                 
             },
             

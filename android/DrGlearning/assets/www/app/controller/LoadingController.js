@@ -261,8 +261,9 @@ try {
                                                     update : false,
                                                     size: career.size,
                                                     career_type: career.career_type,
+                                                    contents: career.contents.resource_uri
                                             });
-                                               
+                                            console.log(career.contents);
                                             var activities=new Array();
                                             for(cont in career.activities){
                                                 activities[cont]=career.activities[cont].full_activity_url;

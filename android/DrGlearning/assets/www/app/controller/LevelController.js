@@ -26,6 +26,7 @@ try {
                 }
             },
             currentActivity: null,
+            learnlevelHtml: null,
             /*
              * Initializate Controller.
              */
@@ -34,6 +35,7 @@ try {
                 this.careerController = this.getApplication().getController('CareerController');
                 this.levelController = this.getApplication().getController('LevelController');
                 this.daoController = this.getApplication().getController('DaoController');
+                this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 
                 this.quizController = this.getApplication().getController('activities.QuizController');
                 this.visualController = this.getApplication().getController('activities.VisualController');
@@ -52,8 +54,6 @@ try {
                 this.activitieslist = this.getLevelframe().down('list[customId=activitiesList]');
                 this.levelTitle = this.getLevelframe().down('title[id=title]');
                 this.activityTitle = this.getActivityframe().down('title[customId=title]');
-                this.careerFrame = 
-                
                 this.control({
                     'button[id=help]': {
                         tap: this.help
@@ -75,8 +75,20 @@ try {
                     },
                     'list[customId=activitiesList]': {
                         itemtap: this.startActivity
+                    },
+                    'button[customId=learnlevel]': {
+                        tap: this.toLearnLevel
                     }
                 });
+            },
+            toLearnLevel: function ()
+            {
+                var learn =  Ext.create('DrGlearning.view.Learn');
+                this.globalSettingsController.learnParent = this.getLevelframe();
+                learn.setHtml(this.learnlevelHtml);
+                Ext.Viewport.add(learn);
+                learn.show();
+                this.getLevelframe().hide();
             },
             /*
              * Showing levels view.
@@ -122,6 +134,17 @@ try {
                     this.getLevelframe().show();
                     if (typeof(MathJax) !== "undefined") {
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                    }
+                    var levelString = "level"+newLevel;
+                    console.log(levelString);
+                    if (newCareer.data[levelString] === null )
+                    {
+                        this.getLevelframe().down('button[customId=learnlevel]').hide();
+                    }
+                    else
+                    {
+                        this.learnlevelHtml = newCareer.data[levelString].html;
+                        this.getLevelframe().down('button[customId=learnlevel]').show();
                     }
                 }
                 else

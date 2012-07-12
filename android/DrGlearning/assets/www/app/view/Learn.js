@@ -3,7 +3,7 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed i18n FBL DEBUG PhoneGap MathJax JSON console printStackTrace alert StackTrace
+    Ext Jed i18n FBL DEBUG PhoneGap MathJax JSON console printStackTrace alert StackTrace DrGlearning
 */
 try {
     (function () {
@@ -50,7 +50,8 @@ try {
                             listeners : {
                                 tap : function () {
                                     this.parent.parent.hide();
-                                    DrGlearning.app.getController('CareerController').careerFrame.show();
+                                    console.log(DrGlearning.app.getController('GlobalSettingsController').learnParent);
+                                    DrGlearning.app.getController('GlobalSettingsController').learnParent.show();
                                 }
                             }
                             },
