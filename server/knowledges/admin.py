@@ -58,7 +58,7 @@ class CareerAdmin(GuardedModelAdmin):
     list_display = ("name", "published", "description", "activities",
                     "qrcode")
     list_filter = ("published", "knowledge_field")
-    search_fields = ("name", "published", "description")
+    search_fields = ("name", "published", "description", "language_code")
     fieldsets = (
         (None, {
             'fields': ('name', 'description', 'knowledge_field',
@@ -68,17 +68,22 @@ class CareerAdmin(GuardedModelAdmin):
         (_(u"Content"), {
             'classes': ('collapse closed',),
             'fields': ('content_url',
-                       'content_level1_url', 'content_level2_url',
-                       'content_level3_url', 'content_level4_url',
-                       'content_level5_url', 'content_level6_url',
-                       'content_level7_url', 'content_level8_url',
-                       'content_level9_url', 'content_level10_url',)
+                       'description_level1', 'content_level1_url',
+                       'description_level2', 'content_level2_url',
+                       'description_level3', 'content_level3_url',
+                       'description_level4', 'content_level4_url',
+                       'description_level5', 'content_level5_url',
+                       'description_level6', 'content_level6_url',
+                       'description_level7', 'content_level7_url'
+                       'description_level8', 'content_level8_url',
+                       'description_level9', 'content_level9_url'
+                       'description_level10', 'content_level10_url')
         }),
     )
 
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
-                        'geospatial', 'quiz'):
+                       'geospatial', 'quiz'):
             if hasattr(a, a_type):
                 return a_type
         return None
@@ -88,7 +93,8 @@ class CareerAdmin(GuardedModelAdmin):
                 for a in Career.objects.get(pk=object_id).activity_set.all()]
         career_activities = []
         for value, text in Activity.TYPE_CHOICES:
-            career_activities.append((text, [a for a in all_activities if a[0].level_type==value]))
+            career_activities.append((text, [a for a in all_activities
+                                             if a[0].level_type == value]))
         context = {"activities_by_level": career_activities,
                     "activities_count": len(all_activities)}
         return super(CareerAdmin, self).change_view(request, object_id,

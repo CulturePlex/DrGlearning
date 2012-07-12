@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
 from base.utils import jsonify_fields
-from knowledges.models import Career, LAN_CHOICES
+from knowledges.models import Career
 from south.modelsinspector import add_introspection_rules
 
 # South and PostGis integration patch
@@ -45,7 +45,7 @@ class Activity(models.Model):
     name = models.CharField(_("name"), max_length=255)
     career = models.ForeignKey(Career, verbose_name=_("Course"))
     language_code = models.CharField(_("language"), max_length=5,
-                                     choices=LAN_CHOICES, default="en",
+                                     choices=Career.LAN_CHOICES, default="en",
                                      null=True, blank=True,
                                      help_text=_("Language of the "
                                                  "activity"))

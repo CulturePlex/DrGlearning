@@ -8,15 +8,6 @@ from django.utils.translation import gettext as _
 
 from knowledges.templatetags.knowledges_extras import api_url
 
-LAN_CHOICES = (
-    ("en", _(u"English")),
-    ("es", _(u"Español")),
-    ("fr", _(u"Français")),
-    ("de", _(u"Deutsch")),
-    ("pt", _(u"Português")),
-    ("ch", _(u"中國")),
-    ("jp", _(u"日語")),
-)
 
 class Knowledge(models.Model):
     name = models.CharField(_('name'), max_length=255)
@@ -33,6 +24,15 @@ class Knowledge(models.Model):
 
 
 class Career(models.Model):
+    LAN_CHOICES = (
+        ("en", _(u"English")),
+        ("es", _(u"Español")),
+        ("fr", _(u"Français")),
+        ("de", _(u"Deutsch")),
+        ("pt", _(u"Português")),
+        ("ch", _(u"中國")),
+        ("jp", _(u"日語")),
+    )
     MODE_CHOICES = (
         ('explore', _("Explore, it allows players to play any level any time")),
         ('exam', _("Exam, it requires to pass the current level before "
@@ -70,52 +70,72 @@ class Career(models.Model):
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level1_url = models.TextField(_("Illetratum"), default="",
+    description_level1 = models.TextField(_("Illetratum URL"), default="",
+                                          blank=True, null=True)
+    content_level1_url = models.TextField(_("Illetratum URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level2_url = models.TextField(_("Primary"), default="",
+    description_level2 = models.TextField(_("Primary"), default="",
+                                          blank=True, null=True)
+    content_level2_url = models.TextField(_("Primary URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level3_url = models.TextField(_("Secondary"), default="",
+    description_level3 = models.TextField(_("Secondary"), default="",
+                                          blank=True, null=True)
+    content_level3_url = models.TextField(_("Secondary URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level4_url = models.TextField(_("High School"), default="",
+    description_level4 = models.TextField(_("High School"), default="",
+                                          blank=True, null=True)
+    content_level4_url = models.TextField(_("High School URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level5_url = models.TextField(_("College"), default="",
+    description_level5 = models.TextField(_("College"), default="",
+                                          blank=True, null=True)
+    content_level5_url = models.TextField(_("College URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level6_url = models.TextField(_("Master"), default="",
+    description_level6 = models.TextField(_("Master"), default="",
+                                          blank=True, null=True)
+    content_level6_url = models.TextField(_("Master URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level7_url = models.TextField(_("PhD."), default="",
+    description_level7 = models.TextField(_("PhD."), default="",
+                                          blank=True, null=True)
+    content_level7_url = models.TextField(_("PhD. URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level8_url = models.TextField(_("Post-Doc"), default="",
+    description_level8 = models.TextField(_("Post-Doc"), default="",
+                                          blank=True, null=True)
+    content_level8_url = models.TextField(_("Post-Doc URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level9_url = models.TextField(_("Professor"), default="",
+    description_level9 = models.TextField(_("Professor"), default="",
+                                          blank=True, null=True)
+    content_level9_url = models.TextField(_("Professor URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    content_level10_url = models.TextField(_("Emeritus"), default="",
+    description_level10 = models.TextField(_("Emeritus"), default="",
+                                           blank=True, null=True)
+    content_level10_url = models.TextField(_("Emeritus URL"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "

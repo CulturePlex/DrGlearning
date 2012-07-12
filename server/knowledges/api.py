@@ -49,6 +49,8 @@ class EmbedResource(Resource):
                                                       maxheight=height)
             else:
                 data.data["level%s" % i] = None
+            description_level = getattr(data.obj, "description_level%s" % i)
+            data.data["level%s_description" % i] = description_level
         return data
 
     def obj_get(self, request=None, **kwargs):
