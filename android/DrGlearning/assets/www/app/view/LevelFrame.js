@@ -39,16 +39,21 @@ try {
                                 controller: 'DrGlearning.controller.Career',
                                 action: 'index'
                                 
-                            }/*,
-                            {
+                            },{
                                  xtype: 'spacer' 
                             },
                             {
                                 xtype: 'button',
-                                text: 'Start',
-                                id: 'startActivity'
-                                
-                              }*/
+                                id: 'learnlevel',
+                                text: i18n.gettext('Learn'),
+                                customId:'learnlevel'
+                            },
+                            {
+                                 xtype: 'spacer' 
+                            },
+                            {
+                                 xtype: 'spacer' 
+                            }
                             ]
                         
                     },

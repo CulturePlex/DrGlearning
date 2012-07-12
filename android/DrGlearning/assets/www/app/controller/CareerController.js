@@ -34,6 +34,7 @@ try {
                 this.daoController = this.getApplication().getController('DaoController');
                 this.levelsStore = Ext.getStore('Levels');
                 this.careerFrame = Ext.create('DrGlearning.view.CareerFrame');
+                this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.control({
                     'button[customId=startLevel]': {
                         tap: this.startLevel
@@ -58,6 +59,7 @@ try {
                 learn.setHtml(this.learnHtml);
                 Ext.Viewport.add(learn);
                 learn.show();
+                this.globalSettingsController.learnParent = this.careerFrame;
                 this.careerFrame.hide();
             },
             /*
