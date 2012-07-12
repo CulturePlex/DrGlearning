@@ -51,6 +51,9 @@ class EmbedResource(Resource):
                 data.data["level%s" % i] = None
             description_level = getattr(data.obj, "description_level%s" % i)
             data.data["level%s_description" % i] = description_level
+        # Update downloads
+        data.obj.total_downloads += 1
+        data.obj.save()
         return data
 
     def obj_get(self, request=None, **kwargs):
@@ -94,9 +97,20 @@ class CareerResource(ModelResource):
         queryset = Career.objects.all()
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']
-        excludes = ["content_url"]
-        for i in xrange(1, 11):
-            excludes.append("content_level%s_url" % i)
+        # excludes = ["content_url"]
+        # for i in xrange(1, 11):
+        #     excludes.append("content_level%s_url" % i)
+        excludes = ('content_url',
+                    'description_level1', 'content_level1_url',
+                    'description_level2', 'content_level2_url',
+                    'description_level3', 'content_level3_url',
+                    'description_level4', 'content_level4_url',
+                    'description_level5', 'content_level5_url',
+                    'description_level6', 'content_level6_url',
+                    'description_level7', 'content_level7_url',
+                    'description_level8', 'content_level8_url',
+                    'description_level9', 'content_level9_url',
+                    'description_level10', 'content_level10_url')
 
     def get_object_list(self, request):
         if 'testing' in request.GET:

@@ -41,10 +41,13 @@ class Career(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
     user = models.ForeignKey(User, verbose_name="user")
+    total_downloads = models.IntegerField(_("downloads"), default=0,
+                                          help_text=_("Total number of "
+                                                      "downloads"))
     positive_votes = models.IntegerField(_("positive votes"), default=0,
                                         help_text=_("Negative votes received"))
     negative_votes = models.IntegerField(_("negative votes"), default=0,
-                                        help_text=_("Negative votes received"))
+                                         help_text=_("Negative votes received"))
     language_code = models.CharField(_("language"), max_length=5,
                                      choices=LAN_CHOICES, default="en",
                                      help_text=_("Language of the course"))

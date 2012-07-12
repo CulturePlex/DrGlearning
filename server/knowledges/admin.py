@@ -46,7 +46,7 @@ class CareerAdminForm(forms.ModelForm):
 class CareerAdmin(GuardedModelAdmin):
     form = CareerAdminForm
     exclude = ("user", )
-    readonly_fields = ("positive_votes", "negative_votes")
+    readonly_fields = ("positive_votes", "negative_votes", "total_downloads")
     # Setting this attribute to True makes the magic of "hiding" not owned objects
     user_can_access_owned_objects_only = True
     change_form_template = 'admin/knowledges/career/change_form.html'
@@ -63,7 +63,8 @@ class CareerAdmin(GuardedModelAdmin):
         (None, {
             'fields': ('name', 'description', 'knowledge_field',
                        'language_code', 'career_type', 'image',
-                       ('published', 'positive_votes', 'negative_votes'),)
+                       ('published', 'positive_votes', 'negative_votes',
+                        'total_downloads'),)
         }),
         (_(u"Content"), {
             'classes': ('collapse closed',),
