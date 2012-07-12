@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 
 from base.utils import jsonify_fields
-from knowledges.models import Career
+from knowledges.models import Career, LAN_CHOICES
 from south.modelsinspector import add_introspection_rules
 
 # South and PostGis integration patch
@@ -30,15 +30,6 @@ add_introspection_rules([], ["^django\.contrib\.gis"])
 
 
 class Activity(models.Model):
-    LAN_CHOICES = (
-        ("en", _(u"English")),
-        ("es", _(u"Español")),
-        ("fr", _(u"Français")),
-        ("de", _(u"Deutsch")),
-        ("pt", _(u"Português")),
-        ("ch", _(u"中國")),
-        ("jp", _(u"日語")),
-    )
     TYPE_CHOICES = (
         (1, _(u"Illetratum")),
         (2, _(u"Primary")),
@@ -53,8 +44,9 @@ class Activity(models.Model):
     )
     name = models.CharField(_("name"), max_length=255)
     career = models.ForeignKey(Career, verbose_name=_("Course"))
-    language_code = models.CharField(_("language"), max_length=2,
-                                     choices=LAN_CHOICES,
+    language_code = models.CharField(_("language"), max_length=5,
+                                     choices=LAN_CHOICES, default="en",
+                                     null=True, blank=True,
                                      help_text=_("Language of the "
                                                  "activity"))
     timestamp = models.DateTimeField(auto_now=True)
@@ -183,6 +175,8 @@ class Activity(models.Model):
         self.timestamp = datetime.datetime.now()
         self.career.timestamp = self.timestamp
         self.career.save()
+        if not self.language_code and self.career.language_code:
+            self.language_code = self.career.language_code
         super(Activity, self).save(*args, **kwargs)
 
     def export(self):

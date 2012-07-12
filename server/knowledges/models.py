@@ -8,6 +8,15 @@ from django.utils.translation import gettext as _
 
 from knowledges.templatetags.knowledges_extras import api_url
 
+LAN_CHOICES = (
+    ("en", _(u"English")),
+    ("es", _(u"Español")),
+    ("fr", _(u"Français")),
+    ("de", _(u"Deutsch")),
+    ("pt", _(u"Português")),
+    ("ch", _(u"中國")),
+    ("jp", _(u"日語")),
+)
 
 class Knowledge(models.Model):
     name = models.CharField(_('name'), max_length=255)
@@ -36,6 +45,9 @@ class Career(models.Model):
                                         help_text=_("Negative votes received"))
     negative_votes = models.IntegerField(_("negative votes"), default=0,
                                         help_text=_("Negative votes received"))
+    language_code = models.CharField(_("language"), max_length=5,
+                                     choices=LAN_CHOICES, default="en",
+                                     help_text=_("Language of the course"))
     career_type = models.CharField(max_length=20,
                                    verbose_name=_("modality"),
                                    choices=MODE_CHOICES,

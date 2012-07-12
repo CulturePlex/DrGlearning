@@ -62,7 +62,7 @@ class CareerAdmin(GuardedModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('name', 'description', 'knowledge_field',
-                       'career_type', 'image',
+                       'language_code', 'career_type', 'image',
                        ('published', 'positive_votes', 'negative_votes'),)
         }),
         (_(u"Content"), {
