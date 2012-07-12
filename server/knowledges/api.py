@@ -1,7 +1,9 @@
 from django.db.models.fields.files import ImageField
+from django.db.models.query import EmptyQuerySet
 
 from tastypie import fields
-from tastypie.resources import ModelResource, ALL_WITH_RELATIONS
+from tastypie.bundle import Bundle
+from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
 from activities.api import ActivityUpdateResource
 from base.utils import dehydrate_fields, get_oembed
@@ -21,6 +23,57 @@ class KnowledgeResource(ModelResource):
         detail_allowed_methods = ['get']
 
 
+class EmbedResource(Resource):
+
+    class Meta:
+        resource_name = 'embed'
+        include_resource_uri = True
+
+    def alter_detail_data_to_serialize(self, request, data):
+        width = request.GET.get("deviceWidth", 200)
+        height= request.GET.get("deviceHeight", 200)
+        data.data["main_url"] = data.obj.content_url
+        if data.obj.content_url:
+            data.data["main"] = get_oembed(data.obj.content_url,
+                                              maxwidth=width, maxheight=height,
+                                              format="json")
+        else:
+            data.data["main"] = None
+        for i in xrange(1, 11):
+            level_url = getattr(data.obj, "content_level%s_url" % i)
+            data.data["level%s_url" % i] = level_url
+            if level_url:
+                data.data["level%s" % i] = get_oembed(level_url,
+                                                      format="json",
+                                                      maxwidth=width,
+                                                      maxheight=height)
+            else:
+                data.data["level%s" % i] = None
+        return data
+
+    def obj_get(self, request=None, **kwargs):
+        if "pk" in kwargs:
+            obj = Career.objects.get(pk=kwargs["pk"])
+        else:
+            obj = None
+        return obj
+
+    def get_resource_uri(self, bundle_or_obj):
+        kwargs = {
+            'resource_name': self._meta.resource_name,
+        }
+        if isinstance(bundle_or_obj, Bundle):
+            if isinstance(bundle_or_obj.obj, int):
+                kwargs['pk'] = bundle_or_obj.obj
+            else:
+                kwargs['pk'] = bundle_or_obj.obj.pk
+        else:
+            kwargs['pk'] = bundle_or_obj.id
+        if self._meta.api_name is not None:
+            kwargs['api_name'] = self._meta.api_name
+        return self._build_reverse_url("api_dispatch_detail", kwargs=kwargs)
+
+
 class CareerResource(ModelResource):
     knowledges = fields.ManyToManyField(KnowledgeResource,
                                         'knowledge_field',
@@ -28,6 +81,7 @@ class CareerResource(ModelResource):
     activities = fields.ManyToManyField(ActivityUpdateResource,
                                         'activity_set',
                                         full=True)
+    contents = fields.OneToOneField(EmbedResource, 'pk', full=True)
 
     class Meta:
         filtering = {
@@ -38,6 +92,9 @@ class CareerResource(ModelResource):
         queryset = Career.objects.all()
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']
+        excludes = ["content_url"]
+        for i in xrange(1, 11):
+            excludes.append("content_level%s_url" % i)
 
     def get_object_list(self, request):
         if 'testing' in request.GET:
@@ -61,27 +118,8 @@ class CareerResource(ModelResource):
             size += len(unicode(getattr(bundle.obj, field.name)))
         bundle.data["size"] = size
         bundle.data["levels"] = sorted(levels)
+        # bundle.data["contents"] = EmbedResource().get_resource_uri(bundle.obj)
         return dehydrate_fields(bundle)
-
-    def alter_detail_data_to_serialize(self, request, data):
-        width = request.GET.get("deviceWidth", 200)
-        height= request.GET.get("deviceHeight", 200)
-        if data.data["content_url"]:
-            data.data["content"] = get_oembed(data.data["content_url"],
-                                              maxwidth=width, maxheight=height,
-                                              format="json")
-        else:
-            data.data["content_url"] = None
-        for i in xrange(1, 11):
-            level_url = data.data["content_level%s_url" % i]
-            if level_url:
-                data.data["content_level%s" % i] = get_oembed(level_url,
-                                                              format="json",
-                                                              maxwidth=width,
-                                                              maxheight=height)
-            else:
-                data.data["content_level%s" % i] = None
-        return data
 
     def alter_list_data_to_serialize(self, request, data):
         # Filter careers without activities
