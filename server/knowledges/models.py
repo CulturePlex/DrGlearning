@@ -70,7 +70,7 @@ class Career(models.Model):
                                    help_text=_("URLs from YouTube, vimeo.com "
                                                "or any other oEmbed compliant "
                                                "site must work"))
-    description_level1 = models.TextField(_("Illetratum URL"), default="",
+    description_level1 = models.TextField(_("Illetratum"), default="",
                                           blank=True, null=True)
     content_level1_url = models.TextField(_("Illetratum URL"), default="",
                                    blank=True, null=True,

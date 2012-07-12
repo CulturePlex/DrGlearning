@@ -74,9 +74,9 @@ class CareerAdmin(GuardedModelAdmin):
                        'description_level4', 'content_level4_url',
                        'description_level5', 'content_level5_url',
                        'description_level6', 'content_level6_url',
-                       'description_level7', 'content_level7_url'
+                       'description_level7', 'content_level7_url',
                        'description_level8', 'content_level8_url',
-                       'description_level9', 'content_level9_url'
+                       'description_level9', 'content_level9_url',
                        'description_level10', 'content_level10_url')
         }),
     )
