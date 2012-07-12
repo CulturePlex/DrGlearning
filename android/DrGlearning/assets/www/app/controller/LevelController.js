@@ -26,6 +26,7 @@ try {
                 }
             },
             currentActivity: null,
+            learnlevelHtml: null,
             /*
              * Initializate Controller.
              */
@@ -82,7 +83,6 @@ try {
             },
             toLearnLevel: function ()
             {
-            console.log('hola');
                 var learn =  Ext.create('DrGlearning.view.Learn');
                 this.globalSettingsController.learnParent = this.getLevelframe();
                 learn.setHtml(this.learnlevelHtml);
@@ -134,6 +134,17 @@ try {
                     this.getLevelframe().show();
                     if (typeof(MathJax) !== "undefined") {
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                    }
+                    var levelString = "level"+newLevel;
+                    console.log(levelString);
+                    if (newCareer.data[levelString] === null )
+                    {
+                        this.getLevelframe().down('button[customId=learnlevel]').hide();
+                    }
+                    else
+                    {
+                        this.learnlevelHtml = newCareer.data[levelString].html;
+                        this.getLevelframe().down('button[customId=learnlevel]').show();
                     }
                 }
                 else
