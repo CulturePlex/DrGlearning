@@ -76,7 +76,7 @@ try {
                                     ui: 'decline',
                                     listeners : {
                                         tap : function () {
-                                            navigator.app.exitApp()
+                                            navigator.app.exitApp();
                                         }
                                     }
                                 },

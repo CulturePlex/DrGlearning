@@ -15,13 +15,15 @@ try {
             xtype: 'careercontroller',
             careerFrame: null,
             carousel: null,
-
+            
             careersListController: null,
             levelController: null,
             daoController: null,
             levelsStore: null,
             selectedCareer : null,
             learnView: null,
+            
+            learnHtml: null,
             /*
              * Initializate Controller.
              */
@@ -53,7 +55,7 @@ try {
             toLearn: function ()
             {
                 var learn =  Ext.create('DrGlearning.view.Learn');
-                learn.setHtml('<iframe width= "100%" src="http://www.youtube.com/embed/ebZHfxPBJU0" frameborder="0" allowfullscreen></iframe>');
+                learn.setHtml(this.learnHtml);
                 Ext.Viewport.add(learn);
                 learn.show();
                 this.careerFrame.hide();
@@ -109,6 +111,15 @@ try {
                 this.daoController.updateOfflineScores();
                 this.selectedCareer = newCareer;
                 var view = this.careerFrame;
+                if (newCareer.data.main === null )
+                {
+                    view.down('button[customId=learn]').hide();
+                }
+                else
+                {
+                    this.learnHtml = newCareer.data.main.html;
+                    view.down('button[customId=learn]').show();
+                }
                 var detail = view.down('careerdetail');
                 var description = detail.down('careerdescription');
                 var levelscarousel = detail.down('carousel');
