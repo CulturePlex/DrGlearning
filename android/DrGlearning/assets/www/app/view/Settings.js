@@ -37,21 +37,19 @@ try {
                         {text: 'Français', value: 'fr'}
                         // {text: 'Português', value: 'pt_BR'}
                     ]
-                },/*, {
+                },{
                     xtype : 'textfield',
                     label : i18n.gettext('Username'),
                     name : 'username',
                     id : 'username',
-                    labelAlign : 'top',
                     margin: 5,
                 }, {
                     xtype : 'textfield',
                     label : i18n.gettext('Email'),
                     name : 'email',
                     id : 'email',
-                    labelAlign : 'top',
                     margin: 5,
-                }, {
+                }, /*{
                     xtype : 'button',
                     text : i18n.gettext('Import user'),
                     id : 'import'
@@ -59,7 +57,7 @@ try {
                     xtype : 'button',
                     text : i18n.gettext('Export user'),
                     id : 'export'
-                }*/{
+                }, */{
                         xtype: 'toolbar',
                         docked: 'bottom',
                         items:[

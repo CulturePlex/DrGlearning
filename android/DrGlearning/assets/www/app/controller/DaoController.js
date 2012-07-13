@@ -327,7 +327,6 @@ try {
                             token: user.data.token
                         },
                         success: function (response) {
-                            console.log(response);
                         }
                     });
                 }, this);

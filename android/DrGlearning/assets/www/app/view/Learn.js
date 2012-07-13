@@ -13,7 +13,7 @@ try {
             extend: 'Ext.Panel',
             xtype: 'learn',
             config: {
-                fullscreen: true,
+                cls: 'learnPanel',
                 // Make it modal so you can click the mask to hide the overlay
 //                modal: true,
 //                hideOnMaskTap: true,
@@ -28,6 +28,8 @@ try {
                     easing: 'ease-out'
                 },
                 padding: 0,
+                height: (window.screen.width !== undefined) ? window.screen.width : 200,
+                width: (window.screen.height !== undefined) ? window.screen.height : 200,
 //                centered: true,
                 // Make it hidden by default
                 hidden: true,
@@ -50,7 +52,6 @@ try {
                             listeners : {
                                 tap : function () {
                                     this.parent.parent.hide();
-                                    console.log(DrGlearning.app.getController('GlobalSettingsController').learnParent);
                                     DrGlearning.app.getController('GlobalSettingsController').learnParent.show();
                                 }
                             }

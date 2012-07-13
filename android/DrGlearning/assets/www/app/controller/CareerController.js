@@ -119,7 +119,7 @@ try {
                 }
                 else
                 {
-                    this.learnHtml = newCareer.data.main.html;
+                    this.learnHtml = newCareer.data.main.html+' alto: '+newCareer.data.main.height+' ancho: '+newCareer.data.main.width;
                     view.down('button[customId=learn]').show();
                 }
                 var detail = view.down('careerdetail');

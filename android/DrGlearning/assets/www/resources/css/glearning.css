@@ -131,3 +131,11 @@ li.relational-constraint-passed {
 .leftalign {
     text-align:left;
 }
+
+.leftalign {
+    text-align:left;
+}
+
+.learnPanel {
+    -webkit-transform:rotate(90deg);
+}

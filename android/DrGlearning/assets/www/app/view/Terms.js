@@ -28,10 +28,9 @@ try {
                         duration: 250,
                         easing: 'ease-out'
                     },
-                    
                     centered: true,
                     
-                    html: '<iframe name="i1" src="terms.txt" width= 240 frameborder="0"/>',
+                    html: '<iframe name="i1" src="terms.txt" width= 240 frameborder="0" />',
                     //'<iframe src="http://www.facebook.com/plugins/like.php?href=YOUR_URL" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px"></iframe>'
                     // Make it hidden by default
                     hidden: true,
@@ -41,7 +40,7 @@ try {
                     height: 269,
 
                     // Here we specify the #id of the element we created in `index.html`
-                    contentEl: 'content',
+                    //contentEl: 'content',
 
                     // Style the content and make it scrollable
                     styleHtmlContent: true,
