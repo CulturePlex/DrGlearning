@@ -137,6 +137,6 @@ li.relational-constraint-passed {
 }
 
 .learnPanel {
-    -webkit-transform: translateX(-23%) rotate(90deg);
+    -webkit-transform: rotate(90deg);
     background-color: #f00;
 }

@@ -27,6 +27,8 @@ try {
             },
             currentActivity: null,
             learnlevelHtml: null,
+            learnlevelWidth: null,
+            learnlevelHeight: null,
             /*
              * Initializate Controller.
              */
@@ -85,6 +87,8 @@ try {
             {
                 var learn =  Ext.create('DrGlearning.view.Learn');
                 this.globalSettingsController.learnParent = this.getLevelframe();
+                learn.setWidth(this.learnlevelWidth);
+                learn.setHeight(this.learnlevelHeight+55);
                 learn.setHtml(this.learnlevelHtml);
                 Ext.Viewport.add(learn);
                 learn.show();
@@ -144,6 +148,8 @@ try {
                     else
                     {
                         this.learnlevelHtml = newCareer.data[levelString].html;
+                        this.learnlevelWidth = newCareer.data[levelString].width;
+                        this.learnlevelHeight = newCareer.data[levelString].height;
                         this.getLevelframe().down('button[customId=learnlevel]').show();
                     }
                 }

@@ -60,7 +60,7 @@ try {
                 var learn =  Ext.create('DrGlearning.view.Learn');
                 learn.setHtml('<center>'+this.learnHtml+'</center>');
                 learn.setWidth(this.learnWidth);
-                learn.setHeight(this.learnHeight);
+                learn.setHeight(this.learnHeight+55);
                 Ext.Viewport.add(learn);
                 learn.show();
                 this.globalSettingsController.learnParent = this.careerFrame;
