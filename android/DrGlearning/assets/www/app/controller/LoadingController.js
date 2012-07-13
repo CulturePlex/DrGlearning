@@ -134,7 +134,7 @@ try {
                   }
                 },
                 showTerms: function () {
-                    /*if( typeof( localStorage.terms_version ) === "undefined" )
+                    if( typeof( localStorage.terms_version ) === "undefined" )
                     {
                         var terms =  Ext.create('DrGlearning.view.Terms');
                         Ext.Viewport.add(terms);
@@ -142,11 +142,11 @@ try {
                         localStorage.terms_version = TERMS_VERSION;
                     }
                     if(TERMS_VERSION !== localStorage.terms_version)
-                    {*/
+                    {
                         var terms =  Ext.create('DrGlearning.view.Terms');
                         Ext.Viewport.add(terms);
                         terms.show();
-                    //}
+                    }
                 },
                 careersRequest: function (searchString,knowledgeValue){
                         if( localStorage.searchString != searchString || localStorage.knowledgeValue != knowledgeValue)
