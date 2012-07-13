@@ -28,11 +28,9 @@ try {
                     easing: 'ease-out'
                 },
                 padding: 0,
-                height: (window.screen.width !== undefined) ? window.screen.width : 200,
-                width: (window.screen.height !== undefined) ? window.screen.height : 200,
-//                centered: true,
+                
+                centered: true,
                 // Make it hidden by default
-                hidden: true,
                 // Set the width and height of the panel
 //                layout: 'fit',
                 // Here we specify the #id of the element we created in `index.html`

@@ -24,6 +24,8 @@ try {
             learnView: null,
             
             learnHtml: null,
+            learnHeight: null,
+            learnWidth: null,
             /*
              * Initializate Controller.
              */
@@ -56,7 +58,9 @@ try {
             toLearn: function ()
             {
                 var learn =  Ext.create('DrGlearning.view.Learn');
-                learn.setHtml(this.learnHtml);
+                learn.setHtml('<center>'+this.learnHtml+'</center>');
+                learn.setWidth(this.learnWidth);
+                learn.setHeight(this.learnHeight);
                 Ext.Viewport.add(learn);
                 learn.show();
                 this.globalSettingsController.learnParent = this.careerFrame;
@@ -119,7 +123,9 @@ try {
                 }
                 else
                 {
-                    this.learnHtml = newCareer.data.main.html+' alto: '+newCareer.data.main.height+' ancho: '+newCareer.data.main.width;
+                    this.learnHtml = newCareer.data.main.html;
+                    this.learnWidth = newCareer.data.main.width;
+                    this.learnHeight = newCareer.data.main.height;
                     view.down('button[customId=learn]').show();
                 }
                 var detail = view.down('careerdetail');
