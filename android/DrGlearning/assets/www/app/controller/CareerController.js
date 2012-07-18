@@ -58,9 +58,9 @@ try {
             toLearn: function ()
             {
                 var learn =  Ext.create('DrGlearning.view.Learn');
-                learn.setHtml('<center>'+this.learnHtml+'</center>');
+                learn.setHtml('<center>' + this.learnHtml + '</center>');
                 learn.setWidth(this.learnWidth);
-                learn.setHeight(this.learnHeight+55);
+                learn.setHeight(this.learnHeight + 55);
                 Ext.Viewport.add(learn);
                 learn.show();
                 this.globalSettingsController.learnParent = this.careerFrame;
@@ -117,7 +117,7 @@ try {
                 this.daoController.updateOfflineScores();
                 this.selectedCareer = newCareer;
                 var view = this.careerFrame;
-                if (newCareer.data.main === null )
+                if (newCareer.data.main === null)
                 {
                     view.down('button[customId=learn]').hide();
                 }

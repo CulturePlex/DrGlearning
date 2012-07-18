@@ -1,6 +1,6 @@
 /*jshint
-    forin:false, noarg:true, noempty:true, eqeqeq:false, bitwise:true, strict:false,
-    undef:false, curly:true, browser:true, indent:4, maxerr:50, loopfunc:true
+    forin:true, noarg:true, noempty:true, eqeqeq:false, bitwise:true, strict:false,
+    undef:false, curly:true, browser:true, indent:4, maxerr:50, loopfunc:true, funcscope:true
 */
 
 /*global
@@ -39,113 +39,118 @@ try {
                 var activitiesInstalled = 0;
                 var cont;
                 for (cont in activities) {
-                    var activitiesToInstall = [];
-                    var size = 0;
-                    var HOST = this.globalSettingsController.getServerURL();
-                    Ext.data.JsonP.request({
-                        scope: this,
-                        url: HOST + '/' + activities[cont] + '?format=jsonp',
-                        params: {
-                            deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                            deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-                        },
-                        success: function (response, opts) {
-                            var activity = response;
-                            var activityModel = new DrGlearning.model.Activity({
-                                id : activity.id,
-                                name : activity.name.trim(),
-                                careerId : id,
-                                activity_type : activity.activity_type.trim(),
-                                language_code : activity.language_code.trim(),
-                                level_type : activity.level_type,
-                                level_order : activity.level_order,
-                                level_required : activity.level_required,
-                                query : activity.query.trim(),
-                                timestamp : activity.timestamp.trim(),
-                                resource_uri : activity.resource_uri.trim(),
-                                reward: activity.reward.trim(),
-                                penalty: activity.penalty.trim(),
-                                score: 0,
-                                played: false,
-                                successful: false,
-                                helpviewed: false
-                            });
-                            if (activityModel.data.activity_type == 'linguistic') {
-                                //activityModel.setImage('image', activity.image, this);
-                                activityModel.data.image_url = activity.image_url.trim();
-                                activityModel.data.locked_text = activity.locked_text.trim();
-                                activityModel.data.answer = activity.answer.trim();
-                            }
-                            if (activityModel.data.activity_type == 'visual') {
-                                //activityModel.setImage('image', activity.image, this);
-                                //activityModel.setImage('obImage', activity.obfuscated_image, this);
-                                activityModel.data.image_url = activity.image_url.trim();
-                                activityModel.data.obfuscated_image_url = activity.obfuscated_image_url.trim();
-                                //activityModel.data.image=activity.image;
-                                activityModel.data.answers = activity.answers;
-                                activityModel.data.correct_answer = activity.correct_answer.trim();
-                                //activityModel.set('obfuscated_image', activity.obfuscated_image);
-                                activityModel.data.obfuscated_image_url = activity.obfuscated_image_url.trim();
-                                activityModel.data.time = activity.time.trim();
-                            }
-                            if (activityModel.data.activity_type == 'quiz') {
-                                //activityModel.setImage('image', activity.image, this);
-                                activityModel.data.image_url = activity.image_url;
-                                //activityModel.data.image=activity.image;
-                                activityModel.data.answers = activity.answers;
-                                activityModel.data.correct_answer = activity.correct_answer.trim();
-                                //activityModel.set('obfuscated_image',activity.obfuscated_image);
-                                if (activity.time) {
+                    if (activities[cont])
+                    {
+                        var activitiesToInstall = [];
+                        var size = 0;
+                        var HOST = this.globalSettingsController.getServerURL();
+                        Ext.data.JsonP.request({
+                            scope: this,
+                            url: HOST + '/' + activities[cont] + '?format=jsonp',
+                            params: {
+                                deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                                deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                            },
+                            success: function (response, opts) {
+                                var activity = response;
+                                var activityModel = new DrGlearning.model.Activity({
+                                    id : activity.id,
+                                    name : activity.name.trim(),
+                                    careerId : id,
+                                    activity_type : activity.activity_type.trim(),
+                                    language_code : activity.language_code.trim(),
+                                    level_type : activity.level_type,
+                                    level_order : activity.level_order,
+                                    level_required : activity.level_required,
+                                    query : activity.query.trim(),
+                                    timestamp : activity.timestamp.trim(),
+                                    resource_uri : activity.resource_uri.trim(),
+                                    reward: activity.reward.trim(),
+                                    penalty: activity.penalty.trim(),
+                                    score: 0,
+                                    played: false,
+                                    successful: false,
+                                    helpviewed: false
+                                });
+                                if (activityModel.data.activity_type == 'linguistic') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    activityModel.data.image_url = activity.image_url.trim();
+                                    activityModel.data.locked_text = activity.locked_text.trim();
+                                    activityModel.data.answer = activity.answer.trim();
+                                }
+                                if (activityModel.data.activity_type == 'visual') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    //activityModel.setImage('obImage', activity.obfuscated_image, this);
+                                    activityModel.data.image_url = activity.image_url.trim();
+                                    activityModel.data.obfuscated_image_url = activity.obfuscated_image_url.trim();
+                                    //activityModel.data.image=activity.image;
+                                    activityModel.data.answers = activity.answers;
+                                    activityModel.data.correct_answer = activity.correct_answer.trim();
+                                    //activityModel.set('obfuscated_image', activity.obfuscated_image);
+                                    activityModel.data.obfuscated_image_url = activity.obfuscated_image_url.trim();
                                     activityModel.data.time = activity.time.trim();
                                 }
-                            }
-                            if (activityModel.data.activity_type == 'relational') {
-                                activityModel.data.graph_nodes = activity.graph_nodes;
-                                for (x in activity.graph_edges) {
-                                    if (activity.graph_edges[x].inverse === undefined) {
-                                        activity.graph_edges[x].inverse = "";
+                                if (activityModel.data.activity_type == 'quiz') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    activityModel.data.image_url = activity.image_url;
+                                    //activityModel.data.image=activity.image;
+                                    activityModel.data.answers = activity.answers;
+                                    activityModel.data.correct_answer = activity.correct_answer.trim();
+                                    //activityModel.set('obfuscated_image',activity.obfuscated_image);
+                                    if (activity.time) {
+                                        activityModel.data.time = activity.time.trim();
                                     }
                                 }
-                                activityModel.data.graph_edges = activity.graph_edges;
-                                activityModel.data.constraints = activity.constraints;
-                                activityModel.data.path_limit = activity.path_limit;
-                            }
-                            if (activityModel.data.activity_type == 'temporal') {
-                                //activityModel.setImage('image', activity.image, this);
-                                activityModel.data.image_url = activity.image_url.trim();
-                                activityModel.data.image_datetime = activity.image_datetime.trim();
-                                activityModel.data.query_datetime = activity.query_datetime.trim();
-                            }
-                            if (activityModel.data.activity_type == 'geospatial') {
-                                activityModel.data.area = activity.area.trim();
-                                activityModel.data.point = activity.points.trim();
-                                activityModel.data.radius = activity.radius;
-                            }
-                            activitiesToInstall.push(activityModel);
-                            activitiesInstalled = activitiesInstalled + 1;
-                            if (activities.length == activitiesInstalled) {
-                                for (cont in activitiesToInstall) {
-                                    activitiesToInstall[cont].save();
+                                if (activityModel.data.activity_type == 'relational') {
+                                    activityModel.data.graph_nodes = activity.graph_nodes;
+                                    for (var x in activity.graph_edges) {
+                                        if (activity.graph_edges[x].inverse === undefined) {
+                                            activity.graph_edges[x].inverse = "";
+                                        }
+                                    }
+                                    activityModel.data.graph_edges = activity.graph_edges;
+                                    activityModel.data.constraints = activity.constraints;
+                                    activityModel.data.path_limit = activity.path_limit;
                                 }
-                                var career = this.careersStore.getById(id);
-                                career.set('installed', true);
-                                career.save();
-                                this.careersStore.sync();
-                                this.careersStore.load();
-                                career.set('id', id);
-                                localStorage.actualSize = parseInt(localStorage.actualSize, 10) + career.data.size;
-                                Ext.getStore('Activities').sync();
-                                Ext.getStore('Activities').load();
-                                callback(scope);
+                                if (activityModel.data.activity_type == 'temporal') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    activityModel.data.image_url = activity.image_url.trim();
+                                    activityModel.data.image_datetime = activity.image_datetime.trim();
+                                    activityModel.data.query_datetime = activity.query_datetime.trim();
+                                }
+                                if (activityModel.data.activity_type == 'geospatial') {
+                                    activityModel.data.area = activity.area.trim();
+                                    activityModel.data.point = activity.points.trim();
+                                    activityModel.data.radius = activity.radius;
+                                }
+                                activitiesToInstall.push(activityModel);
+                                activitiesInstalled = activitiesInstalled + 1;
+                                if (activities.length == activitiesInstalled) {
+                                    for (var cont in activitiesToInstall) {
+                                        if (activitiesToInstall[cont])
+                                        {
+                                            activitiesToInstall[cont].save();
+                                        }
+                                    }
+                                    var career = this.careersStore.getById(id);
+                                    career.set('installed', true);
+                                    career.save();
+                                    this.careersStore.sync();
+                                    this.careersStore.load();
+                                    career.set('id', id);
+                                    localStorage.actualSize = parseInt(localStorage.actualSize, 10) + career.data.size;
+                                    Ext.getStore('Activities').sync();
+                                    Ext.getStore('Activities').load();
+                                    callback(scope);
+                                }
+                            },
+                            failure : function () {
+                                Ext.Viewport.setMasked(false);
+                                Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
                             }
-                        },
-                        failure : function () {
-                            Ext.Viewport.setMasked(false);
-                            Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
-                        }
-                    });
+                        });
+                    }
                 }
-                console.log(career);
                 Ext.data.JsonP.request({
                     scope: this,
                     url: HOST + '/' + career.data.contents + '?format=jsonp',
@@ -155,10 +160,13 @@ try {
                     },
                     success: function (response, opts) {
                         console.log(response);
-                        for(var uri in response)
+                        for (var uri in response)
                         {
-                            console.log(response[uri]);
-                            career.set(uri,response[uri]);
+                            if(response[uri])
+                            {
+                                console.log(response[uri]);
+                                career.set(uri, response[uri]);
+                            }
                         }
                         console.log(career);
                     },
