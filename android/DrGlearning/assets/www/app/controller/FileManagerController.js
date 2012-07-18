@@ -27,7 +27,7 @@ try {
                */
             storeImage: function (imageData, imageId, sufix) {
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, successFS, fail);
-                sufix = (sufix != undefined) ? sufix : "";
+                sufix = (typeof(sufix) !== "undefined") ? sufix : "";
                 var imageName = "image" + imageId + sufix + ".b64";
                 function successFS(fileSystem) {
                     fileSystem.root.getDirectory(Base64Manager.DIRECTORY, {create: true, exclusive: false}, successDirectory, fail);

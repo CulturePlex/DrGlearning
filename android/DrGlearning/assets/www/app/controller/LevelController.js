@@ -88,7 +88,7 @@ try {
                 var learn =  Ext.create('DrGlearning.view.Learn');
                 this.globalSettingsController.learnParent = this.getLevelframe();
                 learn.setWidth(this.learnlevelWidth);
-                learn.setHeight(this.learnlevelHeight+55);
+                learn.setHeight(this.learnlevelHeight + 55);
                 learn.setHtml(this.learnlevelHtml);
                 Ext.Viewport.add(learn);
                 learn.show();
@@ -139,9 +139,8 @@ try {
                     if (typeof(MathJax) !== "undefined") {
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
                     }
-                    var levelString = "level"+newLevel;
-                    console.log(levelString);
-                    if (newCareer.data[levelString] === null )
+                    var levelString = "level" + newLevel;
+                    if (newCareer.data[levelString] === null)
                     {
                         this.getLevelframe().down('button[customId=learnlevel]').hide();
                     }

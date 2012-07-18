@@ -63,7 +63,7 @@ try {
                 70: i18n.gettext('Space Sciences'),
                 71: i18n.gettext('Sports and Recreation')
             },
-            learnParent:null,
+            learnParent: null,
             init: function () {
                 this.showLog = true;
                 this.visualController = this.getApplication().getController('activities.VisualController');

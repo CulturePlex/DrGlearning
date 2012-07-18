@@ -162,7 +162,7 @@ try {
                         console.log(response);
                         for (var uri in response)
                         {
-                            if(response[uri])
+                            if (response[uri])
                             {
                                 console.log(response[uri]);
                                 career.set(uri, response[uri]);
@@ -496,16 +496,19 @@ try {
                                         }
                                         activityModel.save();
                                         var exist = false;
-                                        for (cont in activitiesOld.keys) {
-                                            exist = false;
-                                            for (var cont2 in activitiesID) {
-                                                if (parseInt(activitiesOld.keys[cont], 10) === parseInt(activitiesID[cont2], 10)) {
-                                                    exist = true;
-                                                    break;
+                                        for (var cont in activitiesOld.keys) {
+                                            if (activitiesOld.keys[cont])
+                                            {
+                                                exist = false;
+                                                for (var cont2 in activitiesID) {
+                                                    if (parseInt(activitiesOld.keys[cont], 10) === parseInt(activitiesID[cont2], 10)) {
+                                                        exist = true;
+                                                        break;
+                                                    }
                                                 }
-                                            }
-                                            if (!exist) {
-                                                activitiesOld.getByKey(activitiesOld.keys[cont]).erase();
+                                                if (!exist) {
+                                                    activitiesOld.getByKey(activitiesOld.keys[cont]).erase();
+                                                }
                                             }
                                         }
                                         this.careersListController.updateLevelsState();
