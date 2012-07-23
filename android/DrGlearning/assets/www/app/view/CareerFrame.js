@@ -1,3 +1,12 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -23,41 +32,40 @@ try {
                                 name: 'title',
                                 title: i18n.gettext('Course Name'),
                                 maxWidth: '100%',
-                                centered:true
+                                centered: true
                             }
                         ]
                     },
                     {
                         xtype: 'toolbar',
                         docked: 'bottom',
-                        items:[
+                        items: 
+                        [
                             {
                                 xtype: 'button',
                                 id: 'backToCareers',
                                 text: i18n.gettext('Back'),
-                                ui:'back'
+                                ui: 'back'
                             },
                             {
-                                 xtype: 'spacer' 
+                                xtype: 'spacer' 
                             },
                             {
                                 xtype: 'button',
                                 id: 'learn',
                                 text: i18n.gettext('Learn'),
-                                customId:'learn'
+                                customId: 'learn'
                             },
                             {
-                                 xtype: 'spacer' 
+                                xtype: 'spacer' 
                             },
                             {
                                 xtype: 'button',
                                 text: i18n.gettext('Start'),
                                 id: 'startLevel',
                                 customId: 'startLevel'
-                                
                             }
-                            ]
-                        
+                        ]
                     },
                     {
                         xtype: 'careerdetail'
