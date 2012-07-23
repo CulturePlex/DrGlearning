@@ -24,17 +24,29 @@ class PlayerResource(ModelResource):
     class Meta:
         queryset = Player.objects.all()
 
+    def __init__(self, *args, **kwargs):
+        super(PlayerResource, self).__init__(*args, **kwargs)
+        self.created = False
+
     def dispatch(self, request_type, request, **kwargs):
         required_fields = ('code',)
-        if is_valid_jsonp(request_type, request, required_fields):
-            p, c = Player.objects.get_or_create(code=request.GET["code"])
+        if "code" in request.GET and "callback" in request.GET:
+            p, created = Player.objects.get_or_create(code=request.GET["code"])
             kwargs["pk"] = p.id
+            self.created = created
+            if "token" in request.GET and p.token == request.GET["token"]:
+                for attr in ["display_name", "email"]:
+                    if attr in request.GET:
+                        setattr(p, attr, request.GET.get(attr))
+                p.save()
             request_type = "detail"
         return super(PlayerResource, self).dispatch(request_type,
                                                     request,
                                                     **kwargs)
 
     def dehydrate(self, bundle):
+        if not self.created:
+            bundle.obj.token = None
         return dehydrate_fields(bundle)
 
 
