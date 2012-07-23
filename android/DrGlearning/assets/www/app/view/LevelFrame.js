@@ -1,3 +1,12 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -22,7 +31,7 @@ try {
                                 id: 'title',
                                 name: 'title',
                                 title: i18n.gettext('Course Name'),
-                                centered:true
+                                centered: true
                             }
                           
                         ]
@@ -30,32 +39,33 @@ try {
                     {
                         xtype: 'toolbar',
                         docked: 'bottom',
-                        items:[
+                        items:
+                        [
                             {
                                 xtype: 'button',
                                 id: 'backtolevels',
                                 text: i18n.gettext('Back'),
-                                ui:'back',
+                                ui: 'back',
                                 controller: 'DrGlearning.controller.Career',
                                 action: 'index'
                                 
-                            },{
-                                 xtype: 'spacer' 
+                            },
+                            {
+                                xtype: 'spacer' 
                             },
                             {
                                 xtype: 'button',
                                 id: 'learnlevel',
                                 text: i18n.gettext('Learn'),
-                                customId:'learnlevel'
+                                customId: 'learnlevel'
                             },
                             {
-                                 xtype: 'spacer' 
+                                xtype: 'spacer' 
                             },
                             {
-                                 xtype: 'spacer' 
+                                xtype: 'spacer' 
                             }
-                            ]
-                        
+                        ]
                     },
                     {
                         xtype: 'leveldetail'

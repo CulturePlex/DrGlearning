@@ -1,11 +1,11 @@
-/**
- * @class kiva.views.List
- * @extends Ext.List
- *
- * This simple Ext.List subclass is used to display the Loans that are returned from Kiva's API. The largest
- * part of this class is the XTemplate used to render each item - all other functionality is already provided
- * by Ext.List
- */
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
 
 try {
     (function () {
@@ -15,8 +15,8 @@ try {
             extend: 'Ext.dataview.List',
             xtype : 'careerslist',
             config: {
-                scrollToTopOnRefresh:false,
-                ui:'careers',
+                scrollToTopOnRefresh: false,
+                ui: 'careers',
                 store: 'Careers',
                 disableSelection: true,
                 useComponents: true,

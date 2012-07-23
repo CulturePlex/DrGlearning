@@ -1,3 +1,12 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -10,13 +19,15 @@ try {
                 customId: 'activity',
                 fullscreen: true,
                 layout: 'fit',
-                items: [{
-                    xtype: 'container',
-                    id: 'image',
-                    cls:'imageBehindButtons'
+                items: 
+                [
+                    {
+                        xtype: 'container',
+                        id: 'image',
+                        cls: 'imageBehindButtons'
                     },
                     {
-                       xtype: 'toolbar',
+                        xtype: 'toolbar',
                         docked: 'top',
                         ui: 'neutral',
                         customId: 'query',
@@ -24,12 +35,13 @@ try {
                             type: 'hbox',
                             pack : 'center' 
                         },
-                        height:40
+                        height: 40
                     },
                     {
                         xtype: 'toolbar',
                         docked: 'bottom',
-                        items:[
+                        items:
+                        [
                             {
                                 xtype: 'button',
                                 customId: 'backtolevel',
@@ -39,15 +51,18 @@ try {
                                 action: 'index'
                             },
                             {
-                                 xtype: 'spacer' 
-                            }]
+                                xtype: 'spacer' 
+                            }
+                        ]
                     },
                     {
                         xtype: 'container',
                         customId: 'timecontainer',
-                        padding:10,
-                        docked:'bottom',
-                        items:[{
+                        padding: 10,
+                        docked: 'bottom',
+                        items:
+                        [
+                            {
                                 xtype: 'label',
                                 style: 'text-align:center',
                                 customId: 'time',
@@ -56,17 +71,16 @@ try {
                             },
                             {
                                 xtype: 'button',
-                                customId:'skip',
+                                customId: 'skip',
                                 text: i18n.gettext('Skip')
                             }
-                            ]
-                        
+                        ]
                     },
                     {
                         xtype: 'panel',
                         layout: 'vbox',
                         customId: 'options',
-                        cls:'imageBehindButtons'
+                        cls: 'imageBehindButtons'
                     }
                 ]
             }
