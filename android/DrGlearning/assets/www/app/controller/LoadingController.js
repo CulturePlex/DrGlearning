@@ -1,10 +1,10 @@
 /*jshint
-    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    forin:false, noarg:true, noempty:true, eqeqeq:true, bitwise:false, strict:false,
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 
 /*global
-    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning TERMS_VERSION unescape
 */
 
 try {
@@ -325,56 +325,56 @@ try {
                 return nameTemp;
             },
             
-            pausecomp:function (ms) {
+            pausecomp: function (ms) {
                 ms += new Date().getTime();
-                while (new Date() < ms) {}
-            } ,
+                //while (new Date() < ms) {}
+            },
             
-            installTestCourse:function (url) {
+            installTestCourse: function (url) {
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
-                    message: i18n.gettext('Installing testing course') +"…",
-                        indicator: true
+                    message: i18n.gettext('Installing testing course') + "…",
+                    indicator: true
                 });
                 this.careersStore.load();
                 var HOST = this.getApplication().getController('GlobalSettingsController').getServerURL();
                 Ext.data.JsonP.request({
-                    url: HOST+url+'?testing=true&format=jsonp',
+                    url: HOST + url + '?testing=true&format=jsonp',
                     scope   : this,
-                    success:function (response, opts) {
+                    success: function (response, opts) {
                         this.globalSettingsController.showMessage("Career retrieved");
-                        var career=response;
+                        var career = response;
                         this.careersStore.each(function (record) {
                             if (record.data.installed) {
-                                if (career.id == record.data.id) {
+                                if (career.id === record.data.id) {
                                     this.globalSettingsController.showMessage('Test course ');
                                     this.getApplication().getController('DaoController').deleteCareer(career.id);
                                 }
                             }
-                        },this);
-                                var careerModel=new DrGlearning.model.Career({
-                                        id : career.id,
-                                        negative_votes : career.negative_votes,
-                                        positive_votes : career.positive_votes,
-                                        name : career.name,
-                                        description : career.description,
-                                        creator : career.creator,
-                                        resource_uri : career.resource_uri,
-                                        knowledges : career.knowledges,
-                                        timestamp : career.timestamp,
-                                        installed : true,
-                                        started : false,
-                                        update : false,
-                                        size: career.size
-                                });
-                                var activities=new Array();
-                                for(cont in career.activities) {
-                                    activities[cont]=career.activities[cont].full_activity_url;
-                                }
-                                careerModel.set('activities',activities);
-                                careerModel.save();
-                                //Ext.Viewport.setMasked(false);
-                                this.getApplication().getController('DaoController').installCareer(career.id,function () {Ext.Viewport.setMasked(false);},this);
+                        }, this);
+                        var careerModel = new DrGlearning.model.Career({
+                            id : career.id,
+                            negative_votes : career.negative_votes,
+                            positive_votes : career.positive_votes,
+                            name : career.name,
+                            description : career.description,
+                            creator : career.creator,
+                            resource_uri : career.resource_uri,
+                            knowledges : career.knowledges,
+                            timestamp : career.timestamp,
+                            installed : true,
+                            started : false,
+                            update : false,
+                            size: career.size
+                        });
+                        var activities = [];
+                        for (var cont in career.activities) {
+                            activities[cont] = career.activities[cont].full_activity_url;
+                        }
+                        careerModel.set('activities', activities);
+                        careerModel.save();
+                        //Ext.Viewport.setMasked(false);
+                        this.getApplication().getController('DaoController').installCareer(career.id, function () {Ext.Viewport.setMasked(false); }, this);
                     }
                 });
             },
@@ -386,42 +386,42 @@ try {
             *
             **/
              
-            SHA1:function (msg) {
+            SHA1: function (msg) {
              
-                function rotate_left(n,s) {
-                    var t4 = ( n<<s ) | (n>>>(32-s));
+                function rotate_left(n, s) {
+                    var t4 = (n<<s) | (n>>>(32 - s));
                     return t4;
-                };
+                }
              
                 function lsb_hex(val) {
-                    var str="";
+                    var str = "";
                     var i;
                     var vh;
                     var vl;
              
-                    for( i=0; i<=6; i+=2 ) {
-                        vh = (val>>>(i*4+4))&0x0f;
-                        vl = (val>>>(i*4))&0x0f;
+                    for (i = 0; i <= 6; i += 2) {
+                        vh = (val>>>(i * 4 + 4))&0x0f;
+                        vl = (val>>>(i * 4))&0x0f;
                         str += vh.toString(16) + vl.toString(16);
                     }
                     return str;
-                };
+                }
              
                 function cvt_hex(val) {
-                    var str="";
+                    var str = "";
                     var i;
                     var v;
              
-                    for( i=7; i>=0; i-- ) {
-                        v = (val>>>(i*4))&0x0f;
+                    for (i = 7; i >= 0; i--) {
+                        v = (val>>>(i * 4))&0x0f;
                         str += v.toString(16);
                     }
                     return str;
-                };
+                }
              
              
                 function Utf8Encode(string) {
-                    string = string.replace(/\r\n/g,"\n");
+                    string = string.replace(/\r\n/g, "\n");
                     var utftext = "";
              
                     for (var n = 0; n < string.length; n++) {
@@ -444,7 +444,7 @@ try {
                     }
              
                     return utftext;
-                };
+                }
              
                 var blockstart;
                 var i, j;
@@ -461,42 +461,42 @@ try {
              
                 var msg_len = msg.length;
              
-                var word_array = new Array();
-                for( i=0; i<msg_len-3; i+=4 ) {
-                    j = msg.charCodeAt(i)<<24 | msg.charCodeAt(i+1)<<16 |
-                    msg.charCodeAt(i+2)<<8 | msg.charCodeAt(i+3);
-                    word_array.push( j );
+                var word_array = [];
+                for (i = 0; i < msg_len - 3; i += 4) {
+                    j = msg.charCodeAt(i)<<24 | msg.charCodeAt(i + 1)<<16 |
+                    msg.charCodeAt(i + 2)<<8 | msg.charCodeAt(i + 3);
+                    word_array.push(j);
                 }
              
-                switch( msg_len % 4 ) {
-                    case 0:
-                        i = 0x080000000;
+                switch (msg_len % 4) {
+                case 0:
+                    i = 0x080000000;
                     break;
-                    case 1:
-                        i = msg.charCodeAt(msg_len-1)<<24 | 0x0800000;
+                case 1:
+                    i = msg.charCodeAt(msg_len - 1)<<24 | 0x0800000;
                     break;
-             
-                    case 2:
-                        i = msg.charCodeAt(msg_len-2)<<24 | msg.charCodeAt(msg_len-1)<<16 | 0x08000;
+         
+                case 2:
+                    i = msg.charCodeAt(msg_len - 2)<<24 | msg.charCodeAt(msg_len - 1)<<16 | 0x08000;
                     break;
-             
-                    case 3:
-                        i = msg.charCodeAt(msg_len-3)<<24 | msg.charCodeAt(msg_len-2)<<16 | msg.charCodeAt(msg_len-1)<<8    | 0x80;
+         
+                case 3:
+                    i = msg.charCodeAt(msg_len - 3)<<24 | msg.charCodeAt(msg_len - 2)<<16 | msg.charCodeAt(msg_len - 1)<<8    | 0x80;
                     break;
                 }
              
-                word_array.push( i );
+                word_array.push(i);
              
-                while( (word_array.length % 16) != 14 ) word_array.push( 0 );
+                while ((word_array.length % 16) !== 14) {word_array.push(0); }
              
-                word_array.push( msg_len>>>29 );
-                word_array.push( (msg_len<<3)&0x0ffffffff );
+                word_array.push(msg_len>>>29);
+                word_array.push((msg_len<<3)&0x0ffffffff);
              
              
-                for ( blockstart=0; blockstart<word_array.length; blockstart+=16 ) {
+                for (blockstart = 0; blockstart < word_array.length; blockstart += 16) {
              
-                    for( i=0; i<16; i++ ) W[i] = word_array[blockstart+i];
-                    for( i=16; i<=79; i++ ) W[i] = rotate_left(W[i-3] ^ W[i-8] ^ W[i-14] ^ W[i-16], 1);
+                    for (i = 0; i < 16; i++) { W[i] = word_array[blockstart + i]; }
+                    for (i = 16; i <= 79; i++) { W[i] = rotate_left(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1); }
              
                     A = H0;
                     B = H1;
@@ -504,38 +504,38 @@ try {
                     D = H3;
                     E = H4;
              
-                    for( i= 0; i<=19; i++ ) {
-                        temp = (rotate_left(A,5) + ((B&C) | (~B&D)) + E + W[i] + 0x5A827999) & 0x0ffffffff;
+                    for (i = 0; i <= 19; i++) {
+                        temp = (rotate_left(A, 5) + ((B&C) | (~B&D)) + E + W[i] + 0x5A827999) & 0x0ffffffff;
                         E = D;
                         D = C;
-                        C = rotate_left(B,30);
+                        C = rotate_left(B, 30);
                         B = A;
                         A = temp;
                     }
              
-                    for( i=20; i<=39; i++ ) {
-                        temp = (rotate_left(A,5) + (B ^ C ^ D) + E + W[i] + 0x6ED9EBA1) & 0x0ffffffff;
+                    for (i = 20; i <= 39; i++) {
+                        temp = (rotate_left(A, 5) + (B ^ C ^ D) + E + W[i] + 0x6ED9EBA1) & 0x0ffffffff;
                         E = D;
                         D = C;
-                        C = rotate_left(B,30);
+                        C = rotate_left(B, 30);
                         B = A;
                         A = temp;
                     }
              
-                    for( i=40; i<=59; i++ ) {
-                        temp = (rotate_left(A,5) + ((B&C) | (B&D) | (C&D)) + E + W[i] + 0x8F1BBCDC) & 0x0ffffffff;
+                    for (i = 40;i <= 59;i++) {
+                        temp = (rotate_left(A, 5) + ((B&C) | (B&D) | (C&D)) + E + W[i] + 0x8F1BBCDC) & 0x0ffffffff;
                         E = D;
                         D = C;
-                        C = rotate_left(B,30);
+                        C = rotate_left(B, 30);
                         B = A;
                         A = temp;
                     }
              
-                    for( i=60; i<=79; i++ ) {
-                        temp = (rotate_left(A,5) + (B ^ C ^ D) + E + W[i] + 0xCA62C1D6) & 0x0ffffffff;
+                    for (i = 60; i <= 79; i++) {
+                        temp = (rotate_left(A, 5) + (B ^ C ^ D) + E + W[i] + 0xCA62C1D6) & 0x0ffffffff;
                         E = D;
                         D = C;
-                        C = rotate_left(B,30);
+                        C = rotate_left(B, 30);
                         B = A;
                         A = temp;
                     }
@@ -548,33 +548,34 @@ try {
              
                 }
              
-                var temp = cvt_hex(H0) + cvt_hex(H1) + cvt_hex(H2) + cvt_hex(H3) + cvt_hex(H4);
+                temp = cvt_hex(H0) + cvt_hex(H1) + cvt_hex(H2) + cvt_hex(H3) + cvt_hex(H4);
              
                 return temp.toLowerCase();
              
             },
             
-            getParameter:function (param) {
-                var queryString=window.location.search;
+            getParameter: function (param) {
+                var queryString = window.location.search;
                 var parameterName = param + "=";
-                   if ( queryString.length > 0 ) {
-                      // Find the beginning of the string
-                      begin = queryString.indexOf ( parameterName );
-                      // If the parameter name is not found, skip it, otherwise return the value
-                      if ( begin != -1 ) {
-                         // Add the length (integer) to the beginning
-                         begin += parameterName.length;
-                         // Multiple parameters are separated by the "&" sign
-                         end = queryString.indexOf ( "&" , begin );
-                      if ( end == -1 ) {
-                         end = queryString.length;
-                      }
-                      // Return the string
-                      return unescape ( queryString.substring ( begin, end ) );
-                   }
-                   // Return "null" if no parameter has been found
-                   return "null";
-                   }
+                var begin, end;
+                if (queryString.length > 0) {
+                  // Find the beginning of the string
+                    begin = queryString.indexOf(parameterName);
+                  // If the parameter name is not found, skip it, otherwise return the value
+                    if (begin !== -1) {
+                     // Add the length (integer) to the beginning
+                        begin += parameterName.length;
+                     // Multiple parameters are separated by the "&" sign
+                        end = queryString.indexOf("&", begin);
+                        if (end === -1) {
+                            end = queryString.length;
+                        }
+                  // Return the string
+                        return unescape(queryString.substring(begin, end));
+                    }
+               // Return "null" if no parameter has been found
+                    return "null";
+                }
             }
         });
 
