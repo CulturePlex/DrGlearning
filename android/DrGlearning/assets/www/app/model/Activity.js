@@ -199,7 +199,7 @@ try {
             },
             setImage: function (fieldName, value, scope) {
                 try {
-                    if (window.device != undefined && LocalFileSystem != undefined) {
+                    if (typeof(window.device) !== "undefined" && typeof(LocalFileSystem) !== "undefined") {
                         //console.log('Estamos en un dispositivo movil');
                         //console.log('Almacenamos en disco.');
                         scope.getApplication().getController('FileManagerController').storeImage(value, this.data.id, fieldName);
