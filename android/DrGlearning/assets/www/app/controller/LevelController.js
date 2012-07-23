@@ -140,12 +140,9 @@ try {
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
                     }
                     var levelString = "level" + newLevel;
-                    if (newCareer.data[levelString] === null)
-                    {
+                    if (typeof(newCareer.data[levelString]) === "undefined") {
                         this.getLevelframe().down('button[customId=learnlevel]').hide();
-                    }
-                    else
-                    {
+                    } else {
                         this.learnlevelHtml = newCareer.data[levelString].html;
                         this.learnlevelWidth = newCareer.data[levelString].width;
                         this.learnlevelHeight = newCareer.data[levelString].height;
