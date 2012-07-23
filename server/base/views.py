@@ -17,3 +17,8 @@ def dashboard(request):
     return render_to_response('dashboard.html',
                               {},
                               context_instance=RequestContext(request))
+
+def courses_generator(request):
+    return render_to_response('courses_generator.html',
+                              {},
+                              context_instance=RequestContext(request))

@@ -8,4 +8,8 @@ urlpatterns = patterns('base.views',
 
     # dashboard
     url(r'^dashboard/$', 'dashboard', name="dashboard"),
+    
+    # Automatic courses
+    
+    url(r'^courses_generator/$', 'courses_generator', name="courses_generator"),
 )

@@ -68,8 +68,8 @@ try {
                     localStorage.actualSize = 0;
                     this.globalSettingsController.showMessage("New user");
                     if (this.getApplication().getController('GlobalSettingsController').isDevice()) {
-                        var digest = this.SHA1(window.device.uuid+" "+new Date().getTime());
-                    }else{
+                        var digest = this.SHA1(window.device.uuid + " " + new Date().getTime());
+                    } else {
                         var digest = this.SHA1("test"+" "+new Date().getTime());
                     }
                     this.globalSettingsController.showMessage(digest);
@@ -123,7 +123,7 @@ try {
                               //this.globalSettingsController.showMessage("Listo1");
                             //this.getApplication().getController('DaoController').updateOfflineScores();
                             
-                  }else{
+                  } else {
                           //Ext.Viewport.setMasked(false);
                           this.globalSettingsController.showMessage("Listo2");
                           this.getLoading().hide();
@@ -273,7 +273,7 @@ try {
                                             this.careersStore.load();
                                             this.careersStore.sync();
                                             this.globalSettingsController.showMessage(this.careersStore);
-                                        }else{
+                                        } else {
                                             this.globalSettingsController.showMessage('existe');
                                             //Watch for updates
                                             var careerModel=this.careersStore.getAt(this.careersStore.find('id',career.id));
