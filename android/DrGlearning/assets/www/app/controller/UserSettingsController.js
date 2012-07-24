@@ -45,11 +45,11 @@ try {
                 //user.save();
                 //userStore.sync();
                 var locale = view.down('selectfield[id=locale]').getValue();
-                if (localStorage.locale != locale) {
-                    if(locale === "ar")
+                if (localStorage.locale !== locale) {
+                    if (locale === "ar")
                     {
                         localStorage.alignCls = 'rightalign';
-                    }else
+                    } else
                     {
                         localStorage.alignCls = 'leftalign';
                     }

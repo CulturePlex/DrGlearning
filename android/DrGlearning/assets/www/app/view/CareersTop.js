@@ -1,14 +1,11 @@
-/**
- * @class kiva.views.LoanFilter
- * @extends Ext.form.Panel
- * 
- * This form enables the user to filter the types of Loans visible to those that they are interested in.
- * 
- * We add a custom event called 'filter' to this class, and fire it whenever the user changes any of the
- * fields. The loans controller listens for this event and filters the Ext.data.Store that contains the
- * Loans based on the values selected (see the onFilter method in app/controllers/loans.js).
- * 
- */
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
 
 try {
     (function () {
@@ -24,7 +21,8 @@ try {
                         xtype: 'toolbar',
                         docked: 'top',
                         ui: 'gray',
-                        items:[
+                        items:
+                        [
                             {
                                 xtype: 'selectfield',
                                 name: 'estado',
@@ -38,8 +36,7 @@ try {
                                 xtype: 'button',
                                 text: i18n.gettext('Add course')
                             }
-                            ]
-                        
+                        ]
                     }
                 ],
                 layout: {

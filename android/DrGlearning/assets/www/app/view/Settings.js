@@ -1,3 +1,12 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -7,78 +16,82 @@ try {
             xtype : 'settings',
             config: {
                 fullscreen: true,
-                items: [
+                items: 
+                [
                     {
-                    xtype: 'toolbar',
-                    docked: 'top',
-                    layout: 'vbox',
-                    items: [{
+                        xtype: 'toolbar',
+                        docked: 'top',
+                        layout: 'vbox',
+                        items: 
+                        [
+                            {
+                                xtype: 'spacer'
+                            }, {
+                                xtype: 'title',
+                                title: i18n.gettext("Settings")
+                            }, {
+                                xtype: 'spacer'
+                            }
+                        ]
+                    }, {
                         xtype: 'spacer'
                     }, {
-                        xtype: 'title',
-                        title: i18n.gettext("Settings")
+                        xtype: 'selectfield',
+                        id: 'locale',
+                        inputCls: localStorage.alignCls,
+                        labelCls: localStorage.alignCls,
+                        label: i18n.gettext('Language'),
+                        margin: 5,
+                        value: localStorage.locale || "en",
+                        options: [
+                            {text: 'لغة_عربية', value: 'ar'},
+                            {text: 'English', value: 'en'},
+                            {text: 'Español', value: 'es_ES'},
+                            {text: 'Français', value: 'fr'}
+                            // {text: 'Português', value: 'pt_BR'}
+                        ]
                     }, {
-                        xtype: 'spacer'
-                    }]
-                },{
-                    xtype: 'spacer'
-                },{
-                    xtype: 'selectfield',
-                    id: 'locale',
-                    inputCls: localStorage.alignCls,
-                    labelCls: localStorage.alignCls,
-                    label: i18n.gettext('Language'),
-                    margin: 5,
-                    value: localStorage.locale || "en",
-                    options: [
-                        {text: 'لغة_عربية', value: 'ar'},
-                        {text: 'English', value: 'en'},
-                        {text: 'Español', value: 'es_ES'},
-                        {text: 'Français', value: 'fr'}
-                        // {text: 'Português', value: 'pt_BR'}
-                    ]
-                },{
-                    xtype : 'textfield',
-                    label : i18n.gettext('Username'),
-                    name : 'username',
-                    id : 'username',
-                    margin: 5,
-                }, {
-                    xtype : 'textfield',
-                    label : i18n.gettext('Email'),
-                    name : 'email',
-                    id : 'email',
-                    margin: 5,
-                }, /*{
-                    xtype : 'button',
-                    text : i18n.gettext('Import user'),
-                    id : 'import'
-                }, {
-                    xtype : 'button',
-                    text : i18n.gettext('Export user'),
-                    id : 'export'
-                }, */{
+                        xtype : 'textfield',
+                        label : i18n.gettext('Username'),
+                        name : 'username',
+                        id : 'username',
+                        margin: 5
+                    }, {
+                        xtype : 'textfield',
+                        label : i18n.gettext('Email'),
+                        name : 'email',
+                        id : 'email',
+                        margin: 5
+                    }, /*{
+                        xtype : 'button',
+                        text : i18n.gettext('Import user'),
+                        id : 'import'
+                    }, {
+                        xtype : 'button',
+                        text : i18n.gettext('Export user'),
+                        id : 'export'
+                    }, */
+                    {
                         xtype: 'toolbar',
                         docked: 'bottom',
-                        items:[
+                        items:
+                        [
                             {
                                 xtype: 'button',
                                 id: 'backFromSettings',
                                 text: i18n.gettext('Back'),
-                                ui:'back'
+                                ui: 'back'
                             },
                             {
-                                 xtype: 'spacer' 
+                                xtype: 'spacer' 
                             },
                             {
                                 xtype: 'button',
                                 text: i18n.gettext('Save'),
                                 id: 'saveSettings'
                             }
-                            ]
-                        
+                        ]
                     }
-                
                 ]
             },
             animationDuration : 300,
@@ -107,7 +120,7 @@ try {
              * element : 'ext-mask-1', xclass : 'Ext.fx.animation.FadeOut', duration:
              * this.animationDuration }]); },
              */
-            initialize : function() {
+            initialize : function () {
             }
         });
 

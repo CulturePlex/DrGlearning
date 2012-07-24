@@ -5,6 +5,7 @@
 /*global
     Ext Jed i18n FBL DEBUG PhoneGap MathJax JSON console printStackTrace alert StackTrace DrGlearning
 */
+
 try {
     (function () {
     // Exceptions Catcher Begins

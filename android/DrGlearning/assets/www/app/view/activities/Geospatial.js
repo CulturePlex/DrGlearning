@@ -1,3 +1,13 @@
+/*jshint
+    forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:false,
+    undef:true, curly:true, browser:true, indent:4, maxerr:50
+*/
+
+/*global
+    Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
+*/ 
+
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -6,20 +16,19 @@ try {
             extend: 'Ext.Panel',
             xtype : 'geospatial',
             poligono: null,
-            marker:null,
-            circle:null,
-            bandera:null,
-            config: {
-                customId:'activity',
-                id:'activity',
+            marker: null,
+            circle: null,
+            bandera: null,
+            config:  {
+                customId: 'activity',
+                id: 'activity',
                 title: 'Map',
                 iconCls: 'maps',
                 layout: 'fit',
                 fullscreen: true,
                 items: [
                     {
-                      xtype: 'toolbar',
-                        
+                        xtype: 'toolbar',
                         docked: 'top',
                         ui: 'neutral',
                         customId: 'query',
@@ -27,12 +36,12 @@ try {
                             type: 'hbox',
                             pack : 'center' 
                         },
-                        height:40
+                        height: 40
                     },
                     {
                         xtype: 'toolbar',
                         docked: 'bottom',
-                        items:[
+                        items: [
                             {
                                 xtype: 'button',
                                 customId: 'backtolevel',
@@ -40,13 +49,13 @@ try {
                                 ui: 'back'
                             },
                             {
-                                 xtype: 'spacer' 
+                                xtype: 'spacer' 
                             },
                             {
                                 xtype: 'button',
                                 text: i18n.gettext("Confirm"),
                                 id: 'confirm',
-                                customId:'confirm'
+                                customId: 'confirm'
                             }
                         ]
                     }
