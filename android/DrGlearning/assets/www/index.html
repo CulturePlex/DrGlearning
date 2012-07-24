@@ -50,7 +50,7 @@
         Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert DrGlearning
     */
 
-    var VERSION = "0.2.2", TERMS_VERSION = "0.2.2";
+    var VERSION = "0.2.2", TERMS_VERSION = "0.2.2", LANGS = ["es_ES", "fr", "en", "pt_BR"];
 
     function StackTrace(ex) {
         var logger, msg;
@@ -99,14 +99,18 @@
         }
         document.addEventListener("deviceready", onDeviceReady, false);
         head
+        .js("resources/js/touch/sencha-touch-all.js")
         .js("resources/js/jed.js")
         .js("phonegap.js")
-        .js("resources/js/touch/sencha-touch-all.js")
         .js("resources/js/base64writer.js")
         .js("resources/js/GeoJSON.js")
-        .js("resources/js/maps.google.polygon.containsLatLng.js")
-        .js((["es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0)?"resources/js/locales/" + localStorage.locale + ".js":"resources/js/locales/en.js")
-        .js("drglearningapp.js")
+        .js("resources/js/maps.google.polygon.containsLatLng.js", function () {
+            head
+            .js((LANGS.indexOf(localStorage.locale) >= 0)?"resources/js/locales/" + localStorage.locale + ".js":"resources/js/locales/en.js", function () {
+                head
+                .js("drglearningapp.js")
+            })
+        })
 
         // Exceptions Catcher End
         })();
