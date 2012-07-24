@@ -29,6 +29,7 @@ try {
             learnlevelHtml: null,
             learnlevelWidth: null,
             learnlevelHeight: null,
+            infolevelHtml: null,
             /*
              * Initializate Controller.
              */
@@ -80,9 +81,13 @@ try {
                     },
                     'button[customId=learnlevel]': {
                         tap: this.toLearnLevel
+                    },
+                    'button[customId=infolevel]': {
+                        tap: this.toInfoLevel
                     }
                 });
             },
+            //Showing learn content
             toLearnLevel: function ()
             {
                 var learn =  Ext.create('DrGlearning.view.Learn');
@@ -93,6 +98,15 @@ try {
                 Ext.Viewport.add(learn);
                 learn.show();
                 this.getLevelframe().hide();
+            },
+            //Showing info content
+            toInfoLevel: function ()
+            {
+                var learn =  Ext.create('DrGlearning.view.Info');
+                console.log(this.infolevelHtml);
+                learn.setHtml(this.infolevelHtml);
+                Ext.Viewport.add(learn);
+                learn.show();
             },
             /*
              * Showing levels view.
@@ -139,6 +153,7 @@ try {
                     if (typeof(MathJax) !== "undefined") {
                         MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
                     }
+                    //Showing Learn Button if is necessary
                     var levelString = "level" + newLevel;
                     if (newCareer.data[levelString] === null || typeof(newCareer.data[levelString]) === "undefined")
                     {
@@ -150,6 +165,17 @@ try {
                         this.learnlevelWidth = newCareer.data[levelString].width;
                         this.learnlevelHeight = newCareer.data[levelString].height;
                         this.getLevelframe().down('button[customId=learnlevel]').show();
+                    }
+                    //Showing Info Button if is necessary
+                    levelString = "level" + newLevel + '_description';
+                    if (newCareer.data[levelString] === null || typeof(newCareer.data[levelString]) === "undefined")
+                    {
+                        this.getLevelframe().down('button[customId=infolevel]').hide();
+                    }
+                    else
+                    {
+                        this.infolevelHtml = newCareer.data[levelString];
+                        this.getLevelframe().down('button[customId=infolevel]').show();
                     }
                 }
                 else

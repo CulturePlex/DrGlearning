@@ -63,8 +63,11 @@ try {
                                 xtype: 'spacer' 
                             },
                             {
-                                xtype: 'spacer' 
-                            }
+                                xtype: 'button',
+                                id: 'infolevel',
+                                text: i18n.gettext('Info'),
+                                customId: 'infolevel'
+                            },
                         ]
                     },
                     {

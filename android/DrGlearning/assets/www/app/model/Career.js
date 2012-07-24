@@ -129,6 +129,36 @@ try {
                     name: "level10",
                     type: "auto"
                 }, {
+                    name: "level1_description",
+                    type: "auto"
+                }, {
+                    name: "level2_description",
+                    type: "auto"
+                }, {
+                    name: "level3_description",
+                    type: "auto"
+                }, {
+                    name: "level4_description",
+                    type: "auto"
+                }, {
+                    name: "level5_description",
+                    type: "auto"
+                }, {
+                    name: "level6_description",
+                    type: "auto"
+                }, {
+                    name: "level7_description",
+                    type: "auto"
+                }, {
+                    name: "level8_description",
+                    type: "auto"
+                }, {
+                    name: "level9_description",
+                    type: "auto"
+                }, {
+                    name: "level10_description",
+                    type: "auto"
+                }, {
                     name: "level1_url",
                     type: "auto"
                 }, {
