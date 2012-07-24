@@ -28,11 +28,13 @@ try {
                     easing: 'ease-out'
                 },
                 padding: 5,
-                
+                height: 250,
+                width: 250,
                 centered: true,
                 // Make it hidden by default
                 // Set the width and height of the panel
-//                layout: 'fit',
+                layout: 'fit',
+                scrollable: true,
                 // Here we specify the #id of the element we created in `index.html`
                 // Style the content and make it scrollable
                 // Insert a title docked at the top with a title
