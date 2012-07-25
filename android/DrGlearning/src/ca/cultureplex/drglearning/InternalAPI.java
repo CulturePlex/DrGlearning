@@ -1,6 +1,6 @@
 package ca.cultureplex.drglearning;
 
-import com.phonegap.DroidGap;
+import org.apache.cordova.DroidGap;
 
 import android.webkit.WebView;
 
@@ -9,13 +9,12 @@ public class InternalAPI {
     private WebView mAppView;
     private DroidGap mGap;
 
-    public InternalAPI(DroidGap gap, WebView view)
-    {
+    public InternalAPI(DroidGap gap, WebView view) {
         mAppView = view;
         mGap = gap;
     }
 
-    public String getTest(){
+    public String getTest() {
         return "Test!";
     }
 }
