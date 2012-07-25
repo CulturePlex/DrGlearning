@@ -10,9 +10,12 @@ try {
     (function () {
     // Exceptions Catcher Begins
 
+        // This fixes this Bug http://code.google.com/p/android/issues/detail?id=17535
         Ext.Loader.setConfig({
-            enabled : true
+            enabled : true,
+            disableCaching: false
         });
+        Ext.Ajax.setDisableCaching(false);
 
         Ext.application({
             name: 'DrGlearning',

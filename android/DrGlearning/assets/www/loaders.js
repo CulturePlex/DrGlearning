@@ -3,12 +3,12 @@
     undef:true, curly:true, browser:true, indent:4, maxerr:50
 */
 /*global
-    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert DrGlearning
+    Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert DrGlearning head
 */
 
-var VERSION = "0.2.2", TERMS_VERSION = "0.2.2";
+var VERSION = "0.2.2", TERMS_VERSION = "0.2.2", LANGS = ["es_ES", "fr", "en", "pt_BR"];
 if (typeof(CORDOVA_PLATFORM) === "undefined") {
-    var CORDOVA_PLATFORM = "cordova.js";
+    var CORDOVA_PLATFORM = "cordova-1.8.1.js";
 }
 
 function StackTrace(ex) {
@@ -50,82 +50,26 @@ try {
     (function () {
     // Exceptions Catcher Begins
 
-        function onDeviceReady() {
-            // Now safe to use the PhoneGap API
-            console.log("LAUNCH!!!");
-            if (typeof(this.getController) !== "undefined") {
-                this.getController("LoadingController").onLaunch();
-            }
-        }
-
         function load() {
-            // Loaders
-            yepnope([{
-                // Locales
-                test: ["es_ES", "fr", "en", "pt_BR"].indexOf(localStorage.locale) >= 0,
-                yep: "resources/js/locales/" + localStorage.locale + ".js",
-                nope: "resources/js/locales/en.js"
-            }, {
-                // PhoneGap local vs. PhoneGap:Build
-                test: typeof(PhoneGap) === "undefined",
-                nope: "resources/js/" + CORDOVA_PLATFORM,
-                complete: function () {
+            head.js(
+                 (LANGS.indexOf(localStorage.locale) >= 0) ? "resources/js/locales/" + localStorage.locale + ".js" : "resources/js/locales/en.js",
+                 "drglearningapp.js",
+                 function () {
+                    function onDeviceReady() {
+                        // Now safe to use the PhoneGap API
+                        console.log("LAUNCH!!!");
+                        console.log("typeof(this.getController): " + typeof(this.getController));
+                        console.log("DrGlearning: " + typeof(DrGlearning));
+                    }
                     document.addEventListener("deviceready", onDeviceReady, false);
                 }
-            }, {
-                // MathJax
-                test: typeof(MathJax) === "undefined",
-                yep: "resources/js/mathjax/MathJax.js"
-            }, {
-                // JSON
-                test: typeof(JSON) === "undefined",
-                yep: "resources/js/json2.min.js"
-            }, {
-                // Main
-                load: "drglearningapp.js"
-            }]);
+            );
         }
 
-        // Debug loaders
-        if (typeof(DEBUG) !== "undefined") {
-            yepnope([{
-                // Debug mode remote
-                test: DEBUG === "remote",
-                yep: "http://debug.phonegap.com/target/target-script-min.js#drglearning"
-            }, {
-                // Debug mode Firebug
-                test: DEBUG === "firebug",
-                yep: "https://getfirebug.com/firebug-lite-debug.js"
-            }, {
-                // Debug mode console
-                load: "resources/js/stacktrace-min-0.3.js",
-                complete: function () {
-                    if (typeof(FBL) !== "undefined") {
-                        FBL.Firebug.chrome.close();
-                        window.console = FBL.Firebug.Console;
-                    }
-                    if (DEBUG === "alert") {
-                        if (navigator && typeof(navigator.notification) !== "undefined") {
-                            window.console = {log: (function (msg) {
-                                navigator.notification.alert("LOG: " + msg);
-                            })};
-                        } else if (typeof(window.alert) !== "undefined") {
-                            window.console = {log: (function (msg) {
-                                window.alert.call(window, "LOG: " + msg);
-                            })};
-                        }
-                    } else if (DEBUG === "html") {
-                        document.getElementById("stackLogger").style.display = "block";
-                        window.console = {log: (function (msg) {
-                            var logger;
-                            msg = (msg || "<None>").toString();
-                            logger = document.getElementById("stackLogger");
-                            logger.innerHTML = "LOG: " + msg.substring(0, 100) + "<br/>" + logger.innerHTML.substring(0, 300);
-                        })};
-                    }
-                    load();
-                }
-            }]);
+        if (typeof(Cordova) !== "undefined") {
+            head.js("resources/js/" + CORDOVA_PLATFORM, function () {
+                load();
+            });
         } else {
             load();
         }
