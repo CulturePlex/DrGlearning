@@ -27,6 +27,8 @@ try {
                 this.daoController = this.getApplication().getController('DaoController');
                 this.careersStore = Ext.getStore('Careers');
                 this.knowledgesStore = Ext.getStore('Knowledges');
+                this.termsStore = Ext.getStore('Terms');
+
                 this.careersListController = this.getApplication().getController('CareersListController');
                 this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.offset = 0;
@@ -136,14 +138,30 @@ try {
             },
             showTerms: function () {
                 var terms = Ext.create('DrGlearning.view.Terms');
+
                 if (typeof(localStorage.terms_version) === "undefined")
                 {
+		            this.termsStore.load(
+                    {
+		                callback:function(){ 
+		                    console.log(this);
+		                    terms.setHtml(this.getAt(0).data.text);
+		                }
+	                });
                     Ext.Viewport.add(terms);
                     terms.show();
+                    
                     localStorage.terms_version = TERMS_VERSION;
                 }
                 if (TERMS_VERSION !== localStorage.terms_version)
                 {
+		            this.termsStore.load(
+                    {
+		                callback:function(){ 
+		                    console.log(this);
+		                    terms.setHtml(this.getAt(0).data.text);
+		                }
+	                });
                     Ext.Viewport.add(terms);
                     terms.show();
                 }

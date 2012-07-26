@@ -30,8 +30,8 @@ try {
                           'activities.LinguisticController', 'activities.RelationalController',
                           'UserSettingsController', 'FileManagerController',
                           'MaxStorageSizeController', 'activities.QuizController'],
-            models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User', 'Knowledge'],
-            stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users', 'Knowledges'],
+            models: ['Activity', 'Career', 'Level', 'OfflineScore', 'User', 'Knowledge','Terms'],
+            stores: ['Activities', 'Careers', 'Levels', 'OfflineScores', 'Users', 'Knowledges','Terms'],
             autoCreateViewport : true,
             requires: ['Ext.Anim'],
             launch: function () {

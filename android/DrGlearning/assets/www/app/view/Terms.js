@@ -30,7 +30,7 @@ try {
                     },
                     centered: true,
                     
-                    html: '<iframe name="i1" src="terms.txt" width= 240 height= 200 frameborder="0" />',
+                    //html: '<iframe name="i1" src="terms.txt" width= 240 height= 200 frameborder="0" />',
                     //'<iframe src="http://www.facebook.com/plugins/like.php?href=YOUR_URL" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px"></iframe>'
                     // Make it hidden by default
                     hidden: true,
@@ -65,17 +65,6 @@ try {
                                     listeners : {
                                         tap : function () {
                                             this.parent.parent.hide();
-                                        }
-                                    }
-                                },
-                                {xtype: 'spacer'},
-                                {
-                                    xtype: 'button',
-                                    text: i18n.gettext('Cancel'),
-                                    ui: 'decline',
-                                    listeners : {
-                                        tap : function () {
-                                            navigator.app.exitApp();
                                         }
                                     }
                                 },
