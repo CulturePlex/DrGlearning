@@ -154,6 +154,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'sorl.thumbnail',
     'base',
+    'mining',
     'accounts',
     'knowledges',
     'activities',

@@ -28,6 +28,9 @@ urlpatterns = patterns('',
      url(r'^', include('base.urls')),
 #    url(r'^', include(admin.site.urls)),
 
+    # mining
+    url(r'^mining/', include('mining.urls')),
+
     # accounts
     url(r'^accounts/', include('accounts.urls')),
     url(r'^accounts/', include('userena.urls')),
