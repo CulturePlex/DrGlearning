@@ -8,3 +8,5 @@ def mining(request):
     return render_to_response('mining.html',
                               {},
                               context_instance=RequestContext(request))
+                              
+

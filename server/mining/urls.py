@@ -6,4 +6,5 @@ urlpatterns = patterns('mining.views',
     # index
     url(r'^$', 'mining', name="mining"),
 
+
 )
