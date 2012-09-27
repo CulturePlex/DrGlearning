@@ -13,7 +13,8 @@ try {
             extend : 'Ext.app.Controller',
             init : function () {
             },
-            onLaunch : function () {
+            launch : function () {
+                this.daoController = this.getApplication().getController('DaoController');
             },
             settings : function () {
                 var userStore = Ext.getStore('Users');
@@ -30,20 +31,26 @@ try {
                 var usernameField = view.down('textfield[id=username]');
                 var emailField = view.down('textfield[id=email]');
                 var user = userStore.getAt(0);
-                //emailField.setValue(user.data.email);
-                //usernameField.setValue(user.data.name);
+                console.log('ejecutando settings');
+                emailField.setValue(user.data.email);
+                usernameField.setValue(user.data.display_name);
             },
             saveSettings : function () {
-                //var userStore = Ext.getStore('Users');
-                //userStore.load();
+                var userStore = Ext.getStore('Users');
+                userStore.load();
                 var view = this.getSettings();
-                //var usernameField = view.down('textfield[id=username]').getValue();
-                //var emailField = view.down('textfield[id=email]').getValue();
-                //var user = userStore.getAt(0);
-                //user.set('name', usernameField);
-                //user.set('email', emailField);
-                //user.save();
-                //userStore.sync();
+                var usernameField = view.down('textfield[id=username]').getValue();
+                var emailField = view.down('textfield[id=email]').getValue();
+                var user = userStore.getAt(0);
+                var changed = false;
+                if(emailField !== user.data.email || usernameField !== user.data.display_name)
+                {
+                  var changed = true;
+                }
+                user.set('display_name', usernameField);
+                user.set('email', emailField);
+                user.save();
+                userStore.sync();
                 var locale = view.down('selectfield[id=locale]').getValue();
                 if (localStorage.locale !== locale) {
                     if (locale === "ar")
@@ -55,9 +62,22 @@ try {
                     }
                     localStorage.locale = locale;
                     Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes'), Ext.emptyFn);
-                }
-                view.hide();
-                this.getCareersframe().show();
+               }
+               view.hide();
+               this.getCareersframe().show();
+               if(changed)
+               {
+                if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
+                        Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to sync your profile'), function ()
+                        {
+                          view.down('textfield[id=username]').setValue(user.data.display_name);
+                          view.down('textfield[id=email]').setValue(user.data.email);
+                        }, this);
+                    } else
+                    {
+                        this.daoController.updateOfflineScores();
+                    }
+               }
             },
             exportUser : function () {
                 var userStore = Ext.getStore('Users');

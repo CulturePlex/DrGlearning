@@ -319,9 +319,10 @@ try {
                 return activities.items[0];
             },
             updateOfflineScores: function () {
-                var offlineScoreStore = Ext.getStore('OfflineScores');
                 var usersStore = Ext.getStore('Users');
+                this.updateUserSettings();
                 var user = usersStore.getAt(0);
+                var offlineScoreStore = Ext.getStore('OfflineScores');
                 var HOST = this.globalSettingsController.getServerURL();
                 offlineScoreStore.each(function (item) {
                     Ext.data.JsonP.request({
@@ -338,6 +339,24 @@ try {
                         }
                     });
                 }, this);
+            },
+            updateUserSettings: function () {
+                var usersStore = Ext.getStore('Users');
+                var user = usersStore.getAt(0);
+                var HOST = this.globalSettingsController.getServerURL();
+                Ext.data.JsonP.request({
+                    scope: this,
+                    url: HOST + '/api/v1/player/?format=jsonp',
+                    params: {
+                        code: user.data.uniqueid,
+                        token: user.data.token,
+                        email: user.data.email,
+                        display_name: user.data.display_name
+                    },
+                    success: function (response) {
+                    }
+                });
+                
             },
             //Tell us if a level is approved or not
             isApproved: function (careerID, level)

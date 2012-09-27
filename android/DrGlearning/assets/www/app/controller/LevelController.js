@@ -155,7 +155,7 @@ try {
                     }
                     //Showing Learn Button if is necessary
                     var levelString = "level" + newLevel;
-                    if (typeof(newCareer.data[levelString]) === "undefined") {
+                    if (typeof(newCareer.data[levelString]) === "undefined" || newCareer.data[levelString] === null) {
                         this.getLevelframe().down('button[customId=learnlevel]').hide();
                     } else {
                         this.learnlevelHtml = newCareer.data[levelString].html;

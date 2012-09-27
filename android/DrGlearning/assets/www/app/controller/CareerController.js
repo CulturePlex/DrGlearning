@@ -117,7 +117,7 @@ try {
                 this.daoController.updateOfflineScores();
                 this.selectedCareer = newCareer;
                 var view = this.careerFrame;
-                if (typeof(newCareer.data.main) === "undefined") {
+                if (typeof(newCareer.data.main) === "undefined" || newCareer.data.main === null) {
                     view.down('button[customId=learn]').hide();
                 } else {
                     this.learnHtml = newCareer.data.main.html;
