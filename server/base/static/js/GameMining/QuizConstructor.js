@@ -84,7 +84,7 @@ var QuizConstructor = {
     while ( j < answers.length )
     {
         var r = parseInt(Math.random(10)*answers.length);
-        if ( typeof(answersmixed[r] )=== "undefined")
+        if ( typeof(answersmixed[r] ) === "undefined")
         {
             answersmixed[r] = answers[j];
             j++;
