@@ -62,15 +62,19 @@ try {
                         name : 'email',
                         id : 'email',
                         margin: 5
-                    }, /*{
-                        xtype : 'button',
-                        text : i18n.gettext('Import user'),
-                        id : 'import'
+                    }, {
+                        xtype : 'spacer',
                     }, {
                         xtype : 'button',
+                        margin: 5,
+                        text : i18n.gettext('Import user'),
+                        id : 'import'
+                    },{
+                        xtype : 'button',
+                        margin: 5,
                         text : i18n.gettext('Export user'),
                         id : 'export'
-                    }, */
+                    }, 
                     {
                         xtype: 'toolbar',
                         docked: 'bottom',

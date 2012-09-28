@@ -31,7 +31,6 @@ try {
                 var usernameField = view.down('textfield[id=username]');
                 var emailField = view.down('textfield[id=email]');
                 var user = userStore.getAt(0);
-                console.log('ejecutando settings');
                 emailField.setValue(user.data.email);
                 usernameField.setValue(user.data.display_name);
             },
@@ -83,14 +82,11 @@ try {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);
-                var view = this.getSettings();
-                view.hide();
                 new Ext.MessageBox().show({
                     title : i18n.gettext('Export user'),
-                    msg : i18n.gettext('Copy and paste this code in another device') + ":",
                     items : [ {
-                        xtype : 'textfield',
-                        label : i18n.gettext('Copy and paste this code in another device') + ":",
+                        xtype : 'textareafield',
+                        label : i18n.gettext('Copy and paste this code in another<br>device') + ":",
                         name : 'id',
                         id : 'id',
                         labelAlign : 'top',
@@ -98,17 +94,13 @@ try {
                         clearIcon : false
                     } ],
                     multiline : true,
+                    width:'100%',
                     buttons : Ext.Msg.OK,
                     icon : Ext.Msg.INFO
                 });
 
             },
             importUser : function () {
-                var userStore = Ext.getStore('Users');
-                userStore.load();
-                var user = userStore.getAt(0);
-                var view = this.getSettings();
-                view.hide();
                 var saveButton = Ext.create('Ext.Button', {
                     scope : this,
                     text : i18n.gettext('Save')
@@ -122,7 +114,7 @@ try {
                     title : i18n.gettext('Import user'),
                     msg : i18n.gettext('Paste your code here') + ":",
                     items : [ {
-                        xtype : 'textfield',
+                        xtype : 'textareafield',
                         labelAlign : 'top',
                         clearIcon : false,
                         value : '',
@@ -133,17 +125,50 @@ try {
                 });
                 saveButton.setHandler(function () {
                     show.hide();
-                    user.data.uniqueid = show.down('#importvalue').getValue();
-                    user.save();
+                    Ext.Viewport.setMasked({
+                      xtype: 'loadmask',
+                      message: i18n.gettext('Importing User Data') + "…",
+                      indicator: true
+                    });
+                    var uniqueid = show.down('#importvalue').getValue();
                     this.destroy(show);
+                    var usersStore = Ext.getStore('Users');
+                    var user = usersStore.getAt(0);
+                    var HOST = this.globalSettingsController.getServerURL();
+                    Ext.data.JsonP.request({
+                        scope: this,
+                        url: HOST + '/api/v1/player/?format=jsonp',
+                        params: {
+                              code: uniqueid,
+                        },
+                       success: function (response, opts) {
+                          if(response.token == null)
+                          {
+                            user.data.uniqueid = response.code;
+                            user.data.display_name = response.display_name;
+                            user.data.email = response.email;
+                            user.save();
+                            this.getSettings().down('#username').setValue(response.display_name);
+                            this.getSettings().down('#email').setValue(response.email);
+                            Ext.Msg.alert(i18n.gettext('User Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
+                          }
+                          else
+                          {
+                            Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
+                          }
+                          Ext.Viewport.setMasked(false);
+                       },
+                       failure : function () {
+                         Ext.Viewport.setMasked(false);
+                         Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
+                      }
+                    });
+                    
                 });
                 cancelButton.setHandler(function () {
                     show.hide();
                     this.destroy(show);
                 });
-            },
-            importUserAction : function (ola, adios) {
-                //console.log('Not implemented');
             }
         });
 
