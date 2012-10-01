@@ -53,10 +53,6 @@ class PlayerResource(ModelResource):
 class ScoreResource(ModelResource):
     player = fields.ForeignKey(PlayerResource, 'player')
     activity = fields.ForeignKey(ActivityResource, 'activity')
-    class Meta:
-        filtering = {
-            "player": 'exact',
-        }
     def dispatch(self, request_type, request, **kwargs):
         required_fields = ('player_code', 'activity_id', 'score', 'token')
         if is_valid_jsonp(request_type, request, required_fields):
@@ -83,3 +79,6 @@ class ScoreResource(ModelResource):
 
     class Meta:
         queryset = HighScore.objects.all()
+        filtering = {
+            'player': 'exact'
+        }

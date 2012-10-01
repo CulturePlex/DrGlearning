@@ -101,12 +101,31 @@ try {
 
             },
             userDataReceived: function(response,opts){
+                var userStore = Ext.getStore('Users');
+                userStore.load();
+                var user = userStore.getAt(0);
+                Ext.data.JsonP.request({
+                    scope: this,
+                    url: HOST + '/api/v1/score/?format=jsonp',
+                    params: {
+                          player: user.data.uniqueid,
+                    },
+                   success: function (response, opts) {
+                   
+                   },
+                   failure : function () {
+                     Ext.Viewport.setMasked(false);
+                     Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
+                  }
+                });
+
                 user.data.uniqueid = response.code;
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
                 this.getSettings().down('#username').setValue(response.display_name);
                 this.getSettings().down('#email').setValue(response.email);
+                
 //                Ext.Msg.alert(i18n.gettext('User Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
             },
             importUser : function () {
@@ -133,9 +152,6 @@ try {
                     icon : Ext.Msg.INFO
                 });
                 saveButton.setHandler(function () {
-                    var userStore = Ext.getStore('Users');
-                    userStore.load();
-                    var user = userStore.getAt(0);
                     show.hide();
                     Ext.Msg.confirm(i18n.gettext("Import User"), i18n.gettext("Are you sure you want to import user data? Your actual user data will be lost. If you want to keep your actual data use this code:<br>") + user.data.uniqueid.substr(0, 15) +'<br>'+ user.data.uniqueid.substr(15, user.data.uniqueid.length), function (answer)
                     {
