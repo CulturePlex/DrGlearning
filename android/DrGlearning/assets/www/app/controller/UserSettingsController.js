@@ -100,6 +100,15 @@ try {
                 });
 
             },
+            userDataReceived: function(response,opts){
+                user.data.uniqueid = response.code;
+                user.data.display_name = response.display_name;
+                user.data.email = response.email;
+                user.save();
+                this.getSettings().down('#username').setValue(response.display_name);
+                this.getSettings().down('#email').setValue(response.email);
+//                Ext.Msg.alert(i18n.gettext('User Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
+            },
             importUser : function () {
                 var saveButton = Ext.create('Ext.Button', {
                     scope : this,
@@ -112,10 +121,10 @@ try {
                 var show = new Ext.MessageBox().show({
                     id : 'info',
                     title : i18n.gettext('Import user'),
-                    msg : i18n.gettext('Paste your code here') + ":",
                     items : [ {
                         xtype : 'textareafield',
                         labelAlign : 'top',
+                        label : i18n.gettext('Paste your code here') + ":",
                         clearIcon : false,
                         value : '',
                         id : 'importvalue'
@@ -124,46 +133,47 @@ try {
                     icon : Ext.Msg.INFO
                 });
                 saveButton.setHandler(function () {
+                    var userStore = Ext.getStore('Users');
+                    userStore.load();
+                    var user = userStore.getAt(0);
                     show.hide();
-                    Ext.Viewport.setMasked({
-                      xtype: 'loadmask',
-                      message: i18n.gettext('Importing User Data') + "…",
-                      indicator: true
-                    });
-                    var uniqueid = show.down('#importvalue').getValue();
-                    this.destroy(show);
-                    var usersStore = Ext.getStore('Users');
-                    var user = usersStore.getAt(0);
-                    var HOST = this.globalSettingsController.getServerURL();
-                    Ext.data.JsonP.request({
-                        scope: this,
-                        url: HOST + '/api/v1/player/?format=jsonp',
-                        params: {
-                              code: uniqueid,
-                        },
-                       success: function (response, opts) {
-                          if(response.token == null)
-                          {
-                            user.data.uniqueid = response.code;
-                            user.data.display_name = response.display_name;
-                            user.data.email = response.email;
-                            user.save();
-                            this.getSettings().down('#username').setValue(response.display_name);
-                            this.getSettings().down('#email').setValue(response.email);
-                            Ext.Msg.alert(i18n.gettext('User Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
-                          }
-                          else
-                          {
-                            Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
-                          }
-                          Ext.Viewport.setMasked(false);
-                       },
-                       failure : function () {
-                         Ext.Viewport.setMasked(false);
-                         Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
-                      }
-                    });
-                    
+                    Ext.Msg.confirm(i18n.gettext("Import User"), i18n.gettext("Are you sure you want to import user data? Your actual user data will be lost. If you want to keep your actual data use this code:<br>") + user.data.uniqueid.substr(0, 15) +'<br>'+ user.data.uniqueid.substr(15, user.data.uniqueid.length), function (answer)
+                    {
+                        if (answer === 'yes') {
+                          Ext.Viewport.setMasked({
+                            xtype: 'loadmask',
+                            message: i18n.gettext('Importing User Data') + "…",
+                            indicator: true
+                          });
+                          var uniqueid = show.down('#importvalue').getValue();
+                          this.destroy(show);
+                          var usersStore = Ext.getStore('Users');
+                          var user = usersStore.getAt(0);
+                          var HOST = this.globalSettingsController.getServerURL();
+                          Ext.data.JsonP.request({
+                              scope: this,
+                              url: HOST + '/api/v1/player/?format=jsonp',
+                              params: {
+                                    code: uniqueid,
+                              },
+                             success: function (response, opts) {
+                                if(response.token == null)
+                                {
+                                  this.getApplication().getController('UserSettingsController').userDataReceived(response,opts);
+                                }
+                                else
+                                {
+                                  Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
+                                }
+                                Ext.Viewport.setMasked(false);
+                             },
+                             failure : function () {
+                               Ext.Viewport.setMasked(false);
+                               Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
+                            }
+                          });
+                        }
+                    }, this); 
                 });
                 cancelButton.setHandler(function () {
                     show.hide();
