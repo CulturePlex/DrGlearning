@@ -15,6 +15,7 @@ try {
             },
             launch : function () {
                 this.daoController = this.getApplication().getController('DaoController');
+                this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
             },
             settings : function () {
                 var userStore = Ext.getStore('Users');
@@ -104,18 +105,20 @@ try {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);
+                var HOST = this.globalSettingsController.getServerURL();
                 Ext.data.JsonP.request({
                     scope: this,
                     url: HOST + '/api/v1/score/?format=jsonp',
                     params: {
-                          player: user.data.uniqueid,
+                          player: response.id,
                     },
-                   success: function (response, opts) {
-                   
-                   },
-                   failure : function () {
-                     Ext.Viewport.setMasked(false);
-                     Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
+                    success: function (response, opts) {
+                      this.getApplication().getController('UserSettingsController').collectCareersFromScores(response,opts);
+                                            console.log(response);
+                    },
+                    failure : function () {
+                      Ext.Viewport.setMasked(false);
+                      Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
                   }
                 });
 
@@ -123,12 +126,20 @@ try {
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
-                this.getSettings().down('#username').setValue(response.display_name);
-                this.getSettings().down('#email').setValue(response.email);
+//                this.getSettings().down('#username').setValue(response.display_name);
+//                this.getSettings().down('#email').setValue(response.email);
                 
 //                Ext.Msg.alert(i18n.gettext('User Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
             },
+            collectCareersFromScores: function(response,objects) {
+              for (x in response.objects) {
+                  console.log(response.objects[x]);
+              }
+            },
             importUser : function () {
+                var userStore = Ext.getStore('Users');
+                userStore.load();
+                var user = userStore.getAt(0);
                 var saveButton = Ext.create('Ext.Button', {
                     scope : this,
                     text : i18n.gettext('Save')

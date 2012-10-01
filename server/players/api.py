@@ -71,6 +71,7 @@ class ScoreResource(ModelResource):
                                score=request.GET["score"],
                                activity_timestamp=activity_timestamp)
                 hs.save()
+                kwargs["career_id"] = activity.career.id
                 kwargs["pk"] = hs.id
                 request_type = "detail"
         return super(ScoreResource, self).dispatch(request_type,
