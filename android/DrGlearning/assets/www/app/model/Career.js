@@ -19,6 +19,9 @@ try {
                     name : "id",
                     type : "int"
                 }, {
+                    name : "customId",
+                    type : "int"
+                }, {
                     name : "activities",
                     type : "auto"
                 }, {

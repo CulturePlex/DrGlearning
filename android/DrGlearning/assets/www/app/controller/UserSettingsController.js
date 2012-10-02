@@ -11,15 +11,22 @@ try {
     // Exceptions Catcher Begins
         Ext.define('DrGlearning.controller.UserSettingsController', {
             extend : 'Ext.app.Controller',
+            careersToPreinstall: null,
+            preinstallingIndex: null,
+            lossettingsView: null,
             init : function () {
             },
             launch : function () {
+                this.careersStore = Ext.getStore('Careers');
                 this.daoController = this.getApplication().getController('DaoController');
+                this.careersListController = this.getApplication().getController('CareersListController');
                 this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
+                this.careersStore = Ext.getStore('Careers');
             },
             settings : function () {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
+                this.settingsView =  view;
                 var view = this.getSettings();
                 if (!view) {
                     view = Ext.create('DrGlearning.view.Settings');
@@ -28,6 +35,8 @@ try {
                     Ext.Viewport.add(view);
                 }
                 view.show();
+                this.lossettingsView =  view;
+                console.log(this.lossettingsView);
                 this.getCareersframe().hide();
                 var usernameField = view.down('textfield[id=username]');
                 var emailField = view.down('textfield[id=email]');
@@ -114,7 +123,6 @@ try {
                     },
                     success: function (response, opts) {
                       this.getApplication().getController('UserSettingsController').collectCareersFromScores(response,opts);
-                                            console.log(response);
                     },
                     failure : function () {
                       Ext.Viewport.setMasked(false);
@@ -126,14 +134,94 @@ try {
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
-//                this.getSettings().down('#username').setValue(response.display_name);
-//                this.getSettings().down('#email').setValue(response.email);
+           
+                var usernameField = Ext.ComponentQuery.query('textfield[id=username]')[0];
+                console.log(usernameField);
+                var emailField = Ext.ComponentQuery.query('textfield[id=email]')[0];
+                emailField.setValue(user.data.email);
+                usernameField.setValue(user.data.display_name);
                 
-//                Ext.Msg.alert(i18n.gettext('User Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
+
             },
             collectCareersFromScores: function(response,objects) {
+              careersToPreinstall = []
               for (x in response.objects) {
-                  console.log(response.objects[x]);
+                  if(careersToPreinstall.indexOf(response.objects[x].career_id)==-1)
+                  {
+                    careersToPreinstall.push(response.objects[x].career_id);
+                  }
+              }
+              this.preinstallingIndex = 0;
+              this.preinstall();
+            },
+            preinstall:function () {
+              //Downloading career Data:
+              console.log(this.preinstallingIndex);
+              console.log(careersToPreinstall.length);
+              if(parseInt(this.preinstallingIndex,10) < parseInt(careersToPreinstall.length,10))
+              {
+                var HOST = this.globalSettingsController.getServerURL();
+                Ext.data.JsonP.request({
+                        url: HOST + "/api/v1/career/"+careersToPreinstall[this.preinstallingIndex]+"/?format=jsonp",
+                        scope   : this,
+                        success: function (response, opts) {
+                            console.log(response);
+                            var career = response;
+                            var careerModel;
+                            if (this.careersStore.find('id', career.id) === -1) {
+                                careerModel = new DrGlearning.model.Career({
+                                  id : parseInt(career.id, 10),
+                                  customId : parseInt(career.id, 10),
+                                  levels : career.levels,
+                                  negative_votes : career.negative_votes,
+                                  positive_votes : career.positive_votes,
+                                  name : career.name,
+                                  description : career.description,
+                                  creator : career.creator,
+                                  resource_uri : career.resource_uri,
+                                  knowledges : career.knowledges,
+                                  timestamp : career.timestamp,
+                                  installed : false,
+                                  started : false,
+                                  update : false,
+                                  size: career.size,
+                                  career_type: career.career_type,
+                                  contents: career.contents.resource_uri
+                                });
+                                var activities = [];
+                                for (cont in career.activities) {
+                                    activities[cont] = career.activities[cont].full_activity_url;
+                                }
+                                careerModel.set('activities', activities);
+                                careerModel.save();
+                                this.careersStore.load();
+                                this.careersStore.sync();
+                            } else 
+                            {
+                                //Watch for updates
+                                careerModel = this.careersStore.getAt(this.careersStore.find('id', career.id));
+                                if (careerModel.data.timestamp < career.timestamp && !careerModel.data.installed) {
+                                    careerModel.data.update = true;
+                                    careerModel.save();
+
+                                }
+                              
+                            }
+                            this.retrieving = false;
+                            this.getApplication().getController('DaoController').preinstallCareer(careerModel);
+                        },
+                        failure: function () {
+                            Ext.Viewport.setMasked(false);
+                            console.log('error downloading career data');
+                            this.retrieving = false;
+                        }
+                    });
+              }else
+              {
+                Ext.Viewport.setMasked(false);
+                this.careersStore.clearFilter();
+                this.careersStore.filter("installed", true);
+                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
               }
             },
             importUser : function () {

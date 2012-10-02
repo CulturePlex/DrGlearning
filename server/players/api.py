@@ -71,13 +71,14 @@ class ScoreResource(ModelResource):
                                score=request.GET["score"],
                                activity_timestamp=activity_timestamp)
                 hs.save()
-                kwargs["career_id"] = activity.career.id
                 kwargs["pk"] = hs.id
                 request_type = "detail"
         return super(ScoreResource, self).dispatch(request_type,
                                                    request,
                                                    **kwargs)
-
+    def dehydrate(self, bundle):
+        bundle.data['career_id'] =  bundle.obj.activity.career.id
+        return bundle
     class Meta:
         queryset = HighScore.objects.all()
         filtering = {
