@@ -78,6 +78,7 @@ class ScoreResource(ModelResource):
                                                    **kwargs)
     def dehydrate(self, bundle):
         bundle.data['career_id'] =  bundle.obj.activity.career.id
+        bundle.data['activity_id'] =  bundle.obj.activity.id
         return bundle
     class Meta:
         queryset = HighScore.objects.all()

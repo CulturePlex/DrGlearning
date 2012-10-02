@@ -14,10 +14,13 @@ try {
             careersToPreinstall: null,
             preinstallingIndex: null,
             lossettingsView: null,
+            importedScores: null,
             init : function () {
             },
             launch : function () {
                 this.careersStore = Ext.getStore('Careers');
+                this.activitiesStore = Ext.getStore('Activities');
+                this.offlineScoresStore = Ext.getStore('OfflineScores');
                 this.daoController = this.getApplication().getController('DaoController');
                 this.careersListController = this.getApplication().getController('CareersListController');
                 this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
@@ -144,7 +147,7 @@ try {
 
             },
             collectCareersFromScores: function(response,objects) {
-              careersToPreinstall = []
+              careersToPreinstall = [];
               for (x in response.objects) {
                   if(careersToPreinstall.indexOf(response.objects[x].career_id)==-1)
                   {
@@ -152,9 +155,10 @@ try {
                   }
               }
               this.preinstallingIndex = 0;
+              this.importedScores = response.objects;
               this.preinstall();
             },
-            preinstall:function () {
+            preinstall:function (scores) {
               //Downloading career Data:
               console.log(this.preinstallingIndex);
               console.log(careersToPreinstall.length);
@@ -221,7 +225,13 @@ try {
                 Ext.Viewport.setMasked(false);
                 this.careersStore.clearFilter();
                 this.careersStore.filter("installed", true);
-                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data is imported to this device'), Ext.emptyFn);
+                for (var x in this.importedScores)
+                {
+                  console.log(this.importedScores[x]);
+                  //this.daoController.activityPlayed
+                }
+                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes'), Ext.emptyFn);
+                this.careersListController.filterCareers();
               }
             },
             importUser : function () {
@@ -260,6 +270,9 @@ try {
                             message: i18n.gettext('Importing User Data') + "…",
                             indicator: true
                           });
+                          Ext.getStore('OfflineScores').removeAll();
+                          Ext.getStore('Careers').removeAll();
+                          Ext.getStore('Activities').removeAll();
                           var uniqueid = show.down('#importvalue').getValue();
                           this.destroy(show);
                           var usersStore = Ext.getStore('Users');
