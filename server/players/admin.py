@@ -47,12 +47,10 @@ class PlayerListFilter(SimpleListFilter):
 
     def lookups(self, request, model_admin):
         players = Player.objects.all()
-        if request.user.is_superuser:
+        if not request.user.is_superuser:
             lookup = {"highscore__activity__career__user__id": request.user.id}
             players = players.filter(**lookup).distinct()
-            return ((player.id, player.get_name()) for player in players)
-        else:
-            return players
+        return ((player.id, player.get_name()) for player in players)
 
     def queryset(self, request, queryset):
         if not request.user.is_superuser:
