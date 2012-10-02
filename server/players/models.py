@@ -27,6 +27,14 @@ class Player(models.Model):
             self.token = token
         super(Player, self).save(*args, **kwargs)
 
+    def get_name(self):
+        if self.display_name and self.email:
+            return u"{0} ({1})".format(self.display_name, self.email)
+        elif self.display_name or self.email:
+            return u"{0}".format(self.display_name or self.email)
+        else:
+            return u"{0}".format(self.code)
+
 
 class HighScore(models.Model):
     player = models.ForeignKey(Player)
@@ -36,4 +44,5 @@ class HighScore(models.Model):
     score = models.FloatField()
 
     def __unicode__(self):
-        return u"%.2f %s (%s)" % (self.score, self.player, self.activity)
+        return u"%.2f %s (%s)" % (self.score, self.player.get_name(),
+                                  self.activity)
