@@ -1,4 +1,5 @@
-django-grappelli==2.3.7
+Django==1.4.1
+django-grappelli==2.4.2
 #distribute==0.6.10
 #django-guardian==1.0.4.dev
 -e git+git://github.com/lukaszb/django-guardian.git#egg=django-guardian
@@ -12,5 +13,8 @@ pycrypto==2.3
 sorl-thumbnail==11.09
 wsgiref==0.1.2
 django-tastypie==0.9.9
-South==0.7.3
+South==0.7.5
 Pillow==1.7.5
+# pysqlite==2.6.3 --no-instal and comment last line of setup.cfg
+python-dateutil==1.5
+python-digest==1.7
