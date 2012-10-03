@@ -71,8 +71,8 @@ class HighScoreAdmin(GuardedModelAdmin):
 
     # user_can_access_owned_objects_only = True
     # user_owned_objects_field = "activity.career.user"
-    list_display = ("player_name", "activity", "career", "score")
-    list_filter = (CareerListFilter, PlayerListFilter)
+    list_display = ("player_name", "activity", "career", "score", "is_passed")
+    list_filter = (CareerListFilter, PlayerListFilter, "is_passed")
     search_fields = ("activity__name", "activity__career__name")
     # # exclude = ('user',)
     save_as = True

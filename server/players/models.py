@@ -33,7 +33,7 @@ class Player(models.Model):
         elif self.display_name or self.email:
             return u"{0}".format(self.display_name or self.email)
         else:
-            return u"{0}".format(self.code)
+            return u"{0}...".format(self.code[:10])
 
 
 class HighScore(models.Model):
@@ -42,6 +42,7 @@ class HighScore(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     activity_timestamp = models.DateTimeField(null=True, blank=True)
     score = models.FloatField()
+    is_passed = models.NullBooleanField(null=True, blank=True)
 
     def __unicode__(self):
         return u"%.2f %s (%s)" % (self.score, self.player.get_name(),
