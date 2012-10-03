@@ -486,6 +486,7 @@ try {
                             token: user.data.token
                         },
                         success: function (response) {
+                            offlineScoreStore.remove(item);
                         }
                     });
                 }, this);
