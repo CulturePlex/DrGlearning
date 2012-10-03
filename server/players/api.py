@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from tastypie import fields
-from tastypie.authorization import Authorization
 from tastypie.resources import ModelResource
 
 from activities.api import ActivityResource
@@ -29,7 +28,7 @@ class PlayerResource(ModelResource):
         self.created = False
 
     def dispatch(self, request_type, request, **kwargs):
-        required_fields = ('code',)
+        # required_fields = ('code', )
         if "code" in request.GET and "callback" in request.GET:
             p, created = Player.objects.get_or_create(code=request.GET["code"])
             kwargs["pk"] = p.id
@@ -53,6 +52,7 @@ class PlayerResource(ModelResource):
 class ScoreResource(ModelResource):
     player = fields.ForeignKey(PlayerResource, 'player')
     activity = fields.ForeignKey(ActivityResource, 'activity')
+
     def dispatch(self, request_type, request, **kwargs):
         required_fields = ('player_code', 'activity_id', 'score', 'token')
         if is_valid_jsonp(request_type, request, required_fields):
@@ -76,10 +76,12 @@ class ScoreResource(ModelResource):
         return super(ScoreResource, self).dispatch(request_type,
                                                    request,
                                                    **kwargs)
+
     def dehydrate(self, bundle):
-        bundle.data['career_id'] =  bundle.obj.activity.career.id
-        bundle.data['activity_id'] =  bundle.obj.activity.id
+        bundle.data['career_id'] = bundle.obj.activity.career.id
+        bundle.data['activity_id'] = bundle.obj.activity.id
         return bundle
+
     class Meta:
         queryset = HighScore.objects.all()
         filtering = {
