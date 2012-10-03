@@ -27,6 +27,7 @@ try {
             loquedTextFinded: null,
             score: null,
             imagesrc: null,
+            lettersAsked: null,
             init: function () {
                 this.activityController = this.getApplication().getController('ActivityController');
                 this.levelController = this.getApplication().getController('LevelController');
@@ -52,6 +53,7 @@ try {
                     //html: "<img src='resources/images/activity_icons/linguistic.png'>",
                 });
                 this.score = 100;
+                this.lettersAsked = [];
                 this.activity = newActivity;
                 view.down('component[customId=activity]').destroy();
                 this.activityView = Ext.create('DrGlearning.view.activities.Linguistic');
@@ -110,15 +112,35 @@ try {
                         exist = true;
                     }
                 }
-                if (exist) {
-                    this.score -= 5;
-                    responseView.setHtml(responseView.getHtml() + letter + ' ');
-                    this.goodLetter();
-                }
-                else {
-                    this.score -= 10;
-                    responseView.setHtml(responseView.getHtml() + letter.fontcolor("red") + ' ');
-                }
+                if(this.lettersAsked.indexOf(letter) == -1)
+                {
+                  console.log(this.loquedText.length);
+                  this.lettersAsked.push(letter);
+                  var loquedTextLower = [];
+                  for (var x in this.loquedText)
+                  {
+                    loquedTextLower[x]=this.loquedText[x].toLowerCase();
+                  }
+                  if (exist) {
+                      var i = 0;
+                      while (i != -1)
+                      {
+                        var i = loquedTextLower.indexOf(letter.toLowerCase(),i);
+                        if (i != -1)
+                        {
+                          i++;
+                          console.log('restando');
+                          this.score -= (10/this.loquedText.length);
+                        }
+                      }
+                      responseView.setHtml(responseView.getHtml() + letter + ' ');
+                      this.goodLetter();
+                  }
+                  else {
+                      this.score -= 70/(27-this.loquedText.length);
+                      responseView.setHtml(responseView.getHtml() + letter.fontcolor("red") + ' ');
+                  }
+               }
                 var loqued = "";
                 for (cont in this.loquedTextFinded) {
                     if (this.loquedTextFinded[cont]) {
@@ -129,9 +151,14 @@ try {
                     }
                 }
                 loquedView.setHtml(loqued);
+                console.log(this.score);
                 if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
                 {
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
+                    if (this.score < 20)
+                    {
+                        this.score = 20;
+                    }
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
@@ -231,11 +258,11 @@ try {
                     show.hide();
                     answer = show.down('#importvalue').getValue();
                     if (answer.toLowerCase() === this.activity.data.answer.toLowerCase()) {
-                        if (this.score < 50)
+                        if (this.score < 20)
                         {
-                            this.score = 50;
+                            this.score = 20;
                         }
-                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
                         {
                             this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                             this.levelController.nextActivity(this.activity.data.level_type);
