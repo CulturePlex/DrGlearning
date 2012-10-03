@@ -69,6 +69,7 @@ class ScoreResource(ModelResource):
                 hs = HighScore(player=player,
                                activity=activity,
                                score=request.GET["score"],
+                               is_passed=request.GET["is_passed"],
                                activity_timestamp=activity_timestamp)
                 hs.save()
                 kwargs["pk"] = hs.id
