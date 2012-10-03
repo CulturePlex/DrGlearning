@@ -121,6 +121,16 @@ try {
                   {
                     loquedTextLower[x]=this.loquedText[x].toLowerCase();
                   }
+                  var arrayAux = [];
+                  
+                  for (var y in loquedTextLower)
+                  {
+                    if(arrayAux.indexOf(loquedTextLower[y]) == -1)
+                    {
+                      arrayAux.push(loquedTextLower[y]);
+                    }
+                  }
+                  var numDifLetter = arrayAux.length;
                   if (exist) {
                       var i = 0;
                       while (i != -1)
@@ -130,14 +140,14 @@ try {
                         {
                           i++;
                           console.log('restando');
-                          this.score -= (10/this.loquedText.length);
+                          this.score -= (10/numDifLetter);
                         }
                       }
                       responseView.setHtml(responseView.getHtml() + letter + ' ');
                       this.goodLetter();
                   }
                   else {
-                      this.score -= 70/(27-this.loquedText.length);
+                      this.score -= 70/(27-numDifLetter);
                       responseView.setHtml(responseView.getHtml() + letter.fontcolor("red") + ' ');
                   }
                }
