@@ -19,5 +19,13 @@ $(document).ready(function(){
     QuizConstructor.createQuiz("FREEBASE_GRAPH")
   });
 
+  $('#hide-canvas').click(function(){
+    $('#graphcanvas').hide();
+  });
+
+  $('#show-canvas').click(function(){
+    $('#graphcanvas').show();
+  });
+
 });
 

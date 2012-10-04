@@ -59,7 +59,9 @@ var GraphExtractor = {
         }
       }
     });
-
+    //When you call this function nodes and edges list is shown 
+    
+    //GraphEditor.progressBar.hide();
     
   }
 }
