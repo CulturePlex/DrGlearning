@@ -400,7 +400,7 @@ try {
                 return carrers;
             },
             activityPlayed: function (activityID, successful, score) {
-                this.updateScore(activityID, score, new Date().getTime());
+                this.updateScore(activityID, score, successful, new Date().getTime());
                 //console.log('Peticion de jugada!!!!!');
                 var activitiesStore = Ext.getStore('Activities');
                 var activity = activitiesStore.getById(activityID);
@@ -429,11 +429,12 @@ try {
                     carrer.save();
                 }
             },
-            updateScore: function (activityID, score, timestamp) {
+            updateScore: function (activityID, score, successful, timestamp) {
                 var offlineScoreStore = Ext.getStore('OfflineScores');
                 var offlineScoreModel = new DrGlearning.model.OfflineScore({
                     activity_id : activityID,
                     score : score,
+                    is_passed: successful,
                     timestamp: timestamp
                 });
                 offlineScoreModel.save();
@@ -474,7 +475,17 @@ try {
                 var user = usersStore.getAt(0);
                 var offlineScoreStore = Ext.getStore('OfflineScores');
                 var HOST = this.globalSettingsController.getServerURL();
+                var flag;
                 offlineScoreStore.each(function (item) {
+                    console.log(item.data.is_passed);
+                    if (item.data.is_passed)
+                    {
+                      flag= 1;
+                    }
+                    else
+                    {
+                      flag = 0;
+                    }
                     Ext.data.JsonP.request({
                         scope: this,
                         url: HOST + '/api/v1/score/?format=jsonp',
@@ -482,6 +493,7 @@ try {
                             player_code: user.data.uniqueid,
                             activity_id: item.data.activity_id,
                             score: parseFloat(item.data.score),
+                            is_passed: flag,
                             timestamp: item.data.timestamp / 1000,
                             token: user.data.token
                         },
