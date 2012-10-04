@@ -7,7 +7,7 @@ from activities.api import ActivityResource
 from activities.models import Activity
 from base.utils import dehydrate_fields
 from players.models import Player, HighScore
-
+import json
 
 def is_valid_jsonp(request_type, request, required_fields):
     #TODO Add security token test
@@ -66,20 +66,12 @@ class ScoreResource(ModelResource):
                         activity_timestamp = datetime.fromtimestamp(timestamp)
                     except TypeError:
                         pass
-                print('aora sacamossssssss')
-                if request.GET["is_passed"] == 1:
-                    flag = True
-                else:
-                    flag = False
-                print(request.GET["is_passed"])
                 hs = HighScore(player=player,
                                activity=activity,
                                score=request.GET["score"],
-                               is_passed=flag,
+                               is_passed=json.loads(request.GET.get("is_passed", "false").lower()),
                                activity_timestamp=activity_timestamp)
-                print(hs.is_passed)
                 hs.save()
-                
                 kwargs["pk"] = hs.id
                 request_type = "detail"
         return super(ScoreResource, self).dispatch(request_type,

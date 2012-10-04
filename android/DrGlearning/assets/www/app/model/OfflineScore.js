@@ -40,6 +40,9 @@ try {
                     name : "score",
                     type : "string"
                 }, {
+                    name : "is_passed",
+                    type : "boolean"
+                }, {
                     name : "timestamp",
                     type : "string"
                 } ],

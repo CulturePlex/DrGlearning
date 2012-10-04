@@ -291,6 +291,8 @@ try {
                                     localStorage.actualSize = parseInt(localStorage.actualSize, 10) + career.data.size;
                                     Ext.getStore('Activities').sync();
                                     Ext.getStore('Activities').load();
+                                    this.getApplication().getController('UserSettingsController').preinstallingIndex++;
+                                    this.getApplication().getController('UserSettingsController').preinstall();
                                 }
                             },
                             failure : function () {
@@ -317,8 +319,6 @@ try {
                                 career.set(uri, response[uri]);
                             }
                         }
-                        this.getApplication().getController('UserSettingsController').preinstallingIndex++;
-                        this.getApplication().getController('UserSettingsController').preinstall();
                     },
                     failure: function () {
                         console.log('fallo');
@@ -399,11 +399,30 @@ try {
                 });
                 return carrers;
             },
-            activityPlayed: function (activityID, successful, score) {
-                this.updateScore(activityID, score, successful, new Date().getTime());
-                //console.log('Peticion de jugada!!!!!');
+            activityPlayed: function (activityID, successful, score, importing) {
+                if(!importing)
+                {
+                  this.updateScore(activityID, score, successful, new Date().getTime());
+                }
+                console.log('Peticion de jugada!!!!!');
+                console.log('id:');
+                console.log(activityID);
                 var activitiesStore = Ext.getStore('Activities');
-                var activity = activitiesStore.getById(activityID);
+                var activity;
+                activitiesStore.load();
+                activitiesStore.sync();
+                console.log(activitiesStore.data.all);
+                activitiesStore.each(function(rec){
+                  console.log(rec);
+                  if(rec.get('id') == activityID)
+                  {
+                    
+                    activity = rec;
+                    return;
+                  }
+                });
+                console.log(activitiesStore.findExact('id', activityID));
+//                var activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
                 if (successful) {
                     if (activity.data.successful) {
                         if (activity.data.score < parseInt(score, 10)) {
@@ -477,15 +496,6 @@ try {
                 var HOST = this.globalSettingsController.getServerURL();
                 var flag;
                 offlineScoreStore.each(function (item) {
-                    console.log(item.data.is_passed);
-                    if (item.data.is_passed)
-                    {
-                      flag= 1;
-                    }
-                    else
-                    {
-                      flag = 0;
-                    }
                     Ext.data.JsonP.request({
                         scope: this,
                         url: HOST + '/api/v1/score/?format=jsonp',
@@ -493,7 +503,7 @@ try {
                             player_code: user.data.uniqueid,
                             activity_id: item.data.activity_id,
                             score: parseFloat(item.data.score),
-                            is_passed: flag,
+                            is_passed: item.data.is_passed,
                             timestamp: item.data.timestamp / 1000,
                             token: user.data.token
                         },

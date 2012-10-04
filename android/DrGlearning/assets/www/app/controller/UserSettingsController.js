@@ -222,15 +222,17 @@ try {
                     });
               }else
               {
-                Ext.Viewport.setMasked(false);
                 this.careersStore.clearFilter();
                 this.careersStore.filter("installed", true);
                 for (var x in this.importedScores)
                 {
                   console.log(this.importedScores[x]);
-                  //this.daoController.activityPlayed
+                  this.daoController.activityPlayed(this.importedScores[x].activity_id,this.importedScores[x].is_passed,this.importedScores[x].score,true);
                 }
-                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes'), Ext.emptyFn);
+                Ext.Viewport.setMasked(false);
+                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes'), function(){
+                
+                });
                 this.careersListController.filterCareers();
               }
             },
@@ -293,7 +295,7 @@ try {
                                 {
                                   Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
                                 }
-                                Ext.Viewport.setMasked(false);
+
                              },
                              failure : function () {
                                Ext.Viewport.setMasked(false);
