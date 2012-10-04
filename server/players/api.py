@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 from tastypie import fields
@@ -7,7 +8,7 @@ from activities.api import ActivityResource
 from activities.models import Activity
 from base.utils import dehydrate_fields
 from players.models import Player, HighScore
-import json
+
 
 def is_valid_jsonp(request_type, request, required_fields):
     #TODO Add security token test
@@ -25,26 +26,31 @@ class PlayerResource(ModelResource):
 
     def __init__(self, *args, **kwargs):
         super(PlayerResource, self).__init__(*args, **kwargs)
-        self.created = False
+        self.send_token = False
 
     def dispatch(self, request_type, request, **kwargs):
         # required_fields = ('code', )
         if "code" in request.GET and "callback" in request.GET:
-            p, created = Player.objects.get_or_create(code=request.GET["code"])
-            kwargs["pk"] = p.id
-            self.created = created
-            if "token" in request.GET and p.token == request.GET["token"]:
-                for attr in ["display_name", "email"]:
-                    if attr in request.GET:
-                        setattr(p, attr, request.GET.get(attr))
-                p.save()
+            importing = json.loads(request.GET.get("import", "false").lower())
+            if importing == "true":
+                self.send_token = True
+            else:
+                code = request.GET["code"]
+                p, created = Player.objects.get_or_create(code=code)
+                kwargs["pk"] = p.id
+                self.send_token = created
+                if "token" in request.GET and p.token == request.GET["token"]:
+                    for attr in ["display_name", "email"]:
+                        if attr in request.GET:
+                            setattr(p, attr, request.GET.get(attr))
+                    p.save()
             request_type = "detail"
         return super(PlayerResource, self).dispatch(request_type,
                                                     request,
                                                     **kwargs)
 
     def dehydrate(self, bundle):
-        if not self.created:
+        if not self.send_token:
             bundle.obj.token = None
         return dehydrate_fields(bundle)
 
@@ -66,10 +72,11 @@ class ScoreResource(ModelResource):
                         activity_timestamp = datetime.fromtimestamp(timestamp)
                     except TypeError:
                         pass
+                is_passed = request.GET.get("is_passed", "false").lower()
                 hs = HighScore(player=player,
                                activity=activity,
                                score=request.GET["score"],
-                               is_passed=json.loads(request.GET.get("is_passed", "false").lower()),
+                               is_passed=json.loads(is_passed),
                                activity_timestamp=activity_timestamp)
                 hs.save()
                 kwargs["pk"] = hs.id
