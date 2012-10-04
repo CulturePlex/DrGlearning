@@ -32,10 +32,11 @@ class PlayerResource(ModelResource):
         # required_fields = ('code', )
         if "code" in request.GET and "callback" in request.GET:
             importing = json.loads(request.GET.get("import", "false").lower())
-            if importing == "true":
-                self.send_token = True
+            code = request.GET["code"]
+            if importing:
+                players = Player.objects.filter(code=code)
+                self.send_token = (len(players) == 1)
             else:
-                code = request.GET["code"]
                 p, created = Player.objects.get_or_create(code=code)
                 kwargs["pk"] = p.id
                 self.send_token = created
