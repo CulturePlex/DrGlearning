@@ -291,11 +291,12 @@ try {
                              success: function (response, opts) {
                                 if(response.token == null)
                                 {
-                                  this.getApplication().getController('UserSettingsController').userDataReceived(response,opts);
+                                  Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
+                                  
                                 }
                                 else
                                 {
-                                  Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
+                                  this.getApplication().getController('UserSettingsController').userDataReceived(response,opts);
                                 }
 
                              },

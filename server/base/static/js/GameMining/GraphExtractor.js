@@ -1,4 +1,4 @@
-    /*if (typeof($) === "undefined") {
+/*if (typeof($) === "undefined") {
   $ = django.jQuery;
 }*/
 var GraphExtractor = {
@@ -10,29 +10,33 @@ var GraphExtractor = {
     GraphExtractor.setGraph(data.result);
   });
   },
-  setGraph: function(result){
+  init: function(){
     GraphEditor.progressBar.show();
     // Clean previous information to have a clean graph
     GraphEditor.setGraphNodesJSON({});
     GraphEditor.setGraphEdgesJSON([]);
     GraphEditor.setConstraints([]);
+  },
+  setGraph: function(result){
+
     GraphEditor.addNode(result.name,{type:"Banda",score:0},"FREEBASEGRAPH");
     $.each(result, function(k,v){
 
-      if(k != "name" && k != "type")
+      if(k != "name")
       {
         if(v instanceof Array)
         {
 
           for(obj in v)
           {
-            console.log(v[obj]);
             GraphEditor.addNode(v[obj],{type:k,score:0});
           }
         }else
         {
-        console.log('caca')
-          GraphEditor.addNode(v,{type:k ,score:0},"FREEBASEGRAPH");
+          if(v != null)
+          {
+            GraphEditor.addNode(v,{type:k ,score:0},"FREEBASEGRAPH");
+          }
         }
         
       }
@@ -47,9 +51,15 @@ var GraphExtractor = {
         {
           GraphEditor.addEdge(result.name, k, v[obj], {inverse: "inverse of" + k});
         }
+      }else
+      {
+        if(v != null && k !=null)
+        {
+          GraphEditor.addEdge(result.name, k, v, {inverse: "inverse of" + k});
+        }
       }
     });
-    GraphEditor.progressBar.hide();
+
     
   }
 }
