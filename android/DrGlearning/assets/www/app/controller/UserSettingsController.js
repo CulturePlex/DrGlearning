@@ -134,6 +134,7 @@ try {
                 });
 
                 user.data.uniqueid = response.code;
+                user.data.token = response.token;
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
@@ -285,6 +286,7 @@ try {
                               url: HOST + '/api/v1/player/?format=jsonp',
                               params: {
                                     code: uniqueid,
+                                    import: true,
                               },
                              success: function (response, opts) {
                                 if(response.token == null)
