@@ -73,10 +73,12 @@ try {
                         localStorage.alignCls = 'leftalign';
                     }
                     localStorage.locale = locale;
-                    Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes'), Ext.emptyFn);
+                    Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes, click on OK button to restart Dr. Glearning'), function(){
+                      location.reload();
+                    });
                }
                view.hide();
-               this.getCareersframe().show();
+
                if(changed)
                {
                 if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
@@ -90,6 +92,9 @@ try {
                         this.daoController.updateOfflineScores();
                     }
                }
+               this.getApplication().getController('CareersListController').filterCareers();
+               this.getApplication().getController('CareersListController').index();
+
             },
             exportUser : function () {
                 var userStore = Ext.getStore('Users');
@@ -223,16 +228,18 @@ try {
                     });
               }else
               {
-                this.careersStore.clearFilter();
-                this.careersStore.filter("installed", true);
+                
                 for (var x in this.importedScores)
                 {
                   console.log(this.importedScores[x]);
                   this.daoController.activityPlayed(this.importedScores[x].activity_id,this.importedScores[x].is_passed,this.importedScores[x].score,true);
                 }
+                this.careersStore.clearFilter();
+                this.careersStore.filter("installed", true);
+                this.careersStore.load();
                 Ext.Viewport.setMasked(false);
-                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes'), function(){
-                
+                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes, click on OK button to restart Dr. Glearning'), function(){
+                location.reload();
                 });
                 this.careersListController.filterCareers();
               }
