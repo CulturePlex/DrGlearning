@@ -3,6 +3,7 @@ $(document).ready(function(){
   GraphEditor.USES_TYPES = true;
   GraphEditor.USES_SCORES = true;
   GraphEditor.init();
+  GraphExtractor.init();
   //GraphEditor.refresh();
   $(".chzn-select").chosen();
 
@@ -16,6 +17,14 @@ $(document).ready(function(){
 
   $('#create-quiz-fb').click(function(){
     QuizConstructor.createQuiz("FREEBASE_GRAPH")
+  });
+
+  $('#hide-canvas').click(function(){
+    $('#graphcanvas').hide();
+  });
+
+  $('#show-canvas').click(function(){
+    $('#graphcanvas').show();
   });
 
 });

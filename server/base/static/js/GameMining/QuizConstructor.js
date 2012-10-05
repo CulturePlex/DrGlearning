@@ -93,11 +93,9 @@ var QuizConstructor = {
     
     for (var i = 0 ; i < answers.length; i++)
     {
-        answersmixed[i] = answersmixed[i].replace(/\(.+\)/,'');
         quiz += '<div>' + 'Answer ' + i + ': ' + answersmixed[i] + '</div>';
     }
     
-    correct = correct.replace(/\(.+\)/,'');
     
     quiz += '<div>' + 'Correct Answer :' + correct + '</div>';
     $('.quizViewer').empty();

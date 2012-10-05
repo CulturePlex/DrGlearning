@@ -78,7 +78,7 @@ var GraphEditor = {
     var nodeName = _name != undefined ? _name : $('#node-name').val();
     var json = this.getGraphNodesJSON();
     if (this.nodeExists(nodeName)){
-      alert("ERROR: That node already exists")
+      //alert("ERROR: "+nodeName+" That node already exists")
       return;
     }
     var data = typeof(_properties) != 'undefined' ? _properties : {};
