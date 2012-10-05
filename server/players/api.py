@@ -35,7 +35,9 @@ class PlayerResource(ModelResource):
             code = request.GET["code"]
             if importing:
                 players = Player.objects.filter(code=code)
-                self.send_token = (len(players) == 1)
+                if len(players) == 1:
+                    self.send_token = True
+                    kwargs["pk"] = players[0].id
             else:
                 p, created = Player.objects.get_or_create(code=code)
                 kwargs["pk"] = p.id
