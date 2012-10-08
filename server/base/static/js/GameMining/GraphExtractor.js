@@ -79,19 +79,23 @@ var GraphExtractor = {
 
     $.each(result, function (k, v) {
       console.log(k);
-      if (v instanceof Array)
-      {
-        for (var obj in v)
+      //Lo siguiente hay que hacerlo pero hay que avolir también los respectivos nodos
+      //if(k !== "key" && k !== "guid" && k !== "permission" && k !== "timestamp")
+      //{
+        if (v instanceof Array)
         {
-          GraphEditor.addEdge(result.name, k, v[obj], {inverse: "inverse of" + k});
-        }
-      } else
-      {
-        if (v != null && k != null)
+          for (var obj in v)
+          {
+              GraphEditor.addEdge(result.name, k, v[obj], {inverse: "inverse of" + k});
+          }
+        } else
         {
-          GraphEditor.addEdge(result.name, k, v, {inverse: "inverse of" + k});
+          if (v != null && k != null)
+          {
+            GraphEditor.addEdge(result.name, k, v, {inverse: "inverse of" + k});
+          }
         }
-      }
+      //}
     });
     //When you call this function nodes and edges list is shown 
     
