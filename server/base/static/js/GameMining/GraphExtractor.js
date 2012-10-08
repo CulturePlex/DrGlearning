@@ -13,14 +13,19 @@
 }*/
 var GraphExtractor = {
   //Freebase Extractor Variables:
+  name: "",
+  type: "",
   jsonData : "",
-  search: function (name) {
-    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query= [{"name":"' + $('#query')[0].value + '","type":[]}]', function (data) {
+  search: function () {
+    name = $('#query')[0].value;
+    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query= [{"name":"' + name + '","type":[]}]', function (data) {
       GraphExtractor.showTypes(data.result);
     });
   },
-  get: function (name) {
-    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query={"name":"' + $('#query')[0].value + '","type":"/music/artist","*":null}', function (data) {
+  get: function () {
+    console.log($('#type_select_from').val());
+    type = $('#type_select_from').val();
+    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query=[{"name":"' + name + '","type":"' + type +'","*":null}]', function (data) {
       GraphExtractor.jsonData = data;
       GraphExtractor.setGraph(data.result);
     });
@@ -33,6 +38,7 @@ var GraphExtractor = {
     GraphEditor.setConstraints([]);
   },
   showTypes: function (result) {
+    $('#type_select_from').empty();
     $.each(result, function (k, v) {
       if (v.type instanceof Array)
       {

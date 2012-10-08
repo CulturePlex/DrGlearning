@@ -10,6 +10,10 @@ $(document).ready(function(){
   $('#search-fb').click(function(){
     GraphExtractor.search();
   });
+  
+  $('#extract-fb').click(function(){
+    GraphExtractor.get();
+  });
 
   $('#create-quiz').click(function(){
     QuizConstructor.createQuiz("CULTUREPLEX_GRAPH")
