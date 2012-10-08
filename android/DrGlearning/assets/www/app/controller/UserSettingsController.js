@@ -73,8 +73,8 @@ try {
                         localStorage.alignCls = 'leftalign';
                     }
                     localStorage.locale = locale;
-                    Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes, click on OK button to restart Dr. Glearning'), function(){
-                      location.reload();
+                    Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes.'), function(){
+
                     });
                }
                view.hide();
@@ -238,8 +238,8 @@ try {
                 this.careersStore.filter("installed", true);
                 this.careersStore.load();
                 Ext.Viewport.setMasked(false);
-                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes, click on OK button to restart Dr. Glearning'), function(){
-                location.reload();
+                Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes.'), function(){
+                    localStorage.restartNeeded = true;
                 });
                 this.careersListController.filterCareers();
               }

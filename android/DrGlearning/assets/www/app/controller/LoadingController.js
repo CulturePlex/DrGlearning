@@ -35,6 +35,7 @@ try {
             },
             
             onLaunch: function () {
+                localStorage.restartNeeded = false;
                 this.globalSettingsController.showMessage("loading............");
                 //Add trim to prototype
                 String.prototype.trim = function () {return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/[\n\r]$/, ''); };
