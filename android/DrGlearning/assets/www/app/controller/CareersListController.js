@@ -429,7 +429,7 @@ try {
               console.log(localStorage.restartNeeded);
               if(localStorage.restartNeeded == "true")
               {
-                Ext.Msg.alert(i18n.gettext('You need restart'), i18n.gettext('You need restart Dr. Glearning to ad install new careers.'), function ()
+                Ext.Msg.alert(i18n.gettext('You need restart'), i18n.gettext('You need restart Dr. Glearning to install new careers.'), function ()
                         {}, this);
               }
               else

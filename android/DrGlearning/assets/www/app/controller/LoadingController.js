@@ -254,6 +254,8 @@ try {
                                     }
                                 }
                             }, this);
+                            this.careersStore.load();
+                            this.careersStore.clearFilter();
                             for (var cont in careers) {
                                 var career = careers[cont];
                                 localStorage.current_count ++;
