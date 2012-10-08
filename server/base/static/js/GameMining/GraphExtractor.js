@@ -17,15 +17,14 @@ var GraphExtractor = {
   type: "",
   jsonData : "",
   search: function () {
-    name = $('#query')[0].value;
-    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query= [{"name":"' + name + '","type":[]}]', function (data) {
+    GraphExtractor.name = $('#query')[0].value;
+    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query= [{"name":"' + GraphExtractor.name + '","type":[]}]', function (data) {
       GraphExtractor.showTypes(data.result);
     });
   },
   get: function () {
-    console.log($('#type_select_from').val());
-    type = $('#type_select_from').val();
-    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query=[{"name":"' + name + '","type":"' + type +'","*":null}]', function (data) {
+    GraphExtractor.type = $('#type_select_from').val();
+    jQuery.get("https://www.googleapis.com/freebase/v1/mqlread", 'query={"name":"' + GraphExtractor.name + '","type":"' + GraphExtractor.type +'","*":null}', function (data) {
       GraphExtractor.jsonData = data;
       GraphExtractor.setGraph(data.result);
     });
@@ -44,14 +43,17 @@ var GraphExtractor = {
       {
         for (var obj in v.type)
         {
-          $("#type_select_from").append('<option value=' + v.type[obj] + '>' + v.type[obj] + '</option>');
+          if (v.type[obj] !== "/common/topic" && v.type[obj] !== "/media_common/cataloged_instance")
+          {
+            $("#type_select_from").append('<option value=' + v.type[obj] + '>' + v.type[obj] + '</option>');
+          }
         }
       }
     });
   },
   setGraph: function (result) {
 
-    GraphEditor.addNode(result.name, {type: "Banda", score: 0}, "FREEBASEGRAPH");
+    GraphEditor.addNode(result.name, {type: GraphExtractor.type , score: 0}, "FREEBASEGRAPH");
     $.each(result, function (k, v) {
 
       if (k !== "name")
@@ -76,7 +78,7 @@ var GraphExtractor = {
     });
 
     $.each(result, function (k, v) {
-
+      console.log(k);
       if (v instanceof Array)
       {
         for (var obj in v)
