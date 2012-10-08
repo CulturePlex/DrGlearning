@@ -7,8 +7,8 @@ $(document).ready(function(){
   //GraphEditor.refresh();
   $(".chzn-select").chosen();
 
-  $('#extract-fb').click(function(){
-    GraphExtractor.get();
+  $('#search-fb').click(function(){
+    GraphExtractor.search();
   });
 
   $('#create-quiz').click(function(){

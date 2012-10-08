@@ -4,6 +4,11 @@
 var GraphExtractor = {
   //Freebase Extractor Variables:
   jsonData : "",
+  search: function(name){
+    jQuery.get( "https://www.googleapis.com/freebase/v1/mqlread",'query= [{"name":"'+ $('#query')[0].value+'","type":[]}]' , function(data) {
+    GraphExtractor.showTypes(data.result);
+  });
+  },
   get: function(name){
     jQuery.get( "https://www.googleapis.com/freebase/v1/mqlread",'query={"name":"'+ $('#query')[0].value+'","type":"/music/artist","*":null}' , function(data) {
     GraphExtractor.jsonData = data;
@@ -16,6 +21,17 @@ var GraphExtractor = {
     GraphEditor.setGraphNodesJSON({});
     GraphEditor.setGraphEdgesJSON([]);
     GraphEditor.setConstraints([]);
+  },
+  showTypes: function(result){
+    $.each(result, function(k,v){
+      if(v.type instanceof Array)
+      {
+        for(obj in v.type)
+        {
+          console.log(v.type[obj]);
+        }
+      }
+    });
   },
   setGraph: function(result){
 
