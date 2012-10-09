@@ -56,7 +56,7 @@ var GraphExtractor = {
     GraphEditor.addNode(result.name, {type: GraphExtractor.type , score: 0}, "FREEBASEGRAPH");
     $.each(result, function (k, v) {
 
-      if (k !== "name")
+      if (k !== "name" && k !== "key" && k !== "guid" && k !== "mid" && k !== "id" && k !== "permission" && k !== "timestamp")
       {
         if (v instanceof Array)
         {
@@ -80,8 +80,8 @@ var GraphExtractor = {
     $.each(result, function (k, v) {
       console.log(k);
       //Lo siguiente hay que hacerlo pero hay que avolir también los respectivos nodos
-      //if(k !== "key" && k !== "guid" && k !== "permission" && k !== "timestamp")
-      //{
+      if(k !== "key" && k !== "guid" && k !== "mid" && k !== "id" && k !== "permission" && k !== "timestamp")
+      {
         if (v instanceof Array)
         {
           for (var obj in v)
@@ -95,7 +95,7 @@ var GraphExtractor = {
             GraphEditor.addEdge(result.name, k, v, {inverse: "inverse of" + k});
           }
         }
-      //}
+      }
     });
     //When you call this function nodes and edges list is shown 
     
