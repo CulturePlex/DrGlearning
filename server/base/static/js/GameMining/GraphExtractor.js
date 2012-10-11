@@ -8,9 +8,9 @@
 */
 
 
-/*if (typeof($) === "undefined") {
+if (typeof($) === "undefined") {
   $ = django.jQuery;
-}*/
+}
 var GraphExtractor = {
   //Freebase Extractor Variables:
   name: "",

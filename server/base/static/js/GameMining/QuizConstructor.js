@@ -57,7 +57,7 @@ var QuizConstructor = {
     value = value.replace(/\(.+\)/,'');
     if(graph_type == "FREEBASE_GRAPH")
     {
-        var question =  value + ' ' + attrib +'?';
+        var question = 'Which of the followings has ' + value +' as ' + attrib +'?';
     }
     if(graph_type == "CULTUREPLEX_GRAPH")
     {
