@@ -427,13 +427,13 @@ try {
              */
             addCareer: function () {
               console.log(localStorage.restartNeeded);
-              if(localStorage.restartNeeded == "true")
+              /*if(localStorage.restartNeeded == "true")
               {
                 Ext.Msg.alert(i18n.gettext('You need restart'), i18n.gettext('You need restart Dr. Glearning to install new careers.'), function ()
                         {}, this);
               }
               else
-              {
+              {*/
                 if (!this.getApplication().getController('GlobalSettingsController').hasNetwork()) {
                     Ext.Msg.alert(i18n.gettext('No Internet'), i18n.gettext('You need Internet connection to install new careers'), function ()
                         {}, this);
@@ -449,7 +449,7 @@ try {
                         this.showCareersToInstall();
                     }
                 }
-              }
+              //}
             },
             /*
              * Searching for specific career by writing in searchbox.
@@ -551,6 +551,16 @@ try {
             },
             refresh: function (scope) {
                 this.loadingController.careersRequest();
+            },
+            refreshingAfterImport: function()
+            {
+                this.getCareersframe().down('careerslist').show();
+                this.getCareersframe().down('careerslist').refresh();
+                this.careersStore.clearFilter();
+                this.careersStore.filter('installed', false);
+                this.getCareersframe().down('careerslist').refresh();
+                this.getCareersframe().show();
+                this.getCareersframe().down('careerslist').refresh();
             }
         });
 

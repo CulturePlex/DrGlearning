@@ -38,7 +38,7 @@ try {
                     Ext.Viewport.add(view);
                 }
                 view.show();
-                this.lossettingsView =  view;
+                this.getApplication().getController('UserSettingsController').lossettingsView =  view;
                 this.getCareersframe().hide();
                 var usernameField = view.down('textfield[id=username]');
                 var emailField = view.down('textfield[id=email]');
@@ -225,14 +225,18 @@ try {
                     {
                         this.daoController.activityPlayed(this.importedScores[x].activity_id, this.importedScores[x].is_passed, this.importedScores[x].score, true);
                     }
-                    this.careersStore.clearFilter();
-                    this.careersStore.filter("installed", true);
-                    this.careersStore.load();
+
                     Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device. You should restart the app to see the changes.'), function () {
-                        localStorage.restartNeeded = true;
-                    });
-                    this.careersListController.filterCareers();
+                    Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device.'), function () {
+                        //localStorage.restartNeeded = true;
+                        this.careersStore.clearFilter();
+                        //this.careersStore.filter("installed", true);
+                        //this.careersStore.load();
+                        this.getApplication().getController('CareersListController').refreshingAfterImport();
+                        //this.getApplication().getController('CareersListController').index();
+                        this.getApplication().getController('CareersListController').toCareersFromSettings();
+                    }, this);
+                    
                 }
             },
             importUser : function () {
