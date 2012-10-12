@@ -66,7 +66,7 @@ try {
             );
         }
 
-        if (typeof(Cordova) !== "undefined") {
+        if ((typeof(Cordova) !== "undefined") && (typeof(PhoneGap) !== "undefined")) {
             head.js("resources/js/" + CORDOVA_PLATFORM, function () {
                 load();
             });
