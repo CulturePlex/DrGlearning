@@ -3,26 +3,27 @@
     <head>
         <meta charset="utf-8" />
         <title>Dr. Glearning</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="stylesheet" href="css/jquery.mobile-1.2.0.css" />
         <script src="js/jquery-1.8.2.js"></script>
         <script src="js/jquery.mobile-1.2.0.js"></script>
     </head>
     <body>
     <div data-role="page" id="main">
-      <header data-role="header">
+      <header data-role="header" data-position="fixed">
         <h1>Dr.Glearning</h1>
       </header>
       <article data-role="content">
           <ul data-role="listview">
               <li>
-                  <a href="#">
+                  <a href="#course">
                   <h1>Twenty Century Poetry</h1>
                   <p>This is what happens when a
                   friend brings a dog to the studio.</p>
                   </a>
               </li>
               <li>
-                  <a href="#">
+                  <a href="#course">
                   <h1>Museums and Art</h1>
                   <p>Three different poster boards...mirror for reflection,
                   black for background white for highlights</p>
@@ -41,7 +42,34 @@
       </footer>
     </div><!-- Page Main -->
     <div data-role="page" id="addCourses">
-      <header data-role="header">
+      <header data-role="header"  data-position="fixed">
+        <h1>Add Courses</h1>
+        <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
+      </header>
+      <article data-role="content">
+          <ul data-role="listview" data-filter="true">
+              <li>
+                  <a href="#">
+                  <h1>¿Cómo estás?</h1>
+                  <p>Neque porro quisquam est qui 
+                  dolorem ipsum quia dolor sit amet,
+                  consectetur, adipisci velit...</p>
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                  <h1>Literatura Sudaméricana</h1>
+                  <p>Mauris lorem metus, elementum
+                   at vestibulum id, interdum vitae 
+                   lectus. Mauris eleifend placerat 
+                   lectus, ac accumsan lorem vulputate eu.</p>
+                  </a>
+              </li>
+          </ul>
+      </article>
+    </div><!-- Page addCourses -->
+    <div data-role="page" id="course">
+      <header data-role="header" data-position="fixed">
         <h1>Add Courses</h1>
         <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
       </header>
@@ -68,7 +96,7 @@
       </article>
     </div><!-- Page addCourses -->
     <div data-role="page" id="settings">
-      <header data-role="header">
+      <header data-role="header" data-position="fixed">
         <h1>Settings</h1>
         <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
       </header>
