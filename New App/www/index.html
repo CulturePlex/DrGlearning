@@ -8,8 +8,9 @@
         <script src="js/jquery.mobile-1.2.0.js"></script>
     </head>
     <body>
+    <div data-role="page" id="main">
       <header data-role="header">
-        <h1>Installed Courses</h1>
+        <h1>Dr.Glearning</h1>
       </header>
       <article data-role="content">
           <ul data-role="listview">
@@ -32,9 +33,37 @@
       <footer data-role="footer" data-position="fixed">
         <nav data-role="navbar">
             <ul>
-                <li><a href="#">Settings</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#">Add Career</a></li>
             </ul>
+            
         </nav>
       </footer>
+    </div><!-- Page Main -->
+    <div data-role="page" id="settings">
+      <header data-role="header">
+        <h1>Settings</h1>
+        <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
+      </header>
+      <label for="select-choice-min" class="select">Language:</label>
+      <select name="select-choice-min" id="select-choice-min" data-mini="true">
+         <option value="standard">English</option>
+         <option value="rush">Español</option>
+         <option value="express">Français</option>
+      </select>
+      <label for="basic">Username:</label>
+      <input type="text" name="name" id="basic" data-mini="true" />
+      <label for="basic">Email:</label>
+      <input type="text" name="name" id="basic" data-mini="true" />
+            <footer data-role="footer" data-position="fixed">
+      <nav data-role="navbar">
+          <ul>
+              <li><a href="#">Import User</a></li>
+              <li><a href="#">Export User</a></li>
+          </ul>
+          
+      </nav>
+    </footer>
+    </div><!-- Page Settings -->
     </body>
 </html>
