@@ -340,7 +340,7 @@ try {
                     success: function (response, opts) {
                         if (response.token == null)
                         {
-                            Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
+                            Ext.Msg.alert(i18n.gettext('Unable to Synchronize'), i18n.gettext('An error has occur while synchronizing'), Ext.emptyFn);
                           
                         }
                         else
@@ -354,7 +354,7 @@ try {
                     },
                     failure : function () {
                         Ext.Viewport.setMasked(false);
-                        Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
+                        Ext.Msg.alert(i18n.gettext('Unable to Synchronize'), i18n.gettext('An error has occur while synchronizing'), Ext.emptyFn);
                     }
                 });
              }
