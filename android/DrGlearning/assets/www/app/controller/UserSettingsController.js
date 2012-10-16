@@ -232,7 +232,7 @@ try {
                     }
 
                     Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert(i18n.gettext('User Data Successfully Imported'), i18n.gettext('Your User Data have been imported to this device.'), function () {
+                    Ext.Msg.alert(i18n.gettext('User Data Successfully Received'), i18n.gettext('Your User Data have been downloaded to this device.'), function () {
                         //localStorage.restartNeeded = true;
                         this.careersStore.clearFilter();
                         //this.careersStore.filter("installed", true);
