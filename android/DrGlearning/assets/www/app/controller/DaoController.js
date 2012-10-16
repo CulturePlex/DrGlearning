@@ -421,7 +421,7 @@ try {
                     return;
                   }
                 });
-                console.log(activitiesStore.findExact('id', activityID));
+                //console.log(activitiesStore.findExact('id', activityID));
 //                var activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
                 if (successful) {
                     if (activity.data.successful) {

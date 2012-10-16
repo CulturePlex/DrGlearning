@@ -114,7 +114,7 @@ try {
                     buttons : Ext.Msg.OK,
                     icon : Ext.Msg.INFO
                 });
-
+                localStorage.imported=true;
             },
             userDataReceived: function (response, opts) {
                 var userStore = Ext.getStore('Users');
@@ -143,10 +143,15 @@ try {
                 user.save();
                 var usernameField = Ext.ComponentQuery.query('textfield[id=username]')[0];
                 var emailField = Ext.ComponentQuery.query('textfield[id=email]')[0];
-                emailField.setValue(user.data.email);
-                usernameField.setValue(user.data.display_name);
+                if(emailField)
+                {
+                  emailField.setValue(user.data.email);
+                }
+                if(usernameField)
+                {
+                  usernameField.setValue(user.data.display_name);
+                }
                 
-
             },
             collectCareersFromScores: function (response, objects) {
                 careersToPreinstall = [];
@@ -275,9 +280,6 @@ try {
                                 message: i18n.gettext('Importing User Data') + "…",
                                 indicator: true
                             });
-                            Ext.getStore('OfflineScores').removeAll();
-                            Ext.getStore('Careers').removeAll();
-                            Ext.getStore('Activities').removeAll();
                             var uniqueid = show.down('#importvalue').getValue();
                             this.destroy(show);
                             var usersStore = Ext.getStore('Users');
@@ -294,13 +296,15 @@ try {
                                     if (response.token == null)
                                     {
                                         Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
-                                      
                                     }
                                     else
                                     {
+                                        Ext.getStore('OfflineScores').removeAll();
+                                        Ext.getStore('Careers').removeAll();
+                                        Ext.getStore('Activities').removeAll();
+                                        localStorage.imported=true;
                                         this.getApplication().getController('UserSettingsController').userDataReceived(response, opts);
                                     }
-
                                 },
                                 failure : function () {
                                     Ext.Viewport.setMasked(false);
@@ -314,9 +318,50 @@ try {
                     show.hide();
                     this.destroy(show);
                 });
-            }
+            },
+            sync : function () {
+                Ext.Viewport.setMasked({
+                    xtype: 'loadmask',
+                    message: i18n.gettext('Synchronizing User Data') + "…",
+                    indicator: true
+                });
+
+                var usersStore = Ext.getStore('Users');
+                var user = usersStore.getAt(0);
+                var HOST = this.globalSettingsController.getServerURL();
+                var uniqueid = user.data.uniqueid;
+                Ext.data.JsonP.request({
+                    scope: this,
+                    url: HOST + '/api/v1/player/?format=jsonp',
+                    params: {
+                        code: uniqueid,
+                        import: true
+                    },
+                    success: function (response, opts) {
+                        if (response.token == null)
+                        {
+                            Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
+                          
+                        }
+                        else
+                        {
+                            Ext.getStore('OfflineScores').removeAll();
+                            Ext.getStore('Careers').removeAll();
+                            Ext.getStore('Activities').removeAll();
+                            this.getApplication().getController('UserSettingsController').userDataReceived(response, opts);
+                        }
+
+                    },
+                    failure : function () {
+                        Ext.Viewport.setMasked(false);
+                        Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
+                    }
+                });
+             }
         });
 
+
+                            
     // Exceptions Catcher End
     })();
 } catch (ex) {

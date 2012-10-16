@@ -87,6 +87,10 @@ try {
                         tap: this.userSettingsController.settings
                     
                     },
+                    'button[id=sync]': {
+                        tap: this.userSettingsController.sync
+                    
+                    },
                     'button[id=updateAll]': {
                         tap: this.updateAll
                     
@@ -128,6 +132,14 @@ try {
                 this.getCareersframe().show();
                 this.getCareersframe().down('title').setTitle(i18n.gettext('Dr. Glearning'));
                 this.filterCareers();
+                if (localStorage.imported)
+                {
+                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=sync]').show();
+                }
+                else
+                {
+                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=sync]').hide();
+                }
                 if (this.careersStore.getCount() === 0) {
                     this.getCareersframe().down('careerslist').hide();
                 }
@@ -213,7 +225,10 @@ try {
             toCareersFromSettings: function ()
             {
                 localStorage.selectedcareer = 0;
-                this.getSettings().hide();
+                if (this.getSettings())
+                {
+                  this.getSettings().hide();
+                }
                 this.index();
             },
             //getting the string name of a level giving its index
