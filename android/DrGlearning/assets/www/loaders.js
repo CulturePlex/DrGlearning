@@ -6,7 +6,7 @@
     Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert DrGlearning head
 */
 
-var VERSION = "0.2.2", TERMS_VERSION = "0.2.2", LANGS = ["es_ES", "fr", "en", "pt_BR"];
+var VERSION = "0.2.3", TERMS_VERSION = "0.2.3", LANGS = ["es_ES", "fr", "en", "pt_BR"];
 if (typeof(CORDOVA_PLATFORM) === "undefined") {
     var CORDOVA_PLATFORM = "cordova-1.8.1.js";
 }
