@@ -166,4 +166,77 @@ var Loading = {
                 return temp.toLowerCase();
              
             },
+            careersRequest: function (searchString, knowledgeValue) {
+                if (localStorage.searchString !== searchString || localStorage.knowledgeValue !== knowledgeValue)
+                {
+                    localStorage.searchString = searchString;
+                    localStorage.knowledgeValue = knowledgeValue;
+                    localStorage.offset = 0;
+                    localStorage.total_count = 1;
+                    localStorage.current_count = 0;
+                }
+                if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !this.retrieving)
+                {
+                    this.retrieving = true;
+                    var HOST = DrGlearning.getServerURL();
+                    var searchParams = {
+                        offset: localStorage.offset,
+                        name__contains: localStorage.searchString,
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                    };
+                    if (localStorage.knowledgeValue !== 'All' && localStorage.knowledgeValue !== '')
+                    {
+                        searchParams = {
+                            offset: localStorage.offset,
+                            name__contains: localStorage.searchString,
+                            knowledges__name: localStorage.knowledgeValue,
+                            deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                            deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                        };
+                    }
+                    if (localStorage.knowledgeValue !== 'All' && localStorage.knowledgeValue === '')
+                    {
+                        searchParams = {
+                            offset: localStorage.offset,
+                            knowledges__name: localStorage.knowledgeValue,
+                            deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                            deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                        };
+                    }
+                    if (localStorage.knowledgeValue === 'All' && localStorage.knowledgeValue !== '')
+                    {
+                        searchParams = {
+                            offset: localStorage.offset,
+                            name__contains: localStorage.searchString,
+                            deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                            deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                        };
+                    }
+                    jQuery.ajax({
+                        url: HOST + "/api/v1/career/?format=jsonp",
+                        dataType : 'jsonp',
+                        data: searchParams,
+                        success: function (response, opts) {
+                            localStorage.offset = response.meta.limit;
+                            localStorage.total_count = response.meta.total_count;
+                            var careers = response.objects;
+                            for (var cont in careers) {
+                                console.log(careers[cont]);
+                                $('#addcareerslist').append(
+                                  '<li><a href="#"><h1>'+
+                                  careers[cont].name+
+                                  '</h1><p>'+
+                                  careers[cont].description+
+                                  '</p></a></li>');
+                            }
+                            $('#addcareerslist').listview('refresh');
+                            this.retrieving = false;
+                        },
+                        failure: function () {
+                            this.retrieving = false;
+                        }
+                    });
+                }
+            },
 }

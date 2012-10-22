@@ -31,8 +31,9 @@ var DrGlearning = {
             }
         });
     }
-      
-      
+    $('#addcourses').click(function(){
+      Loading.careersRequest("","All");
+    });
     /*var playerStore = new Lawnchair({name:'player'}, function(e) {
       console.log('Player Storage Open');
     });
