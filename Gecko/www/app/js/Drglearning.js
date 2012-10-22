@@ -5,6 +5,7 @@ var DrGlearning = {
     //return 'http://0.0.0.0:8000';
   },
   startApp: function(context){
+
     if(localStorage.uniqueid === undefined)
     {
       var digest;

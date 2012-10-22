@@ -213,6 +213,12 @@ var Loading = {
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
+                    $('#addcareerslist').append(
+                      '<li><a href="#"><h1>'+
+                      'Loading Careers...'+
+                      '</h1><p>'+
+                      '</p></a></li>');
+                    $('#addcareerslist').listview('refresh');
                     jQuery.ajax({
                         url: HOST + "/api/v1/career/?format=jsonp",
                         dataType : 'jsonp',
@@ -221,6 +227,7 @@ var Loading = {
                             localStorage.offset = response.meta.limit;
                             localStorage.total_count = response.meta.total_count;
                             var careers = response.objects;
+                            $('#addcareerslist').empty();
                             for (var cont in careers) {
                                 console.log(careers[cont]);
                                 $('#addcareerslist').append(
@@ -232,9 +239,11 @@ var Loading = {
                             }
                             $('#addcareerslist').listview('refresh');
                             this.retrieving = false;
+                            $.mobile.loading('hide');
                         },
                         failure: function () {
                             this.retrieving = false;
+                            $.mobile.loading('hide');
                         }
                     });
                 }
