@@ -8,9 +8,11 @@
         <script src="resources/js/jquery-1.8.2.js"></script>
         <script src="resources/js/jquery.mobile-1.2.0.js"></script>
         <script src="resources/js/lawnchair-0.6.1.js"></script>
+        <script src="app/js/UserSettings.js"></script>
         <script src="app/js/GlobalSettings.js"></script>
         <script src="app/js/Loading.js"></script>
         <script src="app/js/Drglearning.js"></script>
+        
     </head>
     <body>
     <div data-role="page" id="main">
@@ -97,7 +99,7 @@
     <div data-role="page" id="settings">
       <header data-role="header" data-position="fixed">
         <h1>Settings</h1>
-        <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
+        <a href="#main" data-icon="back" data-iconpos="notext" id="backfromsettings">Main</a>
       </header>
       <label for="select-choice-min" class="select">Language:</label>
       <select name="select-choice-min" id="select-choice-min" data-mini="true">
@@ -106,9 +108,9 @@
          <option value="express">Français</option>
       </select>
       <label for="basic">Username:</label>
-      <input type="text" name="name" id="basic" data-mini="true" />
+      <input type="text" name="name" id="username" data-mini="true" />
       <label for="basic">Email:</label>
-      <input type="text" name="name" id="basic" data-mini="true" />
+      <input type="text" name="name" id="email" data-mini="true" />
             <footer data-role="footer" data-position="fixed">
       <nav data-role="navbar">
           <ul>

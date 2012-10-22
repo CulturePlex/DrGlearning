@@ -178,7 +178,7 @@ var Loading = {
                 if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !this.retrieving)
                 {
                     this.retrieving = true;
-                    var HOST = DrGlearning.getServerURL();
+                    var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
                         offset: localStorage.offset,
                         name__contains: localStorage.searchString,
