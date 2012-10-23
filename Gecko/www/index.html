@@ -23,7 +23,7 @@
       <article data-role="content">
           <ul data-role="listview" id="careerslist">
               <li>
-                  <a href="#">
+                  <a href="#addCourses">
                   <h1>No Careers installed</h1>
                   </a>
               </li>
@@ -33,7 +33,7 @@
         <nav data-role="navbar">
             <ul>
                 <li><a href="#settings">Settings</a></li>
-                <li><a href="#addCourses" id="addcourses">Add Course</a></li>
+                <li><a href="#addCourses">Add Course</a></li>
             </ul>
             
         </nav>
@@ -42,7 +42,7 @@
     <div data-role="page" id="addCourses">
       <header data-role="header"  data-position="fixed">
         <h1>Add Courses</h1>
-        <a href="#main" data-icon="back" data-iconpos="notext" id="refreshMain">Main</a>
+        <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
       </header>
       <article data-role="content">
           <ul data-role="listview" data-filter="true" id="addcareerslist">
@@ -116,7 +116,7 @@
     </body>
     <script type="text/javascript">
       $(document).ready(function(){
-      DrGlearning.startApp(this);
+          DrGlearning.startApp(this);
       });
       
     </script>

@@ -29,39 +29,92 @@ var DrGlearning = {
         //Setting up data
         $('#username').val(localStorage.display_name);
         $('#email').val(localStorage.email);
-        //Setting up buttons
-        $('#addcourses').click(function(){
-            $( '#addCourses' ).live( 'pageinit',function(event){
-                Loading.careersRequest("","All");
-            });
+        
+        //Setting up pageinits
+        $( '#addCourses' ).live( 'pagebeforeshow',function(event){
+            console.log('lalo');
+            DrGlearning.refreshAddCareers();
         });
         
+        $( '#main' ).live( 'pagebeforeshow',function(event){
+            console.log('lala');
+           DrGlearning.refreshMain();
+        });
+        
+        //Setting up buttons
         $('#backfromsettings').click(function(){
           UserSettings.saveSettings();
         });
         
-        $('#refreshMain').click(function(){
-            console.log('asdasd');
-            DrGlearning.refreshMain();
-        });
         $(document).on('click', '#careertoinstall',function(e) {
             Dao.installCareer($(this));
             return false;
         });
+        
+        //Refreshing installed careers
+        DrGlearning.refreshMain();
     },
     refreshMain: function(){
-        console.log('holasssss');
+        $('#careerslist').empty();
         Dao.careersStore.all(function(arrCareers){
+          var empty = true;
 		      for(var i = 0; i<arrCareers.length;i++)
 		      {
-			      console.log(arrCareers);
-			      var listdiv = document.createElement('li');
-          	listdiv.setAttribute('id','listdiv');
-          	console.log(arrCareers[i]);
-          	listdiv.innerHTML = arrCareers[i].value.name;
-			      $('#careerslist').append(listdiv);
+		        if(arrCareers[i].value.installed === true)
+		        {
+		          empty = false;
+			        var listdiv = document.createElement('li');
+            	listdiv.setAttribute('id','listdiv');
+            	listdiv.innerHTML = '<a id="accesscareer" href="#" data-href="'+
+            	    arrCareers[i].key+
+            	    '"><h1>'+
+            	    arrCareers[i].value.name+
+            	    '</h1></a>';
+			        $('#careerslist').append(listdiv);
+			      }
+		      }
+		      if(empty)
+		      {
+              $('#careerslist').append(
+                '<li><a href="#addCourses"><h1>'+
+                'No careers installed'+
+                '</h1><p>'+
+                '</p></a></li>');
 		      }
 		      $('#careerslist').listview("refresh");
 	      });
-	  }
+	  },
+    refreshAddCareers: function(){
+        $('#addcareerslist').empty();
+        Dao.careersStore.all(function(arrCareers){
+          var empty = true;
+		      for(var i = 0; i<arrCareers.length;i++)
+		      {
+		        if(arrCareers[i].value.installed === false)
+		        {
+		          empty = false;
+			        var listdiv = document.createElement('li');
+            	listdiv.setAttribute('id','listdiv');
+            	listdiv.innerHTML = '<a id="careertoinstall" href="#" data-href="'+
+            	    arrCareers[i].key+
+            	    '"><h1>'+
+            	    arrCareers[i].value.name+
+            	    '</h1></a>';
+			        $('#addcareerslist').append(listdiv);
+			      }
+		      }
+		      if(empty)
+		      {
+              $('#addcareerslist').append(
+                '<li><a href="#"><h1>'+
+                'Loading Careers...'+
+                '</h1><p>'+
+                '</p></a></li>');
+              $('#addcareerslist').listview('refresh');
+		          Loading.careersRequest("","All");
+		      }
+		      $('#addcareerslist').listview("refresh");
+	      });
+	  },
+
 }

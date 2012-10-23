@@ -213,12 +213,6 @@ var Loading = {
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
-                    $('#addcareerslist').append(
-                      '<li><a href="#"><h1>'+
-                      'Loading Careers...'+
-                      '</h1><p>'+
-                      '</p></a></li>');
-                    $('#addcareerslist').listview('refresh');
                     jQuery.ajax({
                         url: HOST + "/api/v1/career/?format=jsonp",
                         dataType : 'jsonp',
@@ -229,20 +223,11 @@ var Loading = {
                             var careers = response.objects;
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
-                                console.log(careers[cont]);
-                                $('#addcareerslist').append(
-                                  '<li><a id="careertoinstall" href="#" data-href="'+
-                                  careers[cont].id+
-                                  '"><h1>'+
-                                  careers[cont].name+
-                                  '</h1><p>'+
-                                  careers[cont].description+
-                                  '</p></a></li>');
-                                var obj = {name:careers[cont].name,description:careers[cont].description};
+                                var obj = {name:careers[cont].name,description:careers[cont].description,installed:false};
                                 console.log(obj);
-                                Dao.careersStore.save({key:'1',value:obj});
+                                Dao.careersStore.save({key:careers[cont].id,value:obj});
                             }
-                            $('#addcareerslist').listview('refresh');
+                            DrGlearning.refreshAddCareers();
                             this.retrieving = false;
                             $.mobile.loading('hide');
                         },
