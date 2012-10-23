@@ -1,5 +1,4 @@
 from django.db.models.fields.files import ImageField
-from django.db.models.query import EmptyQuerySet
 
 from tastypie import fields
 from tastypie.bundle import Bundle
@@ -31,12 +30,12 @@ class EmbedResource(Resource):
 
     def alter_detail_data_to_serialize(self, request, data):
         width = request.GET.get("deviceWidth", 200)
-        height= request.GET.get("deviceHeight", 200)
+        height = request.GET.get("deviceHeight", 200)
         data.data["main_url"] = data.obj.content_url
         if data.obj.content_url:
             data.data["main"] = get_oembed(data.obj.content_url,
-                                              maxwidth=width, maxheight=height,
-                                              format="json")
+                                           maxwidth=width, maxheight=height,
+                                           format="json")
         else:
             data.data["main"] = None
         for i in xrange(1, 11):
@@ -100,7 +99,7 @@ class CareerResource(ModelResource):
         # excludes = ["content_url"]
         # for i in xrange(1, 11):
         #     excludes.append("content_level%s_url" % i)
-        excludes = ('content_url',
+        excludes = ('image', 'content_url',
                     'description_level1', 'content_level1_url',
                     'description_level2', 'content_level2_url',
                     'description_level3', 'content_level3_url',
@@ -120,8 +119,8 @@ class CareerResource(ModelResource):
 
     def dehydrate(self, bundle):
         # Career creator name
-        bundle.data["creator"] = bundle.obj.user.get_full_name() or \
-                                                    bundle.obj.user.username
+        bundle.data["creator"] = (bundle.obj.user.get_full_name() or
+                                  bundle.obj.user.username)
         # Career size in bytes, and levels
         size = 0
         levels = []
@@ -129,7 +128,8 @@ class CareerResource(ModelResource):
             size += activity.obj.size()
             if activity.obj.level_type not in levels:
                 levels.append(activity.obj.level_type)
-        fields = [f for f in bundle.obj._meta.fields if not isinstance(f, ImageField)]
+        fields = [f for f in bundle.obj._meta.fields
+                  if not isinstance(f, ImageField)]
         for field in fields:
             size += len(unicode(getattr(bundle.obj, field.name)))
         bundle.data["size"] = size
@@ -140,7 +140,7 @@ class CareerResource(ModelResource):
     def alter_list_data_to_serialize(self, request, data):
         # Filter careers without activities
         careers_objects = data["objects"]
-        filtered_careers = [c for c in careers_objects \
-                if c.obj.activity_set.count() > 0]
+        filtered_careers = [c for c in careers_objects
+                            if c.obj.activity_set.count() > 0]
         data["objects"] = filtered_careers
         return data
