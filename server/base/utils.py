@@ -13,36 +13,33 @@ MAX_IMAGE_SIZE = 1024
 
 
 def jsonify_fields(instance, fields=None):
-    DEBUG = False
     data = {}
     if fields:
         fields = fields
     else:
-        DEBUG = True
         fields = instance._meta.fields
-
     for f in fields:
         field_name = f.name
         # If image convert to base64
         if isinstance(f, ImageField):
+            data[field_name + '_url'] = None
             image = getattr(instance, field_name)
-            if not image:
-                # TODO Should we send the field with a blank value?
-                continue
-            # Original url for debugging
-            if DEBUG:
+            if settings.API_IMAGES_TO_BASE64:
+                if not image:
+                    # TODO Should we send the field with a blank value?
+                    continue
+                # base64 transformation
+                image_path = image.path
+                ext = image_path.split('.')[-1]
+                image_data = open(image_path, "rb").read()
+                data[field_name] = "data:image/%s;base64,%s" \
+                                   % (ext, base64.encodestring(image_data))
                 data[field_name + '_url'] = image
-            # base64 transformation
-            image_path = image.path
-            ext = image_path.split('.')[-1]
-            image_data = open(image_path, "rb").read()
-            data[field_name] = "data:image/%s;base64,%s" \
-                               % (ext, base64.encodestring(image_data))
         # If geometry export to geojson
-        elif isinstance(f, GeometryField):
+        elif isinstance(f, GeometryField) and settings.API_GEOMETRIES_TO_JSON:
             geo_object = getattr(instance, field_name)
             data[field_name] = geo_object.geojson
-        elif isinstance(f, DateTimeField):
+        elif isinstance(f, DateTimeField) and settings.API_DATETIMES_TO_ISO:
             data[field_name] = getattr(instance, field_name).isoformat()
         else:
             data[field_name] = getattr(instance, field_name)
@@ -62,7 +59,7 @@ def get_oembed(url, **kwargs):
     """
     ACCEPTED_ARGS = ['maxwidth', 'maxheight', 'format']
     api_url = 'http://api.embed.ly/1/oembed?'
-    params = {'url': url , 'key': settings.EMBEDLY_API_KEY }
+    params = {'url': url, 'key': settings.EMBEDLY_API_KEY}
     for key, value in kwargs.items():
         if key not in ACCEPTED_ARGS:
             # raise ValueError("Invalid Argument %s" % key)
@@ -71,4 +68,3 @@ def get_oembed(url, **kwargs):
             params[key] = value
     oembed_call = "%s%s" % (api_url, urllib.urlencode(params))
     return json.loads(urllib2.urlopen(oembed_call).read())
-
