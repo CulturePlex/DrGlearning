@@ -76,7 +76,7 @@ var DrGlearning = {
 		          empty = false;
 			        var listdiv = document.createElement('li');
             	listdiv.setAttribute('id','listdiv');
-            	listdiv.innerHTML = '<a id="accesscareer" href="#career" data-href="'+
+            	listdiv.innerHTML = '<a id="accesscareer" href="#" data-href="'+
             	    arrCareers[i].key+
             	    '"><h1>'+
             	    arrCareers[i].value.name+
