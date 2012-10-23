@@ -231,11 +231,16 @@ var Loading = {
                             for (var cont in careers) {
                                 console.log(careers[cont]);
                                 $('#addcareerslist').append(
-                                  '<li><a href="#"><h1>'+
+                                  '<li><a id="careertoinstall" href="#" data-href="'+
+                                  careers[cont].id+
+                                  '"><h1>'+
                                   careers[cont].name+
                                   '</h1><p>'+
                                   careers[cont].description+
                                   '</p></a></li>');
+                                var obj = {name:careers[cont].name,description:careers[cont].description};
+                                console.log(obj);
+                                Dao.careersStore.save({key:'1',value:obj});
                             }
                             $('#addcareerslist').listview('refresh');
                             this.retrieving = false;
