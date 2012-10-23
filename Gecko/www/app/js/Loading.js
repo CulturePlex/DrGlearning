@@ -223,7 +223,7 @@ var Loading = {
                             var careers = response.objects;
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
-                                var obj = {name:careers[cont].name,description:careers[cont].description,installed:false};
+                                var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,installed:false};
                                 console.log(obj);
                                 Dao.careersStore.save({key:careers[cont].id,value:obj});
                             }
