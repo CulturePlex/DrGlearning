@@ -22,8 +22,8 @@ def jsonify_fields(instance, fields=None):
         field_name = f.name
         # If image convert to base64
         if isinstance(f, ImageField):
-            data[field_name + '_url'] = None
             image = getattr(instance, field_name)
+            data[field_name + '_url'] = image
             if settings.API_IMAGES_TO_BASE64:
                 if not image:
                     # TODO Should we send the field with a blank value?
