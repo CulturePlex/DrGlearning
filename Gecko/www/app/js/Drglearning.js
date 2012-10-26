@@ -1,5 +1,6 @@
 var DrGlearning = {
     careerId: null,
+    levelId: null,
     startApp: function(context){
         if(localStorage.uniqueid === undefined)
         {
@@ -43,11 +44,21 @@ var DrGlearning = {
         $( '#career' ).live( 'pagebeforeshow',function(event){
             DrGlearning.refreshCareer();
         });
+        
+        $( '#level' ).live( 'pagebeforeshow',function(event){
+            DrGlearning.refreshLevel();
+        });
         //Setting up buttons
 
         $(document).on('click', '#accesscareer',function(e) {
             DrGlearning.setCareerId($(this));
             $.mobile.changePage("#career");
+            return false;
+        });
+        
+        $(document).on('click', '#accesslevel',function(e) {
+            DrGlearning.setLevelId($(this));
+            $.mobile.changePage("#level");
             return false;
         });
         
@@ -133,6 +144,7 @@ var DrGlearning = {
         Loading.getCareer(DrGlearning.careerId);
         Dao.careersStore.get(DrGlearning.careerId,function(career){ 
             $('#careerTitle').html(career.value.name);
+            $('#levelTitle').html(career.value.name);
             $('#careerDescription').html(career.value.description);
             $('#levelslist').empty();
             Dao.levelsStore.all(function(arrLevels){
@@ -166,5 +178,40 @@ var DrGlearning = {
 	          });
 	      });
 	  },
-
+    setLevelId: function(element){
+        DrGlearning.levelId = element.attr("data-level");
+    },
+    refreshLevel: function(){
+        $('#activitieslist').empty();
+        Dao.levelsStore.get(DrGlearning.levelId,function(level){ 
+            $('#levelDescription').html(level.value.description);
+            Dao.activitiesStore.all(function(arrActivities){
+                var empty = true;
+		            for(var i = 0; i<arrActivities.length;i++)
+		            {
+		              if(arrActivities[i].value.careerId == DrGlearning.careerId && arrActivities[i].value.level_type == level.key)
+		              {
+		                empty = false;
+			              var listdiv = document.createElement('li');
+                  	listdiv.setAttribute('id','listdiv');
+                  	listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
+                  	    arrActivities[i].key+
+                  	    '"><h1>'+
+                  	    arrActivities[i].value.name+
+                  	    '</h1></a>';
+			              $('#activitieslist').append(listdiv);
+			            }
+		            }
+		            if(empty)
+		            {
+                    $('#levelslist').append(
+                      '<li><a href="#"><h1>'+
+                      'No Activities in this level...'+
+                      '</h1><p>'+
+                      '</p></a></li>');
+		            }
+		            $('#activitieslist').listview("refresh");
+	          });
+	      });
+	  },
 }
