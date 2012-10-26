@@ -107,6 +107,11 @@ var DrGlearning = {
 	      });
 	  },
     refreshAddCareers: function(){
+        $(window).scroll(function(){
+          if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+		          Loading.careersRequest("","All");
+          }
+        });
         $('#addcareerslist').empty();
         Dao.careersStore.all(function(arrCareers){
           var empty = true;
