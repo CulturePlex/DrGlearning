@@ -77,6 +77,8 @@ var DrGlearning = {
         DrGlearning.refreshMain();
     },
     refreshMain: function(){
+        $(window).scroll(function(){
+        });
         $('#careerslist').empty();
         Dao.careersStore.all(function(arrCareers){
           var empty = true;
@@ -108,7 +110,7 @@ var DrGlearning = {
 	  },
     refreshAddCareers: function(){
         $(window).scroll(function(){
-          if  ($(window).scrollTop() == $(document).height() - $(window).height()){
+          if  ($(window).scrollTop() == $(document).height() - $(window).height() && $.mobile.activePage.attr("id") == "addCourses"){
 		          Loading.careersRequest("","All");
           }
         });
