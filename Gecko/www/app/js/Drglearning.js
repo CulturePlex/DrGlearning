@@ -42,7 +42,7 @@ var DrGlearning = {
         });
         
         $( '#career' ).live( 'pagebeforeshow',function(event){
-            DrGlearning.refreshCareer();
+            Loading.getCareer(DrGlearning.careerId);
         });
         
         $( '#level' ).live( 'pagebeforeshow',function(event){
@@ -141,11 +141,7 @@ var DrGlearning = {
         DrGlearning.careerId = element.attr("data-href");
     },
     refreshCareer: function(){
-        Loading.getCareer(DrGlearning.careerId);
         Dao.careersStore.get(DrGlearning.careerId,function(career){ 
-            $('#careerTitle').html(career.value.name);
-            $('#levelTitle').html(career.value.name);
-            $('#careerDescription').html(career.value.description);
             $('#levelslist').empty();
             Dao.levelsStore.all(function(arrLevels){
                 var empty = true;

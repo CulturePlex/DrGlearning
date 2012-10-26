@@ -239,7 +239,17 @@ var Loading = {
                 }
             },
             getCareer: function(id) {
+                $('#levelslist').empty();
+                $('#levelslist').append(
+                      '<li><a href="#"><h1>'+
+                      'Loading Levels...'+
+                      '</h1><p>'+
+                      '</p></a></li>');
+		            $('#levelslist').listview("refresh");
                 Dao.careersStore.get(DrGlearning.careerId,function(career){ 
+                    $('#careerTitle').html(career.value.name);
+                    $('#levelTitle').html(career.value.name);
+                    $('#careerDescription').html(career.value.description);
                     console.log(career);
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
@@ -341,6 +351,7 @@ var Loading = {
                                                 Dao.activitiesStore.save({key:activitiesToInstall[cont].id,value:activitiesToInstall[cont]});
                                             }
                                         }
+                                        DrGlearning.refreshCareer();
                                     }
                                 },
                                 failure : function () {

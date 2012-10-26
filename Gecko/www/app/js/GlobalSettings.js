@@ -11,4 +11,13 @@ var GlobalSettings = {
             return true;
         }
     },
+    showModal: function (){
+        $("body").append('<div class="modalWindow"/>');
+        $.mobile.showPageLoadingMsg("b", "This is only a test", true);
+
+    },
+    hideModal: function (){
+        $(".modalWindow").remove();
+        $.mobile.hidePageLoadingMsg();
+    }
 }
