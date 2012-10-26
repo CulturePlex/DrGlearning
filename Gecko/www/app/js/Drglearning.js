@@ -130,6 +130,7 @@ var DrGlearning = {
         DrGlearning.careerId = element.attr("data-href");
     },
     refreshCareer: function(){
+        Loading.getCareer(DrGlearning.careerId);
         Dao.careersStore.get(DrGlearning.careerId,function(career){ 
             $('#careerTitle').html(career.value.name);
             $('#careerDescription').html(career.value.description);

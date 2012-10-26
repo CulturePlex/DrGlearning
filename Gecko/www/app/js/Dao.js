@@ -80,5 +80,8 @@ var Dao = {
             Dao.levelsStore.save({key:dataLevels[i].customId,value:dataLevels[i]});
         }
     },
+    activitiesStore : new Lawnchair({adapter:'dom',name:'activities'}, function(e) {
+          console.log('Activities Storage Open');
+    }),
 }
 
