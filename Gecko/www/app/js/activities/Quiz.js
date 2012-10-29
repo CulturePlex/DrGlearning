@@ -11,6 +11,7 @@ var Quiz = {
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Quiz.activity = activity;
             $('#quizActivityQuery').html(activity.value.query);
+            $('#quizActivityName').html(activity.value.name);
             for(var i = 0; i<activity.value.answers.length;i++)
             {
 	              var listdiv = document.createElement('li');

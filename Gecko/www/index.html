@@ -93,7 +93,7 @@
     </div><!-- Page Dialog -->
     <div data-role="page" id="quiz">
       <header data-role="header" data-position="fixed" >
-        <h1 id="quizActivityName">{{activity_name}}</h1>
+        <h1 id="quizActivityName">Quiz Activity</h1>
         <a href="#level" data-icon="back" data-iconpos="notext">Back to Level</a>
       </header>
       <article data-role="content">
@@ -106,17 +106,17 @@
     </div><!-- Page Quiz -->
     <div data-role="page" id="temporal">
       <header data-role="header" data-position="fixed" >
-        <h1 id="temporalActivityName">{{activity_name}}</h1>
+        <h1 id="temporalActivityName">Temporal Activity</h1>
         <a href="#level" data-icon="back" data-iconpos="notext">Back to Level</a>
       </header>
       <article data-role="content">
           <p id="temporalActivityQuery">
           In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
           </p>
-          <img src="oko" id="temporalImage">
+          <img src="" id="temporalImage">
           <ul data-role="listview" id="temporalAnswersList">
-              <li><a href="#before">Before</a></li>
-              <li><a href="#after">After</a></li>
+              <li><a id="before" href="#dialog" data-rel="dialog">Before</a></li>
+              <li><a id="after" href="#dialog" data-rel="dialog">After</a></li>
           </ul>
       </article>
     </div><!-- Page Temporal -->

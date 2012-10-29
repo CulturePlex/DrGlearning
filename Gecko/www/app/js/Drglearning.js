@@ -99,6 +99,7 @@ var DrGlearning = {
         
         //Setting up Activities
         Quiz.setup();
+        Temporal.setup();
         
     },
     refreshMain: function(){

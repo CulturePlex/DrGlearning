@@ -1,30 +1,41 @@
 var Temporal = {
     activity: null,
     setup: function(){
-        $(document).on('click', '#quizSelectAnswer',function(e) {
-          Quiz.checkAnswer($(this).attr("data-answer"));
+        $(document).on('click', '#before',function(e) {
+          Temporal.checkBefore(e);
+        });
+        $(document).on('click', '#after',function(e) {
+          Temporal.checkAfter(e);
         });
 	  },
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
-            console.log(activity.value.image_url);
             if(activity.value.image_url)
             {
                 $('#temporalImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
             }
             Temporal.activity = activity;
             $('#temporalActivityQuery').html(activity.value.query);
+            $('#temporalActivityName').html(activity.value.name);
+            
 	      });
 	  },
-	  checkAnswer: function(answer){
-        console.log(Quiz.activity);
-	      if(Quiz.activity.value.correct_answer === answer)
-	      {
+	  checkAfter: function(e){
+        if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
             $('#dialogText').html(Quiz.activity.value.reward+". Score:100");
-	      }
-	      else
-	      {
+        }
+        else 
+        {
   	         $('#dialogText').html(Quiz.activity.value.penalty);
-	      }
+        }
+	  },
+	  checkBefore: function(e){
+        if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
+  	        $('#dialogText').html(Quiz.activity.value.penalty);
+        }
+        else 
+        {
+            $('#dialogText').html(Quiz.activity.value.reward+". Score:100");
+        }
 	  }
 }
