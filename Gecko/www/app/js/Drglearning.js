@@ -48,6 +48,10 @@ var DrGlearning = {
         $( '#level' ).live( 'pagebeforeshow',function(event){
             DrGlearning.refreshLevel();
         });
+        
+        $( '#quiz' ).live( 'pagebeforeshow',function(event){
+            Quiz.refresh();
+        });
         //Setting up buttons
 
         $(document).on('click', '#accesscareer',function(e) {
@@ -59,6 +63,15 @@ var DrGlearning = {
         $(document).on('click', '#accesslevel',function(e) {
             DrGlearning.setLevelId($(this));
             $.mobile.changePage("#level");
+            return false;
+        });
+        
+        $(document).on('click', '#accessactivity',function(e) {
+            DrGlearning.setActivityId($(this));
+            if(DrGlearning.activityType === "quiz")
+            {
+                $.mobile.changePage("#quiz");
+            }
             return false;
         });
         
@@ -75,6 +88,10 @@ var DrGlearning = {
         
         //Refreshing installed careers
         DrGlearning.refreshMain();
+        
+        //Setting up Activities
+        Quiz.setup();
+        
     },
     refreshMain: function(){
         $(window).scroll(function(){
@@ -217,4 +234,10 @@ var DrGlearning = {
 	          });
 	      });
 	  },
+    setActivityId: function(element){
+        DrGlearning.activityId = element.attr("data-activity");
+        Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
+            DrGlearning.activityType = activity.value.activity_type;
+        });
+    },
 }
