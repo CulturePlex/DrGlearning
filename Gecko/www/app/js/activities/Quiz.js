@@ -6,7 +6,7 @@ var Quiz = {
         });
 	  },
     refresh: function(){
-        $('#quizanswerslist').empty();
+        $('#quizAnswersList').empty();
         console.log('borrando');
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Quiz.activity = activity;
