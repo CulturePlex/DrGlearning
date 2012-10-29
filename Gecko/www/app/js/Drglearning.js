@@ -136,6 +136,7 @@ var DrGlearning = {
     refreshAddCareers: function(){
         $(window).scroll(function(){
           if  ($(window).scrollTop() == $(document).height() - $(window).height() && $.mobile.activePage.attr("id") == "addCourses"){
+              console.log('trayendo');
 		          Loading.careersRequest("","All");
           }
         });

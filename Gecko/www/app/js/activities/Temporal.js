@@ -8,6 +8,10 @@ var Temporal = {
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             console.log(activity.value.image_url);
+            if(activity.value.image_url)
+            {
+                $('#temporalImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
+            }
             Temporal.activity = activity;
             $('#temporalActivityQuery').html(activity.value.query);
 	      });
