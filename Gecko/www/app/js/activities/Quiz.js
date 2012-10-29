@@ -29,11 +29,11 @@ var Quiz = {
         console.log(Quiz.activity);
 	      if(Quiz.activity.value.correct_answer === answer)
 	      {
-            $('#dialogText').html("Nice! It was the right option. Score: 100");
+            $('#dialogText').html(Quiz.activity.value.reward+". Score:100");
 	      }
 	      else
 	      {
-  	         $('#dialogText').html("Ooops! Try again");
+  	         $('#dialogText').html(Quiz.activity.value.penalty);
 	      }
 	  }
 }
