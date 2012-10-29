@@ -7,6 +7,7 @@ var Quiz = {
 	  },
     refresh: function(){
         $('#quizanswerslist').empty();
+        console.log('borrando');
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Quiz.activity = activity;
             $('#quizActivityQuery').html(activity.value.query);
@@ -14,7 +15,7 @@ var Quiz = {
             {
 	              var listdiv = document.createElement('li');
               	listdiv.setAttribute('id','listdiv');
-              	listdiv.innerHTML = '<a id="quizSelectAnswer" href="#" data-answer="'+
+              	listdiv.innerHTML = '<a id="quizSelectAnswer" href="#dialog" data-rel="dialog" data-answer="'+
               	    activity.value.answers[i]+
               	    '"><h1>'+
               	    activity.value.answers[i]+
@@ -22,13 +23,17 @@ var Quiz = {
 	              $('#quizAnswersList').append(listdiv);
             }
             $('#quizAnswersList').listview("refresh");
-	          });
+	      });
 	  },
 	  checkAnswer: function(answer){
         console.log(Quiz.activity);
 	      if(Quiz.activity.value.correct_answer === answer)
 	      {
-	        console.log('bien');
+            $('#dialogText').html("Nice! It was the right option. Score: 100");
+	      }
+	      else
+	      {
+  	         $('#dialogText').html("Ooops! Try again");
 	      }
 	  }
 }
