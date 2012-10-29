@@ -52,6 +52,10 @@ var DrGlearning = {
         $( '#quiz' ).live( 'pagebeforeshow',function(event){
             Quiz.refresh();
         });
+        
+        $( '#temporal' ).live( 'pagebeforeshow',function(event){
+            Temporal.refresh();
+        });
         //Setting up buttons
 
         $(document).on('click', '#accesscareer',function(e) {
@@ -71,6 +75,10 @@ var DrGlearning = {
             if(DrGlearning.activityType === "quiz")
             {
                 $.mobile.changePage("#quiz");
+            }
+            if(DrGlearning.activityType === "temporal")
+            {
+                $.mobile.changePage("#temporal");
             }
             return false;
         });

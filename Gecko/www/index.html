@@ -17,6 +17,7 @@
         <script src="app/js/GlobalSettings.js"></script>
         <script src="app/js/Loading.js"></script>
         <script src="app/js/activities/Quiz.js"></script>
+        <script src="app/js/activities/Temporal.js"></script>
         <script src="app/js/Drglearning.js"></script>
         
     </head>
@@ -92,7 +93,7 @@
     </div><!-- Page Dialog -->
     <div data-role="page" id="quiz">
       <header data-role="header" data-position="fixed" >
-        <h1 id="activityName">{{activity_name}}</h1>
+        <h1 id="quizActivityName">{{activity_name}}</h1>
         <a href="#level" data-icon="back" data-iconpos="notext">Back to Level</a>
       </header>
       <article data-role="content">
@@ -103,6 +104,21 @@
           </ul>
       </article>
     </div><!-- Page Quiz -->
+    <div data-role="page" id="temporal">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="temporalActivityName">{{activity_name}}</h1>
+        <a href="#level" data-icon="back" data-iconpos="notext">Back to Level</a>
+      </header>
+      <article data-role="content">
+          <p id="temporalActivityQuery">
+          In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
+          </p>
+          <ul data-role="listview" id="temporalAnswersList">
+              <li><a href="#before">Before</a></li>
+              <li><a href="#after">After</a></li>
+          </ul>
+      </article>
+    </div><!-- Page Temporal -->
     <div data-role="page" id="settings">
       <header data-role="header" data-position="fixed">
         <h1>Settings</h1>
