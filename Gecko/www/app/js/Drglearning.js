@@ -127,7 +127,7 @@ var DrGlearning = {
 		      {
               $('#careerslist').append(
                 '<li><a href="#addCourses"><h1>'+
-                'No careers installed'+
+                i18n.gettext('No careers installed')+
                 '</h1><p>'+
                 '</p></a></li>');
 		      }
@@ -163,7 +163,7 @@ var DrGlearning = {
 		      {
               $('#addcareerslist').append(
                 '<li><a href="#"><h1>'+
-                'Loading Careers...'+
+                i18n.gettext('Loading Careers...')+
                 '</h1><p>'+
                 '</p></a></li>');
 		          Loading.careersRequest("","All");
@@ -200,7 +200,7 @@ var DrGlearning = {
 		            {
                     $('#levelslist').append(
                       '<li><a href="#"><h1>'+
-                      'No Levels in this career...'+
+                      i18n.gettext('No Levels in this career...')+
                       '</h1><p>'+
                       '</p></a></li>');
 		            }
@@ -236,7 +236,7 @@ var DrGlearning = {
 		            {
                     $('#levelslist').append(
                       '<li><a href="#"><h1>'+
-                      'No Activities in this level...'+
+                      i18n.gettext('No Activities in this level...')+
                       '</h1><p>'+
                       '</p></a></li>');
 		            }

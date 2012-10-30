@@ -242,7 +242,7 @@ var Loading = {
                 $('#levelslist').empty();
                 $('#levelslist').append(
                       '<li><a href="#"><h1>'+
-                      'Loading Levels...'+
+                      i18n.gettext('Loading Levels...')+
                       '</h1><p>'+
                       '</p></a></li>');
 		            $('#levelslist').listview("refresh");
