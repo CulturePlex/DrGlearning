@@ -22,20 +22,20 @@ var Temporal = {
 	  },
 	  checkAfter: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
-            $('#dialogText').html(Quiz.activity.value.reward+". Score:100");
+            $('#dialogText').html(Temporal.activity.value.reward+". Score:100");
         }
         else 
         {
-  	         $('#dialogText').html(Quiz.activity.value.penalty);
+  	         $('#dialogText').html(Temporal.activity.value.penalty);
         }
 	  },
 	  checkBefore: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
-  	        $('#dialogText').html(Quiz.activity.value.penalty);
+  	        $('#dialogText').html(Temporal.activity.value.penalty);
         }
         else 
         {
-            $('#dialogText').html(Quiz.activity.value.reward+". Score:100");
+            $('#dialogText').html(Temporal.activity.value.reward+". Score:100");
         }
 	  }
 }
