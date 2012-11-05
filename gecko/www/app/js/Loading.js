@@ -1,4 +1,5 @@
 var Loading = {
+            retrieving: null,
             SHA1: function (msg) {
              
                 function rotate_left(n, s) {
@@ -175,9 +176,15 @@ var Loading = {
                     localStorage.total_count = 1;
                     localStorage.current_count = 0;
                 }
-                if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !this.retrieving)
+                console.log('requesting careers...');
+                console.log(searchString);
+                console.log(knowledgeValue);
+                console.log(localStorage.current_count);
+                console.log(localStorage.total_count);
+                
+                if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !Loading.retrieving)
                 {
-                    this.retrieving = true;
+                    Loading.retrieving = true;
                     var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
                         offset: localStorage.offset,
@@ -223,16 +230,17 @@ var Loading = {
                             var careers = response.objects;
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
+                                localStorage.current_count ++;
                                 var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false};
                                 console.log(obj);
                                 Dao.careersStore.save({key:careers[cont].id,value:obj});
                             }
                             DrGlearning.refreshAddCareers();
-                            this.retrieving = false;
+                            Loading.retrieving = false;
                             $.mobile.loading('hide');
                         },
                         failure: function () {
-                            this.retrieving = false;
+                            Loading.retrieving = false;
                             $.mobile.loading('hide');
                         }
                     });
