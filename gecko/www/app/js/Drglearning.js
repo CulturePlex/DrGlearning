@@ -2,6 +2,7 @@ var DrGlearning = {
     careerId: null,
     levelId: null,
     startApp: function(context){
+    
         if(localStorage.uniqueid === undefined)
         {
           var digest;
@@ -28,6 +29,7 @@ var DrGlearning = {
                 }
             });
         }
+
         //Setting up data
         $('#username').val(localStorage.display_name);
         $('#email').val(localStorage.email);
@@ -100,6 +102,8 @@ var DrGlearning = {
         //Setting up Activities
         Quiz.setup();
         Temporal.setup();
+        
+        
         
     },
     refreshMain: function(){

@@ -24,13 +24,13 @@
     <body>
     <div data-role="page" id="main">
       <header data-role="header" data-position="fixed">
-        <h1>Dr.Glearning</h1>
+        <h1>{{title}}</h1>
       </header>
       <article data-role="content">
           <ul data-role="listview" id="careerslist">
               <li>
                   <a href="#addCourses">
-                  <h1>No Careers installed</h1>
+                  <h1>{{NoCareersInstalled}}</h1>
                   </a>
               </li>
           </ul>
@@ -38,8 +38,8 @@
       <footer data-role="footer" data-position="fixed">
         <nav data-role="navbar">
             <ul>
-                <li><a href="#settings">Settings</a></li>
-                <li><a href="#addCourses">Add Course</a></li>
+                <li><a href="#settings">{{Settings}}</a></li>
+                <li><a href="#addCourses">{{AddCourse}}</a></li>
             </ul>
             
         </nav>
@@ -47,8 +47,8 @@
     </div><!-- Page Main -->
     <div data-role="page" id="addCourses">
       <header data-role="header"  data-position="fixed">
-        <h1>Add Courses</h1>
-        <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
+        <h1>{{AddCourses}}</h1>
+        <a href="#main" data-icon="back" data-iconpos="notext">{{Main}}</a>
       </header>
       <article data-role="content">
           <ul data-role="listview" data-filter="true" id="addcareerslist">
@@ -58,7 +58,7 @@
     <div data-role="page" id="career">
       <header data-role="header" data-position="fixed" >
         <h1 id="careerTitle">{{career_title}}</h1>
-        <a href="#main" data-icon="back" data-iconpos="notext">Main</a>
+        <a href="#main" data-icon="back" data-iconpos="notext">{{Main}}</a>
       </header>
       <article data-role="content">
           <p id="careerDescription">
@@ -115,14 +115,14 @@
           </p>
           <img src="" id="temporalImage">
           <ul data-role="listview" id="temporalAnswersList">
-              <li><a id="before" href="#dialog" data-rel="dialog">Before</a></li>
-              <li><a id="after" href="#dialog" data-rel="dialog">After</a></li>
+              <li><a id="before" href="#dialog" data-rel="dialog">{{Before}}</a></li>
+              <li><a id="after" href="#dialog" data-rel="dialog">{{After}}</a></li>
           </ul>
       </article>
     </div><!-- Page Temporal -->
     <div data-role="page" id="settings">
       <header data-role="header" data-position="fixed">
-        <h1>Settings</h1>
+        <h1>{{Settings}}</h1>
         <a href="#main" data-icon="back" data-iconpos="notext" id="backfromsettings">Main</a>
       </header>
       <label for="select-choice-min" class="select">Language:</label>
@@ -131,15 +131,15 @@
          <option value="rush">Español</option>
          <option value="express">Français</option>
       </select>
-      <label for="basic">Username:</label>
+      <label for="basic">{{Username}}:</label>
       <input type="text" name="name" id="username" data-mini="true" />
-      <label for="basic">Email:</label>
+      <label for="basic">{{Email}}:</label>
       <input type="text" name="name" id="email" data-mini="true" />
             <footer data-role="footer" data-position="fixed">
       <nav data-role="navbar">
           <ul>
-              <li><a href="#">Import User</a></li>
-              <li><a href="#">Export User</a></li>
+              <li><a href="#">{{ImportUser}}</a></li>
+              <li><a href="#">{{ExportUser}}</a></li>
           </ul>
           
       </nav>
@@ -148,6 +148,25 @@
     </body>
     <script type="text/javascript">
       $(document).ready(function(){
+          //Initializing Handlebars
+          
+          //Disabled because there is a conflict between jquery mobile init component and compiling the whole body...
+          /*console.log($("div[data-role=page]"));
+          var pages = $("div[data-role=page]");
+          $("div[data-role=page]").each(function(index) {
+            var source   = $(this).html();
+            var template = Handlebars.compile(source);
+            var context  =  {
+                title: "Dr. Glearning", 
+                NoCareersInstalled: "No courses installed",
+                Settings: "Settings",
+                AddCourse: "Add course",
+                ImportUser: "Import User",
+                ExportUser: "Export User"};
+            var html    = template(context);
+            $(this).empty();
+            $(this).append(html);
+          });*/
           DrGlearning.startApp(this);
       });
       
