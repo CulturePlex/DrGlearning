@@ -62,12 +62,12 @@ class CareerAdmin(GuardedModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('name', 'description', 'knowledge_field',
-                       'language_code', 'career_type', 'image',
+                       'language_code', 'career_type', 'image', 'code',
                        ('published', 'positive_votes', 'negative_votes',
                         'total_downloads'),)
         }),
         (_(u"Content"), {
-            'classes': ('collapse closed',),
+            'classes': ('grp-collapse grp-closed',),
             'fields': ('content_url',
                        'description_level1', 'content_level1_url',
                        'description_level2', 'content_level2_url',

@@ -1,5 +1,7 @@
+from hashlib import sha1
+
 from django.db.models.fields.files import ImageField
-from django.db.models.query import EmptyQuerySet
+from django.http import HttpResponse
 
 from tastypie import fields
 from tastypie.bundle import Bundle
@@ -100,7 +102,7 @@ class CareerResource(ModelResource):
         # excludes = ["content_url"]
         # for i in xrange(1, 11):
         #     excludes.append("content_level%s_url" % i)
-        excludes = ('content_url',
+        excludes = ('code', 'content_url',
                     'description_level1', 'content_level1_url',
                     'description_level2', 'content_level2_url',
                     'description_level3', 'content_level3_url',
@@ -118,6 +120,19 @@ class CareerResource(ModelResource):
         else:
             return Career.objects.filter(published=True)
 
+    def dispatch(self, request_type, request, **kwargs):
+        # required_fields = ('code', )
+        response = super(CareerResource, self).dispatch(request_type,
+                                                      request,
+                                                      **kwargs)
+        # Carrer protected by code
+        if ("pk" in kwargs and "code" in request.GET and
+                "callback" in request.GET):
+            career = Career.objects.get(pk=kwargs["pk"])
+            if sha1(career.code).hexdigest() != request.GET.get("code", ""):
+                return HttpResponse("Resource protected by code", status=401)
+        return response
+
     def dehydrate(self, bundle):
         # Career creator name
         bundle.data["creator"] = bundle.obj.user.get_full_name() or \
@@ -134,6 +149,11 @@ class CareerResource(ModelResource):
             size += len(unicode(getattr(bundle.obj, field.name)))
         bundle.data["size"] = size
         bundle.data["levels"] = sorted(levels)
+        if bundle.obj.code:
+            bundle.data["has_code"] = True
+        else:
+            bundle.data["has_code"] = False
+        bundle.obj.code = None
         # bundle.data["contents"] = EmbedResource().get_resource_uri(bundle.obj)
         return dehydrate_fields(bundle)
 
