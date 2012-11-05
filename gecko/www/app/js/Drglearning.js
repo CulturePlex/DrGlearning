@@ -109,9 +109,7 @@ var DrGlearning = {
         //Setting up Activities
         Quiz.setup();
         Temporal.setup();
-        
-        
-        
+        Visual.setup();
     },
     refreshMain: function(){
         $(window).scroll(function(){

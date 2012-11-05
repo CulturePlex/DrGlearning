@@ -30,7 +30,7 @@ var Quiz = {
         console.log(Quiz.activity);
 	      if(Quiz.activity.value.correct_answer === answer)
 	      {
-            $('#dialogText').html(Quiz.activity.value.reward+". Score:100");
+            $('#dialogText').html(Quiz.activity.value.reward+". "+i18n.gettext('Score')+":100");
 	      }
 	      else
 	      {

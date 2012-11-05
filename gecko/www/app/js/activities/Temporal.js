@@ -22,7 +22,7 @@ var Temporal = {
 	  },
 	  checkAfter: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
-            $('#dialogText').html(Temporal.activity.value.reward+". Score:100");
+            $('#dialogText').html(Temporal.activity.value.reward+". "+i18n.gettext('Score')+":100");
         }
         else 
         {
@@ -35,7 +35,7 @@ var Temporal = {
         }
         else 
         {
-            $('#dialogText').html(Temporal.activity.value.reward+". Score:100");
+            $('#dialogText').html(Temporal.activity.value.reward+". "+i18n.gettext('Score')+":100");
         }
 	  }
 }

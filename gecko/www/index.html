@@ -124,13 +124,15 @@
     <div data-role="page" id="visual">
       <header data-role="header" data-position="fixed" >
         <h1 id="visualActivityName">Visual Activity</h1>
-        <a href="#level" data-icon="back" data-iconpos="notext">Back to Level</a>
+        <a href="#level" data-icon="back" data-iconpos="notext" id="backFromVisual">Back to Level</a>
       </header>
       <article data-role="content">
           <p id="visualActivityQuery">
           In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
           </p>
           <img src="" id="visualImage">
+          <a href="#" data-role="button" id="skipButtonVisual">{{Skip}}</a>
+          <div id="timeVisual">{{Error}}</div>
           <ul data-role="listview" id="visualAnswersList">
           </ul>
       </article>
