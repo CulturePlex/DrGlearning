@@ -2,7 +2,6 @@ var DrGlearning = {
     careerId: null,
     levelId: null,
     startApp: function(context){
-    
         if(localStorage.uniqueid === undefined)
         {
           var digest;
@@ -58,6 +57,10 @@ var DrGlearning = {
         $( '#temporal' ).live( 'pagebeforeshow',function(event){
             Temporal.refresh();
         });
+        
+        $( '#visual' ).live( 'pagebeforeshow',function(event){
+            Visual.refresh();
+        });
         //Setting up buttons
 
         $(document).on('click', '#accesscareer',function(e) {
@@ -81,6 +84,10 @@ var DrGlearning = {
             if(DrGlearning.activityType === "temporal")
             {
                 $.mobile.changePage("#temporal");
+            }
+            if(DrGlearning.activityType === "visual")
+            {
+                $.mobile.changePage("#visual");
             }
             return false;
         });
