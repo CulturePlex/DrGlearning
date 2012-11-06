@@ -10,3 +10,6 @@
 .ui-loader{
     z-index: 1501;
 }
+
+#map_canvas { height: 330px; width: 100%; margin: 0px; padding: 0px }
+

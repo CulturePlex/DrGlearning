@@ -1,7 +1,5 @@
 var Linguistic = {
     activity: null,
-    time: null,
-    secondtemp: null,
     score: null,
     letterAsked: null,
     squaresBlack: null,

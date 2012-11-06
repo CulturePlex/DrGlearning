@@ -66,6 +66,10 @@ var DrGlearning = {
             Linguistic.refresh();
         });
         
+        $( '#geospatial' ).live( 'pagebeforeshow',function(event){
+            Geospatial.refresh();
+        });
+        
         //Setting up buttons
         
         $(document).on('click', '#accesscareer',function(e) {
@@ -98,6 +102,10 @@ var DrGlearning = {
             {
                 $.mobile.changePage("#linguistic");
             }
+            if(DrGlearning.activityType === "geospatial")
+            {
+                $.mobile.changePage("#geospatial");
+            }
             return false;
         });
         
@@ -120,6 +128,7 @@ var DrGlearning = {
         Temporal.setup();
         Visual.setup();
         Linguistic.setup();
+        Geospatial.setup();
     },
     refreshMain: function(){
         $(window).scroll(function(){
