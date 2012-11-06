@@ -13,6 +13,7 @@ class Player(models.Model):
     email = models.CharField(max_length=30, blank=True)
     image = models.ImageField(upload_to="images", null=True, blank=True)
     token = models.CharField(max_length=128, default="")
+    options = models.TextField(default="")
 
     def __unicode__(self):
         return self.code

@@ -68,6 +68,9 @@ class Career(models.Model):
                                          help_text=_("Choose the 5 knowledges "
                                                      "fields that suit better "
                                                      "your course"))
+    code = models.CharField(_("Code"), max_length=50, default="",
+                            blank=True, null=True,
+                            help_text=_("Code to protect the course"))
     content_url = models.TextField(_("Course"), default="",
                                    blank=True, null=True,
                                    help_text=_("URLs from YouTube, vimeo.com "
