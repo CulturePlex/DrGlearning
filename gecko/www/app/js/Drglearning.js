@@ -65,9 +65,9 @@ var DrGlearning = {
         $( '#linguistic' ).live( 'pagebeforeshow',function(event){
             Linguistic.refresh();
         });
-
+        
         //Setting up buttons
-
+        
         $(document).on('click', '#accesscareer',function(e) {
             DrGlearning.setCareerId($(this));
             $.mobile.changePage("#career");

@@ -5,7 +5,7 @@
 
 /*global
     Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace console
-*/ 
+*/
 
 try {
     (function () {
@@ -24,7 +24,6 @@ try {
                 items: [
                     {
                         xtype: 'toolbar',
-                        
                         docked: 'top',
                         ui: 'neutral',
                         customId: 'query',
@@ -48,12 +47,10 @@ try {
                                 html: 'TIP: ',
                                 customId: 'tip',
                                 margin: 10
-                                
                             }, {
                                 xtype: 'label',
                                 customId: 'loqued',
                                 margin: 10
-                                
                             }
                         ]
                     }, {
@@ -74,7 +71,6 @@ try {
                                 ui: 'small',
                                 flex: 1,
                                 margin: 10
-                                    
                             }
                         ]
                     },
@@ -83,10 +79,6 @@ try {
                         customId: 'responses',
                         margin: 10
                     },
-                    
-                    
-                   
-               
                     
                     {
                         xtype: 'toolbar',
