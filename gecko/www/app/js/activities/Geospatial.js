@@ -12,19 +12,18 @@ var Geospatial = {
         $(document).on('click', '#confirmGeospatial',function(e) {
           //Geospatial.confirm();
         });
+        var options= {
+            mapTypeControl: false,
+            streetViewControl: false
+        };
+        $('#map_canvas').gMap();
+        //Geospatial.map = new google.maps.Map(document.getElementById("map_canvas"), options);
 	  },
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Geospatial.activity = activity;
             $('#geospatialActivityQuery').html(activity.value.query);
             $('#geospatialActivityName').html(activity.value.name);
-            var options= {
-                mapTypeControl: false,
-                streetViewControl: false
-            };
-
-            Geospatial.map = new google.maps.Map(document.getElementById("map_canvas"), options);
-
             //Starting activity after the map is render
             google.maps.event.addListener(Geospatial.map, "idle", function ()
             {
@@ -34,6 +33,8 @@ var Geospatial = {
 	  },
     start: function ()
     {
+        $('#map_canvas').gMap();
+        console.log('aquiii');
         //Initializing map variable
         var map = Geospatial.map;
         google.maps.event.clearListeners(map, 'idle');
