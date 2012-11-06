@@ -193,12 +193,7 @@ var Linguistic = {
     },
     solve: function ()
     {
-      var inputSolve = '<input type="text" name="name" id="inputSolveLinguistic" value=""/>';
-      var saveButton = '<a href="#" data-role="button" id="solveOKLinguistic">{{Solve}}</a>';
-      var cancelButton = '<a href="#" data-role="button" id="cancelLinguistic">{{Cancel}}</a>';
-      var show = i18n.gettext('Answer the question') + ": " + saveButton + cancelButton;
-      $('#dialogText').html(show);
-      $.mobile.changePage("#dialog");
+      $.mobile.changePage("#dialogLinguistic");
       $(document).on('click', '#solveOKLinguistic',function(e)
       {
         var answer = $('#inputSolveLinguistic').val();
@@ -214,12 +209,8 @@ var Linguistic = {
             {
                 Linguistic.score = 0;
             }
-  	        $('#dialogText').html(Visual.activity.value.penalty);
+  	        $('#dialogText').html(Linguistic.activity.value.penalty);
         }
         });
-      $(document).on('click', '#cancelLinguistic',function(e)
-      {
-      $.mobile.changePage("#linguistic");
-      });
     }
 }
