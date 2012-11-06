@@ -119,6 +119,7 @@ var DrGlearning = {
         Quiz.setup();
         Temporal.setup();
         Visual.setup();
+        Linguistic.setup();
     },
     refreshMain: function(){
         $(window).scroll(function(){
