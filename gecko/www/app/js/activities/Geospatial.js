@@ -10,13 +10,12 @@ var Geospatial = {
     mouseFlag: false,
     setup: function(){
         $(document).on('click', '#confirmGeospatial',function(e) {
-          //Geospatial.confirm();
+          Geospatial.confirm();
         });
         var options= {
             mapTypeControl: false,
             streetViewControl: false
         };
-        //Geospatial.map = new google.maps.Map(document.getElementById("map_canvas"), options);
 	  },
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
@@ -137,4 +136,16 @@ var Geospatial = {
             Geospatial.mouseFlag = true;
         });
     },
+    confirm: function ()
+    {
+        Geospatial.score = 0;
+        var distance = Math.sqrt(Math.pow(Geospatial.marker.position.lat() - Geospatial.target.lat(), 2) + Math.pow(Geospatial.marker.position.lng() - Geospatial.target.lng(), 2)) * 60000;
+        Geospatial.score = parseInt(100 - (distance * 100) / Geospatial.radius, 10);
+        if (distance < Geospatial.radius) {
+            $('#dialogText').html(Geospatial.activity.value.reward+". "+i18n.gettext('Score')+":"+Geospatial.score);
+        }
+        else {
+  	        $('#dialogText').html(Geospatial.activity.value.penalty);
+        }
+    }
 }
