@@ -61,6 +61,11 @@ var DrGlearning = {
         $( '#visual' ).live( 'pagebeforeshow',function(event){
             Visual.refresh();
         });
+        
+        $( '#linguistic' ).live( 'pagebeforeshow',function(event){
+            Linguistic.refresh();
+        });
+
         //Setting up buttons
 
         $(document).on('click', '#accesscareer',function(e) {
@@ -88,6 +93,10 @@ var DrGlearning = {
             if(DrGlearning.activityType === "visual")
             {
                 $.mobile.changePage("#visual");
+            }
+            if(DrGlearning.activityType === "linguistic")
+            {
+                $.mobile.changePage("#linguistic");
             }
             return false;
         });

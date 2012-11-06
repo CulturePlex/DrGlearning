@@ -19,6 +19,7 @@
         <script src="app/js/activities/Quiz.js"></script>
         <script src="app/js/activities/Temporal.js"></script>
         <script src="app/js/activities/Visual.js"></script>
+        <script src="app/js/activities/Linguistic.js"></script>
         <script src="app/js/Drglearning.js"></script>
         
     </head>
@@ -131,12 +132,28 @@
           In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
           </p>
           <img src="" id="visualImage">
-          <a href="#" data-role="button" id="skipButtonVisual">{{Skip}}</a>
           <div id="timeVisual">{{Error}}</div>
+          <a href="#" data-role="button" id="skipButtonVisual">{{Skip}}</a>
           <ul data-role="listview" id="visualAnswersList">
           </ul>
       </article>
     </div><!-- Page Visual -->
+    <div data-role="page" id="linguistic">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="linguisticActivityName">Linguistic Activity</h1>
+        <a href="#level" data-icon="back" data-iconpos="notext" >Back to Level</a>
+      </header>
+      <article data-role="content">
+          <p id="linguisticActivityQuery">
+          In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
+          </p>
+          <img src="" id="linguisticImage">
+          <div id="answerLinguistic">{{Error}}</div>
+          <input type="text" name="name" id="inputLinguistic" value=""/>
+          <a href="#" data-role="button" id="tryLinguistic">{{Skip}}</a>
+          <div id="lettersLinguistic">{{Error}}</div>
+      </article>
+    </div><!-- Page Linguistic -->
     <div data-role="page" id="settings">
       <header data-role="header" data-position="fixed">
         <h1>{{Settings}}</h1>
