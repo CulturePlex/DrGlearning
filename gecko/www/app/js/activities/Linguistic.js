@@ -144,7 +144,7 @@ var Linguistic = {
            }
        }
        $('#answerLinguistic').empty();
-       $('#answerLinguistic').append(loqued);
+       $('#answerLinguistic').append("Answer: "+loqued);
        console.log(Linguistic.score);
        if (loqued.toLowerCase() === Linguistic.activity.value.answer.toLowerCase()) 
        {
