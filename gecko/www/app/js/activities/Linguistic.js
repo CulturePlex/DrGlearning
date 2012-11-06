@@ -193,61 +193,33 @@ var Linguistic = {
     },
     solve: function ()
     {
-    /*
-        var answer;
-        var saveButton = Ext.create('Ext.Button', {
-            scope: this,
-            text: i18n.gettext('Solve')
-        });
-        var cancelButton = Ext.create('Ext.Button', {
-            scope: this,
-            text: i18n.gettext('Cancel')
-        });
-        var show = new Ext.MessageBox().show({
-            id: 'info',
-            title: i18n.gettext('Answer the question') + ": ",
-            msg: this.activity.data.query,
-            items: [{
-                xtype: 'textfield',
-                labelAlign: 'top',
-                clearIcon: true,
-                value: '',
-                id: 'importvalue'
-            }],
-            buttons: [cancelButton, saveButton],
-            icon: Ext.Msg.INFO
-        });
-        saveButton.setHandler(function ()
-        {
-            show.hide();
-            answer = show.down('#importvalue').getValue();
-            if (answer.toLowerCase() === this.activity.data.answer.toLowerCase()) {
-                if (this.score < 20)
-                {
-                    this.score = 20;
-                }
-                Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
-                {
-                    this.daoController.activityPlayed(this.activity.data.id, true, this.score);
-                    this.levelController.nextActivity(this.activity.data.level_type);
-                }, this);
+      var inputSolve = '<input type="text" name="name" id="inputSolveLinguistic" value=""/>';
+      var saveButton = '<a href="#" data-role="button" id="solveOKLinguistic">{{Solve}}</a>';
+      var cancelButton = '<a href="#" data-role="button" id="cancelLinguistic">{{Cancel}}</a>';
+      var show = i18n.gettext('Answer the question') + ": " + saveButton + cancelButton;
+      $('#dialogText').html(show);
+      $.mobile.changePage("#dialog");
+      $(document).on('click', '#solveOKLinguistic',function(e)
+      {
+        var answer = $('#inputSolveLinguistic').val();
+        if (answer.toLowerCase() === Linguistic.activity.value.answer.toLowerCase()) {
+          if (Linguistic.score < 20)
+          {
+              Linguistic.score = 20;
+          }
+          $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+Linguistic.score);
+        }
+        else {
+            if (Linguistic.score < 0)
+            {
+                Linguistic.score = 0;
             }
-            else {
-                if (this.score < 0)
-                {
-                    this.score = 0;
-                }
-                Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
-                {
-                    this.daoController.activityPlayed(this.activity.data.id, false, this.score);
-                    this.levelController.tolevel();
-                }, this);
-            }
+  	        $('#dialogText').html(Visual.activity.value.penalty);
+        }
         });
-        cancelButton.setHandler(function ()
-        {
-            show.hide();
-            this.destroy(show);
-        });*/
+      $(document).on('click', '#cancelLinguistic',function(e)
+      {
+      $.mobile.changePage("#linguistic");
+      });
     }
 }
