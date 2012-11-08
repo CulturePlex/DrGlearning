@@ -1,7 +1,7 @@
 var DrGlearning = {
     careerId: null,
     levelId: null,
-    activitySelect: null,
+    careerSelect: null,
     startApp: function(context){
         if(localStorage.uniqueid === undefined)
         {
@@ -115,9 +115,17 @@ var DrGlearning = {
         });
         
         $(document).on('click', '#careertoinstall',function(e) {
-            DrGlearning.activitySelect = $(this);
+            DrGlearning.careerSelect = $(this);
+            console.log($(this));
+            console.log('asdasdasd');
+            Dao.careersStore.get($(this).attr("data-href"),function(r){ 
+              $("#questionInstall").empty();
+              $("#questionInstall").append("<h3>Install the course "+ r.value.name +"?</h3>");
+              $("#descriptionInstall").empty();
+              $("#descriptionInstall").append( r.value.description );
+            });
             $(document).on('click', '#confirmInstall',function(e) {
-                Dao.installCareer(DrGlearning.activitySelect);
+                Dao.installCareer(DrGlearning.careerSelect);
             });
         });
         //Initializing levelsStore
