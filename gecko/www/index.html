@@ -30,21 +30,21 @@
     </head>
     <body>
     <div data-role="page" id="main">
-      <header data-role="header" data-position="fixed">
-        <h1>{{title}}</h1>
+      <header data-role="header" data-position="fixed" id="title">
+        <h1>Dr.Glearning</h1>
       </header>
       <article data-role="content">
           <ul data-role="listview" id="careerslist">
               <li>
                   <a href="#addCourses">
-                  <h1>{{NoCareersInstalled}}</h1>
+                  <h1>No Careers Installed...</h1>
                   </a>
               </li>
           </ul>
       </article>
-      <footer data-role="footer" data-position="fixed">
-        <nav data-role="navbar">
-            <ul>
+      <footer data-role="footer" data-position="fixed" id=footermain">
+        <nav data-role="navbar" >
+            <ul >
                 <li><a href="#settings">{{Settings}}</a></li>
                 <li><a href="#addCourses">{{AddCourse}}</a></li>
             </ul>
@@ -104,7 +104,7 @@
         <h1 id="dialogName">Dialog</h1>
       </header>
       <article data-role="content">
-          <div>{{Answer the question:}}</div>
+          <div>{{Answerthequestion}}</div>
           <input type="text" name="name" id="inputSolveLinguistic" value=""/>
           <a href="#dialog" data-rel="dialog" data-role="button" id="solveOKLinguistic">{{Solve}}</a>
           <a href="#linguistic" data-role="button" id="cancelLinguistic">{{Cancel}}</a>
@@ -115,8 +115,8 @@
         <h1 id="dialogName">Dialog</h1>
       </header>
       <article data-role="content">
-          <div id="questionInstall">{{Are you sure you want to install this course?}}</div>
-          <div id="descriptionInstall">{{Are you sure you want to install this course?}}</div>
+          <div id="questionInstall">{{Are_you_sure_you_want_to_install_this_course}}</div>
+          <div id="descriptionInstall"></div>
           <a href="#main" data-role="button" id="confirmInstall">{{Confirm}}</a>
           <a href="#addCourses" data-role="button" id="cancelInstall">{{Cancel}}</a>
       </article>
@@ -176,11 +176,11 @@
           In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
           </p>
           <div id="linguisticImage"></div>
-          <div id="answerLinguistic">{{Answer:}}</div>
+          <div id="answerLinguistic">{{Answer}}</div>
           <input type="text" name="name" id="inputLinguistic" value=""/>
           <a href="#" data-role="button" id="tryLinguistic">{{Try}}</a>
           <a href="#" data-role="button" id="solveLinguistic">{{Solve}}</a>
-          <div id="lettersLinguistic">{{Letters Used}}</div>
+          <div id="lettersLinguistic">{{Letters_Used}}</div>
       </article>
     </div><!-- Page Linguistic -->
     <div data-role="page" id="geospatial">
@@ -227,22 +227,52 @@
           //Initializing Handlebars
           
           //Disabled because there is a conflict between jquery mobile init component and compiling the whole body...
-          /*console.log($("div[data-role=page]"));
           var pages = $("div[data-role=page]");
           $("div[data-role=page]").each(function(index) {
-            var source   = $(this).html();
-            var template = Handlebars.compile(source);
-            var context  =  {
-                title: "Dr. Glearning", 
-                NoCareersInstalled: "No courses installed",
-                Settings: "Settings",
-                AddCourse: "Add course",
-                ImportUser: "Import User",
-                ExportUser: "Export User"};
-            var html    = template(context);
-            $(this).empty();
-            $(this).append(html);
-          });*/
+            if($(this).attr('id') != "main")
+            {
+              var source   = $(this).html();
+              var template = Handlebars.compile(source);
+              var context  =  {
+                  title: i18n.gettext("Dr. Glearning"), 
+                  NoCareersInstalled: i18n.gettext("No courses installed"),
+                  Settings: i18n.gettext("Settings"),
+                  AddCourse: i18n.gettext("Add course"),
+                  ImportUser: i18n.gettext("Import User"),
+                  ExportUser: i18n.gettext("Export User"),
+                  Answerthequestion: i18n.gettext("Answer the question:"),
+                  Are_you_sure_you_want_to_install_this_course: i18n.gettext("Are_you_sure_you_want_to_install_this_course?"),
+                  Answer: i18n.gettext("Answer"),
+                  Try: i18n.gettext("Try"),
+                  Solve: i18n.gettext("Solve"),
+                  Letters_Used: i18n.gettext("Letter_Used"),
+                  Username: i18n.gettext("Username"),
+                  Email: i18n.gettext("Email")
+                  };
+              var html    = template(context);
+              $(this).empty();
+              $(this).append(html);
+            }
+          });
+          var source   = $("footer:first").html();
+          var template = Handlebars.compile(source);
+          var context  =  {
+              title: i18n.gettext("Dr. Glearning"), 
+              NoCareersInstalled: i18n.gettext("No courses installed"),
+              Settings: i18n.gettext("Settings"),
+              AddCourse: i18n.gettext("Add course"),
+              ImportUser: i18n.gettext("Import User"),
+              ExportUser: i18n.gettext("Export User"),
+              Answerthequestion: i18n.gettext("Answer the question:"),
+              Are_you_sure_you_want_to_install_this_course: i18n.gettext("Are_you_sure_you_want_to_install_this_course?"),
+              Answer: i18n.gettext("Answer"),
+              Try: i18n.gettext("Try"),
+              Solve: i18n.gettext("Solve"),
+              Letters_Used: i18n.gettext("Letter_Used")
+              };
+          var html  = template(context);
+          $("footer:first").empty();
+          $("footer:first").append(html);
           DrGlearning.startApp(this);
       });
       

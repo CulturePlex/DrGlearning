@@ -41,6 +41,7 @@ var DrGlearning = {
         
         $( '#main' ).live( 'pagebeforeshow',function(event){
            DrGlearning.refreshMain();
+           
         });
         
         $( '#career' ).live( 'pagebeforeshow',function(event){
