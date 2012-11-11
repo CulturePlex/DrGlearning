@@ -181,10 +181,13 @@ var DrGlearning = {
 	      });
 	  },
     refreshAddCareers: function(){
+        //Setting up search courses bar
+        $( "#searchcourses" ).bind( "change", function(event, ui) {
+           Loading.careersRequest($(this).val(),"All");
+        });
         $(window).scroll(function(){
           if  ($(window).scrollTop() == $(document).height() - $(window).height() && $.mobile.activePage.attr("id") == "addCourses"){
-              console.log('trayendo');
-		          Loading.careersRequest("","All");
+		          Loading.careersRequest($("#searchcourses").val(),"All");
           }
         });
         $('#addcareerslist').empty();

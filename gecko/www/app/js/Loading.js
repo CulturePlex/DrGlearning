@@ -175,6 +175,16 @@ var Loading = {
                     localStorage.offset = 0;
                     localStorage.total_count = 1;
                     localStorage.current_count = 0;
+                    Dao.careersStore.all(function(arrCareers){
+                      var empty = true;
+		                  for(var i = 0; i<arrCareers.length;i++)
+		                  {
+		                    if(arrCareers[i].value.installed === false)
+		                    {
+		                        Dao.careersStore.remove(arrCareers[i]);
+		                    }
+		                  }
+		                });
                 }
                 console.log('requesting careers...');
                 console.log(searchString);
@@ -228,6 +238,7 @@ var Loading = {
                             localStorage.offset = response.meta.limit;
                             localStorage.total_count = response.meta.total_count;
                             var careers = response.objects;
+                            console.log('vuelve');
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
                                 localStorage.current_count ++;
