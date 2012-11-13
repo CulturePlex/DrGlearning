@@ -3,6 +3,10 @@ var DrGlearning = {
     levelId: null,
     careerSelect: null,
     startApp: function(context){
+    
+        // Requesting Knowledge fields
+        
+        Dao.knowledgesRequest();
         DrGlearning.translateApp();
         if(localStorage.uniqueid === undefined)
         {

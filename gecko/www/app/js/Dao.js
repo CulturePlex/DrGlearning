@@ -96,9 +96,12 @@ var Dao = {
             success: function (response, opts) {
                 var knowledges = response.objects;
                 Dao.knowledgesStore.nuke(); 
+                $("#select-knowledges").empty();
+                $("#select-knowledges").append('<option value="all">All</option>');
                 for (var cont in knowledges) {
                     var knowledge = knowledges[cont];
                     Dao.knowledgesStore.save({key:knowledge.id,value:knowledge});
+                    $("#select-knowledges").append('<option value="'+knowledge.name+'">'+knowledge.name+'</option>');
                 }
             },
             failure: function () {

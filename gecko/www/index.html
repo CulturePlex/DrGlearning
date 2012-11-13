@@ -56,13 +56,19 @@
       <header data-role="header"  data-position="fixed">
         <h1>{{AddCourses}}</h1>
         <a href="#main" data-icon="back" data-iconpos="notext">{{Main}}</a>
-        <input type="search" name="search-mini" id="searchcourses" value="" data-mini="true" data-theme="b" />
-        <select name="select-choice-min" id="select-knowledge" data-mini="true">
-         <option value="standard">All</option>
-         <option value="rush">Business and Marketing</option>
-         <option value="express">Education</option>
-         <option value="express">Geography</option>
-        </select>
+        <div class="ui-grid-a">
+        	<div class="ui-block-a">
+            <input type="search" name="search-mini" id="searchcourses" value="" data-mini="true" data-theme="b" />
+          </div>
+          <div class="ui-block-b">
+            <select name="select-choice-min" id="select-knowledges" data-mini="true" data-theme="c">
+             <option value="all">All</option>
+             <option value="rush">Business and Marketing</option>
+             <option value="express">Education</option>
+             <option value="express">Geography</option>
+            </select>
+          </div>
+        </div>
       </header>
       <article data-role="content">
 
