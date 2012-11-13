@@ -162,7 +162,7 @@ var Linguistic = {
            {
                Linguistic.score = 20;
            }
-           $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+Linguistic.score);
+           $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+parseInt(Linguistic.score,10));
            $.mobile.changePage("#dialog");
        }
     },
@@ -212,7 +212,7 @@ var Linguistic = {
           {
               Linguistic.score = 20;
           }
-          $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+Linguistic.score);
+          $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+parseInt(Linguistic.score,10));
         }
         else {
             if (Linguistic.score < 0)
