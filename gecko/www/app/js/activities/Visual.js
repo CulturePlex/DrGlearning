@@ -80,6 +80,8 @@ var Visual = {
     showAnswers: function () 
     {
         $('#visualAnswersList').show();
+        console.log($('#visualImage'));
+        $('#visualImage').attr("src", GlobalSettings.getServerURL()+"/media/"+Visual.activity.value.obfuscated_image_url);
         $('#skipButtonVisual').hide();
         $('#timeVisual').hide();
     
