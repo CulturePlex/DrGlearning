@@ -6,6 +6,8 @@ var Linguistic = {
     loquedText: null,
     louedTextfinded: null,
     imageSrc: null,
+    imageWidth: null,
+    imageHeight: null,
     setup: function(){
         $(document).on('click', '#tryLinguistic',function(e) {
           Linguistic.tryIt();
@@ -16,47 +18,57 @@ var Linguistic = {
         });
 	  },
     refresh: function(){
-        console.log('olasss');
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Linguistic.activity = activity;
             Linguistic.imageSrc = activity.value.image_url;
-            $('#linguisticActivityQuery').html(activity.value.query);
-            $('#linguisticActivityName').html(activity.value.name);
-            /*if(activity.value.image_url)
-            {
-                $('#linguisticImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
-            }*/
-            Linguistic.score = 100;
-            Linguistic.lettersAsked = [];
-            //Initializate values
-            Linguistic.squaresBlack = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
-            Linguistic.loquedText = Linguistic.activity.value.locked_text.split("");
-            Linguistic.loquedTextFinded = [];
-            var cont;
-            for (cont in Linguistic.loquedText) 
-            {
-                if (Linguistic.loquedText[cont] === " ") {
-                    Linguistic.loquedTextFinded[cont] = true;
-                }
-                else {
-                    Linguistic.loquedTextFinded[cont] = false;
-                }
+            var bgImage = new Image();
+            bgImage.onload = function () {
+              console.log(this.width);
+	            Linguistic.imageWidth = this.width;
+	            Linguistic.imageHeight = this.height;
+	            Linguistic.refresh2();
+            };
+            bgImage.src = GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc ;
+        });
+    },
+    refresh2: function(){
+        console.log('olasss');
+        $('#linguisticActivityQuery').html(Linguistic.activity.value.query);
+        $('#linguisticActivityName').html(Linguistic.activity.value.name);
+        /*if(activity.value.image_url)
+        {
+            $('#linguisticImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
+        }*/
+        Linguistic.score = 100;
+        Linguistic.lettersAsked = [];
+        //Initializate values
+        Linguistic.squaresBlack = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+        Linguistic.loquedText = Linguistic.activity.value.locked_text.split("");
+        Linguistic.loquedTextFinded = [];
+        var cont;
+        for (cont in Linguistic.loquedText) 
+        {
+            if (Linguistic.loquedText[cont] === " ") {
+                Linguistic.loquedTextFinded[cont] = true;
             }
-            $('#answerLinguistic').empty();
-            $('#answerLinguistic').append("Answer: "+activity.value.locked_text.replace(/[A-z0-9]/g, '_ '));
-            $('#lettersLinguistic').empty();
-            $('#lettersLinguistic').append('');
-            if (activity.value.locked_text.toLowerCase() === activity.value.answer.toLowerCase()) {
-                //this.activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') + ": ");
+            else {
+                Linguistic.loquedTextFinded[cont] = false;
             }
-            var table = Linguistic.getTable();
-            $('#linguisticImage').empty();
-            $('#linguisticImage').append(table);
-	      })
+        }
+        $('#answerLinguistic').empty();
+        $('#answerLinguistic').append("Answer: "+Linguistic.activity.value.locked_text.replace(/[A-z0-9]/g, '_ '));
+        $('#lettersLinguistic').empty();
+        $('#lettersLinguistic').append('');
+        if (Linguistic.activity.value.locked_text.toLowerCase() === Linguistic.activity.value.answer.toLowerCase()) {
+            //this.activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') + ": ");
+        }
+        var table = Linguistic.getTable();
+        $('#linguisticImage').empty();
+        $('#linguisticImage').append(table);
 	  },
     getTable: function ()
     {
-        var table = '<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT="170" BACKGROUND="' + GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc + '"><tr>';
+        var table = '<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT='+Linguistic.imageHeight+' BACKGROUND="' + GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc + '"><tr>';
         //var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
         var squaresBlack = Linguistic.squaresBlack;
         var cont;
