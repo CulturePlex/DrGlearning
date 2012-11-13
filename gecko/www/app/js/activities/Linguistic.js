@@ -68,7 +68,7 @@ var Linguistic = {
 	  },
     getTable: function ()
     {
-        var table = '<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT='+Linguistic.imageHeight+' BACKGROUND="' + GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc + '"><tr>';
+        var table = '<table BORDER-COLOR="BLACK"style="border-collapse: collapse;border-spacing: 0;border-width: 0px 0px 0px 0px;border: 0px none; background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT='+Linguistic.imageHeight+' BACKGROUND="' + GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc + '"><tr>';
         //var table='<table border="1" WIDTH="100%" HEIGHT="170" BACKGROUND="WHITE"><tr>';
         var squaresBlack = Linguistic.squaresBlack;
         var cont;
@@ -76,7 +76,7 @@ var Linguistic = {
         for (cont = 0; cont < squaresBlack.length; cont++)
         {
             if (squaresBlack[cont]) {
-                table = table + '<td BGCOLOR="BLACK" style="border: inset 0pt" width="20%"></td>';
+                table = table + '<td BGCOLOR="BLACK" style="border: 0px" width="20%"></td>';
             }
             else {
                 table = table + '<td></td>';
