@@ -186,13 +186,18 @@ var DrGlearning = {
 	      });
 	  },
     refreshAddCareers: function(){
+        //Setting up knowledges field select
+        $("#select-knowledges").bind( "change", function(event, ui) {
+           Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
+        });
         //Setting up search courses bar
         $( "#searchcourses" ).bind( "change", function(event, ui) {
-           Loading.careersRequest($(this).val(),"All");
+           console.log($("#select-knowledges").val());
+           Loading.careersRequest($(this).val(),$("#select-knowledges").val());
         });
         $(window).scroll(function(){
           if  ($(window).scrollTop() == $(document).height() - $(window).height() && $.mobile.activePage.attr("id") == "addCourses"){
-		          Loading.careersRequest($("#searchcourses").val(),"All");
+		          Loading.careersRequest($("#searchcourses").val(),$("#select-knowledges").val());
           }
         });
         $('#addcareerslist').empty();

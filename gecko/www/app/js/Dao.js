@@ -97,7 +97,7 @@ var Dao = {
                 var knowledges = response.objects;
                 Dao.knowledgesStore.nuke(); 
                 $("#select-knowledges").empty();
-                $("#select-knowledges").append('<option value="all">All</option>');
+                $("#select-knowledges").append('<option value="All">All</option>');
                 for (var cont in knowledges) {
                     var knowledge = knowledges[cont];
                     Dao.knowledgesStore.save({key:knowledge.id,value:knowledge});
