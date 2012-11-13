@@ -226,61 +226,7 @@
     </body>
     <script type="text/javascript">
       $(document).ready(function(){
-          //Initializing Handlebars
-          
-          //Disabled because there is a conflict between jquery mobile init component and compiling the whole body...
-          var pages = $("div[data-role=page]");
-          $("div[data-role=page]").each(function(index) {
-            if($(this).attr('id') != "main")
-            {
-              var source   = $(this).html();
-              var template = Handlebars.compile(source);
-              var context  =  {
-                  title: i18n.gettext("Dr. Glearning"), 
-                  NoCareersInstalled: i18n.gettext("No courses installed"),
-                  Settings: i18n.gettext("Settings"),
-                  AddCourse: i18n.gettext("Add course"),
-                  ImportUser: i18n.gettext("Import User"),
-                  ExportUser: i18n.gettext("Export User"),
-                  Answerthequestion: i18n.gettext("Answer the question:"),
-                  Are_you_sure_you_want_to_install_this_course: i18n.gettext("Are_you_sure_you_want_to_install_this_course?"),
-                  Answer: i18n.gettext("Answer"),
-                  Try: i18n.gettext("Try"),
-                  Solve: i18n.gettext("Solve"),
-                  Letters_Used: i18n.gettext("Letter_Used"),
-                  Username: i18n.gettext("Username"),
-                  Email: i18n.gettext("Email"),
-                  Confirm: i18n.gettext("Confirm"),
-                  Cancel: i18n.gettext("Cancel"),
-                  Skip: i18n.gettext("Skip"),
-                  OK: i18n.gettext("OK"),
-                  };
-              var html    = template(context);
-              $(this).empty();
-              $(this).append(html);
-            }
-          });
-          var source   = $("footer:first").html();
-          var template = Handlebars.compile(source);
-          var context  =  {
-              title: i18n.gettext("Dr. Glearning"), 
-              NoCareersInstalled: i18n.gettext("No courses installed"),
-              Settings: i18n.gettext("Settings"),
-              AddCourse: i18n.gettext("Add course"),
-              ImportUser: i18n.gettext("Import User"),
-              ExportUser: i18n.gettext("Export User"),
-              Answerthequestion: i18n.gettext("Answer the question:"),
-              Are_you_sure_you_want_to_install_this_course: i18n.gettext("Are_you_sure_you_want_to_install_this_course?"),
-              Answer: i18n.gettext("Answer"),
-              Try: i18n.gettext("Try"),
-              Solve: i18n.gettext("Solve"),
-              Letters_Used: i18n.gettext("Letter_Used")
-              };
-          var html  = template(context);
-          $("footer:first").empty();
-          $("footer:first").append(html);
           DrGlearning.startApp(this);
       });
-      
     </script>
 </html>
