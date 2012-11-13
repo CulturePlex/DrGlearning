@@ -83,5 +83,27 @@ var Dao = {
     activitiesStore : new Lawnchair({adapter:'dom',name:'activities'}, function(e) {
           console.log('Activities Storage Open');
     }),
+    knowledgesStore : new Lawnchair({adapter:'dom',name:'knowledges'}, function(e) {
+          console.log('Knowledges Storage Open');
+    }),
+    knowledgesRequest: function () {
+        console.log('retrieving knowledges');
+        //localStorage.knowledgeFields = [];
+        var HOST = GlobalSettings.getServerURL();
+        jQuery.ajax({
+            url: HOST + "/api/v1/knowledge/?format=jsonp",
+            dataType : 'jsonp',
+            success: function (response, opts) {
+                var knowledges = response.objects;
+                Dao.knowledgesStore.nuke(); 
+                for (var cont in knowledges) {
+                    var knowledge = knowledges[cont];
+                    Dao.knowledgesStore.save({key:knowledge.id,value:knowledge});
+                }
+            },
+            failure: function () {
+            }
+        });
+    },
 }
 

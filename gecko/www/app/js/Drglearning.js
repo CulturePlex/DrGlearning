@@ -328,6 +328,7 @@ var DrGlearning = {
             Cancel: i18n.gettext("Cancel"),
             Skip: i18n.gettext("Skip"),
             OK: i18n.gettext("OK"),
+            AddCourses: i18n.gettext("Add Courses"),
             };
         var html    = template(context);
         $(this).empty();
