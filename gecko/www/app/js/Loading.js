@@ -195,7 +195,7 @@ var Loading = {
                 if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;
-		    $.blockUI({ message: i18n.gettext('Loading Courses...') });
+		    $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
                     var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
                         offset: localStorage.offset,
