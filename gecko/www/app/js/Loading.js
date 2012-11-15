@@ -195,6 +195,7 @@ var Loading = {
                 if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;
+		    $.blockUI({ message: i18n.gettext('Loading Courses...') });
                     var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
                         offset: localStorage.offset,
@@ -248,11 +249,11 @@ var Loading = {
                             }
                             DrGlearning.refreshAddCareers();
                             Loading.retrieving = false;
-                            $.mobile.loading('hide');
+			    $.unblockUI();
                         },
                         failure: function () {
                             Loading.retrieving = false;
-                            $.mobile.loading('hide');
+			    $.unblockUI();
                         }
                     });
                 }
