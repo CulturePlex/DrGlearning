@@ -244,6 +244,9 @@ var Loading = {
                             for (var cont in careers) {
                                 localStorage.current_count ++;
 								Dao.careersStore.keys(function(keys) {
+									console.log(keys);
+									console.log(careers[cont].id.toString());
+									console.log(keys.indexOf(careers[cont].id.toString()));
 									if(keys.indexOf(careers[cont].id.toString())==-1)
 									{
 				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false};
@@ -269,11 +272,11 @@ var Loading = {
                       i18n.gettext('Loading Levels...')+
                       '</h1><p>'+
                       '</p></a></li>');
-		            $('#levelslist').listview("refresh");
+		            //$('#levelslist').listview("refresh");
                 Dao.careersStore.get(DrGlearning.careerId,function(career){ 
-                    $('#careerTitle').html(career.value.name);
-                    $('#levelTitle').html(career.value.name);
-                    $('#careerDescription').html(career.value.description);
+                    //$('#careerTitle').html(career.value.name);
+                    //$('#levelTitle').html(career.value.name);
+                    //$('#careerDescription').html(career.value.description);
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
                     var cont;
@@ -372,7 +375,10 @@ var Loading = {
                                                 Dao.activitiesStore.save({key:activitiesToInstall[cont].id,value:activitiesToInstall[cont]});
                                             }
                                         }
-                                        DrGlearning.refreshCareer();
+										career.value.installed = true;
+										console.log(career);
+										Dao.careersStore.save({key:career.key,value:career.value});
+                                        //DrGlearning.refreshCareer();						
                                     }
                                 },
                                 failure : function () {

@@ -61,7 +61,8 @@ var DrGlearning = {
         });
         
         $( '#career' ).live( 'pagebeforeshow',function(event){
-            Loading.getCareer(DrGlearning.careerId);
+            //Loading.getCareer(DrGlearning.careerId);
+			//DrGlearning.refreshCareer();
         });
         
         $( '#level' ).live( 'pagebeforeshow',function(event){
@@ -95,7 +96,7 @@ var DrGlearning = {
         //Setting up buttons
         
         $(document).on('click', '#accesscareer',function(e) {
-            DrGlearning.setCareerId($(this));
+
             $.mobile.changePage("#career");
             return false;
         });
@@ -141,6 +142,7 @@ var DrGlearning = {
         
         $(document).on('click', '#careertoinstall',function(e) {
             DrGlearning.careerSelect = $(this);
+            DrGlearning.setCareerId($(this));
             Dao.careersStore.get($(this).attr("data-href"),function(r){ 
               var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
               $("#questionInstall").empty();
@@ -181,10 +183,10 @@ var DrGlearning = {
 		      {
 		        if(arrCareers[i].value.installed === true)
 		        {
-		          empty = false;
+		            empty = false;
 			        var listdiv = document.createElement('li');
-            	listdiv.setAttribute('id','listdiv');
-            	listdiv.innerHTML = '<a id="accesscareer" href="#" data-href="'+
+		        	listdiv.setAttribute('id','listdiv');
+		        	listdiv.innerHTML = '<a id="accesscareer" href="#" data-href="'+
             	    arrCareers[i].key+
             	    '"><h1>'+
             	    arrCareers[i].value.name+
@@ -221,15 +223,16 @@ var DrGlearning = {
         });
         $('#addcareerslist').empty();
         Dao.careersStore.all(function(arrCareers){
-          var empty = true;
+          var empty = true;	
+			console.log(arrCareers);
 		      for(var i = 0; i<arrCareers.length;i++)
-		      {
+		      {	
 		        if(arrCareers[i].value.installed === false)
 		        {
-		          empty = false;
+		            empty = false;
 			        var listdiv = document.createElement('li');
-            	listdiv.setAttribute('id','listdiv');
-            	listdiv.innerHTML = '<a id="careertoinstall" href="#dialogConfirmInstall" data-rel="dialog" data-href="'+
+		        	listdiv.setAttribute('id','listdiv');
+		        	listdiv.innerHTML = '<a id="careertoinstall" href="#dialogConfirmInstall" data-rel="dialog" data-href="'+
             	    arrCareers[i].key+
             	    '"><h1>'+
             	    arrCareers[i].value.name+
@@ -300,15 +303,30 @@ var DrGlearning = {
 		              if(arrActivities[i].value.careerId == DrGlearning.careerId && arrActivities[i].value.level_type == level.key)
 		              {
 		                empty = false;
-			              var listdiv = document.createElement('li');
-                  	listdiv.setAttribute('id','listdiv');
-                  	listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
-                  	    arrActivities[i].key+
-                  	    '"><h1>'+
-                  	    arrActivities[i].value.name+
-                  	    '</h1></a>';
-			              $('#activitieslist').append(listdiv);
+			            var listdiv = document.createElement('li');
+                  		listdiv.setAttribute('id','listdiv');
+						console.log(arrActivities[i]);
+						if(arrActivities[i].value.successful)
+						{
+		              		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
+		              	    arrActivities[i].key+
+		              	    '"><h1>'+
+		              	    arrActivities[i].value.name+
+		              	    '</h1></a>'+
+							'<img class="tick" height=20 src=resources/images/tick.png><div class = "score">Score:'+
+							 arrActivities[i].value.score+
+							'</div>';							
+						}
+						else
+						{
+		              		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
+		              	    arrActivities[i].key+
+		              	    '"><h1>'+
+		              	    arrActivities[i].value.name+
+		              	    '</h1></a>';
 			            }
+				        $('#activitieslist').append(listdiv);
+					  }
 		            }
 		            if(empty)
 		            {
