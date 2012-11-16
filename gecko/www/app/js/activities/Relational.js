@@ -203,7 +203,7 @@ var Relational = {
         activityView.down('container[customId=scorebar]').removeAll();
         getContraintsHTML();*/
 		$('#nodesWalked').empty();
-        for (var i = 0; i < playerPath.length; i++) {
+        for (var i = 0; i < Relational.playerPath.length; i++) {
             if (i !== 0) {
                 var edgeText = '<p class="relational">' + playerEdgePath[i - 1] + '</p>';
                 $('#nodesWalked').append(edgeText);
@@ -225,7 +225,7 @@ var Relational = {
                 
                 gamePanel.add(edge);*/
             }
-            var node = Ext.create('Ext.Container', {
+            /*var node = Ext.create('Ext.Container', {
                 layout: {
                     type: 'hbox',
                     align: 'middle'
@@ -240,8 +240,8 @@ var Relational = {
                 }]
             });
             
-            gamePanel.add(node);
-            $('#nodesWalked').append(Relational.getNodeHTML(playerPath[i]));
+            gamePanel.add(node);*/
+            $('#nodesWalked').append(Relational.getNodeHTML(Relational.playerPath[i]));
         }
         /*var endNode = Ext.create('Ext.Container', {
             layout: {
@@ -290,6 +290,10 @@ var Relational = {
         //view.add(activityView);
         //var scroller = activityView.getScrollable().getScroller();
         //scroller.scrollBy(0, 58);
-    }
+    },
+	getNodeHTML: function (nodeName)
+	{
+		return '<p class="relational">' + nodeName + ' (' + Relational.graphNodes[nodeName].type + ')' + '</p>';
+	}
                 
 }
