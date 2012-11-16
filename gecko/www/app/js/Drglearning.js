@@ -87,6 +87,10 @@ var DrGlearning = {
         $( '#geospatial' ).live( 'pagebeforeshow',function(event){
             Geospatial.refresh();
         });
+
+        $( '#relational' ).live( 'pagebeforeshow',function(event){
+            Relational.refresh();
+        });
         
         //Setting up buttons
         
@@ -123,6 +127,10 @@ var DrGlearning = {
             if(DrGlearning.activityType === "geospatial")
             {
                 $.mobile.changePage("#geospatial");
+            }
+	    if(DrGlearning.activityType === "relational")
+            {
+                $.mobile.changePage("#relational");
             }
             return false;
         });

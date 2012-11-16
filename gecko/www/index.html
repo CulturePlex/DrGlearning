@@ -26,6 +26,7 @@
         <script src="app/js/activities/Visual.js"></script>
         <script src="app/js/activities/Linguistic.js"></script>
         <script src="app/js/activities/Geospatial.js"></script>
+        <script src="app/js/activities/Relational.js"></script>
         <script src="app/js/Drglearning.js"></script>
         
     </head>
@@ -211,6 +212,19 @@
           <a href="#dialog" data-rel="dialog" data-role="button" id="confirmGeospatial">{{Confirm}}</a>
       </article>
     </div><!-- Page Geospatial -->
+    <div data-role="page" id="relational">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="relationalActivityName">Relational Activity</h1>
+        <a href="#level" data-icon="back" data-iconpos="notext" >Back to Level</a>
+      </header>
+      <article data-role="content">
+          <p id="relationalActivityQuery">
+          In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
+          </p>
+          <div id="d3"></div>
+          <a href="#" data-role="button" id="undoRelational">{{Undo}}</a>
+      </article>
+    </div><!-- Page Relational -->
     <div data-role="page" id="settings">
       <header data-role="header" data-position="fixed">
         <h1>{{Settings}}</h1>
