@@ -243,9 +243,13 @@ var Loading = {
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
                                 localStorage.current_count ++;
-                                var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false};
-                                console.log(obj);
-                                Dao.careersStore.save({key:careers[cont].id,value:obj});
+								Dao.careersStore.keys(function(keys) {
+									if(keys.indexOf(careers[cont].id.toString())==-1)
+									{
+				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false};
+				                        Dao.careersStore.save({key:careers[cont].id,value:obj});
+									}
+								})
                             }
                             DrGlearning.refreshAddCareers();
                             Loading.retrieving = false;

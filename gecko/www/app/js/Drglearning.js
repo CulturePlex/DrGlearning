@@ -141,8 +141,6 @@ var DrGlearning = {
         
         $(document).on('click', '#careertoinstall',function(e) {
             DrGlearning.careerSelect = $(this);
-            console.log($(this));
-            console.log('asdasdasd');
             Dao.careersStore.get($(this).attr("data-href"),function(r){ 
               var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
               $("#questionInstall").empty();
@@ -207,6 +205,7 @@ var DrGlearning = {
 	  },
     refreshAddCareers: function(){
         //Setting up knowledges field select
+		Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
         $("#select-knowledges").bind( "change", function(event, ui) {
            Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
         });
@@ -242,7 +241,7 @@ var DrGlearning = {
 		      {
               $('#addcareerslist').append(
                 '<li><a href="#"><h1>'+
-                i18n.gettext('Loading Careers...')+
+                i18n.gettext('No careers to install...')+
                 '</h1><p>'+
                 '</p></a></li>');
 		          Loading.careersRequest("","All");
