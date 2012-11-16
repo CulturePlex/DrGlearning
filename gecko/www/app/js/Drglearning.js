@@ -62,7 +62,7 @@ var DrGlearning = {
         
         $( '#career' ).live( 'pagebeforeshow',function(event){
             //Loading.getCareer(DrGlearning.careerId);
-			//DrGlearning.refreshCareer();
+			DrGlearning.refreshCareer();
         });
         
         $( '#level' ).live( 'pagebeforeshow',function(event){
@@ -96,7 +96,7 @@ var DrGlearning = {
         //Setting up buttons
         
         $(document).on('click', '#accesscareer',function(e) {
-
+			DrGlearning.setCareerId($(this));
             $.mobile.changePage("#career");
             return false;
         });
