@@ -270,7 +270,6 @@ var Loading = {
                     $('#careerTitle').html(career.value.name);
                     $('#levelTitle').html(career.value.name);
                     $('#careerDescription').html(career.value.description);
-                    console.log(career);
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
                     var cont;
@@ -278,7 +277,6 @@ var Loading = {
 
                         if (activities[cont])
                         {
-                            console.log(activities[cont]);
                             var activitiesToInstall = [];
                             var size = 0;
                             var HOST = GlobalSettings.getServerURL();
@@ -367,7 +365,6 @@ var Loading = {
                                         for (var cont in activitiesToInstall) {
                                             if (activitiesToInstall[cont])
                                             {
-                                                console.log(activitiesToInstall[cont]);
                                                 Dao.activitiesStore.save({key:activitiesToInstall[cont].id,value:activitiesToInstall[cont]});
                                             }
                                         }
