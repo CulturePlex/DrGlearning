@@ -23,19 +23,23 @@ var Temporal = {
 	  checkAfter: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
             $('#dialogText').html(Temporal.activity.value.reward+". "+i18n.gettext('Score')+":100");
+			Dao.activityPlayed(Temporal.activity.value.id, true, 100);
         }
         else 
         {
   	         $('#dialogText').html(Temporal.activity.value.penalty);
+			Dao.activityPlayed(Temporal.activity.value.id, false, 0);
         }
 	  },
 	  checkBefore: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
   	        $('#dialogText').html(Temporal.activity.value.penalty);
+			Dao.activityPlayed(Temporal.activity.value.id, false, 0);
         }
         else 
         {
             $('#dialogText').html(Temporal.activity.value.reward+". "+i18n.gettext('Score')+":100");
+			Dao.activityPlayed(Temporal.activity.value.id, true, 100);
         }
 	  }
 }

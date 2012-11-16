@@ -95,10 +95,12 @@ var Visual = {
 	      if(Visual.activity.value.correct_answer === answer)
 	      {
             $('#dialogText').html(Visual.activity.value.reward+". "+i18n.gettext('Score')+":"+Visual.score);
+			Dao.activityPlayed(Visual.activity.value.id, true, Visual.score);
 	      }
 	      else
 	      {
   	         $('#dialogText').html(Visual.activity.value.penalty);
+			Dao.activityPlayed(Visual.activity.value.id, false, Visual.score);
 	      }
 	  }
 }

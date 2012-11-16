@@ -31,10 +31,12 @@ var Quiz = {
 	      if(Quiz.activity.value.correct_answer === answer)
 	      {
             $('#dialogText').html(Quiz.activity.value.reward+". "+i18n.gettext('Score')+":100");
+			Dao.activityPlayed(Quiz.activity.value.id, true, 100);
 	      }
 	      else
 	      {
   	         $('#dialogText').html(Quiz.activity.value.penalty);
+			Dao.activityPlayed(Quiz.activity.value.id, false, 0);
 	      }
 	  }
 }

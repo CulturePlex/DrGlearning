@@ -143,9 +143,11 @@ var Geospatial = {
         Geospatial.score = parseInt(100 - (distance * 100) / Geospatial.radius, 10);
         if (distance < Geospatial.radius) {
             $('#dialogText').html(Geospatial.activity.value.reward+". "+i18n.gettext('Score')+":"+Geospatial.score);
+			Dao.activityPlayed(Geospatial.activity.value.id, true, Geospatial.score);
         }
         else {
   	        $('#dialogText').html(Geospatial.activity.value.penalty);
+			Dao.activityPlayed(Geospatial.activity.value.id, false, Geospatial.score);
         }
     }
 }

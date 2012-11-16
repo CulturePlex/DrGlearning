@@ -320,6 +320,7 @@ change: function (field, newValue, oldValue)
         //if (allConstraintsPassed) {
 		$.mobile.changePage("#dialog")
         $('#dialogText').html(Relational.activity.value.reward+". "+i18n.gettext('Score')+":"+Relational.score);
+		Dao.activityPlayed(Relational.activity.value.id, true, Relational.score);
         //}
     }
                 

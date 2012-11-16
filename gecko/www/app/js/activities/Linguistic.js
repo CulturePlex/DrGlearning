@@ -162,6 +162,7 @@ var Linguistic = {
            {
                Linguistic.score = 20;
            }
+		   Dao.activityPlayed(Linguistic.activity.value.id, true, Linguistic.score);
            $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+parseInt(Linguistic.score,10));
            $.mobile.changePage("#dialog");
        }
@@ -221,6 +222,7 @@ var Linguistic = {
             {
                 Linguistic.score = 0;
             }
+		    Dao.activityPlayed(Linguistic.activity.value.id, false, Linguistic.score);
   	        $('#dialogText').html(Linguistic.activity.value.penalty);
         }
         });
