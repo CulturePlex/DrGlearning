@@ -1,8 +1,10 @@
 var Relational = {
     activity: null,
-    time: null,
-    secondtemp: null,
     score: null,
+    graphNodes: null,
+	graphEdges: null,
+	constraints: null,
+	path_limit: null,
     setup: function(){
         $(document).on('click', '#visualSelectAnswer',function(e) {
           Visual.checkAnswer($(this).attr("data-answer"));
@@ -19,41 +21,23 @@ var Relational = {
         });
 	  },
     refresh: function(){
-        $('#visualAnswersList').empty();
-        console.log('borrando');
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
-            Visual.activity = activity;
-            $('#visualActivityQuery').html(activity.value.query);
-            $('#visualActivityName').html(activity.value.name);
-            if(activity.value.image_url)
-            {
-                $('#visualImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
-            }
-            for(var i = 0; i<activity.value.answers.length;i++)
-            {
-	              var listdiv = document.createElement('li');
-              	listdiv.setAttribute('id','listdiv');
-              	listdiv.innerHTML = '<a id="visualSelectAnswer" href="#dialog" data-rel="dialog" data-answer="'+
-              	    activity.value.answers[i]+
-              	    '"><h1>'+
-              	    activity.value.answers[i]+
-              	    '</h1></a>';
-	              $('#visualAnswersList').append(listdiv);
-            }
-            $('#visualAnswersList').listview("refresh");
-            $('#visualAnswersList').hide();
-            console.log(activity);
-            Visual.time = activity.value.time;
-            $('#timeVisual').empty();
-            $('#timeVisual').append(Visual.time + "sec");
-            $('#skipButtonVisual').show();
-            $('#timeVisual').show();
-            Visual.secondtemp = setInterval(function () 
-            {
-                console.log('contando');
-                Visual.showSeconds();
-            }, 1000);
-	      })
+            Relational.activity = activity;
+	    	var blankOption = i18n.gettext("Choose");
+            var playerPath = [];
+            var playerEdgePath = [];
+            var pathStart, pathGoal, pathPosition;
+            var option;
+        //    var allConstraintsPassed = false;
+            var score = 20;
+            //Import graph nodes and edges from database
+            Relational.graphNodes = activity.value.graph_nodes;
+            Relational.graphEdges = activity.value.graph_edges;
+            Relational.constraints = activity.value.constraints;
+            Relational.path_limit = activity.value.path_limit;
+            $('#relationalActivityQuery').html(activity.value.query);
+            $('#relationalActivityName').html(activity.value.name);
+		});
 	  },
     showSeconds: function ()
     {

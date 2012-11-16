@@ -357,6 +357,7 @@ var DrGlearning = {
             Skip: i18n.gettext("Skip"),
             OK: i18n.gettext("OK"),
             AddCourses: i18n.gettext("Add Courses"),
+			Undo: i18n.gettext("Undo")
             };
         var html    = template(context);
         $(this).empty();
@@ -377,7 +378,7 @@ var DrGlearning = {
         Answer: i18n.gettext("Answer"),
         Try: i18n.gettext("Try"),
         Solve: i18n.gettext("Solve"),
-        Letters_Used: i18n.gettext("Letter_Used")
+        Letters_Used: i18n.gettext("Letter_Used"),
         };
     var html  = template(context);
     $("footer:first").empty();
