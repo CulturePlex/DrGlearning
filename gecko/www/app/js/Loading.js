@@ -195,7 +195,7 @@ var Loading = {
                 if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;
-		    $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
+		   			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
                     var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
                         offset: localStorage.offset,
@@ -378,11 +378,13 @@ var Loading = {
 										career.value.installed = true;
 										console.log(career);
 										Dao.careersStore.save({key:career.key,value:career.value});
-                                        //DrGlearning.refreshCareer();						
+                                        DrGlearning.refreshMain();						
+										$.unblockUI();
                                     }
                                 },
                                 failure : function () {
                                     console.log('fallo');
+									$.unblockUI();
                                     //Ext.Viewport.setMasked(false);
                                     //Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
                                 }

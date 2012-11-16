@@ -156,6 +156,7 @@ var DrGlearning = {
               $("#descriptionInstall").append( html +"</p>");
             });
             $(document).on('click', '#confirmInstall',function(e) {
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
                 Dao.installCareer(DrGlearning.careerSelect);
             });
         });
