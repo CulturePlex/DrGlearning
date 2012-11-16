@@ -1,4 +1,4 @@
-var Dao = {
+var Workflow = {
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
           console.log('Careers Storage Open');
     }),
@@ -108,37 +108,5 @@ var Dao = {
             }
         });
     },
-	activityPlayed: function (activityID, score, successful)
-	{
-        console.log('Peticion de jugada!!!!!');
-        console.log('id:');
-        console.log(activityID);
-		Dao.activitiesStore.get(activityID,function(activity){ 
-		    if (successful) {
-		        if (activity.value.successful) {
-		            if (activity.value.score < parseInt(score, 10)) {
-		                activity.value.score = parseInt(score, 10);
-		            }
-		        } else {
-		            activity.value.score = parseInt(score, 10);
-		        }
-		        activity.value.successful = true;
-		    } else {
-		        if (!activity.value.successful) {
-		            if (activity.value.score < parseInt(score, 10)) {
-		                activity.value.score = parseInt(score, 10);
-		            }
-		        }
-		    }
-		    activity.value.played = true;
-		    Dao.activitiesStore.save({key:activityID,value:activity.value});
-		});
-        //Make carrer started if needed
-        /*var carrer = this.careersStore.getById(activity.data.careerId);
-        if (!carrer.data.started) {
-            carrer.data.started = true;
-            carrer.save();
-        }*/
-	}
 }
 
