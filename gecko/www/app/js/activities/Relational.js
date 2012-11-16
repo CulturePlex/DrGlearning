@@ -299,6 +299,17 @@ change: function (field, newValue, oldValue)
 	getNodeHTML: function (nodeName)
 	{
 		return '<p class="relational">' + nodeName + ' (' + Relational.graphNodes[nodeName].type + ')' + '</p>';
-	}
+	},
+	stepBack: function ()
+    {
+        var previousStep;
+        if (Relational.playerPath.length > 1) {
+            previousStep = Relational.playerPath[Relational.playerPath.length - 2];
+            Relational.playerPath.splice(Relational.playerPath.length - 2, 2);
+            Relational.playerEdgePath.splice(Relational.playerEdgePath.length - 1, 1);
+            Relational.option = Relational.takeStep(previousStep);
+            Relational.refreshRel(Relational.option);
+        }
+    }
                 
 }
