@@ -310,6 +310,17 @@ change: function (field, newValue, oldValue)
             Relational.option = Relational.takeStep(previousStep);
             Relational.refreshRel(Relational.option);
         }
+    },
+ 	successfulGame: function ()
+    {
+        if (Relational.score > 100)
+        {
+            Relational.score = 100;
+        }
+        //if (allConstraintsPassed) {
+		$.mobile.changePage("#dialog")
+        $('#dialogText').html(Relational.activity.value.reward+". "+i18n.gettext('Score')+":"+Relational.score);
+        //}
     }
                 
 }
