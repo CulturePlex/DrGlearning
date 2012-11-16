@@ -16,6 +16,29 @@ var Relational = {
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
         });
+        $( "#select-relational" ).bind( "change", function(event, ui) {
+			console.log($("#select-relational").val());
+			console.log($("#select-relational option:selected").attr("data-edgetype"));			
+			Relational.playerEdgePath.push($("#select-relational option:selected").attr("data-edgetype"));
+			Relational.takeStep($("#select-relational").val());
+			Relational.refreshRel();
+		   //Relational.playerEdgePath.push(newValue.raw.edgeType);
+           //Loading.careersRequest($(this).val(),$("#select-knowledges").val());
+        });
+
+/*
+change: function (field, newValue, oldValue)
+                {
+                    if (newValue.data.text !== blankOption) {
+                        option.hide();
+                        playerEdgePath.push(newValue.raw.edgeType);
+                        option = takeStep(newValue.data.value);
+                        refresh(option);
+                    }
+                }
+
+*/
+
 	  },
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
@@ -164,7 +187,7 @@ var Relational = {
         $("#select-relational").empty();
 		for(var k=0;k<options.length;k++)
 		{
-			$("#select-relational").append('<option value="'+options[k].value+'">'+options[k].text+'</option>');
+			$("#select-relational").append('<option data-edgetype="'+options[k].edgeType+'" value="'+options[k].value+'">'+options[k].text+'</option>');
 		}
 /*Ext.create('Ext.form.Select', {
             scope: this,
@@ -195,7 +218,7 @@ var Relational = {
 		$('#nodesWalked').empty();
         for (var i = 0; i < Relational.playerPath.length; i++) {
             if (i !== 0) {
-                var edgeText = '<p class="relational">' + playerEdgePath[i - 1] + '</p>';
+                var edgeText = '<p class="relational">' + Relational.playerEdgePath[i - 1] + '</p>';
                 $('#nodesWalked').append(edgeText);
                 /*var edge = Ext.create('Ext.Container', {
                     layout: {
@@ -249,14 +272,6 @@ var Relational = {
         });*/
 		$('#finalNode').empty();
 		$('#finalNode').append(Relational.getNodeHTML(Relational.pathGoal));
-       /* var button = Ext.create('Ext.Button', {
-            text: i18n.gettext('Undo'),
-            handler: function ()
-            {
-                stepBack();
-            },
-            scope: this
-        });*/
         if (option)
         {
             if (option.getOptions().length > 1)

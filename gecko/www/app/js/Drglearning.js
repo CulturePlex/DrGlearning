@@ -171,6 +171,7 @@ var DrGlearning = {
         Visual.setup();
         Linguistic.setup();
         Geospatial.setup();
+        Relational.setup();
     },
     refreshMain: function(){
         $(window).scroll(function(){
