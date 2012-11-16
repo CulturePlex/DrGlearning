@@ -13,18 +13,8 @@ var Relational = {
 	playerPath: null,
 	playerEdgePath: null,
     setup: function(){
-        $(document).on('click', '#visualSelectAnswer',function(e) {
-          Visual.checkAnswer($(this).attr("data-answer"));
-        });
-        $(document).on('click', '#skipButtonVisual',function(e) {
-          console.log('caca');
-          Visual.skip();
-        });
-        $(document).on('click', '#backFromVisual',function(e) {
-          if(Visual.secondtemp)
-          {
-              clearInterval(Visual.secondtemp);
-          }
+        $(document).on('click', '#undoRelational',function(e) {
+          Relational.stepBack();
         });
 	  },
     refresh: function(){
