@@ -67,7 +67,9 @@ var Workflow = {
     getCurrenActivity: function (carrerID, level) {
 		var activity;
 		Dao.activitiesStore.each(function (record,index){
-            if (!record.value.successful) {
+			console.log(record.value.level_type);
+			console.log(level);
+            if (record.value.level_type == level && !record.value.successful) {
                 activity = record; 
             }
         });
