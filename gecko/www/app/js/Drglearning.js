@@ -311,7 +311,6 @@ var DrGlearning = {
 		                empty = false;
 			            var listdiv = document.createElement('li');
                   		listdiv.setAttribute('id','listdiv');
-						console.log(arrActivities[i]);
 						if(arrActivities[i].value.successful)
 						{
 		              		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+

@@ -20,7 +20,8 @@ var Workflow = {
 		    Workflow.currentLevelString = 'Error';
 		}
 		var currentActivity = Workflow.getCurrenActivity(DrGlearning.careerId, parseInt(prevLevel, 10));
-		if (currentActivity.value.successful === false) {
+		console.log(currentActivity);
+		if (currentActivity != -1) {
 		    Workflow.updateActivity(currentActivity);
 		}
 		else {
@@ -29,7 +30,6 @@ var Workflow = {
 			    $.mobile.changePage("#dialog");
 		    }
 		    else {
-		        Workflow.updateCareer(DrGlearning.careerId);
 		        if (currentLevel !== -1) {
    					$('#dialogText').html("You have completed the %s level! The next one is %s");
 				    $.mobile.changePage("#dialog");
@@ -65,10 +65,8 @@ var Workflow = {
         return -1;
     },
     getCurrenActivity: function (carrerID, level) {
-		var activity;
+		var activity = -1;
 		Dao.activitiesStore.each(function (record,index){
-			console.log(record.value.level_type);
-			console.log(level);
             if (record.value.level_type == level && !record.value.successful) {
                 activity = record; 
             }
