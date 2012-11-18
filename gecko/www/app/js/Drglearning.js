@@ -100,7 +100,12 @@ var DrGlearning = {
             $.mobile.changePage("#career");
             return false;
         });
-        
+
+        $(document).on('click', '#dialogOK',function(e) {
+            Workflow.nextActivity(DrGlearning.levelId);       
+            return false;
+        });
+
         $(document).on('click', '#accesslevel',function(e) {
             DrGlearning.setLevelId($(this));
             $.mobile.changePage("#level");
