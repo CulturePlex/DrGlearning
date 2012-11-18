@@ -109,12 +109,16 @@ var Dao = {
             }
         });
     },
-	activityPlayed: function (activityID, score, successful)
+	activityPlayed: function (activityID, successful, score)
 	{
         console.log('Peticion de jugada!!!!!');
         console.log('id:');
         console.log(activityID);
-		Dao.activitiesStore.get(activityID,function(activity){ 
+        console.log(score);
+
+		Dao.activitiesStore.get(activityID.toString(),function(activity){ 
+			console.log('entrando');
+			console.log(activity);
 		    if (successful) {
 		        if (activity.value.successful) {
 		            if (activity.value.score < parseInt(score, 10)) {
@@ -131,6 +135,7 @@ var Dao = {
 		            }
 		        }
 		    }
+		    activity.value.score = parseInt(score, 10);
 		    activity.value.played = true;
 		    Dao.activitiesStore.save({key:activityID,value:activity.value});
 		});

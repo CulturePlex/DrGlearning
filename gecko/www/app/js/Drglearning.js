@@ -313,10 +313,10 @@ var DrGlearning = {
 		              	    arrActivities[i].key+
 		              	    '"><h1>'+
 		              	    arrActivities[i].value.name+
-		              	    '</h1></a>'+
-							'<img class="tick" height=20 src=resources/images/tick.png><div class = "score">Score:'+
+		              	    '</h1>'+
+							'✓ Score:'+
 							 arrActivities[i].value.score+
-							'</div>';							
+							'</a>';							
 						}
 						else
 						{
