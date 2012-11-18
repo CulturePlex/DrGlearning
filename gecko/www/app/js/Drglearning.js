@@ -270,15 +270,20 @@ var DrGlearning = {
 		            {
 		              if(career.value.levels.indexOf(parseInt(arrLevels[i].key,10)) > -1)
 		              {
+						var tick="";
+						if(Workflow.levelIsCompleted(arrLevels[i]))
+						{
+							tick=" ✓";
+						}
 		                empty = false;
-			              var listdiv = document.createElement('li');
-                  	listdiv.setAttribute('id','listdiv');
-                  	listdiv.innerHTML = '<a id="accesslevel" href="#" data-level="'+
+			            var listdiv = document.createElement('li');
+				      	listdiv.setAttribute('id','listdiv');
+				       	listdiv.innerHTML = '<a id="accesslevel" href="#" data-level="'+
                   	    arrLevels[i].key+
                   	    '" data-career="'+
                   	    career.key+
                   	    '"><h1>'+
-                  	    arrLevels[i].value.nameBeauty+
+                  	    arrLevels[i].value.nameBeauty+tick+
                   	    '</h1></a>';
 			              $('#levelslist').append(listdiv);
 			            }
