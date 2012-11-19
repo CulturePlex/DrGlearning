@@ -142,10 +142,24 @@ var Workflow = {
 	},
 	getLevelIcons: function(careerId)
 	{
-		for(var i=0;i<10;i++)
-		{
-		}
-		console.log(careerId);
+		var html="";
+		Dao.careersStore.get(careerId,function (career) {
+			for(var i=0;i<career.value.levels.length;i++)
+			{
+				Dao.levelsStore.get(career.value.levels[i], function(level){
+					if(Workflow.levelIsCompleted(level,careerId))
+					{
+						html += "<img src='resources/images/level_icons/"+level.value.name.toLowerCase()+".png' height = '30'>";
+					}
+					else
+					{
+						html += "<img src='resources/images/level_icons/"+level.value.name.toLowerCase()+"B.png' height = '30'>";
+					}
+				});
+			}
+		});
+		return html;
+		
 	}
 
 }

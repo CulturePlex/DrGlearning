@@ -149,7 +149,7 @@ var DrGlearning = {
             DrGlearning.careerSelect = $(this);
             DrGlearning.setCareerId($(this));
             Dao.careersStore.get($(this).attr("data-href"),function(r){ 
-              var filesImgs = ["iletratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
+              var filesImgs = ["illetratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
               $("#questionInstall").empty();
               $("#questionInstall").append("<h3>Install the course "+ r.value.name +"?</h3>");
               $("#descriptionInstall").empty();
@@ -198,7 +198,7 @@ var DrGlearning = {
             	    arrCareers[i].key+
             	    '"><h1>'+
             	    arrCareers[i].value.name+
-            	    '</h1></a>'+iconsHtml;
+            	    '</h1><div>'+iconsHtml+'</div></a>';
 			        $('#careerslist').append(listdiv);
 			      }
 		      }
