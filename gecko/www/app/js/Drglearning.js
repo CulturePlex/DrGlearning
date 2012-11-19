@@ -319,6 +319,25 @@ var DrGlearning = {
         DrGlearning.levelId = element.attr("data-level");
     },
     refreshLevel: function(){
+		Dao.careersStore.get(DrGlearning.careerId,function (career){
+			console.log(DrGlearning.levelId);
+			if(career.value.career_type == "exam")
+			{
+				if(DrGlearning.levelId > 1)
+				{
+					console.log(DrGlearning.levelId);
+		        	Dao.levelsStore.get(DrGlearning.levelId-1,function(level){ 
+						if(!Workflow.levelIsCompleted(level,DrGlearning.careerId))
+						{
+				  	        $('#dialogText').html(i18n.gettext("You can't play this level until you have completed every previous one"));
+							Workflow.toCareer = true;
+							$.mobile.changePage("#dialog");
+							return false;
+						}
+					});
+				}
+			}		
+		});
         $('#activitieslist').empty();
         Dao.levelsStore.get(DrGlearning.levelId,function(level){ 
             $('#levelDescription').html(level.value.description);

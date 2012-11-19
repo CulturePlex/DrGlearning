@@ -27,9 +27,7 @@ var Workflow = {
 			return false;
 		}
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId);
-		console.log(DrGlearning.levelId);
 		Dao.levelsStore.get(DrGlearning.levelId,function(level){
-			console.log(level);
 			Workflow.prevLevelString = level.value.name;
 		});
 		if (currentLevel !== -1) {
@@ -41,7 +39,6 @@ var Workflow = {
 		    Workflow.currentLevelString = 'Error';
 		}
 		var currentActivity = Workflow.getCurrenActivity(DrGlearning.careerId, parseInt(prevLevel, 10));
-		console.log(currentActivity);
 		if (currentActivity != -1) {
 		    Workflow.updateActivity(currentActivity);
 		}
@@ -71,11 +68,9 @@ var Workflow = {
 		Dao.careersStore.get(careerId, function(career){
 			levels = career.value.levels;
 		});
-		console.log(levels);
         for (var i = 0; i <= levels.length; i++) {
             var activities = [];
 			Dao.activitiesStore.each(function (record,index){
-				console.log(record);
                 if (parseInt(record.value.careerId, 10) === parseInt(careerId, 10) && record.value.level_type === '' + level) {
 					activities.push(record);
 				}
@@ -99,7 +94,6 @@ var Workflow = {
 		return activity;
     },
 	updateActivity: function(newActivity){
-		console.log(newActivity);
         DrGlearning.activityId = newActivity.value.id;
             if(newActivity.value.activity_type === "quiz")
             {
@@ -129,7 +123,6 @@ var Workflow = {
 	levelIsCompleted: function(levelId,careerId)
 	{
 		var is=true;
-
 		Dao.activitiesStore.each(function (record,index) {
 			if(record.value.level_type == levelId.value.customId && record.value.careerId == careerId && record.value.successful == false)
 			{
