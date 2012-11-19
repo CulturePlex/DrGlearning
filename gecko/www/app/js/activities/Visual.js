@@ -45,7 +45,7 @@ var Visual = {
             console.log(activity);
             Visual.time = activity.value.time;
             $('#timeVisual').empty();
-            $('#timeVisual').append(Visual.time + "sec");
+            $('#timeVisual').append(Visual.time + " sec");
             $('#skipButtonVisual').show();
             $('#timeVisual').show();
             Visual.secondtemp = setInterval(function () 
@@ -63,7 +63,7 @@ var Visual = {
             
             Visual.time--;
             $('#timeVisual').empty();
-            $('#timeVisual').append(Visual.time + "sec");
+            $('#timeVisual').append(Visual.time + " sec");
             if (Visual.time < 0) {
                 clearInterval(Visual.secondtemp);
                 Visual.showAnswers();
