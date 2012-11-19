@@ -184,11 +184,13 @@ var DrGlearning = {
         });
         $('#careerslist').empty();
         Dao.careersStore.all(function(arrCareers){
-          var empty = true;
+	          var empty = true;
+
 		      for(var i = 0; i<arrCareers.length;i++)
 		      {
 		        if(arrCareers[i].value.installed === true)
 		        {
+				    var iconsHtml = Workflow.getLevelIcons(arrCareers[i].key);
 		            empty = false;
 			        var listdiv = document.createElement('li');
 		        	listdiv.setAttribute('id','listdiv');
@@ -196,7 +198,7 @@ var DrGlearning = {
             	    arrCareers[i].key+
             	    '"><h1>'+
             	    arrCareers[i].value.name+
-            	    '</h1></a>';
+            	    '</h1></a>'+iconsHtml;
 			        $('#careerslist').append(listdiv);
 			      }
 		      }
@@ -271,7 +273,7 @@ var DrGlearning = {
 		              if(career.value.levels.indexOf(parseInt(arrLevels[i].key,10)) > -1)
 		              {
 						var tick="";
-						if(Workflow.levelIsCompleted(arrLevels[i]))
+						if(Workflow.levelIsCompleted(arrLevels[i],DrGlearning.careerId))
 						{
 							tick=" ✓";
 						}

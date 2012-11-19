@@ -126,12 +126,12 @@ var Workflow = {
                 $.mobile.changePage("#relational");
             }
 	},
-	levelIsCompleted: function(levelId)
+	levelIsCompleted: function(levelId,careerId)
 	{
 		var is=true;
 		console.log(levelId);
 		Dao.activitiesStore.each(function (record,index) {
-			if(record.value.level_type == levelId.value.customId && record.value.successful == false)
+			if(record.value.level_type == levelId.value.customId && record.value.careerId == careerId && record.value.successful == false)
 			{
 				console.log(levelId);
 				is=false;
@@ -139,6 +139,13 @@ var Workflow = {
 		});
 
 		return is;
+	},
+	getLevelIcons: function(careerId)
+	{
+		for(var i=0;i<10;i++)
+		{
+		}
+		console.log(careerId);
 	}
 
 }
