@@ -3,6 +3,7 @@ var Workflow = {
 	currentLevelString:null,
 	toCareer:false,
 	toLevel:false,
+	uninstalling:false,
 	/*
 	 * Updating and Showing next activity when you success one.
 	 */

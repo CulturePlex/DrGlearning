@@ -91,6 +91,14 @@
       </article>
 	  <ul data-role="listview" id="levelslist">
       </ul>
+      <footer data-role="footer" data-position="fixed" id=footermain">
+        <nav data-role="navbar" >
+            <ul >
+                <li><a href="#dialogConfirmInstall" id="uninstall" >{{UninstallCourse}}</a></li>
+            </ul>
+            
+        </nav>
+      </footer>
     </div><!-- Page Course -->
     <div data-role="page" id="level">
       <header data-role="header" data-position="fixed" >
@@ -135,7 +143,7 @@
           <div id="questionInstall">{{Are_you_sure_you_want_to_install_this_course}}</div>
           <div id="descriptionInstall"></div>
           <a href="#main" data-role="button" id="confirmInstall">{{Confirm}}</a>
-          <a href="#addCourses" data-role="button" id="cancelInstall">{{Cancel}}</a>
+          <a href="#main" data-role="button" id="cancelInstall">{{Cancel}}</a>
       </article>
     </div><!-- Page Dialog Confirm Install -->
     <div data-role="page" id="quiz">

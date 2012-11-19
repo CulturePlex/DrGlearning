@@ -144,8 +144,24 @@ var DrGlearning = {
         $('#backfromsettings').click(function(){
           UserSettings.saveSettings();
         });
-        
+		$('#uninstall').click(function(){
+          $('#questionInstall').html(i18n.gettext("Are you sure you want to uninstall this course?"));
+		  Workflow.uninstalling = true;
+        });   
+		   
+		$(document).on('click', '#confirmInstall',function(e) {
+			if(Workflow.uninstalling)
+			{
+				Dao.uninstall(DrGlearning.careerId);
+			}
+			else
+			{
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
+		        Dao.installCareer(DrGlearning.careerSelect);
+			}
+        });
         $(document).on('click', '#careertoinstall',function(e) {
+            Workflow.uninstalling = false;
             DrGlearning.careerSelect = $(this);
             DrGlearning.setCareerId($(this));
             Dao.careersStore.get($(this).attr("data-href"),function(r){ 
@@ -160,10 +176,8 @@ var DrGlearning = {
                 }
               $("#descriptionInstall").append( html +"</p>");
             });
-            $(document).on('click', '#confirmInstall',function(e) {
-				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
-                Dao.installCareer(DrGlearning.careerSelect);
-            });
+            
+			 
         });
         //Initializing levelsStore
         Dao.initLevels();
@@ -214,7 +228,7 @@ var DrGlearning = {
 	      });
 	  },
     refreshAddCareers: function(){
-        //Setting up knowledges field select
+	    //Setting up knowledges field select
 		Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
         $("#select-knowledges").bind( "change", function(event, ui) {
            Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
@@ -269,7 +283,7 @@ var DrGlearning = {
         DrGlearning.careerId = element.attr("data-href");
     },
     refreshCareer: function(){
-        Dao.careersStore.get(DrGlearning.careerId,function(career){ 
+		Dao.careersStore.get(DrGlearning.careerId,function(career){ 
             $('#levelslist').empty();
             Dao.levelsStore.all(function(arrLevels){
                 var empty = true;
@@ -422,6 +436,7 @@ var DrGlearning = {
 			Undo: i18n.gettext("Undo"),
 			After: i18n.gettext("After"),
 			Before: i18n.gettext("Before"),
+			UninstallCourse: i18n.gettext("Uninstall Course")
             };
         var html    = template(context);
         $(this).empty();

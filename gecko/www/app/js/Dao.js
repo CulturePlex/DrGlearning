@@ -145,6 +145,13 @@ var Dao = {
             carrer.data.started = true;
             carrer.save();
         }*/
+	},
+	uninstall: function (careerId)
+	{
+		Dao.careersStore.get(careerId, function (career){
+			career.value.installed = false;
+			Dao.careersStore.save({key:careerId,value:career.value});
+		});		
 	}
 }
 
