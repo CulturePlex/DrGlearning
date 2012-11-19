@@ -419,7 +419,9 @@ var DrGlearning = {
             Skip: i18n.gettext("Skip"),
             OK: i18n.gettext("OK"),
             AddCourses: i18n.gettext("Add Courses"),
-			Undo: i18n.gettext("Undo")
+			Undo: i18n.gettext("Undo"),
+			After: i18n.gettext("After"),
+			Before: i18n.gettext("Before"),
             };
         var html    = template(context);
         $(this).empty();
