@@ -138,6 +138,7 @@ var Dao = {
 		    activity.value.score = parseInt(score, 10);
 		    activity.value.played = true;
 		    Dao.activitiesStore.save({key:activityID,value:activity.value});
+			Dao.updateScore(activityID, score, successful, new Date().getTime());
 		});
         //Make carrer started if needed
         /*var carrer = this.careersStore.getById(activity.data.careerId);
@@ -152,6 +153,24 @@ var Dao = {
 			career.value.installed = false;
 			Dao.careersStore.save({key:careerId,value:career.value});
 		});		
-	}
+	},
+	updateScore: function (activityID, score, successful, timestamp) {
+        var HOST = GlobalSettings.getServerURL();
+        $.ajax({
+		    url: HOST + '/api/v1/score/?format=jsonp',
+		    data: {
+		        player_code: localStorage.uniqueid,
+		        activity_id: activityID,
+		        score: parseFloat(score),
+		        is_passed: successful,
+		        timestamp: timestamp / 1000,
+		        token: localStorage.token
+		    },
+			dataType: 'jsonp',
+		    success: function (response) {
+				console.log('puntuacion enviada');
+		    }
+		});
+    },
 }
 
