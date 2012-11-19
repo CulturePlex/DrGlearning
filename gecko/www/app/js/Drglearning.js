@@ -149,7 +149,7 @@ var DrGlearning = {
             DrGlearning.careerSelect = $(this);
             DrGlearning.setCareerId($(this));
             Dao.careersStore.get($(this).attr("data-href"),function(r){ 
-              var filesImgs = ["illetratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "PhD.png", "post-doc.png", "professor.png", "emeritus.png"];
+              var filesImgs = ["illetratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "phd.png", "postdoc.png", "professor.png", "emeritus.png"];
               $("#questionInstall").empty();
               $("#questionInstall").append("<h3>Install the course "+ r.value.name +"?</h3>");
               $("#descriptionInstall").empty();
@@ -278,9 +278,17 @@ var DrGlearning = {
 		              if(career.value.levels.indexOf(parseInt(arrLevels[i].key,10)) > -1)
 		              {
 						var tick="";
+						var locker="";
 						if(Workflow.levelIsCompleted(arrLevels[i],DrGlearning.careerId))
 						{
 							tick=" ✓";
+						}
+						if(i>0)
+						{
+							if(career.value.career_type== "exam" && !Workflow.levelIsCompleted(arrLevels[i-1],DrGlearning.careerId))
+							{
+								locker=" <img src='resources/images/padlock.png' height='25'>";
+							}
 						}
 		                empty = false;
 			            var listdiv = document.createElement('li');
@@ -290,7 +298,7 @@ var DrGlearning = {
                   	    '" data-career="'+
                   	    career.key+
                   	    '"><h1>'+
-                  	    arrLevels[i].value.nameBeauty+tick+
+                  	    arrLevels[i].value.nameBeauty+tick+locker+
                   	    '</h1></a>';
 			              $('#levelslist').append(listdiv);
 			            }

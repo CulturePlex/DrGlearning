@@ -129,11 +129,11 @@ var Workflow = {
 	levelIsCompleted: function(levelId,careerId)
 	{
 		var is=true;
-		console.log(levelId);
+
 		Dao.activitiesStore.each(function (record,index) {
 			if(record.value.level_type == levelId.value.customId && record.value.careerId == careerId && record.value.successful == false)
 			{
-				console.log(levelId);
+
 				is=false;
 			}
 		});
