@@ -37,6 +37,7 @@ var Quiz = {
 	      {
   	         $('#dialogText').html(Quiz.activity.value.penalty);
 			Dao.activityPlayed(Quiz.activity.value.id, false, 0);
+			Workflow.toLevel = true;
 	      }
 	  }
 }

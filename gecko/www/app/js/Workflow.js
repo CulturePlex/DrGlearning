@@ -1,10 +1,31 @@
 var Workflow = {
 	prevLevelString:null,
 	currentLevelString:null,
+	toCareer:false,
+	toLevel:false,
 	/*
 	 * Updating and Showing next activity when you success one.
 	 */
 	nextActivity: function (prevLevel) {
+		if(Workflow.toMain)
+		{	
+			Workflow.toMain = false;
+		    $.mobile.changePage("#main");			
+			return false;
+		}
+		if(Workflow.toCareer)
+		{	
+			Workflow.toCareer = false;
+		    $.mobile.changePage("#career");			
+			return false;
+		}
+
+		if(Workflow.toLevel)
+		{	
+			Workflow.toLevel = false;
+		    $.mobile.changePage("#level");			
+			return false;
+		}
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId);
 		console.log(DrGlearning.levelId);
 		Dao.levelsStore.get(DrGlearning.levelId,function(level){
@@ -26,16 +47,19 @@ var Workflow = {
 		}
 		else {
 		    if (parseInt(currentLevel, 10) === parseInt(prevLevel, 10)) {
-   				$('#dialogText').html("You have completed the %s level! It was the last level, you have finished this course!");
+   				$('#dialogText').html("You have completed the "+prevLevel+" level! It was the last level, you have finished this course!");
+				Workflow.toMain = true;
 			    $.mobile.changePage("#dialog");
 		    }
 		    else {
 		        if (currentLevel !== -1) {
    					$('#dialogText').html("You have completed the %s level! The next one is %s");
+					Workflow.toCareer = true;
 				    $.mobile.changePage("#dialog");
 		        }
 		        else {
-  					$('#dialogText').html("You have completed the %s level! It was the last level, you have finished this course!");
+   					$('#dialogText').html("You have completed the level "+prevLevel+"!");
+					Workflow.toCareer = true;
 				    $.mobile.changePage("#dialog");
 		        }
 		    }

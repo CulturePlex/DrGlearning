@@ -29,12 +29,14 @@ var Temporal = {
         {
   	         $('#dialogText').html(Temporal.activity.value.penalty);
 			Dao.activityPlayed(Temporal.activity.value.id, false, 0);
+			Workflow.toLevel = true;
         }
 	  },
 	  checkBefore: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
   	        $('#dialogText').html(Temporal.activity.value.penalty);
 			Dao.activityPlayed(Temporal.activity.value.id, false, 0);
+			Workflow.toLevel = true;
         }
         else 
         {

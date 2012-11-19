@@ -101,6 +101,7 @@ var Visual = {
 	      {
   	         $('#dialogText').html(Visual.activity.value.penalty);
 			Dao.activityPlayed(Visual.activity.value.id, false, Visual.score);
+			Workflow.toLevel = true;
 	      }
 	  }
 }

@@ -223,6 +223,7 @@ var Linguistic = {
                 Linguistic.score = 0;
             }
 		    Dao.activityPlayed(Linguistic.activity.value.id, false, Linguistic.score);
+			Workflow.toLevel = true;			
   	        $('#dialogText').html(Linguistic.activity.value.penalty);
         }
         });

@@ -148,6 +148,7 @@ var Geospatial = {
         else {
   	        $('#dialogText').html(Geospatial.activity.value.penalty);
 			Dao.activityPlayed(Geospatial.activity.value.id, false, Geospatial.score);
+			Workflow.toLevel = true;
         }
     }
 }
