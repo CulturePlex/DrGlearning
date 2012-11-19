@@ -237,13 +237,18 @@ var DrGlearning = {
 		      {	
 		        if(arrCareers[i].value.installed === false)
 		        {
+					var starHtml = "";
+					if(arrCareers[i].value.career_type == "exam")
+					{
+						starHtml = " ★";
+					}
 		            empty = false;
 			        var listdiv = document.createElement('li');
 		        	listdiv.setAttribute('id','listdiv');
 		        	listdiv.innerHTML = '<a id="careertoinstall" href="#dialogConfirmInstall" data-rel="dialog" data-href="'+
             	    arrCareers[i].key+
             	    '"><h1>'+
-            	    arrCareers[i].value.name+
+            	    arrCareers[i].value.name+starHtml+
             	    '</h1></a>';
 			        $('#addcareerslist').append(listdiv);
 			      }

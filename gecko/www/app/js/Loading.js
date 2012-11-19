@@ -249,7 +249,7 @@ var Loading = {
 									console.log(keys.indexOf(careers[cont].id.toString()));
 									if(keys.indexOf(careers[cont].id.toString())==-1)
 									{
-				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false};
+				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false,career_type:careers[cont].career_type};
 				                        Dao.careersStore.save({key:careers[cont].id,value:obj});
 									}
 								})
