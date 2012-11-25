@@ -12,6 +12,7 @@ var Relational = {
 	blankOption: null, 
 	playerPath: null,
 	playerEdgePath: null,
+	allConstraintsPassed: null,
     setup: function(){
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
@@ -46,7 +47,7 @@ change: function (field, newValue, oldValue)
 	    	Relational.blankOption = i18n.gettext("Choose");
             Relational.playerPath = [];
             Relational.playerEdgePath = [];
-        //    var allConstraintsPassed = false;
+        	Relational.allConstraintsPassed = false;
             Relational.score = 20;
             //Import graph nodes and edges from database
             Relational.graphNodes = activity.value.graph_nodes;
