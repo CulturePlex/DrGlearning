@@ -89,18 +89,7 @@ var Relational = {
             this.activity.save();
             this.getApplication().getController('LevelController').helpAndQuery();
         }*/
-		console.log(Relational);
-		$("#constraintsBar").empty();
-		for(var i=0; i < Relational.constraints.length ; i ++)
-		{
-			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="plus" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
-		}
-		i++;
-        if (Relational.path_limit > 0)
-        {
-			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="plus" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
-		}
-
+		Relational.refreshConstraints();
 	},
 	takeStep: function (step)
     {
@@ -321,6 +310,31 @@ var Relational = {
 	{
 		return '<p class="relational">' + nodeName + ' (' + Relational.graphNodes[nodeName].type + ')' + '</p>';
 	},
+	refreshConstraints: function() {
+		console.log(Relational);
+		var icon="plus";
+		$("#constraintsBar").empty();
+		for(var i=0; i < Relational.constraints.length ; i ++)
+		{
+			if(!Relational.constraintBoolean[i])
+			{
+				icon="delete";
+			}
+			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="'+icon+'" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
+		}
+		i++;
+		icon = "plus";
+        if (Relational.path_limit > 0)
+        {
+			if(Relational.path_limit<Relational.playerPath.length)
+			{
+				icon="delete";
+			}
+			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="'+icon+'" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
+		}
+		$('#relational').trigger('create');  
+	},
+
 	getContraintsHTML: function()
     {
         var constraintClass;
