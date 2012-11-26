@@ -138,7 +138,20 @@ var DrGlearning = {
             }
             return false;
         });
-        
+        $('#importUser').click(function(){
+          $("#dialogSyncName").html(i18n.gettext("Import User"));
+          $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
+  		  $("#inputSync").val('');
+		  $("#inputSync").prop('disabled', false);
+		  $("#syncCancel").show();
+        });
+		$('#exportUser').click(function(){
+          $("#dialogSyncName").html(i18n.gettext("Export User"));
+          $("#dialogSyncDescription").html(i18n.gettext("Copy and paste this code in another device"));
+  		  $("#inputSync").val(localStorage.uniqueid);
+		  $("#inputSync").prop('disabled', true);
+		  $("#syncCancel").hide();
+        });
         $('#backfromsettings').click(function(){
           UserSettings.saveSettings();
         });

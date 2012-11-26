@@ -287,13 +287,24 @@
             <footer data-role="footer" data-position="fixed">
       <nav data-role="navbar">
           <ul>
-              <li><a href="#">{{ImportUser}}</a></li>
-              <li><a href="#">{{ExportUser}}</a></li>
+              <li><a href="#dialogSync" data-rel="dialog" id="importUser">{{ImportUser}}</a></li>
+              <li><a href="#dialogSync" data-rel="dialog" id="exportUser">{{ExportUser}}</a></li>
           </ul>
           
       </nav>
     </footer>
     </div><!-- Page Settings -->
+    <div data-role="page" id="dialogSync">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="dialogSyncName">Dialog</h1>
+      </header>
+      <article data-role="content">
+          <div id="dialogSyncDescription">Sync Description</div>
+          <input type="text" name="name" id="inputSync" value=""/>
+          <a href="#settings" data-role="button" id="syncOK">{{OK}}</a>
+          <a href="#settings" data-role="button" id="syncCancel">{{Cancel}}</a>
+      </article>
+    </div><!-- Page Dialog Sync -->
     </body>
     <script type="text/javascript">
       $(document).ready(function(){
