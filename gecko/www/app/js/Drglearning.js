@@ -284,6 +284,7 @@ var DrGlearning = {
     },
     refreshCareer: function(){
 		Dao.careersStore.get(DrGlearning.careerId,function(career){ 
+			$('#careerTitle').html(career.value.name);
             $('#levelslist').empty();
             Dao.levelsStore.all(function(arrLevels){
                 var empty = true;
@@ -340,7 +341,8 @@ var DrGlearning = {
 				if(DrGlearning.levelId > 1)
 				{
 					console.log(DrGlearning.levelId);
-		        	Dao.levelsStore.get(DrGlearning.levelId-1,function(level){ 
+		        	Dao.levelsStore.get(DrGlearning.levelId-1,function(level){
+						$('#levelTitle').html(level.value.name); 
 						if(!Workflow.levelIsCompleted(level,DrGlearning.careerId))
 						{
 				  	        $('#dialogText').html(i18n.gettext("You can't play this level until you have completed every previous one"));
@@ -354,6 +356,7 @@ var DrGlearning = {
 		});
         $('#activitieslist').empty();
         Dao.levelsStore.get(DrGlearning.levelId,function(level){ 
+    		$('#levelTitle').html(level.value.name); 
             $('#levelDescription').html(level.value.description);
             Dao.activitiesStore.all(function(arrActivities){
                 var empty = true;
