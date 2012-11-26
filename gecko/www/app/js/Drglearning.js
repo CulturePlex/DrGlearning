@@ -302,7 +302,7 @@ var DrGlearning = {
 						{
 							if(career.value.career_type== "exam" && !Workflow.levelIsCompleted(arrLevels[i-1],DrGlearning.careerId))
 							{
-								locker=" <img src='resources/images/padlock.png' height='25'>";
+								locker=" <img class='levelicon' src='resources/images/padlock.png' height='25'>";
 							}
 						}
 		                empty = false;
