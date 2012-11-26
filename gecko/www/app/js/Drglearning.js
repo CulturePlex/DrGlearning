@@ -169,12 +169,13 @@ var DrGlearning = {
               $("#questionInstall").empty();
               $("#questionInstall").append("<h3>Install the course "+ r.value.name +"?</h3>");
               $("#descriptionInstall").empty();
+              $("#descriptionInstall").append(r.value.description);
               var html="";
-              $("#descriptionInstall").append( r.value.description +"<p align='center'>");
+
               for (var cont = 0; cont < r.value.levels.length ; cont++) {
                     html = html + "<img src='resources/images/level_icons/" + filesImgs[r.value.levels[cont] - 1] + "' height='40' >";
                 }
-              $("#descriptionInstall").append( html +"</p>");
+              $("#levelsToInstall").append( html);
             });
             
 			 
