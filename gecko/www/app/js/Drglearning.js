@@ -81,17 +81,13 @@ var DrGlearning = {
             Visual.refresh();
         });
         
-        $( '#linguistic' ).live( 'pagebeforeshow',function(event){
-            Linguistic.refresh();
-        });
-        
         $( '#geospatial' ).live( 'pagebeforeshow',function(event){
             Geospatial.refresh();
         });
 
-        $( '#relational' ).live( 'pagebeforeshow',function(event){
+        /*$( '#relational' ).live( 'pagebeforeshow',function(event){
             Relational.refresh();
-        });
+        });*/
         
         //Setting up buttons
         
@@ -129,6 +125,7 @@ var DrGlearning = {
             if(DrGlearning.activityType === "linguistic")
             {
                 $.mobile.changePage("#linguistic");
+	            Linguistic.refresh();
             }
             if(DrGlearning.activityType === "geospatial")
             {
@@ -137,6 +134,7 @@ var DrGlearning = {
 	    if(DrGlearning.activityType === "relational")
             {
                 $.mobile.changePage("#relational");
+				Relational.refresh();
             }
             return false;
         });
