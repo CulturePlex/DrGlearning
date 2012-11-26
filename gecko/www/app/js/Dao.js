@@ -172,5 +172,149 @@ var Dao = {
 		    }
 		});
     },
+	preinstallCareer: function (career) {
+        console.log('preinstalling career ');
+        console.log(career);
+        Dao.careerPreinstalling = career;
+        var activities = career.activities;
+        console.log(activities);
+        var activitiesInstalled = 0;
+        var cont;
+        for (cont in activities) {
+            if (activities[cont])
+            {
+                var activitiesToInstall = [];
+                var size = 0;
+	      		var HOST = GlobalSettings.getServerURL();
+                $.ajax({
+                    dataType: "jsonp",
+                    url: HOST + activities[cont] + '?format=jsonp',
+                    data: {
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                    },
+                    success: function (response, opts) {
+                        var activity = response;
+                        var career = Dao.careerPreinstalling;
+                        var activityModel = {
+                            id : activity.id,
+                            name : activity.name.trim(),
+                            careerId : career.id,
+                            activity_type : activity.activity_type.trim(),
+                            language_code : activity.language_code.trim(),
+                            level_type : activity.level_type,
+                            level_order : activity.level_order,
+                            level_required : activity.level_required,
+                            query : activity.query.trim(),
+                            timestamp : activity.timestamp.trim(),
+                            resource_uri : activity.resource_uri.trim(),
+                            reward: activity.reward.trim(),
+                            penalty: activity.penalty.trim(),
+                            score: 0,
+                            played: false,
+                            successful: false,
+                            helpviewed: false
+                        };
+                        if (activityModel.activity_type == 'linguistic') {
+                            //activityModel.setImage('image', activity.image, this);
+                            $.extend(activityModel,{ image_url : activity.image_url.trim()});
+                            $.extend(activityModel,{ locked_text : activity.locked_text.trim()});
+                            $.extend(activityModel,{ answer : activity.answer.trim()});
+                        }
+                        if (activityModel.activity_type == 'visual') {
+                            //activityModel.setImage('image', activity.image, this);
+                            //activityModel.setImage('obImage', activity.obfuscated_image, this);
+                            $.extend(activityModel,{ image_url : activity.image_url.trim()});
+                            $.extend(activityModel,{ obfuscated_image_url : activity.obfuscated_image_url.trim()});
+                            //activityModel.data.image=activity.image;
+                            $.extend(activityModel,{ answers : activity.answers});
+                            $.extend(activityModel,{ correct_answer : activity.correct_answer.trim()});
+                            //activityModel.set('obfuscated_image', activity.obfuscated_image);
+                            $.extend(activityModel,{ obfuscated_image_url : activity.obfuscated_image_url.trim()});
+                            $.extend(activityModel,{ time : activity.time.trim()});
+                        }
+                        if (activityModel.activity_type == 'quiz') {
+                            //activityModel.setImage('image', activity.image, this);
+                            $.extend(activityModel,{ image_url : activity.image_url });
+                            //activityModel.data.image=activity.image;
+                            $.extend(activityModel,{ answers : activity.answers });
+                            $.extend(activityModel,{ correct_answer : activity.correct_answer.trim()});
+                            //activityModel.set('obfuscated_image',activity.obfuscated_image);
+                            if (activity.time) {
+                                $.extend(activityModel,{time : activity.time.trim()});
+                            }
+                        }
+                        if (activityModel.activity_type == 'relational') {
+                            $.extend(activityModel,{ graph_nodes : activity.graph_nodes});
+                            for (var x in activity.graph_edges) {
+                                if (activity.graph_edges[x].inverse === undefined) {
+                                    activity.graph_edges[x].inverse = "";
+                                }
+                            }
+                            $.extend(activityModel,{ graph_edges : activity.graph_edges});
+                            $.extend(activityModel,{ constraints : activity.constraints});
+                            $.extend(activityModel,{ path_limit : activity.path_limit});
+                        }
+                        if (activityModel.activity_type == 'temporal') {
+                            //activityModel.setImage('image', activity.image, this);
+                            $.extend(activityModel,{ image_url : activity.image_url.trim()});
+                            $.extend(activityModel,{ image_datetime : activity.image_datetime.trim()});
+                            $.extend(activityModel,{ query_datetime : activity.query_datetime.trim()});
+                        }
+                        if (activityModel.activity_type == 'geospatial') {
+                            $.extend(activityModel,{ area : activity.area.trim()});
+                            $.extend(activityModel,{ point : activity.points.trim()});
+                            $.extend(activityModel,{ radius : activity.radius});
+                        }
+                        activitiesToInstall.push(activityModel);
+                        activitiesInstalled = activitiesInstalled + 1;
+                        if (activities.length == activitiesInstalled) {
+                            for (var cont in activitiesToInstall) {
+                                if (activitiesToInstall[cont])
+                                {
+                                    Dao.activitiesStore.save({key:activitiesToInstall[cont].id,value:activitiesToInstall[cont]});
+                                }
+                            }
+                            career.installed = true;
+							console.log(career);
+							Dao.careersStore.save({key:career.id,value:career});
+                            DrGlearning.refreshMain();						
+                            UserSettings.preinstallingIndex++;
+							console.log('llamando otra vez a preinstall')
+							console.log('llamando otra vez a preinstall')
+                            UserSettings.preinstall();
+                        }
+                    },
+                    failure : function () {
+						$.unblockUI();
+                        console.log('Unable to install, error while installing activities');
+                    }
+                });
+            }
+        }
+        /*$.ajax({
+            dataType:"jsonp",
+            url: HOST + career.data.contents + '?format=jsonp',
+            data: {
+                deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+            },
+            success: function (response, opts) {
+                console.log(response);
+                for (var uri in response)
+                {
+                    if (response[uri])
+                    {
+                        console.log(response[uri]);
+                        career.set(uri, response[uri]);
+                    }
+                }
+            },
+            failure: function () {
+                console.log('fallo');
+            }
+        });
+        */
+    },
 }
 

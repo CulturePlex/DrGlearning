@@ -1,4 +1,7 @@
 var UserSettings = {
+	careersToPreinstall:[],
+	preinstallingIndex: 0,
+	importedScores: null,
     saveSettings : function () {
         var usernameField = $('#username').val();
         var emailField = $('#email').val();
@@ -43,6 +46,132 @@ var UserSettings = {
                 console.log('User data sent');
             }
         });
-        
+    },
+	importUser : function () {
+        $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Importing user data...')+'</p>' });
+        var uniqueid =  $("#inputSync").val();
+        var HOST = GlobalSettings.getServerURL();
+        $.ajax({
+            url: HOST + '/api/v1/player/?format=jsonp',
+            data: {
+                code: uniqueid,
+                import: true
+            },
+			dataType:"jsonp",
+            success: function (response, opts) {
+                if (response.token == null)
+                {
+                    console.log("Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);");
+					$.unblockUI();
+                }
+                else
+                {
+					Dao.careersStore.nuke();
+					Dao.activitiesStore.nuke();
+                    localStorage.imported=true;
+                    UserSettings.userDataReceived(response, opts);
+                }
+			    
+            },
+            failure : function () {
+                console.log("Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);");
+			    $.unblockUI();
+            }
+       });
+    },
+	userDataReceived: function (response, opts) {
+        var HOST = GlobalSettings.getServerURL();
+        $.ajax({
+            dataType:"jsonp",
+            url: HOST + '/api/v1/score/?format=jsonp',
+            data: {
+                player: response.id
+            },
+            success: function (response, opts) {
+                UserSettings.collectCareersFromScores(response, opts);
+            },
+            failure : function () {
+                $.unblockUI();
+                console.log(i18n.gettext('Unable to Import'));
+            }
+        });
+
+        localStorage.uniqueid = response.code;
+        localStorage.token = response.token;
+        localStorage.display_name = response.display_name;
+        localStorage.email = response.email;
+        $("#username").val(response.display_name);
+        $("#email").val(response.email);
+    },
+	collectCareersFromScores: function (response, objects) {
+        UserSettings.careersToPreinstall = [];
+        for (var x in response.objects) {
+            if (UserSettings.careersToPreinstall.indexOf(response.objects[x].career_id) === -1)
+            {
+                UserSettings.careersToPreinstall.push(response.objects[x].career_id);
+            }
+        }
+        UserSettings.preinstallingIndex = 0;
+        UserSettings.importedScores = response.objects;
+        UserSettings.preinstall();
+    },
+	preinstall: function () {
+      //Downloading career Data:
+        if (parseInt(UserSettings.preinstallingIndex, 10) < parseInt(UserSettings.careersToPreinstall.length, 10))
+        {
+      		var HOST = GlobalSettings.getServerURL();
+            $.ajax({
+				dataType:"jsonp",
+                url: HOST + "/api/v1/career/" + UserSettings.careersToPreinstall[UserSettings.preinstallingIndex] + "/?format=jsonp",
+                success: function (response, opts) {
+                    var career = response;
+                    var careerModel;
+                   
+                    var activities = [];
+                    for (var cont in career.activities) {
+                        activities[cont] = career.activities[cont].full_activity_url;
+                    }
+					careerModel = {
+						activities: activities,
+                        id : parseInt(career.id, 10),
+                        customId : parseInt(career.id, 10),
+                        levels : career.levels,
+                        negative_votes : career.negative_votes,
+                        positive_votes : career.positive_votes,
+                        name : career.name,
+                        description : career.description,
+                        creator : career.creator,
+                        resource_uri : career.resource_uri,
+                        knowledges : career.knowledges,
+                        timestamp : career.timestamp,
+                        installed : false,
+                        started : false,
+                        update : false,
+                        size: career.size,
+                        career_type: career.career_type,
+                        contents: career.contents.resource_uri
+                    };
+                    Dao.careersStore.save({key:careerModel.id,value:careerModel});
+                    UserSettings.retrieving = false;
+                    Dao.preinstallCareer(careerModel);
+                },
+                failure: function () {
+                	$.unblockUI();
+					console.log('error while downloading career');
+                    UserSettings.retrieving = false;
+                }
+            });
+        } else 
+        {
+          
+            for (var x in UserSettings.importedScores)
+            {
+                Dao.activityPlayed(UserSettings.importedScores[x].activity_id, UserSettings.importedScores[x].is_passed, UserSettings.importedScores[x].score, true);
+            }
+
+        	$.unblockUI();
+            console.log("successfull import!");
+            
+        }
     },
 }
