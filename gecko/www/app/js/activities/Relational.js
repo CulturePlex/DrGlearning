@@ -13,9 +13,16 @@ var Relational = {
 	playerPath: null,
 	playerEdgePath: null,
 	allConstraintsPassed: null,
+	constraintsTextNew: [],
+	constraintState: [],
+	constraintBoolean: [],
     setup: function(){
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
+        });
+        $(document).on('click', '#constraint',function(e) {
+          $("#constraintName").html(Relational.constraintState[$(this).attr('data-index')]);
+          $("#constraintDescription").html(Relational.constraintsTextNew[$(this).attr('data-index')]);
         });
         $( "#select-relational" ).bind( "change", function(event, ui) {
 			console.log($("#select-relational").val());
@@ -28,15 +35,15 @@ var Relational = {
         });
 
 /*
-change: function (field, newValue, oldValue)
-                {
-                    if (newValue.data.text !== blankOption) {
-                        option.hide();
-                        playerEdgePath.push(newValue.raw.edgeType);
-                        option = takeStep(newValue.data.value);
-                        refresh(option);
-                    }
-                }
+	change: function (field, newValue, oldValue)
+    {
+        if (newValue.data.text !== blankOption) {
+            option.hide();
+            playerEdgePath.push(newValue.raw.edgeType);
+            option = takeStep(newValue.data.value);
+            refresh(option);
+        }
+    }
 
 */
 
@@ -82,6 +89,18 @@ change: function (field, newValue, oldValue)
             this.activity.save();
             this.getApplication().getController('LevelController').helpAndQuery();
         }*/
+		console.log(Relational);
+		$("#constraintsBar").empty();
+		for(var i=0; i < Relational.constraints.length ; i ++)
+		{
+			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="plus" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
+		}
+		i++;
+        if (Relational.path_limit > 0)
+        {
+			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="plus" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
+		}
+
 	},
 	takeStep: function (step)
     {
@@ -296,11 +315,212 @@ change: function (field, newValue, oldValue)
         //view.add(activityView);
         //var scroller = activityView.getScrollable().getScroller();
         //scroller.scrollBy(0, 58);
+		Relational.getContraintsHTML();
     },
 	getNodeHTML: function (nodeName)
 	{
 		return '<p class="relational">' + nodeName + ' (' + Relational.graphNodes[nodeName].type + ')' + '</p>';
 	},
+	getContraintsHTML: function()
+    {
+        var constraintClass;
+        var icontype;
+        var uitype;
+        var oldStateTemp;
+        var temp;
+        var changed;
+        Relational.allConstraintsPassed = true;
+        for (var i = 0; i < Relational.constraints.length; i++) {
+            changed = false;
+            Relational.constraintsTextNew[i] = "";
+            Relational.constraintState[i] = "";
+            
+           if (Relational.constraintPassed(Relational.constraints[i])) {
+                constraintClass = "relational-constraint-passed";
+                icontype = 'star';
+                uitype = 'confirm';
+                if (Relational.constraintBoolean[i] !== true && Relational.constraintBoolean[i] !== undefined)
+                {
+                    changed = true;
+                }
+                Relational.constraintState[i] = i18n.gettext('Fulfilled condition');
+                Relational.constraintBoolean[i] = true;
+            }
+            else {
+                constraintClass = "relational-constraints";
+                Relational.allConstraintsPassed = false;
+                icontype = 'delete';
+                uitype = 'decline';
+                if (Relational.constraintBoolean[i] !== false && Relational.constraintBoolean[i] !== undefined)
+                {
+                    changed = true;
+                }
+                Relational.constraintState[i] = i18n.gettext('Condition not fulfilled yet');
+                Relational.constraintBoolean[i] = false;
+            }
+            switch (Relational.constraints[i].operator) {
+            case "eq":
+                Relational.constraintsTextNew[i] += i18n.translate("Pass through %s %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
+                break;
+            case "neq":
+                Relational.constraintsTextNew[i] += i18n.translate("Pass through other than %s %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
+                break;
+            case "let":
+            case "lte":
+                Relational.constraintsTextNew[i] += i18n.translate("Pass through %s or fewer %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
+                break;
+            case "gte":
+            case "get":
+                Relational.constraintsTextNew[i] += i18n.translate("Pass through %s or more %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
+                break;
+            case "lt":
+                Relational.constraintsTextNew[i] += i18n.translate("Pass through less than %s %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
+                break;
+            case "gt":
+                Relational.constraintsTextNew[i] += i18n.translate("Pass through more than %s %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
+                break;
+            }
+            /*
+             * If state of constraint has changed button has animation fade
+             
+            if (changed === true)
+            {
+                temp = {
+                    xtype: 'button',
+                    iconCls: icontype,
+                    ui: uitype,
+                    customId: i,
+                    listeners: {
+                        tap: showConstraint,
+                        painted: function ()
+                        {
+                            Ext.Anim.run(this, 'fade', {out: false, duration: 500});
+                            Ext.Anim.run(this, 'fade', {out: true, duration: 500, delay: 10});
+                            Ext.Anim.run(this, 'fade', {out: false, duration: 500, delay: 1540});
+                            Ext.Anim.run(this, 'fade', {out: true, duration: 500, delay: 2050});
+                            Ext.Anim.run(this, 'fade', {out: false, duration: 500, delay: 2560});
+                        }
+                    }
+                };
+            }
+            else
+            {
+                temp = {
+                    xtype: 'button',
+                    iconCls: icontype,
+                    ui: uitype,
+                    customId: i,
+                    listeners: {
+                        tap: showConstraint
+                    }
+                };
+            }
+            activityView.down('toolbar[customId=constraintsbar]').add(temp);*/
+        }
+        i++;
+        if (Relational.path_limit > 0)
+        {
+            changed = false;
+            Relational.constraintsTextNew[i] = "";
+            Relational.constraintState[i] = "";
+            if (Relational.playerPath.length <= Relational.path_limit) {
+                constraintClass = "relational-constraint-passed";
+                icontype = 'star';
+                uitype = 'confirm';
+                if (Relational.constraintBoolean[i] === false)
+                {
+                    changed = true;
+                }
+                Relational.constraintState[i] = i18n.gettext('Fulfilled condition');
+                Relational.constraintBoolean[i] = true;
+            }
+            else {
+                constraintClass = "relational-constraints";
+                Relational.allConstraintsPassed = false;
+                icontype = 'delete';
+                uitype = 'decline';
+                if (Relational.constraintBoolean[i] === true)
+                {
+                    changed = true;
+                }
+                Relational.constraintState[i] = i18n.gettext('Condition not fulfilled yet');
+                Relational.constraintBoolean[i] = false;
+            }
+            Relational.constraintsTextNew[i] += i18n.translate('Your path must have %d or fewer steps').fetch(Relational.path_limit);
+            /*
+             * If state of constraint has changed button has animation fade
+           
+            if (changed === true)
+            {
+                temp = {
+                    xtype: 'button',
+                    iconCls: icontype,
+                    ui: uitype,
+                    customId: i,
+                    listeners: {
+                        tap: showConstraint,
+                        painted: function ()
+                        {
+                            Ext.Anim.run(this, 'fade', {out: false, duration: 501});
+                            Ext.Anim.run(this, 'fade', {out: true, duration: 501, delay: 20});
+                            Ext.Anim.run(this, 'fade', {out: false, duration: 501, delay: 1550});
+                            Ext.Anim.run(this, 'fade', {out: true, duration: 501, delay: 2060});
+                            Ext.Anim.run(this, 'fade', {out: false, duration: 501, delay: 2570});
+                        }
+                    }
+                };
+            }
+            else
+            {
+                temp = {
+                    xtype: 'button',
+                    iconCls: icontype,
+                    ui: uitype,
+                    customId: i,
+                    listeners: {
+                        tap: showConstraint
+                    }
+                };
+            }
+            activityView.down('toolbar[customId=constraintsbar]').add(temp);  */
+        }
+        
+        //activityView.down('toolbar[customId=constraintsbar]').add({
+        //    xtype: 'spacer'
+        //});
+        //var constraintsText = '</ul></p>';
+        //return constraintsText;
+    },
+	constraintPassed: function (constraint)
+    {
+        var counted = [];
+        var elementCount = 0;
+        var constraintValue = parseInt(constraint.value, 10);
+        for (var i = 0; i < Relational.playerPath.length; i++) {
+            if (constraint.type === Relational.graphNodes[Relational.playerPath[i]].type && counted.indexOf(Relational.playerPath[i]) === -1) {
+                counted.push(Relational.playerPath[i]);
+                elementCount++;
+            }
+        }
+        switch (constraint.operator) {
+        case "eq":
+            return (elementCount === constraintValue);
+        case "neq":
+            return (elementCount !== constraintValue);
+        case "let":
+        case "lte":
+            return (elementCount <= constraintValue);
+        case "get":
+        case "gte":
+            return (elementCount >= constraintValue);
+        case "lt":
+            return (elementCount < constraintValue);
+        case "gt":
+            return (elementCount > constraintValue);
+        default:
+            return false;
+        }
+    },
 	stepBack: function ()
     {
         var previousStep;
@@ -318,11 +538,11 @@ change: function (field, newValue, oldValue)
         {
             Relational.score = 100;
         }
-        //if (allConstraintsPassed) {
+        if (Relational.allConstraintsPassed) {
 		$.mobile.changePage("#dialog")
         $('#dialogText').html(Relational.activity.value.reward+". "+i18n.gettext('Score')+":"+Relational.score);
 		Dao.activityPlayed(Relational.activity.value.id, true, Relational.score);
-        //}
+        }
     }
                 
 }
