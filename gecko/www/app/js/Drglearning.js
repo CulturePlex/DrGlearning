@@ -143,14 +143,15 @@ var DrGlearning = {
           $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSync").val('');
 		  $("#inputSync").prop('disabled', false);
-		  $("#syncCancel").show();
+		  $('#syncOK').on('click', UserSettings.importUser);
+
         });
 		$('#exportUser').click(function(){
           $("#dialogSyncName").html(i18n.gettext("Export User"));
           $("#dialogSyncDescription").html(i18n.gettext("Copy and paste this code in another device"));
   		  $("#inputSync").val(localStorage.uniqueid);
 		  $("#inputSync").prop('disabled', true);
-		  $("#syncCancel").hide();
+		  $('#syncOK').off('click', UserSettings.importUser);
         });
         $('#backfromsettings').click(function(){
           UserSettings.saveSettings();
@@ -247,7 +248,6 @@ var DrGlearning = {
         });
         //Setting up search courses bar
         $( "#searchcourses" ).bind( "change", function(event, ui) {
-           console.log($("#select-knowledges").val());
            Loading.careersRequest($(this).val(),$("#select-knowledges").val());
         });
         $(window).scroll(function(){
@@ -258,7 +258,6 @@ var DrGlearning = {
         $('#addcareerslist').empty();
         Dao.careersStore.all(function(arrCareers){
           var empty = true;	
-			console.log(arrCareers);
 		      for(var i = 0; i<arrCareers.length;i++)
 		      {	
 		        if(arrCareers[i].value.installed === false)
