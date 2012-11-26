@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import json
 import tempfile
 
 from django import forms
@@ -22,7 +23,10 @@ from knowledges.models import Career
 class BaseQuizAndVisualForm(forms.ModelForm):
 
     def clean_answers(self):
-        answers = self.cleaned_data["answers"]
+        try:
+            answers = json.loads(self.cleaned_data["answers"])
+        except:
+            answers = self.cleaned_data["answers"]
         max_answers = settings.MAX_ANSWERS_FOR_QUIZZ_VISUAL
         max_chars = settings.MAX_ANSWERS_CHARS_FOR_QUIZZ_VISUAL
         if len(answers) > max_answers:
@@ -55,8 +59,11 @@ class LinguisticForm(forms.ModelForm):
     class Meta:
         model = Linguistic
 
-    def check_chars_lenth(self, field_name):
-        field = self.cleaned_data[field_name]
+    def check_chars_length(self, field_name):
+        try:
+            field = json.loads(self.cleaned_data[field_name])
+        except:
+            field = self.cleaned_data[field_name]
         max_chars = settings.MAX_ANSWERS_CHARS_FOR_LINGUISTIC
         if len(field) > max_chars:
             raise forms.ValidationError(_("Sorry, it cannot be more than %s "
@@ -65,10 +72,10 @@ class LinguisticForm(forms.ModelForm):
             return field
 
     def clean_locked_text(self):
-        return self.check_chars_lenth("locked_text")
+        return self.check_chars_length("locked_text")
 
     def clean_answer(self):
-        return self.check_chars_lenth("answer")
+        return self.check_chars_length("answer")
 
 
 ## Admins
