@@ -146,14 +146,14 @@ class VisualAdmin(ActivityAdmin):
     class Media:
         js = ('js/visualAdminAnswers.js', 'js/visualAdminImages.js')
 
-    def change_view(self, request, object_id, extra_content=None):
+    def change_view(self, request, object_id, *args, **kwargs):
         if '_saveasnew' in request.POST:
             old_visual = Visual.objects.get(id=object_id)
             request.FILES['image'] = getattr(old_visual, 'image')
             request.FILES['obfuscated_image'] = getattr(old_visual,
                                                         'obfuscated_image')
         return super(VisualAdmin, self).change_view(request, object_id,
-                                                    extra_content)
+                                                    *args, **kwargs)
 
     def save_model(self, request, obj, form, change):
         if request.POST and request.POST.get('obfuscated_64'):
@@ -193,14 +193,14 @@ class QuizAdmin(ActivityAdmin):
     form = QuizAdminForm
     exclude = ('time', 'image', 'user')
 
-    def change_view(self, request, object_id, extra_content=None):
+    def change_view(self, request, object_id, *args, **kwargs):
         if '_saveasnew' in request.POST:
             old_quiz = Quiz.objects.get(id=object_id)
             request.FILES['image'] = getattr(old_quiz, 'image')
             request.FILES['obfuscated_image'] = getattr(old_quiz,
                                                         'obfuscated_image')
         return super(QuizAdmin, self).change_view(request, object_id,
-                                                  extra_content)
+                                                  *args, **kwargs)
 
     def save_model(self, request, obj, form, change):
         if request.POST and request.POST.get('obfuscated_64'):
