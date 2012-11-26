@@ -1,20 +1,23 @@
-Django==1.4.1
-django-grappelli==2.4.2
-#distribute==0.6.10
-#django-guardian==1.0.4.dev
--e git+git://github.com/lukaszb/django-guardian.git#egg=django-guardian
-django-jsonfield==0.6
-django-olwidget==0.50
--e git+git://github.com/bread-and-pepper/django-userena.git#egg=userena
-easy-thumbnails==1.0-alpha-18
-ipdb==0.6
-ipython==0.11
-pycrypto==2.3
-sorl-thumbnail==11.09
-wsgiref==0.1.2
-django-tastypie==0.9.9
-South==0.7.5
-Pillow==1.7.5
-# pysqlite==2.6.3 --no-instal and comment last line of setup.cfg
-python-dateutil==1.5
+Django==1.4.2
+Pillow==1.7.8
+South==0.7.3
+argparse==1.2.1
+distribute==0.6.24
+django-grappelli==2.4.3
+-e git://github.com/lukaszb/django-guardian.git@c9a7301fb8f0bc014d7ee60a5979443a51b9d904#egg=django_guardian-dev
+django-jsonfield==0.8.12
+django-olwidget==0.60.3
+django-tastypie==0.9.11
+-e git://github.com/bread-and-pepper/django-userena.git@95532778e49ff1cbe4d1cb87ddbf71ce10981bbf#egg=django_userena-dev
+easy-thumbnails==1.1
+ipdb==0.7
+ipython==0.13.1
+jsonfield==0.9
+mimeparse==0.1.3
+pycrypto==2.6
+pysqlite==2.6.3
+python-dateutil==2.1
 python-digest==1.7
+six==1.2.0
+sorl-thumbnail==11.12
+wsgiref==0.1.2
