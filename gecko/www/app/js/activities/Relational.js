@@ -30,24 +30,8 @@ var Relational = {
 			Relational.playerEdgePath.push($("#select-relational option:selected").attr("data-edgetype"));
 			Relational.takeStep($("#select-relational").val());
 			Relational.refreshRel();
-		   //Relational.playerEdgePath.push(newValue.raw.edgeType);
-           //Loading.careersRequest($(this).val(),$("#select-knowledges").val());
         });
-
-/*
-	change: function (field, newValue, oldValue)
-    {
-        if (newValue.data.text !== blankOption) {
-            option.hide();
-            playerEdgePath.push(newValue.raw.edgeType);
-            option = takeStep(newValue.data.value);
-            refresh(option);
-        }
-    }
-
-*/
-
-	  },
+    },
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Relational.activity = activity;
@@ -82,14 +66,6 @@ var Relational = {
         //Execute first step
         Relational.takeStep(Relational.pathStart);
         Relational.refreshRel(Relational.option);
-		//Something for the help
-        /*if (!Relational.activity.data.helpviewed) 
-        {
-            this.activity.data.helpviewe = true;
-            this.activity.save();
-            this.getApplication().getController('LevelController').helpAndQuery();
-        }*/
-		//Relational.refreshConstraints();
 	},
 	takeStep: function (step)
     {
@@ -106,12 +82,7 @@ var Relational = {
             if (Relational.graphNodes[Relational.pathPosition] !== undefined) {
                 if (Relational.graphNodes[Relational.pathPosition].score !== undefined && Relational.graphNodes[Relational.pathPosition].score > 0) {
                     Relational.score += parseInt(Relational.graphNodes[Relational.pathPosition].score, 10);
-				   //Alerting socre obtained
-                   /* Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.translate('You got %d points!').fetch(graphNodes[pathPosition].score), function ()
-                    {
-                    
-                    }, this);*/
-                }
+	            }
             }
             Relational.createSelectFromNode(Relational.pathPosition);
         }
@@ -199,87 +170,20 @@ var Relational = {
 		{
 			$("#select-relational").append('<option data-edgetype="'+options[k].edgeType+'" value="'+options[k].value+'">'+options[k].text+'</option>');
 		}
-/*Ext.create('Ext.form.Select', {
-            scope: this,
-            options: options,
-            listeners: {
-                change: function (field, newValue, oldValue)
-                {
-                    if (newValue.data.text !== blankOption) {
-                        option.hide();
-                        playerEdgePath.push(newValue.raw.edgeType);
-                        option = takeStep(newValue.data.value);
-                        refresh(option);
-                    }
-                }
-            }
-        });*/
     },
 	refreshRel: function (option)
     {
-        /*var scorePanel = Ext.create('Ext.Panel', {
-            html: '<p>' + i18n.gettext("Score") + ": " + getPathScore() + '</p>'
-        });
-        var gamePanel = Ext.create('Ext.Panel', {
-            padding: 10
-        });
-        activityView.down('container[customId=scorebar]').removeAll();
-        getContraintsHTML();*/
-		$('#nodesWalked').empty();
+        $('#nodesWalked').empty();
         for (var i = 0; i < Relational.playerPath.length; i++) {
             if (i !== 0) {
                 var edgeText = '<p class="relational">' + Relational.playerEdgePath[i - 1] + '</p>';
                 $('#nodesWalked').append(edgeText);
-                /*var edge = Ext.create('Ext.Container', {
-                    layout: {
-                        type: 'hbox',
-                        align: 'middle'
-                    },
-                    items: [{
-                        xtype: 'panel',
-                        html: '<img height=25 src="resources/images/arrowdown.png">',
-                        margin: '5px'
-                    }, {
-                        xtype: 'panel',
-                        html: edgeText
-                    }]
-                });
                 
-                
-                gamePanel.add(edge);*/
             }
-            /*var node = Ext.create('Ext.Container', {
-                layout: {
-                    type: 'hbox',
-                    align: 'middle'
-                },
-                items: [{
-                    xtype: 'panel',
-                    html: '<img height=25 src="resources/images/record.png">',
-                    margin: '5px'
-                }, {
-                    xtype: 'panel',
-                    html: getNodeHTML(playerPath[i])
-                }]
-            });
             
-            gamePanel.add(node);*/
             $('#nodesWalked').append(Relational.getNodeHTML(Relational.playerPath[i]));
         }
-        /*var endNode = Ext.create('Ext.Container', {
-            layout: {
-                type: 'hbox',
-                align: 'middle'
-            },
-            items: [{
-                xtype: 'panel',
-                html: '<img height=25 src="resources/images/speaker.png">',
-                margin: '5px'
-            }, {
-                xtype: 'panel',
-                html: getNodeHTML(pathGoal)
-            }]
-        });*/
+        
 		$('#finalNode').empty();
 		$('#finalNode').append(Relational.getNodeHTML(Relational.pathGoal));
         if (option)
@@ -299,12 +203,7 @@ var Relational = {
                 gamePanel.add(endNode);
             }
         }
-        //gamePanel.add(button);
-        //activityView.add(gamePanel);
-        //activityView.show();
-        //view.add(activityView);
-        //var scroller = activityView.getScrollable().getScroller();
-        //scroller.scrollBy(0, 58);
+        
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
     },
@@ -404,42 +303,7 @@ var Relational = {
                 Relational.constraintsTextNew[i] += i18n.translate("Pass through more than %s %s").fetch(Relational.constraints[i].value, Relational.constraints[i].type);
                 break;
             }
-            /*
-             * If state of constraint has changed button has animation fade
-             
-            if (changed === true)
-            {
-                temp = {
-                    xtype: 'button',
-                    iconCls: icontype,
-                    ui: uitype,
-                    customId: i,
-                    listeners: {
-                        tap: showConstraint,
-                        painted: function ()
-                        {
-                            Ext.Anim.run(this, 'fade', {out: false, duration: 500});
-                            Ext.Anim.run(this, 'fade', {out: true, duration: 500, delay: 10});
-                            Ext.Anim.run(this, 'fade', {out: false, duration: 500, delay: 1540});
-                            Ext.Anim.run(this, 'fade', {out: true, duration: 500, delay: 2050});
-                            Ext.Anim.run(this, 'fade', {out: false, duration: 500, delay: 2560});
-                        }
-                    }
-                };
-            }
-            else
-            {
-                temp = {
-                    xtype: 'button',
-                    iconCls: icontype,
-                    ui: uitype,
-                    customId: i,
-                    listeners: {
-                        tap: showConstraint
-                    }
-                };
-            }
-            activityView.down('toolbar[customId=constraintsbar]').add(temp);*/
+            
         }
         i++;
         if (Relational.path_limit > 0)
@@ -473,47 +337,11 @@ var Relational = {
             Relational.constraintsTextNew[i] += i18n.translate('Your path must have %d or fewer steps').fetch(Relational.path_limit);
             /*
              * If state of constraint has changed button has animation fade
-           
-            if (changed === true)
-            {
-                temp = {
-                    xtype: 'button',
-                    iconCls: icontype,
-                    ui: uitype,
-                    customId: i,
-                    listeners: {
-                        tap: showConstraint,
-                        painted: function ()
-                        {
-                            Ext.Anim.run(this, 'fade', {out: false, duration: 501});
-                            Ext.Anim.run(this, 'fade', {out: true, duration: 501, delay: 20});
-                            Ext.Anim.run(this, 'fade', {out: false, duration: 501, delay: 1550});
-                            Ext.Anim.run(this, 'fade', {out: true, duration: 501, delay: 2060});
-                            Ext.Anim.run(this, 'fade', {out: false, duration: 501, delay: 2570});
-                        }
-                    }
-                };
-            }
-            else
-            {
-                temp = {
-                    xtype: 'button',
-                    iconCls: icontype,
-                    ui: uitype,
-                    customId: i,
-                    listeners: {
-                        tap: showConstraint
-                    }
-                };
-            }
-            activityView.down('toolbar[customId=constraintsbar]').add(temp);  */
+             */
+            
         }
         
-        //activityView.down('toolbar[customId=constraintsbar]').add({
-        //    xtype: 'spacer'
-        //});
-        //var constraintsText = '</ul></p>';
-        //return constraintsText;
+        
     },
 	constraintPassed: function (constraint)
     {
