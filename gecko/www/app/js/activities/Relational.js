@@ -89,7 +89,7 @@ var Relational = {
             this.activity.save();
             this.getApplication().getController('LevelController').helpAndQuery();
         }*/
-		Relational.refreshConstraints();
+		//Relational.refreshConstraints();
 	},
 	takeStep: function (step)
     {
@@ -115,6 +115,7 @@ var Relational = {
             }
             Relational.createSelectFromNode(Relational.pathPosition);
         }
+		
     },
  	/** This function receives a nodeName and searches into edges
      * data for all the related nodes. It returns a Sencha field.Select
@@ -305,6 +306,7 @@ var Relational = {
         //var scroller = activityView.getScrollable().getScroller();
         //scroller.scrollBy(0, 58);
 		Relational.getContraintsHTML();
+		Relational.refreshConstraints();
     },
 	getNodeHTML: function (nodeName)
 	{
@@ -320,6 +322,10 @@ var Relational = {
 			{
 				icon="delete";
 			}
+			else
+			{
+				icon="plus";
+			}
 			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="'+icon+'" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
 		}
 		i++;
@@ -329,6 +335,10 @@ var Relational = {
 			if(Relational.path_limit<Relational.playerPath.length)
 			{
 				icon="delete";
+			}
+			else
+			{
+				icon="plus";
 			}
 			$("#constraintsBar").append('<a href="#dialogRelational" data-role="button" data-rel="dialog" data-icon="'+icon+'" data-index="'+i+'" id="constraint">Constraint '+i+'</a>');
 		}
@@ -545,6 +555,7 @@ var Relational = {
             Relational.option = Relational.takeStep(previousStep);
             Relational.refreshRel(Relational.option);
         }
+		Relational.refreshConstraints();
     },
  	successfulGame: function ()
     {
