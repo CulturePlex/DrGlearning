@@ -46,6 +46,10 @@ class PlayerResource(ModelResource):
                     for attr in ["display_name", "email"]:
                         if attr in request.GET:
                             setattr(p, attr, request.GET.get(attr))
+                    if "options" in request.GET:
+                        options = json.loads(p.options)
+                        options.update(json.loads(request.GET["options"]))
+                        p.options = options
                     p.save()
             request_type = "detail"
         return super(PlayerResource, self).dispatch(request_type,

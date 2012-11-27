@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import json
 import tempfile
 
 from django import forms
@@ -22,7 +23,10 @@ from knowledges.models import Career
 class BaseQuizAndVisualForm(forms.ModelForm):
 
     def clean_answers(self):
-        answers = self.cleaned_data["answers"]
+        try:
+            answers = json.loads(self.cleaned_data["answers"])
+        except:
+            answers = self.cleaned_data["answers"]
         max_answers = settings.MAX_ANSWERS_FOR_QUIZZ_VISUAL
         max_chars = settings.MAX_ANSWERS_CHARS_FOR_QUIZZ_VISUAL
         if len(answers) > max_answers:
@@ -55,8 +59,11 @@ class LinguisticForm(forms.ModelForm):
     class Meta:
         model = Linguistic
 
-    def check_chars_lenth(self, field_name):
-        field = self.cleaned_data[field_name]
+    def check_chars_length(self, field_name):
+        try:
+            field = json.loads(self.cleaned_data[field_name])
+        except:
+            field = self.cleaned_data[field_name]
         max_chars = settings.MAX_ANSWERS_CHARS_FOR_LINGUISTIC
         if len(field) > max_chars:
             raise forms.ValidationError(_("Sorry, it cannot be more than %s "
@@ -65,10 +72,10 @@ class LinguisticForm(forms.ModelForm):
             return field
 
     def clean_locked_text(self):
-        return self.check_chars_lenth("locked_text")
+        return self.check_chars_length("locked_text")
 
     def clean_answer(self):
-        return self.check_chars_lenth("answer")
+        return self.check_chars_length("answer")
 
 
 ## Admins
@@ -146,14 +153,14 @@ class VisualAdmin(ActivityAdmin):
     class Media:
         js = ('js/visualAdminAnswers.js', 'js/visualAdminImages.js')
 
-    def change_view(self, request, object_id, extra_content=None):
+    def change_view(self, request, object_id, *args, **kwargs):
         if '_saveasnew' in request.POST:
             old_visual = Visual.objects.get(id=object_id)
             request.FILES['image'] = getattr(old_visual, 'image')
             request.FILES['obfuscated_image'] = getattr(old_visual,
                                                         'obfuscated_image')
         return super(VisualAdmin, self).change_view(request, object_id,
-                                                    extra_content)
+                                                    *args, **kwargs)
 
     def save_model(self, request, obj, form, change):
         if request.POST and request.POST.get('obfuscated_64'):
@@ -193,14 +200,14 @@ class QuizAdmin(ActivityAdmin):
     form = QuizAdminForm
     exclude = ('time', 'image', 'user')
 
-    def change_view(self, request, object_id, extra_content=None):
+    def change_view(self, request, object_id, *args, **kwargs):
         if '_saveasnew' in request.POST:
             old_quiz = Quiz.objects.get(id=object_id)
             request.FILES['image'] = getattr(old_quiz, 'image')
             request.FILES['obfuscated_image'] = getattr(old_quiz,
                                                         'obfuscated_image')
         return super(QuizAdmin, self).change_view(request, object_id,
-                                                  extra_content)
+                                                  *args, **kwargs)
 
     def save_model(self, request, obj, form, change):
         if request.POST and request.POST.get('obfuscated_64'):

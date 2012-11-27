@@ -1,4 +1,4 @@
-if ($ == undefined) {
+if ($ === undefined) {
   $ = django.jQuery;
 }
 
@@ -16,11 +16,11 @@ function getJSON(){
 function formatAnswer(answer){
   var index = $('#answer-list > li').size();
   var element = $('<li>').text(answer);
-  element.append($('<ul class="actions">')
-    .append($('<li class="delete-link">')
+  element.append($('<ul class="grp-actions" style="display: list-item;">')
+    .append($('<li class="grp-delete-link">')
       .append($('<a onClick="removeAnswer(' + index + ')">').text("Delete"))));
   return element;
-};
+}
 
 //Remove answer function
 function removeAnswer(index){
@@ -35,7 +35,7 @@ function removeAnswer(index){
     $('#answer-list').append(formatAnswer(json[i]));
   }
   createCorrectAnswerSelect();
-};
+}
 
 function createCorrectAnswerSelect(){
   var option = null;
@@ -50,7 +50,7 @@ function createCorrectAnswerSelect(){
   $('#'+widgetId).after(newSelect);
   previousValue = $('#'+widgetId).val();
   console.log("Previous", previousValue);
-  
+
   // Create its options
   $.each(existingAnswers, function(i, answer){
     option = $('<option>').attr('value', answer).text(answer);
@@ -62,24 +62,25 @@ function createCorrectAnswerSelect(){
   newSelect.attr('id', widgetId);
   newSelect.attr('name', widgetName);
   newSelect.val(previousValue);
-};
+}
 
 $(document).ready(function(){
     var DEBUG = false;
-    
+
 
     //Hide original widget
     if (!DEBUG){
         $('#id_answers').hide();
     }
 
-    //New widget elements construction    
+    //New widget elements construction
     $('#id_answers').before('<div id="answer-widget"></div>');
-    $('#answer-widget').append('<button id="add-answer" type="button">Add answer</button>')
-    $('#answer-widget').append('<ol id="answer-list"></ol>')
+    //$('#id_answers').append('<ul class="grp-actions"><li class="grp-add-link"><a id="add-answer">Add answer</a></li></ul>');
+    $('#answer-widget').append('<input id="add-answer" type="button" class="grp-button" style="width: auto;" value="Add answer" />');
+    $('#answer-widget').append('<ol id="answer-list"></ol>');
 
     $('#answer-widget').css('width', '300px');
-    
+
     //Add answer function
     $('#add-answer').click(function(){
     var newAnswer = prompt('Enter answer');
@@ -91,7 +92,7 @@ $(document).ready(function(){
         createCorrectAnswerSelect();
     }
     });
-    
+
     //Populate with existing answers
     var existingAnswers = getJSON();
     $.each(existingAnswers, function(i, answer){
