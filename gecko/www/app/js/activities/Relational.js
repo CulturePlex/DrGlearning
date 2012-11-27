@@ -212,21 +212,22 @@ var Relational = {
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
 		//Sigma
+		$('#sig').empty();
 		var sigRoot = document.getElementById('sig');
-		if(Relational.sigInst == null)
+
 		Relational.sigInst = sigma.init(sigRoot);
 		Relational.sigInst.drawingProperties({
-			defaultLabelColor: '#fff',
+		    defaultLabelColor: '#fff',
 			defaultLabelSize: 14,
 			defaultLabelBGColor: '#fff',
 			defaultLabelHoverColor: '#000',
-			labelThreshold: 6,
+			labelThreshold: 0,
 			defaultEdgeType: 'curve'
 		  }).graphProperties({
-			minNodeSize: 0.5,
+			minNodeSize: 1,
 			maxNodeSize: 15,
 			minEdgeSize: 1,
-			maxEdgeSize: 1
+			maxEdgeSize: 11
 		  }).mouseProperties({
 			maxRatio: 1,
 			mouseEnabled: false
@@ -234,16 +235,24 @@ var Relational = {
 		console.log(Relational.playerPath);
 		for(var i=0;i<Relational.playerPath.length;i++)
 		{
+			
 			Relational.sigInst.addNode(Relational.playerPath[i],{
 			  label: Relational.playerPath[i],
 			  color: '#444400',
-			  y:i/4
+			  y:(i+1)/Relational.playerPath.length
 			});
+			if(i>0)	
+			{
+				console.log(Relational);
+				Relational.sigInst.addEdge(Relational.playerEdgePath[i-1],Relational.playerPath[i-1],Relational.playerPath[i]);					
+			}
 		}
-		//Relational.sigInst.addEdge('hello_world','hello','world');
 		Relational.sigInst.draw();
 
-
+		Relational.sigInst.iterNodes(function(n){
+		 n.active = true; 
+		}).refresh();
+		
 		//FIN Sigma
     },
 	getNodeHTML: function (nodeName)
