@@ -16,6 +16,7 @@ var Relational = {
 	constraintsTextNew: [],
 	constraintState: [],
 	constraintBoolean: [],
+	sigInst:null,
     setup: function(){
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
@@ -33,6 +34,7 @@ var Relational = {
         });
     },
     refresh: function(){
+		
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Relational.activity = activity;
 	    	Relational.blankOption = i18n.gettext("Choose");
@@ -66,6 +68,9 @@ var Relational = {
         //Execute first step
         Relational.takeStep(Relational.pathStart);
         Relational.refreshRel(Relational.option);
+
+	
+		
 	},
 	takeStep: function (step)
     {
@@ -206,6 +211,40 @@ var Relational = {
         
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
+		//Sigma
+		var sigRoot = document.getElementById('sig');
+		if(Relational.sigInst == null)
+		Relational.sigInst = sigma.init(sigRoot);
+		Relational.sigInst.drawingProperties({
+			defaultLabelColor: '#fff',
+			defaultLabelSize: 14,
+			defaultLabelBGColor: '#fff',
+			defaultLabelHoverColor: '#000',
+			labelThreshold: 6,
+			defaultEdgeType: 'curve'
+		  }).graphProperties({
+			minNodeSize: 0.5,
+			maxNodeSize: 15,
+			minEdgeSize: 1,
+			maxEdgeSize: 1
+		  }).mouseProperties({
+			maxRatio: 1,
+			mouseEnabled: false
+		  });
+		console.log(Relational.playerPath);
+		for(var i=0;i<Relational.playerPath.length;i++)
+		{
+			Relational.sigInst.addNode(Relational.playerPath[i],{
+			  label: Relational.playerPath[i],
+			  color: '#444400',
+			  y:i/4
+			});
+		}
+		//Relational.sigInst.addEdge('hello_world','hello','world');
+		Relational.sigInst.draw();
+
+
+		//FIN Sigma
     },
 	getNodeHTML: function (nodeName)
 	{
