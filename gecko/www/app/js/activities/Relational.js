@@ -32,6 +32,9 @@ var Relational = {
 			Relational.takeStep($("#select-relational").val());
 			Relational.refreshRel();
         });
+		//Hiding HTML nodes list
+		$("#nodesWalked").hide();
+		$("#finalNode").hide();
     },
     refresh: function(){
 		
@@ -222,7 +225,6 @@ var Relational = {
 			defaultLabelBGColor: '#fff',
 			defaultLabelHoverColor: '#000',
 			labelThreshold: 0,
-			defaultEdgeType: 'curve'
 		  }).graphProperties({
 			minNodeSize: 1,
 			maxNodeSize: 15,
