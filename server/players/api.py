@@ -107,7 +107,9 @@ class ScoreResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = HighScore.objects.all()
+        queryset = HighScore.objects.all().order_by("-score")
         filtering = {
-            'player': 'exact'
+            'player': ('exact', 'in', 'range'),
+            'activity': ('exact', 'in', 'range'),
+            'activity__career': ('exact', 'in', 'range'),
         }
