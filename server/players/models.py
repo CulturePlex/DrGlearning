@@ -1,5 +1,6 @@
 import datetime
 import hashlib
+import jsonfield
 
 from django.db import models
 from django.conf import settings
@@ -13,7 +14,7 @@ class Player(models.Model):
     email = models.CharField(max_length=30, blank=True)
     image = models.ImageField(upload_to="images", null=True, blank=True)
     token = models.CharField(max_length=128, default="")
-    options = models.TextField(default="")
+    options = jsonfield.JSONField(default=u'{}')
 
     def __unicode__(self):
         return self.code

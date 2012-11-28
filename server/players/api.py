@@ -7,6 +7,7 @@ from tastypie.resources import ModelResource
 from activities.api import ActivityResource
 from activities.models import Activity
 from base.utils import dehydrate_fields
+from knowledges.models import Career
 from players.models import Player, HighScore
 
 
@@ -47,7 +48,7 @@ class PlayerResource(ModelResource):
                         if attr in request.GET:
                             setattr(p, attr, request.GET.get(attr))
                     if "options" in request.GET:
-                        options = json.loads(p.options)
+                        options = p.options
                         options.update(json.loads(request.GET["options"]))
                         p.options = options
                     p.save()
@@ -59,6 +60,14 @@ class PlayerResource(ModelResource):
     def dehydrate(self, bundle):
         if not self.send_token:
             bundle.obj.token = None
+        # Remove non-existing careers
+        player_careers = bundle.obj.options.get("careers", [])
+        careers = Career.objects.in_bulk(player_careers).keys()
+        player_careers.sort()
+        careers.sort()
+        if player_careers != careers:
+            bundle.obj.options["careers"] = careers
+            bundle.obj.save()
         return dehydrate_fields(bundle)
 
 
