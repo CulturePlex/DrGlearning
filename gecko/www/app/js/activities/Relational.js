@@ -43,6 +43,7 @@ var Relational = {
             Relational.activity = activity;
 	    	Relational.blankOption = i18n.gettext("Choose");
             Relational.playerPath = [];
+            Relational.undoNodes = [];
             Relational.playerEdgePath = [];
         	Relational.allConstraintsPassed = false;
             Relational.score = 20;
@@ -470,7 +471,7 @@ var Relational = {
 			if(Relational.undoNodes.indexOf(Relational.playerPath[Relational.playerPath.length-1]) == -1)
 			{
 				console.log("sacando"+Relational.playerPath[Relational.playerPath.length-1]);
-				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:(Math.random())+1,x:Math.random()});
+				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:(Math.random())+1,x:Math.random()-0.5});
 			}
             previousStep = Relational.playerPath[Relational.playerPath.length - 2];
             Relational.playerPath.splice(Relational.playerPath.length - 2, 2);
