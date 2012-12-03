@@ -215,6 +215,24 @@ var Relational = {
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
 		//Sigma
+
+		//Functions needed
+		function hashCode(str) { // java String#hashCode
+		var hash = 0;
+		for (var i = 0; i < str.length; i++) {
+		   hash = str.charCodeAt(i) + ((hash << 5) - hash);
+		}
+		return hash;	
+		} 
+
+		function intToARGB(i){
+			return ((i>>24)&0xFF).toString(16) + 
+				   ((i>>16)&0xFF).toString(16) + 
+				   ((i>>8)&0xFF).toString(16) + 
+				   (i&0xFF).toString(16);
+		}
+
+		//Propper Sigma Code
 		$('#sig').empty();
 		var sigRoot = document.getElementById('sig');
 
@@ -235,17 +253,19 @@ var Relational = {
 			mouseEnabled: false
 		  });
 		console.log(Relational.playerPath);
+		var temp;
 		for(var i=0;i<Relational.playerPath.length;i++)
 		{
-			
+			temp = "#" + Math.abs(hashCode(Relational.graphNodes[Relational.playerPath[i]].type)).toString(16).toUpperCase().slice(0,6);
+			console.log(temp);
 			Relational.sigInst.addNode(Relational.playerPath[i],{
 			  label: Relational.playerPath[i],
-			  color: '#444400',
+			  color: temp,
 			  y:(i+1)/Relational.playerPath.length
 			});
 			if(i>0)	
 			{
-				Relational.sigInst.addNode(Relational.playerEdgePath[i-1],{
+				Relational.sigInst.addNode(Relational.playerEdgePath[i-1]+Relational.playerPath[i],{
 				  label: Relational.playerEdgePath[i-1],
 				  color: '#400000',
 				  size:0.1,
@@ -260,7 +280,7 @@ var Relational = {
 		Relational.sigInst.iterNodes(function(n){
 		 n.active = true; 
 		}).refresh();
-		
+
 		//FIN Sigma
     },
 	getNodeHTML: function (nodeName)
