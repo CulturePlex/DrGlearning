@@ -245,6 +245,12 @@ var Relational = {
 			});
 			if(i>0)	
 			{
+				Relational.sigInst.addNode(Relational.playerEdgePath[i-1],{
+				  label: Relational.playerEdgePath[i-1],
+				  color: '#400000',
+				  size:0.1,
+				  y:((i+1)/Relational.playerPath.length)-1/(Relational.playerPath.length*2)
+				});
 				console.log(Relational);
 				Relational.sigInst.addEdge(Relational.playerEdgePath[i-1],Relational.playerPath[i-1],Relational.playerPath[i]);					
 			}
