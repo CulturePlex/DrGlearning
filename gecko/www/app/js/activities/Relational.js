@@ -11,6 +11,7 @@ var Relational = {
 	option: null,
 	blankOption: null, 
 	playerPath: null,
+	undoNodes: [],
 	playerEdgePath: null,
 	allConstraintsPassed: null,
 	constraintsTextNew: [],
@@ -275,6 +276,19 @@ var Relational = {
 				Relational.sigInst.addEdge(Relational.playerEdgePath[i-1],Relational.playerPath[i-1],Relational.playerPath[i]);					
 			}
 		}
+		console.log(Relational.undoNodes);
+		for(var i=0;i<Relational.undoNodes.length;i++)
+		{
+			if(Relational.playerPath.indexOf(Relational.undoNodes[i])==-1)
+			{
+				Relational.sigInst.addNode(Relational.undoNodes[i].name,{
+				  label: Relational.undoNodes[i].name,
+				  color: "#111111",
+				  y:Relational.undoNodes[i].y,
+				  x:Relational.undoNodes[i].x,
+				});
+			}
+		}
 		Relational.sigInst.draw();
 
 		Relational.sigInst.iterNodes(function(n){
@@ -453,11 +467,19 @@ var Relational = {
     {
         var previousStep;
         if (Relational.playerPath.length > 1) {
+			if(Relational.undoNodes.indexOf(Relational.playerPath[Relational.playerPath.length-1]) == -1)
+			{
+				console.log("sacando"+Relational.playerPath[Relational.playerPath.length-1]);
+				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:(Math.random()*5),x:(Math.random()*5)-2.5});
+			}
             previousStep = Relational.playerPath[Relational.playerPath.length - 2];
             Relational.playerPath.splice(Relational.playerPath.length - 2, 2);
             Relational.playerEdgePath.splice(Relational.playerEdgePath.length - 1, 1);
             Relational.option = Relational.takeStep(previousStep);
             Relational.refreshRel(Relational.option);
+			/////////////////////////////////7Relational.playerPath.length
+			
+
         }
 		Relational.refreshConstraints();
     },
