@@ -279,11 +279,11 @@ var Relational = {
 		console.log(Relational.undoNodes);
 		for(var i=0;i<Relational.undoNodes.length;i++)
 		{
-			if(Relational.playerPath.indexOf(Relational.undoNodes[i])==-1)
+			if(Relational.playerPath.indexOf(Relational.undoNodes[i].name)==-1)
 			{
 				Relational.sigInst.addNode(Relational.undoNodes[i].name,{
 				  label: Relational.undoNodes[i].name,
-				  color: "#111111",
+				  color: "#D8D8D8",
 				  y:Relational.undoNodes[i].y,
 				  x:Relational.undoNodes[i].x,
 				});
@@ -470,7 +470,7 @@ var Relational = {
 			if(Relational.undoNodes.indexOf(Relational.playerPath[Relational.playerPath.length-1]) == -1)
 			{
 				console.log("sacando"+Relational.playerPath[Relational.playerPath.length-1]);
-				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:(Math.random()*5),x:(Math.random()*5)-2.5});
+				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:(Math.random())+1,x:Math.random()});
 			}
             previousStep = Relational.playerPath[Relational.playerPath.length - 2];
             Relational.playerPath.splice(Relational.playerPath.length - 2, 2);
