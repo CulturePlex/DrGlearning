@@ -16,7 +16,7 @@ var Quiz = {
             {
 	              var listdiv = document.createElement('li');
               	listdiv.setAttribute('id','listdiv');
-              	listdiv.innerHTML = '<a id="quizSelectAnswer" href="#dialog" data-rel="dialog" data-answer="'+
+              	listdiv.innerHTML = '<a id="quizSelectAnswer" data-answer="'+
               	    activity.value.answers[i]+
               	    '"><h1>'+
               	    activity.value.answers[i]+
@@ -27,6 +27,7 @@ var Quiz = {
 	      });
 	  },
 	  checkAnswer: function(answer){
+		$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
         console.log(Quiz.activity);
 	      if(Quiz.activity.value.correct_answer === answer)
 	      {
