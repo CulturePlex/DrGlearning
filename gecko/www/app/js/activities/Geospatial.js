@@ -22,10 +22,12 @@ var Geospatial = {
             Geospatial.activity = activity;
             $('#geospatialActivityQuery').html(activity.value.query);
             $('#geospatialActivityName').html(activity.value.name);
+			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Activity...')+'</p>' });
             Geospatial.map = $('#map_canvas').gMap();
             //Starting activity after the map is render
             google.maps.event.addListener(Geospatial.map, "idle", function ()
             {
+				$.unblockUI();
                 Geospatial.start();
             });
 	      })
