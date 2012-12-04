@@ -7,20 +7,28 @@ var Temporal = {
         $(document).on('click', '#after',function(e) {
           Temporal.checkAfter(e);
         });
+		
 	  },
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             if(activity.value.image_url)
             {
-                $('#temporalImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
+				$('#temporalImage').load(function() {
+				  $.unblockUI();
+				}).attr("src", "");
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Activity...')+'</p>' });
+				$('#temporalImage').load(function() {
+				  $.unblockUI();
+				}).attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
             }
+			console.log($('#temporalImage'));
             Temporal.activity = activity;
             $('#temporalActivityQuery').html(activity.value.query);
             $('#temporalActivityName').html(activity.value.name);
             
 	      });
 	  },
-	  checkAfter: function(e){
+	checkAfter: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
             $('#dialogText').html(Temporal.activity.value.reward+". "+i18n.gettext('Score')+":100");
 			Dao.activityPlayed(Temporal.activity.value.id, true, 100);
@@ -32,7 +40,7 @@ var Temporal = {
 			Workflow.toLevel = true;
         }
 	  },
-	  checkBefore: function(e){
+	checkBefore: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
   	        $('#dialogText').html(Temporal.activity.value.penalty);
 			Dao.activityPlayed(Temporal.activity.value.id, false, 0);
