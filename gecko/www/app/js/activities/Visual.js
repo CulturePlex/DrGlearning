@@ -27,7 +27,13 @@ var Visual = {
             $('#visualActivityName').html(activity.value.name);
             if(activity.value.image_url)
             {
-                $('#visualImage').attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
+				$('#visualImage').load(function() {
+				  $.unblockUI();
+				}).attr("src", "");
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Activity...')+'</p>' });
+				$('#visualImage').load(function() {
+				  $.unblockUI();
+				}).attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
             }
             for(var i = 0; i<activity.value.answers.length;i++)
             {
