@@ -21,9 +21,11 @@ var Linguistic = {
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Linguistic.activity = activity;
             Linguistic.imageSrc = activity.value.image_url;
+			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Activity...')+'</p>' });
             var bgImage = new Image();
             bgImage.onload = function () {
-              console.log(this.width);
+				$.unblockUI();
+              	console.log(this.width);
 	            Linguistic.imageWidth = this.width;
 	            Linguistic.imageHeight = this.height;
 	            Linguistic.refresh2();
