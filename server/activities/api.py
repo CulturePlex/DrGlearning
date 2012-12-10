@@ -24,8 +24,23 @@ class ActivityResource(ModelResource):
 
     class Meta:
         queryset = Activity.objects.all()
+        filtering = {
+            'player': ('exact', 'in', 'range'),
+        }
 
     def dehydrate(self, bundle):
+        # If there a player_id is passed, add his best score
+        if "player" in bundle.request.GET:
+            player_id = bundle.request.GET.get("player")
+        elif "player__id" in bundle.request.GET:
+            player_id = bundle.request.GET.get("player__id")
+        else:
+            player_id = None
+        if player_id:
+            scores = bundle.obj.highscore_set.filter(player__id=player_id)
+            if scores:
+                score = scores[1].score
+                bundle.data["best_score"] = score
         # Set specific activity information
         if hasattr(bundle.obj, "relational"):
             child_obj = bundle.obj.relational

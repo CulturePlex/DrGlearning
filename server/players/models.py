@@ -49,3 +49,6 @@ class HighScore(models.Model):
     def __unicode__(self):
         return u"%.2f %s (%s)" % (self.score, self.player.get_name(),
                                   self.activity)
+
+    class Meta:
+        ordering = ['score']
