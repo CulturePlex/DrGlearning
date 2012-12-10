@@ -75,6 +75,14 @@ class ScoreResource(ModelResource):
     player = fields.ForeignKey(PlayerResource, 'player')
     activity = fields.ForeignKey(ActivityResource, 'activity')
 
+    class Meta:
+        queryset = HighScore.objects.all()
+        filtering = {
+            'player': ('exact', 'in', 'range'),
+            'activity': ('exact', 'in', 'range'),
+            'activity__career': ('exact', 'in', 'range'),
+        }
+
     def dispatch(self, request_type, request, **kwargs):
         required_fields = ('player_code', 'activity_id', 'score', 'token')
         if is_valid_jsonp(request_type, request, required_fields):
@@ -105,11 +113,3 @@ class ScoreResource(ModelResource):
         bundle.data['career_id'] = bundle.obj.activity.career.id
         bundle.data['activity_id'] = bundle.obj.activity.id
         return bundle
-
-    class Meta:
-        queryset = HighScore.objects.all().order_by("-score")
-        filtering = {
-            'player': ('exact', 'in', 'range'),
-            'activity': ('exact', 'in', 'range'),
-            'activity__career': ('exact', 'in', 'range'),
-        }
