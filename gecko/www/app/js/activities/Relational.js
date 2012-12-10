@@ -180,6 +180,7 @@ var Relational = {
 		{
 			$("#select-relational").append('<option data-edgetype="'+options[k].edgeType+'" value="'+options[k].value+'">'+options[k].text+'</option>');
 		}
+		$("#select-relational").selectmenu('refresh');
     },
 	refreshRel: function (option)
     {

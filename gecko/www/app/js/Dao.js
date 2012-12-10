@@ -1,4 +1,7 @@
 var Dao = {
+	userStore : new Lawnchair({adapter:'dom',name:'user'}, function(e) {
+          console.log('User Storage Open');
+    }),
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
           console.log('Careers Storage Open');
     }),
@@ -92,8 +95,8 @@ var Dao = {
         //localStorage.knowledgeFields = [];
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
-            url: HOST + "/api/v1/knowledge/?format=jsonp",
-            dataType : 'jsonp',
+            url: HOST + "/api/v1/knowledge/?format=json",
+            dataType : 'json',
             success: function (response, opts) {
                 var knowledges = response.objects;
                 Dao.knowledgesStore.nuke(); 
@@ -157,7 +160,7 @@ var Dao = {
 	updateScore: function (activityID, score, successful, timestamp) {
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
-		    url: HOST + '/api/v1/score/?format=jsonp',
+		    url: HOST + '/api/v1/score/?format=json',
 		    data: {
 		        player_code: localStorage.uniqueid,
 		        activity_id: activityID,
@@ -166,7 +169,7 @@ var Dao = {
 		        timestamp: timestamp / 1000,
 		        token: localStorage.token
 		    },
-			dataType: 'jsonp',
+			dataType: 'json',
 		    success: function (response) {
 				console.log('puntuacion enviada');
 		    }
@@ -187,8 +190,8 @@ var Dao = {
                 var size = 0;
 	      		var HOST = GlobalSettings.getServerURL();
                 $.ajax({
-                    dataType: "jsonp",
-                    url: HOST + activities[cont] + '?format=jsonp',
+                    dataType: "json",
+                    url: HOST + activities[cont] + '?format=json',
                     data: {
                         deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                         deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200

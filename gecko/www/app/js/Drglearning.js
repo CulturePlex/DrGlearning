@@ -3,18 +3,29 @@ var DrGlearning = {
     levelId: null,
     careerSelect: null,
     startApp: function(context){
-    	// Setting up Jquery blockUI CSS
-	$.blockUI.defaults.css = { 
-            padding: 0,
-            margin: 0,
-            width: '30%',
-            top: '40%',
-            left: '35%',
-	    color: 'white',
-            textFont: "Times New Roman",
-            textAlign: 'center',
-            cursor: 'wait'
-        };
+		//Setting up JQuery Ajax
+		/*$.ajaxSetup({
+			crossDomain: true,
+			beforeSend: function(xhr, settings) {
+				//if (el browser es FirefoxOS) {
+					xhr.mozSystem = true;
+					xhr.mozAnon = true;
+				//}
+			}
+		});*/
+
+		// Setting up Jquery blockUI CSS
+		$.blockUI.defaults.css = { 
+	        padding: 0,
+	        margin: 0,
+	        width: '30%',
+	        top: '40%',
+	        left: '35%',
+			color: 'white',
+	        textFont: "Times New Roman",
+	        textAlign: 'center',
+	        cursor: 'wait'
+	    };
         // Requesting Knowledge fields
         
         Dao.knowledgesRequest();
@@ -256,6 +267,7 @@ var DrGlearning = {
           }
         });
         $('#addcareerslist').empty();
+		console.log(Dao.careersStore);
         Dao.careersStore.all(function(arrCareers){
           var empty = true;	
 		      for(var i = 0; i<arrCareers.length;i++)
@@ -478,3 +490,6 @@ var DrGlearning = {
     $("footer:first").append(html);
     }
 }
+$(document).ready(function(){
+      DrGlearning.startApp(this);
+  });

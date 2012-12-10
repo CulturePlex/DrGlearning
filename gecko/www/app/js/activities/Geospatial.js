@@ -9,6 +9,7 @@ var Geospatial = {
     zoomFlag: false,
     mouseFlag: false,
     setup: function(){
+
         $(document).on('click', '#confirmGeospatial',function(e) {
           Geospatial.confirm();
         });
@@ -18,6 +19,7 @@ var Geospatial = {
         };
 	  },
     refresh: function(){
+		google.load("maps", "1");	
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Geospatial.activity = activity;
             $('#geospatialActivityQuery').html(activity.value.query);

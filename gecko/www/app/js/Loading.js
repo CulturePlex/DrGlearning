@@ -168,13 +168,44 @@ var Loading = {
              
             },
             careersRequest: function (searchString, knowledgeValue) {
-                if (localStorage.searchString !== searchString || localStorage.knowledgeValue !== knowledgeValue)
+				var localSearchString;
+				Dao.userStore.get('searchString',function(me)
+				{
+					localSearchString = (me !== null) ? me.value : '';
+				});
+				var localKnowledgeValue;
+				Dao.userStore.get('knowledgeValue',function(me)
+				{
+						localKnowledgeValue = (me !== null) ? me.value : '';
+				});
+				var localCurrentCount;
+				Dao.userStore.get('current_count',function(me)
+				{
+						localCurrentCount =  (me !== null) ? me.value : 0;
+				});			
+				var localTotalCount;
+				Dao.userStore.get('total_count',function(me)
+				{
+						localTotalCount =  (me !== null) ? me.value : 0;
+				});	
+				var localOffset;
+				Dao.userStore.get('offset',function(me)
+				{
+						localOffset = (me !== null) ? me.value : 0;
+				});	
+
+                if (localSearchString !== searchString || localKnowledgeValue !== knowledgeValue)
                 {
-                    localStorage.searchString = searchString;
-                    localStorage.knowledgeValue = knowledgeValue;
-                    localStorage.offset = 0;
-                    localStorage.total_count = 1;
-                    localStorage.current_count = 0;
+					Dao.userStore.save({key:'searchString',value:searchString});
+                    //localStorage.searchString = searchString;
+					Dao.userStore.save({key:'knowledgeValue',value:knowledgeValue});
+                    //localStorage.knowledgeValue = knowledgeValue;
+					Dao.userStore.save({key:'offset',value:0});
+                    //localStorage.offset = 0;
+					Dao.userStore.save({key:'total_count',value:1});
+                    //localStorage.total_count = 1;
+					Dao.userStore.save({key:'current_count',value:0});
+                    //localStorage.current_count = 0;
                     Dao.careersStore.all(function(arrCareers){
                       var empty = true;
 		                  for(var i = 0; i<arrCareers.length;i++)
@@ -189,60 +220,69 @@ var Loading = {
                 console.log('requesting careers...');
                 console.log(searchString);
                 console.log(knowledgeValue);
-                console.log(localStorage.current_count);
-                console.log(localStorage.total_count);
+                console.log(localCurrentCount);
+                console.log(localTotalCount);
                 
-                if (parseInt(localStorage.current_count, 10)  < parseInt(localStorage.total_count, 10) && !Loading.retrieving)
+                if (parseInt(localCurrentCount, 10)  < parseInt(localTotalCount, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;
 		   			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
                     var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
-                        offset: localStorage.offset,
-                        name__contains: localStorage.searchString,
+                        offset: localOffset,
+                        name__contains: localSearchString,
                         deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                         deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                     };
-                    if (localStorage.knowledgeValue !== 'All' && localStorage.knowledgeValue !== '')
+                    if (localKnowledgeValue !== 'All' && localKnowledgeValue !== '')
                     {
                         searchParams = {
-                            offset: localStorage.offset,
-                            name__contains: localStorage.searchString,
-                            knowledges__name: localStorage.knowledgeValue,
+                            offset: localOffset,
+                            name__contains: localSearchString,
+                            knowledges__name: localKnowledgeValue,
                             deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
-                    if (localStorage.knowledgeValue !== 'All' && localStorage.knowledgeValue === '')
+                    if (localKnowledgeValue !== 'All' && localKnowledgeValue === '')
                     {
                         searchParams = {
-                            offset: localStorage.offset,
-                            knowledges__name: localStorage.knowledgeValue,
+                            offset: localOffset,
+                            knowledges__name: localKnowledgeValue,
                             deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
-                    if (localStorage.knowledgeValue === 'All' && localStorage.knowledgeValue !== '')
+                    if (localKnowledgeValue === 'All' && localKnowledgeValue !== '')
                     {
                         searchParams = {
-                            offset: localStorage.offset,
-                            name__contains: localStorage.searchString,
+                            offset: localOffset,
+                            name__contains: localSearchString,
                             deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
+					console.log(searchParams.offset);
+					console.log(searchParams.name__contains);
+					console.log(searchParams.knowledges_name);
+					console.log(searchParams.deviceWidth);
                     jQuery.ajax({
-                        url: HOST + "/api/v1/career/?format=jsonp",
-                        dataType : 'jsonp',
+						type:'GET',
+                        url:  HOST + "/api/v1/career/?format=json",
                         data: searchParams,
-                        success: function (response, opts) {
-                            localStorage.offset = response.meta.limit;
-                            localStorage.total_count = response.meta.total_count;
+						dataType:'json',
+						success: function (response, opts) {
+							console.log(response.objects);
+							Dao.userStore.save({key:'offset',value:response.meta.limit});
+                            //localStorage.offset = response.meta.limit;
+							Dao.userStore.save({key:'total_count',value:response.meta.total_count});
+                            //localStorage.total_count = response.meta.total_count;
                             var careers = response.objects;
                             console.log('vuelve');
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
-                                localStorage.current_count ++;
+                                localCurrentCount ++;
+								Dao.userStore.save({key:'current_count',value:localCurrentCount});
 								Dao.careersStore.keys(function(keys) {
 									console.log(keys);
 									console.log(careers[cont].id.toString());
@@ -256,13 +296,14 @@ var Loading = {
                             }
                             DrGlearning.refreshAddCareers();
                             Loading.retrieving = false;
-			    $.unblockUI();
+			    			$.unblockUI();
                         },
                         failure: function () {
+                            console.log('fallo');
                             Loading.retrieving = false;
-			    $.unblockUI();
-                        }
-                    });
+							$.unblockUI();
+			            }
+			        });
                 }
             },
             getCareer: function(id) {
@@ -288,12 +329,12 @@ var Loading = {
                             var size = 0;
                             var HOST = GlobalSettings.getServerURL();
                             jQuery.ajax({
-                                url: HOST + activities[cont].full_activity_url + '?format=jsonp',
+                                url: HOST + activities[cont].full_activity_url + '?format=json',
                                 data: {
                                     deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                                     deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                                 },
-                                dataType : 'jsonp',
+                                dataType : 'json',
                                 success: function (response, opts) {
                                     var activity = response;
                                     var activityModel = {
