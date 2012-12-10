@@ -3,14 +3,36 @@ var UserSettings = {
 	preinstallingIndex: 0,
 	importedScores: null,
     saveSettings : function () {
+		var uniqueid;
+		Dao.userStore.get('uniqueid',function(me)
+		{
+			uniqueid = (me !== null) ? me.value : '';
+		});
+		var token;
+		Dao.userStore.get('token',function(me)
+		{
+			token = (me !== null) ? me.value : '';
+		});
+		var display_name;
+		Dao.userStore.get('display_name',function(me)
+		{
+			display_name = (me !== null) ? me.value : undefined;
+		});
+		var email;
+		Dao.userStore.get('email',function(me)
+		{
+			email = (me !== null) ? me.value : undefined;
+		});
         var usernameField = $('#username').val();
         var emailField = $('#email').val();
         var changed = false;
-        if (emailField !== localStorage.email || usernameField !== localStorage.display_name)
+        if (emailField !== email || usernameField !== display_name)
         {
             changed = true;
-            localStorage.display_name = usernameField;
-            localStorage.email = emailField;
+			Dao.userStore.save({key:'display_name',value:usernameField});
+            //localStorage.display_name = usernameField;
+			Dao.userStore.save({key:'email',value:emailField});
+            //localStorage.email = emailField;
         }
         /*var locale = view.down('selectfield[id=locale]').getValue();
         if (localStorage.locale !== locale) {
@@ -32,15 +54,35 @@ var UserSettings = {
         }
     },
     updateUserSettings: function () {
+		var uniqueid;
+		Dao.userStore.get('uniqueid',function(me)
+		{
+			uniqueid = (me !== null) ? me.value : '';
+		});
+		var token;
+		Dao.userStore.get('token',function(me)
+		{
+			token = (me !== null) ? me.value : '';
+		});
+		var display_name;
+		Dao.userStore.get('display_name',function(me)
+		{
+			display_name = (me !== null) ? me.value : undefined;
+		});
+		var email;
+		Dao.userStore.get('email',function(me)
+		{
+			email = (me !== null) ? me.value : undefined;
+		});
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
-            url: HOST + '/api/v1/player/?format=jsonp',
-            dataType : 'jsonp',
+            url: HOST + '/api/v1/player/?format=json',
+            dataType : 'json',
             data: {
-                code: localStorage.uniqueid,
-                token: localStorage.token,
-                email: localStorage.email,
-                display_name: localStorage.display_name
+                code: uniqueid,
+                token: token,
+                email: email,
+                display_name: display_name
             },
             success: function (response) {
                 console.log('User data sent');
@@ -52,12 +94,12 @@ var UserSettings = {
         var uniqueid =  $("#inputSync").val();
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
-            url: HOST + '/api/v1/player/?format=jsonp',
+            url: HOST + '/api/v1/player/?format=json',
             data: {
                 code: uniqueid,
                 import: true
             },
-			dataType:"jsonp",
+			dataType:"json",
             success: function (response, opts) {
                 if (response.token == null)
                 {
@@ -68,7 +110,8 @@ var UserSettings = {
                 {
 					Dao.careersStore.nuke();
 					Dao.activitiesStore.nuke();
-                    localStorage.imported=true;
+					Dao.userStore.save({key:'imported',value:true});
+                    //localStorage.imported=true;
                     UserSettings.userDataReceived(response, opts);
                 }
 			    
@@ -95,11 +138,14 @@ var UserSettings = {
                 console.log(i18n.gettext('Unable to Import'));
             }
         });
-
-        localStorage.uniqueid = response.code;
-        localStorage.token = response.token;
-        localStorage.display_name = response.display_name;
-        localStorage.email = response.email;
+		Dao.userStore.save({key:'uniqueid',value:response.code});
+        //localStorage.uniqueid = response.code;
+		Dao.userStore.save({key:'token',value:response.token});
+        //localStorage.token = response.token;
+		Dao.userStore.save({key:'display_name',value:response.display_name});
+        //localStorage.display_name = response.display_name;
+		Dao.userStore.save({key:'email',value:response.email});
+        //localStorage.email = response.email;
         $("#username").val(response.display_name);
         $("#email").val(response.email);
     },
@@ -121,8 +167,8 @@ var UserSettings = {
         {
       		var HOST = GlobalSettings.getServerURL();
             $.ajax({
-				dataType:"jsonp",
-                url: HOST + "/api/v1/career/" + UserSettings.careersToPreinstall[UserSettings.preinstallingIndex] + "/?format=jsonp",
+				dataType:"json",
+                url: HOST + "/api/v1/career/" + UserSettings.careersToPreinstall[UserSettings.preinstallingIndex] + "/?format=json",
                 success: function (response, opts) {
                     var career = response;
                     var careerModel;

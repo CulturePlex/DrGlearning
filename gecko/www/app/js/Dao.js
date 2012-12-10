@@ -158,16 +158,26 @@ var Dao = {
 		});		
 	},
 	updateScore: function (activityID, score, successful, timestamp) {
+		var uniqueid;
+		Dao.userStore.get('uniqueid',function(me)
+		{
+			uniqueid = (me !== null) ? me.value : '';
+		});
+		var token;
+		Dao.userStore.get('token',function(me)
+		{
+			token = (me !== null) ? me.value : '';
+		});
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
 		    url: HOST + '/api/v1/score/?format=json',
 		    data: {
-		        player_code: localStorage.uniqueid,
+		        player_code: uniqueid,
 		        activity_id: activityID,
 		        score: parseFloat(score),
 		        is_passed: successful,
 		        timestamp: timestamp / 1000,
-		        token: localStorage.token
+		        token: token
 		    },
 			dataType: 'json',
 		    success: function (response) {

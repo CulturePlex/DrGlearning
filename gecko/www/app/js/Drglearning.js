@@ -30,7 +30,27 @@ var DrGlearning = {
         
         Dao.knowledgesRequest();
         DrGlearning.translateApp();
-        if(localStorage.uniqueid === undefined)
+		var uniqueid;
+		Dao.userStore.get('uniqueid',function(me)
+		{
+			uniqueid = (me !== null) ? me.value : '';
+		});
+		var token;
+		Dao.userStore.get('token',function(me)
+		{
+			token = (me !== null) ? me.value : '';
+		});
+		var display_name;
+		Dao.userStore.get('display_name',function(me)
+		{
+			display_name = (me !== null) ? me.value : undefined;
+		});
+		var email;
+		Dao.userStore.get('email',function(me)
+		{
+			email = (me !== null) ? me.value : undefined;
+		});
+        if(uniqueid === '')
         {
           var digest;
           if (GlobalSettings.isDevice()) {
@@ -39,27 +59,33 @@ var DrGlearning = {
               digest = Loading.SHA1("test" + " " + new Date().getTime());
           }
           console.log("Creating User");
-          localStorage.uniqueid = digest; 
+          Dao.userStore.save({key:'uniqueid',value:digest});
+          //localStorage.uniqueid = digest; 
         }
-        if (localStorage.uniqueid !== undefined && localStorage.token === undefined) {
+		Dao.userStore.get('uniqueid',function(me)
+		{
+			uniqueid = (me !== null) ? me.value : '';
+		});
+        if (uniqueid !== '' && token === '') {
             console.log('registering user');
             jQuery.ajax({
                 url: GlobalSettings.getServerURL() + "/api/v1/player/?format=jsonp" ,
                 dataType : 'jsonp',
                 data: {
-                    "code": localStorage.uniqueid
+                    "code": uniqueid
                 },
                 success: function (response) {
                     console.log(response);
-                    localStorage.token = response.token;
+					Dao.userStore.save({key:'token',value:response.token});
+                    //localStorage.token = response.token;
                     console.log("User successfully registered");
                 }
             });
         }
 
         //Setting up data
-        $('#username').val(localStorage.display_name);
-        $('#email').val(localStorage.email);
+        $('#username').val(display_name);
+        $('#email').val(email);
         
         //Setting up pageinits
         $( '#addCourses' ).live( 'pagebeforeshow',function(event){
@@ -160,7 +186,7 @@ var DrGlearning = {
 		$('#exportUser').click(function(){
           $("#dialogSyncName").html(i18n.gettext("Export User"));
           $("#dialogSyncDescription").html(i18n.gettext("Copy and paste this code in another device"));
-  		  $("#inputSync").val(localStorage.uniqueid);
+  		  $("#inputSync").val(uniqueid);
 		  $("#inputSync").prop('disabled', true);
 		  $('#syncOK').off('click', UserSettings.importUser);
         });
