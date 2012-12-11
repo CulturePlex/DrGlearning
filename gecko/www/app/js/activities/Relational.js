@@ -287,7 +287,7 @@ var Relational = {
 				  y:((i+1)/Relational.playerPath.length)-1/(Relational.playerPath.length*2)
 				});
 				console.log(Relational);
-				Relational.sigInst.addEdge(Relational.playerEdgePath[i-1],Relational.playerPath[i-1],Relational.playerPath[i]);					
+				Relational.sigInst.addEdge(Relational.playerEdgePath[i-1]+Math.random(),Relational.playerPath[i-1],Relational.playerPath[i]);					
 			}
 		}
 		console.log(Relational.undoNodes);
