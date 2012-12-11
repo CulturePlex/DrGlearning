@@ -113,6 +113,10 @@ var DrGlearning = {
         $( '#relational' ).live( 'pagebeforeshow',function(event){
             Relational.refresh();
         });
+		
+		$( '#linguistic' ).live( 'pagebeforeshow',function(event){
+            Linguistic.refresh();
+        });
         
         //Setting up buttons
         
