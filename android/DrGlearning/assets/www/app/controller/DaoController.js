@@ -192,6 +192,12 @@ try {
                                     }
                                     var career = this.careersStore.getById(id);
                                     career.set('installed', true);
+				                    var usersStore = Ext.getStore('Users');				
+									var user = usersStore.getAt(0);
+									console.log(user);
+									user.data.options.careers.push(id);
+									usersStore.sync();
+									this.getApplication().getController('DaoController').updateUserSettings();
                                     career.save();
                                     this.careersStore.sync();
                                     this.careersStore.load();
@@ -562,7 +568,7 @@ try {
                             score: parseFloat(item.data.score),
                             is_passed: item.data.is_passed,
                             timestamp: item.data.timestamp / 1000,
-                            token: user.data.token
+                            token: user.data.token,
                         },
                         success: function (response) {
                             offlineScoreStore.remove(item);
@@ -581,7 +587,8 @@ try {
                         code: user.data.uniqueid,
                         token: user.data.token,
                         email: user.data.email,
-                        display_name: user.data.display_name
+                        display_name: user.data.display_name,
+						options: JSON.stringify(user.data.options)
                     },
                     success: function (response) {
                     }
@@ -787,6 +794,13 @@ try {
                 }
             },
             deleteCareer: function (careerID) {
+				var usersStore = Ext.getStore('Users');
+				var user = usersStore.getAt(0);
+//				user.data.options.careers.pop(careerID);				
+				var idx = user.data.options.careers.indexOf(careerID); // Find the index
+				if(idx!=-1) user.data.options.careers.splice(idx, 1);
+				console.log(user);				
+				usersStore.sync();
                 var careersStore = this.careersStore;
                 var activityStore = Ext.getStore('Activities');
                 var career = careersStore.getById(careerID);
@@ -805,6 +819,7 @@ try {
                 career.save();
                 careersStore.sync();
                 careersStore.load();
+				this.updateUserSettings();
             }
         });
     // Exceptions Catcher End

@@ -40,6 +40,9 @@ try {
                     }, {
                         name: "serverid",
                         type: "string"
+                    }, {
+                        name: "options",
+                        type: "object"
                     }
                 ],
                 proxy: {

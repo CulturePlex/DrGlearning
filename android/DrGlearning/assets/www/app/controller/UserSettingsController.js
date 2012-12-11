@@ -136,7 +136,7 @@ try {
                         Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
                     }
                 });
-
+                user.data.options = response.options;
                 user.data.uniqueid = response.code;
                 user.data.token = response.token;
                 user.data.display_name = response.display_name;
