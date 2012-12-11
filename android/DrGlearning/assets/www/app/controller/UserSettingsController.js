@@ -121,27 +121,13 @@ try {
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);
-                var HOST = this.globalSettingsController.getServerURL();
-                Ext.data.JsonP.request({
-                    scope: this,
-                    url: HOST + '/api/v1/score/?format=jsonp',
-                    params: {
-                        player: response.id
-                    },
-                    success: function (response, opts) {
-                        this.getApplication().getController('UserSettingsController').collectCareersFromScores(response, opts);
-                    },
-                    failure : function () {
-                        Ext.Viewport.setMasked(false);
-                        Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('Unable to Import User Data'), Ext.emptyFn);
-                    }
-                });
                 user.data.options = response.options;
                 user.data.uniqueid = response.code;
                 user.data.token = response.token;
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
+				this.getApplication().getController('UserSettingsController').collectCareers(response, opts);
                 var usernameField = Ext.ComponentQuery.query('textfield[id=username]')[0];
                 var emailField = Ext.ComponentQuery.query('textfield[id=email]')[0];
                 if(emailField)
@@ -154,14 +140,8 @@ try {
                 }
                 
             },
-            collectCareersFromScores: function (response, objects) {
-                careersToPreinstall = [];
-                for (var x in response.objects) {
-                    if (careersToPreinstall.indexOf(response.objects[x].career_id) === -1)
-                    {
-                        careersToPreinstall.push(response.objects[x].career_id);
-                    }
-                }
+            collectCareers: function (response, objects) {
+                careersToPreinstall = response.options.careers;
                 this.preinstallingIndex = 0;
                 this.importedScores = response.objects;
                 this.preinstall();
@@ -227,11 +207,6 @@ try {
                 } else 
                 {
                   
-                    for (var x in this.importedScores)
-                    {
-                        this.daoController.activityPlayed(this.importedScores[x].activity_id, this.importedScores[x].is_passed, this.importedScores[x].score, true);
-                    }
-
                     Ext.Viewport.setMasked(false);
                     Ext.Msg.alert(i18n.gettext('User Data Successfully Received'), i18n.gettext('Your User Data have been downloaded to this device.'), function () {
                         //localStorage.restartNeeded = true;
@@ -296,6 +271,7 @@ try {
                                 success: function (response, opts) {
                                     if (response.token == null)
                                     {
+										Ext.Viewport.setMasked(false);
                                         Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);
                                     }
                                     else

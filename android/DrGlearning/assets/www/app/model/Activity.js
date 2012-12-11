@@ -72,6 +72,9 @@ try {
                     name : "score",
                     type : "int"
                 }, {
+                    name : "best_score",
+                    type : "int"
+                }, {
                     name : "played",
                     type : "boolean"
                 }, {
