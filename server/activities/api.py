@@ -39,8 +39,9 @@ class ActivityResource(ModelResource):
         if player_id:
             scores = bundle.obj.highscore_set.filter(player__id=player_id)
             if scores:
-                score = scores[1].score
-                bundle.data["best_score"] = score
+                score = scores[1]
+                bundle.data["best_score"] = score.score
+                bundle.data["is_passed"] =  score.is_passed
         # Set specific activity information
         if hasattr(bundle.obj, "relational"):
             child_obj = bundle.obj.relational
