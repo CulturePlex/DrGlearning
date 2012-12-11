@@ -485,7 +485,7 @@ var Relational = {
 			{
 				console.log("sacando"+Relational.playerPath[Relational.playerPath.length-1]);
 				Relational.undoNodes=[];
-				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:(Math.random())+1,x:Math.random()-0.5});
+				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:1.5,x:0});
 			}
             previousStep = Relational.playerPath[Relational.playerPath.length - 2];
             Relational.playerPath.splice(Relational.playerPath.length - 2, 2);
