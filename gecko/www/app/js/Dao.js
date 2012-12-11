@@ -5,10 +5,25 @@ var Dao = {
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
           console.log('Careers Storage Open');
     }),
+	checkCode: function (element,code) {
+        var HOST = GlobalSettings.getServerURL();
+        jQuery.ajax({
+            url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
+            dataType : 'json',
+			data: {code:Loading.SHA1(code)},
+            success: function (response, opts) {
+                Dao.installCareer(element);
+            },
+            failure: function () {
+				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+			    $('#dialogText').html(i18n.gettext("Course was not installed because private code was invalid"));
+            }
+        });
+    },
     installCareer: function (element,code) {
         //Dao.careersStore.get({key:element.attr("data-href"), installed:true});
         Dao.careersStore.get(element.attr("data-href"),function(r){
-			Loading.getCareer(element.attr("data-href"),code);
+			Loading.getCareer(element.attr("data-href"));
             //r.value.installed = true;
             //Dao.careersStore.save({key:element.attr("data-href"), value: r.value});
         });

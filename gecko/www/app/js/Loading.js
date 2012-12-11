@@ -306,23 +306,11 @@ var Loading = {
 			        });
                 }
             },
-            getCareer: function(id,code) {
-				var params;
-				if(code != undefined)
-				{
-					params = {
-                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-                    };
-				}
-				else
-				{
-					params = {
-                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
-						code : code
-                    };
-				}
+            getCareer: function(id) {
+				var params = {
+                    deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
+                };
                 $('#levelslist').empty();
                 $('#levelslist').append(
                       '<li><a href="#"><h1>'+

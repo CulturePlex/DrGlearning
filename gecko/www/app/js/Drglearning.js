@@ -223,7 +223,7 @@ var DrGlearning = {
 			}
         });
 		$(document).on('click', '#privateOK',function(e) {
-			Dao.installCareer(DrGlearning.careerSelect,$("#inputPrivate").val());
+			Dao.checkCode(DrGlearning.careerSelect,$("#inputPrivate").val());
         });
         $(document).on('click', '#careertoinstall',function(e) {
             Workflow.uninstalling = false;
