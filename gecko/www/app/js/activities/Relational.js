@@ -297,18 +297,35 @@ var Relational = {
 			{
 				Relational.sigInst.addNode(Relational.undoNodes[i].name,{
 				  label: Relational.undoNodes[i].name,
-				  color: "#D8D8D8",
-				  y:Relational.undoNodes[i].y,
-				  x:Relational.undoNodes[i].x,
+				  color: "#E5E5E5",
+				  y:1.3
+				  //x:Relational.undoNodes[i].x,
 				});
+				Relational.sigInst.addEdge('lastEdge',Relational.undoNodes[i].name,Relational.playerPath[i]);
 			}
+		}
+		console.log(Relational.pathGoal);
+		if(Relational.playerPath.indexOf(Relational.pathGoal)==-1)
+		{
+			Relational.sigInst.addNode(Relational.pathGoal+121212,{
+			  label: '',
+			  color: '#FFFF00',
+			  size: 1.7,
+			  y:1.6
+			});
+			var temp2 = "#" + Math.abs(hashCode(Relational.graphNodes[Relational.pathGoal].type)).toString(16).toUpperCase().slice(0,6);
+			Relational.sigInst.addNode(Relational.pathGoal,{
+			  label: Relational.pathGoal,
+			  color: temp2,
+			  y:1.6
+			});
 		}
 		Relational.sigInst.draw();
 
 		Relational.sigInst.iterNodes(function(n){
 		 n.active = true; 
 		}).refresh();
-
+		Relational.undoNodes=[];
 		//FIN Sigma
     },
 	getNodeHTML: function (nodeName)
