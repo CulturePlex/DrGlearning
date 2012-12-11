@@ -327,7 +327,7 @@ var DrGlearning = {
 					var starHtml = "";
 					if(arrCareers[i].value.career_type == "exam")
 					{
-						starHtml = "<img src='resources/images/trophy_icon.png' height='15'>";
+						starHtml = "<img class='levelicon' src='resources/images/trophy_icon.png' height='15'>";
 					}
 		            empty = false;
 			        var listdiv = document.createElement('li');
