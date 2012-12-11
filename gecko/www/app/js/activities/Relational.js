@@ -267,7 +267,7 @@ var Relational = {
 			if(i==0)
 			{
 			Relational.sigInst.addNode(Relational.playerPath[i]+121212,{
-			  label: Relational.playerPath[i],
+			  label: '',
 			  color: '#FFFF00',
 			  size: 1.7,
 			  y:(i+1)/Relational.playerPath.length

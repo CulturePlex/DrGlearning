@@ -13,6 +13,7 @@ try {
             extend: 'Ext.app.Controller',
             careerPreinstalling: null,
             init: function () {
+				this.loadingController = this.getApplication().getController('LoadingController');
                 this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.careersListController = this.getApplication().getController('CareersListController');
                 this.careersStore = Ext.getStore('Careers');
@@ -50,7 +51,7 @@ try {
 		            });
 		            okButton.setHandler(function () {
 		                show.hide();
-						this.installCareer(id,callback,scope,show.down('#value').getValue());
+						this.checkCode(id,callback,scope,show.down('#value').getValue());
                     });	
 		            cancelButton.setHandler(function () {
 		                show.hide();
@@ -63,24 +64,26 @@ try {
 					this.installCareer(id, callback, scope);
 				}
 			},
-            installCareer: function (id, callback, scope,code) {
-				console.log(code);
+			checkCode: function (id, callback, scope,code) {
+                var HOST = this.globalSettingsController.getServerURL();
+				Ext.data.JsonP.request({
+                    url: HOST + "/api/v1/career/"+id+"/?format=jsonp",
+                    scope   : scope,
+                    params: {code: this.loadingController.SHA1(code)},
+					success: function (response, opts) {
+						this.getApplication().getController('DaoController').installCareer(id,callback,scope);
+					},
+					failure : function () {
+                        Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Invalid code for this course'), Ext.emptyFn);
+                    }
+				});
+			},
+            installCareer: function (id, callback, scope) {
 				var parameters;
-				if(code != undefined)
-				{
-					parameters = {
-                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
-						code: code
-                    }
-				}
-				else
-				{
-					parameters = {
-                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-                    }
-				}
+				parameters = {
+                    deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                }
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
                     message: i18n.gettext('Installing course') + "…",
