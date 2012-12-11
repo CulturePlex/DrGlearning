@@ -28,6 +28,8 @@ var Workflow = {
 		    $.mobile.changePage("#level");			
 			return false;
 		}
+		console.log('current course:');
+		console.log(DrGlearning.careerId);
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId,prevLevel);
 		console.log('current level:');
 		console.log(currentLevel);
@@ -104,7 +106,7 @@ var Workflow = {
     getCurrenActivity: function (carrerID, level) {
 		var activity = -1;
 		Dao.activitiesStore.each(function (record,index){
-            if (record.value.level_type == level && !record.value.successful) {
+            if (record.value.careerId == '' + carrerID &&record.value.level_type == level && !record.value.successful) {
                 activity = record; 
             }
         });
