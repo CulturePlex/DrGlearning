@@ -110,9 +110,9 @@ var DrGlearning = {
             Geospatial.refresh();
         });
 
-        /*$( '#relational' ).live( 'pagebeforeshow',function(event){
+        $( '#relational' ).live( 'pagebeforeshow',function(event){
             Relational.refresh();
-        });*/
+        });
         
         //Setting up buttons
         

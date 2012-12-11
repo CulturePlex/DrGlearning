@@ -3,6 +3,7 @@ var Workflow = {
 	currentLevelString:null,
 	toCareer:false,
 	toLevel:false,
+	toMain:false,
 	uninstalling:false,
 	/*
 	 * Updating and Showing next activity when you success one.
@@ -27,10 +28,14 @@ var Workflow = {
 		    $.mobile.changePage("#level");			
 			return false;
 		}
-		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId);
+		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId,prevLevel);
+		console.log('current level:');
+		console.log(currentLevel);
 		Dao.levelsStore.get(DrGlearning.levelId,function(level){
 			Workflow.prevLevelString = level.value.name;
 		});
+		console.log('prevLevelString');
+		console.log(Workflow.prevLevelString);
 		if (currentLevel !== -1) {
 			Dao.levelsStore.get(currentLevel,function(level){
 				Workflow.currentLevelString = level.value.name;
@@ -39,8 +44,12 @@ var Workflow = {
 		{
 		    Workflow.currentLevelString = 'Error';
 		}
+		console.log('currentLevelString');
+		console.log(Workflow.currentLevelString);
 		var currentActivity = Workflow.getCurrenActivity(DrGlearning.careerId, parseInt(prevLevel, 10));
+		console.log(currentActivity);
 		if (currentActivity != -1) {
+			console.log('same level');
 		    Workflow.updateActivity(currentActivity);
 		}
 		else {
@@ -65,17 +74,25 @@ var Workflow = {
 
 	},
     getCurrenLevel: function (careerId, level) {
+		console.log(careerId);
+		console.log(level);
         var levels;
 		Dao.careersStore.get(careerId, function(career){
 			levels = career.value.levels;
 		});
+		console.log(levels);
         for (var i = 0; i <= levels.length; i++) {
             var activities = [];
 			Dao.activitiesStore.each(function (record,index){
-                if (parseInt(record.value.careerId, 10) === parseInt(careerId, 10) && record.value.level_type === '' + level) {
+				console.log(parseInt(record.value.careerId, 10));
+				console.log(parseInt(careerId, 10));
+				console.log(record.value.level_type);
+				console.log('' + level);
+                if (parseInt(record.value.careerId, 10) === parseInt(careerId, 10) && record.value.level_type === parseInt(level, 10)) {
 					activities.push(record);
 				}
             }); 
+			console.log(activities);
             for (var j = 0; j < activities.length; j++) {
                 if (!activities[j].value.successful) {
                     return levels[i]; 

@@ -117,6 +117,7 @@ try {
                 localStorage.imported=true;
             },
             userDataReceived: function (response, opts) {
+				console.log(response);
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);

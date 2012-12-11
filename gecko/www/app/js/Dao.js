@@ -170,7 +170,7 @@ var Dao = {
 		});
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
-		    url: HOST + '/api/v1/score/?format=json',
+		    url: HOST + '/api/v1/score/?format=jsonp',
 		    data: {
 		        player_code: uniqueid,
 		        activity_id: activityID,
@@ -179,7 +179,7 @@ var Dao = {
 		        timestamp: timestamp / 1000,
 		        token: token
 		    },
-			dataType: 'json',
+			dataType: 'jsonp',
 		    success: function (response) {
 				console.log('puntuacion enviada');
 		    }
