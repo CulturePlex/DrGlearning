@@ -261,11 +261,23 @@ var Relational = {
 		{
 			temp = "#" + Math.abs(hashCode(Relational.graphNodes[Relational.playerPath[i]].type)).toString(16).toUpperCase().slice(0,6);
 			console.log(temp);
+			if(i==0)
+			{
+			Relational.sigInst.addNode(Relational.playerPath[i]+121212,{
+			  label: '',
+			  color: 0xFFFF00,
+			  size: 1.7,
+			  y:(i+1)/Relational.playerPath.length
+			});
+			}
 			Relational.sigInst.addNode(Relational.playerPath[i],{
 			  label: Relational.playerPath[i],
 			  color: temp,
+			  size: 1,
 			  y:(i+1)/Relational.playerPath.length
 			});
+			
+			
 			if(i>0)	
 			{
 				Relational.sigInst.addNode(Relational.playerEdgePath[i-1]+Relational.playerPath[i],{
