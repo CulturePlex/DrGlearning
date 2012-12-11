@@ -57,9 +57,10 @@ var DrGlearning = {
         if (uniqueid !== '' && token === '') {
             console.log('registering user');
             jQuery.ajax({
-                url: GlobalSettings.getServerURL() + "/api/v1/player/?format=jsonp" ,
-                dataType : 'jsonp',
+                url: GlobalSettings.getServerURL() + "/api/v1/player/?format=json" ,
+                dataType : 'json',
                 data: {
+					"callback": "a",
                     "code": uniqueid
                 },
                 success: function (response) {

@@ -181,7 +181,7 @@ var Relational = {
 		if(options.length == 1)
 		{
 			$("#select-relational").empty();
-			$("#select-relational").append('<option data-edgetype="" value="">'+i18n.gettext("No more options, click Undo")+'</option>');
+			$("#select-relational").append('<option data-edgetype="" value="">'+i18n.gettext("Uups, no way to reach ")+Relational.pathGoal+'</option>');
 		}
 		$("#select-relational").selectmenu('refresh');
     },
@@ -267,7 +267,7 @@ var Relational = {
 			if(i==0)
 			{
 			Relational.sigInst.addNode(Relational.playerPath[i]+121212,{
-			  label: '',
+			  label: Relational.playerPath[i],
 			  color: '#FFFF00',
 			  size: 1.7,
 			  y:(i+1)/Relational.playerPath.length

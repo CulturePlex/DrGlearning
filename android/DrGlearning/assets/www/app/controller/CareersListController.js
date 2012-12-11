@@ -264,7 +264,7 @@ try {
                     {
 						if (e.touch.target.id === "privateInfo")
 		                {
-		                    Ext.Msg.alert(i18n.gettext('Private Course'), i18n.gettext('This is a private Course. You need a code to instal it!'), function () {
+		                    Ext.Msg.alert(i18n.gettext('Private Course'), i18n.gettext('This is a private course. You need a code in order to install it.'), function () {
 		                    }, this);
 		                }
 		                else
