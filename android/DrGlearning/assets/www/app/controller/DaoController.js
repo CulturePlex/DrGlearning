@@ -351,7 +351,7 @@ try {
                                         {
                                             activitiesToInstall[cont].save();
 											console.log(activitiesToInstall[cont]);
-											this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, true, activitiesToInstall[cont].best_score, true);
+											this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, false, activitiesToInstall[cont].best_score, true);
                                         }
                                     }
                                     career.set('installed', true);
