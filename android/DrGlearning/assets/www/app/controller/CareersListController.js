@@ -262,24 +262,32 @@ try {
                     }
                     else
                     {
-                        if (!this.globalSettingsController.hasNetwork()) {
-                            Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install courses'), Ext.emptyFn);
-                        }
-                        else {
-                            Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description + '<p>' + this.getLevelsIconsHtml(career) + '</p><p>' + i18n.gettext("Are you sure you want to install this course?") + '</p>', function (answer, pako)
-                            {
-                                if (answer === 'yes') 
-                                {
-                                    Ext.Viewport.setMasked({
-                                        xtype: 'loadmask',
-                                        message: i18n.gettext('Downloading course') + "…",
-                                        indicator: true,
-                                        html: "<img src='resources/images/ic_launcher.png'>"
-                                    });
-                                    this.daoController.installCareer(career.data.id, this.installFinished, this);
-                                }
-                            }, this);
-                        }
+						if (e.touch.target.id === "privateInfo")
+		                {
+		                    Ext.Msg.alert(i18n.gettext('Private Course'), i18n.gettext('This is a private Course. You need a code to instal it!'), function () {
+		                    }, this);
+		                }
+		                else
+		                {
+		                    if (!this.globalSettingsController.hasNetwork()) {
+		                        Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('You need data connection to install courses'), Ext.emptyFn);
+		                    }
+		                    else {
+		                        Ext.Msg.confirm(i18n.translate("Install the course %s?").fetch(career.data.name), career.data.description + '<p>' + this.getLevelsIconsHtml(career) + '</p><p>' + i18n.gettext("Are you sure you want to install this course?") + '</p>', function (answer, pako)
+		                        {
+		                            if (answer === 'yes') 
+		                            {
+		                                Ext.Viewport.setMasked({
+		                                    xtype: 'loadmask',
+		                                    message: i18n.gettext('Downloading course') + "…",
+		                                    indicator: true,
+		                                    html: "<img src='resources/images/ic_launcher.png'>"
+		                                });
+		                                this.daoController.installCareer(career.data.id, this.installFinished, this);
+		                            }
+		                        }, this);
+		                    }
+						}
                     }
                 }
                 else {

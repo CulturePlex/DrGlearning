@@ -61,6 +61,9 @@ try {
                     name : "update",
                     type : "boolean"
                 }, {
+                    name : "has_code",
+                    type : "boolean"
+                }, {
                     name : "size",
                     type : "int"
                 }, {
