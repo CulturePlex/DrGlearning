@@ -98,9 +98,6 @@ var Relational = {
         }
 		
     },
- 	/** This function receives a nodeName and searches into edges
-     * data for all the related nodes. It returns a Sencha field.Select
-     * object with all the options available */
     createSelectFromNode: function (nodeName)
     {
         var edge;
@@ -179,6 +176,12 @@ var Relational = {
 		for(var k=0;k<options.length;k++)
 		{
 			$("#select-relational").append('<option data-edgetype="'+options[k].edgeType+'" value="'+options[k].value+'">'+options[k].text+'</option>');
+		}
+		console.log(options);
+		if(options.length == 1)
+		{
+			$("#select-relational").empty();
+			$("#select-relational").append('<option data-edgetype="" value="">'+i18n.gettext("No more options, click Undo")+'</option>');
 		}
 		$("#select-relational").selectmenu('refresh');
     },
