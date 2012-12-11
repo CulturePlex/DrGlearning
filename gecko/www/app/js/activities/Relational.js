@@ -505,9 +505,9 @@ var Relational = {
             Relational.score = 100;
         }
         if (Relational.allConstraintsPassed) {
-		$.mobile.changePage("#dialog")
-        $('#dialogText').html(Relational.activity.value.reward+". "+i18n.gettext('Score')+":"+Relational.score);
-		Dao.activityPlayed(Relational.activity.value.id, true, Relational.score);
+			$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+		    $('#dialogText').html(Relational.activity.value.reward+". "+i18n.gettext('Score')+":"+Relational.score);
+			Dao.activityPlayed(Relational.activity.value.id, true, Relational.score);
         }
     }
                 
