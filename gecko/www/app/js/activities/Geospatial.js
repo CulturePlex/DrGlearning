@@ -19,7 +19,7 @@ var Geospatial = {
         };
 	  },
     refresh: function(){
-		google.load("maps", "1");	
+		//google.load("maps", "1");	
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Geospatial.activity = activity;
             $('#geospatialActivityQuery').html(activity.value.query);
