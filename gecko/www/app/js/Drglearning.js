@@ -201,13 +201,36 @@ var DrGlearning = {
 		$(document).on('click', '#confirmInstall',function(e) {
 			if(Workflow.uninstalling)
 			{
+				console.log('jaja');
 				Dao.uninstall(DrGlearning.careerId);
+				$.mobile.changePage("#main");
 			}
 			else
 			{
-				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
-		        Dao.installCareer(DrGlearning.careerSelect);
+				console.log(DrGlearning.careerSelect.attr("data-href"));
+				var has_code;
+				Dao.careersStore.get(DrGlearning.careerSelect.attr("data-href"),function(r){ 
+					has_code = r.value.has_code;
+				});
+				if (has_code)
+				{
+				  $("#dialogPrivateName").html(i18n.gettext("Private Course"));
+				  $("#dialogPrivateDescription").html(i18n.gettext("Type here the private code for this course"));
+		  		  $("#inputPrivate").val('');
+				  $("#inputPrivate").prop('disabled', false);
+				  //$('#privateOK').on('click', UserSettings.importUser);
+				  $.mobile.changePage("#dialogPrivate");
+				}
+				else
+				{
+					$.mobile.changePage("#main");
+					$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
+		       		Dao.installCareer(DrGlearning.careerSelect);
+				}
 			}
+        });
+		$(document).on('click', '#privateOK',function(e) {
+			Dao.installCareer(DrGlearning.careerSelect,$("#inputPrivate").val());
         });
         $(document).on('click', '#careertoinstall',function(e) {
             Workflow.uninstalling = false;

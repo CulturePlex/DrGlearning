@@ -153,8 +153,8 @@
           <div id="questionInstall">{{Are_you_sure_you_want_to_install_this_course}}</div>
           <div id="descriptionInstall"></div>
           <div class="divCentered" id="levelsToInstall"></div>
-          <a href="#main" data-role="button" id="confirmInstall">{{Confirm}}</a>
-          <a href="#main" data-role="button" id="cancelInstall">{{Cancel}}</a>
+          <a data-role="button" id="confirmInstall">{{Confirm}}</a>
+          <a href="#addCourses" data-role="button" id="cancelInstall">{{Cancel}}</a>
       </article>
     </div><!-- Page Dialog Confirm Install -->
     <div data-role="page" id="quiz">
@@ -307,5 +307,16 @@
           <a href="#settings" data-role="button" id="syncCancel">{{Cancel}}</a>
       </article>
     </div><!-- Page Dialog Sync -->
+    <div data-role="page" id="dialogPrivate">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="dialogPrivateName">Dialog</h1>
+      </header>
+      <article data-role="content">
+          <div id="dialogPrivateDescription">Sync Description</div>
+          <input type="text" name="name" id="inputPrivate" value=""/>
+          <a href="#main" data-role="button" id="privateOK">{{OK}}</a>
+          <a href="#main" data-role="button" id="privateCancel">{{Cancel}}</a>
+      </article>
+    </div><!-- Page Dialog Private Course -->
     </body>
 </html>

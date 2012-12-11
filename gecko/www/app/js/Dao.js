@@ -5,10 +5,10 @@ var Dao = {
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
           console.log('Careers Storage Open');
     }),
-    installCareer: function (element) {
+    installCareer: function (element,code) {
         //Dao.careersStore.get({key:element.attr("data-href"), installed:true});
         Dao.careersStore.get(element.attr("data-href"),function(r){
-			Loading.getCareer(element.attr("data-href"));
+			Loading.getCareer(element.attr("data-href"),code);
             //r.value.installed = true;
             //Dao.careersStore.save({key:element.attr("data-href"), value: r.value});
         });

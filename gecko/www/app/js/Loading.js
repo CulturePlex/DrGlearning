@@ -289,7 +289,7 @@ var Loading = {
 									console.log(keys.indexOf(careers[cont].id.toString()));
 									if(keys.indexOf(careers[cont].id.toString())==-1)
 									{
-				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false,career_type:careers[cont].career_type};
+				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false,career_type:careers[cont].career_type,has_code:careers[cont].has_code};
 				                        Dao.careersStore.save({key:careers[cont].id,value:obj});
 									}
 								})
@@ -306,7 +306,23 @@ var Loading = {
 			        });
                 }
             },
-            getCareer: function(id) {
+            getCareer: function(id,code) {
+				var params;
+				if(code != undefined)
+				{
+					params = {
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                    };
+				}
+				else
+				{
+					params = {
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
+						code : code
+                    };
+				}
                 $('#levelslist').empty();
                 $('#levelslist').append(
                       '<li><a href="#"><h1>'+
