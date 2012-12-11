@@ -277,13 +277,13 @@ try {
 		                        {
 		                            if (answer === 'yes') 
 		                            {
-		                                Ext.Viewport.setMasked({
+		                                /*Ext.Viewport.setMasked({
 		                                    xtype: 'loadmask',
 		                                    message: i18n.gettext('Downloading course') + "…",
 		                                    indicator: true,
 		                                    html: "<img src='resources/images/ic_launcher.png'>"
-		                                });
-		                                this.daoController.installCareer(career.data.id, this.installFinished, this);
+		                                });*/
+		                                this.daoController.checkIfCode(career.data.id, this.installFinished, this);
 		                            }
 		                        }, this);
 		                    }

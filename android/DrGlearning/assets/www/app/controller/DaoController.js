@@ -21,9 +21,66 @@ try {
             getInstalled: function () {
                 return this.careersStore.findExact('installed', true);
             },
-
-            installCareer: function (id, callback, scope) {
-                //console.log('installing career');
+			checkIfCode: function (id, callback, scope) {
+				var career = this.careersStore.getById(id);
+				console.log(career.data.has_code == true);
+				if(career.data.has_code == true)
+				{
+					var okButton = Ext.create('Ext.Button', {
+		                scope : this,
+		                text : i18n.gettext('OK')
+		            });
+		            var cancelButton = Ext.create('Ext.Button', {
+		                scope : this,
+		                text : i18n.gettext('Cancel')
+		            });
+		            var show = new Ext.MessageBox().show({
+		                id : 'info',
+		                title : i18n.gettext('Private Course'),
+		                items : [ {
+		                    xtype : 'textareafield',
+		                    labelAlign : 'top',
+		                    label : i18n.gettext('Write the course code here') + ":",
+		                    clearIcon : false,
+		                    value : '',
+		                    id : 'value'
+		                } ],
+		                buttons : [ cancelButton, okButton ],
+		                icon : Ext.Msg.INFO
+		            });
+		            okButton.setHandler(function () {
+		                show.hide();
+						this.installCareer(id,callback,scope,show.down('#value').getValue());
+                    });	
+		            cancelButton.setHandler(function () {
+		                show.hide();
+		                this.destroy(show);
+		            });
+				}
+				else
+				{
+					console.log('holaaa');
+					this.installCareer(id, callback, scope);
+				}
+			},
+            installCareer: function (id, callback, scope,code) {
+				console.log(code);
+				var parameters;
+				if(code != undefined)
+				{
+					parameters = {
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
+						code: code
+                    }
+				}
+				else
+				{
+					parameters = {
+                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                    }
+				}
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
                     message: i18n.gettext('Installing course') + "…",
@@ -48,10 +105,7 @@ try {
                         Ext.data.JsonP.request({
                             scope: this,
                             url: HOST + activities[cont] + '?format=jsonp',
-                            params: {
-                                deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                                deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-                            },
+                            params: parameters,
                             success: function (response, opts) {
                                 var activity = response;
                                 var activityModel = new DrGlearning.model.Activity({
