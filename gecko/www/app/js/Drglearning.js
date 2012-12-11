@@ -3,17 +3,6 @@ var DrGlearning = {
     levelId: null,
     careerSelect: null,
     startApp: function(context){
-		//Setting up JQuery Ajax
-		/*$.ajaxSetup({
-			crossDomain: true,
-			beforeSend: function(xhr, settings) {
-				//if (el browser es FirefoxOS) {
-					xhr.mozSystem = true;
-					xhr.mozAnon = true;
-				//}
-			}
-		});*/
-
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = { 
 	        padding: 0,
@@ -22,7 +11,6 @@ var DrGlearning = {
 	        top: '40%',
 	        left: '35%',
 			color: 'white',
-	        textFont: "Times New Roman",
 	        textAlign: 'center',
 	        cursor: 'wait'
 	    };
