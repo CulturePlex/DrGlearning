@@ -10,7 +10,7 @@ var Dao = {
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
             dataType : 'json',
-			data: {code:Loading.SHA1(code)},
+			data: {callback: 'a',code:Loading.SHA1(code)},
             success: function (response, opts) {
                 Dao.installCareer(element);
             },
