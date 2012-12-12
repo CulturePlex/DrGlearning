@@ -254,6 +254,7 @@ try {
                 var cont;
 				var usersStore = Ext.getStore('Users');				
 				var user = usersStore.getAt(0);
+				console.log(user);
                 for (cont in activities) {
                     if (activities[cont])
                     {
@@ -266,12 +267,12 @@ try {
                             params: {
                                 deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                                 deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
-								player_id: user.id
+								player__id: user.data.serverid
                             },
                             success: function (response, opts) {  
                                 var activity = response;
                                 var career = this.getApplication().getController('DaoController').careerPreinstalling;
-								 
+								 console.log(activity);
                                 var activityModel = new DrGlearning.model.Activity({
                                     id : activity.id,
                                     name : activity.name.trim(),
@@ -290,7 +291,8 @@ try {
                                     played: false,
                                     successful: false,
                                     helpviewed: false,
-									best_score: activity.best_score
+									best_score: activity.best_score,
+									is_passed: activity.is_passed,
                                 });
                                 if (activityModel.data.activity_type == 'linguistic') {
                                     //activityModel.setImage('image', activity.image, this);
@@ -351,7 +353,7 @@ try {
                                         {
                                             activitiesToInstall[cont].save();
 											console.log(activitiesToInstall[cont]);
-											this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, true, activitiesToInstall[cont].best_score, true);
+											this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, activitiesToInstall[cont].data.is_passed, activitiesToInstall[cont].best_score, true);
                                         }
                                     }
                                     career.set('installed', true);
@@ -477,6 +479,7 @@ try {
                 console.log('Peticion de jugada!!!!!');
                 console.log('id:');
                 console.log(activityID);
+                console.log(successful);
                 var activitiesStore = Ext.getStore('Activities');
                 var activity;
                 activitiesStore.load();

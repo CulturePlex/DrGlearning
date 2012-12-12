@@ -124,6 +124,7 @@ try {
                 user.data.options = response.options;
                 user.data.uniqueid = response.code;
                 user.data.token = response.token;
+                user.data.serverid = response.id;
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
