@@ -59,10 +59,11 @@ try {
                     changed = true;
                 }
                 user.set('display_name', usernameField);
-                user.set('email', emailField);
-                user.save();
+                user.set('email', emailField);        
                 userStore.sync();
                 var locale = view.down('selectfield[id=locale]').getValue();
+				user.data.options.language = locale;
+                user.save();
                 if (localStorage.locale !== locale) {
                     if (locale === "ar")
                     {
