@@ -77,6 +77,9 @@ try {
                 }, {
                     name : "played",
                     type : "boolean"
+                },{
+                    name : "is_passed",
+                    type : "boolean"
                 }, {
                     name : "successful",
                     type : "boolean"

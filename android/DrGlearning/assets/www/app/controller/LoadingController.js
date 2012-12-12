@@ -104,7 +104,7 @@ try {
                             success: function (response) {
 
                                 this.globalSettingsController.showMessage(response);
-								user.data.options = {careers:[]};
+								user.data.options = {careers:[],language:"en_US"};
                                 user.data.token = response.token;
                                 user.data.serverid = response.id;
                                 user.data.resource_uri = response.resource_uri;
