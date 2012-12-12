@@ -3,7 +3,6 @@ from tastypie.resources import ModelResource
 
 from activities.models import Activity
 from base.utils import dehydrate_fields
-from knowledges.models import Career
 
 
 class ActivityUpdateResource(ModelResource):
@@ -15,7 +14,7 @@ class ActivityUpdateResource(ModelResource):
 
     def dehydrate(self, bundle):
         activity_url = bundle.data["resource_uri"].replace("activityupdate",
-                                                            "activity")
+                                                           "activity")
         bundle.data["full_activity_url"] = activity_url
         return bundle
 
@@ -29,7 +28,7 @@ class ActivityResource(ModelResource):
         }
 
     def dehydrate(self, bundle):
-        # If there a player_id is passed, add his best score
+        # If there a player_id, add his best score and is_passed fields
         if "player" in bundle.request.GET:
             player_id = bundle.request.GET.get("player")
         elif "player__id" in bundle.request.GET:
@@ -38,9 +37,10 @@ class ActivityResource(ModelResource):
             player_id = None
         if player_id:
             scores = bundle.obj.highscore_set.filter(player__id=player_id)
-            if scores:
-                score = scores[1].score
-                bundle.data["best_score"] = score
+            if len(scores) > 0:
+                score = scores[0]
+                bundle.data["best_score"] = score.score
+                bundle.data["is_passed"] = score.is_passed
         # Set specific activity information
         if hasattr(bundle.obj, "relational"):
             child_obj = bundle.obj.relational

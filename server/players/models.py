@@ -51,4 +51,4 @@ class HighScore(models.Model):
                                   self.activity)
 
     class Meta:
-        ordering = ['score']
+        ordering = ['-score']
