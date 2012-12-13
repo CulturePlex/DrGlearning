@@ -148,6 +148,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'django.contrib.flatpages',
     'userena',
     'userena.contrib.umessages',
     'django.contrib.gis',

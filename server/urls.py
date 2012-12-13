@@ -52,6 +52,10 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin_site.urls)),
 )
 
+urlpatterns += patterns('django.contrib.flatpages.views',
+    url(r'^support/$', 'flatpage', {'url': '/support/'}, name='support'),
+)
+
 if settings.DEBUG:
     urlpatterns += patterns('',
 
