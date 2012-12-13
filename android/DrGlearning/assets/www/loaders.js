@@ -7,6 +7,8 @@
 */
 
 var VERSION = "0.2.3", TERMS_VERSION = "0.2.3", LANGS = ["es_ES", "fr", "en", "pt_BR"];
+// Disable Terms
+delete TERMS_VERSION;
 if (typeof(CORDOVA_PLATFORM) === "undefined") {
     var CORDOVA_PLATFORM = "cordova-1.8.1.js";
 }
