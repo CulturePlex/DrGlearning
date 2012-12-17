@@ -14,6 +14,7 @@ var DrGlearning = {
 	        left: '35%',
 			color: 'white',
 	        textAlign: 'center',
+			fontFamily: "Helvetica, Arial, sans-serif",
 	        cursor: 'wait'
 	    };
         // Requesting Knowledge fields
