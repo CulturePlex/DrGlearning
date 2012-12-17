@@ -33,6 +33,11 @@ var Visual = {
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Activity...')+'</p>' });
 				$('#visualImage').load(function() {
 				  $.unblockUI();
+				  	Visual.secondtemp = setInterval(function () 
+					{
+						console.log('contando');
+						Visual.showSeconds();
+					}, 1000);
 				}).attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
             }
             for(var i = 0; i<activity.value.answers.length;i++)
@@ -54,11 +59,7 @@ var Visual = {
             $('#timeVisual').append(Visual.time + " sec");
             $('#skipButtonVisual').show();
             $('#timeVisual').show();
-            Visual.secondtemp = setInterval(function () 
-            {
-                console.log('contando');
-                Visual.showSeconds();
-            }, 1000);
+            
 	      })
 	  },
     showSeconds: function ()
