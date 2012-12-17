@@ -18,6 +18,7 @@ var Relational = {
 	constraintState: [],
 	constraintBoolean: [],
 	sigInst:null,
+	temp: null,
     setup: function(){
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
@@ -220,14 +221,13 @@ var Relational = {
         
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
-		Relational.refreshSigma();
-		Relational.refreshSigma();
-		setInterval(Relational.refreshSigma,200);
+		Relational.temp = setInterval(Relational.refreshSigma,200);
 
     },
 	refreshSigma: function (nodeName)
 	{
 		//Sigma
+		clearInterval(Relational.temp);
 		$('#sig').empty();
 		var sigRoot = document.getElementById('sig');
 

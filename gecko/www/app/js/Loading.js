@@ -415,8 +415,10 @@ var Loading = {
                                     activitiesInstalled = activitiesInstalled + 1;
                                     if (activities.length == activitiesInstalled) {
                                         for (var cont in activitiesToInstall) {
-                                            if (activitiesToInstall[cont])
+                                            if (activitiesToInstall[cont] )
                                             {
+												//Code added to avoid geospatial activities installation for 17-12-12 presentation
+												if(activitiesToInstall[cont].activity_type != "geospatial")
                                                 Dao.activitiesStore.save({key:activitiesToInstall[cont].id,value:activitiesToInstall[cont]});
                                             }
                                         }
