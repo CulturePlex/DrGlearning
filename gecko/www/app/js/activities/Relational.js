@@ -221,13 +221,13 @@ var Relational = {
         
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
-		Relational.temp = setInterval(Relational.refreshSigma,200);
+		Relational.temp = setTimeout(Relational.refreshSigma,200);
 
     },
-	refreshSigma: function (nodeName)
+	refreshSigma: function ()
 	{
+		console.log('sigma');
 		//Sigma
-		clearInterval(Relational.temp);
 		$('#sig').empty();
 		var sigRoot = document.getElementById('sig');
 
