@@ -220,25 +220,14 @@ var Relational = {
         
 		Relational.getContraintsHTML();
 		Relational.refreshConstraints();
+		Relational.refreshSigma();
+		Relational.refreshSigma();
+		setInterval(Relational.refreshSigma,200);
+
+    },
+	refreshSigma: function (nodeName)
+	{
 		//Sigma
-
-		//Functions needed
-		function hashCode(str) { // java String#hashCode
-		var hash = 0;
-		for (var i = 0; i < str.length; i++) {
-		   hash = str.charCodeAt(i) + ((hash << 5) - hash);
-		}
-		return hash;	
-		} 
-
-		function intToARGB(i){
-			return ((i>>24)&0xFF).toString(16) + 
-				   ((i>>16)&0xFF).toString(16) + 
-				   ((i>>8)&0xFF).toString(16) + 
-				   (i&0xFF).toString(16);
-		}
-
-		//Propper Sigma Code
 		$('#sig').empty();
 		var sigRoot = document.getElementById('sig');
 
@@ -258,12 +247,12 @@ var Relational = {
 			maxRatio: 1,
 			mouseEnabled: false
 		  });
-		console.log(Relational.playerPath);
+		//console.log(Relational.playerPath);
 		var temp;
 		for(var i=0;i<Relational.playerPath.length;i++)
 		{
-			temp = "#" + Math.abs(hashCode(Relational.graphNodes[Relational.playerPath[i]].type)).toString(16).toUpperCase().slice(0,6);
-			console.log(temp);
+			temp = "#" + Math.abs(GlobalSettings.hashCode(Relational.graphNodes[Relational.playerPath[i]].type)).toString(16).toUpperCase().slice(0,6);
+			//console.log(temp);
 			if(i==0)
 			{
 			Relational.sigInst.addNode(Relational.playerPath[i]+121212,{
@@ -289,11 +278,11 @@ var Relational = {
 				  size:0.1,
 				  y:((i+1)/Relational.playerPath.length)-1/(Relational.playerPath.length*2)
 				});
-				console.log(Relational);
+				//console.log(Relational);
 				Relational.sigInst.addEdge(Relational.playerEdgePath[i-1]+Math.random(),Relational.playerPath[i-1],Relational.playerPath[i]);					
 			}
 		}
-		console.log(Relational.undoNodes);
+		//console.log(Relational.undoNodes);
 		for(var i=0;i<Relational.undoNodes.length;i++)
 		{
 			if(Relational.playerPath.indexOf(Relational.undoNodes[i].name)==-1)
@@ -307,7 +296,7 @@ var Relational = {
 				Relational.sigInst.addEdge('lastEdge',Relational.undoNodes[i].name,Relational.playerPath[i]);
 			}
 		}
-		console.log(Relational.pathGoal);
+		//console.log(Relational.pathGoal);
 		if(Relational.playerPath.indexOf(Relational.pathGoal)==-1)
 		{
 			Relational.sigInst.addNode(Relational.pathGoal+121212,{
@@ -316,7 +305,7 @@ var Relational = {
 			  size: 1.7,
 			  y:1.6
 			});
-			var temp2 = "#" + Math.abs(hashCode(Relational.graphNodes[Relational.pathGoal].type)).toString(16).toUpperCase().slice(0,6);
+			var temp2 = "#" + Math.abs(GlobalSettings.hashCode(Relational.graphNodes[Relational.pathGoal].type)).toString(16).toUpperCase().slice(0,6);
 			Relational.sigInst.addNode(Relational.pathGoal,{
 			  label: Relational.pathGoal,
 			  color: temp2,
@@ -330,13 +319,14 @@ var Relational = {
 		}).refresh();
 		Relational.undoNodes=[];
 		//FIN Sigma
-    },
+
+	},
 	getNodeHTML: function (nodeName)
 	{
 		return '<p class="relational">' + nodeName + ' (' + Relational.graphNodes[nodeName].type + ')' + '</p>';
 	},
 	refreshConstraints: function() {
-		console.log(Relational);
+		//console.log(Relational);
 		var icon="plus";
 		$("#constraintsBar").empty();
 		for(var i=0; i < Relational.constraints.length ; i ++)
@@ -503,7 +493,7 @@ var Relational = {
         if (Relational.playerPath.length > 1) {
 			if(Relational.undoNodes.indexOf(Relational.playerPath[Relational.playerPath.length-1]) == -1)
 			{
-				console.log("sacando"+Relational.playerPath[Relational.playerPath.length-1]);
+				//console.log("sacando"+Relational.playerPath[Relational.playerPath.length-1]);
 				Relational.undoNodes=[];
 				Relational.undoNodes.push({name:Relational.playerPath[Relational.playerPath.length-1],y:1.5,x:0});
 			}

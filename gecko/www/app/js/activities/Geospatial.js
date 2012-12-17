@@ -18,8 +18,10 @@ var Geospatial = {
             streetViewControl: false
         };
 	  },
-    refresh: function(){
-		//google.load("maps", "1");	
+	refresh: function(){
+		google.load("maps", "3", {other_params:'format=json&sensor=false', callback: Geospatial.refresh2});
+	},
+	refresh2: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Geospatial.activity = activity;
             $('#geospatialActivityQuery').html(activity.value.query);
@@ -33,7 +35,7 @@ var Geospatial = {
                 Geospatial.start();
             });
 	      })
-	  },
+	},
     start: function ()
     {
         Geospatial.map = $('#map_canvas').gMap();

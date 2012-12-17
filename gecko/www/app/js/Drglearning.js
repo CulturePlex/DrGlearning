@@ -1,8 +1,10 @@
+
 var DrGlearning = {
     careerId: null,
     levelId: null,
     careerSelect: null,
     startApp: function(context){
+		
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = { 
 	        padding: 0,
@@ -532,7 +534,7 @@ var DrGlearning = {
     $("footer:first").empty();
     $("footer:first").append(html);
     }
-}
+};
 $(document).ready(function(){
       DrGlearning.startApp(this);
-  });
+});

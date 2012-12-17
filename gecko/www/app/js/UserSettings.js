@@ -97,7 +97,7 @@ var UserSettings = {
             url: HOST + '/api/v1/player/?format=json',
             data: {
                 code: uniqueid,
-                import: true
+                import: true,
             },
 			dataType:"json",
             success: function (response, opts) {
@@ -125,8 +125,8 @@ var UserSettings = {
 	userDataReceived: function (response, opts) {
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
-            dataType:"jsonp",
-            url: HOST + '/api/v1/score/?format=jsonp',
+            dataType:"json",
+            url: HOST + '/api/v1/score/?format=json',
             data: {
                 player: response.id
             },
