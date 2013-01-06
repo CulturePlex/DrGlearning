@@ -1,0 +1,12 @@
+{
+  "name": "Dr. Glearning",
+  "description": "The Mobile Game Learning Platform for Students and Teachers.",
+  "launch_path": "index.html",
+  "icons": {
+    "128": "/resources/images/ic_launcher.png"
+  },
+  "developer": {
+    "name": "CulturePlex Lab.",
+    "url": "http://www.cultureplex.ca"
+  }
+}
