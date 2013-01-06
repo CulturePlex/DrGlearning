@@ -10,7 +10,8 @@ var DrGlearning = {
 		var el = document.createElement("iframe");
 		el.setAttribute('id', 'ifrm');
 		el.setAttribute('height', 400);
-		$('#'+div).append(el);
+		var container = document.getElementById(div);
+		container.appendChild(el);
 		el.setAttribute('src', 'index.html?embebed=true&careerToEmbeb='+career_id);
 	},
     startApp: function(context){
