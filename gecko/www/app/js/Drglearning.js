@@ -3,8 +3,34 @@ var DrGlearning = {
     careerId: null,
     levelId: null,
     careerSelect: null,
+	embebed:false,
+	careerToEmbeb:null,
+	embebDrGlearning: function(div,career_id)
+	{
+		var el = document.createElement("iframe");
+		el.setAttribute('id', 'ifrm');
+		el.setAttribute('height', 400);
+		$('#'+div).append(el);
+		el.setAttribute('src', 'index.html?embebed=true&careerToEmbeb='+career_id);
+	},
     startApp: function(context){
-		
+		var embebed = window.location.search.substring(window.location.search.indexOf('embebed=') + 8);
+		if (embebed.indexOf('&') >= 0) {
+			embebed = embebed.substring(0, embebed.indexOf('&'));
+		}
+		DrGlearning.embebed = embebed;
+		var careerToEmbeb = window.location.search.substring(window.location.search.indexOf('careerToEmbeb=') + 14);
+		if (careerToEmbeb.indexOf('&') >= 0) {
+			careerToEmbeb = careerToEmbeb.substring(0, careerToEmbeb.indexOf('&'));
+		}
+		DrGlearning.embebed = embebed;
+		if(DrGlearning.embebed)
+		{
+			$('#career').children('header').children('a').remove();
+			console.log($('#footercourse'));
+			$('#footercourse').remove();
+		}
+		DrGlearning.careerToEmbeb = careerToEmbeb;
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = { 
 	        padding: 0,
@@ -262,6 +288,13 @@ var DrGlearning = {
         Linguistic.setup();
         Geospatial.setup();
         Relational.setup();
+		if(DrGlearning.embebed)
+		{
+			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
+			console.log(DrGlearning.careerToEmbeb);
+			DrGlearning.careerId=parseInt(DrGlearning.careerToEmbeb,10);
+			Loading.getCareer(parseInt(DrGlearning.careerToEmbeb,10));
+		}
     },
     refreshMain: function(){
         $(window).scroll(function(){
@@ -536,6 +569,3 @@ var DrGlearning = {
     $("footer:first").append(html);
     }
 };
-$(document).ready(function(){
-      DrGlearning.startApp(this);
-});
