@@ -5,10 +5,12 @@ var DrGlearning = {
     careerSelect: null,
 	embed:false,
 	careerToEmbed:null,
-	embedDrGlearning: function(div,career_id)
+	embedDrGlearning: function(div,career_id, height, width)
 	{
 		var el = document.createElement("iframe");
 		el.setAttribute('id', 'ifrm');
+		el.setAttribute('height', height);
+		el.setAttribute('width', width);
 		var container = document.getElementById(div);
 		container.appendChild(el);
 		el.setAttribute('src', 'index.html?embed=true&careerToEmbed='+career_id);
