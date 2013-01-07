@@ -167,7 +167,7 @@ var Loading = {
                 return temp.toLowerCase();
              
             },
-            careersRequest: function (searchString, knowledgeValue) {
+            careersRequest: function (searchString, knowledgeValue,id) {
 				var localSearchString;
 				Dao.userStore.get('searchString',function(me)
 				{
@@ -262,6 +262,10 @@ var Loading = {
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
+					if(id)
+					{
+						searchParams.id=id;
+					}
 					console.log(searchParams.offset);
 					console.log(searchParams.name__contains);
 					console.log(searchParams.knowledges_name);
@@ -285,12 +289,12 @@ var Loading = {
 								Dao.userStore.save({key:'current_count',value:localCurrentCount});
 								Dao.careersStore.keys(function(keys) {
 									console.log(keys);
-									console.log(careers[cont].id.toString());
-									console.log(keys.indexOf(careers[cont].id.toString()));
-									if(keys.indexOf(careers[cont].id.toString())==-1)
+									console.log(response.id.toString());
+									console.log(keys.indexOf(response.id.toString()));
+									if(keys.indexOf(response.id.toString())==-1)
 									{
-				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false,career_type:careers[cont].career_type,has_code:careers[cont].has_code};
-				                        Dao.careersStore.save({key:careers[cont].id,value:obj});
+				                        var obj = {name:response.name,description:response.description,levels:response.levels,activities:response.activities,installed:false,career_type:response.career_type,has_code:response.has_code};
+				                        Dao.careersStore.save({key:response.id,value:obj});
 									}
 								})
                             }
@@ -305,6 +309,40 @@ var Loading = {
 			            }
 			        });
                 }
+            },
+			requestACareer: function (id) {
+				console.log('asd');
+		   			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
+                    var HOST = GlobalSettings.getServerURL();
+                   
+                    jQuery.ajax({
+						type:'GET',
+                        url:  HOST + "/api/v1/career/"+id+"/?format=json",
+						dataType:'json',
+						success: function (response, opts) {
+                            var obj = {
+								name:response.name, 		
+								description:response.description, 
+								levels:response.levels, 
+								activities:response.activities, 
+								installed:false, 
+								career_type:response.career_type,
+								has_code:response.has_code
+							};
+				            Dao.careersStore.save({key:response.id,value:obj});
+							
+
+
+                            Loading.getCareer(id);
+                            Loading.retrieving = false;
+
+                        },
+                        failure: function () {
+                            console.log('fallo');
+                            Loading.retrieving = false;
+							$.unblockUI();
+			            }
+			        });
             },
             getCareer: function(id) {
 				var params = {
@@ -418,7 +456,7 @@ var Loading = {
                                             if (activitiesToInstall[cont] )
                                             {
 												//Code added to avoid geospatial activities installation for 17-12-12 presentation
-												if(activitiesToInstall[cont].activity_type != "geospatial")
+												//if(activitiesToInstall[cont].activity_type != "geospatial")
                                                 Dao.activitiesStore.save({key:activitiesToInstall[cont].id,value:activitiesToInstall[cont]});
                                             }
                                         }
