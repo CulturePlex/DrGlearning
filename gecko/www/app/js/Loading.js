@@ -427,7 +427,7 @@ var Loading = {
 										Dao.careersStore.save({key:career.key,value:career.value});
                                         DrGlearning.refreshMain();						
 										$.unblockUI();
-										if(DrGlearning.embebed)
+										if(DrGlearning.embed)
 										{
 											$.mobile.changePage("#career");
 										}
