@@ -5,6 +5,7 @@ var DrGlearning = {
     careerSelect: null,
 	embed:false,
 	careerToEmbed:null,
+	codeError: false,
 	embedDrGlearning: function(div,career_id, height, width)
 	{
 		var el = document.createElement("iframe");
@@ -361,7 +362,7 @@ var DrGlearning = {
 					{
 						starHtml = "<img class='levelicon' src='resources/images/trophy_icon.png' height='15'>";
 					}
-					if(arrCareers[i].value.career_type == "exam")
+					if(arrCareers[i].value.has_code)
 					{
 						padHtml = "<img class='levelicon' src='resources/images/padlock.png' height='15'>";
 					}

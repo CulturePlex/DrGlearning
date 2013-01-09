@@ -6,6 +6,7 @@ var Dao = {
           console.log('Careers Storage Open');
     }),
 	checkCode: function (element,code) {
+		console.log('a checkear');
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
@@ -13,11 +14,18 @@ var Dao = {
 			data: {callback: 'a',code:Loading.SHA1(code)},
             success: function (response, opts) {
                 Dao.installCareer(element);
+				console.log('y bien');
             },
             failure: function () {
+				Workflow.toMain = true;
 				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 			    $('#dialogText').html(i18n.gettext("Course was not installed because private code was invalid"));
-            }
+            },
+			error: function () {
+				Workflow.toMain = true;
+				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+			    $('#dialogText').html(i18n.gettext("Course was not installed because private code was invalid"));
+            },
         });
     },
     installCareer: function (element,code) {
