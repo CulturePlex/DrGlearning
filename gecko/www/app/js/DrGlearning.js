@@ -356,9 +356,14 @@ var DrGlearning = {
 		        if(arrCareers[i].value.installed === false)
 		        {
 					var starHtml = "";
+					var padHtml = "";
 					if(arrCareers[i].value.career_type == "exam")
 					{
 						starHtml = "<img class='levelicon' src='resources/images/trophy_icon.png' height='15'>";
+					}
+					if(arrCareers[i].value.career_type == "exam")
+					{
+						padHtml = "<img class='levelicon' src='resources/images/padlock.png' height='15'>";
 					}
 		            empty = false;
 			        var listdiv = document.createElement('li');
@@ -366,7 +371,7 @@ var DrGlearning = {
 		        	listdiv.innerHTML = '<a id="careertoinstall" href="#dialogConfirmInstall" data-rel="dialog" data-href="'+
             	    arrCareers[i].key+
             	    '"><h1>'+
-            	    arrCareers[i].value.name+starHtml+
+            	    arrCareers[i].value.name+starHtml+padHtml
             	    '</h1></a>';
 			        $('#addcareerslist').append(listdiv);
 			      }
