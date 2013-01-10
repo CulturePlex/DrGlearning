@@ -199,6 +199,7 @@ var Dao = {
         $.ajax({
 		    url: HOST + '/api/v1/score/',
 		    data: {
+				callback:"a",
 		        player_code: uniqueid,
 		        activity_id: activityID,
 		        score: parseFloat(score),
