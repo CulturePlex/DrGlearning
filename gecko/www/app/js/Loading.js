@@ -465,6 +465,14 @@ var Loading = {
 										Dao.careersStore.save({key:career.key,value:career.value});
                                         DrGlearning.refreshMain();						
 										$.unblockUI();
+										var temp;
+										Dao.userStore.get('options',function(me) {
+											temp = me;
+										});			
+										console.log(temp);
+										temp.value.careers.push(id);	
+										Dao.userStore.save({key:'options',value:temp.value});
+										UserSettings.updateUserSettings();
 										if(DrGlearning.embed)
 										{
 											$.mobile.changePage("#career");

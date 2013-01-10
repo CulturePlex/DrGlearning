@@ -82,14 +82,9 @@ var Workflow = {
 		Dao.careersStore.get(careerId, function(career){
 			levels = career.value.levels;
 		});
-		console.log(levels);
         for (var i = 0; i <= levels.length; i++) {
             var activities = [];
 			Dao.activitiesStore.each(function (record,index){
-				console.log(parseInt(record.value.careerId, 10));
-				console.log(parseInt(careerId, 10));
-				console.log(record.value.level_type);
-				console.log('' + level);
                 if (parseInt(record.value.careerId, 10) === parseInt(careerId, 10) && record.value.level_type === parseInt(level, 10)) {
 					activities.push(record);
 				}

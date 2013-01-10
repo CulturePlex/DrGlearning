@@ -143,6 +143,7 @@ try {
                 
             },
             collectCareers: function (response, objects) {
+				console.log(response);
                 careersToPreinstall = response.options.careers;
                 this.preinstallingIndex = 0;
                 this.importedScores = response.objects;
