@@ -470,6 +470,10 @@ var Loading = {
 											temp = me;
 										});			
 										console.log(temp);
+										if(!temp.value.careers)
+										{
+											temp.value.careers = [];
+										}
 										temp.value.careers.push(id);	
 										Dao.userStore.save({key:'options',value:temp.value});
 										UserSettings.updateUserSettings();

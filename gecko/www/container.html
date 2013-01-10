@@ -9,5 +9,15 @@
     <body>
     <div id="main">
     </div>
+    <script type="text/javascript" charset="utf-8">
+	XD.receiveMessage(function(message){
+		console.log(message.data);
+		UserSettings.importUser(parseInt(message.data,10));
+	},'URL DESDE DONDE SE INCRUSTAN LOS CURSOS');
+
+	DrGlearning.embedDrGlearning("main",2,400,400,true);
+
+	
+	</script>
     </body>
 </html>

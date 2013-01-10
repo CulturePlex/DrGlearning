@@ -325,7 +325,8 @@ var DrGlearning = {
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
 
 				var parent_url = decodeURIComponent(document.location.hash.replace(/^#/, ''));
-
+				console.log(parent_url);
+				console.log(parent);
 				XD.postMessage('ready', parent_url, parent);
 				
 				XD.receiveMessage(function(message){
