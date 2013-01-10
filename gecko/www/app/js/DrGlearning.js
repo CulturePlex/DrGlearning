@@ -108,6 +108,9 @@ var DrGlearning = {
                 },
                 success: function (response) {
                     console.log(response);
+					response.options = {};
+					var options = { careers : [] };
+					Dao.userStore.save({key:'options',value:options});
 					Dao.userStore.save({key:'token',value:response.token});
                     //localStorage.token = response.token;
                     console.log("User successfully registered");
@@ -222,6 +225,10 @@ var DrGlearning = {
 		$('#exportUser').click(function(){
           $("#dialogSyncName").html(i18n.gettext("Export User"));
           $("#dialogSyncDescription").html(i18n.gettext("Copy and paste this code in another device"));
+		  Dao.userStore.get('uniqueid',function(me)
+		  {
+			  uniqueid = (me !== null) ? me.value : '';
+          });
   		  $("#inputSync").val(uniqueid);
 		  $("#inputSync").prop('disabled', true);
 		  $('#syncOK').off('click', UserSettings.importUser);

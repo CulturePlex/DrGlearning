@@ -74,15 +74,23 @@ var UserSettings = {
 		{
 			email = (me !== null) ? me.value : undefined;
 		});
+		var options;
+		Dao.userStore.get('options',function(me)
+		{
+			options = (me !== null) ? me.value : undefined;
+		});
+		console.log(options);
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + '/api/v1/player/?format=json',
             dataType : 'json',
             data: {
+				callback: "a",
                 code: uniqueid,
                 token: token,
                 email: email,
-                display_name: display_name
+                display_name: display_name,
+				options: JSON.stringify(options)
             },
             success: function (response) {
                 console.log('User data sent');
@@ -114,7 +122,9 @@ var UserSettings = {
             success: function (response, opts) {
                 if (response.token == null)
                 {
-                    console.log("Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);");
+                    $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+					Workflow.toMain = true;
+					$.mobile.changePage("#dialog");
 					$.unblockUI();
                 }
                 else
@@ -128,28 +138,15 @@ var UserSettings = {
 			    
             },
             failure : function () {
-                console.log("Ext.Msg.alert(i18n.gettext('Unable to Import'), i18n.gettext('You typed an incorrect code'), Ext.emptyFn);");
+                $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+				Workflow.toMain = true;
+				$.mobile.changePage("#dialog");
 			    $.unblockUI();
             }
        });
     },
 	userDataReceived: function (response, opts) {
-		console.log(response);
-        var HOST = GlobalSettings.getServerURL();
-        $.ajax({
-            dataType:"json",
-            url: HOST + '/api/v1/score/?format=json',
-            data: {
-                player: response.id
-            },
-            success: function (response, opts) {
-                UserSettings.collectCareersFromScores(response, opts);
-            },
-            failure : function () {
-                $.unblockUI();
-                console.log(i18n.gettext('Unable to Import'));
-            }
-        });
+		Dao.userStore.save({key:'id',value:response.id});
 		Dao.userStore.save({key:'uniqueid',value:response.code});
         //localStorage.uniqueid = response.code;
 		Dao.userStore.save({key:'token',value:response.token});
@@ -157,9 +154,28 @@ var UserSettings = {
 		Dao.userStore.save({key:'display_name',value:response.display_name});
         //localStorage.display_name = response.display_name;
 		Dao.userStore.save({key:'email',value:response.email});
+
+		Dao.userStore.save({key:'options',value:response.options});
+		UserSettings.collectCareers(response, opts);
         //localStorage.email = response.email;
+		$("#username").val(response.display_name);
         $("#username").val(response.display_name);
         $("#email").val(response.email);
+    },
+ 	collectCareers: function (response, objects) {
+        this.careersToPreinstall = response.options.careers;
+		console.log(this.careersToPreinstall);
+        this.preinstallingIndex = 0;
+        this.importedScores = response.objects;
+		if(this.careersToPreinstall)
+		{
+        	this.preinstall();
+		}
+		else
+		{
+			$.unblockUI();
+	        console.log("successfull import!");
+		}
     },
 	collectCareersFromScores: function (response, objects) {
         UserSettings.careersToPreinstall = [];

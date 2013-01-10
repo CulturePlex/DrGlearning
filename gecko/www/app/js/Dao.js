@@ -11,7 +11,7 @@ var Dao = {
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
             dataType : 'json',
-			data: {callback: 'a',code:Loading.SHA1(code)},
+			data: {callback: 'a'},
             success: function (response, opts) {
                 Dao.installCareer(element);
 				console.log('y bien');
@@ -120,6 +120,10 @@ var Dao = {
         jQuery.ajax({
             url: HOST + "/api/v1/knowledge/?format=json",
             dataType : 'json',
+			data: {
+					"callback": "a",
+                    
+                },
             success: function (response, opts) {
                 var knowledges = response.objects;
                 Dao.knowledgesStore.nuke(); 
@@ -193,7 +197,7 @@ var Dao = {
 		});
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
-		    url: HOST + '/api/v1/score/?format=json',
+		    url: HOST + '/api/v1/score/',
 		    data: {
 				callback:"a",
 		        player_code: uniqueid,
@@ -203,7 +207,7 @@ var Dao = {
 		        timestamp: timestamp / 1000,
 		        token: token
 		    },
-			dataType: 'json',
+			dataType: "jsonp",
 		    success: function (response) {
 				console.log('puntuacion enviada');
 		    }
@@ -217,6 +221,11 @@ var Dao = {
         console.log(activities);
         var activitiesInstalled = 0;
         var cont;
+		var id;
+		Dao.userStore.get('id',function(me)
+		{
+			id = (me !== null) ? me.value : '';
+		});
         for (cont in activities) {
             if (activities[cont])
             {
@@ -230,9 +239,14 @@ var Dao = {
                         deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                         deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                     },
+					data: {
+					"callback": "a",
+                    "player__id": id
+	                },
                     success: function (response, opts) {
                         var activity = response;
                         var career = Dao.careerPreinstalling;
+						console.log(activity);
                         var activityModel = {
                             id : activity.id,
                             name : activity.name.trim(),
@@ -247,9 +261,9 @@ var Dao = {
                             resource_uri : activity.resource_uri.trim(),
                             reward: activity.reward.trim(),
                             penalty: activity.penalty.trim(),
-                            score: 0,
-                            played: false,
-                            successful: false,
+                            score: (activity.best_score !== null) ? activity.best_score : 0,
+                            played: (activity.best_score !== null) ? true : false,
+                            successful: (activity.is_passed === true) ? true : false,
                             helpviewed: false
                         };
                         if (activityModel.activity_type == 'linguistic') {
