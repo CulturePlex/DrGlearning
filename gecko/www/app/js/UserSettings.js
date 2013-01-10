@@ -94,12 +94,12 @@ var UserSettings = {
         var uniqueid =  $("#inputSync").val();
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
-            url: HOST + '/api/v1/player/?format=json',
+            url: HOST + '/api/v1/player/?format=jsonp',
             data: {
                 code: uniqueid,
                 import: true,
             },
-			dataType:"json",
+			dataType:"jsonp",
             success: function (response, opts) {
                 if (response.token == null)
                 {
