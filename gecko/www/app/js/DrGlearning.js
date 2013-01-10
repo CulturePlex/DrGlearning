@@ -4,9 +4,10 @@ var DrGlearning = {
     levelId: null,
     careerSelect: null,
 	embed:false,
+	embedImport:false,
 	careerToEmbed:null,
 	codeError: false,
-	embedDrGlearning: function(div,career_id, height, width)
+	embedDrGlearning: function(div,career_id, height, width,imp)
 	{
 		var el = document.createElement("iframe");
 		el.setAttribute('id', 'ifrm');
@@ -14,7 +15,12 @@ var DrGlearning = {
 		el.setAttribute('width', width);
 		var container = document.getElementById(div);
 		container.appendChild(el);
-		el.setAttribute('src', 'index.html?embed=true&careerToEmbed='+career_id);
+		var url='index.html?embed=true&careerToEmbed='+career_id;
+		if(imp)
+		{
+			url+='&import=true';
+		}
+		el.setAttribute('src', url);
 	},
     startApp: function(context){
 		var embed = window.location.search.substring(window.location.search.indexOf('embed=') + 8);
@@ -26,14 +32,19 @@ var DrGlearning = {
 		if (careerToEmbed.indexOf('&') >= 0) {
 			careerToEmbed = careerToEmbed.substring(0, careerToEmbed.indexOf('&'));
 		}
-		DrGlearning.embed = embed;
+		DrGlearning.careerToEmbed = careerToEmbed;
+		var embedImport = window.location.search.substring(window.location.search.indexOf('import=') + 7);
+		if (embedImport.indexOf('&') >= 0) {
+			embedImport = embedImport.substring(0, careerToEmbed.indexOf('&'));
+		}
+		DrGlearning.embedImport = embedImport;
 		if(DrGlearning.embed)
 		{
 			$('#career').children('header').children('a').remove();
 			console.log($('#footercourse'));
 			$('#footercourse').remove();
 		}
-		DrGlearning.careerToEmbed = careerToEmbed;
+
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = { 
 	        padding: 0,
@@ -291,13 +302,32 @@ var DrGlearning = {
         Linguistic.setup();
         Geospatial.setup();
         Relational.setup();
+		console.log(DrGlearning);
 		if(DrGlearning.embed)
 		{
-			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
-			console.log(DrGlearning.careerToEmbed);
-			DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
-			Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
+			if(!DrGlearning.embedImport)
+			{
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
+				console.log(DrGlearning.careerToEmbed);
+				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
+				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
+			}
+			else
+			{
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
+				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
+
+				var parent_url = decodeURIComponent(document.location.hash.replace(/^#/, ''));
+
+				XD.postMessage('ready', parent_url, parent);
+				
+				XD.receiveMessage(function(message){
+					console.log(message.data);
+					UserSettings.importUser(parseInt(message.data,10));
+				}, 'http://courses.cultureplex.ca');
+			}
 		}
+
     },
     refreshMain: function(){
         $(window).scroll(function(){

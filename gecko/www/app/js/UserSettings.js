@@ -89,9 +89,20 @@ var UserSettings = {
             }
         });
     },
-	importUser : function () {
+	importUser : function (player_code) {
         $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Importing user data...')+'</p>' });
-        var uniqueid =  $("#inputSync").val();
+		var uniqueid;
+		if(typeof player_code != "object")
+		{
+			uniqueid = player_code;
+		}
+		else
+		{
+			uniqueid = $("#inputSync").val();
+		}
+		console.log(typeof player_code);
+		console.log($("#inputSync").val());
+		console.log(uniqueid);
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
             url: HOST + '/api/v1/player/?format=jsonp',
@@ -123,6 +134,7 @@ var UserSettings = {
        });
     },
 	userDataReceived: function (response, opts) {
+		console.log(response);
         var HOST = GlobalSettings.getServerURL();
         $.ajax({
             dataType:"json",
@@ -214,9 +226,15 @@ var UserSettings = {
             {
                 Dao.activityPlayed(UserSettings.importedScores[x].activity_id, UserSettings.importedScores[x].is_passed, UserSettings.importedScores[x].score, true);
             }
-
-        	$.unblockUI();
-            console.log("successfull import!");
+			if(DrGlearning.embedImport)
+			{
+				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
+			}
+			else
+			{
+		    	$.unblockUI();
+		        console.log("successfull import!");
+			}
             
         }
     },
