@@ -245,6 +245,7 @@ var Dao = {
                     success: function (response, opts) {
                         var activity = response;
                         var career = Dao.careerPreinstalling;
+						console.log(activity);
                         var activityModel = {
                             id : activity.id,
                             name : activity.name.trim(),
@@ -261,7 +262,7 @@ var Dao = {
                             penalty: activity.penalty.trim(),
                             score: (activity.best_score !== null) ? activity.best_score : 0,
                             played: (activity.best_score !== null) ? true : false,
-                            successful: (activity.is_passed !== null) ? activity.is_passed : false,
+                            successful: (activity.is_passed === true) ? true : false,
                             helpviewed: false
                         };
                         if (activityModel.activity_type == 'linguistic') {
