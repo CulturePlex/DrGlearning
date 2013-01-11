@@ -47,7 +47,7 @@ var DrGlearning = {
 		}
 
 		// Setting up Jquery blockUI CSS
-		$.blockUI.defaults.css = { 
+		$.blockUI.defaults.css = {
 	        padding: 0,
 	        margin: 0,
 	        width: '30%',
@@ -59,7 +59,7 @@ var DrGlearning = {
 	        cursor: 'wait'
 	    };
         // Requesting Knowledge fields
-        
+
         Dao.knowledgesRequest();
         DrGlearning.translateApp();
 		var uniqueid;
@@ -92,7 +92,7 @@ var DrGlearning = {
           }
           console.log("Creating User");
           Dao.userStore.save({key:'uniqueid',value:digest});
-          //localStorage.uniqueid = digest; 
+          //localStorage.uniqueid = digest;
         }
 		Dao.userStore.get('uniqueid',function(me)
 		{
@@ -122,38 +122,38 @@ var DrGlearning = {
         //Setting up data
         $('#username').val(display_name);
         $('#email').val(email);
-        
+
         //Setting up pageinits
         $( '#addCourses' ).live( 'pagebeforeshow',function(event){
             DrGlearning.refreshAddCareers();
         });
-        
+
         $( '#main' ).live( 'pagebeforeshow',function(event){
            DrGlearning.refreshMain();
-           
+
         });
-        
+
         $( '#career' ).live( 'pagebeforeshow',function(event){
             //Loading.getCareer(DrGlearning.careerId);
 			DrGlearning.refreshCareer();
         });
-        
+
         $( '#level' ).live( 'pagebeforeshow',function(event){
             DrGlearning.refreshLevel();
         });
-        
+
         $( '#quiz' ).live( 'pagebeforeshow',function(event){
             Quiz.refresh();
         });
-        
+
         $( '#temporal' ).live( 'pagebeforeshow',function(event){
             Temporal.refresh();
         });
-        
+
         $( '#visual' ).live( 'pagebeforeshow',function(event){
             Visual.refresh();
         });
-        
+
         $( '#geospatial' ).live( 'pagebeforeshow',function(event){
             Geospatial.refresh();
         });
@@ -161,13 +161,13 @@ var DrGlearning = {
         $( '#relational' ).live( 'pagebeforeshow',function(event){
             Relational.refresh();
         });
-		
+
 		$( '#linguistic' ).live( 'pagebeforeshow',function(event){
             Linguistic.refresh();
         });
-        
+
         //Setting up buttons
-        
+
         $(document).on('click', '#accesscareer',function(e) {
 			DrGlearning.setCareerId($(this));
             $.mobile.changePage("#career");
@@ -175,7 +175,7 @@ var DrGlearning = {
         });
 
         $(document).on('click', '#dialogOK',function(e) {
-            Workflow.nextActivity(DrGlearning.levelId);       
+            Workflow.nextActivity(DrGlearning.levelId);
             return false;
         });
 
@@ -184,7 +184,7 @@ var DrGlearning = {
             $.mobile.changePage("#level");
             return false;
         });
-        
+
         $(document).on('click', '#accessactivity',function(e) {
             DrGlearning.setActivityId($(this));
             if(DrGlearning.activityType === "quiz")
@@ -240,8 +240,8 @@ var DrGlearning = {
 		$('#uninstall').click(function(){
           $('#questionInstall').html(i18n.gettext("Are you sure you want to uninstall this course?"));
 		  Workflow.uninstalling = true;
-        });   
-		   
+        });
+
 		$(document).on('click', '#confirmInstall',function(e) {
 			if(Workflow.uninstalling)
 			{
@@ -253,7 +253,7 @@ var DrGlearning = {
 			{
 				console.log(DrGlearning.careerSelect.attr("data-href"));
 				var has_code;
-				Dao.careersStore.get(DrGlearning.careerSelect.attr("data-href"),function(r){ 
+				Dao.careersStore.get(DrGlearning.careerSelect.attr("data-href"),function(r){
 					has_code = r.value.has_code;
 				});
 				if (has_code)
@@ -280,7 +280,7 @@ var DrGlearning = {
             Workflow.uninstalling = false;
             DrGlearning.careerSelect = $(this);
             DrGlearning.setCareerId($(this));
-            Dao.careersStore.get($(this).attr("data-href"),function(r){ 
+            Dao.careersStore.get($(this).attr("data-href"),function(r){
               var filesImgs = ["illetratum.png", "primary.png", "secondary.png", "highschool.png", "college.png", "master.png", "phd.png", "postdoc.png", "professor.png", "emeritus.png"];
               $("#questionInstall").empty();
               $("#questionInstall").append("<h3>Install the course "+ r.value.name +"?</h3>");
@@ -294,15 +294,15 @@ var DrGlearning = {
               $("#levelsToInstall").empty();
               $("#levelsToInstall").append( html);
             });
-            
-			 
+
+
         });
         //Initializing levelsStore
         Dao.initLevels();
-        
+
         //Refreshing installed careers
         DrGlearning.refreshMain();
-        
+
         //Setting up Activities
         Quiz.setup();
         Temporal.setup();
@@ -331,8 +331,6 @@ var DrGlearning = {
 				//console.log(parent_url);
 				//console.log(parent);
 				XD.postMessage('ready', parent_url, parent);
-				
-				
 			}
 		}
 
@@ -389,9 +387,9 @@ var DrGlearning = {
         $('#addcareerslist').empty();
 		console.log(Dao.careersStore);
         Dao.careersStore.all(function(arrCareers){
-          var empty = true;	
+          var empty = true;
 		      for(var i = 0; i<arrCareers.length;i++)
-		      {	
+		      {
 		        if(arrCareers[i].value.installed === false)
 		        {
 					var starHtml = "";
@@ -431,7 +429,7 @@ var DrGlearning = {
         DrGlearning.careerId = element.attr("data-href");
     },
     refreshCareer: function(){
-		Dao.careersStore.get(DrGlearning.careerId,function(career){ 
+		Dao.careersStore.get(DrGlearning.careerId,function(career){
 			$('#careerTitle').html(career.value.name);
             $('#levelslist').empty();
             Dao.levelsStore.all(function(arrLevels){
@@ -490,7 +488,7 @@ var DrGlearning = {
 				{
 					console.log(DrGlearning.levelId);
 		        	Dao.levelsStore.get(DrGlearning.levelId-1,function(level){
-						$('#levelTitle').html(level.value.name); 
+						$('#levelTitle').html(level.value.name);
 						if(!Workflow.levelIsCompleted(level,DrGlearning.careerId))
 						{
 				  	        $('#dialogText').html(i18n.gettext("You can't play this level until you have completed every previous one"));
@@ -500,11 +498,11 @@ var DrGlearning = {
 						}
 					});
 				}
-			}		
+			}
 		});
         $('#activitieslist').empty();
-        Dao.levelsStore.get(DrGlearning.levelId,function(level){ 
-    		$('#levelTitle').html(level.value.name); 
+        Dao.levelsStore.get(DrGlearning.levelId,function(level){
+    		$('#levelTitle').html(level.value.name);
             $('#levelDescription').html(level.value.description);
             Dao.activitiesStore.all(function(arrActivities){
                 var empty = true;
@@ -524,7 +522,7 @@ var DrGlearning = {
 		              	    '</h1>'+
 							'✓ Score:'+
 							 arrActivities[i].value.score+
-							'</a>';							
+							'</a>';
 						}
 						else
 						{
@@ -551,7 +549,7 @@ var DrGlearning = {
 	  },
     setActivityId: function(element){
         DrGlearning.activityId = element.attr("data-activity");
-        Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
+        Dao.activitiesStore.get(DrGlearning.activityId,function(activity){
             DrGlearning.activityType = activity.value.activity_type;
         });
     },
@@ -565,7 +563,7 @@ var DrGlearning = {
         var source   = $(this).html();
         var template = Handlebars.compile(source);
         var context  =  {
-            title: i18n.gettext("Dr. Glearning"), 
+            title: i18n.gettext("Dr. Glearning"),
             NoCareersInstalled: i18n.gettext("No courses installed"),
             Settings: i18n.gettext("Settings"),
             AddCourse: i18n.gettext("Add course"),
@@ -597,7 +595,7 @@ var DrGlearning = {
     var source   = $("footer:first").html();
     var template = Handlebars.compile(source);
     var context  =  {
-        title: i18n.gettext("Dr. Glearning"), 
+        title: i18n.gettext("Dr. Glearning"),
         NoCareersInstalled: i18n.gettext("No courses installed"),
         Settings: i18n.gettext("Settings"),
         AddCourse: i18n.gettext("Add course"),
