@@ -37,6 +37,7 @@ var DrGlearning = {
 		if (embedImport.indexOf('&') >= 0) {
 			embedImport = embedImport.substring(0, careerToEmbed.indexOf('&'));
 		}
+		console.log(embedImport);
 		DrGlearning.embedImport = embedImport;
 		if(DrGlearning.embed)
 		{
@@ -323,16 +324,15 @@ var DrGlearning = {
 			{
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
-
-				var parent_url = decodeURIComponent(document.location.hash.replace(/^#/, ''));
-				console.log(parent_url);
-				console.log(parent);
+				XD.receiveMessage(function(message){
+					UserSettings.importUser(message.data,10);
+				}, parent_url);
+				var parent_url = DrGlearning.embedImport;
+				//console.log(parent_url);
+				//console.log(parent);
 				XD.postMessage('ready', parent_url, parent);
 				
-				XD.receiveMessage(function(message){
-					console.log(message.data);
-					UserSettings.importUser(parseInt(message.data,10));
-				}, 'http://courses.cultureplex.ca');
+				
 			}
 		}
 

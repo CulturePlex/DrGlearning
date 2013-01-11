@@ -3,19 +3,27 @@
     <head>
         <meta charset="utf-8" />
         <title>Container example for Dr. Glearning Embebed</title>
-        <script type="text/javascript" charset="utf-8" src="app/js/DrGlearning.js"></script>
-        <script type="text/javascript" charset="utf-8" src="resources/js/postmessage.js"></script>
+        <script type="text/javascript" charset="utf-8" src="http://onlineaspect.com/uploads/postmessage/postmessage.js"></script>
+
     </head>
     <body>
     <div id="main">
     </div>
     <script type="text/javascript" charset="utf-8">
+
 	XD.receiveMessage(function(message){
 		console.log(message.data);
-		UserSettings.importUser(parseInt(message.data,10));
-	},'URL DESDE DONDE SE INCRUSTAN LOS CURSOS');
-
-	DrGlearning.embedDrGlearning("main",2,400,400,true);
+		XD.postMessage('e73cfb7b49c6008246f28eebd06007cbb2aca535', 'http://client.com:8000', frames[0]);
+	},'http://client.com:8000');
+	var el = document.createElement("iframe");
+	el.setAttribute('id', 'ifrm');
+	el.setAttribute('height', 400);
+	el.setAttribute('width', 400);
+	var container = document.getElementById("main");
+	container.appendChild(el);
+	console.log(document.domain);
+	var url='http://client.com:8000/?embed=true&careerToEmbed=47&import=http://'+document.domain+':9000';
+	el.setAttribute('src', url);
 
 	
 	</script>
