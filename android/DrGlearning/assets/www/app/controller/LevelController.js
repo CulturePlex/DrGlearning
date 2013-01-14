@@ -390,7 +390,7 @@ try {
                     }, this);
                 }
                 if (this.currentActivity.data.activity_type === 'visual') {
-                    text = i18n.gettext("Look at the image and answer the question!");
+                    text = i18n.gettext("Look at the image and answer the question. The faster you answer, the better your score!");
                     this.visualController.stopNotClear();
                     Ext.Msg.alert(i18n.gettext('Help'), text, function () {
                         this.visualController.restart();
