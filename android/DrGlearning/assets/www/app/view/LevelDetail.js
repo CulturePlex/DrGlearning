@@ -35,7 +35,7 @@ try {
                         '<tpl for=".">',
                             '<tpl if= "successful == true">',
                                 '<div class = "itemlist">',
-                                        '<b>{name}</b><img class="tick" height=20 src=resources/images/tick.png><div class = "score">Score: {score}</div>',
+                                        '<b>{name}</b><img class="tick" height=20 src=resources/images/tick.png><div class = "score">Your best score: {score}</div>',
                                         '<div><font size="3" color="grey">{query} </font><div>',
                                 '</div>',
                             '</tpl>',
