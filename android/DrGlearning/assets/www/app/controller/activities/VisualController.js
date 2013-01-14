@@ -144,9 +144,9 @@ try {
             {
                 if (target.config.answerNo === this.correctAnswerId) 
                 {
-                    if (this.score < 20)
+                    if (this.score < 50)
                     {
-                        this.score = 20;
+                        this.score = 50;
                     }
                     this.optionsContainer.down('button[correctAnswer=true]').setUi('confirm');
                     Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
