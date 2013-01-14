@@ -74,7 +74,7 @@ var Visual = {
             if (Visual.time < 0) {
                 clearInterval(Visual.secondtemp);
                 Visual.showAnswers();
-                Visual.score=20;
+                Visual.score=50;
             }
 //        }
     },
@@ -82,7 +82,11 @@ var Visual = {
     {
         clearInterval(Visual.secondtemp);
         Visual.showAnswers();
-        Visual.score = parseInt(Visual.time * 100 / Visual.activity.value.time, 10);
+        Visual.score = parseInt(Visual.time + 1 * 100 / Visual.activity.value.time, 10);
+		if (Visual.score > 100)
+		{
+			Visual.score = 100;
+		}
     },
     showAnswers: function () 
     {
@@ -94,9 +98,9 @@ var Visual = {
     
     },
 	  checkAnswer: function(answer){
-        if (Visual.score < 20)
+        if (Visual.score < 50)
         {
-            Visual.score = 20;
+            Visual.score = 50;
         }
         console.log(Visual.activity);
 	      if(Visual.activity.value.correct_answer === answer)
