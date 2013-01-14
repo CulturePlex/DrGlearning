@@ -72,7 +72,7 @@ try {
                             {
                                 xtype: 'button',
                                 customId: 'skip',
-                                text: i18n.gettext('Skip')
+                                text: i18n.gettext('Solve')
                             }
                         ]
                     },
