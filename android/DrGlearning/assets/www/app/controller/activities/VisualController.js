@@ -180,7 +180,11 @@ try {
             {
                 clearInterval(this.secondtemp);
                 this.showAnswers();
-                this.score = parseInt(this.currentTime * 100 / this.activity.data.time, 10);
+                this.score = parseInt(this.currentTime+1 * 100 / this.activity.data.time, 10);
+				if(this.score > 100)
+				{
+					this.score = 100;
+				}
             },
             stop: function ()
             {
