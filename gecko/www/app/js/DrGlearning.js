@@ -23,7 +23,7 @@ var DrGlearning = {
 		el.setAttribute('src', url);
 	},
     startApp: function(context){
-		var embed = window.location.search.substring(window.location.search.indexOf('embed=') + 8);
+		var embed = window.location.search.substring(window.location.search.indexOf('embed=') + 6);
 		if (embed.indexOf('&') >= 0) {
 			embed = embed.substring(0, embed.indexOf('&'));
 		}
@@ -325,7 +325,7 @@ var DrGlearning = {
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
 				XD.receiveMessage(function(message){
-					UserSettings.importUser(message.data,10);
+					UserSettings.importUser(message.data);
 				}, parent_url);
 				var parent_url = DrGlearning.embedImport;
 				//console.log(parent_url);

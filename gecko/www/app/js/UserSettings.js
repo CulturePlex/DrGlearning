@@ -173,6 +173,10 @@ var UserSettings = {
 		}
 		else
 		{
+			if(DrGlearning.embedImport)
+			{
+				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
+			}
 			$.unblockUI();
 	        console.log("successfull import!");
 		}
