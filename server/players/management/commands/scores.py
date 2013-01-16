@@ -26,7 +26,7 @@ class Command(BaseCommand):
         }
         players = Player.objects.filter(**params).distinct()
         for player in players:
-            self.stdout.write(player.get_name() + u"\n")
+            self.stdout.write(player.get_name() + u":\n")
             count = 0
             for activity in career.activity_set.all():
                 scores = HighScore.objects.filter(activity=activity,
@@ -42,4 +42,4 @@ class Command(BaseCommand):
                                                           activity_count)
             self.stdout.write(u"\t--------\n")
             self.stdout.write(message)
-            self.stdout.write(u"\n\t--------\n\n")
+            self.stdout.write(u"\t--------\n\n")
