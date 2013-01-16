@@ -367,5 +367,13 @@ var Dao = {
         });
         */
     },
+	manageInMessage: function (message) {
+		console.log(message);
+		if(message.data.action === "importPlayer")
+		{
+			UserSettings.importUser(message.data.params.playerCode);
+		}
+	}
+
 }
 

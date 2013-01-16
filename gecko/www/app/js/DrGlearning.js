@@ -325,7 +325,7 @@ var DrGlearning = {
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
 				XD.receiveMessage(function(message){
-					UserSettings.importUser(message.data);
+					Dao.manageInMessage(message);
 				}, parent_url);
 				var parent_url = DrGlearning.embedImport;
 				//console.log(parent_url);
