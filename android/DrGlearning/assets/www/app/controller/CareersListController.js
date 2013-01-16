@@ -556,6 +556,7 @@ try {
                 this.careersStore.filter("installed", true);
                 this.careersStore.filter("update", true);
                 this.updatesLeft = this.careersStore.getCount();
+				console.log(this.updatesLeft);
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
                     message: i18n.gettext('Updating courses') + "…",
@@ -564,12 +565,21 @@ try {
                 });
                 this.careersStore.clearFilter();
                 this.careersStore.filter("installed", true);
+				for (var index in this.careersStore.getData().items) 
+                {
+                    if (this.careersStore.getAt(index).data.installed && this.careersStore.getAt(index).data.update) 
+                    {
+						console.log('asa');
+						this.getApplication().getController('DaoController').updateCareer(this.careersStore.getAt(index).data.id, this.updateFinished, this);
+					}
+				}
             },
             updateFinished: function (scope) {
-                this.updatesLeft--;
-                if (this.updatesLeft === 0) {
+                scope.updatesLeft--;
+				console.log(scope.updatesLeft);
+                if (scope.updatesLeft === 0) {
                     Ext.Viewport.setMasked(false);
-                    this.index();
+                    scope.index();
                 }
             },
             refresh: function (scope) {

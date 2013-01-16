@@ -787,8 +787,9 @@ try {
                                     }, 
                                     failure: function () 
                                     {
-                                        Ext.Viewport.setMasked(false);
+                                        //Ext.Viewport.setMasked(false);
                                         Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
+										callback(scope);
                                     }
                                 });
                             }
@@ -797,8 +798,9 @@ try {
                 } 
                 else 
                 {
-                    Ext.Viewport.setMasked(false);
+                    //Ext.Viewport.setMasked(false);
                     Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to update this course. Try again later'), Ext.emptyFn);
+					callback(scope);
                     return;
                 }
             },
