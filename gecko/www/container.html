@@ -13,7 +13,7 @@
 
 	XD.receiveMessage(function(message){
 		console.log(message.data);
-		XD.postMessage('e73cfb7b49c6008246f28eebd06007cbb2aca535', 'http://client.com:8000', frames[0]);
+		XD.postMessage({'action':'importPlayer','params':{'playerCode':'29f1417cd727eddb84f698c35b7c2851a41eca16'}}, 'http://client.com:8000', frames[0]);
 	},'http://client.com:8000');
 	var el = document.createElement("iframe");
 	el.setAttribute('id', 'ifrm');
@@ -22,7 +22,7 @@
 	var container = document.getElementById("main");
 	container.appendChild(el);
 	console.log(document.domain);
-	var url='http://client.com:8000/?embed=true&careerToEmbed=47&import=http://'+document.domain+':9000';
+	var url='http://client.com:8000/?embed=true&careerToEmbed=19&import=http://'+document.domain+':9000';
 	el.setAttribute('src', url);
 
 	
