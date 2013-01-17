@@ -431,6 +431,7 @@ var DrGlearning = {
     refreshCareer: function(){
 		Dao.careersStore.get(DrGlearning.careerId,function(career){
 			$('#careerTitle').html(career.value.name);
+			$('#careerDescription').html(career.value.description);
             $('#levelslist').empty();
             Dao.levelsStore.all(function(arrLevels){
                 var empty = true;
