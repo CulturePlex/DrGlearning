@@ -58,8 +58,6 @@ class PlayerResource(ModelResource):
                                                     **kwargs)
 
     def dehydrate(self, bundle):
-        if not self.send_token:
-            bundle.obj.token = None
         # Remove non-existing careers
         player_careers = bundle.obj.options.get("careers", [])
         careers = Career.objects.in_bulk(player_careers).keys()
@@ -68,6 +66,9 @@ class PlayerResource(ModelResource):
         if player_careers != careers:
             bundle.obj.options["careers"] = careers
             bundle.obj.save()
+        # We don't want to remove the token, so we do this after the saving
+        if not self.send_token:
+            bundle.obj.token = None
         return dehydrate_fields(bundle)
 
 
