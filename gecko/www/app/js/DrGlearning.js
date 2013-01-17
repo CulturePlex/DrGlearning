@@ -520,7 +520,7 @@ var DrGlearning = {
 		              	    '"><h1>'+
 		              	    arrActivities[i].value.name+
 		              	    '</h1>'+
-							'✓ Your best score:'+
+							'✓ Your best score: '+
 							 arrActivities[i].value.score+
 							'</a>';
 						}
