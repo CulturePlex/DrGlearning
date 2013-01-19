@@ -246,7 +246,6 @@ var Dao = {
                     success: function (response, opts) {
                         var activity = response;
                         var career = Dao.careerPreinstalling;
-						console.log(activity);
                         var activityModel = {
                             id : activity.id,
                             name : activity.name.trim(),
@@ -343,29 +342,7 @@ var Dao = {
                 });
             }
         }
-        /*$.ajax({
-            dataType:"jsonp",
-            url: HOST + career.data.contents + '?format=jsonp',
-            data: {
-                deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-            },
-            success: function (response, opts) {
-                console.log(response);
-                for (var uri in response)
-                {
-                    if (response[uri])
-                    {
-                        console.log(response[uri]);
-                        career.set(uri, response[uri]);
-                    }
-                }
-            },
-            failure: function () {
-                console.log('fallo');
-            }
-        });
-        */
+     
     },
 	manageInMessage: function (message) {
 		console.log(message);

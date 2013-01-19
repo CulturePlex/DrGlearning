@@ -355,11 +355,11 @@ var Loading = {
                       i18n.gettext('Loading Levels...')+
                       '</h1><p>'+
                       '</p></a></li>');
-		            //$('#levelslist').listview("refresh");
+				Dao.userStore.get('id',function(me)
+				{
+					user_id = (me !== null) ? me.value : '';
+				});
                 Dao.careersStore.get(DrGlearning.careerId,function(career){ 
-                    //$('#careerTitle').html(career.value.name);
-                    //$('#levelTitle').html(career.value.name);
-                    //$('#careerDescription').html(career.value.description);
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
                     var cont;
@@ -374,7 +374,9 @@ var Loading = {
                                 url: HOST + activities[cont].full_activity_url + '?format=json',
                                 data: {
                                     deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
+									"callback": "a",
+				                    "player__id": user_id
                                 },
                                 dataType : 'json',
                                 success: function (response, opts) {
@@ -393,9 +395,9 @@ var Loading = {
                                         resource_uri : activity.resource_uri.trim(),
                                         reward: activity.reward.trim(),
                                         penalty: activity.penalty.trim(),
-                                        score: 0,
-                                        played: false,
-                                        successful: false,
+                                        score: (activity.best_score !== null) ? activity.best_score : 0,
+								        played: (activity.best_score !== null) ? true : false,
+								        successful: (activity.is_passed === true) ? true : false,
                                         helpviewed: false
                                     };
                                     if (activityModel.activity_type == 'linguistic') {
@@ -476,6 +478,12 @@ var Loading = {
 										}
 										temp.value.careers.push(id);	
 										Dao.userStore.save({key:'options',value:temp.value});
+										console.log(UserSettings.importedScores);
+										for (var x in UserSettings.importedScores)
+										{
+											console.log('jgando');
+											Dao.activityPlayed(UserSettings.importedScores[x].activity_id, UserSettings.importedScores[x].is_passed, UserSettings.importedScores[x].score, true);
+										}
 										UserSettings.updateUserSettings();
 										if(DrGlearning.embed)
 										{
@@ -486,36 +494,12 @@ var Loading = {
                                 failure : function () {
                                     console.log('fallo');
 									$.unblockUI();
-                                    //Ext.Viewport.setMasked(false);
-                                    //Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Try again later'), Ext.emptyFn);
+                                    
                                 }
                             });
                         }
                     }
-                    /*jQuery.ajax({
-                        scope: this,
-                        url: HOST + career.contents + '?format=jsonp',
-                        data: {
-                            deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                            deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-                        },
-                        dataType : 'jsonp',
-                        success: function (response, opts) {
-                            console.log(response);
-                            for (var uri in response)
-                            {
-                                if (response[uri])
-                                {
-                                    console.log(response[uri]);
-                                    //career.set(uri, response[uri]);
-                                }
-                            }
-                            console.log(career);
-                        },
-                        failure: function () {
-                            console.log('fallo');
-                        }
-                    });*/
+                  
             });
      }
 }
