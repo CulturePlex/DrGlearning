@@ -1,120 +1,13 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 {% load i18n %}
 
 {% block title %}
-{% trans flatpage.title %}
+    {% trans flatpage.title %}
 {% endblock %}
 
-{% block extra_links %}
-    <!-- Le styles -->
-    <link href="{{ STATIC_PREFIX }}css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-    <link href='http://fonts.googleapis.com/css?family=Crafty+Girls' rel='stylesheet' type='text/css'>
-    <link href="{{ STATIC_PREFIX }}css/bootstrap-responsive.css" rel="stylesheet" media="min-width: 980px">
-    <link href="{{ STATIC_PREFIX }}css/main.css" rel="stylesheet">
+{% block content_title %}
+    {% trans flatpage.title %}
 {% endblock %}
-{% block extra_scripts %}
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="{{ STATIC_PREFIX }}js/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_PREFIX }}js/textualizer.js"></script>
-    <script type="text/javascript" src="{{ STATIC_PREFIX }}js/index.js"></script>
-{% endblock %}
-{% block body %}
-  <div class="container">
-    <div class="hero-unit">
-      <!-- Main hero unit for a primary marketing message or call to action -->
-        <div id="lemmas">
-            <ul class="unstyled">
-                <li><p><span class="label label-info label-inline">Play</span> your courses for the highest score</p></li>
-                <li><p><span class="label label-warning label-inline">Learn</span> through different activities</p></li>
-                <li>
-                    <p><span class="label label-success label-inline">Grade!</span>
-                    <span class="name">Dr. Glearning</span> does it for you
-                    </p>
-                </li>
-            </ul>
-            <div id="logoandbuttons">
-                <div id="buttons">
-                    <a class="btn btn-warning btn-large create" href="/admin/">{% trans "Create Courses" %}</a>
-                    <a class="btn btn-success btn-large create" href="#apps">{% trans "Download App" %}</a>
-                </div>
-            </div>
-            <br/>
-            <p>Anywhere, anytime on your <a>smartphone</a> or <a>tablet</a></p>
-        </div>
-
-        <div style="text-align: left; width: 380px;">
-            <div id="slogan">
-                <span class="play">Play,</span>
-                <span class="learn">Learn,</span>
-                <span class="grade">Grade!</span></div>
-                <div style="text-align: center;" id="drglearning">
-                    <img src="{{ STATIC_PREFIX }}img/drglearning.png" width="244px" >
-                </div>
-            <h1 class="name">Dr. Glearning</h1>
-        </div>
-
-        <h2>
-          {% block content_title %}
-            {% trans flatpage.title %}
-          {% endblock %}
-
-        </h2>
-
-        <div >
-          <h3>
-            {% block content %}
-                {{ flatpage.content }}
-            {% endblock %}
-          </h3>
-        </div>
-    </div>
-
-      <!-- Example row of columns -->
-      <hr>
-      <div class="row qrcodes">
-        <div class="span3" id="apps">
-          <h2>{% trans "iOS" %}</h2>
-          <div class="qrcode"><a href="https://build.phonegap.com/apps/57075/download/ios/?qr_key=tTE6zQoieb7CU73qt2Ps">
-            <img src="{{ STATIC_PREFIX }}img/ios.png">
-        </a></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/ios/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "ipa" %}</span></a></p>
-        </div>
-        <div class="span3">
-          <h2>{% trans "Android" %}</h2>
-          <div class="qrcode"><a href="https://build.phonegap.com/apps/57075/download/android/?qr_key=tTE6zQoieb7CU73qt2Ps">
-            <img src="{{ STATIC_PREFIX }}img/android.png">
-          </a></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/android/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "apk" %}</span></a></p>
-        </div>
-        <div class="span3">
-          <h2>{% trans "BlackBerry" %}</h2>
-          <div class="qrcode"><a href="https://build.phonegap.com/apps/57075/download/blackberry/?qr_key=tTE6zQoieb7CU73qt2Ps">
-            <img src="{{ STATIC_PREFIX }}img/ios.png">
-          </a></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/blackberry/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "OTA" %}</span></a></p>
-        </div>
-        <div class="span3">
-          <h2>{% trans "symbian" %}</h2>
-          <div class="qrcode"><a href="https://build.phonegap.com/apps/57075/download/symbian/?qr_key=tTE6zQoieb7CU73qt2Ps">
-            <img src="{{ STATIC_PREFIX }}img/symbian.png">
-          </a></div>
-          <p><a class="btn download" href="https://build.phonegap.com/apps/57075/download/symbian/?qr_key=tTE6zQoieb7CU73qt2Ps"><text class="downloadtext">{% trans "Download" %} &raquo; </text><span class="platform">{% trans "wgz" %}</span></a></p>
-        </div>
-      </div>
-      <hr>
-
-      <footer>
-        <p>&copy; <a href="http://cultureplex.ca/" title="CulturePlex Lab." alt="CulturePlex Lab.">{% trans "CulturePlex Lab." %}</a> {% trans "2012" %}</p>
-      </footer>
-
-    </div> <!-- /container -->
+{% block content %}
+    {{ flatpage.content }}
 {% endblock %}
