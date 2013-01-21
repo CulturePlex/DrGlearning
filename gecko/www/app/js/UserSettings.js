@@ -163,20 +163,22 @@ var UserSettings = {
         $("#email").val(response.email);
     },
  	collectCareers: function (response, objects) {
+		console.log(response);
         this.careersToPreinstall = response.options.careers;
 		console.log(this.careersToPreinstall);
         this.preinstallingIndex = 0;
-        this.importedScores = response.objects;
+		console.log(response.objects);
+//        UserSettings.importedScores = response.objects;
 		if(this.careersToPreinstall)
 		{
         	this.preinstall();
 		}
 		else
 		{
-			if(DrGlearning.embedImport)
+			/*if(DrGlearning.embedImport)
 			{
 				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
-			}
+			}*/
 			$.unblockUI();
 	        console.log("successfull import!");
 		}
@@ -190,7 +192,7 @@ var UserSettings = {
             }
         }
         UserSettings.preinstallingIndex = 0;
-        UserSettings.importedScores = response.objects;
+        //UserSettings.importedScores = response.objects;
         UserSettings.preinstall();
     },
 	preinstall: function () {
@@ -242,16 +244,16 @@ var UserSettings = {
         } else 
         {
           
-            for (var x in UserSettings.importedScores)
-            {
-                Dao.activityPlayed(UserSettings.importedScores[x].activity_id, UserSettings.importedScores[x].is_passed, UserSettings.importedScores[x].score, true);
-            }
+            
 			if(DrGlearning.embedImport)
 			{
 				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
+				console.log(UserSettings.importedScores);
+				
 			}
 			else
 			{
+				
 		    	$.unblockUI();
 		        console.log("successfull import!");
 			}

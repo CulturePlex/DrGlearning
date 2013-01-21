@@ -33,6 +33,7 @@ var Visual = {
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Activity...')+'</p>' });
 				$('#visualImage').load(function() {
 				  $.unblockUI();
+			        clearInterval(Visual.secondtemp);
 				  	Visual.secondtemp = setInterval(function () 
 					{
 						console.log('contando');
@@ -82,7 +83,8 @@ var Visual = {
     {
         clearInterval(Visual.secondtemp);
         Visual.showAnswers();
-        Visual.score = parseInt(Visual.time + 1 * 100 / Visual.activity.value.time, 10);
+		console.log(Visual.time);
+        Visual.score = parseInt((Visual.time + 1)* 100 / Visual.activity.value.time, 10);
 		if (Visual.score > 100)
 		{
 			Visual.score = 100;
