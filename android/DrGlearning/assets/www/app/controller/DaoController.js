@@ -410,7 +410,7 @@ try {
                 activities.each(function (item) {
                     var exist = false;
                     for (var x = 0; x < levels.length ; x++) {
-                        if (levels[x] === item.data.level_type) {
+                        if (levels[x].toString() === item.data.level_type.toString()) {
                             exist = true;
                         }
                     }
@@ -610,7 +610,10 @@ try {
                 var approved = true;
                 var activities = this.getActivitiesByLevel(careerID, level.customId);
                 for (var j = 0; j < activities.items.length; j++) {
-                    //console.log(activities.items[j]);
+					if(activities.items[j].data.level_type == "1")
+					{
+                    	console.log(activities.items[j]);
+					}
                     if (!activities.items[j].data.successful) {
                         approved = false; 
                     }
@@ -780,7 +783,7 @@ try {
                                                 }
                                             }
                                         }
-                                        this.careersListController.updateLevelsState();
+                                        
                                         career.data.update = false;
                                         career.save();
                                         this.careersStore.sync();

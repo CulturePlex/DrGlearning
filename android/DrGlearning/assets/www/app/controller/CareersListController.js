@@ -175,6 +175,7 @@ try {
             // Updating levels in career models
             updateLevelsState: function ()
             {
+				console.log('actualizando niveles');
                 for (var index in this.careersStore.getData().items) 
                 {
                     if (this.careersStore.getAt(index).data.installed) 
@@ -582,7 +583,8 @@ try {
 				console.log(scope.updatesLeft);
                 if (scope.updatesLeft < 1) {
                     Ext.Viewport.setMasked(false);
-                    scope.index();
+                    //scope.index();
+					//scope.updateLevelsState();
                 }
             },
             refresh: function (scope) {
