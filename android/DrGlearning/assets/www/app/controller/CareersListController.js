@@ -358,7 +358,9 @@ try {
                                                 indicator: true,
                                                 html: "<img src='resources/images/ic_launcher.png'>"
                                             });
-                                            this.getApplication().getController('DaoController').updateCareer(career.data.id, this.installFinished, this);
+											console.log('updating...');
+											this.updatesLeft=1;
+                                            this.getApplication().getController('DaoController').updateCareer(career.data.id, this.updateFinished, this);
                                         }
                                     }, that);
                                 }
@@ -575,9 +577,10 @@ try {
 				}
             },
             updateFinished: function (scope) {
+				console.log(scope.updatesLeft);
                 scope.updatesLeft--;
 				console.log(scope.updatesLeft);
-                if (scope.updatesLeft === 0) {
+                if (scope.updatesLeft < 1) {
                     Ext.Viewport.setMasked(false);
                     scope.index();
                 }

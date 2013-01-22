@@ -121,13 +121,13 @@ try {
                                     level_order : activity.level_order,
                                     level_required : activity.level_required,
                                     query : activity.query.trim(),
-                                    timestamp : activity.timestamp.trim(),
+                                    timestamp : activity.timestamp,
                                     resource_uri : activity.resource_uri.trim(),
                                     reward: activity.reward.trim(),
                                     penalty: activity.penalty.trim(),
-                                    score: 0,
-                                    played: false,
-                                    successful: false,
+                                    score: (activity.best_score !== null) ? activity.best_score : 0,
+                          			played: (activity.best_score !== null) ? true : false,
+                         			successful: (activity.is_passed === true) ? true : false,
                                     helpviewed: false
                                 });
                                 if (activityModel.data.activity_type == 'linguistic') {
@@ -287,9 +287,9 @@ try {
                                     resource_uri : activity.resource_uri.trim(),
                                     reward: activity.reward.trim(),
                                     penalty: activity.penalty.trim(),
-                                    score: 0,
-                                    played: false,
-                                    successful: false,
+                                    score: (activity.best_score !== null) ? activity.best_score : 0,
+                          			played: (activity.best_score !== null) ? true : false,
+                         			successful: (activity.is_passed === true) ? true : false,
                                     helpviewed: false,
 									best_score: activity.best_score,
 									is_passed: activity.is_passed,
@@ -629,6 +629,8 @@ try {
                     url: HOST + "/api/v1/career/" + career.data.id + "/?format=jsonp",
                     scope: this,
                     success: function (response, opts) {
+						console.log(career.data.timestamp);
+						console.log(response.timestamp);
                         if (career.data.timestamp < response.timestamp) {
                             career.data.update = true;
                             career.save();
@@ -672,6 +674,7 @@ try {
                             });
                             var HOST = this.globalSettingsController.getServerURL();
                             var activitiesID = [];
+							var actToRecieve = activities.length;
                             for (cont = 0; cont < activities.length; cont++) {
                                 Ext.data.JsonP.request({
                                     scope: this,
@@ -693,11 +696,12 @@ try {
                                             activityModel.data.level_order = activity.level_order;
                                             activityModel.data.level_required = activity.level_required;
                                             activityModel.data.query = activity.query.trim();
-                                            activityModel.data.timestamp = activity.timestamp.trim();
+                                            activityModel.data.timestamp = activity.timestamp;
                                             activityModel.data.resource_uri = activity.resource_uri.trim();
                                             activityModel.data.reward = activity.reward.trim();
                                             activityModel.data.penalty = activity.penalty.trim();
                                         } else {
+											console.log(activity.level_type);
                                             activityModel = new DrGlearning.model.Activity({
                                                 id : activity.id,
                                                 name : activity.name.trim(),
@@ -708,7 +712,7 @@ try {
                                                 level_order : activity.level_order,
                                                 level_required : activity.level_required,
                                                 query : activity.query.trim(),
-                                                timestamp : activity.timestamp.trim(),
+                                                timestamp : activity.timestamp,
                                                 resource_uri : activity.resource_uri.trim(),
                                                 reward: activity.reward.trim(),
                                                 penalty: activity.penalty.trim(),
@@ -783,7 +787,13 @@ try {
                                         this.careersStore.load();
                                         Ext.getStore('Activities').sync();
                                         Ext.getStore('Activities').load();
-                                        callback(scope);
+										actToRecieve--;
+										console.log(actToRecieve);
+										if(actToRecieve == 0)
+										{
+											
+                                        	callback(scope);
+										}
                                     }, 
                                     failure: function () 
                                     {
