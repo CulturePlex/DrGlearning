@@ -182,6 +182,7 @@ try {
                     {
                         var levelstemp = [];
                         levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
+						console.log(levelstemp);
                         for (var j = 0; j < this.levelsStore.getCount(); j++)
                         {
                             this.careersStore.getAt(index).data[this.getLevelName(j - 1)] = 'caca';
@@ -583,8 +584,8 @@ try {
 				console.log(scope.updatesLeft);
                 if (scope.updatesLeft < 1) {
                     Ext.Viewport.setMasked(false);
-                    //scope.index();
-					//scope.updateLevelsState();
+                    scope.index();
+					scope.updateLevelsState();
                 }
             },
             refresh: function (scope) {

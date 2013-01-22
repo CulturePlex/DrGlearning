@@ -415,7 +415,7 @@ try {
                         }
                     }
                     if (!exist) {
-                        levels.push(item.data.level_type);
+                        levels.push(item.data.level_type.toString());
                     }
                     //if(levels[item.data.level_type]==undefined){
                     //    levels.push(item.data.level_type);
