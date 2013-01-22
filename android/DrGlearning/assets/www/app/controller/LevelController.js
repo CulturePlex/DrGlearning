@@ -147,7 +147,7 @@ try {
                     this.activitiesStore.sort('level_order');
                     this.activitiesStore.clearFilter();
                     this.activitiesStore.filter({filterFn: function (item) { return parseInt(item.data.careerId, 10) === parseInt(newCareer.data.id, 10); }});
-                    this.activitiesStore.filter({filterFn: function (item) { return item.data.level_type.toString() === newLevel.toString(); }});
+                    this.activitiesStore.filter({filterFn: function (item) { return item.data.level_type === newLevel }});
 					console.log(newLevel);
                     this.levelTitle.setTitle(newCareer.data.name);
                     this.getLevelframe().show();

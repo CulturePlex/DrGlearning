@@ -46,7 +46,7 @@ try {
                     type : "string"
                 }, {
                     name : "level_type",
-                    type : "string"
+                    type : "int"
                 }, {
                     name : "level_order",
                     type : "int"

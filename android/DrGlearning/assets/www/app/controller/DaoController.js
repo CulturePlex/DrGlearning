@@ -410,12 +410,12 @@ try {
                 activities.each(function (item) {
                     var exist = false;
                     for (var x = 0; x < levels.length ; x++) {
-                        if (levels[x].toString() === item.data.level_type.toString()) {
+                        if (levels[x] === item.data.level_type) {
                             exist = true;
                         }
                     }
                     if (!exist) {
-                        levels.push(item.data.level_type.toString());
+                        levels.push(item.data.level_type);
                     }
                     //if(levels[item.data.level_type]==undefined){
                     //    levels.push(item.data.level_type);
@@ -431,7 +431,9 @@ try {
              */
             getActivitiesByLevel: function (careerId, level) {
                 var activities = Ext.getStore('Activities').queryBy(function (record) {
-                    if (parseInt(record.data.careerId, 10) === parseInt(careerId, 10) && record.data.level_type === '' + level) {
+					console.log(record.data.level_type);
+					console.log(level);
+                    if (parseInt(record.data.careerId, 10) === parseInt(careerId, 10) && record.data.level_type === level) {
                         return true;
                     } else {
                         return false;
@@ -610,10 +612,8 @@ try {
                 var approved = true;
                 var activities = this.getActivitiesByLevel(careerID, level.customId);
                 for (var j = 0; j < activities.items.length; j++) {
-					if(activities.items[j].data.level_type == "1")
-					{
-                    	console.log(activities.items[j]);
-					}
+                   	console.log(activities.items[j]);
+                   	console.log(activities.items[j]);
                     if (!activities.items[j].data.successful) {
                         approved = false; 
                     }

@@ -18,7 +18,7 @@ try {
             config : {
                 fields : [ {
                     name : "customId",
-                    type : "string"
+                    type : "int"
                 }, {
                     name : "name",
                     type : "string"
