@@ -165,7 +165,7 @@ var Dao = {
 		            }
 		        }
 		    }
-		    activity.value.score = parseInt(score, 10);
+		    //activity.value.score = parseInt(score, 10);
 		    activity.value.played = true;
 		    Dao.activitiesStore.save({key:activityID,value:activity.value});
 			Dao.updateScore(activityID, score, successful, new Date().getTime());

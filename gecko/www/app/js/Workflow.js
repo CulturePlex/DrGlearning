@@ -4,30 +4,13 @@ var Workflow = {
 	toCareer:false,
 	toLevel:false,
 	toMain:false,
+	toActivity:false,
 	uninstalling:false,
 	/*
 	 * Updating and Showing next activity when you success one.
 	 */
 	nextActivity: function (prevLevel) {
-		if(Workflow.toMain)
-		{	
-			Workflow.toMain = false;
-		    $.mobile.changePage("#main");			
-			return false;
-		}
-		if(Workflow.toCareer)
-		{	
-			Workflow.toCareer = false;
-		    $.mobile.changePage("#career");			
-			return false;
-		}
-
-		if(Workflow.toLevel)
-		{	
-			Workflow.toLevel = false;
-		    $.mobile.changePage("#level");			
-			return false;
-		}
+		
 		console.log('current course:');
 		console.log(DrGlearning.careerId);
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId,prevLevel);

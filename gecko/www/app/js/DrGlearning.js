@@ -166,6 +166,43 @@ var DrGlearning = {
             Linguistic.refresh();
         });
 
+		//Setting up Activities Info
+
+		$(document).on('click', '#infoQuiz',function(e) {
+
+			$('#dialogText').html(Quiz.activity.value.query +'<br><br>'+ i18n.gettext("Choose the right option"));
+			Workflow.toActivity = true;
+			Workflow.toQuiz = true;
+        });
+		$(document).on('click', '#infoVisual',function(e) {
+			$('#dialogText').html(Visual.activity.value.query +'<br><br>'+ i18n.gettext("Look at the image and answer the question. The faster you answer, the better your score!"));
+			Workflow.toActivity = true;
+			Workflow.toVisual = true;
+        });
+		$(document).on('click', '#infoTemporal',function(e) {
+			$('#dialogText').html(Temporal.activity.value.query +'<br><br>'+ i18n.gettext("Look at the image and answer the question. The faster you answer, the better your score!"));
+			Workflow.toActivity = true;
+			Workflow.toTemporal = true;
+        });
+		$(document).on('click', '#infoGeospatial',function(e) {
+			$('#dialogText').html(Geospatial.activity.value.query +'<br><br>'+ i18n.gettext("Find the correct location on the map"));
+			Workflow.toActivity = true;
+			Workflow.toGeospatial = true;
+        });
+		$(document).on('click', '#infoRelational',function(e) {
+			$('#dialogText').html(Relational.activity.value.query +'<br><br>'+ i18n.gettext("Go from one item to another until you fulfill all the conditions"));
+			Workflow.toActivity = true;
+			Workflow.toRelational = true;
+        });
+		$(document).on('click', '#infoLinguistic',function(e) {
+			$('#dialogText').html(Linguistic.activity.value.query +'<br><br>'+ i18n.gettext("Guess the hidden message. Unlock letters to get a hint; the image might help too!"));
+			Workflow.toActivity = true;
+			Workflow.toLinguistic = true;
+        });
+		
+
+
+
         //Setting up buttons
 
         $(document).on('click', '#accesscareer',function(e) {
@@ -175,7 +212,64 @@ var DrGlearning = {
         });
 
         $(document).on('click', '#dialogOK',function(e) {
-            Workflow.nextActivity(DrGlearning.levelId);
+			if(Workflow.toMain)
+			{	
+				Workflow.toMain = false;
+				$.mobile.changePage("#main");			
+				return false;
+			}
+			if(Workflow.toCareer)
+			{	
+				Workflow.toCareer = false;
+				$.mobile.changePage("#career");			
+				return false;
+			}
+
+			if(Workflow.toLevel)
+			{	
+				Workflow.toLevel = false;
+				$.mobile.changePage("#level");			
+				return false;
+			}
+			
+			if(Workflow.toActivity)
+			{
+				Workflow.toActivity = false;
+				if(Workflow.toQuiz)
+				{
+					Workflow.toQuiz = false;
+					$.mobile.changePage("#quiz");
+				}
+				if(Workflow.toVisual)
+				{
+					Workflow.toVisual = false;
+					$.mobile.changePage("#visual");
+				}
+				if(Workflow.toGeospatial)
+				{
+					Workflow.toGeospatial = false;
+					$.mobile.changePage("#geospatial");
+				}
+				if(Workflow.toLinguistic)
+				{
+					Workflow.toLinguistic = false;
+					$.mobile.changePage("#linguistic");
+				}
+				if(Workflow.toRelational)
+				{
+					Workflow.toRelational = false;
+					$.mobile.changePage("#relational");
+				}
+				if(Workflow.toTemporal)
+				{
+					Workflow.toTemporal = false;
+					$.mobile.changePage("#temporal");
+				}
+			}
+			else
+			{
+				Workflow.nextActivity(DrGlearning.levelId);
+			}
             return false;
         });
 

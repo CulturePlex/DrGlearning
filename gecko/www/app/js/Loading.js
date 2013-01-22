@@ -471,7 +471,6 @@ var Loading = {
 										Dao.userStore.get('options',function(me) {
 											temp = me;
 										});			
-										console.log(temp);
 										if(!temp.value.careers)
 										{
 											temp.value.careers = [];
