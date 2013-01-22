@@ -20,7 +20,7 @@ class Player(models.Model):
         return self.code
 
     def save(self, *args, **kwargs):
-        if not self.id and self.code and not self.token:
+        if self.code and not self.token:
             token_key = u"%s-%s-%s" \
                         % (settings.SECRET_KEY,
                            datetime.datetime.now().isoformat(),

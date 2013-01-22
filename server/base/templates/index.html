@@ -36,14 +36,24 @@
                     </p>
                 </li>
             </ul>
+            <br>
             <div id="logoandbuttons">
                 <div id="buttons">
+                    <a class="create" href="https://itunes.apple.com/us/app/dr.-glearning/id587558631">
+                      <img src="{{ STATIC_PREFIX }}img/badge_ios.png" alt="{% trans "Available on App Store" %}" />
+                    </a>
+                    <a class="create" href="https://play.google.com/store/apps/details?id=ca.cultureplex.drglearning">
+                      <img src="{{ STATIC_PREFIX }}img/badge_android.png" alt="{% trans "Get it on Google Play" %}" />
+                    </a>
                     <a class="btn btn-warning btn-large create" href="/admin/">{% trans "Create Courses" %}</a>
-                    <a class="btn btn-success btn-large create" href="#apps">{% trans "Download App" %}</a>
+                    <a class="btn btn-success btn-large create" href="/client/">{% trans "Play On-line" %}</a>
+
                 </div>
             </div>
+            {% comment %}
             <br/>
             <p>Anywhere, anytime on your <a>smartphone</a> or <a>tablet</a></p>
+            {% endcomment %}
         </div>
 
         <div style="text-align: left; width: 380px;">
@@ -52,17 +62,18 @@
                 <span class="learn">Learn,</span>
                 <span class="grade">Grade!</span></div>
                 <div style="text-align: center;" id="drglearning">
-                    <img src="{{ STATIC_PREFIX }}img/drglearning.png" width="244px" >
+                    <img src="{{ STATIC_PREFIX }}img/drglearning_beta.png" width="244px" >
                 </div>
             <h1 class="name">Dr. Glearning</h1>
         </div>
 
         <h2>
           {% block content_title %}
-          {% endblock %}
-          <div id="question">{% trans "How much do you know about" %}</div>
+            <div id="question">{% trans "How much do you know about" %}</div>
             <div id="txtlzr"></div>
+          {% endblock %}
         </h2>
+        {% block content %}
         <div class="container">
             <div id="sample">
                     <img src="{{ STATIC_PREFIX }}img/screenshoot-1.png" width="200px">
@@ -72,23 +83,25 @@
             </div>
 
         </div>
-<form action="https://docs.google.com/spreadsheet/formResponse?formkey=dEJaVUtZVFV6MXBRanp0TjUzNWM3Y3c6MQ&amp;embedded=true&amp;ifq" method="POST" id="ss-form">
+        <form action="https://docs.google.com/spreadsheet/formResponse?formkey=dEJaVUtZVFV6MXBRanp0TjUzNWM3Y3c6MQ&amp;embedded=true&amp;ifq" method="POST" id="ss-form">
+{% comment %}
         <div >
           <h3>Be the first to test the <a href="/client/">app</a>!<span style="font-size: 13px; color: grey"> With <a href="https://www.google.com/chrome">Gloogle Chrome</a> and <a href="http://ripple.tinyhippos.com/download">Ripple Emulator</a>.</span></h3>
         </div>
-
-<br>
-<h3>{% trans "Stay tuned!" %}</h3>
-<div class="legend" >{% trans "We are almost ready to open the free registration, but in the mean time" %}</div>
-<input type="text" name="entry.0.single" value="" class="ss-q-short" id="entry_0" placeholder="{% trans "Leave us your e-mail" %}">
-<input type="submit" name="submit" class="btn okbutton" value="{% trans 'OK!' %}">
-<input type="hidden" name="pageNumber" value="0">
-<input type="hidden" name="backupCache" value="">
-<label class="helptext" for="entry_0">{% trans "Your e-mail won't be used for any porpuse than notify you when the platform becomes available" %}</label>
-</form>
-
+{% endcomment %}
+          <br>
+          <h3>{% trans "Stay tuned!" %}</h3>
+          <div class="legend" >{% trans "We are almost ready to open the free registration for creating courses, but in the mean time" %}</div>
+          <input type="text" name="entry.0.single" value="" class="ss-q-short" id="entry_0" placeholder="{% trans "Leave us your e-mail" %}">
+          <input type="submit" name="submit" class="btn okbutton" value="{% trans 'OK!' %}">
+          <input type="hidden" name="pageNumber" value="0">
+          <input type="hidden" name="backupCache" value="">
+          <label class="helptext" for="entry_0">{% trans "Your e-mail won't be used for any porpuse than notify you when the platform becomes available" %}</label>
+        </form>
+        {% endblock %}
     </div>
 
+{% comment %}
       <!-- Example row of columns -->
       <hr>
       <div class="row qrcodes">
@@ -122,9 +135,12 @@
         </div>
       </div>
       <hr>
-
+{% endcomment %}
       <footer>
-        <p>&copy; <a href="http://cultureplex.ca/" title="CulturePlex Lab." alt="CulturePlex Lab.">{% trans "CulturePlex Lab." %}</a> {% trans "2012" %}</p>
+        <p>
+          &copy; <a href="http://cultureplex.ca/" title="CulturePlex Lab." alt="CulturePlex Lab.">{% trans "CulturePlex Lab." %}</a> {% trans "2012" %} |
+          <a href="/support/" title="{% trans "Support" %}" alt="{% trans "Support" %}">{% trans "Support" %}</a>
+        </p>
       </footer>
 
     </div> <!-- /container -->
