@@ -178,6 +178,7 @@ var DrGlearning = {
 			$('#dialogText').html(Visual.activity.value.query +'<br><br>'+ i18n.gettext("Look at the image and answer the question. The faster you answer, the better your score!"));
 			Workflow.toActivity = true;
 			Workflow.toVisual = true;
+			Visual.isStoped = true;
         });
 		$(document).on('click', '#infoTemporal',function(e) {
 			$('#dialogText').html(Temporal.activity.value.query +'<br><br>'+ i18n.gettext("Look at the image and answer the question. The faster you answer, the better your score!"));
@@ -242,6 +243,7 @@ var DrGlearning = {
 				}
 				if(Workflow.toVisual)
 				{
+					Visual.isStoped = false;
 					Workflow.toVisual = false;
 					$.mobile.changePage("#visual");
 				}

@@ -3,6 +3,7 @@ var Visual = {
     time: null,
     secondtemp: null,
     score: null,
+	isStoped: false,
     setup: function(){
         $(document).on('click', '#visualSelectAnswer',function(e) {
           Visual.checkAnswer($(this).attr("data-answer"));
@@ -68,8 +69,11 @@ var Visual = {
      
 //        if (Visual.isStopped === false && Visual.loading === false) 
 //        {
-            
-            Visual.time--;
+			console.log(Visual.isStoped);
+            if(!Visual.isStoped)
+			{
+	            Visual.time--;
+			}
             $('#timeVisual').empty();
             $('#timeVisual').append(Visual.time + " sec");
             if (Visual.time < 0) {
