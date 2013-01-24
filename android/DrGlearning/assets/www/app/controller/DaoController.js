@@ -356,7 +356,7 @@ try {
                                         {
                                             activitiesToInstall[cont].save();
 											console.log(activitiesToInstall[cont]);
-											this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, activitiesToInstall[cont].data.is_passed, activitiesToInstall[cont].best_score, true);
+											//this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, activitiesToInstall[cont].data.is_passed, activitiesToInstall[cont].best_score, true);
                                         }
                                     }
                                     career.set('installed', true);
@@ -489,8 +489,9 @@ try {
                 var activity;
                 activitiesStore.load();
                 activitiesStore.sync();
-                console.log(activitiesStore.data.all);
+                console.log(activitiesStore.getTotalCount());
                 activitiesStore.each(function(rec){
+					console.log(rec)
                   if(rec.get('id') == activityID)
                   {
                     console.log(rec);
@@ -499,7 +500,11 @@ try {
                   }
                 });
                 console.log(activity);
-//                var activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
+				if(!activity)
+				{
+                  activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
+				}
+				console.log(activity);
                 if (successful) {
                     if (activity.data.successful) {
                         if (activity.data.score < parseInt(score, 10)) {
