@@ -4,6 +4,7 @@ var Visual = {
     secondtemp: null,
     score: null,
 	isStoped: false,
+	helpViewed: false,
     setup: function(){
         $(document).on('click', '#visualSelectAnswer',function(e) {
           Visual.checkAnswer($(this).attr("data-answer"));
@@ -61,6 +62,11 @@ var Visual = {
             $('#timeVisual').append(Visual.time + " sec");
             $('#skipButtonVisual').show();
             $('#timeVisual').show();
+			if(!Visual.helpViewed)
+			{
+				$('#infoVisual').click();
+				Visual.helpViewed = true;
+			}
             
 	      })
 	  },

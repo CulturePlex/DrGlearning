@@ -8,6 +8,7 @@ var Geospatial = {
     activity: null,
     zoomFlag: false,
     mouseFlag: false,
+	helpViewed: false,
     setup: function(){
 
         $(document).on('click', '#confirmGeospatial',function(e) {
@@ -33,6 +34,11 @@ var Geospatial = {
             {
 				$.unblockUI();
                 Geospatial.start();
+				if(!Geospatial.helpViewed)
+				{
+					$('#infoGeospatial').click();
+					Geospatial.helpViewed = true;
+				}
             });
 	      })
 	},

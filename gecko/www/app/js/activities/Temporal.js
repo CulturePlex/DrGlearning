@@ -1,5 +1,6 @@
 var Temporal = {
     activity: null,
+	helpViewed: false,
     setup: function(){
         $(document).on('click', '#before',function(e) {
           Temporal.checkBefore(e);
@@ -27,6 +28,11 @@ var Temporal = {
             $('#temporalActivityName').html(activity.value.name);
             
 	      });
+		if(!Temporal.helpViewed)
+		{
+			$('#infoTemporal').click();
+			Temporal.helpViewed = true;
+		}
 	  },
 	checkAfter: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {

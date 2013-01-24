@@ -1,5 +1,6 @@
 var Quiz = {
     activity: null,
+	helpViewed: false,
     setup: function(){
         $(document).on('click', '#quizSelectAnswer',function(e) {
           Quiz.checkAnswer($(this).attr("data-answer"));
@@ -24,7 +25,12 @@ var Quiz = {
 	              $('#quizAnswersList').append(listdiv);
             }
             $('#quizAnswersList').listview("refresh");
-	      });
+	    });
+		if(!Quiz.helpViewed)
+		{
+			$('#infoQuiz').click();
+			Quiz.helpViewed = true;
+		}
 	  },
 	  checkAnswer: function(answer){
 		$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   

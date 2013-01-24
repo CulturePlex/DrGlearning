@@ -8,6 +8,7 @@ var Linguistic = {
     imageSrc: null,
     imageWidth: null,
     imageHeight: null,
+	helpViewed: false,
     setup: function(){
         $(document).on('click', '#tryLinguistic',function(e) {
           Linguistic.tryIt();
@@ -67,6 +68,11 @@ var Linguistic = {
         var table = Linguistic.getTable();
         $('#linguisticImage').empty();
         $('#linguisticImage').append(table);
+		if(!Linguistic.helpViewed)
+		{
+			$('#infoLinguistic').click();
+			Linguistic.helpViewed = true;
+		}
 	  },
     getTable: function ()
     {

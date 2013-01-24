@@ -19,6 +19,7 @@ var Relational = {
 	constraintBoolean: [],
 	sigInst:null,
 	temp: null,
+	helpViewed: false,
     setup: function(){
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
@@ -57,6 +58,11 @@ var Relational = {
             $('#relationalActivityName').html(activity.value.name);
 		});
 		Relational.start();
+		if(!Relational.helpViewed)
+		{
+			$('#infoRelational').click();
+			Relational.helpViewed = true;
+		}
 	  },
 	start: function () 
 	{
