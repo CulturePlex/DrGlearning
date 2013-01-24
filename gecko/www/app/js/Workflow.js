@@ -96,26 +96,32 @@ var Workflow = {
             if(newActivity.value.activity_type === "quiz")
             {
                 $.mobile.changePage("#quiz");
+				Quiz.refresh();
             }
             if(newActivity.value.activity_type === "temporal")
             {
                 $.mobile.changePage("#temporal");
+				Temporal.refresh();
             }
             if(newActivity.value.activity_type === "visual")
             {
                 $.mobile.changePage("#visual");
+				Visual.refresh();
             }
             if(newActivity.value.activity_type === "linguistic")
             {
                 $.mobile.changePage("#linguistic");
+				Linguistic.refresh();
             }
             if(newActivity.value.activity_type === "geospatial")
             {
                 $.mobile.changePage("#geospatial");
+				Geospatial.refresh();
             }
 		    if(newActivity.value.activity_type === "relational")
             {
                 $.mobile.changePage("#relational");
+				Relational.refresh();
             }
 	},
 	levelIsCompleted: function(levelId,careerId)

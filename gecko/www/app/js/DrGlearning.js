@@ -143,27 +143,27 @@ var DrGlearning = {
         });
 
         $( '#quiz' ).live( 'pagebeforeshow',function(event){
-            Quiz.refresh();
+            //Quiz.refresh();
         });
 
         $( '#temporal' ).live( 'pagebeforeshow',function(event){
-            Temporal.refresh();
+            //Temporal.refresh();
         });
 
         $( '#visual' ).live( 'pagebeforeshow',function(event){
-            Visual.refresh();
+            //Visual.refresh();
         });
 
         $( '#geospatial' ).live( 'pagebeforeshow',function(event){
-            Geospatial.refresh();
+            //Geospatial.refresh();
         });
 
         $( '#relational' ).live( 'pagebeforeshow',function(event){
-            Relational.refresh();
+            //Relational.refresh();
         });
 
 		$( '#linguistic' ).live( 'pagebeforeshow',function(event){
-            Linguistic.refresh();
+            //Linguistic.refresh();
         });
 
 		//Setting up Activities Info
@@ -284,14 +284,18 @@ var DrGlearning = {
             if(DrGlearning.activityType === "quiz")
             {
                 $.mobile.changePage("#quiz");
+				Quiz.refresh();
             }
             if(DrGlearning.activityType === "temporal")
             {
                 $.mobile.changePage("#temporal");
+				Temporal.refresh();
             }
             if(DrGlearning.activityType === "visual")
             {
+				console.log('holass');
                 $.mobile.changePage("#visual");
+				Visual.refresh();
             }
             if(DrGlearning.activityType === "linguistic")
             {
@@ -301,6 +305,7 @@ var DrGlearning = {
             if(DrGlearning.activityType === "geospatial")
             {
                 $.mobile.changePage("#geospatial");
+				Geospatial.refresh();
             }
 	    if(DrGlearning.activityType === "relational")
             {
