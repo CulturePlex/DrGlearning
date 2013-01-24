@@ -319,7 +319,7 @@ try {
                                     handler: function () 
                                     {
                                         this.parent.hide();
-                                        Ext.Msg.confirm(i18n.gettext("Uninstall Course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function (answer)
+                                        Ext.Msg.confirm(i18n.gettext("Uninstall Course?"), i18n.gettext("Are you sure you want to uninstall this course?"), function (answer)
                                         {
                                             if (answer === 'yes') {
                                                 this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
@@ -371,7 +371,7 @@ try {
                                 ui: 'decline',
                                 handler: function () {
                                     this.parent.hide();
-                                    Ext.Msg.confirm(i18n.gettext("Uninstall course?"), i18n.gettext("If you uninstall this course, all your points will be lost. Are you sure you want to uninstall this course?"), function (answer, pako) {
+                                    Ext.Msg.confirm(i18n.gettext("Uninstall course?"), i18n.gettext("Are you sure you want to uninstall this course?"), function (answer, pako) {
                                         if (answer === 'yes') {
                                             this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
                                             this.index();

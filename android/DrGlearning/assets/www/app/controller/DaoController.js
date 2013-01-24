@@ -80,9 +80,12 @@ try {
 			},
             installCareer: function (id, callback, scope) {
 				var parameters;
+				var usersStore = Ext.getStore('Users');				
+				var user = usersStore.getAt(0);
 				parameters = {
                     deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                    deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200,
+					player__id: user.data.serverid
                 }
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
