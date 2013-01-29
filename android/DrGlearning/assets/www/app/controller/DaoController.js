@@ -434,8 +434,6 @@ try {
              */
             getActivitiesByLevel: function (careerId, level) {
                 var activities = Ext.getStore('Activities').queryBy(function (record) {
-					console.log(record.data.level_type);
-					console.log(level);
                     if (parseInt(record.data.careerId, 10) === parseInt(careerId, 10) && record.data.level_type === level) {
                         return true;
                     } else {
@@ -635,6 +633,7 @@ try {
                     message: i18n.gettext('Checking for updates') + "…",
                     indicator: true
                 });
+				console.log('asdasd');
                 var HOST = this.globalSettingsController.getServerURL();
                 Ext.data.JsonP.request({
                     url: HOST + "/api/v1/career/" + career.data.id + "/?format=jsonp",
@@ -644,6 +643,7 @@ try {
 						console.log(response.timestamp);
                         if (career.data.timestamp < response.timestamp) {
                             career.data.update = true;
+                            career.data.timestamp = response.timestamp;
                             career.save();
                             this.careersStore.load();
                         }

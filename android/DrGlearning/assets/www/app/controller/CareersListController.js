@@ -145,7 +145,7 @@ try {
                 }
                 if (numberOfUpdates > 0)
                 {
-                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').show();
+                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
                 } else
                 {
                     this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
