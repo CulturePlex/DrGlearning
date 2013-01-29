@@ -54,8 +54,9 @@ class EmbedResource(Resource):
             description_level = getattr(data.obj, "description_level%s" % i)
             data.data["level%s_description" % i] = description_level
         # Update downloads
-        data.obj.total_downloads += 1
-        data.obj.save()
+        # TODO: Trello#120
+        #data.obj.total_downloads += 1
+        #data.obj.save()
         return data
 
     def obj_get(self, request=None, **kwargs):
