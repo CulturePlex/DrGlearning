@@ -129,6 +129,7 @@ try {
                 user.data.display_name = response.display_name;
                 user.data.email = response.email;
                 user.save();
+				this.getApplication().getController('UserSettingsController').updating=false;
 				this.getApplication().getController('UserSettingsController').collectCareers(response, opts);
                 var usernameField = Ext.ComponentQuery.query('textfield[id=username]')[0];
                 var emailField = Ext.ComponentQuery.query('textfield[id=email]')[0];
@@ -211,7 +212,21 @@ try {
                 {
                   
                     Ext.Viewport.setMasked(false);
-                    Ext.Msg.alert(i18n.gettext('User Data Successfully Received'), i18n.gettext('Your User Data have been downloaded to this device.'), function () {
+					var title;
+					var text;
+					if(this.updating)
+					{
+						
+						title=i18n.gettext('Course Updated');
+						text=i18n.gettext('Course was successfully updated');
+					}else
+					{
+						title=i18n.gettext('User Data Successfully Received');
+						text=i18n.gettext('Your User Data have been downloaded to this device.');
+					}
+		
+					
+                    Ext.Msg.alert(title, text, function () {
                         //localStorage.restartNeeded = true;
                         this.careersStore.clearFilter();
                         //this.careersStore.filter("installed", true);

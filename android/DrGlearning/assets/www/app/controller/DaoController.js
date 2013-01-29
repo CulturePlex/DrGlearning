@@ -830,10 +830,13 @@ try {
 					var careersStore = this.careersStore;
                     var activityStore = Ext.getStore('Activities');
                     var career = careersStore.getById(careerID);
+					career.data.update = false;
+                    career.save();
                     var HOST = this.globalSettingsController.getServerURL();
 					var response = {};
 					response.options = {};
 					response.options.careers = [careerID];
+					this.getApplication().getController('UserSettingsController').updating=true;
 					this.getApplication().getController('UserSettingsController').collectCareers(response);
                     //this.getApplication().getController('UserSettingsController').preinstall();
 					//this.deleteCareer(careerID,this.preinstallCareer(career),this);
