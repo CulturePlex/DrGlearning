@@ -148,7 +148,7 @@ try {
                 careersToPreinstall = response.options.careers;
                 this.preinstallingIndex = 0;
                 this.importedScores = response.objects;
-                this.preinstall();
+                this.getApplication().getController('UserSettingsController').preinstall();
             },
             preinstall: function (scores) {
               //Downloading career Data:

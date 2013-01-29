@@ -837,9 +837,9 @@ try {
 					response.options = {};
 					response.options.careers = [careerID];
 					this.getApplication().getController('UserSettingsController').updating=true;
-					this.getApplication().getController('UserSettingsController').collectCareers(response);
+					this.deleteCareer(careerID,true,response);
                     //this.getApplication().getController('UserSettingsController').preinstall();
-					//this.deleteCareer(careerID,this.preinstallCareer(career),this);
+					
                 } 
                 else 
                 {
@@ -849,7 +849,7 @@ try {
                     return;
                 }
             },
-            deleteCareer: function (careerID,callback,scope) {
+            deleteCareer: function (careerID,updating,response) {
 				var usersStore = Ext.getStore('Users');
 				var user = usersStore.getAt(0);
 //				user.data.options.careers.pop(careerID);				
@@ -876,10 +876,10 @@ try {
                 careersStore.sync();
                 careersStore.load();
 				this.updateUserSettings();
-				if(callback)
+				if(updating)
 				{
 					console.log('olass');
-					callback(scope);
+					this.getApplication().getController('UserSettingsController').collectCareers(response);
 				}
             }
         });
