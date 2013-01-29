@@ -362,7 +362,7 @@ try {
                                             });
 											console.log('updating...');
 											this.updatesLeft=1;
-                                            this.getApplication().getController('DaoController').updateCareer(career.data.id, this.updateFinished, this);
+                                            this.getApplication().getController('DaoController').updateCareer2(career.data.id, this.updateFinished, this);
                                         }
                                     }, that);
                                 }

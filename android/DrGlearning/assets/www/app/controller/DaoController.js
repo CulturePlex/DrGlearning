@@ -825,7 +825,28 @@ try {
                     return;
                 }
             },
-            deleteCareer: function (careerID) {
+			updateCareer2: function (careerID, callback, scope) {
+                if (this.globalSettingsController.hasNetwork()) {
+					var careersStore = this.careersStore;
+                    var activityStore = Ext.getStore('Activities');
+                    var career = careersStore.getById(careerID);
+                    var HOST = this.globalSettingsController.getServerURL();
+					var response = {};
+					response.options = {};
+					response.options.careers = [careerID];
+					this.getApplication().getController('UserSettingsController').collectCareers(response);
+                    //this.getApplication().getController('UserSettingsController').preinstall();
+					//this.deleteCareer(careerID,this.preinstallCareer(career),this);
+                } 
+                else 
+                {
+                    //Ext.Viewport.setMasked(false);
+                    Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to update this course. Try again later'), Ext.emptyFn);
+					callback(scope);
+                    return;
+                }
+            },
+            deleteCareer: function (careerID,callback,scope) {
 				var usersStore = Ext.getStore('Users');
 				var user = usersStore.getAt(0);
 //				user.data.options.careers.pop(careerID);				
@@ -852,6 +873,11 @@ try {
                 careersStore.sync();
                 careersStore.load();
 				this.updateUserSettings();
+				if(callback)
+				{
+					console.log('olass');
+					callback(scope);
+				}
             }
         });
     // Exceptions Catcher End
