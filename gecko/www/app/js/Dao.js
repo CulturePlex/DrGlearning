@@ -11,8 +11,10 @@ var Dao = {
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
             dataType : 'json',
-			data: {callback: 'a'},
+			data: {code: Loading.SHA1(code),callback: 'a'},
             success: function (response, opts) {
+
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
                 Dao.installCareer(element);
 				console.log('y bien');
             },
