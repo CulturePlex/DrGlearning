@@ -346,9 +346,15 @@ var Dao = {
     },
 	manageInMessage: function (message) {
 		console.log(message);
-		if(message.data.action === "importPlayer")
+		if(message.data.action === "postPlayerCode")
 		{
+			console.log('olass');
 			UserSettings.importUser(message.data.params.playerCode);
+		}
+		if(message.data.action === "postCourseCode")
+		{
+			console.log('olass');
+			Dao.preinstallCareer(UserSettings.careerModel);
 		}
 	}
 

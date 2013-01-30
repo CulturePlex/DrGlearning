@@ -322,7 +322,7 @@ try {
                                         Ext.Msg.confirm(i18n.gettext("Uninstall Course?"), i18n.gettext("Are you sure you want to uninstall this course?"), function (answer)
                                         {
                                             if (answer === 'yes') {
-                                                this.daoController.deleteCareer(this.career.data.id, this.installFinished, this);
+                                                this.daoController.deleteCareer(this.career.data.id, false);
                                                 this.index();
                                             }
                                         }, that);

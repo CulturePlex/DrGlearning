@@ -12,8 +12,16 @@
     <script type="text/javascript" charset="utf-8">
 
 	XD.receiveMessage(function(message){
+		if(message.data=="getCourseCode")
+		{
+			XD.postMessage({'action':'postCourseCode','params':{'playerCode':'29f1417cd727eddb84f698c35b7c2851a41eca16'}}, 'http://client.com:8000', frames[0]);
+		}
+		else
+		{
+			XD.postMessage({'action':'importPlayer','params':{'playerCode':'29f1417cd727eddb84f698c35b7c2851a41eca16'}}, 'http://client.com:8000', frames[0]);
+		}
 		console.log(message.data);
-		XD.postMessage({'action':'importPlayer','params':{'playerCode':'29f1417cd727eddb84f698c35b7c2851a41eca16'}}, 'http://client.com:8000', frames[0]);
+		
 	},'http://client.com:8000');
 	var el = document.createElement("iframe");
 	el.setAttribute('id', 'ifrm');

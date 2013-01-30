@@ -431,7 +431,8 @@ var DrGlearning = {
 				var parent_url = DrGlearning.embedImport;
 				//console.log(parent_url);
 				//console.log(parent);
-				XD.postMessage('ready', parent_url, parent);
+				XD.postMessage({'action': 'getPlayerCode'}, parent_url, parent);
+
 			}
 		}
 

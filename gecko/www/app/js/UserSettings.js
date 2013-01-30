@@ -2,6 +2,7 @@ var UserSettings = {
 	careersToPreinstall:[],
 	preinstallingIndex: 0,
 	importedScores: null,
+	careerTemp: null,
     saveSettings : function () {
 		var uniqueid;
 		Dao.userStore.get('uniqueid',function(me)
@@ -170,7 +171,7 @@ var UserSettings = {
 		console.log(response.objects);
 //        UserSettings.importedScores = response.objects;
 		if(this.careersToPreinstall)
-		{
+		{	
         	this.preinstall();
 		}
 		else
@@ -227,13 +228,24 @@ var UserSettings = {
                         installed : false,
                         started : false,
                         update : false,
+						has_code: career.has_code,
                         size: career.size,
                         career_type: career.career_type,
                         contents: career.contents.resource_uri
                     };
                     Dao.careersStore.save({key:careerModel.id,value:careerModel});
                     UserSettings.retrieving = false;
-                    Dao.preinstallCareer(careerModel);
+					if(DrGlearning.embed && career.has_code)
+					{
+						console.log(career.has_code);
+						UserSettings.careerTemp = careerModel;
+						XD.postMessage({'action': 'getCourseCode'}, DrGlearning.embedImport, parent);
+
+					}
+					else
+					{
+	                    Dao.preinstallCareer(careerModel);				
+					}
                 },
                 failure: function () {
                 	$.unblockUI();
