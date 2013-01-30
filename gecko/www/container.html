@@ -12,16 +12,17 @@
     <script type="text/javascript" charset="utf-8">
 
 	XD.receiveMessage(function(message){
-		if(message.data=="getCourseCode")
+		console.log(message);
+		if(message.data.action=="getPlayerCode")
 		{
-			XD.postMessage({'action':'postCourseCode','params':{'playerCode':'29f1417cd727eddb84f698c35b7c2851a41eca16'}}, 'http://client.com:8000', frames[0]);
+			console.log('olas');
+			XD.postMessage({'action':'postPlayerCode','params':{'playerCode':'e26042353183000df24b54a17ce8595aa528af5d'}}, 'http://client.com:8000', frames[0]);
 		}
-		else
+		if(message.data.action=="getCourseCode")
 		{
-			XD.postMessage({'action':'importPlayer','params':{'playerCode':'29f1417cd727eddb84f698c35b7c2851a41eca16'}}, 'http://client.com:8000', frames[0]);
+			console.log('olas');
+			XD.postMessage({'action':'postCourseCode','params':{'id':47,'courseCode':'lascosasfeas'}}, 'http://client.com:8000', frames[0]);
 		}
-		console.log(message.data);
-		
 	},'http://client.com:8000');
 	var el = document.createElement("iframe");
 	el.setAttribute('id', 'ifrm');
@@ -30,7 +31,7 @@
 	var container = document.getElementById("main");
 	container.appendChild(el);
 	console.log(document.domain);
-	var url='http://client.com:8000/?embed=true&careerToEmbed=19&import=http://'+document.domain+':9000';
+	var url='http://client.com:8000/?embed=true&careerToEmbed=47&import=http://'+document.domain+':9000';
 	el.setAttribute('src', url);
 
 	
