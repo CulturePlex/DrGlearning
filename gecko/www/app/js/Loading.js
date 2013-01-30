@@ -318,10 +318,24 @@ var Loading = {
 								has_code:response.has_code
 							};
 				            Dao.careersStore.save({key:response.id,value:obj});
+							var careerModel;
+							Dao.careersStore.get(response.id,function(career){
+								careerModel = career;
+							});
 							
+							console.log(response);
+							if(DrGlearning.embed && response.has_code)
+							{
+								console.log(1);
+								UserSettings.careerTemp = careerModel;
+								XD.postMessage({'action': 'getCourseCode','params':{'id':parseInt(id, 10)}}, DrGlearning.embedImport, parent);
 
-
-                            Loading.getCareer(id);
+							}
+							else
+							{
+								console.log(2);
+								Loading.getCareer(id);
+							}
                             Loading.retrieving = false;
 
                         },

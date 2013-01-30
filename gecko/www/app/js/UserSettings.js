@@ -172,7 +172,15 @@ var UserSettings = {
 //        UserSettings.importedScores = response.objects;
 		if(this.careersToPreinstall)
 		{	
-        	this.preinstall();
+			if(!DrGlearning.embedImport)
+			{
+				this.preinstall();
+			}
+			else
+			{
+				console.log('ola');
+				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
+			}
 		}
 		else
 		{

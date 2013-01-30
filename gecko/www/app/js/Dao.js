@@ -18,7 +18,8 @@ var Dao = {
 				//DrGlearning.careerId=element.attr("data-href");
 				if(DrGlearning.embed)
 				{
-					Dao.preinstallCareer(UserSettings.careerTemp);
+					console.log(DrGlearning.embed);
+					Loading.getCareer(UserSettings.careerTemp.key);
 				}
 				else
 				{
