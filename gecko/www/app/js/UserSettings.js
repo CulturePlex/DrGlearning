@@ -176,12 +176,15 @@ var UserSettings = {
 		}
 		else
 		{
-			/*if(DrGlearning.embedImport)
+			if(DrGlearning.embedImport)
 			{
 				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
-			}*/
-			$.unblockUI();
-	        console.log("successfull import!");
+			}
+			else
+			{
+				$.unblockUI();
+	        	console.log("successfull import!");
+			}
 		}
     },
 	collectCareersFromScores: function (response, objects) {

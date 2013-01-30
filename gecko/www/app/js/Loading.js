@@ -344,7 +344,7 @@ var Loading = {
                       '</h1><p>'+
                       '</p></a></li>');
 				var user_id;
-				Dao.userStore.get('userId',function(me)
+				Dao.userStore.get('id',function(me)
 				{
 					user_id = (me !== null) ? me.value : '';
 				});
