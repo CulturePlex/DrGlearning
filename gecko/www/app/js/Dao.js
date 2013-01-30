@@ -6,7 +6,7 @@ var Dao = {
           console.log('Careers Storage Open');
     }),
 	checkCode: function (element,code) {
-		console.log('a checkear');
+		console.log(element);
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
@@ -14,8 +14,17 @@ var Dao = {
 			data: {code: Loading.SHA1(code),callback: 'a'},
             success: function (response, opts) {
 
-				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });
-                Dao.installCareer(element);
+				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });	
+				//DrGlearning.careerId=element.attr("data-href");
+				if(DrGlearning.embed)
+				{
+					Dao.preinstallCareer(UserSettings.careerTemp);
+				}
+				else
+				{
+	                Dao.installCareer(element);
+				}
+
 				console.log('y bien');
             },
             failure: function () {
@@ -357,7 +366,7 @@ var Dao = {
 		if(message.data.action === "postCourseCode")
 		{
 			console.log(UserSettings);
-			Dao.checkCode($('<div data-href="' +UserSettings.careerTemp  + '">'),message.data.params.courseCode);
+			Dao.checkCode($('<div data-href="' +message.data.params.id  + '">'),message.data.params.courseCode);
 		}
 	}
 

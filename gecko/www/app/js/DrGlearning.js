@@ -424,7 +424,9 @@ var DrGlearning = {
 			else
 			{
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
+				
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
+				console.log(DrGlearning.careerId);
 				XD.receiveMessage(function(message){
 					Dao.manageInMessage(message);
 				}, parent_url);

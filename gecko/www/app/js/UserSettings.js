@@ -239,7 +239,7 @@ var UserSettings = {
 					{
 						console.log(career.has_code);
 						UserSettings.careerTemp = careerModel;
-						XD.postMessage({'action': 'getCourseCode'}, DrGlearning.embedImport, parent);
+						XD.postMessage({'action': 'getCourseCode','params':{'id':parseInt(career.id, 10)}}, DrGlearning.embedImport, parent);
 
 					}
 					else

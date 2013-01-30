@@ -359,14 +359,18 @@ var Loading = {
 				{
 					user_id = (me !== null) ? me.value : '';
 				});
-                Dao.careersStore.get(DrGlearning.careerId,function(career){ 
+				console.log(DrGlearning.careerId);
+                Dao.careersStore.get(id,function(career){ 
+					console.log(career);
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
                     var cont;
                     for (cont in activities) {
-
+						console.log('entrando');
                         if (activities[cont])
                         {
+							console.log('hola');
+							console.log(activities[cont]);
                             var activitiesToInstall = [];
                             var size = 0;
                             var HOST = GlobalSettings.getServerURL();
@@ -380,6 +384,7 @@ var Loading = {
                                 },
                                 dataType : 'json',
                                 success: function (response, opts) {
+									console.log('por aki');
                                     var activity = response;
                                     var activityModel = {
                                         id : activity.id,
@@ -453,6 +458,8 @@ var Loading = {
                                     }
                                     activitiesToInstall.push(activityModel);
                                     activitiesInstalled = activitiesInstalled + 1;
+									console.log(activities.length);
+									console.log(activitiesInstalled);
                                     if (activities.length == activitiesInstalled) {
                                         for (var cont in activitiesToInstall) {
                                             if (activitiesToInstall[cont] )
