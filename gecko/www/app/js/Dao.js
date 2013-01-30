@@ -19,11 +19,13 @@ var Dao = {
 				console.log('y bien');
             },
             failure: function () {
+				$.unblockUI();
 				Workflow.toMain = true;
 				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 			    $('#dialogText').html(i18n.gettext("Course was not installed because private code was invalid"));
             },
 			error: function () {
+				$.unblockUI();
 				Workflow.toMain = true;
 				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 			    $('#dialogText').html(i18n.gettext("Course was not installed because private code was invalid"));
@@ -333,7 +335,6 @@ var Dao = {
                             DrGlearning.refreshMain();						
                             UserSettings.preinstallingIndex++;
 							console.log('llamando otra vez a preinstall')
-							console.log('llamando otra vez a preinstall')
                             UserSettings.preinstall();
                         }
                     },
@@ -356,7 +357,7 @@ var Dao = {
 		if(message.data.action === "postCourseCode")
 		{
 			console.log(UserSettings);
-			Dao.preinstallCareer(UserSettings.careerTemp);
+			Dao.checkCode($('<div data-href="' +UserSettings.careerTemp  + '">'),message.data.params.courseCode);
 		}
 	}
 
