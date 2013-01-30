@@ -350,13 +350,13 @@ var Dao = {
 		console.log(message);
 		if(message.data.action === "postPlayerCode")
 		{
-			console.log('olass');
+			console.log(UserSettings);
 			UserSettings.importUser(message.data.params.playerCode);
 		}
 		if(message.data.action === "postCourseCode")
 		{
-			console.log('olass');
-			Dao.preinstallCareer(UserSettings.careerModel);
+			console.log(UserSettings);
+			Dao.preinstallCareer(UserSettings.careerTemp);
 		}
 	}
 
