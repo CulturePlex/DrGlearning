@@ -111,6 +111,7 @@ var DrGlearning = {
                     console.log(response);
 					response.options = {};
 					var options = { careers : [] };
+					Dao.userStore.save({key:'userId',value:response.id});
 					Dao.userStore.save({key:'options',value:options});
 					Dao.userStore.save({key:'token',value:response.token});
                     //localStorage.token = response.token;

@@ -218,11 +218,7 @@ var Loading = {
 		                });
                 }
                 console.log('requesting careers...');
-                console.log(searchString);
-                console.log(knowledgeValue);
-                console.log(localCurrentCount);
-                console.log(localTotalCount);
-                
+               
                 if (parseInt(localCurrentCount, 10)  < parseInt(localTotalCount, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;
@@ -266,10 +262,6 @@ var Loading = {
 					{
 						searchParams.id=id;
 					}
-					console.log(searchParams.offset);
-					console.log(searchParams.name__contains);
-					console.log(searchParams.knowledges_name);
-					console.log(searchParams.deviceWidth);
                     jQuery.ajax({
 						type:'GET',
                         url:  HOST + "/api/v1/career/?format=json",
@@ -282,15 +274,11 @@ var Loading = {
 							Dao.userStore.save({key:'total_count',value:response.meta.total_count});
                             //localStorage.total_count = response.meta.total_count;
                             var careers = response.objects;
-                            console.log('vuelve');
                             $('#addcareerslist').empty();
                             for (var cont in careers) {
                                 localCurrentCount ++;
 								Dao.userStore.save({key:'current_count',value:localCurrentCount});
 								Dao.careersStore.keys(function(keys) {
-									console.log(keys);
-									console.log(careers[cont].id.toString());
-									console.log(keys.indexOf(careers[cont].id.toString()));
 									if(keys.indexOf(careers[cont].id.toString())==-1)
 									{
 				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false,career_type:careers[cont].career_type,has_code:careers[cont].has_code};
@@ -355,22 +343,18 @@ var Loading = {
                       i18n.gettext('Loading Levels...')+
                       '</h1><p>'+
                       '</p></a></li>');
-				Dao.userStore.get('id',function(me)
+				var user_id;
+				Dao.userStore.get('userId',function(me)
 				{
 					user_id = (me !== null) ? me.value : '';
 				});
-				console.log(DrGlearning.careerId);
                 Dao.careersStore.get(id,function(career){ 
-					console.log(career);
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
                     var cont;
                     for (cont in activities) {
-						console.log('entrando');
                         if (activities[cont])
                         {
-							console.log('hola');
-							console.log(activities[cont]);
                             var activitiesToInstall = [];
                             var size = 0;
                             var HOST = GlobalSettings.getServerURL();
@@ -384,7 +368,6 @@ var Loading = {
                                 },
                                 dataType : 'json',
                                 success: function (response, opts) {
-									console.log('por aki');
                                     var activity = response;
                                     var activityModel = {
                                         id : activity.id,
@@ -458,8 +441,6 @@ var Loading = {
                                     }
                                     activitiesToInstall.push(activityModel);
                                     activitiesInstalled = activitiesInstalled + 1;
-									console.log(activities.length);
-									console.log(activitiesInstalled);
                                     if (activities.length == activitiesInstalled) {
                                         for (var cont in activitiesToInstall) {
                                             if (activitiesToInstall[cont] )
@@ -470,7 +451,6 @@ var Loading = {
                                             }
                                         }
 										career.value.installed = true;
-										console.log(career);
 										Dao.careersStore.save({key:career.key,value:career.value});
                                         DrGlearning.refreshMain();						
 										$.unblockUI();
@@ -484,12 +464,6 @@ var Loading = {
 										}
 										temp.value.careers.push(id);	
 										Dao.userStore.save({key:'options',value:temp.value});
-										console.log(UserSettings.importedScores);
-										for (var x in UserSettings.importedScores)
-										{
-											console.log('jgando');
-											Dao.activityPlayed(UserSettings.importedScores[x].activity_id, UserSettings.importedScores[x].is_passed, UserSettings.importedScores[x].score, true);
-										}
 										UserSettings.updateUserSettings();
 										if(DrGlearning.embed)
 										{
