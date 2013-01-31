@@ -298,14 +298,7 @@ try {
                     if (e !== undefined && e.touch.target.id === "uninstall") {
                         this.actionSheet = Ext.create('Ext.ActionSheet', {
                             items: 
-                            [
-                                {
-                                    text: i18n.gettext('Sync your scores'),
-                                    handler: function () {
-                                        this.parent.hide();
-                                        that.daoController.updateOfflineScores(); 
-                                    }
-                                },
+                            [                              
                                 {
                                     text: i18n.gettext('Check for courses updates'),
                                     handler: function () {
