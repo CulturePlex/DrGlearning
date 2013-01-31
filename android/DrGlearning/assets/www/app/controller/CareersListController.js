@@ -134,7 +134,7 @@ try {
                 this.filterCareers();
                 if (localStorage.imported)
                 {
-                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=sync]').show();
+                    //this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=sync]').show();
                 }
                 else
                 {
@@ -337,9 +337,7 @@ try {
                     {
                         var actionSheet = Ext.create('Ext.ActionSheet', {
                             items: 
-                            [{
-                                text: i18n.gettext('Sync your scores')
-                            },
+                            [
                             {
                                 text: i18n.gettext('Update course'),
                                 ui: 'confirm',
