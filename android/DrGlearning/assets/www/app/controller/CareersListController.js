@@ -88,11 +88,11 @@ try {
                     
                     },
                     'button[id=sync]': {
-                        tap: this.userSettingsController.sync
+                        //tap: this.userSettingsController.sync
                     
                     },
                     'button[id=updateAll]': {
-                        tap: this.updateAll
+                        //tap: this.updateAll
                     
                     },
                     'button[id=saveSettings]': {
