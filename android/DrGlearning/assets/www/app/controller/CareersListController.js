@@ -87,14 +87,14 @@ try {
                         tap: this.userSettingsController.settings
                     
                     },
-                    'button[id=sync]': {
+                    /*'button[id=sync]': {
                         //tap: this.userSettingsController.sync
                     
                     },
                     'button[id=updateAll]': {
                         //tap: this.updateAll
                     
-                    },
+                    },*/
                     'button[id=saveSettings]': {
                         tap: this.userSettingsController.saveSettings
                     
