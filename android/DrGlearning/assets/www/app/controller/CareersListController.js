@@ -138,17 +138,17 @@ try {
                 }
                 else
                 {
-                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=sync]').hide();
+                    //this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=sync]').hide();
                 }
                 if (this.careersStore.getCount() === 0) {
                     this.getCareersframe().down('careerslist').hide();
                 }
                 if (numberOfUpdates > 0)
                 {
-                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
+                    //this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
                 } else
                 {
-                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
+                    //this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
                 }
                 this.getCareersframe().down('toolbar[id=toolbarTopNormal]').show();
                 this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').show();
