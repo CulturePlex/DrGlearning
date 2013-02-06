@@ -19,7 +19,7 @@ try {
             finishtemp: null,
             secondtemp: null,
             currentTime: 0,
-            score: null,
+            score: 20,
             isStopped: false,
             loading: null,
             init: function ()
@@ -144,6 +144,7 @@ try {
             {
                 if (target.config.answerNo === this.correctAnswerId) 
                 {
+					console.log(this.score);
                     if (this.score < 50)
                     {
                         this.score = 50;
@@ -180,7 +181,10 @@ try {
             {
                 clearInterval(this.secondtemp);
                 this.showAnswers();
-                this.score = parseInt(this.currentTime+1 * 100 / this.activity.data.time, 10);
+				console.log(parseInt(this.currentTime,10)+1);
+				console.log(parseInt(this.activity.data.time,10)+0);
+				this.score = parseInt(((parseInt(this.currentTime,10)) * 50) / (parseInt(this.activity.data.time-1,10)+0))+50;
+				console.log(this.score);
 				if(this.score > 100)
 				{
 					this.score = 100;
