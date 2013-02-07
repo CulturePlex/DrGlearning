@@ -73,7 +73,7 @@ try {
                     
                 }
                 this.activityController.addQueryAndButtons(this.activityView, newActivity);
-                this.activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
+                this.activityView.down('label[customId=loqued]').setHtml(this.activity.data.locked_text.replace(/[ ]/g, ' ').replace(/[A-z0-9]/g, '_&nbsp;').trim());
                 this.activityView.down('label[customId=responses]').setHtml('');
                 if (this.activity.data.locked_text.toLowerCase() === this.activity.data.answer.toLowerCase()) {
                     this.activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') + ": ");
@@ -99,6 +99,7 @@ try {
             },
             tryIt: function ()
             {
+				console.log('olass');
                 var letterView = this.activityView.down('textfield[customId=letter]');
                 var responseView = this.activityView.down('label[customId=responses]');
                 var loquedView = this.activityView.down('label[customId=loqued]');
@@ -154,15 +155,33 @@ try {
                 var loqued = "";
                 for (cont in this.loquedTextFinded) {
                     if (this.loquedTextFinded[cont]) {
-                        loqued = loqued + this.loquedText[cont];
+						if(this.loquedText[cont]==" ")
+						{
+							loqued = loqued + '&nbsp;&nbsp;';	
+						}else
+						{
+                        	loqued = loqued + this.loquedText[cont];
+						}
                     }
                     else {
-                        loqued = loqued + "_ ";
+						console.log(this.loquedText);
+						console.log(this.loquedText[cont]);
+						if(this.loquedText[cont]==" ")
+						{
+							loqued = loqued + "&nbsp;&nbsp;";	
+						}
+						else
+						{
+							loqued = loqued + "_ ";
+						}
+                        
                     }
                 }
                 loquedView.setHtml(loqued);
+				console.log(loqued.toLowerCase().replace('&nbsp;&nbsp;',' '));
+				console.log(this.activity.data.answer.toLowerCase());
                 console.log(this.score);
-                if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
+                if (loqued.toLowerCase().replace('&nbsp;&nbsp;',' ') === this.activity.data.answer.toLowerCase()) 
                 {
                     if (this.score < 20)
                     {
