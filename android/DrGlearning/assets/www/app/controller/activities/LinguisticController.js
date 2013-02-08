@@ -212,6 +212,14 @@ try {
                         this.levelController.nextActivity(this.activity.data.level_type);
                     }, this);
                 }
+				if(this.lettersAsked.length>4)
+				{
+					Ext.Msg.alert(i18n.gettext('Info'), i18n.gettext("You don’t have more guesses, solve!"), function ()
+		            {
+		                this.solve();
+		            }, this);
+				}
+				
             },
             
             getTable: function ()
