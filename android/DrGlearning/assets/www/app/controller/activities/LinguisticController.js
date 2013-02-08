@@ -44,6 +44,23 @@ try {
                 });
                 
             },
+			generateLetterAskedHtml: function ()
+			{
+				var temp="";
+				for(var i=0;i<5;i++)
+				{
+					if(this.lettersAsked[i])
+					{
+						temp +="<span style='border: 1px solid; display:inline-block;  width:16px;'><font color='red'>"+this.lettersAsked[i]+"</font></span>&ensp;";
+					}
+					else
+					{
+						temp +="<span style='border: 1px solid; display:inline-block;  width:16px;'>&ensp;</span>&ensp;";
+					}
+				}
+				console.log(temp);
+				return temp;
+			},
             updateActivity: function (view, newActivity)
             {
                 Ext.Viewport.setMasked({
@@ -74,11 +91,10 @@ try {
                 }
                 this.activityController.addQueryAndButtons(this.activityView, newActivity);
                 this.activityView.down('label[customId=loqued]').setHtml(this.activity.data.locked_text.replace(/[ ]/g, ' ').replace(/[A-z0-9]/g, '_&nbsp;').trim());
-                this.activityView.down('label[customId=responses]').setHtml('');
+                this.activityView.down('label[customId=responses]').setHtml(this.generateLetterAskedHtml());
                 if (this.activity.data.locked_text.toLowerCase() === this.activity.data.answer.toLowerCase()) {
                     this.activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') + ": ");
                 }
-                this.activityView.down('label[customId=responses]').setHtml('');
                 this.respuestas = this.activity.data.answers;
                 newActivity.getImageLinguistic('image', 'image', null, this, view, this.activityView, true);
             },
@@ -116,7 +132,6 @@ try {
                 if(this.lettersAsked.indexOf(letter) == -1)
                 {
                   console.log(this.loquedText.length);
-                  this.lettersAsked.push(letter);
                   var loquedTextLower = [];
                   for (var x in this.loquedText)
                   {
@@ -141,15 +156,14 @@ try {
                         {
                           i++;
                           console.log('restando');
-                          this.score -= (10/numDifLetter);
                         }
                       }
-                      responseView.setHtml(responseView.getHtml() + letter + ' ');
                       this.goodLetter();
                   }
                   else {
-                      this.score -= 70/(27-numDifLetter);
-                      responseView.setHtml(responseView.getHtml() + letter.fontcolor("red") + ' ');
+                      this.score -= 10;
+	                  this.lettersAsked.push(letter);
+                      responseView.setHtml(this.generateLetterAskedHtml());
                   }
                }
                 var loqued = "";
