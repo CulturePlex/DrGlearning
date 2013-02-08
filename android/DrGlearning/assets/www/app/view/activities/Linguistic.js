@@ -39,7 +39,10 @@ try {
                         margin: 10
                     }, {
                         xtype: 'container',
-                        layout: 'hbox',
+   						layout: {
+                            type: 'hbox',
+                            pack : 'center' 
+                        },
                         items: 
                         [
                             {
