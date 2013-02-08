@@ -153,14 +153,17 @@ try {
                   }
                }
                 var loqued = "";
+                var loqued2 = "";
                 for (cont in this.loquedTextFinded) {
                     if (this.loquedTextFinded[cont]) {
 						if(this.loquedText[cont]==" ")
 						{
 							loqued = loqued + '&nbsp;&nbsp;';	
+							loqued2 = loqued2 + '&nbsp;&nbsp;';	
 						}else
 						{
                         	loqued = loqued + this.loquedText[cont];
+                        	loqued2 = loqued2 + "<u>"+this.loquedText[cont]+"</u> ";
 						}
                     }
                     else {
@@ -168,16 +171,18 @@ try {
 						console.log(this.loquedText[cont]);
 						if(this.loquedText[cont]==" ")
 						{
-							loqued = loqued + "&nbsp;&nbsp;";	
+							loqued = loqued + "&nbsp;&nbsp;";
+							loqued2 = loqued2 + "&nbsp;&nbsp;";		
 						}
 						else
 						{
 							loqued = loqued + "_ ";
+							loqued2 = loqued2 + "<u>&ensp;</u> ";
 						}
                         
                     }
                 }
-                loquedView.setHtml(loqued);
+                loquedView.setHtml(loqued2);
 				console.log(loqued.toLowerCase().replace('&nbsp;&nbsp;',' '));
 				console.log(this.activity.data.answer.toLowerCase());
                 console.log(this.score);
