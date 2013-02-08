@@ -59,10 +59,10 @@ try {
                 this.activityTitle = this.getActivityframe().down('title[customId=title]');
                 this.control({
                     'button[id=help]': {
-                        tap: this.help
+                        tap: this.helpAndQuery
                     },
                     '[customId=query_label]': {
-                        click: this.more
+                        click: this.helpAndQuery
                     },
                     'button[id=backtolevels]': {
                         tap: this.tolevels
@@ -402,6 +402,7 @@ try {
              * Showing the complete query of an activity.
              */
             more: function (that) {
+				console.log("moreeeeeee");
                 var text = that.currentActivity.data.query;
                 Ext.Msg.alert(i18n.gettext('Question'), text, function () {
                 }, that);

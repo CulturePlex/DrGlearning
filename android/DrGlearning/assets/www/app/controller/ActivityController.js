@@ -39,7 +39,7 @@ try {
                     tap: {
                         fn: function ()
                         {
-                            that.levelController.more(that.levelController);
+                            that.levelController.helpAndQuery();
                         },
                         element: 'element'
                     }
