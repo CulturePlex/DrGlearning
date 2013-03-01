@@ -2,9 +2,14 @@
   margin-left:15px;
 }
 
+#adding-form button,
+#constraints button {
+  width: initial;
+  margin-right: 2px;
+}
+
 div.controlpanel {
   background-color: #D6E7FD;
-  500px;
 }
 
 div#activityWidget {
@@ -32,4 +37,8 @@ ol#constraint-list {
 
 li.item {
   clear: right;
+}
+
+.elementsList {
+  width: 100%;
 }

@@ -45,11 +45,11 @@ var GraphEditor = {
     var node = this.getGraphNodesJSON()[name];
 
     // Delete button
-    var deleteControl = $('<ul class="actions">')
-      .append($('<li class="delete-link">')
-        .append($('<a onClick="GraphEditor.deleteNode(\'' + name + '\')">').text("Delete")));
-    deleteControl.append($('<li class="change-link">')
-      .append($('<a onClick="GraphEditor.setScore(\'' + name + '\')">').text('Set Score')));
+    var deleteControl = $('<ul class="grp-actions">')
+      .append($('<li class="grp-delete-link">')
+        .append($('<a href="javascript:void();" onClick="GraphEditor.deleteNode(\'' + name + '\')">').text("Delete")));
+    deleteControl.append($('<li class="grp-change-link">')
+      .append($('<a href="javascript:void();" onClick="GraphEditor.setScore(\'' + name + '\')">').text('Set score')));
 
     if (node.type != undefined && node.score != undefined){
       name += ' (type: ' + node.type + ', score: ' + node.score + ')';
@@ -62,9 +62,9 @@ var GraphEditor = {
 
     // Delete button
     var elementNumber = $('#edge-list li').size();
-    var deleteControl = $('<ul class="actions">')
-      .append($('<li class="delete-link">')
-        .append($('<a onClick="GraphEditor.deleteEdge(' + elementNumber + ')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">').text("Delete")));
+    var deleteControl = $('<ul class="grp-actions">')
+      .append($('<li class="grp-delete-link">')
+        .append($('<a href="javascript:void();" onClick="GraphEditor.deleteEdge(' + elementNumber + ')" src="/static/grappelli/img/icons/icon-actions-delete-link.png">').text("Delete")));
 
     this.addElementToList(name, edgeList, deleteControl);
   },
@@ -80,7 +80,7 @@ var GraphEditor = {
   addNode: function(_name, _properties){
     // Only prompts if the parameter is not sent
     var nodeName = _name != undefined ? _name : $('#node-name').val();
-    
+
     var json = this.getGraphNodesJSON();
     if (this.nodeExists(nodeName)){
       alert("ERROR: That node already exists")
@@ -134,7 +134,7 @@ var GraphEditor = {
 
     // Inverse edge type
     var edgeInverseType = $('#edge-inverse-type').val();
-    
+
     // Taking inverse relationship property if edge comes from GEXF import
     if (edgeInverseType === undefined) {
       if (_properties.hasOwnProperty('inverse')) {
@@ -145,7 +145,7 @@ var GraphEditor = {
     }
     // Discard only-white strings
     edgeInverseType =  (edgeInverseType.search(/^\s*$/) == -1) ? edgeInverseType : "";
-    
+
     if (!this.nodeExists(edgeSource)){
       alert("ERROR: Unknown node: " + edgeSource);
       return;
@@ -297,12 +297,12 @@ var GraphEditor = {
   loadGEXF: function(){
         function handleFileSelect(evt) {
         var files = evt.target.files; // FileList object
-    
+
         // Loop through the FileList and render image files as thumbnails.
         for (var i = 0, f; f = files[i]; i++) {
-    
+
           var reader = new FileReader();
-    
+
           // Closure to capture the file information.
           reader.onload = (function(theFile) {
             return function(e) {
@@ -328,14 +328,14 @@ var GraphEditor = {
               });
             };
           })(f);
-    
+
           // Read in the image file as a data URL.
           reader.readAsText(f);
         }
       }
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
   },
-  
+
   loadGEXF: function(){
         function handleFileSelect(evt) {
         GraphEditor.progressBar.show();
@@ -346,11 +346,11 @@ var GraphEditor = {
         GraphEditor.setConstraints([]);
 
         var files = evt.target.files; // FileList object
-    
+
         for (var i = 0, f; f = files[i]; i++) {
-    
+
           var reader = new FileReader();
-    
+
           // Closure to capture the file information.
           reader.onload = (function(theFile) {
             return function(e) {
@@ -359,7 +359,7 @@ var GraphEditor = {
 
               // NODES
               $(gexfContent).find('node').each(function(index, item){
-                
+
                 // Node custom attributes
                 var attributes = {};
                 $(this).find('attvalue').each(function(index){
@@ -371,7 +371,7 @@ var GraphEditor = {
                     "x":$(this).find('viz\\:position').attr('x'),
                     "y":$(this).find('viz\\:position').attr('y')
                 }
-                
+
                 GraphEditor.addNode($(this).attr('label'), attributes);
               });
 
@@ -393,7 +393,7 @@ var GraphEditor = {
               GraphEditor.progressBar.hide();
             };
           })(f);
-    
+
           reader.readAsText(f);
         }
       }
@@ -458,8 +458,8 @@ var GraphEditor = {
     for(var i=0;i<constraints.length;i++){
       constraintText = constraints[i]["type"] + " nodes " +
         verboseOperator[constraints[i]["operator"]] + " " + constraints[i]["value"] +
-        '<ul class="actions"><li class="delete-link">' +
-        '<a onClick="GraphEditor.deleteConstraint(' + i + ')">delete</a>' +
+        '<ul class="grp-actions"><li class="grp-delete-link">' +
+        '<a href="javascript:void();" onClick="GraphEditor.deleteConstraint(' + i + ')">delete</a>' +
         '</li></ul>';
       $('#constraint-list').append('<li class="item">' + constraintText + '</li>');
     }
@@ -470,16 +470,16 @@ var GraphEditor = {
 
   init: function(){
 
-    var editorWidget = '<div id="graph-editor" class="form-row">' +
-        '<a class="addlink graph-editor" onclick="GraphEditor.addNodeForm()">Add node</a>' +
-        '<a class="addlink graph-editor" onclick="GraphEditor.addEdgeForm()">Add edge</a>' +
-        '<div id="adding-form"></div>' + 
+    var editorWidget = '<div id="graph-editor" class="grp-row grp-cells-1">' +
+        '<a class="grp-button graph-editor" href="javascript:void();" onclick="GraphEditor.addNodeForm()">Add node</a> ' +
+        '<a class="grp-button graph-editor" href="javascript:void();" onclick="GraphEditor.addEdgeForm()">Add edge</a>' +
+        '<div id="adding-form"></div>' +
         '<canvas id="graphcanvas"></canvas>' +
         '<div class="controlpanel">' +
           '<label for="gexf-file">Import GEXF</label>' +
           '<input type="file" id="files" name="files[]" multiple />' +
         '</div>' +
-        '<table><tr><td>' +
+        '<table class="elementsList"><tr><td>' +
           '<h4>Nodes</h4>' +
           '<ul id="node-list"></ul>' +
           '</td><td>' +
@@ -491,10 +491,10 @@ var GraphEditor = {
     if (!this.DEBUG){
       $('.graph_nodes').hide();
       $('.graph_edges').hide();
-      $('.constraints').hide();  
+      $('.constraints').hide();
     }
     $('.constraints').before(editorWidget);
-   
+
     this.loadGEXF();
 
     var activityWidget = '<div id="activityWidget">' +
@@ -517,7 +517,7 @@ var GraphEditor = {
         '<option value="neq">different to</option>' +
         '</select>' +
         '<input type="text" id="constraint-value" size="3"/>' +
-        '<button type="button" id="add-constraint">Add constraint</button>' +
+        '<button type="button" class="grp-button grp-default" id="add-constraint">Add constraint</button>' +
         '</div>' +
         '<hr/>' +
         '<h3>Finish node</h3>' +
@@ -543,7 +543,7 @@ var GraphEditor = {
       GraphEditor.setConstraints(constraints);
       GraphEditor.refresh();
     });
-    
+
     // Black magic to have the Processing drawer ready to call the drawInitialData method
     // The ajax petition is a straightforward copy from the Processing original code in
     // its init method
@@ -559,7 +559,7 @@ var GraphEditor = {
       );
     }
   },
-  
+
   drawInitialData: function(){
     var nodesJSON = this.getGraphNodesJSON();
     var node;
@@ -586,14 +586,14 @@ var GraphEditor = {
       form.append($('<label for="node-type">').text("Node type:"))
         .append($('<input type="text" id="node-type">'));
     }
-    form.append($('<br/>'))
-      .append($('<button type="button" onClick="GraphEditor.addNode();GraphEditor.hideAddForm();">').text("Add node"));
-    form.append($('<button type="button" onClick="GraphEditor.hideAddForm();">').text("Cancel"));
-   
+    //form.append($('<br/>'))
+    form.append($('<button type="button" class="grp-button grp-default" href="javascript:void();" onClick="GraphEditor.addNode();GraphEditor.hideAddForm();">').text("Add"));
+    form.append($(' <button type="button" class="grp-button grp-default" href="javascript:void();" onClick="GraphEditor.hideAddForm();">').text("Cancel"));
+
     $('#adding-form').empty();
     $('#adding-form').append(form);
   },
-  
+
   addEdgeForm: function(){
     var nodes = GraphEditor.getGraphNodesJSON();
 
@@ -618,10 +618,10 @@ var GraphEditor = {
     }
     form.append($('<label for="target-node">').text("Target node:"))
       .append(nodeSelect.clone().attr('id', 'target-node'));
-    form.append($('<br/>'))
-      .append($('<button type="button" onClick="GraphEditor.addEdge();GraphEditor.hideAddForm();">').text("Add edge"));
-    form.append($('<button type="button" onClick="GraphEditor.hideAddForm();">').text("Cancel"));
-    
+    //form.append($('<br/>'))
+    form.append($('<button class="grp-button grp-default" type="button" href="javascript:void();" onClick="GraphEditor.addEdge();GraphEditor.hideAddForm();">').text("Add"));
+    form.append($('<button class="grp-button grp-default" type="button" href="javascript:void();" onClick="GraphEditor.hideAddForm();">').text("Cancel"));
+
     // Update chosen selects with new content
     $('.chzn-select').trigger("liszt:updated");
 
