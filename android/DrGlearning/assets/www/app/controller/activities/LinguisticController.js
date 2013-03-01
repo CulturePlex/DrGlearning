@@ -42,7 +42,7 @@ try {
                         tap: this.tryIt
                     }
                 });
-                
+
             },
 			generateLetterAskedHtml: function ()
 			{
@@ -79,7 +79,7 @@ try {
                 this.loquedText = this.activity.data.locked_text.split("");
                 this.loquedTextFinded = [];
                 var cont;
-                for (cont in this.loquedText) 
+                for (cont in this.loquedText)
                 {
                     if (this.loquedText[cont] === " ") {
                         this.loquedTextFinded[cont] = true;
@@ -87,7 +87,7 @@ try {
                     else {
                         this.loquedTextFinded[cont] = false;
                     }
-                    
+
                 }
                 this.activityController.addQueryAndButtons(this.activityView, newActivity);
                 this.activityView.down('label[customId=loqued]').setHtml(this.activity.data.locked_text.replace(/[ ]/g, ' ').replace(/[A-z0-9]/g, '_&nbsp;').trim());
@@ -138,7 +138,7 @@ try {
                     loquedTextLower[x]=this.loquedText[x].toLowerCase();
                   }
                   var arrayAux = [];
-                  
+
                   for (var y in loquedTextLower)
                   {
                     if(arrayAux.indexOf(loquedTextLower[y]) == -1)
@@ -172,8 +172,8 @@ try {
                     if (this.loquedTextFinded[cont]) {
 						if(this.loquedText[cont]==" ")
 						{
-							loqued = loqued + '&nbsp;&nbsp;';	
-							loqued2 = loqued2 + '&nbsp;&nbsp;';	
+							loqued = loqued + '&nbsp;&nbsp;';
+							loqued2 = loqued2 + '&nbsp;&nbsp;';
 						}else
 						{
                         	loqued = loqued + this.loquedText[cont];
@@ -186,21 +186,21 @@ try {
 						if(this.loquedText[cont]==" ")
 						{
 							loqued = loqued + "&nbsp;&nbsp;";
-							loqued2 = loqued2 + "&nbsp;&nbsp;";		
+							loqued2 = loqued2 + "&nbsp;&nbsp;";
 						}
 						else
 						{
 							loqued = loqued + "_ ";
 							loqued2 = loqued2 + "<u>&ensp;</u> ";
 						}
-                        
+
                     }
                 }
                 loquedView.setHtml(loqued2);
 				console.log(loqued.toLowerCase().replace('&nbsp;&nbsp;',' '));
 				console.log(this.activity.data.answer.toLowerCase());
                 console.log(this.score);
-                if (loqued.toLowerCase().replace('&nbsp;&nbsp;',' ') === this.activity.data.answer.toLowerCase()) 
+                if (loqued.toLowerCase().replace('&nbsp;&nbsp;',' ') === this.activity.data.answer.toLowerCase())
                 {
                     if (this.score < 20)
                     {
@@ -214,14 +214,14 @@ try {
                 }
 				if(this.lettersAsked.length>4)
 				{
-					Ext.Msg.alert(i18n.gettext('Info'), i18n.gettext("You don’t have more guesses, solve!"), function ()
+					Ext.Msg.alert(i18n.gettext('Info'), i18n.gettext("You're out of guesses, solve!"), function ()
 		            {
 		                this.solve();
 		            }, this);
 				}
-				
+
             },
-            
+
             getTable: function ()
             {
                 var table = '<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT="170" BACKGROUND="' + this.imagesrc + '"><tr>';
@@ -240,7 +240,7 @@ try {
                     if (((parseInt(cont, 10) + 1) % 5) === 0) {
                         table = table + '</tr>';
                     }
-                    if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25) 
+                    if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25)
                     {
                         table = table + '<tr>';
                     }
@@ -248,7 +248,7 @@ try {
                 table = table + '</tr></table>';
                 return table;
             },
-            
+
             goodLetter: function ()
             {
                 var cont;
@@ -281,9 +281,9 @@ try {
                     whiteSquares++;
                 }
                 this.activityView.down('panel[customId=image]').setHtml(this.getTable());
-                
+
             },
-            
+
             solve: function ()
             {
                 var answer;
