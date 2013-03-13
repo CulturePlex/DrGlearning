@@ -28,7 +28,6 @@ try {
                 view.down('component[customId=activity]').destroy();
                 var activityView = Ext.create('DrGlearning.view.activities.Relational');
                 this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
-                
                 var daocontroller = this.getApplication().getController('DaoController');
                 var careerscontroller = this.getApplication().getController('CareersListController');
                 var activitiescontroller = this.getApplication().getController('LevelController');
@@ -38,7 +37,7 @@ try {
                 var pathStart, pathGoal, pathPosition;
                 var option;
                 var allConstraintsPassed = false;
-                var score = 20;
+                var score = 50;
                 //Import graph nodes and edges from database
                 var graphNodes = newActivity.data.graph_nodes;
                 var graphEdges = newActivity.data.graph_edges;
