@@ -157,7 +157,8 @@ try {
                         if (graphNodes[pathPosition] !== undefined) {
                             if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
                                 score += parseInt(graphNodes[pathPosition].score, 10);
-                                Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.translate('You got %d points!').fetch(graphNodes[pathPosition].score), function ()
+								console.log(score);
+                                Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.gettext('You got '+graphNodes[pathPosition].score+' points!'), function ()
                                 {
                                 
                                 }, this);
@@ -542,6 +543,22 @@ try {
                     else 
                     if (graphNodes[i].hasOwnProperty("end")) {
                         pathGoal = i;
+                    }
+                }
+				//Normalizing scores total to 50, extra score only on nodes
+				var totalScores = 0;
+                for (var i in graphNodes) 
+                {
+					if (graphNodes[i].score !== 0) {
+						console.log(parseInt(graphNodes[i].score,10));
+                        totalScores += parseInt(graphNodes[i].score,10);
+                    }
+                }
+				console.log(totalScores);
+				for (var i in graphNodes)
+				{
+					if (graphNodes[i].score !== 0) {
+						graphNodes[i].score = Math.round(parseInt(graphNodes[i].score,10)*50/totalScores);
                     }
                 }
                 //Execute first step
