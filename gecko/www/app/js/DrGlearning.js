@@ -262,6 +262,7 @@ var DrGlearning = {
 				{
 					Workflow.toRelational = false;
 					$.mobile.changePage("#relational");
+        			Relational.refreshRel(Relational.option);
 				}
 				if(Workflow.toTemporal)
 				{
