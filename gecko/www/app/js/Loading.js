@@ -281,7 +281,15 @@ var Loading = {
 								Dao.careersStore.keys(function(keys) {
 									if(keys.indexOf(careers[cont].id.toString())==-1)
 									{
-				                        var obj = {name:careers[cont].name,description:careers[cont].description,levels:careers[cont].levels,activities:careers[cont].activities,installed:false,career_type:careers[cont].career_type,has_code:careers[cont].has_code};
+				                        var obj = {
+											name:careers[cont].name,
+											description:careers[cont].description,
+											levels:careers[cont].levels,
+											activities:careers[cont].activities,
+											installed:false,
+											career_type:careers[cont].career_type,
+											timestamp:careers[cont].timestamp,
+											has_code:careers[cont].has_code};
 				                        Dao.careersStore.save({key:careers[cont].id,value:obj});
 									}
 								})
@@ -315,6 +323,7 @@ var Loading = {
 								activities:response.activities, 
 								installed:false, 
 								career_type:response.career_type,
+								timestamp:response.timestamp,
 								has_code:response.has_code
 							};
 				            Dao.careersStore.save({key:response.id,value:obj});
@@ -465,6 +474,7 @@ var Loading = {
                                             }
                                         }
 										career.value.installed = true;
+										console.log(career);
 										Dao.careersStore.save({key:career.key,value:career.value});
                                         DrGlearning.refreshMain();						
 										$.unblockUI();
