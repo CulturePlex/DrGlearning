@@ -35,8 +35,9 @@ var UserSettings = {
 			Dao.userStore.save({key:'email',value:emailField});
             //localStorage.email = emailField;
         }
-        /*var locale = view.down('selectfield[id=locale]').getValue();
-        if (localStorage.locale !== locale) {
+        var locale = $('#locale').val();
+       	console.log(locale);
+		/*if (localStorage.locale !== locale) {
             if (locale === "ar")
             {
                 localStorage.alignCls = 'rightalign';

@@ -46,6 +46,8 @@ var DrGlearning = {
 			$('#footercourse').remove();
 		}
 
+		// Setting up locales
+		localStorage.locale= "en";
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = {
 	        padding: 0,
