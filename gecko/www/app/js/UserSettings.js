@@ -37,19 +37,23 @@ var UserSettings = {
         }
         var locale = $('#locale').val();
        	console.log(locale);
-		/*if (localStorage.locale !== locale) {
-            if (locale === "ar")
+		if (localStorage.locale !== locale) {
+            /*if (locale === "ar")
             {
                 localStorage.alignCls = 'rightalign';
             } else
             {
                 localStorage.alignCls = 'leftalign';
-            }
+            }*/
             localStorage.locale = locale;
-            Ext.Msg.alert(i18n.gettext('Language changed'), i18n.gettext('You need to restart the app to see the changes.'), function () {
-
-            });
-        }*/
+			$('#dialogText').html(i18n.gettext("Language changed. You need to restart the app to see the changes."));
+			Workflow.toMain = true;
+			$.mobile.changePage("#dialog");
+        }
+		else
+		{
+			$.mobile.changePage("#main");
+		}		
         if (changed)
         {
             this.updateUserSettings();

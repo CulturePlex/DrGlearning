@@ -47,7 +47,11 @@ var DrGlearning = {
 		}
 
 		// Setting up locales
-		localStorage.locale= "en";
+		console.log(localStorage.locale);
+		if(localStorage.locale == undefined)
+		{
+			localStorage.locale= "en";
+		}
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = {
 	        padding: 0,
