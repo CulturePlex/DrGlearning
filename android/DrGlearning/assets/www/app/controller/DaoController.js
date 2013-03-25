@@ -653,7 +653,8 @@ try {
                     },
                     failure: function () {
                         Ext.Viewport.setMasked(false);
-                    }
+ 						Ext.Msg.alert(i18n.gettext('Course not available'), i18n.gettext('Sorry this course is not available now. Try again later'), Ext.emptyFn);                    
+}
                 });
             },
             updateCareer: function (careerID, callback, scope) {
