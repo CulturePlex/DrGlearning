@@ -224,6 +224,37 @@ var Dao = {
 			dataType: "json",
 		    success: function (response) {
 				console.log('puntuacion enviada');
+		    },
+			error: function (response) {
+				console.log('error al puntuacion enviada');
+				$.ajax({
+		            url: HOST + '/api/v1/player/',
+		            data: {
+		                code: uniqueid,
+		                import: true
+		            },
+					dataType: "jsonp",
+		            success: function (response) {
+						var activity;
+						Dao.activitiesStore.get(activityID,function(me)
+						{
+							activity = me;
+						});
+						console.log(activity);
+						if(response.options.careers.indexOf(parseInt(activity.value.careerId,10))==-1)
+						{
+							//Deleting career
+							Dao.uninstall(parseInt(activity.value.careerId,10));
+							Workflow.toMain = true;
+							$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+							$('#dialogText').html(i18n.gettext("This course has been deleted by his creator."));
+							
+						    
+						}
+
+		            }
+				});
+
 		    }
 		});
     },
