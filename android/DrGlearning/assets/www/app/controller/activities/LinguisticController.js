@@ -206,7 +206,7 @@ try {
                     {
                         this.score = 20;
                     }
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
@@ -318,7 +318,7 @@ try {
                         {
                             this.score = 20;
                         }
-                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
                         {
                             this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                             this.levelController.nextActivity(this.activity.data.level_type);

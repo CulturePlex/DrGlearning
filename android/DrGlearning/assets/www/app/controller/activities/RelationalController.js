@@ -518,7 +518,7 @@ try {
                         score = 100;
                     }
                     if (allConstraintsPassed) {
-                        Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("Score") + ": " + score, function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + '<br />' + i18n.gettext("Score") + ": " + score, function ()
                         {
                             daocontroller.activityPlayed(newActivity.data.id, true, score);
                             activitiescontroller.nextActivity(newActivity.data.level_type);

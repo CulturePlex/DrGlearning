@@ -141,7 +141,7 @@ try {
                 if (target.config.answerNo === this.correctAnswerId) 
                 {
                     this.timeContainer.down('button[correctAnswer=true]').setUi('confirm');
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.puntos, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + this.puntos, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.puntos);
                         this.levelController.nextActivity(this.activity.data.level_type);

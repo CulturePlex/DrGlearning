@@ -59,7 +59,7 @@ try {
             {
                 this.score = 100;
                 if (this.activity.data.image_datetime < this.activity.data.query_datetime) {
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + this.score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
@@ -78,7 +78,7 @@ try {
 
                 if (this.activity.data.image_datetime > this.activity.data.query_datetime) {
                     this.score = 100;
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + this.score, function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + this.score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
