@@ -542,7 +542,7 @@ var Relational = {
         }
         if (Relational.allConstraintsPassed) {
 			$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-		    $('#dialogText').html(Relational.activity.value.reward+" "+i18n.gettext('Score')+":"+Relational.score);
+		    $('#dialogText').html(Relational.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Relational.score);
 			Dao.activityPlayed(Relational.activity.value.id, true, Relational.score);
         }
     }

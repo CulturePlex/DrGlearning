@@ -37,7 +37,7 @@ var Quiz = {
         console.log(Quiz.activity);
           if(Quiz.activity.value.correct_answer.trim() === answer.trim())
           {
-            $('#dialogText').html(Quiz.activity.value.reward+" "+i18n.gettext('Score')+":100");
+            $('#dialogText').html(Quiz.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": 100");
             Dao.activityPlayed(Quiz.activity.value.id, true, 100);
           }
           else
