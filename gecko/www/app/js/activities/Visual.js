@@ -117,7 +117,7 @@ var Visual = {
         console.log(Visual.activity);
           if(Visual.activity.value.correct_answer.trim() === answer.trim())
           {
-            $('#dialogText').html(Visual.activity.value.reward+". "+i18n.gettext('Score')+":"+Visual.score);
+            $('#dialogText').html(Visual.activity.value.reward+" "+i18n.gettext('Score')+":"+Visual.score);
             Dao.activityPlayed(Visual.activity.value.id, true, Visual.score);
           }
           else
