@@ -394,11 +394,12 @@ var Dao = {
 						console.log('no updates availables');
 	                }				
             },
-            failure: function () {
+            error: function () {
+				console.log('fail');
                 $.unblockUI();
 				Workflow.toCareer = true;
 				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-			    $('#dialogText').html(i18n.gettext("Error while checkinf for updates, try again later"));
+			    $('#dialogText').html(i18n.gettext("Sorry, this course is not available now. Try again later"));
             }
         });
     },
