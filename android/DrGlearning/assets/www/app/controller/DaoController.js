@@ -16,6 +16,7 @@ try {
 				this.loadingController = this.getApplication().getController('LoadingController');
                 this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.careersListController = this.getApplication().getController('CareersListController');
+                this.careerController = this.getApplication().getController('CareerController');
                 this.careersStore = Ext.getStore('Careers');
             },
 
@@ -589,7 +590,33 @@ try {
                         },
                         success: function (response) {
                             offlineScoreStore.remove(item);
-                        }
+                        },
+						failure: function (){
+							console.log('ola');
+							//Checking if career has been deleted in server
+							Ext.data.JsonP.request({
+				                scope: this,
+				                url: HOST + '/api/v1/player/?format=jsonp',
+				                params: {
+                                    code: user.data.uniqueid,
+                                    import: true
+                                },
+				                success: function (response) {
+				                    var activitiesStore = Ext.getStore('Activities');
+									console.log(item.data.activity_id);
+									var activity = activitiesStore.getById(parseInt(item.data.activity_id,10));
+									if(response.options.careers.indexOf(parseInt(activity.data.careerId,10))==-1)
+									{
+										//Deleting career
+										Ext.Msg.alert(i18n.gettext('Course has been deleted'), i18n.gettext('This course has been deleted by his creator.'), Ext.emptyFn);	
+										localStorage.selectedcareer = 0;
+										this.deleteCareer(parseInt(activity.data.careerId,10), false);
+                       					this.careerController.toCareers();
+									}
+
+				                }
+							});
+						}
                     });
                 }, this);
             },
@@ -860,6 +887,7 @@ try {
 				usersStore.sync();
                 var careersStore = this.careersStore;
                 var activityStore = Ext.getStore('Activities');
+				var offlineScoreStore = Ext.getStore('OfflineScores');
                 var career = careersStore.getById(careerID);
                 career.data.installed = false;
                 career.data.started = false;
@@ -870,9 +898,22 @@ try {
                     }
                 });
                 activities.each(function (item) {
+                	
+					console.log(item);
+               		var scores = offlineScoreStore.queryBy(function (record) {
+		                if (parseInt(record.data.activity_id, 10) == parseInt(item.data.id, 10)) {
+		                    return true;
+		                }
+		            });
+					console.log(scores);
+					scores.each(function (item2) {
+						console.log(item2);
+						item2.erase();
+					});
                     item.erase();
                 });
                 activityStore.sync();
+                offlineScoreStore.sync();
                 career.save();
                 careersStore.sync();
                 careersStore.load();

@@ -182,7 +182,7 @@ try {
                     {
                         var levelstemp = [];
                         levelstemp = this.daoController.getLevels('' + this.careersStore.getAt(index).data.id);
-						console.log(levelstemp);
+						//console.log(levelstemp);
                         for (var j = 0; j < this.levelsStore.getCount(); j++)
                         {
                             this.careersStore.getAt(index).data[this.getLevelName(j - 1)] = 'caca';
