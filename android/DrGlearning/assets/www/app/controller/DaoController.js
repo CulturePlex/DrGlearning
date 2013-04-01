@@ -562,6 +562,21 @@ try {
              */
             getCurrenActivity: function (carrerID, level) {
                 var activities = this.getActivitiesByLevel(carrerID, level);
+				console.log(activities);
+				function sortfunction(a, b){
+					var temp = 0;
+					if(a.data.level_order > b.data.level_order)
+					{
+						temp = 1;
+					}
+					if(a.data.level_order < b.data.level_order)
+					{
+						temp = -1;
+					}
+					return temp;
+				}
+				activities.items.sort(sortfunction)
+				console.log(activities);
                 for (var j = 0; j < activities.items.length; j++) {
                     if (!activities.items[j].data.successful) {
                         return activities.items[j]; 
