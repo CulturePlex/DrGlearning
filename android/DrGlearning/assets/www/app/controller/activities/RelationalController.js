@@ -476,7 +476,14 @@ try {
                     activityView.show();
                     view.add(activityView);
                     var scroller = activityView.getScrollable().getScroller();
-                    scroller.scrollBy(0, 58);
+					// Esta es la dimension de la ventana
+					console.log(activityView.element.getHeight());
+					// Aqui la dimension del contenido
+					console.log(gamePanel.element.getHeight());
+					if(activityView.element.getHeight() < gamePanel.element.getHeight() + 150 )
+					{
+                    	scroller.scrollBy(0, 58);
+					}
                 }
                 
                 
