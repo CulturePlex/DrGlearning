@@ -17,6 +17,14 @@ class Command(BaseCommand):
             type="string",
             help='Set a specific player email to get the scores from'
         ),
+        make_option(
+            '--summarized',
+            action='store_true',
+            dest='summarized',
+            default=False,
+            help='With this option to True, only prints the final mark and '
+                 'average'
+        ),
     )
     args = "career_id"
     help = "\tShow a report witt scores for the career `career_id`."
@@ -34,6 +42,7 @@ class Command(BaseCommand):
         params = {
             "highscore__activity__career__id": career_id,
         }
+        summarized = options['summarized']
         email = options['email']
         if email:
             params.update({
@@ -49,8 +58,9 @@ class Command(BaseCommand):
                 max_score = scores.aggregate(max=Max("score")).get("max", 0.0)
                 if not max_score:
                     max_score = 0.0
-                self.stdout.write(u"\t{0}:\t{1}\n".format(activity.name,
-                                                          max_score))
+                if not summarized:
+                    self.stdout.write(u"\t{0}:\t{1}\n".format(activity.name,
+                                                              max_score))
                 count += max_score
             avg = avg = 100 * (count / activity_count)
             message = u"\tAVERAGE:\t{0} ({1}/{2})\n".format(avg, count,
