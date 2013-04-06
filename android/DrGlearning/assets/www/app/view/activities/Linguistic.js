@@ -39,7 +39,10 @@ try {
                         margin: 10
                     }, {
                         xtype: 'container',
-                        layout: 'hbox',
+   						layout: {
+                            type: 'hbox',
+                            pack : 'center' 
+                        },
                         items: 
                         [
                             {
@@ -75,11 +78,17 @@ try {
                         ]
                     },
                     {
+					xtype: 'container',
+					layout: {
+                        type: 'hbox',
+                        pack : 'center' 
+                    },
+					items: {
                         xtype: 'label',
                         customId: 'responses',
-                        margin: 10
+                        margin: 10,
                     },
-                    
+					},                    
                     {
                         xtype: 'toolbar',
                         docked: 'bottom',

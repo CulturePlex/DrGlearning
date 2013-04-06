@@ -46,6 +46,12 @@ var DrGlearning = {
 			$('#footercourse').remove();
 		}
 
+		// Setting up locales
+		console.log(localStorage.locale);
+		if(localStorage.locale == undefined)
+		{
+			localStorage.locale= "en";
+		}
 		// Setting up Jquery blockUI CSS
 		$.blockUI.defaults.css = {
 	        padding: 0,
@@ -262,6 +268,7 @@ var DrGlearning = {
 				{
 					Workflow.toRelational = false;
 					$.mobile.changePage("#relational");
+        			Relational.refreshRel(Relational.option);
 				}
 				if(Workflow.toTemporal)
 				{
@@ -342,6 +349,12 @@ var DrGlearning = {
 		$('#uninstall').click(function(){
           $('#questionInstall').html(i18n.gettext("Are you sure you want to uninstall this course?"));
 		  Workflow.uninstalling = true;
+        });
+		$('#update').click(function(){
+			Dao.careersStore.get(DrGlearning.careerId,function(me)
+			{
+				Dao.checkForCareerUpdate(me);
+			});
         });
 
 		$(document).on('click', '#confirmInstall',function(e) {
@@ -691,7 +704,8 @@ var DrGlearning = {
 			Undo: i18n.gettext("Undo"),
 			After: i18n.gettext("After"),
 			Before: i18n.gettext("Before"),
-			UninstallCourse: i18n.gettext("Uninstall Course")
+			CheckForUpdates: i18n.gettext("Update course"),
+			UninstallCourse: i18n.gettext("Uninstall course")
             };
         var html    = template(context);
         $(this).empty();

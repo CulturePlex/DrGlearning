@@ -171,7 +171,7 @@ var Linguistic = {
                Linguistic.score = 20;
            }
 		   Dao.activityPlayed(Linguistic.activity.value.id, true, Linguistic.score);
-           $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+parseInt(Linguistic.score,10));
+           $('#dialogText').html(Linguistic.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+parseInt(Linguistic.score,10));
            $.mobile.changePage("#dialog");
        }
     },
@@ -221,7 +221,7 @@ var Linguistic = {
           {
               Linguistic.score = 20;
           }
-          $('#dialogText').html(Linguistic.activity.value.reward+". "+i18n.gettext('Score')+":"+parseInt(Linguistic.score,10));
+          $('#dialogText').html(Linguistic.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+parseInt(Linguistic.score,10));
 		  Dao.activityPlayed(Linguistic.activity.value.id, true, Linguistic.score);
           //Workflow.nextActivity(newActivity.data.level_type);
         }

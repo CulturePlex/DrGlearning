@@ -6,7 +6,7 @@
     Ext Jed i18n FBL DEBUG yepnope PhoneGap MathJax JSON console printStackTrace alert DrGlearning head
 */
 
-var VERSION = "0.2.3", TERMS_VERSION = "0.2.3", LANGS = ["es_ES", "fr", "en", "pt_BR"];
+var VERSION = "0.2.4", TERMS_VERSION = "0.2.4", LANGS = ["es_ES", "fr", "en", "pt_BR"];
 // Disable Terms
 delete TERMS_VERSION;
 if (typeof(CORDOVA_PLATFORM) === "undefined") {

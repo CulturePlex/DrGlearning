@@ -48,7 +48,7 @@ var Relational = {
             Relational.undoNodes = [];
             Relational.playerEdgePath = [];
         	Relational.allConstraintsPassed = false;
-            Relational.score = 20;
+            Relational.score = 50;
             //Import graph nodes and edges from database
             Relational.graphNodes = activity.value.graph_nodes;
             Relational.graphEdges = activity.value.graph_edges;
@@ -77,6 +77,22 @@ var Relational = {
                 Relational.pathGoal = i;
             }
         }
+		//Normalizing scores total to 50, extra score only on nodes
+		var totalScores = 0;
+        for (var i in Relational.graphNodes) 
+        {
+			if (Relational.graphNodes[i].score !== 0) {
+				console.log(parseInt(Relational.graphNodes[i].score,10));
+                totalScores += parseInt(Relational.graphNodes[i].score,10);
+            }
+        }
+		console.log(totalScores);
+		for (var i in Relational.graphNodes)
+		{
+			if (Relational.graphNodes[i].score !== 0) {
+				Relational.graphNodes[i].score = Math.round(parseInt(Relational.graphNodes[i].score,10)*50/totalScores);
+            }
+        }
         //Execute first step
         Relational.takeStep(Relational.pathStart);
         Relational.refreshRel(Relational.option);
@@ -86,7 +102,6 @@ var Relational = {
 	},
 	takeStep: function (step)
     {
-    
         Relational.pathPosition = step;
         //TODO Add constraints
         if (step === Relational.pathGoal) 
@@ -99,6 +114,11 @@ var Relational = {
             if (Relational.graphNodes[Relational.pathPosition] !== undefined) {
                 if (Relational.graphNodes[Relational.pathPosition].score !== undefined && Relational.graphNodes[Relational.pathPosition].score > 0) {
                     Relational.score += parseInt(Relational.graphNodes[Relational.pathPosition].score, 10);
+					console.log(Relational.score);
+					Workflow.toActivity = true;
+					Workflow.toRelational = true;
+                    $('#dialogText').html('Congratulations! You got '+Relational.graphNodes[Relational.pathPosition].score+' points!');
+					$.mobile.changePage("#dialog");  
 	            }
             }
             Relational.createSelectFromNode(Relational.pathPosition);
@@ -522,7 +542,7 @@ var Relational = {
         }
         if (Relational.allConstraintsPassed) {
 			$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-		    $('#dialogText').html(Relational.activity.value.reward+". "+i18n.gettext('Score')+":"+Relational.score);
+		    $('#dialogText').html(Relational.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Relational.score);
 			Dao.activityPlayed(Relational.activity.value.id, true, Relational.score);
         }
     }

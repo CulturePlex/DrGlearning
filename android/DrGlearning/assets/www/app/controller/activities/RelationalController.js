@@ -28,7 +28,6 @@ try {
                 view.down('component[customId=activity]').destroy();
                 var activityView = Ext.create('DrGlearning.view.activities.Relational');
                 this.getApplication().getController('ActivityController').addQueryAndButtons(activityView, newActivity);
-                
                 var daocontroller = this.getApplication().getController('DaoController');
                 var careerscontroller = this.getApplication().getController('CareersListController');
                 var activitiescontroller = this.getApplication().getController('LevelController');
@@ -38,7 +37,7 @@ try {
                 var pathStart, pathGoal, pathPosition;
                 var option;
                 var allConstraintsPassed = false;
-                var score = 20;
+                var score = 50;
                 //Import graph nodes and edges from database
                 var graphNodes = newActivity.data.graph_nodes;
                 var graphEdges = newActivity.data.graph_edges;
@@ -158,7 +157,8 @@ try {
                         if (graphNodes[pathPosition] !== undefined) {
                             if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
                                 score += parseInt(graphNodes[pathPosition].score, 10);
-                                Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.translate('You got %d points!').fetch(graphNodes[pathPosition].score), function ()
+								console.log(score);
+                                Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.gettext('You got '+graphNodes[pathPosition].score+' points!'), function ()
                                 {
                                 
                                 }, this);
@@ -476,7 +476,14 @@ try {
                     activityView.show();
                     view.add(activityView);
                     var scroller = activityView.getScrollable().getScroller();
-                    scroller.scrollBy(0, 58);
+					// Esta es la dimension de la ventana
+					console.log(activityView.element.getHeight());
+					// Aqui la dimension del contenido
+					console.log(gamePanel.element.getHeight());
+					if(activityView.element.getHeight() < gamePanel.element.getHeight() + 150 )
+					{
+                    	scroller.scrollBy(0, 58);
+					}
                 }
                 
                 
@@ -518,7 +525,7 @@ try {
                         score = 100;
                     }
                     if (allConstraintsPassed) {
-                        Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + ' ' + i18n.gettext("Score") + ": " + score, function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), newActivity.data.reward + '<br />' + i18n.gettext("Score") + ": " + score, function ()
                         {
                             daocontroller.activityPlayed(newActivity.data.id, true, score);
                             activitiescontroller.nextActivity(newActivity.data.level_type);
@@ -543,6 +550,22 @@ try {
                     else 
                     if (graphNodes[i].hasOwnProperty("end")) {
                         pathGoal = i;
+                    }
+                }
+				//Normalizing scores total to 50, extra score only on nodes
+				var totalScores = 0;
+                for (var i in graphNodes) 
+                {
+					if (graphNodes[i].score !== 0) {
+						console.log(parseInt(graphNodes[i].score,10));
+                        totalScores += parseInt(graphNodes[i].score,10);
+                    }
+                }
+				console.log(totalScores);
+				for (var i in graphNodes)
+				{
+					if (graphNodes[i].score !== 0) {
+						graphNodes[i].score = Math.round(parseInt(graphNodes[i].score,10)*50/totalScores);
                     }
                 }
                 //Execute first step

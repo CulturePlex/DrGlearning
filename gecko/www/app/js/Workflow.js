@@ -83,9 +83,11 @@ var Workflow = {
     },
     getCurrenActivity: function (carrerID, level) {
 		var activity = -1;
+		var temp = true;
 		Dao.activitiesStore.each(function (record,index){
-            if (record.value.careerId == '' + carrerID &&record.value.level_type == level && !record.value.successful) {
-                activity = record; 
+            if (record.value.careerId == '' + carrerID &&record.value.level_type == level && !record.value.successful && temp) {
+                activity = record;
+				temp = false; 
             }
         });
 //      return activities.items[0];

@@ -42,8 +42,25 @@ try {
                         tap: this.tryIt
                     }
                 });
-                
+
             },
+			generateLetterAskedHtml: function ()
+			{
+				var temp="";
+				for(var i=0;i<5;i++)
+				{
+					if(this.lettersAsked[i])
+					{
+						temp +="<span style='border: 1px solid; display:inline-block;  width:16px;'><font color='red'>"+this.lettersAsked[i]+"</font></span>&ensp;";
+					}
+					else
+					{
+						temp +="<span style='border: 1px solid; display:inline-block;  width:16px;'>&ensp;</span>&ensp;";
+					}
+				}
+				console.log(temp);
+				return temp;
+			},
             updateActivity: function (view, newActivity)
             {
                 Ext.Viewport.setMasked({
@@ -62,7 +79,7 @@ try {
                 this.loquedText = this.activity.data.locked_text.split("");
                 this.loquedTextFinded = [];
                 var cont;
-                for (cont in this.loquedText) 
+                for (cont in this.loquedText)
                 {
                     if (this.loquedText[cont] === " ") {
                         this.loquedTextFinded[cont] = true;
@@ -70,15 +87,14 @@ try {
                     else {
                         this.loquedTextFinded[cont] = false;
                     }
-                    
+
                 }
                 this.activityController.addQueryAndButtons(this.activityView, newActivity);
-                this.activityView.down('label[customId=loqued]').setHtml(newActivity.data.locked_text.replace(/[A-z0-9]/g, '_ '));
-                this.activityView.down('label[customId=responses]').setHtml('');
+                this.activityView.down('label[customId=loqued]').setHtml(this.activity.data.locked_text.replace(/[ ]/g, ' ').replace(/[A-z0-9]/g, '_&nbsp;').trim());
+                this.activityView.down('label[customId=responses]').setHtml(this.generateLetterAskedHtml());
                 if (this.activity.data.locked_text.toLowerCase() === this.activity.data.answer.toLowerCase()) {
                     this.activityView.down('label[customId=tip]').setHtml(i18n.gettext('Answer') + ": ");
                 }
-                this.activityView.down('label[customId=responses]').setHtml('');
                 this.respuestas = this.activity.data.answers;
                 newActivity.getImageLinguistic('image', 'image', null, this, view, this.activityView, true);
             },
@@ -99,6 +115,7 @@ try {
             },
             tryIt: function ()
             {
+				console.log('olass');
                 var letterView = this.activityView.down('textfield[customId=letter]');
                 var responseView = this.activityView.down('label[customId=responses]');
                 var loquedView = this.activityView.down('label[customId=loqued]');
@@ -115,14 +132,13 @@ try {
                 if(this.lettersAsked.indexOf(letter) == -1)
                 {
                   console.log(this.loquedText.length);
-                  this.lettersAsked.push(letter);
                   var loquedTextLower = [];
                   for (var x in this.loquedText)
                   {
                     loquedTextLower[x]=this.loquedText[x].toLowerCase();
                   }
                   var arrayAux = [];
-                  
+
                   for (var y in loquedTextLower)
                   {
                     if(arrayAux.indexOf(loquedTextLower[y]) == -1)
@@ -140,42 +156,72 @@ try {
                         {
                           i++;
                           console.log('restando');
-                          this.score -= (10/numDifLetter);
                         }
                       }
-                      responseView.setHtml(responseView.getHtml() + letter + ' ');
                       this.goodLetter();
                   }
                   else {
-                      this.score -= 70/(27-numDifLetter);
-                      responseView.setHtml(responseView.getHtml() + letter.fontcolor("red") + ' ');
+                      this.score -= 10;
+	                  this.lettersAsked.push(letter);
+                      responseView.setHtml(this.generateLetterAskedHtml());
                   }
                }
                 var loqued = "";
+                var loqued2 = "";
                 for (cont in this.loquedTextFinded) {
                     if (this.loquedTextFinded[cont]) {
-                        loqued = loqued + this.loquedText[cont];
+						if(this.loquedText[cont]==" ")
+						{
+							loqued = loqued + '&nbsp;&nbsp;';
+							loqued2 = loqued2 + '&nbsp;&nbsp;';
+						}else
+						{
+                        	loqued = loqued + this.loquedText[cont];
+                        	loqued2 = loqued2 + "<u>"+this.loquedText[cont]+"</u> ";
+						}
                     }
                     else {
-                        loqued = loqued + "_ ";
+						console.log(this.loquedText);
+						console.log(this.loquedText[cont]);
+						if(this.loquedText[cont]==" ")
+						{
+							loqued = loqued + "&nbsp;&nbsp;";
+							loqued2 = loqued2 + "&nbsp;&nbsp;";
+						}
+						else
+						{
+							loqued = loqued + "_ ";
+							loqued2 = loqued2 + "<u>&ensp;</u> ";
+						}
+
                     }
                 }
-                loquedView.setHtml(loqued);
+                loquedView.setHtml(loqued2);
+				console.log(loqued.toLowerCase().replace('&nbsp;&nbsp;',' '));
+				console.log(this.activity.data.answer.toLowerCase());
                 console.log(this.score);
-                if (loqued.toLowerCase() === this.activity.data.answer.toLowerCase()) 
+                if (loqued.toLowerCase().replace('&nbsp;&nbsp;',' ') === this.activity.data.answer.toLowerCase())
                 {
                     if (this.score < 20)
                     {
                         this.score = 20;
                     }
-                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
+                    Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                         this.levelController.nextActivity(this.activity.data.level_type);
                     }, this);
                 }
+				if(this.lettersAsked.length>4)
+				{
+					Ext.Msg.alert(i18n.gettext('Info'), i18n.gettext("You're out of guesses, solve!"), function ()
+		            {
+		                this.solve();
+		            }, this);
+				}
+
             },
-            
+
             getTable: function ()
             {
                 var table = '<table style="background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT="170" BACKGROUND="' + this.imagesrc + '"><tr>';
@@ -194,7 +240,7 @@ try {
                     if (((parseInt(cont, 10) + 1) % 5) === 0) {
                         table = table + '</tr>';
                     }
-                    if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25) 
+                    if (((parseInt(cont, 10) + 1) % 5) === 0 && (parseInt(cont, 10) + 1) !== 25)
                     {
                         table = table + '<tr>';
                     }
@@ -202,7 +248,7 @@ try {
                 table = table + '</tr></table>';
                 return table;
             },
-            
+
             goodLetter: function ()
             {
                 var cont;
@@ -235,9 +281,9 @@ try {
                     whiteSquares++;
                 }
                 this.activityView.down('panel[customId=image]').setHtml(this.getTable());
-                
+
             },
-            
+
             solve: function ()
             {
                 var answer;
@@ -272,7 +318,7 @@ try {
                         {
                             this.score = 20;
                         }
-                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' ' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
+                        Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + '<br />' + i18n.gettext("Score") + ": " + parseInt(this.score,10), function ()
                         {
                             this.daoController.activityPlayed(this.activity.data.id, true, this.score);
                             this.levelController.nextActivity(this.activity.data.level_type);

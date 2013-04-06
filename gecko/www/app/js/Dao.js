@@ -224,6 +224,37 @@ var Dao = {
 			dataType: "json",
 		    success: function (response) {
 				console.log('puntuacion enviada');
+		    },
+			error: function (response) {
+				console.log('error al puntuacion enviada');
+				$.ajax({
+		            url: HOST + '/api/v1/player/',
+		            data: {
+		                code: uniqueid,
+		                import: true
+		            },
+					dataType: "jsonp",
+		            success: function (response) {
+						var activity;
+						Dao.activitiesStore.get(activityID,function(me)
+						{
+							activity = me;
+						});
+						console.log(activity);
+						if(response.options.careers.indexOf(parseInt(activity.value.careerId,10))==-1)
+						{
+							//Deleting career
+							Dao.uninstall(parseInt(activity.value.careerId,10));
+							Workflow.toMain = true;
+							$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+							$('#dialogText').html(i18n.gettext("This course has been deleted by his creator."));
+							
+						    
+						}
+
+		            }
+				});
+
 		    }
 		});
     },
@@ -369,7 +400,219 @@ var Dao = {
 			console.log(UserSettings);
 			Dao.checkCode($('<div data-href="' +message.data.params.id  + '">'),message.data.params.courseCode);
 		}
-	}
+	},
+	checkForCareerUpdate: function (career)
+    {
+       $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
+        var HOST = GlobalSettings.getServerURL();
+		console.log(career);
+        $.ajax({
+            dataType: "json",
+            url: HOST + "/api/v1/career/" + career.key + "/?format=json",
+            success: function (response, opts) {
+				console.log(response.timestamp);
+				console.log(career);
+				//La carrera notiene almacenado el timestamp!!
+                if (career.value.timestamp < response.timestamp) {
+					Dao.updateCareer(career.key)
+                }
+				else
+				{
+					$.unblockUI();
+					Workflow.toCareer = true;
+					$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+				    $('#dialogText').html(i18n.gettext("No updates available for this course"));
+						console.log('no updates availables');
+	                }				
+            },
+            error: function () {
+				console.log('fail');
+                $.unblockUI();
+				Workflow.toCareer = true;
+				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+			    $('#dialogText').html(i18n.gettext("Sorry, this course is not available now. Try again later"));
+            }
+        });
+    },
+    updateCareer: function (careerID) {
+            var careersStore = Dao.careersStore;
+            var activityStore = Dao.activitiesStore;
+			console.log(careerID);
+            Dao.careersStore.get(careerID,function(me)
+			{
+				career = me;
+			});
+            var HOST = GlobalSettings.getServerURL();
+            //Career request
+  			$.ajax({
+            	dataType: "json",
+                url: HOST + '/api/v1/career/' + careerID+'/',
+                scope: this,
+                success: function (response, opts) {
+                    var newCareer = response;
+                    //if(careersStore.findExact("id",career.id)==-1){
+                    career.value.name = newCareer.name;
+                    career.value.description = newCareer.description;
+                    career.value.creator = newCareer.creator;
+                    career.value.knowledges = newCareer.knowledges;
+                    career.value.timestamp = newCareer.timestamp;
+                    var activities = [];
+                    for (var cont =  0; cont < newCareer.activities.length; cont++) {
+                        activities[cont] = newCareer.activities[cont].full_activity_url;
+                    }
+                    career.value.activities = activities;
+                    //activities=activities.split(",");
+					var activitiesOld = [];
+                    Dao.activitiesStore.each(function (record,index) {
+						console.log(record.value.careerId);
+						if(record.value.careerId == careerID)
+						{
+							activitiesOld.push(record);
+						}			
+                        //return parseInt(record.data.careerId, 10) === parseInt(careerID, 10);
+                    });
+					console.log(activitiesOld);
+                    var HOST = GlobalSettings.getServerURL();
+                    var activitiesID = [];
+					var actToRecieve = activities.length;
+                    for (cont = 0; cont < activities.length; cont++) {
+                       $.ajax({
+            				dataType: "json",
+                            scope: this,
+                            url: HOST + '/' + activities[cont],
+                            params: {
+                                deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                                deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                            },
+                            success: function (response, opts) {
+                                var activity = response;
+                                activitiesID.push(activity.id);
+                                var activityModel;
+								var activityTemp;
+								Dao.activitiesStore.get(activity.id,function(me)
+								{
+									activityTemp = me;
+								});				
+								console.log(activityTemp);				
+                                if (activityTemp !== null) {
+                                    activityModel = activityTemp;
+                                    activityModel.value.name = activity.name.trim();
+                                    activityModel.value.activity_type = activity.activity_type.trim();
+                                    activityModel.value.language_code = activity.language_code.trim();
+                                    activityModel.value.level_type = activity.level_type;
+                                    activityModel.value.level_order = activity.level_order;
+                                    activityModel.value.level_required = activity.level_required;
+                                    activityModel.value.query = activity.query.trim();
+                                    activityModel.value.timestamp = activity.timestamp;
+                                    activityModel.value.resource_uri = activity.resource_uri.trim();
+                                    activityModel.value.reward = activity.reward.trim();
+                                    activityModel.value.penalty = activity.penalty.trim();
+                                } else {
+									console.log(activity.level_type);
+                                    activityModel = new DrGlearning.model.Activity({
+                                        id : activity.id,
+                                        name : activity.name.trim(),
+                                        careerId : careerID,
+                                        activity_type : activity.activity_type.trim(),
+                                        language_code : activity.language_code.trim(),
+                                        level_type : activity.level_type,
+                                        level_order : activity.level_order,
+                                        level_required : activity.level_required,
+                                        query : activity.query.trim(),
+                                        timestamp : activity.timestamp,
+                                        resource_uri : activity.resource_uri.trim(),
+                                        reward: activity.reward.trim(),
+                                        penalty: activity.penalty.trim(),
+                                        score: 0,
+                                        played: false,
+                                        successful: false,
+                                        helpviewed: false
+                                    });
+                                }
+                                if (activityModel.value.activity_type === 'linguistic') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    activityModel.value.image_url = activity.image_url.trim();
+                                    activityModel.value.locked_text = activity.locked_text.trim();
+                                    activityModel.value.answer = activity.answer.trim();
+                                }
+                                if (activityModel.value.activity_type === 'visual') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    activityModel.value.image_url = activity.image_url.trim();
+                                    //activityModel.value.image=activity.image;
+                                    activityModel.value.answers = activity.answers;
+                                    activityModel.value.correct_answer = activity.correct_answer.trim();
+                                    activityModel.set('obfuscated_image', activity.obfuscated_image);
+                                    activityModel.value.obfuscated_image_url = activity.obfuscated_image_url.trim();
+                                    activityModel.value.time = activity.time;
+                                }
+                                if (activityModel.value.activity_type === 'quiz') {
+                                    //activityModel.setImage('image', activity.image, this);
+                                    activityModel.value.image_url = activity.image_url;
+                                    //activityModel.value.image=activity.image;
+                                    activityModel.value.answers = activity.answers;
+                                    activityModel.value.correct_answer = activity.correct_answer.trim();
+                                    //activityModel.set('obfuscated_image',activity.obfuscated_image);
+                                    activityModel.value.time = activity.time;
+                                }
+                                if (activityModel.value.activity_type === 'relational') {
+                                    activityModel.value.graph_nodes = activity.graph_nodes;
+                                    activityModel.value.graph_edges = activity.graph_edges;
+                                    activityModel.value.constraints = activity.constraints;
+                                }
+                                if (activityModel.value.activity_type === 'temporal') {
+                                    activityModel.setImage('image', activity.image, this);
+                                    activityModel.value.image_url = activity.image_url.trim();
+                                    activityModel.value.image_datetime = activity.image_datetime.trim();
+                                    activityModel.value.query_datetime = activity.query_datetime.trim();
+                                }
+                                if (activityModel.value.activity_type === 'geospatial') {
+                                    activityModel.value.area = activity.area.trim();
+                                    activityModel.value.point = activity.points.trim();
+                                    activityModel.value.radius = activity.radius;
+                                }
+                                Dao.activitiesStore.save({key:activity.id,value:activityModel.value});
+                                var exist = false;
+                                for (var cont in activitiesOld.keys) {
+                                    if (activitiesOld.keys[cont])
+                                    {
+                                        exist = false;
+                                        for (var cont2 in activitiesID) {
+                                            if (parseInt(activitiesOld.keys[cont], 10) === parseInt(activitiesID[cont2], 10)) {
+                                                exist = true;
+                                                break;
+                                            }
+                                        }
+                                        if (!exist) {
+                                            activitiesOld.getByKey(activitiesOld.keys[cont]).erase();
+                                        }
+                                    }
+                                }
+                                
+                                career.value.update = false;
+								console.log(career);
+                                Dao.careersStore.save({key:career.key,value:career.value});
+                                
+								actToRecieve--;
+								console.log(actToRecieve);
+								if(actToRecieve == 0)
+								{
+									$.unblockUI();
+								}
+                            }, 
+                            failure: function () 
+                            {
+                                $.unblockUI();
+								Workflow.toCareer = true;
+								$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+								$('#dialogText').html(i18n.gettext("Error while checkinf for updates, try again later"));
+								console.log('no updates availables');
+								
+                            }
+                        });
+                    }
+                }
+            });
+    },
 
 }
 
