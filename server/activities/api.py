@@ -36,7 +36,10 @@ class ActivityResource(ModelResource):
         else:
             player_id = None
         if player_id:
-            scores = bundle.obj.highscore_set.filter(player__id=player_id)
+            scores = bundle.obj.highscore_set.filter(
+                player__id=player_id,
+                is_passed=True,
+            )
             if len(scores) > 0:
                 score = scores[0]
                 bundle.data["best_score"] = score.score
