@@ -353,8 +353,12 @@ var DrGlearning = {
 		$('#update').click(function(){
 			Dao.careersStore.get(DrGlearning.careerId,function(me)
 			{
+				console.log(me);
 				Dao.checkForCareerUpdate(me);
 			});
+        });
+		$('#updateAll').click(function(){
+        	Dao.checkForAllCareerUpdate();
         });
 
 		$(document).on('click', '#confirmInstall',function(e) {
@@ -705,7 +709,9 @@ var DrGlearning = {
 			After: i18n.gettext("After"),
 			Before: i18n.gettext("Before"),
 			CheckForUpdates: i18n.gettext("Update course"),
-			UninstallCourse: i18n.gettext("Uninstall course")
+			UninstallCourse: i18n.gettext("Uninstall course"),
+			UpdateAll: i18n.gettext("Update All"),
+			MoreOptions: i18n.gettext("More Options")
             };
         var html    = template(context);
         $(this).empty();

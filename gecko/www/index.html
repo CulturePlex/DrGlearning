@@ -52,8 +52,8 @@
       <footer data-role="footer" data-position="fixed" id="footermain">
         <nav data-role="navbar" >
             <ul >
-                <li><a href="#settings">{{Settings}}</a></li>
-                <li><a href="#addCourses">{{AddCourse}}</a></li>
+                <li><a href="#dialogSettings">More Options</a></li>
+                <li><a href="#addCourses" >{{AddCourse}}</a></li>
             </ul>
 
         </nav>
@@ -304,6 +304,15 @@
       </nav>
     </footer>
     </div><!-- Page Settings -->
+    <div data-role="page" id="dialogSettings">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="dialogSyncName">Settings</h1>
+      </header>
+      <article data-role="content">
+          <a href="#settings" data-role="button">{{Settings}}</a>
+          <a href="#main" data-role="button" id="updateAll">{{UpdateAll}}</a>
+      </article>
+    </div><!-- Page Dialog Settings -->
     <div data-role="page" id="dialogSync">
       <header data-role="header" data-position="fixed" >
         <h1 id="dialogSyncName">Dialog</h1>

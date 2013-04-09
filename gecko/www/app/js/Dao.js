@@ -1,4 +1,6 @@
 var Dao = {
+	careersToUpdate: null,
+	numberCareersToUpdate: null,
 	userStore : new Lawnchair({adapter:'dom',name:'user'}, function(e) {
           console.log('User Storage Open');
     }),
@@ -401,6 +403,65 @@ var Dao = {
 			Dao.checkCode($('<div data-href="' +message.data.params.id  + '">'),message.data.params.courseCode);
 		}
 	},
+	checkForAllCareerUpdate: function (career,updateAllFlag)
+    {
+		$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
+		var HOST = GlobalSettings.getServerURL();
+		Dao.careersToUpdate = [];
+		var numOfCourses = 0;
+		var numOfCoursesChecked = 0;
+		Dao.careersStore.each(function(record, index) { 
+			if(record.value.installed)
+			{
+				numOfCourses ++;
+			}
+		});
+		console.log(numOfCourses);
+		Dao.careersStore.each(function(record, index) { 
+			if(record.value.installed)
+			{
+				$.ajax({
+					dataType: "json",
+					url: HOST + "/api/v1/career/" + record.key + "/?format=json",
+					success: function (response, opts) {
+						numOfCoursesChecked++;
+						if (record.value.timestamp < response.timestamp) {
+							Dao.careersToUpdate.push(record);
+						}
+						if(numOfCourses == numOfCoursesChecked)
+						{
+							console.log('ola');
+							if(Dao.careersToUpdate.length == 0)
+							{
+								$.unblockUI();
+								Workflow.toMain = true;
+								$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+								$('#dialogText').html(i18n.gettext("There is no courses to update."));
+							}
+							else
+							{
+								for(var i=0;i<Dao.careersToUpdate.length;i++)
+								{
+									Dao.numberCareersToUpdate = Dao.careersToUpdate.length;
+									Dao.updateCareer(Dao.careersToUpdate[i].key,true);
+
+								}
+							}
+						}								
+					},
+					error: function () {
+						console.log('fail');
+						$.unblockUI();
+						Workflow.toMain = true;
+						$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+						$('#dialogText').html(i18n.gettext("Sorry, was a problem trying to update courses. Try again later"));
+					}
+				});
+			}
+	    });
+
+	
+	},
 	checkForCareerUpdate: function (career)
     {
        $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
@@ -414,7 +475,7 @@ var Dao = {
 				console.log(career);
 				//La carrera notiene almacenado el timestamp!!
                 if (career.value.timestamp < response.timestamp) {
-					Dao.updateCareer(career.key)
+					Dao.updateCareer(career.key,true)
                 }
 				else
 				{
@@ -434,7 +495,7 @@ var Dao = {
             }
         });
     },
-    updateCareer: function (careerID) {
+    updateCareer: function (careerID,updateAll) {
             var careersStore = Dao.careersStore;
             var activityStore = Dao.activitiesStore;
 			console.log(careerID);
@@ -541,7 +602,7 @@ var Dao = {
                                     //activityModel.value.image=activity.image;
                                     activityModel.value.answers = activity.answers;
                                     activityModel.value.correct_answer = activity.correct_answer.trim();
-                                    activityModel.set('obfuscated_image', activity.obfuscated_image);
+                                    //activityModel.set('obfuscated_image', activity.obfuscated_image);
                                     activityModel.value.obfuscated_image_url = activity.obfuscated_image_url.trim();
                                     activityModel.value.time = activity.time;
                                 }
@@ -596,7 +657,20 @@ var Dao = {
 								console.log(actToRecieve);
 								if(actToRecieve == 0)
 								{
-									$.unblockUI();
+									if(updateAll)
+									{
+										Dao.numberCareersToUpdate--;
+										if(Dao.numberCareersToUpdate == 0)
+										{
+											$.unblockUI();
+											Workflow.toMain = true;
+											$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+											$('#dialogText').html(Dao.careersToUpdate.length + i18n.gettext(" courses updated."));
+										}
+									}else
+									{
+										$.unblockUI();		
+									}
 								}
                             }, 
                             failure: function () 
