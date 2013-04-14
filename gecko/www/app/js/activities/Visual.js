@@ -109,22 +109,22 @@ var Visual = {
         $('#timeVisual').hide();
 
     },
-      checkAnswer: function(answer){
-        if (Visual.score < 50)
-        {
-            Visual.score = 50;
-        }
-        console.log(Visual.activity);
-          if(Visual.activity.value.correct_answer.trim() === answer.trim())
-          {
-            $('#dialogText').html(Visual.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Visual.score);
-            Dao.activityPlayed(Visual.activity.value.id, true, Visual.score);
-          }
-          else
-          {
-               $('#dialogText').html(Visual.activity.value.penalty);
-            Dao.activityPlayed(Visual.activity.value.id, false, Visual.score);
-            Workflow.toLevel = true;
-          }
-      }
+	  checkAnswer: function(answer){
+		if (Visual.score < 50)
+		{
+		    Visual.score = 50;
+		}
+		console.log(Visual.activity);
+		  if(Visual.activity.value.correct_answer.trim() === answer.trim())
+		  {
+		    $('#dialogText').html(Visual.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Visual.score);
+		    Dao.activityPlayed(Visual.activity.value.id, true, Visual.score);
+		  }
+		  else
+		  {
+		       $('#dialogText').html(Visual.activity.value.penalty);
+		    Dao.activityPlayed(Visual.activity.value.id, false, Visual.score);
+		    Workflow.toLevel = true;
+		  }
+	  }
 };

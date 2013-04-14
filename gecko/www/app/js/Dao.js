@@ -45,13 +45,7 @@ var Dao = {
         });
     },
     installCareer: function (element,code) {
-        //Dao.careersStore.get({key:element.attr("data-href"), installed:true});
-        Dao.careersStore.get(element.attr("data-href"),function(r){
-			Loading.getCareer(element.attr("data-href"));
-            //r.value.installed = true;
-            //Dao.careersStore.save({key:element.attr("data-href"), value: r.value});
-        });
-	      //DrGlearning.refreshAddCareers();
+        Loading.getCareer(element.attr("data-href"));
     },
     levelsStore : new Lawnchair({adapter:'dom',name:'levels'}, function(e) {
           console.log('Levels Storage Open');
