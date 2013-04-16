@@ -1,7 +1,10 @@
 import json
 from datetime import datetime
+from hashlib import sha1
 
 from tastypie import fields
+from tastypie import http
+from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.resources import ModelResource
 
 from activities.api import ActivityResource
@@ -90,6 +93,28 @@ class ScoreResource(ModelResource):
             player = Player.objects.get(code=request.GET["player_code"])
             if player.token == request.GET["token"]:
                 activity = Activity.objects.get(pk=request.GET["activity_id"])
+                # Check if course is private
+                career_code_encoded = activity.career.code.encode("utf8")
+                career_code = sha1(career_code_encoded).hexdigest()
+                if (career_code
+                        and career_code != request.GET.get("career_code", "")):
+                    msg = json.dumps({
+                        "status_code": 403,
+                        "message": u"The course is private",
+                    })
+                    raise ImmediateHttpResponse(
+                        response=http.HttpForbidden(msg)
+                    )
+                # Check if course is published
+                if not activity.career.published:
+                    msg = json.dumps({
+                        "status_code": 409,
+                        "message": u"The course is unpublished",
+                    })
+                    raise ImmediateHttpResponse(
+                        response=http.HttpConflict(msg)
+                    )
+                # Create the actual score
                 activity_timestamp = datetime.now()
                 if request.GET["timestamp"]:
                     try:
