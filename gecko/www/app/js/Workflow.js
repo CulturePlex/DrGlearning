@@ -11,16 +11,10 @@ var Workflow = {
 	 */
 	nextActivity: function (prevLevel) {
 		
-		console.log('current course:');
-		console.log(DrGlearning.careerId);
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId,prevLevel);
-		console.log('current level:');
-		console.log(currentLevel);
 		Dao.levelsStore.get(DrGlearning.levelId,function(level){
 			Workflow.prevLevelString = level.value.name;
 		});
-		console.log('prevLevelString');
-		console.log(Workflow.prevLevelString);
 		if (currentLevel !== -1) {
 			Dao.levelsStore.get(currentLevel,function(level){
 				Workflow.currentLevelString = level.value.name;
@@ -29,12 +23,8 @@ var Workflow = {
 		{
 		    Workflow.currentLevelString = 'Error';
 		}
-		console.log('currentLevelString');
-		console.log(Workflow.currentLevelString);
 		var currentActivity = Workflow.getCurrenActivity(DrGlearning.careerId, parseInt(prevLevel, 10));
-		console.log(currentActivity);
 		if (currentActivity != -1) {
-			console.log('same level');
 		    Workflow.updateActivity(currentActivity);
 		}
 		else {
@@ -59,8 +49,6 @@ var Workflow = {
 
 	},
     getCurrenLevel: function (careerId, level) {
-		console.log(careerId);
-		console.log(level);
         var levels;
 		Dao.careersStore.get(careerId, function(career){
 			levels = career.value.levels;
@@ -72,7 +60,6 @@ var Workflow = {
 					activities.push(record);
 				}
             }); 
-			console.log(activities);
             for (var j = 0; j < activities.length; j++) {
                 if (!activities[j].value.successful) {
                     return levels[i]; 

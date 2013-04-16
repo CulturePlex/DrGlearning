@@ -29,8 +29,6 @@ var Relational = {
           $("#constraintDescription").html(Relational.constraintsTextNew[$(this).attr('data-index')]);
         });
         $( "#select-relational" ).bind( "change", function(event, ui) {
-			console.log($("#select-relational").val());
-			console.log($("#select-relational option:selected").attr("data-edgetype"));			
 			Relational.playerEdgePath.push($("#select-relational option:selected").attr("data-edgetype"));
 			Relational.takeStep($("#select-relational").val());
 			Relational.refreshRel();
@@ -82,11 +80,9 @@ var Relational = {
         for (var i in Relational.graphNodes) 
         {
 			if (Relational.graphNodes[i].score !== 0) {
-				console.log(parseInt(Relational.graphNodes[i].score,10));
                 totalScores += parseInt(Relational.graphNodes[i].score,10);
             }
         }
-		console.log(totalScores);
 		for (var i in Relational.graphNodes)
 		{
 			if (Relational.graphNodes[i].score !== 0) {
@@ -114,7 +110,6 @@ var Relational = {
             if (Relational.graphNodes[Relational.pathPosition] !== undefined) {
                 if (Relational.graphNodes[Relational.pathPosition].score !== undefined && Relational.graphNodes[Relational.pathPosition].score > 0) {
                     Relational.score += parseInt(Relational.graphNodes[Relational.pathPosition].score, 10);
-					console.log(Relational.score);
 					Workflow.toActivity = true;
 					Workflow.toRelational = true;
                     $('#dialogText').html('Congratulations! You got '+Relational.graphNodes[Relational.pathPosition].score+' points!');
@@ -150,8 +145,7 @@ var Relational = {
                         Relational.blankOption += ", " + tipo.toLowerCase();
                     }
                 }
-                written.push(tipo);
-                
+                written.push(tipo);           
             }
             if (edge.source === nodeName && Relational.playerPath.indexOf(edge.target) === -1) {
                 for (nodo in Relational.graphNodes) {
@@ -204,7 +198,6 @@ var Relational = {
 		{
 			$("#select-relational").append('<option data-edgetype="'+options[k].edgeType+'" value="'+options[k].value+'">'+options[k].text+'</option>');
 		}
-		console.log(options);
 		if(options.length == 1)
 		{
 			$("#select-relational").empty();
@@ -252,7 +245,6 @@ var Relational = {
     },
 	refreshSigma: function ()
 	{
-		console.log('sigma');
 		//Sigma
 		$('#sig').empty();
 		var sigRoot = document.getElementById('sig');

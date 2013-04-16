@@ -45,7 +45,6 @@ var Geospatial = {
     start: function ()
     {
         Geospatial.map = $('#map_canvas').gMap();
-        console.log('aquiii');
         //Initializing map variable
         var map = Geospatial.map;
         google.maps.event.clearListeners(map, 'idle');

@@ -22,7 +22,6 @@ var Visual = {
       },
     refresh: function(){
         $('#visualAnswersList').empty();
-        console.log('borrando');
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){
             Visual.activity = activity;
             $('#visualActivityQuery').html(activity.value.query);
@@ -38,7 +37,6 @@ var Visual = {
                     clearInterval(Visual.secondtemp);
                       Visual.secondtemp = setInterval(function ()
                     {
-                        console.log('contando');
                         Visual.showSeconds();
                     }, 1000);
                 }).attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
@@ -56,7 +54,6 @@ var Visual = {
             }
             $('#visualAnswersList').listview("refresh");
             $('#visualAnswersList').hide();
-            console.log(activity);
             Visual.time = activity.value.time;
             $('#timeVisual').empty();
             $('#timeVisual').append(Visual.time + " sec");
@@ -75,7 +72,6 @@ var Visual = {
 
 //        if (Visual.isStopped === false && Visual.loading === false)
 //        {
-            console.log(Visual.isStoped);
             if(!Visual.isStoped)
             {
                 Visual.time--;
@@ -93,7 +89,6 @@ var Visual = {
     {
         clearInterval(Visual.secondtemp);
         Visual.showAnswers();
-        console.log(Visual.time);
         Visual.score = parseInt((Visual.time + 1)* 100 / Visual.activity.value.time, 10);
         if (Visual.score > 100)
         {
@@ -103,7 +98,6 @@ var Visual = {
     showAnswers: function ()
     {
         $('#visualAnswersList').show();
-        console.log($('#visualImage'));
         $('#visualImage').attr("src", GlobalSettings.getServerURL()+"/media/"+Visual.activity.value.obfuscated_image_url);
         $('#skipButtonVisual').hide();
         $('#timeVisual').hide();
@@ -114,7 +108,6 @@ var Visual = {
 		{
 		    Visual.score = 50;
 		}
-		console.log(Visual.activity);
 		  if(Visual.activity.value.correct_answer.trim() === answer.trim())
 		  {
 		    $('#dialogText').html(Visual.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Visual.score);

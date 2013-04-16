@@ -175,7 +175,6 @@ try {
             // Updating levels in career models
             updateLevelsState: function ()
             {
-				console.log('actualizando niveles');
                 for (var index in this.careersStore.getData().items) 
                 {
                     if (this.careersStore.getAt(index).data.installed) 
@@ -351,7 +350,6 @@ try {
                                                 indicator: true,
                                                 html: "<img src='resources/images/ic_launcher.png'>"
                                             });
-											console.log('updating...');
 											this.updatesLeft=1;
                                             this.getApplication().getController('DaoController').updateCareer2(career.data.id, this.updateFinished, this);
                                         }
@@ -444,7 +442,6 @@ try {
              * career).
              */
             addCareer: function () {
-              console.log(localStorage.restartNeeded);
               /*if(localStorage.restartNeeded == "true")
               {
                 Ext.Msg.alert(i18n.gettext('You need restart'), i18n.gettext('You need restart Dr. Glearning to install new careers.'), function ()
@@ -551,7 +548,6 @@ try {
                 this.careersStore.filter("installed", true);
                 this.careersStore.filter("update", true);
                 this.updatesLeft = this.careersStore.getCount();
-				console.log(this.updatesLeft);
                 Ext.Viewport.setMasked({
                     xtype: 'loadmask',
                     message: i18n.gettext('Updating courses') + "…",
@@ -564,15 +560,12 @@ try {
                 {
                     if (this.careersStore.getAt(index).data.installed && this.careersStore.getAt(index).data.update) 
                     {
-						console.log('asa');
 						this.getApplication().getController('DaoController').updateCareer(this.careersStore.getAt(index).data.id, this.updateFinished, this);
 					}
 				}
             },
             updateFinished: function (scope) {
-				console.log(scope.updatesLeft);
                 scope.updatesLeft--;
-				console.log(scope.updatesLeft);
                 if (scope.updatesLeft < 1) {
                     Ext.Viewport.setMasked(false);
                     scope.index();

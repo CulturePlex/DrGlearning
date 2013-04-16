@@ -25,7 +25,6 @@ try {
             },
 			checkIfCode: function (id, callback, scope) {
 				var career = this.careersStore.getById(id);
-				console.log(career.data.has_code == true);
 				if(career.data.has_code == true)
 				{
 					var okButton = Ext.create('Ext.Button', {
@@ -61,7 +60,6 @@ try {
 				}
 				else
 				{
-					console.log('holaaa');
 					this.installCareer(id, callback, scope);
 				}
 			},
@@ -198,7 +196,7 @@ try {
                                     career.set('installed', true);
 				                    var usersStore = Ext.getStore('Users');				
 									var user = usersStore.getAt(0);
-									console.log(user);
+
 									user.data.options.careers.push(id);
 									usersStore.sync();
 									this.getApplication().getController('DaoController').updateUserSettings();
@@ -227,26 +225,22 @@ try {
                         deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                     },
                     success: function (response, opts) {
-                        console.log(response);
+
                         for (var uri in response)
                         {
                             if (response[uri])
                             {
-                                console.log(response[uri]);
                                 career.set(uri, response[uri]);
                             }
                         }
-                        console.log(career);
                     },
                     failure: function () {
-                        console.log('fallo');
                     }
                 });
                 
             },
             
             preinstallCareer: function (career) {
-                console.log('preinstalling career '+career.data.id);
                 this.careerPreinstalling = career;
                 if (parseInt(localStorage.actualSize, 10) + parseInt(career.data.size, 10) > parseInt(localStorage.maxSize, 10)) {
                     Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to install this course, delete some installed courses'), Ext.emptyFn);
@@ -258,7 +252,6 @@ try {
                 var cont;
 				var usersStore = Ext.getStore('Users');				
 				var user = usersStore.getAt(0);
-				console.log(user);
                 for (cont in activities) {
                     if (activities[cont])
                     {
@@ -276,7 +269,6 @@ try {
                             success: function (response, opts) {  
                                 var activity = response;
                                 var career = this.getApplication().getController('DaoController').careerPreinstalling;
-								 console.log(activity);
                                 var activityModel = new DrGlearning.model.Activity({
                                     id : activity.id,
                                     name : activity.name.trim(),
@@ -356,7 +348,6 @@ try {
                                         if (activitiesToInstall[cont])
                                         {
                                             activitiesToInstall[cont].save();
-											console.log(activitiesToInstall[cont]);
 											//this.getApplication().getController('DaoController').activityPlayed(activitiesToInstall[cont].data.id, activitiesToInstall[cont].data.is_passed, activitiesToInstall[cont].best_score, true);
                                         }
                                     }
@@ -386,18 +377,15 @@ try {
                         deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                     },
                     success: function (response, opts) {
-                        console.log(response);
                         for (var uri in response)
                         {
                             if (response[uri])
                             {
-                                console.log(response[uri]);
                                 career.set(uri, response[uri]);
                             }
                         }
                     },
                     failure: function () {
-                        console.log('fallo');
                     }
                 });
                 
@@ -480,30 +468,21 @@ try {
                 {
                   this.updateScore(activityID, score, successful, new Date().getTime());
                 }
-                console.log('Peticion de jugada!!!!!');
-                console.log('id:');
-                console.log(activityID);
-                console.log(successful);
                 var activitiesStore = Ext.getStore('Activities');
                 var activity;
                 activitiesStore.load();
                 activitiesStore.sync();
-                console.log(activitiesStore.getTotalCount());
                 activitiesStore.each(function(rec){
-					console.log(rec)
                   if(rec.get('id') == activityID)
                   {
-                    console.log(rec);
                     activity = rec;
                     return;
                   }
                 });
-                console.log(activity);
 				if(!activity)
 				{
                   activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
 				}
-				console.log(activity);
                 if (successful) {
                     if (activity.data.successful) {
                         if (activity.data.score < parseInt(score, 10)) {
@@ -562,7 +541,6 @@ try {
              */
             getCurrenActivity: function (carrerID, level) {
                 var activities = this.getActivitiesByLevel(carrerID, level);
-				console.log(activities);
 				function sortfunction(a, b){
 					var temp = 0;
 					if(a.data.level_order > b.data.level_order)
@@ -576,7 +554,6 @@ try {
 					return temp;
 				}
 				activities.items.sort(sortfunction)
-				console.log(activities);
                 for (var j = 0; j < activities.items.length; j++) {
                     if (!activities.items[j].data.successful) {
                         return activities.items[j]; 
@@ -607,7 +584,6 @@ try {
                             offlineScoreStore.remove(item);
                         },
 						failure: function (){
-							console.log('ola');
 							//Checking if career has been deleted in server
 							Ext.data.JsonP.request({
 				                scope: this,
@@ -618,7 +594,6 @@ try {
                                 },
 				                success: function (response) {
 				                    var activitiesStore = Ext.getStore('Activities');
-									console.log(item.data.activity_id);
 									var activity = activitiesStore.getById(parseInt(item.data.activity_id,10));
 									if(response.options.careers.indexOf(parseInt(activity.data.careerId,10))==-1)
 									{
@@ -660,8 +635,6 @@ try {
                 var approved = true;
                 var activities = this.getActivitiesByLevel(careerID, level.customId);
                 for (var j = 0; j < activities.items.length; j++) {
-                   	console.log(activities.items[j]);
-                   	console.log(activities.items[j]);
                     if (!activities.items[j].data.successful) {
                         approved = false; 
                     }
@@ -675,14 +648,11 @@ try {
                     message: i18n.gettext('Checking for updates') + "…",
                     indicator: true
                 });
-				console.log('asdasd');
                 var HOST = this.globalSettingsController.getServerURL();
                 Ext.data.JsonP.request({
                     url: HOST + "/api/v1/career/" + career.data.id + "/?format=jsonp",
                     scope: this,
                     success: function (response, opts) {
-						console.log(career.data.timestamp);
-						console.log(response.timestamp);
                         if (career.data.timestamp < response.timestamp) {
                             career.data.update = true;
                             career.data.timestamp = response.timestamp;
@@ -755,7 +725,6 @@ try {
                                             activityModel.data.reward = activity.reward.trim();
                                             activityModel.data.penalty = activity.penalty.trim();
                                         } else {
-											console.log(activity.level_type);
                                             activityModel = new DrGlearning.model.Activity({
                                                 id : activity.id,
                                                 name : activity.name.trim(),
@@ -842,7 +811,6 @@ try {
                                         Ext.getStore('Activities').sync();
                                         Ext.getStore('Activities').load();
 										actToRecieve--;
-										console.log(actToRecieve);
 										if(actToRecieve == 0)
 										{
 											
@@ -898,7 +866,6 @@ try {
 //				user.data.options.careers.pop(careerID);				
 				var idx = user.data.options.careers.indexOf(careerID); // Find the index
 				if(idx!=-1) user.data.options.careers.splice(idx, 1);
-				console.log(user);				
 				usersStore.sync();
                 var careersStore = this.careersStore;
                 var activityStore = Ext.getStore('Activities');
@@ -914,15 +881,12 @@ try {
                 });
                 activities.each(function (item) {
                 	
-					console.log(item);
                		var scores = offlineScoreStore.queryBy(function (record) {
 		                if (parseInt(record.data.activity_id, 10) == parseInt(item.data.id, 10)) {
 		                    return true;
 		                }
 		            });
-					console.log(scores);
 					scores.each(function (item2) {
-						console.log(item2);
 						item2.erase();
 					});
                     item.erase();
@@ -935,7 +899,6 @@ try {
 				this.updateUserSettings();
 				if(updating)
 				{
-					console.log('olass');
 					this.getApplication().getController('UserSettingsController').collectCareers(response);
 				}
             }

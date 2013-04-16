@@ -22,7 +22,6 @@ var Temporal = {
 				  $.unblockUI();
 				}).attr("src", GlobalSettings.getServerURL()+"/media/"+activity.value.image_url);
             }
-			console.log($('#temporalImage'));
             Temporal.activity = activity;
             $('#temporalActivityQuery').html(activity.value.query);
             $('#temporalActivityName').html(activity.value.name);
