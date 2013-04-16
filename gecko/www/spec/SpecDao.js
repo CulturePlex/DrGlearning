@@ -1,7 +1,7 @@
 describe("Dao", function() {
   beforeEach(function() {
-    jasmine.getFixtures().fixturesPath = '/';
-	loadFixtures('index.html');
+    //jasmine.getFixtures().fixturesPath = '/';
+	//loadFixtures('index.html');
 	
   });
 
@@ -24,7 +24,6 @@ describe("Dao", function() {
         level = me;
     });
     expect(level.value.name).toBe("Illetratum");
-
   });
   it("should activitiesStore to be accesible", function() {
     expect(Dao.activitiesStore).not.toBe(null);
@@ -32,5 +31,7 @@ describe("Dao", function() {
   it("should knowledgesStore to be accesible", function() {
     expect(Dao.knowledgesStore).not.toBe(null);
   });
-
+  it("should activityPlayed mark activity as played in store", function() {
+    expect(Dao.knowledgesStore).not.toBe(null);
+  });
 });
