@@ -171,21 +171,21 @@ try {
                             xtype: 'button'
                             //xtype: 'panel',
                             //html: '<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
-                        }/*,
-                        {
+                        },
+                        /*{
                             id: 'sync',
                             text: i18n.gettext('Sync'),
                             xtype: 'button'
                             //xtype: 'panel',
                             //html: '<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
-                        },
+                        },*/
                         {
                             id: 'updateAll',
                             text: i18n.gettext('Update all'),
                             xtype: 'button'
                             //xtype: 'panel',
                             //html: '<font color="white">'+i18n.gettext('CulturePlex Lab.')+'</font>',
-                        }*/]
+                        }]
                     }
                 ],
                 

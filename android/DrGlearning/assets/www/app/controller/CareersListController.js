@@ -90,11 +90,11 @@ try {
                     /*'button[id=sync]': {
                         //tap: this.userSettingsController.sync
                     
-                    },
-                    'button[id=updateAll]': {
-                        //tap: this.updateAll
-                    
                     },*/
+                    'button[id=updateAll]': {
+                        tap: this.updateAll
+                    
+                    },
                     'button[id=saveSettings]': {
                         tap: this.userSettingsController.saveSettings
                     
@@ -145,10 +145,10 @@ try {
                 }
                 if (numberOfUpdates > 0)
                 {
-                    //this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
+                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').show();
                 } else
                 {
-                    //this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
+                    this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').down('button[id=updateAll]').hide();
                 }
                 this.getCareersframe().down('toolbar[id=toolbarTopNormal]').show();
                 this.getCareersframe().down('toolbar[id=toolbarBottomSettings]').show();
