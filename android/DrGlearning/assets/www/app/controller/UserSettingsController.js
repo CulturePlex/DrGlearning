@@ -118,7 +118,6 @@ try {
                 localStorage.imported=true;
             },
             userDataReceived: function (response, opts) {
-				console.log(response);
                 var userStore = Ext.getStore('Users');
                 userStore.load();
                 var user = userStore.getAt(0);
@@ -144,7 +143,6 @@ try {
                 
             },
             collectCareers: function (response, objects) {
-				console.log(response);
                 careersToPreinstall = response.options.careers;
                 this.preinstallingIndex = 0;
                 this.importedScores = response.objects;

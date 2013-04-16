@@ -58,7 +58,6 @@ try {
 						temp +="<span style='border: 1px solid; display:inline-block;  width:16px;'>&ensp;</span>&ensp;";
 					}
 				}
-				console.log(temp);
 				return temp;
 			},
             updateActivity: function (view, newActivity)
@@ -115,7 +114,6 @@ try {
             },
             tryIt: function ()
             {
-				console.log('olass');
                 var letterView = this.activityView.down('textfield[customId=letter]');
                 var responseView = this.activityView.down('label[customId=responses]');
                 var loquedView = this.activityView.down('label[customId=loqued]');
@@ -131,7 +129,6 @@ try {
                 }
                 if(this.lettersAsked.indexOf(letter) == -1)
                 {
-                  console.log(this.loquedText.length);
                   var loquedTextLower = [];
                   for (var x in this.loquedText)
                   {
@@ -155,7 +152,6 @@ try {
                         if (i != -1)
                         {
                           i++;
-                          console.log('restando');
                         }
                       }
                       this.goodLetter();
@@ -181,8 +177,6 @@ try {
 						}
                     }
                     else {
-						console.log(this.loquedText);
-						console.log(this.loquedText[cont]);
 						if(this.loquedText[cont]==" ")
 						{
 							loqued = loqued + "&nbsp;&nbsp;";
@@ -197,9 +191,6 @@ try {
                     }
                 }
                 loquedView.setHtml(loqued2);
-				console.log(loqued.toLowerCase().replace('&nbsp;&nbsp;',' '));
-				console.log(this.activity.data.answer.toLowerCase());
-                console.log(this.score);
                 if (loqued.toLowerCase().replace('&nbsp;&nbsp;',' ') === this.activity.data.answer.toLowerCase())
                 {
                     if (this.score < 20)

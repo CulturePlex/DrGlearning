@@ -146,7 +146,6 @@ try {
                         this.termsStore.load(
                         {
                             callback: function () {
-                                console.log(this);
                                 terms.setHtml(this.getAt(0).data.text);
                             }
                         });
@@ -160,7 +159,6 @@ try {
                         this.termsStore.load(
                         {
                             callback: function () {
-                                console.log(this);
                                 terms.setHtml(this.getAt(0).data.text);
                             }
                         });
