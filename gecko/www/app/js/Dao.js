@@ -373,6 +373,10 @@ var Dao = {
 				numOfCourses ++;
 			}
 		});
+		if(numOfCourses==0)
+		{
+			$.unblockUI();
+		}
 		Dao.careersStore.each(function(record, index) { 
 			if(record.value.installed)
 			{
