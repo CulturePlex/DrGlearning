@@ -1,6 +1,23 @@
 {% extends "admin/change_form.html" %}
 
-{% load knowledges_extras %}
+{% load knowledges_extras i18n %}
+
+{% block object-tools-items %}
+{% if object_id %}
+    <li >
+        <a href="{% test_url 'career' object_id %}" target="_blank">{% trans "Preview" %}</a>
+    </li>
+    <li >
+      <a href="{% url career_export object_id %}">{% trans "Export" %}</a>
+    </li>
+    {% if activities_count == 0 %}
+        <li >
+          <a href="{% url career_import object_id %}">{% trans "Import" %}</a>
+        </li>
+    {% endif %}
+{{ block.super }}
+{% endif %}
+{% endblock %}
 
 {% block after_field_sets %}
 <script type="text/javascript">
@@ -9,87 +26,63 @@ function closePopup(win) {
     location.reload();
 }
 </script>
+<style>
+span.grp-help {
+    max-width: 758px;
+    padding: 3px 0 0;
+    color: #9a9a9a;
+    font-size: 11px !important;
+    line-height: 14px;
+    white-space: normal !important;
+}
+li.activity-hidden {
+    display: none;
+    float: none;
+}
+</style>
 
-<fieldset class="module">
-
-    <h2>Course ({{ activities_count|default:"0" }} activities)</h2>
-    {% for level, activities in activities_by_level %}
-      <div class="row cells-1">
-        <div class="column span-4">{{level}}</div>
-        <div class="column span-flexible">
-        <ul>
-        {% for activity, type in activities %} 
-        <li>{{ activity.level_order }}. {{ activity.name|title }} ({{ type|title }})
-          <a class="changelink" onClick="window.open('/admin/activities/{{type}}/{{activity.id}}/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)">Edit</a>
-          <a class="deletelink" href="/admin/activities/{{type}}/{{activity.id}}/delete/">Delete</a>
-        </li>
-      {% endfor %}
-      </div>
-      </div>
+<fieldset class="grp-module grp-collapse grp-open">
+    <h2 class="grp-collapse-handler">{% trans "Activities" %} ({{ activities_count|default:"0" }})</h2>
+    {% for level_type, level, activities in activities_by_level %}
+        <div class="grp-row grp-cells-1">
+            <div class="l-2c-fluid l-d-4">
+                <div class="c-1">
+                    <label class="required">{{ level }}</label>
+                    <div>
+                    <ul class="grp-actions" style="float: left;">
+                        <li class="grp-add-link"
+                            onmouseover="django.jQuery(this).siblings('.activity-hidden').show();django.jQuery(this).hide();">
+                          <a href="javascript: void(0)">{% trans "Add activity..." %}</a>
+                        </li>
+                        {% for activity_type in activities_types %}
+                        <li class="grp-add-link activity-hidden">
+                          <a onClick="window.open('/admin/activities/{{activity_type}}/add/?_popup=1&level_type={{level_type}}&level_order={{activities|length|add:"1"}}','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)">{{ activity_type|capfirst }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+                <div class="c-2">
+                {% for activity, type in activities %}
+                    <div class="grp-row">
+                        <span>{{ activity.level_order }}. {{ activity.name|title }} (<em>{{ type|title }}</em>)</span>
+                        <span class="grp-help">{{ activity.query }}</span>
+                        <ul class="grp-actions">
+                            <li class="grp-change-link">
+                              <a onClick="window.open('/admin/activities/{{type}}/{{activity.id}}/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)">{% trans "Edit" %}</a>
+                            </li>
+                            <li class="grp-delete-link">
+                              <a href="/admin/activities/{{type}}/{{activity.id}}/delete/">{% trans "Delete" %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                {% empty %}
+                    <p class="grp-help">{% trans "No activities yet" %}</p>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
     {% endfor %}
   </div>
 </fieldset>
-
-<br/>
-
-{% if object_id %}
-    <fieldset class="module">
-        <h2>Add new activities</h2>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a onClick="window.open('/admin/activities/geospatial/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Geospatial</a>
-            </div>
-        </div>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a onClick="window.open('/admin/activities/relational/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Relational</a>
-            </div>
-        </div>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a onClick="window.open('/admin/activities/temporal/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Temporal</a>
-            </div>
-        </div>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a onClick="window.open('/admin/activities/linguistic/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Linguistic</a>
-            </div>
-        </div>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a onClick="window.open('/admin/activities/visual/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Visual</a>
-            </div>
-        </div>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a onClick="window.open('/admin/activities/quiz/add/?_popup=1','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0)" class="addlink">Quiz</a>
-            </div>
-        </div>
-    </fieldset>
-
-    <fieldset class="module">
-        <h2>Course tools</h2>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a href="{% url career_export object_id %}">Export activities</a>
-            </div>
-        </div>
-            {% if activities_count == 0 %}
-                <div class="row cells-1">
-                    <div class="column span-4">
-                        <a href="{% url career_import object_id %}">Import activities</a>
-                    </div>
-                 </div>
-            {% endif %}
-    </fieldset>
-    <fieldset class="module">
-        <h2>Course creator tools</h2>
-        <div class="row cells-1">
-            <div class="column span-4">
-                <a href="{% test_url 'career' object_id %}" target="_blank">Course preview</a>
-                <img id="course-qr-code" src="http://chart.apis.google.com/chart?cht=qr&chs=120x120&chl={{ 'career'|api_url:object_id }}">
-            </div>
-
-{% endif %}
-
 {% endblock %}

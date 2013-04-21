@@ -90,14 +90,21 @@ class CareerAdmin(GuardedModelAdmin):
         return None
 
     def change_view(self, request, object_id, extra_context=None):
-        all_activities = [(a, self.get_activity_type(a)) \
-                for a in Career.objects.get(pk=object_id).activity_set.all()]
+        all_activities = [
+            (a, self.get_activity_type(a))
+            for a in Career.objects.get(pk=object_id).activity_set.all()
+        ]
         career_activities = []
-        for value, text in Activity.TYPE_CHOICES:
-            career_activities.append((text, [a for a in all_activities
-                                             if a[0].level_type == value]))
+        for i, pair in enumerate(Activity.TYPE_CHOICES):
+            value, text = pair
+            activities = [a for a in all_activities
+                          if a[0].level_type == value]
+            career_activities.append((i, text, activities))
+        activities_types = ('geospatial', 'linguistic', 'quiz', 'relational',
+                            'temporal', 'visual')
         context = {"activities_by_level": career_activities,
-                    "activities_count": len(all_activities)}
+                   "activities_count": len(all_activities),
+                   "activities_types": activities_types}
         return super(CareerAdmin, self).change_view(request, object_id,
                                                     extra_context=context)
 
