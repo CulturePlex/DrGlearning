@@ -68,6 +68,7 @@ def scores_view(request, career_id):
     scores, players = get_scores(
         career,
         order_by=("display_name", "email"),
+        details=scores_details,
         slice=slice((page - 1) * scores_per_page, page * scores_per_page),
         email__icontains=q_search)
     paginator = Paginator(players, scores_per_page)  # Show 25 scores per page
