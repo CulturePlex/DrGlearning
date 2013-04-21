@@ -3,6 +3,7 @@ try:
 except ImportError:
     from django.utils import simplejson
 
+from django.conf import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
 from django.shortcuts import (HttpResponse, HttpResponseRedirect,
@@ -48,7 +49,7 @@ def import_career(request, career_id):
 @transaction.autocommit
 def scores_view(request, career_id):
     career = Career.objects.get(id=career_id)
-    scores_per_page = 25
+    scores_per_page = getattr(settings, "SCORES_PER_PAGE", 10)
     page = int(request.GET.get('p', 1))
     q = request.GET.get("q", u"")
     hide_null_emails = int(request.GET.get("hide_null_emails", 1))
