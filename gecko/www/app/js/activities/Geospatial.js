@@ -45,7 +45,6 @@ var Geospatial = {
     start: function ()
     {
         Geospatial.map = $('#map_canvas').gMap();
-        console.log('aquiii');
         //Initializing map variable
         var map = Geospatial.map;
         google.maps.event.clearListeners(map, 'idle');
@@ -154,6 +153,7 @@ var Geospatial = {
         var distance = Math.sqrt(Math.pow(Geospatial.marker.position.lat() - Geospatial.target.lat(), 2) + Math.pow(Geospatial.marker.position.lng() - Geospatial.target.lng(), 2)) * 60000;
         Geospatial.score = parseInt(100 - (distance * 100) / Geospatial.radius, 10);
         if (distance < Geospatial.radius) {
+			if(Geospatial.score < 50){Geospatial.score = 50;}
             $('#dialogText').html(Geospatial.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Geospatial.score);
 			Dao.activityPlayed(Geospatial.activity.value.id, true, Geospatial.score);
         }

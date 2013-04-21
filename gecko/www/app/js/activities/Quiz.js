@@ -8,7 +8,6 @@ var Quiz = {
       },
     refresh: function(){
         $('#quizAnswersList').empty();
-        console.log('borrando');
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){
             Quiz.activity = activity;
             $('#quizActivityQuery').html(activity.value.query);
@@ -34,7 +33,6 @@ var Quiz = {
       },
       checkAnswer: function(answer){
         $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});
-        console.log(Quiz.activity);
           if(Quiz.activity.value.correct_answer.trim() === answer.trim())
           {
             $('#dialogText').html(Quiz.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": 100");

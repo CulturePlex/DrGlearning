@@ -36,7 +36,6 @@ var UserSettings = {
             //localStorage.email = emailField;
         }
         var locale = $('#locale').val();
-       	console.log(locale);
 		if (localStorage.locale !== locale) {
             /*if (locale === "ar")
             {

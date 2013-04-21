@@ -1,12 +1,11 @@
 var Dao = {
+	careersToUpdate: null,
+	numberCareersToUpdate: null,
 	userStore : new Lawnchair({adapter:'dom',name:'user'}, function(e) {
-          console.log('User Storage Open');
     }),
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
-          console.log('Careers Storage Open');
     }),
 	checkCode: function (element,code) {
-		console.log(element);
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
@@ -18,15 +17,12 @@ var Dao = {
 				//DrGlearning.careerId=element.attr("data-href");
 				if(DrGlearning.embed)
 				{
-					console.log(DrGlearning.embed);
 					Loading.getCareer(UserSettings.careerTemp.key);
 				}
 				else
 				{
 	                Dao.installCareer(element);
 				}
-
-				console.log('y bien');
             },
             failure: function () {
 				$.unblockUI();
@@ -43,16 +39,9 @@ var Dao = {
         });
     },
     installCareer: function (element,code) {
-        //Dao.careersStore.get({key:element.attr("data-href"), installed:true});
-        Dao.careersStore.get(element.attr("data-href"),function(r){
-			Loading.getCareer(element.attr("data-href"));
-            //r.value.installed = true;
-            //Dao.careersStore.save({key:element.attr("data-href"), value: r.value});
-        });
-	      //DrGlearning.refreshAddCareers();
+        Loading.getCareer(element.attr("data-href"));
     },
     levelsStore : new Lawnchair({adapter:'dom',name:'levels'}, function(e) {
-          console.log('Levels Storage Open');
     }),
     initLevels: function () {
         var dataLevels = [
@@ -122,14 +111,10 @@ var Dao = {
         }
     },
     activitiesStore : new Lawnchair({adapter:'dom',name:'activities'}, function(e) {
-          console.log('Activities Storage Open');
     }),
     knowledgesStore : new Lawnchair({adapter:'dom',name:'knowledges'}, function(e) {
-          console.log('Knowledges Storage Open');
     }),
     knowledgesRequest: function () {
-        console.log('retrieving knowledges');
-        //localStorage.knowledgeFields = [];
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + "/api/v1/knowledge/?format=json",
@@ -155,14 +140,7 @@ var Dao = {
     },
 	activityPlayed: function (activityID, successful, score)
 	{
-        console.log('Peticion de jugada!!!!!');
-        console.log('id:');
-        console.log(activityID);
-        console.log(score);
-
 		Dao.activitiesStore.get(activityID.toString(),function(activity){ 
-			console.log('entrando');
-			console.log(activity);
 		    if (successful) {
 		        if (activity.value.successful) {
 		            if (activity.value.score < parseInt(score, 10)) {
@@ -179,17 +157,10 @@ var Dao = {
 		            }
 		        }
 		    }
-		    //activity.value.score = parseInt(score, 10);
 		    activity.value.played = true;
 		    Dao.activitiesStore.save({key:activityID,value:activity.value});
 			Dao.updateScore(activityID, score, successful, new Date().getTime());
 		});
-        //Make carrer started if needed
-        /*var carrer = this.careersStore.getById(activity.data.careerId);
-        if (!carrer.data.started) {
-            carrer.data.started = true;
-            carrer.save();
-        }*/
 	},
 	uninstall: function (careerId)
 	{
@@ -223,10 +194,8 @@ var Dao = {
 		    },
 			dataType: "json",
 		    success: function (response) {
-				console.log('puntuacion enviada');
 		    },
 			error: function (response) {
-				console.log('error al puntuacion enviada');
 				$.ajax({
 		            url: HOST + '/api/v1/player/',
 		            data: {
@@ -240,7 +209,6 @@ var Dao = {
 						{
 							activity = me;
 						});
-						console.log(activity);
 						if(response.options.careers.indexOf(parseInt(activity.value.careerId,10))==-1)
 						{
 							//Deleting career
@@ -259,11 +227,8 @@ var Dao = {
 		});
     },
 	preinstallCareer: function (career) {
-        console.log('preinstalling career ');
-        console.log(career);
         Dao.careerPreinstalling = career;
         var activities = career.activities;
-        console.log(activities);
         var activitiesInstalled = 0;
         var cont;
 		var id;
@@ -371,17 +336,14 @@ var Dao = {
                                 }
                             }
                             career.installed = true;
-							console.log(career);
 							Dao.careersStore.save({key:career.id,value:career});
                             DrGlearning.refreshMain();						
                             UserSettings.preinstallingIndex++;
-							console.log('llamando otra vez a preinstall')
                             UserSettings.preinstall();
                         }
                     },
                     failure : function () {
 						$.unblockUI();
-                        console.log('Unable to install, error while installing activities');
                     }
                 });
             }
@@ -389,32 +351,86 @@ var Dao = {
      
     },
 	manageInMessage: function (message) {
-		console.log(message);
 		if(message.data.action === "postPlayerCode")
 		{
-			console.log(UserSettings);
 			UserSettings.importUser(message.data.params.playerCode);
 		}
 		if(message.data.action === "postCourseCode")
 		{
-			console.log(UserSettings);
 			Dao.checkCode($('<div data-href="' +message.data.params.id  + '">'),message.data.params.courseCode);
 		}
+	},
+	checkForAllCareerUpdate: function (career,updateAllFlag)
+    {
+		$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
+		var HOST = GlobalSettings.getServerURL();
+		Dao.careersToUpdate = [];
+		var numOfCourses = 0;
+		var numOfCoursesChecked = 0;
+		Dao.careersStore.each(function(record, index) { 
+			if(record.value.installed)
+			{
+				numOfCourses ++;
+			}
+		});
+		if(numOfCourses==0)
+		{
+			$.unblockUI();
+		}
+		Dao.careersStore.each(function(record, index) { 
+			if(record.value.installed)
+			{
+				$.ajax({
+					dataType: "json",
+					url: HOST + "/api/v1/career/" + record.key + "/?format=json",
+					success: function (response, opts) {
+						numOfCoursesChecked++;
+						if (record.value.timestamp < response.timestamp) {
+							Dao.careersToUpdate.push(record);
+						}
+						if(numOfCourses == numOfCoursesChecked)
+						{
+							if(Dao.careersToUpdate.length == 0)
+							{
+								$.unblockUI();
+								Workflow.toMain = true;
+								$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+								$('#dialogText').html(i18n.gettext("There is no courses to update."));
+							}
+							else
+							{
+								for(var i=0;i<Dao.careersToUpdate.length;i++)
+								{
+									Dao.numberCareersToUpdate = Dao.careersToUpdate.length;
+									Dao.updateCareer(Dao.careersToUpdate[i].key,true);
+
+								}
+							}
+						}								
+					},
+					error: function () {
+						$.unblockUI();
+						Workflow.toMain = true;
+						$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+						$('#dialogText').html(i18n.gettext("Sorry, was a problem trying to update courses. Try again later"));
+					}
+				});
+			}
+	    });
+
+	
 	},
 	checkForCareerUpdate: function (career)
     {
        $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
         var HOST = GlobalSettings.getServerURL();
-		console.log(career);
         $.ajax({
             dataType: "json",
             url: HOST + "/api/v1/career/" + career.key + "/?format=json",
             success: function (response, opts) {
-				console.log(response.timestamp);
-				console.log(career);
 				//La carrera notiene almacenado el timestamp!!
                 if (career.value.timestamp < response.timestamp) {
-					Dao.updateCareer(career.key)
+					Dao.updateCareer(career.key,true)
                 }
 				else
 				{
@@ -422,11 +438,9 @@ var Dao = {
 					Workflow.toCareer = true;
 					$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 				    $('#dialogText').html(i18n.gettext("No updates available for this course"));
-						console.log('no updates availables');
-	                }				
+                }				
             },
             error: function () {
-				console.log('fail');
                 $.unblockUI();
 				Workflow.toCareer = true;
 				$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
@@ -434,10 +448,9 @@ var Dao = {
             }
         });
     },
-    updateCareer: function (careerID) {
+    updateCareer: function (careerID,updateAll) {
             var careersStore = Dao.careersStore;
             var activityStore = Dao.activitiesStore;
-			console.log(careerID);
             Dao.careersStore.get(careerID,function(me)
 			{
 				career = me;
@@ -464,14 +477,12 @@ var Dao = {
                     //activities=activities.split(",");
 					var activitiesOld = [];
                     Dao.activitiesStore.each(function (record,index) {
-						console.log(record.value.careerId);
 						if(record.value.careerId == careerID)
 						{
 							activitiesOld.push(record);
 						}			
                         //return parseInt(record.data.careerId, 10) === parseInt(careerID, 10);
                     });
-					console.log(activitiesOld);
                     var HOST = GlobalSettings.getServerURL();
                     var activitiesID = [];
 					var actToRecieve = activities.length;
@@ -493,7 +504,6 @@ var Dao = {
 								{
 									activityTemp = me;
 								});				
-								console.log(activityTemp);				
                                 if (activityTemp !== null) {
                                     activityModel = activityTemp;
                                     activityModel.value.name = activity.name.trim();
@@ -508,7 +518,6 @@ var Dao = {
                                     activityModel.value.reward = activity.reward.trim();
                                     activityModel.value.penalty = activity.penalty.trim();
                                 } else {
-									console.log(activity.level_type);
                                     activityModel = new DrGlearning.model.Activity({
                                         id : activity.id,
                                         name : activity.name.trim(),
@@ -541,7 +550,7 @@ var Dao = {
                                     //activityModel.value.image=activity.image;
                                     activityModel.value.answers = activity.answers;
                                     activityModel.value.correct_answer = activity.correct_answer.trim();
-                                    activityModel.set('obfuscated_image', activity.obfuscated_image);
+                                    //activityModel.set('obfuscated_image', activity.obfuscated_image);
                                     activityModel.value.obfuscated_image_url = activity.obfuscated_image_url.trim();
                                     activityModel.value.time = activity.time;
                                 }
@@ -589,14 +598,24 @@ var Dao = {
                                 }
                                 
                                 career.value.update = false;
-								console.log(career);
                                 Dao.careersStore.save({key:career.key,value:career.value});
-                                
 								actToRecieve--;
-								console.log(actToRecieve);
 								if(actToRecieve == 0)
 								{
-									$.unblockUI();
+									if(updateAll)
+									{
+										Dao.numberCareersToUpdate--;
+										if(Dao.numberCareersToUpdate == 0)
+										{
+											$.unblockUI();
+											Workflow.toMain = true;
+											$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+											$('#dialogText').html(Dao.careersToUpdate.length + i18n.gettext(" courses updated."));
+										}
+									}else
+									{
+										$.unblockUI();		
+									}
 								}
                             }, 
                             failure: function () 
@@ -605,14 +624,11 @@ var Dao = {
 								Workflow.toCareer = true;
 								$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 								$('#dialogText').html(i18n.gettext("Error while checkinf for updates, try again later"));
-								console.log('no updates availables');
-								
                             }
                         });
                     }
                 }
             });
     },
-
 }
 

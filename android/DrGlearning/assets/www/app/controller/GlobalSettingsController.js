@@ -128,7 +128,7 @@ try {
             showMessage: function (message) {
                 if (this.showLog)
                 {
-                    console.log(message);
+ //                   console.log(message);
                 }
             }
         });

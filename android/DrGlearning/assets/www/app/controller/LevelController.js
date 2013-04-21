@@ -103,7 +103,6 @@ try {
             toInfoLevel: function ()
             {
                 var learn =  Ext.create('DrGlearning.view.Info');
-                console.log(this.infolevelHtml);
                 learn.setHtml(this.infolevelHtml);
                 Ext.Viewport.add(learn);
                 learn.show();
@@ -148,7 +147,6 @@ try {
                     this.activitiesStore.clearFilter();
                     this.activitiesStore.filter({filterFn: function (item) { return parseInt(item.data.careerId, 10) === parseInt(newCareer.data.id, 10); }});
                     this.activitiesStore.filter({filterFn: function (item) { return item.data.level_type === newLevel }});
-					console.log(newLevel);
                     this.levelTitle.setTitle(newCareer.data.name);
                     this.getLevelframe().show();
                     if (typeof(MathJax) !== "undefined") {
@@ -402,7 +400,6 @@ try {
              * Showing the complete query of an activity.
              */
             more: function (that) {
-				console.log("moreeeeeee");
                 var text = that.currentActivity.data.query;
                 Ext.Msg.alert(i18n.gettext('Question'), text, function () {
                 }, that);

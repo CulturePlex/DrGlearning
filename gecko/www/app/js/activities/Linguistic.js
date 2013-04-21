@@ -26,7 +26,6 @@ var Linguistic = {
             var bgImage = new Image();
             bgImage.onload = function () {
 				$.unblockUI();
-              	console.log(this.width);
 	            Linguistic.imageWidth = this.width;
 	            Linguistic.imageHeight = this.height;
 	            Linguistic.refresh2();
@@ -35,7 +34,6 @@ var Linguistic = {
         });
     },
     refresh2: function(){
-        console.log('olasss');
         $('#linguisticActivityQuery').html(Linguistic.activity.value.query);
         $('#linguisticActivityName').html(Linguistic.activity.value.name);
         /*if(activity.value.image_url)
@@ -102,7 +100,6 @@ var Linguistic = {
     },
     tryIt: function ()
     {
-        console.log('oyee');
         var letter = $("#inputLinguistic").val();
         $("#inputLinguistic").val('');
         var cont;
@@ -115,7 +112,6 @@ var Linguistic = {
         }
         if(Linguistic.lettersAsked.indexOf(letter) == -1)
         {
-          console.log(Linguistic.loquedText.length);
           Linguistic.lettersAsked.push(letter);
           var loquedTextLower = [];
           for (var x in Linguistic.loquedText)
@@ -140,7 +136,6 @@ var Linguistic = {
                 if (i != -1)
                 {
                   i++;
-                  console.log('restando');
                   Linguistic.score -= (10/numDifLetter);
                 }
               }
@@ -163,7 +158,6 @@ var Linguistic = {
        }
        $('#answerLinguistic').empty();
        $('#answerLinguistic').append("Answer: "+loqued);
-       console.log(Linguistic.score);
        if (loqued.toLowerCase() === Linguistic.activity.value.answer.toLowerCase()) 
        {
            if (Linguistic.score < 20)

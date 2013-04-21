@@ -157,7 +157,6 @@ try {
                         if (graphNodes[pathPosition] !== undefined) {
                             if (graphNodes[pathPosition].score !== undefined && graphNodes[pathPosition].score > 0) {
                                 score += parseInt(graphNodes[pathPosition].score, 10);
-								console.log(score);
                                 Ext.Msg.alert(i18n.gettext('Congratulations!'), i18n.gettext('You got '+graphNodes[pathPosition].score+' points!'), function ()
                                 {
                                 
@@ -476,10 +475,6 @@ try {
                     activityView.show();
                     view.add(activityView);
                     var scroller = activityView.getScrollable().getScroller();
-					// Esta es la dimension de la ventana
-					console.log(activityView.element.getHeight());
-					// Aqui la dimension del contenido
-					console.log(gamePanel.element.getHeight());
 					if(activityView.element.getHeight() < gamePanel.element.getHeight() + 150 )
 					{
                     	scroller.scrollBy(0, 58);
@@ -557,11 +552,10 @@ try {
                 for (var i in graphNodes) 
                 {
 					if (graphNodes[i].score !== 0) {
-						console.log(parseInt(graphNodes[i].score,10));
+
                         totalScores += parseInt(graphNodes[i].score,10);
                     }
                 }
-				console.log(totalScores);
 				for (var i in graphNodes)
 				{
 					if (graphNodes[i].score !== 0) {

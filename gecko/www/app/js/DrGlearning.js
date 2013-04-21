@@ -37,17 +37,14 @@ var DrGlearning = {
 		if (embedImport.indexOf('&') >= 0) {
 			embedImport = embedImport.substring(0, careerToEmbed.indexOf('&'));
 		}
-		console.log(embedImport);
 		DrGlearning.embedImport = embedImport;
 		if(DrGlearning.embed)
 		{
 			$('#career').children('header').children('a').remove();
-			console.log($('#footercourse'));
 			$('#footercourse').remove();
 		}
 
 		// Setting up locales
-		console.log(localStorage.locale);
 		if(localStorage.locale == undefined)
 		{
 			localStorage.locale= "en";
@@ -96,7 +93,6 @@ var DrGlearning = {
           } else {
               digest = Loading.SHA1("test" + " " + new Date().getTime());
           }
-          console.log("Creating User");
           Dao.userStore.save({key:'uniqueid',value:digest});
           //localStorage.uniqueid = digest;
         }
@@ -105,7 +101,6 @@ var DrGlearning = {
 			uniqueid = (me !== null) ? me.value : '';
 		});
         if (uniqueid !== '' && token === '') {
-            console.log('registering user');
             jQuery.ajax({
                 url: GlobalSettings.getServerURL() + "/api/v1/player/?format=json" ,
                 dataType : 'json',
@@ -114,14 +109,12 @@ var DrGlearning = {
                     "code": uniqueid
                 },
                 success: function (response) {
-                    console.log(response);
 					response.options = {};
 					var options = { careers : [] };
 					Dao.userStore.save({key:'id',value:response.id});
 					Dao.userStore.save({key:'options',value:options});
 					Dao.userStore.save({key:'token',value:response.token});
                     //localStorage.token = response.token;
-                    console.log("User successfully registered");
                 }
             });
         }
@@ -207,18 +200,12 @@ var DrGlearning = {
 			Workflow.toActivity = true;
 			Workflow.toLinguistic = true;
         });
-		
-
-
-
         //Setting up buttons
-
         $(document).on('click', '#accesscareer',function(e) {
 			DrGlearning.setCareerId($(this));
             $.mobile.changePage("#career");
             return false;
         });
-
         $(document).on('click', '#dialogOK',function(e) {
 			if(Workflow.toMain)
 			{	
@@ -303,7 +290,6 @@ var DrGlearning = {
             }
             if(DrGlearning.activityType === "visual")
             {
-				console.log('holass');
                 $.mobile.changePage("#visual");
 				Visual.refresh();
             }
@@ -356,17 +342,18 @@ var DrGlearning = {
 				Dao.checkForCareerUpdate(me);
 			});
         });
+		$('#updateAll').click(function(){
+        	Dao.checkForAllCareerUpdate();
+        });
 
 		$(document).on('click', '#confirmInstall',function(e) {
 			if(Workflow.uninstalling)
 			{
-				console.log('jaja');
 				Dao.uninstall(DrGlearning.careerId);
 				$.mobile.changePage("#main");
 			}
 			else
 			{
-				console.log(DrGlearning.careerSelect.attr("data-href"));
 				var has_code;
 				Dao.careersStore.get(DrGlearning.careerSelect.attr("data-href"),function(r){
 					has_code = r.value.has_code;
@@ -425,13 +412,11 @@ var DrGlearning = {
         Linguistic.setup();
         Geospatial.setup();
         Relational.setup();
-		console.log(DrGlearning);
 		if(DrGlearning.embed)
 		{
 			if(!DrGlearning.embedImport)
 			{
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
-				console.log(DrGlearning.careerToEmbed);
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
 				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
 			}
@@ -440,7 +425,6 @@ var DrGlearning = {
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Getting Course...')+'</p>' });
 				
 				DrGlearning.careerId=parseInt(DrGlearning.careerToEmbed,10);
-				console.log(DrGlearning.careerId);
 				XD.receiveMessage(function(message){
 					Dao.manageInMessage(message);
 				}, parent_url);
@@ -448,10 +432,8 @@ var DrGlearning = {
 				//console.log(parent_url);
 				//console.log(parent);
 				XD.postMessage({'action': 'getPlayerCode'}, parent_url, parent);
-
 			}
 		}
-
     },
     refreshMain: function(){
         $(window).scroll(function(){
@@ -503,7 +485,6 @@ var DrGlearning = {
           }
         });
         $('#addcareerslist').empty();
-		console.log(Dao.careersStore);
         Dao.careersStore.all(function(arrCareers){
           var empty = true;
 		      for(var i = 0; i<arrCareers.length;i++)
@@ -600,12 +581,10 @@ var DrGlearning = {
     },
     refreshLevel: function(){
 		Dao.careersStore.get(DrGlearning.careerId,function (career){
-			console.log(DrGlearning.levelId);
 			if(career.value.career_type == "exam")
 			{
 				if(DrGlearning.levelId > 1)
 				{
-					console.log(DrGlearning.levelId);
 		        	Dao.levelsStore.get(DrGlearning.levelId-1,function(level){
 						$('#levelTitle').html(level.value.name);
 						if(!Workflow.levelIsCompleted(level,DrGlearning.careerId))
@@ -705,7 +684,9 @@ var DrGlearning = {
 			After: i18n.gettext("After"),
 			Before: i18n.gettext("Before"),
 			CheckForUpdates: i18n.gettext("Update course"),
-			UninstallCourse: i18n.gettext("Uninstall course")
+			UninstallCourse: i18n.gettext("Uninstall course"),
+			UpdateAll: i18n.gettext("Update All"),
+			MoreOptions: i18n.gettext("More Options")
             };
         var html    = template(context);
         $(this).empty();

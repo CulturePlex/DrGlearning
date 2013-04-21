@@ -191,6 +191,7 @@ try {
                 var distance = Math.sqrt(Math.pow(this.marker.position.lat() - this.target.lat(), 2) + Math.pow(this.marker.position.lng() - this.target.lng(), 2)) * 60000;
                 score = parseInt(100 - (distance * 100) / this.radius, 10);
                 if (distance < this.radius) {
+					if(score < 50){score = 50;}
                     Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' <br />' + i18n.gettext("Score") + ": " + score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, score);

@@ -114,7 +114,6 @@ try {
              */
             updateCareer: function (newCareer)
             {
-				console.log('updating career view...');
                 this.daoController.updateOfflineScores();
                 this.selectedCareer = newCareer;
                 var view = this.careerFrame;
@@ -132,7 +131,6 @@ try {
                 description.setData(newCareer.data);
                 var levelstemp = [];
                 levelstemp = this.daoController.getLevels('' + newCareer.data.id);
-				console.log(levelstemp);
                 var items = [];
                 var levelButtonHtml;
                 this.carousel = levelscarousel;

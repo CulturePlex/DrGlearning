@@ -217,8 +217,7 @@ var Loading = {
 		                  }
 		                });
                 }
-                console.log('requesting careers...');
-               
+              
                 if (parseInt(localCurrentCount, 10)  < parseInt(localTotalCount, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;

@@ -20,7 +20,7 @@ var GlobalSettings = {
         $(".modalWindow").remove();
         $.mobile.hidePageLoadingMsg();
     },
-//Functions needed
+    //Functions needed
 	hashCode: function (str) { // java String#hashCode
 		var hash = 0;
 		for (var i = 0; i < str.length; i++) {
