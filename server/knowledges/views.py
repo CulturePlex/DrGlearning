@@ -4,8 +4,10 @@ except ImportError:
     from django.utils import simplejson
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db import transaction
+from django.http import HttpResponseForbidden
 from django.shortcuts import (HttpResponse, HttpResponseRedirect,
                               render_to_response)
 from django.template import RequestContext
@@ -46,9 +48,12 @@ def import_career(request, career_id):
     }, context_instance=RequestContext(request))
 
 
+@login_required
 @transaction.autocommit
 def scores_view(request, career_id):
     career = Career.objects.get(id=career_id)
+    if career.user != request.user and not request.user.is_superuser:
+        return HttpResponseForbidden()
     scores_per_page = getattr(settings, "SCORES_PER_PAGE", 10)
     page = int(request.GET.get('p', 1))
     q = request.GET.get("q", u"")
