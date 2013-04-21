@@ -1,0 +1,221 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_static admin_list %}
+{% load url from future %}
+{% load admin_urls %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url 'admin:jsi18n' as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript" charset="utf-8">
+(function($){
+    var init = function(){
+        $(".toggle-details").click(function(e){
+            $(this).siblings().toggle();
+            return false;
+        });
+    }
+    $(document).ready(init);
+})(django.jQuery);
+</script>
+{% endblock %}
+
+{% block bodyclass %}grp-change-list{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="grp-breadcrumbs">
+<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+<li><a href="{% url 'admin:app_list' app_label=app_label %}">{{ app_label|capfirst|escape }}</a></li>
+<li><a href="{% url 'admin:knowledges_career_changelist' %}">{{ model_name|capfirst|escape }}</a></li>
+<li><a href="{% url 'admin:knowledges_career_change' career.id %}">{{ career.name|truncatewords:"3" }}</a></li>
+<li>{{ title|capfirst }}</li>
+</ul>
+</div>
+{% endblock %}
+
+{% block content_title %}
+<h1>{{ title }}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="grp-module">
+    <div class="grp-row">
+        <div class="l-2cr-fluid l-d-6">
+            <aside class="c-1">
+                <header style="display:none"><h1>{% trans "Search & Filters" %}</h1></header>
+                <!-- SEARCH -->
+                <div id="search" class="g-d-6 g-d-f">
+                <!-- Search Form -->
+                <form id="grp-changelist-search" action="" method="get">
+                    <input type="text" name="q" id="grp-changelist-search" class="grp-search-field" value="{{ q }}">
+                    <button type="submit" value="" class="grp-search-button"></button>
+                </form>
+                </div>
+            </aside>
+            <div class="c-2">
+            <!-- PAGINATION TOP -->
+                <nav class="grp-pagination">
+                    <header style="display:none">
+                        <h1>{% trans "Pagination" %}</h1>
+                    </header>
+                    <ul>
+                        {% if pages.object_list.count != players.count %}
+                            <li class="grp-results"><span>
+                                {% blocktrans count pages.object_list.count as counter %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
+                            </span></li>
+                        {% endif %}
+                        <li class="grp-results">
+                            <span>{% blocktrans with players.count as full_result_count %}{{ full_result_count }} total{% endblocktrans %}</span>
+                        </li>
+                        <li>
+                            {% if q %}
+                            <span>{% trans "Searching" %} '{{q}}'</span>
+                            <a href="?{% if pages.number %}&p={{ pages.number }}{% endif %}" >{% trans "Reset" %}</a>
+                            {% else %}
+                            {% if hide_null_emails %}
+                            <span>{% trans "Showing players with e-mail" %}</span>
+                            {% endif %}
+                            <a href="?{% if pages.number %}&p={{ pages.number }}{% endif %}{% if hide_null_emails == 1 %}&hide_null_emails=0{% endif %}">
+                                {% if hide_null_emails == 1 %}{% trans "Show all players" %}{% else %}{% trans "Show players with e-mail" %}{% endif %}
+                            </a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- DATE HIERARCHY -->
+</div>
+
+<form id="grp-changelist-form" action="" method="post">
+    <div style="display:none">
+        <input type="hidden" name="csrfmiddlewaretoken" value="VBHoaQycci3bW9fzvV9VmLKJohhKW7L9">
+    </div>
+    <section id="grp-changelist" class="">
+        <div class="grp-module grp-changelist-results">
+            <table id="result_list" cellspacing="0" class="grp-sortable">
+                <thead>
+                    <tr>
+                        <th scope="col" class="action-checkbox-column">
+                            <div class="grp-text"><span><input type="checkbox" id="action-toggle" style=""></span></div>
+                        </th>
+                        <th scope="col" class="sortable">
+                            <div class="grp-text"><span>{% trans "Name" %}</span></div>
+                        </th>
+                        <th scope="col" class="sortable">
+                            <div class="grp-text"><span>{% trans "E-mail" %}</span></div>
+                        </th>
+                        <th scope="col">
+                            <div class="grp-text"><span>{% trans "Score (Avg)" %}</span></div>
+                        </th>
+                        <th scope="col">
+                            <div class="grp-text"><span>{% trans "Attempts (Avg)" %}</span></div>
+                        </th>
+                        <th scope="col" class="sortable">
+                            <div class="grp-text"><span>{% trans "Passed" %}</span></div>
+                        </th>
+                        <th scope="col">
+                            <div class="grp-text"><span>{% trans "Activities" %}</span></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for player, score in scores.items %}
+                        <tr class="grp-row grp-row-{% cycle 'odd' 'even' %}">
+                            <td class="action-checkbox"><input type="checkbox" class="action-select" value="{{ player.id }}" name="_selected_action"></td>
+                            <td>{{ player.display_name }}
+                            </td>
+                            <td>{{ player.email }}</td>
+                            <td>{{ score.avg|floatformat:3 }}</td>
+                            <td>{{ score.avg_attempts|floatformat:0 }}</td>
+                            <td>{% if score.avg >= 50 %}
+                                <img src="/static/admin/img/icon-yes.gif" alt="True">
+                                {% else %}
+                                <img src="/static/admin/img/icon-no.gif" alt="False">
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="#" class="toggle-details">{% trans "Details" %}</a>
+                                <table id="result_list" cellspacing="0" class="grp-sortable" style="display:none;">
+                                    <thead>
+                                        <tr>
+                                            <th><div class="grp-text"><span>{% trans "Level" %}</span></div></th>
+                                            <th><div class="grp-text"><span>{% trans "Name" %}</span></div></th>
+                                            <th><div class="grp-text"><span>{% trans "Type" %}</span></div></th>
+                                            <th><div class="grp-text"><span>{% trans "Max. Score" %}</span></div></th>
+                                            <th><div class="grp-text"><span>{% trans "Total Attempts" %}</span></div></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for activity, extra in score.activities.items %}
+                                        <tr class="grp-row grp-row-{% cycle 'odd' 'even' %}">
+                                            <td>{{ activity.get_level_type_display }}</td>
+                                            <td>{{ activity.name }}</td>
+                                            <td>{{ activity.get_activity_type|capfirst|escape }}</td>
+                                            <td>{{ extra.max_score|floatformat:3 }}</td>
+                                            <td>{{ extra.attempts }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</form>
+
+
+<!-- PAGINATION BOTTOM -->
+{% if not pages.result_count == 0 %}
+    {% block pagination_bottom %}
+        <div class="grp-module">
+            <div class="grp-row">
+                <nav class="grp-pagination">
+                    <header style="display:none"><h1>{% trans "Pagination" %}</h1></header>
+                    <ul>
+                        {% if pages.object_list.count != players.count %}
+                            <li class="grp-results"><span>
+                                {% blocktrans count pages.object_list.count as counter %}{{ counter }} result{% plural %}{{ counter }} results{% endblocktrans %}
+                            </span></li>
+                        {% endif %}
+                        <li class="grp-results">
+                            <span>{% blocktrans with players.count as full_result_count %}{{ full_result_count }} total{% endblocktrans %}</span>
+                        </li>
+                        {% if pages.object_list.count < players.count %}
+                            {% for i in pages.paginator.page_range %}
+                                {% if i == "." %}
+                                    <li class="grp-separator"><span>...</span></li>
+                                {% elif i == pages.number %}
+                                    <li><span class="this-page">{{ i }}</span></li>
+                                {% else %}
+                                    <li><a href="?p={{ i }}{% if q %}&q={{ q }}{% endif %}{% if hide_null_emails == 0 %}&hide_null_emails=0{% endif %}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    {% endblock %}
+{% endif %}
+{% endblock %}

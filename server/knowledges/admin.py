@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.conf import settings
+from django.conf.urls.defaults import patterns, url
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextInputWidget
 from django.utils.translation import gettext as _
@@ -9,6 +10,7 @@ from guardian.admin import GuardedModelAdmin
 
 from activities.models import Activity
 from knowledges.models import Knowledge, Career, GenuineUser
+from knowledges.views import scores_view
 from knowledges.templatetags.knowledges_extras import api_url
 
 
@@ -28,8 +30,8 @@ class CareerAdminForm(forms.ModelForm):
     def clean_published(self):
         published = self.cleaned_data["published"]
         if published and self.instance.activity_set.count() == 0:
-            raise forms.ValidationError(_("Sorry, you can only publish "
-                                          "courses with at least one activity"))
+            raise forms.ValidationError(_("Sorry, you can only publish courses"
+                                          " with at least one activity"))
         else:
             return published
 
@@ -47,7 +49,7 @@ class CareerAdmin(GuardedModelAdmin):
     form = CareerAdminForm
     exclude = ("user", )
     readonly_fields = ("positive_votes", "negative_votes", "total_downloads")
-    # Setting this attribute to True makes the magic of "hiding" not owned objects
+    # This attribute to True makes the magic of "hiding" not owned objects
     user_can_access_owned_objects_only = True
     change_form_template = 'admin/knowledges/career/change_form.html'
     # grapelli
@@ -82,6 +84,16 @@ class CareerAdmin(GuardedModelAdmin):
         }),
     )
 
+    def get_urls(self):
+        urls = super(CareerAdmin, self).get_urls()
+        score_urls = patterns(
+            '',
+            url(r'^(?P<career_id>.+)/scores/$',
+                self.admin_site.admin_view(scores_view, cacheable=True),
+                name="knowledges_career_scores"),
+        )
+        return score_urls + urls
+
     def get_activity_type(self, a):
         for a_type in ('relational', 'temporal', 'visual', 'linguistic',
                        'geospatial', 'quiz'):
@@ -109,7 +121,7 @@ class CareerAdmin(GuardedModelAdmin):
                                                     extra_context=context)
 
     def save_model(self, request, obj, form, change):
-        if obj.user_id == None  or not request.user.is_superuser:
+        if obj.user_id is None or not request.user.is_superuser:
             obj.user = request.user
         obj.save()
 

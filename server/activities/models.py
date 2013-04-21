@@ -151,8 +151,16 @@ class Activity(models.Model):
 
     def __unicode__(self):
         return u"%s (Level:%s, Order:%s)" % (self.name,
-                                            self.level_type,
-                                            self.level_order)
+                                             self.level_type,
+                                             self.level_order)
+
+    def get_activity_type(self):
+        for activity_type in self.activity_subtypes:
+            try:
+                getattr(self, activity_type)
+                return activity_type
+            except Activity.DoesNotExist:
+                continue
 
     def size(self):
         for sub in self.activity_subtypes:
@@ -288,7 +296,7 @@ class Temporal(Activity):
 class Linguistic(Activity):
     locked_text = models.CharField(_("locked text"), max_length=255,
                                    help_text=_("This text will be unlocked "
-                                               "using the letters provided by" 
+                                               "using the letters provided by"
                                                "the player. It will used as "
                                                "a hint, unless it is equal to "
                                                "the answer for the query"))
