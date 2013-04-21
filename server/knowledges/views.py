@@ -55,6 +55,7 @@ def scores_view(request, career_id):
     if career.user != request.user and not request.user.is_superuser:
         return HttpResponseForbidden()
     scores_per_page = getattr(settings, "SCORES_PER_PAGE", 10)
+    scores_details = getattr(settings, "SCORES_DETAILS", False)
     page = int(request.GET.get('p', 1))
     q = request.GET.get("q", u"")
     hide_null_emails = int(request.GET.get("hide_null_emails", 1))
@@ -83,6 +84,7 @@ def scores_view(request, career_id):
         'current_app': "knowledges",
         'app_label': "knowledges",
         'model_name': career._meta.verbose_name_plural,
+        'scores_details': scores_details,
         'career': career,
         'object': career,
         'object_id': career.id,

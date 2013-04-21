@@ -131,9 +131,11 @@
                         <th scope="col" class="sortable">
                             <div class="grp-text"><span>{% trans "Passed" %}</span></div>
                         </th>
+                        {% if scores_details %}
                         <th scope="col">
                             <div class="grp-text"><span>{% trans "Activities" %}</span></div>
                         </th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -151,6 +153,7 @@
                                 <img src="/static/admin/img/icon-no.gif" alt="False">
                                 {% endif %}
                             </td>
+                            {% if scores_details %}
                             <td>
                                 <a href="#" class="toggle-details">{% trans "Details" %}</a>
                                 <table id="result_list" cellspacing="0" class="grp-sortable" style="display:none;">
@@ -176,6 +179,7 @@
                                     </tbody>
                                 </table>
                             </td>
+                            {% endif %}
                         </tr>
                 {% endfor %}
                 </tbody>
