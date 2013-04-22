@@ -52,7 +52,7 @@
       <footer data-role="footer" data-position="fixed" id="footermain">
         <navbar data-role="navbar"  data-iconpos="top">
             <ul >
-                <li><a href="#dialogSettings" data-icon="gear" >{{Options}}</a></li>
+                <li><a href="#settings" data-icon="gear" >{{Options}}</a></li>
                 <li><a href="#addCourses" data-icon="plus" >{{AddCourse}}</a></li>
             </ul>
         </navbar>
@@ -293,6 +293,7 @@
       <input type="text" name="name" id="username" data-mini="true" />
       <label for="basic">{{Email}}:</label>
       <input type="text" name="name" id="email" data-mini="true" />
+      <a href="#main" id="updateAll" data-role="button">Update All Courses</a>
           <footer data-role="footer" data-position="fixed">
       	  <nav data-role="navbar">
           <ul>
@@ -303,16 +304,6 @@
       </nav>
     </footer>
     </div><!-- Page Settings -->
-    <div data-role="page" id="dialogSettings">
-      <header data-role="header" data-position="fixed" >
-        <h1 id="dialogSyncName">Options</h1>
-	    <a href="#main" data-icon="back" data-iconpos="notext">{{Main}}</a>
-      </header>
-      <article data-role="content">
-          <a href="#settings" data-role="button">{{Settings}}</a>
-          <a href="#main" data-role="button" id="updateAll">{{UpdateAll}}</a>
-      </article>
-    </div><!-- Page Dialog Settings -->
     <div data-role="page" id="dialogSync">
       <header data-role="header" data-position="fixed" >
         <h1 id="dialogSyncName">Dialog</h1>
