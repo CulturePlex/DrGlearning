@@ -50,12 +50,11 @@
           </ul>
       </article>
       <footer data-role="footer" data-position="fixed" id="footermain">
-        <navbar data-role="navbar"  data-iconpos="bottom">
+        <navbar data-role="navbar"  data-iconpos="top">
             <ul >
-                <li><a href="#dialogSettings" data-icon="gear" ></a></li>
-                <li><a href="#addCourses" data-icon="plus" ></a></li>
+                <li><a href="#dialogSettings" data-icon="gear" >{{Options}}</a></li>
+                <li><a href="#addCourses" data-icon="plus" >{{AddCourse}}</a></li>
             </ul>
-
         </navbar>
       </footera>
     </div><!-- Page Main -->
@@ -294,8 +293,8 @@
       <input type="text" name="name" id="username" data-mini="true" />
       <label for="basic">{{Email}}:</label>
       <input type="text" name="name" id="email" data-mini="true" />
-            <footer data-role="footer" data-position="fixed">
-      <nav data-role="navbar">
+          <footer data-role="footer" data-position="fixed">
+      	  <nav data-role="navbar">
           <ul>
               <li><a href="#dialogSync" data-rel="dialog" id="importUser">{{ImportUser}}</a></li>
               <li><a href="#dialogSync" data-rel="dialog" id="exportUser">{{ExportUser}}</a></li>

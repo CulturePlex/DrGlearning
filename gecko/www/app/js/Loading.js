@@ -267,7 +267,6 @@ var Loading = {
                         data: searchParams,
 						dataType:'json',
 						success: function (response, opts) {
-							console.log(response.objects);
 							Dao.userStore.save({key:'offset',value:response.meta.limit});
                             //localStorage.offset = response.meta.limit;
 							Dao.userStore.save({key:'total_count',value:response.meta.total_count});

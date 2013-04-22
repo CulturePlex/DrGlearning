@@ -207,6 +207,12 @@ var DrGlearning = {
             return false;
         });
         $(document).on('click', '#dialogOK',function(e) {
+    	    if(Workflow.toDialogPrivate)
+		    {	
+			    Workflow.toDialogPrivate = false;
+			    $.mobile.changePage("#dialogPrivate");			
+			    return false;
+		    }
 			if(Workflow.toMain)
 			{	
 				Workflow.toMain = false;
@@ -664,6 +670,7 @@ var DrGlearning = {
             title: i18n.gettext("Dr. Glearning"),
             NoCareersInstalled: i18n.gettext("No courses installed"),
             Settings: i18n.gettext("Settings"),
+            Options: i18n.gettext("Options"),
             AddCourse: i18n.gettext("Add course"),
             ImportUser: i18n.gettext("Import User"),
             ExportUser: i18n.gettext("Export User"),

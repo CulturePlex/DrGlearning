@@ -5,6 +5,7 @@ var Workflow = {
 	toLevel:false,
 	toMain:false,
 	toActivity:false,
+    toDialogPrivate:false,
 	uninstalling:false,
 	/*
 	 * Updating and Showing next activity when you success one.

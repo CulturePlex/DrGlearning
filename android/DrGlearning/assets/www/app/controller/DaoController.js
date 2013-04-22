@@ -580,10 +580,18 @@ try {
                             timestamp: item.data.timestamp / 1000,
                             token: user.data.token,
                         },
-                        success: function (response) {
+                        success: function (response,a) {
                             offlineScoreStore.remove(item);
                         },
-						failure: function (){
+                        callback: function (response,a) {
+                            console.log(a);
+                            console.log(response);
+                        },
+                        
+                            
+						failure: function (resp,a){
+                            console.log(a);
+                            console.log(resp);
 							//Checking if career has been deleted in server
 							Ext.data.JsonP.request({
 				                scope: this,

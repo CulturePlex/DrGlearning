@@ -6,22 +6,26 @@ var Dao = {
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
     }),
 	checkCode: function (element,code) {
+        if(typeof element != "object")
+        {
+            var temp = $("<div data-href='"+element+"'></div>");
+            element = temp;
+        }
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + "/api/v1/career/"+element.attr("data-href")+"/?format=json",
             dataType : 'json',
 			data: {code: Loading.SHA1(code),callback: 'a'},
             success: function (response, opts) {
-
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });	
 				//DrGlearning.careerId=element.attr("data-href");
 				if(DrGlearning.embed)
 				{
-					Loading.getCareer(UserSettings.careerTemp.key);
+					Loading.getCareer(UserSettings.careerTemp.key,code);
 				}
 				else
 				{
-	                Dao.installCareer(element);
+	                Dao.installCareer(element,code);
 				}
             },
             failure: function () {
@@ -39,7 +43,13 @@ var Dao = {
         });
     },
     installCareer: function (element,code) {
-        Loading.getCareer(element.attr("data-href"));
+        var careerTemp;
+        Dao.careersStore.get(element.attr("data-href"),function(career){ 
+            careerTemp = career;
+        });
+        careerTemp.value.career_code = code;
+        Dao.careersStore.save({key:element.attr("data-href"),value:careerTemp.value});
+        Loading.getCareer(element.attr("data-href"),code);
     },
     levelsStore : new Lawnchair({adapter:'dom',name:'levels'}, function(e) {
     }),
@@ -121,7 +131,6 @@ var Dao = {
             dataType : 'json',
 			data: {
 					"callback": "a",
-                    
                 },
             success: function (response, opts) {
                 var knowledges = response.objects;
@@ -180,23 +189,64 @@ var Dao = {
 		{
 			token = (me !== null) ? me.value : '';
 		});
+        var careerID;
+        Dao.activitiesStore.get(activityID, function(me)
+		{
+			careerID = (me !== null) ? me.value.careerId : '';
+		});
+        var career_code;
+        Dao.activitiesStore.get(activityID, function(me)
+		{
+			careerID = (me !== null) ? me.value.careerId : '';
+		});
         var HOST = GlobalSettings.getServerURL();
+        var parameters = {
+			callback: "a",
+	        player_code: uniqueid,
+	        activity_id: activityID,
+	        score: parseFloat(score),
+	        is_passed: successful,
+	        timestamp: timestamp / 1000,
+	        token: token 
+		};
+        var career_code = "";
+        careerID = parseInt(careerID,10);
+        Dao.careersStore.get(parseInt(careerID,10), function(me)
+		{
+			career_code = me.value.career_code;
+		});
+        if(career_code!=undefined)
+        {
+            parameters.career_code = Loading.SHA1(career_code);
+        }
         $.ajax({
 		    url: HOST + '/api/v1/score/',
-		    data: {
-				callback: "a",
-		        player_code: uniqueid,
-		        activity_id: activityID,
-		        score: parseFloat(score),
-		        is_passed: successful,
-		        timestamp: timestamp / 1000,
-		        token: token
-		    },
+		    data: parameters,
 			dataType: "json",
 		    success: function (response) {
 		    },
 			error: function (response) {
-				$.ajax({
+				var responseText = JSON.parse(response.responseText);
+				if(parseInt(responseText.status_code,10)==409)
+				{
+					Workflow.toLevel = true;
+					$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+					$('#dialogText').html(i18n.gettext("This course is not currently available. Your scores have not been sent."));
+				};
+				if(parseInt(responseText.status_code,10)==403)
+				{
+                    DrGlearning.careerSelect = careerID;
+					Workflow.toDialogPrivate = true;
+					$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+					$('#dialogText').html(i18n.gettext("This course is now private. You can't send your scores without enter the course code."));
+                    $("#dialogPrivateName").html(i18n.gettext("Private Course"));
+    			    $("#dialogPrivateDescription").html(i18n.gettext("Type here the private code for this course"));
+		  		    $("#inputPrivate").val('');
+				    $("#inputPrivate").prop('disabled', false);
+				  //$('#privateOK').on('click', UserSettings.importUser);
+				  //$.mobile.changePage("#dialogPrivate");
+				};
+/*				$.ajax({
 		            url: HOST + '/api/v1/player/',
 		            data: {
 		                code: uniqueid,
@@ -204,6 +254,8 @@ var Dao = {
 		            },
 					dataType: "jsonp",
 		            success: function (response) {
+						console.log('hola');
+
 						var activity;
 						Dao.activitiesStore.get(activityID,function(me)
 						{
@@ -216,13 +268,9 @@ var Dao = {
 							Workflow.toMain = true;
 							$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 							$('#dialogText').html(i18n.gettext("This course has been deleted by his creator."));
-							
-						    
-						}
-
+    					}
 		            }
-				});
-
+				});*/
 		    }
 		});
     },
