@@ -283,6 +283,7 @@
         <h1>{{Settings}}</h1>
         <a href="#" data-icon="back" data-iconpos="notext" id="backfromsettings">Main</a>
       </header>
+      <article data-role="content">
       <label for="select-choice-min" class="select">Language:</label>
       <select name="select-choice-min" id="locale" data-mini="true">
          <option value="en">English</option>
@@ -293,8 +294,10 @@
       <input type="text" name="name" id="username" data-mini="true" />
       <label for="basic">{{Email}}:</label>
       <input type="text" name="name" id="email" data-mini="true" />
+      <br>
       <a href="#main" id="updateAll" data-role="button">Update All Courses</a>
-          <footer data-role="footer" data-position="fixed">
+      </article>
+      <footer data-role="footer" data-position="fixed">
       	  <nav data-role="navbar">
           <ul>
               <li><a href="#dialogSync" data-rel="dialog" id="importUser">{{ImportUser}}</a></li>
