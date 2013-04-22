@@ -96,7 +96,7 @@ class ScoreResource(ModelResource):
                 # Check if course is private
                 career_code_encoded = activity.career.code.encode("utf8")
                 career_code = sha1(career_code_encoded).hexdigest()
-                if (career_code
+                if (len(career_code_encoded) > 0 and career_code
                         and career_code != request.GET.get("career_code", "")):
                     msg = json.dumps({
                         "status_code": 403,
