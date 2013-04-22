@@ -335,8 +335,60 @@ var DrGlearning = {
 		  $("#inputSync").prop('disabled', true);
 		  $('#syncOK').off('click', UserSettings.importUser);
         });
+        $('#saveSettings').click(function(){
+            UserSettings.saveSettings();
+        });
+        $('#dialogYes').click(function(){
+            UserSettings.saveSettings();
+        });
+        $('#dialogNo').click(function(){
+        	var display_name;
+		    Dao.userStore.get('display_name',function(me)
+		    {
+			    display_name = (me !== null) ? me.value : undefined;
+		    });
+		    var email;
+		    Dao.userStore.get('email',function(me)
+		    {
+			    email = (me !== null) ? me.value : undefined;
+		    });
+            $('#username').val(display_name); 
+            $('#email').val(email); 
+            $('#locale option[value='+localStorage.locale+']').attr('selected', 'selected'); 
+            //$('#locale').val(localStorage.locale);
+		    $.mobile.changePage("#main");
+        });
         $('#backfromsettings').click(function(){
-          UserSettings.saveSettings();
+		    var display_name;
+		    Dao.userStore.get('display_name',function(me)
+		    {
+			    display_name = (me !== null) ? me.value : undefined;
+		    });
+		    var email;
+		    Dao.userStore.get('email',function(me)
+		    {
+			    email = (me !== null) ? me.value : undefined;
+		    });
+            var usernameField = $('#username').val();
+            var emailField = $('#email').val();
+            var changed = false;
+            if (emailField !== email || usernameField !== display_name)
+            {
+                changed = true;
+            }
+            var locale = $('#locale').val();
+		    if (localStorage.locale !== locale) {
+                changed = true;
+            }		
+            if (changed)
+            {
+                $('#dialogYesNoText').html(i18n.gettext("You have unsaved changes, do you want to save it?"));
+				Workflow.toMain = true;
+				$.mobile.changePage("#dialogYesNo");
+            }else
+            {
+				$.mobile.changePage("#main");
+            }
         });
 		$('#uninstall').click(function(){
           $('#questionInstall').html(i18n.gettext("Are you sure you want to uninstall this course?"));
@@ -685,6 +737,8 @@ var DrGlearning = {
             Confirm: i18n.gettext("Confirm"),
             Cancel: i18n.gettext("Cancel"),
             Skip: i18n.gettext("Skip"),
+            Yes: i18n.gettext("Yes"),
+            No: i18n.gettext("No"),
             OK: i18n.gettext("OK"),
             AddCourses: i18n.gettext("Add Courses"),
 			Undo: i18n.gettext("Undo"),

@@ -116,6 +116,18 @@
 	  <ul data-role="listview" id="activitieslist">
       </ul>
     </div><!-- Page Level -->
+    <div data-role="page" id="dialogYesNo">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="dialogYesNoName">Dialog</h1>
+      </header>
+      <article data-role="content">
+          <p align="center" id="dialogYesNoText">
+          Error
+          </p>
+          <a href="#" data-role="button" id="dialogYes" >{{Yes}}</a>
+          <a href="#" data-role="button" id="dialogNo" >{{No}}</a>
+      </article>
+    </div><!-- Page DialogYesNo -->
     <div data-role="page" id="dialog">
       <header data-role="header" data-position="fixed" >
         <h1 id="dialogName">Dialog</h1>
@@ -296,6 +308,7 @@
       <input type="text" name="name" id="email" data-mini="true" />
       <br>
       <a href="#main" id="updateAll" data-role="button">Update All Courses</a>
+      <a href="#" id="saveSettings" data-role="button">Save Settings</a>
       </article>
       <footer data-role="footer" data-position="fixed">
       	  <nav data-role="navbar">

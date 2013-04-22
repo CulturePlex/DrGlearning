@@ -51,7 +51,9 @@ var UserSettings = {
         }
 		else
 		{
-			$.mobile.changePage("#main");
+			$('#dialogText').html(i18n.gettext("Settings changes saved"));
+			Workflow.toMain = true;
+			$.mobile.changePage("#dialog");
 		}		
         if (changed)
         {
