@@ -395,8 +395,11 @@ try {
                         }
                         careerModel.set('activities', activities);
                         careerModel.save();
+                        this.careersStore.sync();
+                        console.log('sync...');
+                        this.careersStore.load();
                         //Ext.Viewport.setMasked(false);
-                        this.getApplication().getController('DaoController').installCareer(career.id, function () {Ext.Viewport.setMasked(false); }, this);
+                        this.getApplication().getController('DaoController').installCareer(career.id, function (scope) {scope.careersListController.refreshingAfterImport();scope.careersListController.index();Ext.Viewport.setMasked(false); }, this);
                     }
                 });
             },

@@ -91,7 +91,9 @@ try {
                     message: i18n.gettext('Installing course') + "…",
                     indicator: true
                 });
+                console.log(id);
                 var career = this.careersStore.getById(id);
+                console.log(career);
                 if (parseInt(localStorage.actualSize, 10) + parseInt(career.data.size, 10) > parseInt(localStorage.maxSize, 10)) {
                     Ext.Viewport.setMasked(false);
                     Ext.Msg.alert(i18n.gettext('Something happened'), i18n.gettext('Unable to install this course, delete some installed courses'), Ext.emptyFn);
