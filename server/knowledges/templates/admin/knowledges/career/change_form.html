@@ -61,7 +61,7 @@ li.activity-hidden {
                         </li>
                         {% for activity_type in activities_types %}
                         <li class="grp-add-link activity-hidden">
-                          <a href="javascript: void(0);">{{ activity_type|capfirst }}</a>
+                          <a onClick="window.open('/admin/activities/{{activity_type}}/add/?_popup=1&level_type={{ level_type|add:"1" }}&level_order={{activities|length|add:"1"}}','My admin page',  'width=800,height=550, scrollbars=yes');" href="javascript: void(0);">{{ activity_type|capfirst }}</a>
                         </li>
                         {% endfor %}
                     </ul>
