@@ -3,6 +3,11 @@ describe("GlobalSettings", function() {
 
 
   });
+  
+  afterEach(function() {
+        $.unblockUI();
+
+  });
 
   it("should be able to give the Server URL", function() {
     expect(GlobalSettings.getServerURL()).toEqual('http://beta.drglearning.com');

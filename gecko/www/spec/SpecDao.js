@@ -1,6 +1,6 @@
 describe("Dao", function() {
   beforeEach(function() {
-        loadFixtures('index-fixture.html');
+        //loadFixtures('index-fixture.html');
 		Dao.activitiesStore.save({key:1,value:{played:false	}});
 		Dao.careersStore.save({key:1,value:{installed:true	}});
   });
