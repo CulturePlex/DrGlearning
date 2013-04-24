@@ -6,6 +6,27 @@
 /*global
     Ext Jed catalogueEN catalogueES catalogueFR i18n google GeoJSON StackTrace DrGlearning
 */
+
+Ext.define('Ext.data.Cors', {
+  extend : 'Ext.data.Connection',
+  alternateClassName : ['Ext.Cors'],
+  singleton : true,
+  config: {
+  autoAbort: false,
+  useDefaultXhrHeader: false
+  }
+  }); 
+
+function getAsUriParameters(data) {
+   var url = '';
+   for (var prop in data) {
+      url += encodeURIComponent(prop) + '=' + 
+          encodeURIComponent(data[prop]) + '&';
+   }
+   return url.substring(0, url.length - 1)
+}
+
+
 try {
     (function () {
     // Exceptions Catcher Begins
@@ -570,32 +591,31 @@ try {
                 var offlineScoreStore = Ext.getStore('OfflineScores');
                 var HOST = this.globalSettingsController.getServerURL();
                 var flag;
+                console.log('olaasdasd');
                 offlineScoreStore.each(function (item) {
-                    Ext.data.JsonP.request({
-                        scope: this,
-                        url: HOST + '/api/v1/score/?format=jsonp',
-                        params: {
-                            player_code: user.data.uniqueid,
-                            activity_id: item.data.activity_id,
-                            score: parseFloat(item.data.score),
-                            is_passed: item.data.is_passed,
-                            timestamp: item.data.timestamp / 1000,
-                            token: user.data.token,
-                        },
+                   console.log('asdasdasd');
+                   params= {
+                        player_code: user.data.uniqueid,
+                        activity_id: item.data.activity_id,
+                        score: parseFloat(item.data.score),
+                        is_passed: item.data.is_passed,
+                        timestamp: item.data.timestamp / 1000,
+                        token: user.data.token,
+                        callback:"a"
+                   };
+                   var encoded = getAsUriParameters(params);
+                   console.log(encoded);    
+                   Ext.Cors.request({
+                        url: HOST + '/api/v1/score/?format=jsonp&'+encoded,               
                         success: function (response,a) {
+                            console.log('ola');
                             offlineScoreStore.remove(item);
-                        },
-                        callback: function (response,a) {
-                            console.log(a);
-                            console.log(response);
-                        },
-                        
-                            
+                        },                            
 						failure: function (resp,a){
                             console.log(a);
                             console.log(resp);
 							//Checking if career has been deleted in server
-							Ext.data.JsonP.request({
+							/*Ext.data.JsonP.request({
 				                scope: this,
 				                url: HOST + '/api/v1/player/?format=jsonp',
 				                params: {
@@ -615,7 +635,7 @@ try {
 									}
 
 				                }
-							});
+							});*/
 						}
                     });
                 }, this);
