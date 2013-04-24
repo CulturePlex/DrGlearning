@@ -98,8 +98,8 @@ try {
             },
             getServerURL: function () {
                 //return 'http://drglearning.testing.cultureplex.ca';
-                //return 'http://beta.drglearning.com';
-                return 'http://127.0.0.1:9000';
+                return 'http://beta.drglearning.com';
+                //return 'http://127.0.0.1:9000';
             },
             isDevice: function () {
                 if (window.device === undefined) {
