@@ -64,6 +64,9 @@ try {
                     name : "has_code",
                     type : "boolean"
                 }, {
+                    name : "code",
+                    type : "string"
+                }, {
                     name : "size",
                     type : "int"
                 }, {

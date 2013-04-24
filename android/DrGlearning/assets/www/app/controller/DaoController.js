@@ -85,20 +85,21 @@ try {
 				}
 			},
 			checkCode: function (id, callback, scope,code) {
+                var that = this;
                 var HOST = this.globalSettingsController.getServerURL();
 				Ext.data.JsonP.request({
                     url: HOST + "/api/v1/career/"+id+"/?format=jsonp",
                     scope   : scope,
                     params: {code: this.loadingController.SHA1(code)},
 					success: function (response, opts) {
-						this.getApplication().getController('DaoController').installCareer(id,callback,scope);
+						that.installCareer(id,callback,scope,code);
 					},
 					failure : function () {
                         Ext.Msg.alert(i18n.gettext('Unable to install'), i18n.gettext('Invalid code for this course'), Ext.emptyFn);
                     }
 				});
 			},
-            installCareer: function (id, callback, scope) {
+            installCareer: function (id, callback, scope, code) {
 				var parameters;
 				var usersStore = Ext.getStore('Users');				
 				var user = usersStore.getAt(0);
@@ -217,6 +218,12 @@ try {
                                     }
                                     var career = this.careersStore.getById(id);
                                     career.set('installed', true);
+                                    console.log(code);
+                                    if(code != undefined)
+                                    {
+                                        career.set('code', code);
+                                        career.set('has_code', true);
+                                    }    
 				                    var usersStore = Ext.getStore('Users');				
 									var user = usersStore.getAt(0);
 
@@ -532,7 +539,101 @@ try {
                 }*/
             },
             updateScore: function (activityID, score, successful, timestamp) {
-                var offlineScoreStore = Ext.getStore('OfflineScores');
+                var usersStore = Ext.getStore('Users');
+                this.updateUserSettings();
+                var user = usersStore.getAt(0);
+                var HOST = this.globalSettingsController.getServerURL();
+                var loadingController = this.loadingController;
+                var flag;
+                var that = this;
+                var activitiesStore = Ext.getStore('Activities');
+                var careersStore = Ext.getStore('Careers');
+                var activity;
+                var career;
+                activitiesStore.each(function(rec){
+                      if(rec.get('id') == activityID)
+                      {
+                        activity = rec;
+                        return;
+                      }
+                });
+                careersStore.each(function(rec){
+                      if(rec.get('id') == activity.data.careerId)
+                      {
+                        career = rec;
+                        return;
+                      }
+                    });
+                var hashcode = 0;
+                if(career.data.code!=null)
+                {
+                    var hashcode = loadingController.SHA1(career.data.code);
+                }
+                params= {
+                    player_code: user.data.uniqueid,
+                    activity_id: activityID,
+                    score: parseFloat(score),
+                    is_passed: successful,
+                    timestamp: timestamp / 1000,
+                    token: user.data.token,
+                    career_code: hashcode,
+                    callback:"a"
+                };
+                var encoded = getAsUriParameters(params);
+                console.log(encoded);    
+                Ext.Cors.request({
+                        url: HOST + '/api/v1/score/?format=jsonp&'+encoded,               
+                        success: function (response,a) {
+
+                        },                            
+						failure: function (resp,a){
+                            console.log(a);
+                            console.log(resp);
+							var responseText = JSON.parse(resp.responseText);
+				            if(parseInt(responseText.status_code,10)==409)
+				            {
+                               Ext.Msg.alert(i18n.gettext('Unable to send scores'), i18n.gettext('This course is not currently available. Your scores have not been sent.'), Ext.emptyFn);
+				            };
+				            if(parseInt(responseText.status_code,10)==403)
+				            {
+                                Ext.Msg.alert(i18n.gettext('Unable to send scores'), i18n.gettext("This course is now private. You can't send your scores without enter the course code."), 
+                                function() {
+                                    var okButton = Ext.create('Ext.Button', {
+		                                scope : this,
+		                                text : i18n.gettext('OK')
+		                            });
+		                            var cancelButton = Ext.create('Ext.Button', {
+		                                scope : this,
+		                                text : i18n.gettext('Cancel')
+		                            });
+		                            var show = new Ext.MessageBox().show({
+		                                id : 'info',
+		                                title : i18n.gettext('Private Course'),
+		                                items : [ {
+		                                    xtype : 'textareafield',
+		                                    labelAlign : 'top',
+		                                    label : i18n.gettext('Write the course code here') + ":",
+		                                    clearIcon : false,
+		                                    value : '',
+		                                    id : 'value'
+		                                } ],
+		                                buttons : [ cancelButton, okButton ],
+		                                icon : Ext.Msg.INFO
+		                            });
+		                            okButton.setHandler(function () {
+		                                show.hide();
+						                that.checkCode(activity.data.careerId,function(){Ext.Viewport.setMasked(false); updateScore(activityID, score, successful, timestamp) },this,show.down('#value').getValue());
+                                    });	
+		                            cancelButton.setHandler(function () {
+		                                show.hide();
+		                                this.destroy(show);
+		                            });
+                                });
+                            }
+                        
+                        }
+                });
+                /*var offlineScoreStore = Ext.getStore('OfflineScores');
                 var offlineScoreModel = new DrGlearning.model.OfflineScore({
                     activity_id : activityID,
                     score : score,
@@ -541,7 +642,7 @@ try {
                 });
                 offlineScoreModel.save();
                 offlineScoreStore.sync();
-                offlineScoreStore.load();
+                offlineScoreStore.load();*/
             },
             /*
              * Return level id
@@ -587,13 +688,36 @@ try {
             updateOfflineScores: function () {
                 var usersStore = Ext.getStore('Users');
                 this.updateUserSettings();
-                var user = usersStore.getAt(0);
+                /*var user = usersStore.getAt(0);
                 var offlineScoreStore = Ext.getStore('OfflineScores');
                 var HOST = this.globalSettingsController.getServerURL();
+                var loadingController = this.loadingController;
                 var flag;
-                console.log('olaasdasd');
+                var that = this;
+                var activitiesStore = Ext.getStore('Activities');
+                var careersStore = Ext.getStore('Careers');
+                var activity;
+                var career;
                 offlineScoreStore.each(function (item) {
-                   console.log('asdasdasd');
+                    activitiesStore.each(function(rec){
+                      if(rec.get('id') == item.data.activity_id)
+                      {
+                        activity = rec;
+                        return;
+                      }
+                    });
+                    careersStore.each(function(rec){
+                      if(rec.get('id') == activity.data.careerId)
+                      {
+                        career = rec;
+                        return;
+                      }
+                    });
+                    var hashcode = 0;
+                   if(career.data.code!=null)
+                   {
+                        var hashcode = loadingController.SHA1(career.data.code);
+                   }
                    params= {
                         player_code: user.data.uniqueid,
                         activity_id: item.data.activity_id,
@@ -601,6 +725,7 @@ try {
                         is_passed: item.data.is_passed,
                         timestamp: item.data.timestamp / 1000,
                         token: user.data.token,
+                        career_code: hashcode,
                         callback:"a"
                    };
                    var encoded = getAsUriParameters(params);
@@ -608,37 +733,55 @@ try {
                    Ext.Cors.request({
                         url: HOST + '/api/v1/score/?format=jsonp&'+encoded,               
                         success: function (response,a) {
-                            console.log('ola');
                             offlineScoreStore.remove(item);
                         },                            
 						failure: function (resp,a){
                             console.log(a);
                             console.log(resp);
-							//Checking if career has been deleted in server
-							/*Ext.data.JsonP.request({
-				                scope: this,
-				                url: HOST + '/api/v1/player/?format=jsonp',
-				                params: {
-                                    code: user.data.uniqueid,
-                                    import: true
-                                },
-				                success: function (response) {
-				                    var activitiesStore = Ext.getStore('Activities');
-									var activity = activitiesStore.getById(parseInt(item.data.activity_id,10));
-									if(response.options.careers.indexOf(parseInt(activity.data.careerId,10))==-1)
-									{
-										//Deleting career
-										Ext.Msg.alert(i18n.gettext('Course has been deleted'), i18n.gettext('This course has been deleted by his creator.'), Ext.emptyFn);	
-										localStorage.selectedcareer = 0;
-										this.deleteCareer(parseInt(activity.data.careerId,10), false);
-                       					this.careerController.toCareers();
-									}
-
-				                }
-							});*/
-						}
+							var responseText = JSON.parse(resp.responseText);
+				            if(parseInt(responseText.status_code,10)==409)
+				            {
+                               Ext.Msg.alert(i18n.gettext('Unable to send scores'), i18n.gettext('This course is not currently available. Your scores have not been sent.'), Ext.emptyFn);
+				            };
+				            if(parseInt(responseText.status_code,10)==403)
+				            {
+                                Ext.Msg.alert(i18n.gettext('Unable to send scores'), i18n.gettext("This course is now private. You can't send your scores without enter the course code."), 
+                                function() {
+                                    var okButton = Ext.create('Ext.Button', {
+		                                scope : this,
+		                                text : i18n.gettext('OK')
+		                            });
+		                            var cancelButton = Ext.create('Ext.Button', {
+		                                scope : this,
+		                                text : i18n.gettext('Cancel')
+		                            });
+		                            var show = new Ext.MessageBox().show({
+		                                id : 'info',
+		                                title : i18n.gettext('Private Course'),
+		                                items : [ {
+		                                    xtype : 'textareafield',
+		                                    labelAlign : 'top',
+		                                    label : i18n.gettext('Write the course code here') + ":",
+		                                    clearIcon : false,
+		                                    value : '',
+		                                    id : 'value'
+		                                } ],
+		                                buttons : [ cancelButton, okButton ],
+		                                icon : Ext.Msg.INFO
+		                            });
+		                            okButton.setHandler(function () {
+		                                show.hide();
+						                that.checkCode(activity.data.careerId,function(){Ext.Viewport.setMasked(false);},this,show.down('#value').getValue());
+                                    });	
+		                            cancelButton.setHandler(function () {
+		                                show.hide();
+		                                this.destroy(show);
+		                            });
+                                });
+                            }
+                        },
                     });
-                }, this);
+                 });*/
             },
             updateUserSettings: function () {
                 var usersStore = Ext.getStore('Users');
