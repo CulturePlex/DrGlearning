@@ -622,7 +622,7 @@ try {
 		                            });
 		                            okButton.setHandler(function () {
 		                                show.hide();
-						                that.checkCode(activity.data.careerId,function(){Ext.Viewport.setMasked(false); updateScore(activityID, score, successful, timestamp) },this,show.down('#value').getValue());
+						                that.checkCode(activity.data.careerId,function(){Ext.Viewport.setMasked(false); that.updateScore(activityID, score, successful, timestamp) },this,show.down('#value').getValue());
                                     });	
 		                            cancelButton.setHandler(function () {
 		                                show.hide();
