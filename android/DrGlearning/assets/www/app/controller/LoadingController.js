@@ -19,6 +19,7 @@ try {
                 {
                     loading : 'loading',
                     loadingpanel: 'loadingpanel',
+                    careerframe: 'careerframe',
                     careersframe: 'careersframe'
                 }
             },
@@ -404,9 +405,11 @@ try {
                             scope.careersListController.index();
                             var temp = {};
                             temp.data = career;
+                            scope.careersListController.selectedcareer = temp;
                             scope.getApplication().getController('CareerController').updateCareer(temp);
                             localStorage.selectedcareer = career.id;
                             scope.getCareersframe().hide();
+                            scope.getCareerframe().down('button[id=backToCareers]').hide();
                             Ext.Viewport.setMasked(false); 
                         }, this);
                     }
