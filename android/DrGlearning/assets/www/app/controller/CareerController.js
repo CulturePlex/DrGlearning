@@ -114,6 +114,7 @@ try {
              */
             updateCareer: function (newCareer)
             {
+                console.log(newCareer);
                 this.daoController.updateOfflineScores();
                 this.selectedCareer = newCareer;
                 var view = this.careerFrame;

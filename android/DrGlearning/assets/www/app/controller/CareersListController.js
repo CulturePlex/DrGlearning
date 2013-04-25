@@ -155,7 +155,13 @@ try {
                 this.getCareersframe().down('toolbar[id=toolbarTopAdd]').hide();
                 this.getCareersframe().down('toolbar[id=toolbarBottomAdd]').hide();
                 this.getCareersframe().show();
-                if (parseInt(localStorage.selectedcareer, 10) !== 0 && localStorage.selectedcareer !== undefined) 
+                var testCourse = this.getApplication().getController('LoadingController').getParameter('course');
+                var testing = false;
+                if (typeof(testCourse) !== "null" && typeof(testCourse) !== "undefined")
+                {
+                    testing = true;
+                }
+                if (parseInt(localStorage.selectedcareer, 10) !== 0 && localStorage.selectedcareer !== undefined && !testing) 
                 {
                     Ext.Msg.confirm(i18n.gettext("Last course"), i18n.gettext("Return to last course"), function (answer)
                     {
@@ -384,6 +390,7 @@ try {
                             Ext.Msg.alert(i18n.gettext('Exam course!'), i18n.gettext('In Exam Modality courses you should complete each level before moving on to the following ones'), function () {}, this);
                         } else
                         {
+                            console.log('entramos');
                             this.getApplication().getController('CareerController').updateCareer(career);
                             localStorage.selectedcareer = career.data.id;
                             this.getCareersframe().hide();

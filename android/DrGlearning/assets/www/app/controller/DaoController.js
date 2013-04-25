@@ -218,7 +218,6 @@ try {
                                     }
                                     var career = this.careersStore.getById(id);
                                     career.set('installed', true);
-                                    console.log(code);
                                     if(code != undefined)
                                     {
                                         career.set('code', code);
@@ -247,27 +246,29 @@ try {
                         });
                     }
                 }
-                Ext.data.JsonP.request({
-                    scope: this,
-                    url: HOST + career.data.contents + '?format=jsonp',
-                    params: {
-                        deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
-                        deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
-                    },
-                    success: function (response, opts) {
+                if(career.data.contents)
+                {
+                    Ext.data.JsonP.request({
+                        scope: this,
+                        url: HOST + career.data.contents + '?format=jsonp',
+                        params: {
+                            deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
+                            deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
+                        },
+                        success: function (response, opts) {
 
-                        for (var uri in response)
-                        {
-                            if (response[uri])
+                            for (var uri in response)
                             {
-                                career.set(uri, response[uri]);
+                                if (response[uri])
+                                {
+                                    career.set(uri, response[uri]);
+                                }
                             }
+                        },
+                        failure: function () {
                         }
-                    },
-                    failure: function () {
-                    }
-                });
-                
+                    });
+                }
             },
             
             preinstallCareer: function (career) {
