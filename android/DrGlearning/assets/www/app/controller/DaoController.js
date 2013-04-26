@@ -99,7 +99,7 @@ try {
                     }
 				});
 			},
-            installCareer: function (id, callback, scope, code) {
+            installCareer: function (id, callback, scope, code,testing) {
 				var parameters;
 				var usersStore = Ext.getStore('Users');				
 				var user = usersStore.getAt(0);
@@ -217,7 +217,15 @@ try {
                                         }
                                     }
                                     var career = this.careersStore.getById(id);
-                                    career.set('installed', true);
+                                    var temp = true;  
+                                    console.log(testing);  
+                                    if(testing=="testing")
+                                    {   
+                                        temp = false;
+                                        
+                                    } 
+            
+                                    career.set('installed', temp);
                                     if(code != undefined)
                                     {
                                         career.set('code', code);

@@ -410,8 +410,9 @@ try {
                             localStorage.selectedcareer = career.id;
                             scope.getCareersframe().hide();
                             scope.getCareerframe().down('button[id=backToCareers]').hide();
+                            localStorage.selectedcareer = 0;
                             Ext.Viewport.setMasked(false); 
-                        }, this);
+                        }, this,undefined,"testing");
                     }
                 });
             },
