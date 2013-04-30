@@ -160,9 +160,9 @@ var Linguistic = {
        $('#answerLinguistic').append("Answer: "+loqued);
        if (loqued.toLowerCase() === Linguistic.activity.value.answer.toLowerCase()) 
        {
-           if (Linguistic.score < 20)
+           if (Linguistic.score < 50)
            {
-               Linguistic.score = 20;
+               Linguistic.score = 50;
            }
 		   Dao.activityPlayed(Linguistic.activity.value.id, true, Linguistic.score);
            $('#dialogText').html(Linguistic.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+parseInt(Linguistic.score,10));
@@ -220,11 +220,8 @@ var Linguistic = {
           //Workflow.nextActivity(newActivity.data.level_type);
         }
         else {
-            if (Linguistic.score < 0)
-            {
-                Linguistic.score = 0;
-            }
-		    Dao.activityPlayed(Linguistic.activity.value.id, false, Linguistic.score);
+            Linguistic.score = 0;
+            Dao.activityPlayed(Linguistic.activity.value.id, false, Linguistic.score);
 			Workflow.toLevel = true;			
   	        $('#dialogText').html(Linguistic.activity.value.penalty);
         }
