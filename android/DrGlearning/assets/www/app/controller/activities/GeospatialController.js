@@ -199,6 +199,7 @@ try {
                     }, this);
                 }
                 else {
+                    if(score < 0){score = 0;}
                     Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, false, score);
