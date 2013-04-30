@@ -159,6 +159,7 @@ try {
                     this.optionsContainer.down('button[answerNo=' + target.config.answerNo + ']').setUi('decline');
                     Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
                     {
+                        this.daoController.activityPlayed(this.activity.data.id, false, 0);
                         this.levelController.tolevel();
                     }, this);
                 }
