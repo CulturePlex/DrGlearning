@@ -10,7 +10,6 @@ var Geospatial = {
     mouseFlag: false,
 	helpViewed: false,
     setup: function(){
-
         $(document).on('click', '#confirmGeospatial',function(e) {
           Geospatial.confirm();
         });

@@ -305,7 +305,6 @@ var Loading = {
                 }
             },
 			requestACareer: function (id) {
-				console.log('asd');
 		   			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
                     var HOST = GlobalSettings.getServerURL();
                    

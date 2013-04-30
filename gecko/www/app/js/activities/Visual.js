@@ -10,7 +10,6 @@ var Visual = {
           Visual.checkAnswer($(this).attr("data-answer"));
         });
         $(document).on('click', '#skipButtonVisual',function(e) {
-          console.log('caca');
           Visual.skip();
         });
         $(document).on('click', '#backFromVisual',function(e) {
