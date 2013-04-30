@@ -69,6 +69,7 @@ try {
                 {
                     Ext.Msg.alert(i18n.gettext('Wrong!'), i18n.gettext("Oh, oh. That isn't the right answer"), function ()
                     {
+                        this.daoController.activityPlayed(this.activity.data.id, false, 0);
                         this.levelController.tolevel();
                     }, this);
                 }
@@ -88,7 +89,7 @@ try {
                     this.score = 0;
                     Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
                     {
-                        this.daoController.activityPlayed(this.activity.data.id, false, this.score);
+                        this.daoController.activityPlayed(this.activity.data.id, false, 0);
                         this.levelController.tolevel();
                     }, this);
                 }
