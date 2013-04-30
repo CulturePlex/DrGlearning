@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 rvm:
 - 1.9.3
@@ -34,3 +35,11 @@ env:
       PZ8DNTxX0zsp2jjY8NwTR5MC8NBH+J5VjuTSGv82t5sm0i0jzaBmOOSLbKqH
 
       I/BFT0MbnR6JVCZiPV7TCWPgY1gvgZ6TEEIKGqauDMUBdL8ZK6I='
+=======
+language: node_js
+node_js:
+  - "0.11"
+  - "0.10"
+  - "0.8"
+  - "0.6"
+>>>>>>> devel
