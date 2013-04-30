@@ -14,10 +14,6 @@ var Geospatial = {
         $(document).on('click', '#confirmGeospatial',function(e) {
           Geospatial.confirm();
         });
-        var options= {
-            mapTypeControl: false,
-            streetViewControl: false
-        };
 	  },
 	refresh: function(){
 		google.load("maps", "3", {other_params:'format=json&sensor=false', callback: Geospatial.refresh2});
