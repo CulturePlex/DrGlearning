@@ -223,55 +223,26 @@ var Dao = {
 		    url: HOST + '/api/v1/score/',
 		    data: parameters,
 			dataType: "json",
-		    success: function (response) {
-		    },
-			error: function (response) {
-				var responseText = JSON.parse(response.responseText);
-				if(parseInt(responseText.status_code,10)==409)
-				{
-					Workflow.toLevel = true;
-					$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-					$('#dialogText').html(i18n.gettext("This course is not currently available. Your scores have not been sent."));
-				};
-				if(parseInt(responseText.status_code,10)==403)
-				{
-                    DrGlearning.careerSelect = careerID;
-					Workflow.toDialogPrivate = true;
-					$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-					$('#dialogText').html(i18n.gettext("This course is now private. You can't send your scores without enter the course code."));
-                    $("#dialogPrivateName").html(i18n.gettext("Private Course"));
-    			    $("#dialogPrivateDescription").html(i18n.gettext("Type here the private code for this course"));
-		  		    $("#inputPrivate").val('');
-				    $("#inputPrivate").prop('disabled', false);
-				  //$('#privateOK').on('click', UserSettings.importUser);
-				  //$.mobile.changePage("#dialogPrivate");
-				};
-/*				$.ajax({
-		            url: HOST + '/api/v1/player/',
-		            data: {
-		                code: uniqueid,
-		                import: true
-		            },
-					dataType: "jsonp",
-		            success: function (response) {
-						console.log('hola');
-
-						var activity;
-						Dao.activitiesStore.get(activityID,function(me)
-						{
-							activity = me;
-						});
-						if(response.options.careers.indexOf(parseInt(activity.value.careerId,10))==-1)
-						{
-							//Deleting career
-							Dao.uninstall(parseInt(activity.value.careerId,10));
-							Workflow.toMain = true;
-							$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
-							$('#dialogText').html(i18n.gettext("This course has been deleted by his creator."));
-    					}
-		            }
-				});*/
-		    }
+            statusCode: {
+                409: function() {
+                  Workflow.toLevel = true;
+				  $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+				  $('#dialogText').html(i18n.gettext("This course is not currently available. Your scores have not been sent."));
+                },
+                403: function() {
+                  DrGlearning.careerSelect = careerID;
+				  Workflow.toDialogPrivate = true;
+				  $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+				  $('#dialogText').html(i18n.gettext("This course is now private. You can't send your scores without enter the course code."));
+                  $("#dialogPrivateName").html(i18n.gettext("Private Course"));
+    			  $("#dialogPrivateDescription").html(i18n.gettext("Type here the private code for this course"));
+		  		  $("#inputPrivate").val('');
+				  $("#inputPrivate").prop('disabled', false);
+                },
+                200: function() {
+  
+                },
+              }
 		});
     },
 	preinstallCareer: function (career) {

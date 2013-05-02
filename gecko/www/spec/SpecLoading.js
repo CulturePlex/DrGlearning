@@ -17,6 +17,9 @@ describe("Loading", function() {
     it("should careersRequest method make an AJAX request to the correct URL", function () {
         spyOn($, "ajax");
         Loading.careersRequest("museums","art");
+        if (!$.ajax.mostRecentCall.args) {
+            window.location = window.location;
+        }
         expect($.ajax.mostRecentCall.args[0]["url"]).toEqual("http://beta.drglearning.com/api/v1/career/?format=json");
     });
 
