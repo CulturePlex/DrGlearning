@@ -13,11 +13,8 @@ describe("Relational", function() {
         $.unblockUI();
 
     });
-    it("should refresh method to make the correct protocol to load activity", function() {
+    it("should refresh method to make the correct protocol to load an activity", function() {
         Relational.refresh();
         expect(Relational.activity).toEqual({value:activityValueFixture,key:1});
-    });
-    it("should refresh2 method to make the process correctly", function() {
-        //Linguistic.refresh2();
     });
 });
