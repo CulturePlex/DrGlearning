@@ -3,6 +3,7 @@ describe("Relational", function() {
 
 
     beforeEach(function() {
+        $("body").append('<div id="sig"></div>');
 		Dao.activitiesStore.save({key:1,value:activityValueFixture});
         DrGlearning.activityId = 1;
             
@@ -13,8 +14,8 @@ describe("Relational", function() {
 
     });
     it("should refresh method to make the correct protocol to load activity", function() {
-        //Relational.refresh();
-        //expect(Quiz.activity).toEqual({value:activityValueFixture,key:1});
+        Relational.refresh();
+        expect(Relational.activity).toEqual({value:activityValueFixture,key:1});
     });
     it("should refresh2 method to make the process correctly", function() {
         //Linguistic.refresh2();
