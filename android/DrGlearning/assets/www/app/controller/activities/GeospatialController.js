@@ -195,7 +195,6 @@ try {
                     Ext.Msg.alert(i18n.gettext('Right!'), this.activity.data.reward + ' <br />' + i18n.gettext("Score") + ": " + score, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, true, score);
-                        this.levelController.nextActivity(this.activity.data.level_type);
                     }, this);
                 }
                 else {
@@ -203,7 +202,6 @@ try {
                     Ext.Msg.alert(i18n.gettext('Wrong!'), this.activity.data.penalty, function ()
                     {
                         this.daoController.activityPlayed(this.activity.data.id, false, score);
-                        this.levelController.tolevel();
                     }, this);
                 }
             }

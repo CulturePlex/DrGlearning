@@ -38,6 +38,7 @@ try {
                 this.globalSettingsController = this.getApplication().getController('GlobalSettingsController');
                 this.careersListController = this.getApplication().getController('CareersListController');
                 this.careerController = this.getApplication().getController('CareerController');
+                this.levelController = this.getApplication().getController('LevelController');
                 this.careersStore = Ext.getStore('Careers');
             },
 
@@ -507,47 +508,14 @@ try {
                 {
                   this.updateScore(activityID, score, successful, new Date().getTime());
                 }
-                var activitiesStore = Ext.getStore('Activities');
-                var activity;
-                activitiesStore.load();
-                activitiesStore.sync();
-                activitiesStore.each(function(rec){
-                  if(rec.get('id') == activityID)
-                  {
-                    activity = rec;
-                    return;
-                  }
-                });
-				if(!activity)
-				{
-                  activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
-				}
-                if (successful) {
-                    if (activity.data.successful) {
-                        if (activity.data.score < parseInt(score, 10)) {
-                            activity.data.score = parseInt(score, 10);
-                        }
-                    } else {
-                        activity.data.score = parseInt(score, 10);
-                    }
-                    activity.data.successful = true;
-                } else {
-                    if (!activity.data.successful) {
-                        if (activity.data.score < parseInt(score, 10)) {
-                            activity.data.score = parseInt(score, 10);
-                        }
-                    }
-                }
-                activity.data.played = true;
-                activity.save();
-                //Make carrer started if needed
-                var carrer = this.careersStore.getById(activity.data.careerId);
-                /*if (!carrer.data.started) {
-                    carrer.data.started = true;
-                    carrer.save();
-                }*/
             },
             updateScore: function (activityID, score, successful, timestamp) {
+                Ext.Viewport.setMasked({
+                    xtype: 'loadmask',
+                    message: i18n.gettext('Sending scores') + "…",
+                    indicator: true,
+                    html: "<img src='resources/images/ic_launcher.png'>"
+                });
                 var usersStore = Ext.getStore('Users');
                 this.updateUserSettings();
                 var user = usersStore.getAt(0);
@@ -589,16 +557,62 @@ try {
                     callback:"a"
                 };
                 var encoded = getAsUriParameters(params);
-                console.log(encoded);    
+                console.log(encoded);
+                var that = this;    
                 Ext.Cors.request({
                         url: HOST + '/api/v1/score/?format=jsonp&'+encoded,               
                         success: function (response,a) {
-
+                            Ext.Viewport.setMasked(false);
+                            var activitiesStore = Ext.getStore('Activities');
+                            var activity;
+                            activitiesStore.load();
+                            activitiesStore.sync();
+                            activitiesStore.each(function(rec){
+                              if(rec.get('id') == activityID)
+                              {
+                                activity = rec;
+                                return;
+                              }
+                            });
+				            if(!activity)
+				            {
+                              activity = activitiesStore.getAt(activitiesStore.findExact('id', activityID));
+				            }
+                            if (successful) {
+                                if (activity.data.successful) {
+                                    if (activity.data.score < parseInt(score, 10)) {
+                                        activity.data.score = parseInt(score, 10);
+                                    }
+                                } else {
+                                    activity.data.score = parseInt(score, 10);
+                                }
+                                activity.data.successful = true;
+                            } else {
+                                if (!activity.data.successful) {
+                                    if (activity.data.score < parseInt(score, 10)) {
+                                        activity.data.score = parseInt(score, 10);
+                                    }
+                                }
+                            }
+                            activity.data.played = true;
+                            activity.save();
+                            if(successful)
+                            {
+                                that.getApplication().getController('LevelController').nextActivity(activity.data.level_type);
+                            }else{                            
+                                that.getApplication().getController('LevelController').tolevel();
+                            }                            
+                            //Make carrer started if needed
+                            //var carrer = this.careersStore.getById(activity.data.careerId);
+                            /*if (!carrer.data.started) {
+                                carrer.data.started = true;
+                                carrer.save();
+                            }*/                                     
                         },                            
 						failure: function (resp,a){
-                            console.log(a);
-                            console.log(resp);
+                            Ext.Viewport.setMasked(false);
 							var responseText = JSON.parse(resp.responseText);
+                            that.getApplication().getController('LevelController').tolevel();
 				            if(parseInt(responseText.status_code,10)==409)
 				            {
                                Ext.Msg.alert(i18n.gettext('Unable to send scores'), i18n.gettext('This course is not currently available. Your scores have not been sent.'), Ext.emptyFn);
