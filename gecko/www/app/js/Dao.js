@@ -149,27 +149,7 @@ var Dao = {
     },
 	activityPlayed: function (activityID, successful, score)
 	{
-		Dao.activitiesStore.get(activityID.toString(),function(activity){ 
-		    if (successful) {
-		        if (activity.value.successful) {
-		            if (activity.value.score < parseInt(score, 10)) {
-		                activity.value.score = parseInt(score, 10);
-		            }
-		        } else {
-		            activity.value.score = parseInt(score, 10);
-		        }
-		        activity.value.successful = true;
-		    } else {
-		        if (!activity.value.successful) {
-		            if (activity.value.score < parseInt(score, 10)) {
-		                activity.value.score = parseInt(score, 10);
-		            }
-		        }
-		    }
-		    activity.value.played = true;
-		    Dao.activitiesStore.save({key:activityID,value:activity.value});
-			Dao.updateScore(activityID, score, successful, new Date().getTime());
-		});
+    	Dao.updateScore(activityID, score, successful, new Date().getTime());
 	},
 	uninstall: function (careerId)
 	{
@@ -240,7 +220,26 @@ var Dao = {
 				  $("#inputPrivate").prop('disabled', false);
                 },
                 200: function() {
-  
+		            Dao.activitiesStore.get(activityID.toString(),function(activity){ 
+		                if (successful) {
+		                    if (activity.value.successful) {
+		                        if (activity.value.score < parseInt(score, 10)) {
+		                            activity.value.score = parseInt(score, 10);
+		                        }
+		                    } else {
+		                        activity.value.score = parseInt(score, 10);
+		                    }
+		                    activity.value.successful = true;
+		                } else {
+		                    if (!activity.value.successful) {
+		                        if (activity.value.score < parseInt(score, 10)) {
+		                            activity.value.score = parseInt(score, 10);
+		                        }
+		                    }
+		                }
+		                activity.value.played = true;
+		                Dao.activitiesStore.save({key:activityID,value:activity.value});
+                    });
                 },
               }
 		});

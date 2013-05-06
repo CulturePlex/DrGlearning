@@ -9,7 +9,6 @@ var Quiz = {
     refresh: function(){
         $('#quizAnswersList').empty();
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){
-            console.log(activity);
             Quiz.activity = activity;
             $('#quizActivityQuery').html(activity.value.query);
             $('#quizActivityName').html(activity.value.name);
