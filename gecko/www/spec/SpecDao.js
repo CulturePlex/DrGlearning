@@ -1,8 +1,7 @@
 describe("Dao", function() {
   beforeEach(function() {
-        //loadFixtures('index-fixture.html');
-		Dao.activitiesStore.save({key:1,value:{played:false	}});
-		Dao.careersStore.save({key:1,value:{installed:true	}});
+		Dao.activitiesStore.save({key:1, value:{played:false, careerId:4}});
+		Dao.careersStore.save({key:4, value:{installed:true}});
   });
 
   it("should userStore to be accesible", function() {
@@ -31,14 +30,15 @@ describe("Dao", function() {
   it("should knowledgesStore to be accesible", function() {
     expect(Dao.knowledgesStore).not.toBe(null);
   });
-  /*it("should activityPlayed() mark activity as played in store", function() {
+  it("should activityPlayed() make the correct request", function() {
+    spyOn($, "ajax");
 	Dao.activityPlayed(1,true,100);
 	var activity;
  	Dao.activitiesStore.get(1, function(me) {
         activity = me;
     });
-	expect(activity.value.played).toBe(true);
-  });*/
+    expect($.ajax.mostRecentCall.args[0]["url"]).toEqual("http://beta.drglearning.com/api/v1/score/");
+  });
   it("should uninstall() mark career as not installed", function() {
 	Dao.uninstall(1);
 	var career;

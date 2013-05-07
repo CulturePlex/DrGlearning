@@ -1,7 +1,7 @@
 describe("Linguistic", function() {
     var activityValueFixture = {activity_type: "linguistic", 
     answer: "Erasmus", 
-    careerId: "1", 
+    careerId: "4", 
     helpviewed: false, 
     id: 1, 
     image_url: "images/tmpNUhIoR.jpg", 

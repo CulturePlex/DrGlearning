@@ -1,5 +1,5 @@
 describe("Visual", function() {
-    var activityValueFixture = {"id":1,"name":"Who's the author?","careerId":"1","activity_type":"visual","language_code":"en","level_type":8,"level_order":3,"level_required":true,"query":"Who wrote these lines?","timestamp":"2012-04-18T18:31:37.249901","resource_uri":"/api/v1/activity/62/","reward":"Nice! Elizabeth Bishop!","penalty":"Ooops, try again!","played":true,"successful":false,"helpviewed":false,"image_url":"images/tmpgzJ8Lr.jpg","obfuscated_image_url":"images/tmpoMPtl5.png","answers":["Joseph Brodsky","Derek Walcott","Seamus Heaney","Robert Frost","Elizabeth Bishop"],"correct_answer":"Elizabeth Bishop","time":"10"};
+    var activityValueFixture = {"id":1,"name":"Who's the author?","careerId":"4","activity_type":"visual","language_code":"en","level_type":8,"level_order":3,"level_required":true,"query":"Who wrote these lines?","timestamp":"2012-04-18T18:31:37.249901","resource_uri":"/api/v1/activity/62/","reward":"Nice! Elizabeth Bishop!","penalty":"Ooops, try again!","played":true,"successful":false,"helpviewed":false,"image_url":"images/tmpgzJ8Lr.jpg","obfuscated_image_url":"images/tmpoMPtl5.png","answers":["Joseph Brodsky","Derek Walcott","Seamus Heaney","Robert Frost","Elizabeth Bishop"],"correct_answer":"Elizabeth Bishop","time":"10"};
 
 
     beforeEach(function() {
