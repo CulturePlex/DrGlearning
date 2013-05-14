@@ -66,7 +66,26 @@
 	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=h1.ui-li-heading</td>
+	<td>Presentation</td>
+</tr>
 </tbody></table>
 </body>
 </html>

@@ -22,6 +22,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>pedro</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=email</td>
+	<td>palmagroblanco@gmail.com</td>
+</tr>
+<tr>
 	<td>click</td>
 	<td>css=span.ui-btn-inner</td>
 	<td></td>
@@ -35,6 +45,16 @@
 	<td>click</td>
 	<td>css=span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
 	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=username</td>
+	<td>pedro</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=email</td>
+	<td>palmagroblanco@gmail.com</td>
 </tr>
 </tbody></table>
 </body>
