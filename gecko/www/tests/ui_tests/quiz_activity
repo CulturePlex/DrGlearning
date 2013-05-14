@@ -4,26 +4,36 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html" />
-<title>Geospatial Activity</title>
+<title>Quiz Activity</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Geospatial Activity</td></tr>
+<tr><td rowspan="1" colspan="3">Quiz Activity</td></tr>
 </thead><tbody>
 <tr>
 	<td>click</td>
-	<td>css=h1.ui-li-heading</td>
+	<td>link=The Life of Brodsky</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#accesslevel &gt; h1.ui-li-heading</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#accessactivity &gt; h1.ui-li-heading</td>
+	<td>css=#quizSelectAnswer &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='geospatial']/header/a/span/span[2]</td>
 	<td></td>
 </tr>
 <tr>
@@ -37,24 +47,14 @@
 	<td>30000</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
-	<td></td>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@id='map_canvas']/div/div/div/div[2]/div[2]/div/div/div</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='map_canvas']/div/div/div/div[2]/div[2]/div/div/div</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>//div[@id='geospatial']/header/a/span/span[2]</td>
-	<td></td>
+	<td>verifyText</td>
+	<td>link=The Life of Brodsky✓ Your best score: 100</td>
+	<td>The Life of Brodsky✓ Your best score: 100</td>
 </tr>
 
 </tbody></table>
