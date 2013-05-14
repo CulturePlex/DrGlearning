@@ -153,6 +153,7 @@ var Dao = {
 	},
 	uninstall: function (careerId)
 	{
+        console.log(careerId);
 		Dao.careersStore.get(careerId, function (career){
 			career.value.installed = false;
 			Dao.careersStore.save({key:careerId,value:career.value});

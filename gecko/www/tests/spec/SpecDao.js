@@ -40,9 +40,9 @@ describe("Dao", function() {
     expect($.ajax.mostRecentCall.args[0]["url"]).toEqual("http://beta.drglearning.com/api/v1/score/");
   });
   it("should uninstall() mark career as not installed", function() {
-	Dao.uninstall(1);
+	Dao.uninstall(4);
 	var career;
- 	Dao.careersStore.get(1, function(me) {
+ 	Dao.careersStore.get(4, function(me) {
         career = me;
     });
 	expect(career.value.installed).toBe(false);
