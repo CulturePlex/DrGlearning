@@ -77,11 +77,6 @@
 	<td>30000</td>
 </tr>
 <tr>
-	<td>waitForCondition</td>
-	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
-	<td>30000</td>
-</tr>
-<tr>
 	<td>verifyText</td>
 	<td>css=h1.ui-li-heading</td>
 	<td>Presentation</td>
