@@ -657,6 +657,7 @@ var DrGlearning = {
 			}
 		});
         $('#activitieslist').empty();
+        var activities=[];
         Dao.levelsStore.get(DrGlearning.levelId,function(level){
     		$('#levelTitle').html(level.value.name);
             $('#levelDescription').html(level.value.description);
@@ -667,28 +668,7 @@ var DrGlearning = {
 		              if(arrActivities[i].value.careerId == DrGlearning.careerId && arrActivities[i].value.level_type == level.key)
 		              {
 		                empty = false;
-			            var listdiv = document.createElement('li');
-                  		listdiv.setAttribute('id','listdiv');
-						if(arrActivities[i].value.successful)
-						{
-		              		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
-		              	    arrActivities[i].key+
-		              	    '"><h1>'+
-		              	    arrActivities[i].value.name+
-		              	    '</h1>'+
-							'✓ Your best score: '+
-							 arrActivities[i].value.score+
-							'</a>';
-						}
-						else
-						{
-		              		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
-		              	    arrActivities[i].key+
-		              	    '"><h1>'+
-		              	    arrActivities[i].value.name+
-		              	    '</h1></a>';
-			            }
-				        $('#activitieslist').append(listdiv);
+			            activities.push(arrActivities[i]);
 					  }
 		            }
 		            if(empty)
@@ -698,7 +678,44 @@ var DrGlearning = {
                       i18n.gettext('No Activities in this level...')+
                       '</h1><p>'+
                       '</p></a></li>');
-		            }
+		            }else
+                    {
+                        //sorting activities by level_order!
+                        function compare(a,b) {
+                          if (a.value.level_order < b.value.level_order)
+                             return -1;
+                          if (a.value.level_order > b.value.level_order)
+                            return 1;
+                          return 0;
+                        }
+
+                        activities.sort(compare);
+                        for(var i = 0; i<activities.length;i++)
+		                {
+                            var listdiv = document.createElement('li');
+                      		listdiv.setAttribute('id','listdiv');
+						    if(activities[i].value.successful)
+						    {
+		                  		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
+		                  	    activities[i].key+
+		                  	    '"><h1>'+
+		                  	    activities[i].value.name+
+		                  	    '</h1>'+
+							    '✓ Your best score: '+
+							     activities[i].value.score+
+							    '</a>';
+						    }
+						    else
+						    {
+		                  		listdiv.innerHTML = '<a id="accessactivity" href="#" data-activity="'+
+		                  	    activities[i].key+
+		                  	    '"><h1>'+
+		                  	    activities[i].value.name+
+		                  	    '</h1></a>';
+			                }
+				            $('#activitieslist').append(listdiv);
+                        }
+                    }
 		            $('#activitieslist').listview("refresh");
 	          });
 	      });
