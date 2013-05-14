@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html" />
+<title>Relational Activity</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Relational Activity</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>xpath=(//a[@id='accessactivity']/h1)[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=option[value=&quot;The Mennonite Preacher Anslo and his Wife&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=select-relational</td>
+	<td>label=Painted The Nightwatch</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=select-relational</td>
+	<td>label=Kept in Rijksmuseum</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=select-relational</td>
+	<td>label=Located in Amsterdam</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=option[value=&quot;Amsterdam&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='dialog']/div/article</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=College ✓</td>
+	<td>College ✓</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
