@@ -193,7 +193,8 @@ var Loading = {
 				{
 						localOffset = (me !== null) ? me.value : 0;
 				});	
-
+                console.log(localSearchString);
+                console.log(searchString);
                 if (localSearchString !== searchString || localKnowledgeValue !== knowledgeValue)
                 {
 					Dao.userStore.save({key:'searchString',value:searchString});
@@ -201,11 +202,11 @@ var Loading = {
 					Dao.userStore.save({key:'knowledgeValue',value:knowledgeValue});
                     //localStorage.knowledgeValue = knowledgeValue;
 					Dao.userStore.save({key:'offset',value:0});
-                    //localStorage.offset = 0;
+                    localOffset = 0;
 					Dao.userStore.save({key:'total_count',value:1});
-                    //localStorage.total_count = 1;
+                    localTotalCount = 1;
 					Dao.userStore.save({key:'current_count',value:0});
-                    //localStorage.current_count = 0;
+                    localStorageCurrentCount = 0;
                     Dao.careersStore.all(function(arrCareers){
                       var empty = true;
 		                  for(var i = 0; i<arrCareers.length;i++)
@@ -215,13 +216,15 @@ var Loading = {
 		                        Dao.careersStore.remove(arrCareers[i]);
 		                    }
 		                  }
-		                });
+		              });
                 }
               
                 if (parseInt(localCurrentCount, 10)  < parseInt(localTotalCount, 10) && !Loading.retrieving)
                 {
                     Loading.retrieving = true;
 		   			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
+                    console.log(localSearchString);
+                    console.log(searchString);
                     var HOST = GlobalSettings.getServerURL();
                     var searchParams = {
                         offset: localOffset,
@@ -233,7 +236,7 @@ var Loading = {
                     {
                         searchParams = {
                             offset: localOffset,
-                            name__contains: localSearchString,
+                            name__contains: searchString,
                             knowledges__name: localKnowledgeValue,
                             deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
@@ -252,7 +255,7 @@ var Loading = {
                     {
                         searchParams = {
                             offset: localOffset,
-                            name__contains: localSearchString,
+                            name__contains: searchString,
                             deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };

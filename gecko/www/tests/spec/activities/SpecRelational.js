@@ -5,8 +5,7 @@ describe("Relational", function() {
     beforeEach(function() {
         $("body").append('<div id="sig"></div>');
 		Dao.activitiesStore.save({key:1,value:activityValueFixture});
-        DrGlearning.activityId = 1;
-            
+        DrGlearning.activityId = 1;            
     });
 
     afterEach(function() {
