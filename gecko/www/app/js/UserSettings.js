@@ -127,6 +127,7 @@ var UserSettings = {
             },
 			dataType:"jsonp",
             success: function (response, opts) {
+                console.log('bien!');
                 if (response.token == null)
                 {
                     $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
@@ -144,9 +145,18 @@ var UserSettings = {
                 }
 			    
             },
-            failure : function () {
+            error : function () {
                 $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
-				Workflow.toMain = true;
+                Dao.userStore.get('token',function(me)
+		        {
+			        token = (me !== null) ? me.value : '';
+		        });
+                if(token=='')
+                {
+				    Workflow.toStarting = true;
+                }else{
+				    Workflow.toMain = true;
+                }
 				$.mobile.changePage("#dialog");
 			    $.unblockUI();
             }

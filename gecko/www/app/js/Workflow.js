@@ -5,6 +5,7 @@ var Workflow = {
 	toLevel:false,
 	toMain:false,
 	toActivity:false,
+	toStarting:false,
     toDialogPrivate:false,
 	uninstalling:false,
 	/*
@@ -146,9 +147,5 @@ var Workflow = {
 			}
 		});
 		return html;
-		
 	}
-
 }
-
-

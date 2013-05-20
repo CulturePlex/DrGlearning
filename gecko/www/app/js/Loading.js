@@ -504,6 +504,24 @@ var Loading = {
                         }
                     }
                   
-            });
-     }
+                });
+            },
+            createUser: function(uniqueid) {
+                jQuery.ajax({
+                    url: GlobalSettings.getServerURL() + "/api/v1/player/?format=json" ,
+                    dataType : 'json',
+                    data: {
+					    "callback": "a",
+                        "code": uniqueid
+                    },
+                    success: function (response) {
+					    response.options = {};
+					    var options = { careers : [] };
+					    Dao.userStore.save({key:'id',value:response.id});
+					    Dao.userStore.save({key:'options',value:options});
+					    Dao.userStore.save({key:'token',value:response.token});
+                        //localStorage.token = response.token;
+                    }
+                });
+            }
 }

@@ -23,6 +23,7 @@ var DrGlearning = {
 		el.setAttribute('src', url);
 	},
     startApp: function(context){
+        console.log('holass');
 		var embed = window.location.search.substring(window.location.search.indexOf('embed=') + 6);
 		if (embed.indexOf('&') >= 0) {
 			embed = embed.substring(0, embed.indexOf('&'));
@@ -94,29 +95,27 @@ var DrGlearning = {
               digest = Loading.SHA1("test" + " " + new Date().getTime());
           }
           Dao.userStore.save({key:'uniqueid',value:digest});
-          //localStorage.uniqueid = digest;
         }
 		Dao.userStore.get('uniqueid',function(me)
 		{
 			uniqueid = (me !== null) ? me.value : '';
 		});
+		$(document).on('click', '#startingNewUser',function(e) {
+            Loading.createUser(uniqueid);
+            $('#dialogText').html(i18n.gettext("New user successfully created!"));
+			//Workflow.toMain = true;
+        });
+        $('#startingImportUser').click(function(){
+          $("#dialogSyncName").html(i18n.gettext("Import User"));
+          $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
+  		  $("#inputSync").val('');
+		  $("#inputSync").prop('disabled', false);
+		  $('#syncOK').on('click', UserSettings.importUser);
+        });
         if (uniqueid !== '' && token === '') {
-            jQuery.ajax({
-                url: GlobalSettings.getServerURL() + "/api/v1/player/?format=json" ,
-                dataType : 'json',
-                data: {
-					"callback": "a",
-                    "code": uniqueid
-                },
-                success: function (response) {
-					response.options = {};
-					var options = { careers : [] };
-					Dao.userStore.save({key:'id',value:response.id});
-					Dao.userStore.save({key:'options',value:options});
-					Dao.userStore.save({key:'token',value:response.token});
-                    //localStorage.token = response.token;
-                }
-            });
+            console.log('primera vez');
+			$('#dialogStartingText').html(i18n.gettext("It's the first time you open Dr. Glearning in this device, do you have already a Dr. Glearning Account? import it!"));
+            $.mobile.changePage("#dialogStarting");	
         }
 
         //Setting up data
@@ -213,6 +212,12 @@ var DrGlearning = {
 			    $.mobile.changePage("#dialogPrivate");			
 			    return false;
 		    }
+			if(Workflow.toStarting)
+			{	
+				Workflow.toStarting = false;
+				$.mobile.changePage("#dialogStarting");			
+				return false;
+			}
 			if(Workflow.toMain)
 			{	
 				Workflow.toMain = false;
@@ -309,7 +314,7 @@ var DrGlearning = {
                 $.mobile.changePage("#geospatial");
 				Geospatial.refresh();
             }
-	    if(DrGlearning.activityType === "relational")
+	        if(DrGlearning.activityType === "relational")
             {
                 $.mobile.changePage("#relational");
 				Relational.refresh();
@@ -317,6 +322,8 @@ var DrGlearning = {
             return false;
         });
         $('#importUser').click(function(){
+          console.log('asdasd');
+          $.mobile.changePage("#dialogSync");
           $("#dialogSyncName").html(i18n.gettext("Import User"));
           $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSync").val('');
@@ -764,8 +771,9 @@ var DrGlearning = {
 			CheckForUpdates: i18n.gettext("Update course"),
 			UninstallCourse: i18n.gettext("Uninstall course"),
 			UpdateAll: i18n.gettext("Update All"),
-			MoreOptions: i18n.gettext("More Options")
-            };
+			MoreOptions: i18n.gettext("More Options"),
+			NewUser: i18n.gettext("New User")
+        };
         var html    = template(context);
         $(this).empty();
         $(this).append(html);
