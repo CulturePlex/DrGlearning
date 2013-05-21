@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html" />
 <title>New Test</title>
 </head>
 <body>
@@ -19,6 +18,21 @@
 <tr>
 	<td>open</td>
 	<td>file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#startingImportUser &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=inputSync</td>
+	<td>e6008ba1775822a69687ee783a0b1b6fda94564d</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-btn-inner.ui-btn-corner-all</td>
 	<td></td>
 </tr>
 <tr>
