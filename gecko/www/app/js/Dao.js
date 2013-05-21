@@ -157,8 +157,21 @@ var Dao = {
 		Dao.careersStore.get(careerId, function (career){
 			career.value.installed = false;
 			Dao.careersStore.save({key:careerId,value:career.value});
-		});		
-	},
+		});
+        Dao.userStore.get('options',function(me) {
+			temp = me;
+		});			
+		if(!temp.value.careers)
+		{
+			temp.value.careers = [];
+		}
+        var index = temp.value.careers.indexOf(careerId);
+        temp.value.careers.splice(index, 1);
+        console.log(index);
+        console.log(temp);
+		Dao.userStore.save({key:'options',value:temp.value});
+		UserSettings.updateUserSettings();		
+    },
 	updateScore: function (activityID, score, successful, timestamp) {
 		var uniqueid;
 		Dao.userStore.get('uniqueid',function(me)
