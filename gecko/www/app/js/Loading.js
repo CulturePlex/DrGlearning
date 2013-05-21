@@ -371,7 +371,8 @@ var Loading = {
 				{
 					user_id = (me !== null) ? me.value : '';
 				});
-                Dao.careersStore.get(id,function(career){ 
+                Dao.careersStore.get(id,function(career){
+                    console.log(career); 
                     var activities = career.value.activities;
                     var activitiesInstalled = 0;
                     var cont;

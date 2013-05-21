@@ -462,7 +462,7 @@ var Dao = {
             success: function (response, opts) {
 				//La carrera notiene almacenado el timestamp!!
                 if (career.value.timestamp < response.timestamp) {
-					Dao.updateCareer(career.key,true)
+					Dao.updateCareer(career.key,false)
                 }
 				else
 				{
@@ -481,6 +481,7 @@ var Dao = {
         });
     },
     updateCareer: function (careerID,updateAll) {
+           console.log('hola');
             var careersStore = Dao.careersStore;
             var activityStore = Dao.activitiesStore;
             Dao.careersStore.get(careerID,function(me)
@@ -518,6 +519,7 @@ var Dao = {
                     var HOST = GlobalSettings.getServerURL();
                     var activitiesID = [];
 					var actToRecieve = activities.length;
+                    console.log(activities);
                     for (cont = 0; cont < activities.length; cont++) {
                        $.ajax({
             				dataType: "json",
@@ -601,7 +603,7 @@ var Dao = {
                                     activityModel.value.constraints = activity.constraints;
                                 }
                                 if (activityModel.value.activity_type === 'temporal') {
-                                    activityModel.setImage('image', activity.image, this);
+                                   // activityModel.setImage('image', activity.image, this);
                                     activityModel.value.image_url = activity.image_url.trim();
                                     activityModel.value.image_datetime = activity.image_datetime.trim();
                                     activityModel.value.query_datetime = activity.query_datetime.trim();
@@ -632,6 +634,7 @@ var Dao = {
                                 career.value.update = false;
                                 Dao.careersStore.save({key:career.key,value:career.value});
 								actToRecieve--;
+                                console.log(actToRecieve);
 								if(actToRecieve == 0)
 								{
 									if(updateAll)
