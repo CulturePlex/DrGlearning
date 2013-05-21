@@ -103,15 +103,14 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='relational']/header/a/span</td>
+	<td>link=College ✓</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyText</td>
-	<td>link=The Shawnee indians fought alongside the British, who was their leader?✓ Your best score: 88</td>
-	<td>The Shawnee indians fought alongside the British, who was their leader?✓ Your best score: 88</td>
+	<td>link=The Shawnee indians fought alongside the British, who was their leader?✓ Your best score: 88.57142857142856</td>
+	<td>The Shawnee indians fought alongside the British, who was their leader?✓ Your best score: 88.57142857142856</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
