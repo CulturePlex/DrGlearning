@@ -8,6 +8,7 @@ var Workflow = {
 	toActivity:false,
 	toStarting:false,
     toDialogPrivate:false,
+    starting:false,
 	uninstalling:false,
 	/*
 	 * Updating and Showing next activity when you success one.

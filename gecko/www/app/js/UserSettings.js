@@ -210,7 +210,20 @@ var UserSettings = {
 			}
 			else
 			{
-                $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+                var name = '';
+                Dao.userStore.get('display_name',function(me)
+		        {
+			        name = (me !== null) ? me.value : '';
+		        });
+                console.log(name);
+                if(Workflow.starting)
+                {
+                  $('#dialogText').html(i18n.gettext("Account successfully imported,"+ name +" welcome to Dr. Glearning."));
+                }
+			    else
+			    {
+                  $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+                }
 		        Workflow.toStarting = false;
 		        Workflow.toMain = true;
                 $.mobile.changePage("#dialog");				
@@ -300,7 +313,19 @@ var UserSettings = {
 			}
 			else
 			{
-                $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+                var name = '';
+                Dao.userStore.get('display_name',function(me)
+		        {
+			        name = (me !== null) ? me.value : '';
+		        });
+                if(Workflow.starting)
+                {
+                  $('#dialogText').html(i18n.gettext("Account successfully imported,"+ name +" welcome to Dr. Glearning."));
+                }
+			    else
+			    {
+                  $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+                }
 	            Workflow.toStarting = false;
 		        Workflow.toMain = true;
                 $.mobile.changePage("#dialog");				

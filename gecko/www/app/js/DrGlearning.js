@@ -119,6 +119,7 @@ var DrGlearning = {
             }
         });
         $('#startingImportUser').click(function(){
+          Workflow.starting = true;
           $("#dialogSyncStartingName").html(i18n.gettext("Import Account"));
           $("#dialogSyncStartingDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSyncStarting").val('');
@@ -351,6 +352,7 @@ var DrGlearning = {
             }
         });
         $('#importUser').click(function(){
+          Workflow.starting = false;
 		  $('#syncOK').show();
           console.log('asdasd');
           $.mobile.changePage("#dialogSync");
