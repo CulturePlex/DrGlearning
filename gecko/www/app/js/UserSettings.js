@@ -105,76 +105,81 @@ var UserSettings = {
         });
     },
 	importUser : function (player_code) {
-        $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Importing user data...')+'</p>' });
-		var uniqueid;
-		if(typeof player_code != "object")
-		{
-			uniqueid = player_code;
-		}
-		else
-		{
-			uniqueid = $("#inputSync").val();
-		}
-		console.log(typeof player_code);
-		console.log($("#inputSync").val());
-		console.log(uniqueid);
-        var HOST = GlobalSettings.getServerURL();
-        $.ajax({
-            url: HOST + '/api/v1/player/?format=jsonp',
-            data: {
-                code: uniqueid,
-                import: true,
-            },
-			dataType:"jsonp",
-            success: function (response, opts) {
-                console.log('bien!');
-                if (response.token == null)
-                {
+        console.log(player_code);
+        if($("#inputSync").val()=="")
+        {
+            $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+            Workflow.toStarting = true;
+		    $.mobile.changePage("#dialog");
+        }else
+        {
+            $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Importing user data...')+'</p>' });
+		    var uniqueid;
+		    if(typeof player_code != "object")
+		    {
+			    uniqueid = player_code;
+		    }
+		    else
+		    {
+			    uniqueid = $("#inputSync").val();
+		    }
+		    console.log(typeof player_code);
+		    console.log($("#inputSync").val());
+		    console.log(uniqueid);
+            var HOST = GlobalSettings.getServerURL();
+            $.ajax({
+                url: HOST + '/api/v1/player/?format=jsonp',
+                data: {
+                    code: uniqueid,
+                    import: true,
+                },
+			    dataType:"jsonp",
+                success: function (response, opts) {
+                    console.log('bien!');
+                    if (response.token == null)
+                    {
+                        $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+					    Workflow.toMain = true;
+					    $.mobile.changePage("#dialog");
+					    $.unblockUI();
+                    }
+                    else
+                    {
+					    Dao.careersStore.nuke();
+					    Dao.activitiesStore.nuke();
+					    Dao.userStore.save({key:'imported',value:true});
+                        //localStorage.imported=true;
+                        UserSettings.userDataReceived(response, opts);
+                    }
+			        
+                },
+                error : function () {
                     $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
-					Workflow.toMain = true;
-					$.mobile.changePage("#dialog");
-					$.unblockUI();
+                    Dao.userStore.get('token',function(me)
+		            {
+			            token = (me !== null) ? me.value : '';
+		            });
+                    if(token=='')
+                    {
+				        Workflow.toStarting = true;
+                    }else{
+				        Workflow.toMain = true;
+                    }
+				    $.mobile.changePage("#dialog");
+			        $.unblockUI();
                 }
-                else
-                {
-					Dao.careersStore.nuke();
-					Dao.activitiesStore.nuke();
-					Dao.userStore.save({key:'imported',value:true});
-                    //localStorage.imported=true;
-                    UserSettings.userDataReceived(response, opts);
-                }
-			    
-            },
-            error : function () {
-                $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
-                Dao.userStore.get('token',function(me)
-		        {
-			        token = (me !== null) ? me.value : '';
-		        });
-                if(token=='')
-                {
-				    Workflow.toStarting = true;
-                }else{
-				    Workflow.toMain = true;
-                }
-				$.mobile.changePage("#dialog");
-			    $.unblockUI();
-            }
-       });
+           });
+        }
     },
 	userDataReceived: function (response, opts) {
 		Dao.userStore.save({key:'id',value:response.id});
 		Dao.userStore.save({key:'uniqueid',value:response.code});
-        //localStorage.uniqueid = response.code;
 		Dao.userStore.save({key:'token',value:response.token});
-        //localStorage.token = response.token;
 		Dao.userStore.save({key:'display_name',value:response.display_name});
-        //localStorage.display_name = response.display_name;
 		Dao.userStore.save({key:'email',value:response.email});
 
 		Dao.userStore.save({key:'options',value:response.options});
 		UserSettings.collectCareers(response, opts);
-        //localStorage.email = response.email;
 		$("#username").val(response.display_name);
         $("#username").val(response.display_name);
         $("#email").val(response.email);
@@ -185,7 +190,6 @@ var UserSettings = {
 		console.log(this.careersToPreinstall);
         this.preinstallingIndex = 0;
 		console.log(response.objects);
-//        UserSettings.importedScores = response.objects;
 		if(this.careersToPreinstall)
 		{	
 			if(!DrGlearning.embedImport)
@@ -234,7 +238,6 @@ var UserSettings = {
                 success: function (response, opts) {
                     var career = response;
                     var careerModel;
-                   
                     var activities = [];
                     for (var cont in career.activities) {
                         activities[cont] = career.activities[cont].full_activity_url;
@@ -282,21 +285,17 @@ var UserSettings = {
             });
         } else 
         {
-          
-            
+
 			if(DrGlearning.embedImport)
 			{
 				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
 				console.log(UserSettings.importedScores);
-				
 			}
 			else
 			{
-				
 		    	$.unblockUI();
 		        console.log("successfull import!");
 			}
-            
         }
     },
 }
