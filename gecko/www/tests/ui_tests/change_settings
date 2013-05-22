@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>file:///home/pedro/Escritorio/gecko/www/index.html</td>
+	<td>http://localhost:8000</td>
 	<td></td>
 </tr>
 <tr>
@@ -29,6 +29,11 @@
 	<td>type</td>
 	<td>id=inputSync</td>
 	<td>e6008ba1775822a69687ee783a0b1b6fda94564d</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>

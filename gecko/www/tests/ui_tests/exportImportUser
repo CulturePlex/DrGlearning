@@ -13,16 +13,6 @@
 </thead><tbody>
 <tr>
 	<td>click</td>
-	<td>id=main</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
-	<td>id=main</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
 	<td>css=span.ui-btn-inner</td>
 	<td></td>
 </tr>
@@ -33,7 +23,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>css=#syncOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td>css=#syncCancel &gt; span.ui-btn-inner.ui-btn-corner-all</td>
 	<td></td>
 </tr>
 <tr>
@@ -53,7 +43,27 @@
 </tr>
 <tr>
 	<td>click</td>
+	<td>css=span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
 	<td>css=#syncOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
 	<td></td>
 </tr>
 <tr>
@@ -61,7 +71,6 @@
 	<td>//a[@id='backfromsettings']/span/span[2]</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
