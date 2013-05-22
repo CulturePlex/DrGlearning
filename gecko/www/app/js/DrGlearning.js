@@ -113,8 +113,7 @@ var DrGlearning = {
 		  $('#syncOK').on('click', UserSettings.importUser);
         });
         if (uniqueid !== '' && token === '') {
-            console.log('primera vez');
-			$('#dialogStartingText').html(i18n.gettext("It's the first time you open Dr. Glearning in this device, do you have already a Dr. Glearning Account? import it!"));
+			$('#dialogStartingText').html(i18n.gettext("This is your first time using Dr. Glearning in this device, do you want to use an existing account or create a new one?"));
             $.mobile.changePage("#dialogStarting");	
         }
 
@@ -748,8 +747,8 @@ var DrGlearning = {
             Settings: i18n.gettext("Settings"),
             Options: i18n.gettext("Options"),
             AddCourse: i18n.gettext("Add course"),
-            ImportUser: i18n.gettext("Import User"),
-            ExportUser: i18n.gettext("Export User"),
+            ImportUser: i18n.gettext("Import Account"),
+            ExportUser: i18n.gettext("Export Account"),
             Answerthequestion: i18n.gettext("Answer the question:"),
             Are_you_sure_you_want_to_install_this_course: i18n.gettext("Are_you_sure_you_want_to_install_this_course?"),
             Answer: i18n.gettext("Answer"),
@@ -772,7 +771,7 @@ var DrGlearning = {
 			UninstallCourse: i18n.gettext("Uninstall course"),
 			UpdateAll: i18n.gettext("Update All"),
 			MoreOptions: i18n.gettext("More Options"),
-			NewUser: i18n.gettext("New User")
+			NewUser: i18n.gettext("New Account")
         };
         var html    = template(context);
         $(this).empty();
