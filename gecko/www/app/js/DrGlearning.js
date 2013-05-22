@@ -566,6 +566,7 @@ var DrGlearning = {
 	  },
     refreshAddCareers: function(){
 	    //Setting up knowledges field select
+        console.log($("#select-knowledges").val());
 		Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
         $("#select-knowledges").bind( "change", function(event, ui) {
            Loading.careersRequest($( "#searchcourses" ).val(),$("#select-knowledges").val());
@@ -614,7 +615,7 @@ var DrGlearning = {
                 i18n.gettext('No careers to install...')+
                 '</h1><p>'+
                 '</p></a></li>');
-		          Loading.careersRequest("","All");
+		          //Loading.careersRequest("","All");
 		      }
 		      $('#addcareerslist').listview("refresh");
 	      });

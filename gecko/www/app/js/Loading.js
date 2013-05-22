@@ -168,6 +168,7 @@ var Loading = {
              
             },
             careersRequest: function (searchString, knowledgeValue,id) {
+                console.log(knowledgeValue);
 				var localSearchString;
 				Dao.userStore.get('searchString',function(me)
 				{
@@ -195,12 +196,12 @@ var Loading = {
 				});	
                 console.log(localSearchString);
                 console.log(searchString);
+                console.log(localKnowledgeValue);
+                console.log(knowledgeValue);
                 if (localSearchString !== searchString || localKnowledgeValue !== knowledgeValue)
                 {
 					Dao.userStore.save({key:'searchString',value:searchString});
-                    //localStorage.searchString = searchString;
 					Dao.userStore.save({key:'knowledgeValue',value:knowledgeValue});
-                    //localStorage.knowledgeValue = knowledgeValue;
 					Dao.userStore.save({key:'offset',value:0});
                     localOffset = 0;
 					Dao.userStore.save({key:'total_count',value:1});
@@ -234,6 +235,7 @@ var Loading = {
                     };
                     if (localKnowledgeValue !== 'All' && localKnowledgeValue !== '')
                     {
+                        console.log('1');
                         searchParams = {
                             offset: localOffset,
                             name__contains: searchString,
@@ -244,15 +246,17 @@ var Loading = {
                     }
                     if (localKnowledgeValue !== 'All' && localKnowledgeValue === '')
                     {
+                        console.log('2');
                         searchParams = {
                             offset: localOffset,
-                            knowledges__name: localKnowledgeValue,
+                            name__contains: '',
                             deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
                             deviceHeight: (window.screen.height !== undefined) ? window.screen.height : 200
                         };
                     }
                     if (localKnowledgeValue === 'All' && localKnowledgeValue !== '')
                     {
+                        console.log('3');
                         searchParams = {
                             offset: localOffset,
                             name__contains: searchString,
@@ -264,6 +268,7 @@ var Loading = {
 					{
 						searchParams.id=id;
 					}
+                    console.log(searchParams);
                     jQuery.ajax({
 						type:'GET',
                         url:  HOST + "/api/v1/career/?format=json",
