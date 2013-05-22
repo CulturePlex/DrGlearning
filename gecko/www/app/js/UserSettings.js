@@ -131,6 +131,8 @@ var UserSettings = {
                 if (response.token == null)
                 {
                     $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+                    Workflow.toStarting = false;
+		       
 					Workflow.toSettings = true;
 					$.mobile.changePage("#dialog");
 					$.unblockUI();
@@ -147,6 +149,8 @@ var UserSettings = {
             },
             error : function () {
                 $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+                Workflow.toStarting = false;
+		       
                 Dao.userStore.get('token',function(me)
 		        {
 			        token = (me !== null) ? me.value : '';
@@ -206,8 +210,11 @@ var UserSettings = {
 			}
 			else
 			{
-                
-				$.unblockUI();
+                $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+		        Workflow.toStarting = false;
+		        Workflow.toMain = true;
+                $.mobile.changePage("#dialog");				
+		    	$.unblockUI();
 	        	console.log("successfull import!");
 			}
 		}
@@ -294,6 +301,7 @@ var UserSettings = {
 			else
 			{
                 $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+	            Workflow.toStarting = false;
 		        Workflow.toMain = true;
                 $.mobile.changePage("#dialog");				
 		    	$.unblockUI();

@@ -114,6 +114,7 @@ var DrGlearning = {
             }else
             {
                 $("#inputSync").val($("#inputSyncStarting").val());
+                Workflow.toStarting = true;
                 UserSettings.importUser($("#inputSyncStarting").val());
             }
         });
