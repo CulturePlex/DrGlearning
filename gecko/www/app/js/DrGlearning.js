@@ -114,7 +114,7 @@ var DrGlearning = {
             }else
             {
                 $("#inputSync").val($("#inputSyncStarting").val());
-                UserSettings.importUser();
+                UserSettings.importUser($("#inputSyncStarting").val());
             }
         });
         $('#startingImportUser').click(function(){
@@ -346,7 +346,7 @@ var DrGlearning = {
                 $.mobile.changePage("#dialog");
             }else
             {
-                UserSettings.importUser();
+                UserSettings.importUser($("#inputSync").val());
             }
         });
         $('#importUser').click(function(){

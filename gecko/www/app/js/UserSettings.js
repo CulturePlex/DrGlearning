@@ -127,7 +127,7 @@ var UserSettings = {
             },
 			dataType:"jsonp",
             success: function (response, opts) {
-                console.log('bien!');
+                console.log(response);
                 if (response.token == null)
                 {
                     $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
@@ -185,7 +185,7 @@ var UserSettings = {
 		console.log(this.careersToPreinstall);
         this.preinstallingIndex = 0;
 		console.log(response.objects);
-//        UserSettings.importedScores = response.objects;
+//      UserSettings.importedScores = response.objects;
 		if(this.careersToPreinstall)
 		{	
 			if(!DrGlearning.embedImport)
@@ -206,6 +206,7 @@ var UserSettings = {
 			}
 			else
 			{
+                
 				$.unblockUI();
 	        	console.log("successfull import!");
 			}
@@ -292,7 +293,9 @@ var UserSettings = {
 			}
 			else
 			{
-				
+                $('#dialogText').html(i18n.gettext("Account successfully imported!"));
+		        Workflow.toMain = true;
+                $.mobile.changePage("#dialog");				
 		    	$.unblockUI();
 		        console.log("successfull import!");
 			}
