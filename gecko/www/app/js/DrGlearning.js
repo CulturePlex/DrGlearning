@@ -102,7 +102,7 @@ var DrGlearning = {
 		});
 		$(document).on('click', '#startingNewUser',function(e) {
             Loading.createUser(uniqueid);
-            $('#dialogText').html(i18n.gettext("New user successfully created!"));
+            $('#dialogText').html(i18n.gettext("New account successfully created!"));
 			//Workflow.toMain = true;
         });
         $('#startingImportUser').click(function(){
@@ -323,7 +323,7 @@ var DrGlearning = {
         $('#importUser').click(function(){
           console.log('asdasd');
           $.mobile.changePage("#dialogSync");
-          $("#dialogSyncName").html(i18n.gettext("Import User"));
+          $("#dialogSyncName").html(i18n.gettext("Import Account"));
           $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSync").val('');
 		  $("#inputSync").prop('disabled', false);
@@ -331,7 +331,7 @@ var DrGlearning = {
 
         });
 		$('#exportUser').click(function(){
-          $("#dialogSyncName").html(i18n.gettext("Export User"));
+          $("#dialogSyncName").html(i18n.gettext("Export Account"));
           $("#dialogSyncDescription").html(i18n.gettext("Copy and paste this code in another device"));
 		  Dao.userStore.get('uniqueid',function(me)
 		  {
@@ -785,8 +785,8 @@ var DrGlearning = {
         NoCareersInstalled: i18n.gettext("No courses installed"),
         Settings: i18n.gettext("Settings"),
         AddCourse: i18n.gettext("Add course"),
-        ImportUser: i18n.gettext("Import User"),
-        ExportUser: i18n.gettext("Export User"),
+        ImportUser: i18n.gettext("Import Account"),
+        ExportUser: i18n.gettext("Export Account"),
         Answerthequestion: i18n.gettext("Answer the question:"),
         Are_you_sure_you_want_to_install_this_course: i18n.gettext("Are_you_sure_you_want_to_install_this_course?"),
         Answer: i18n.gettext("Answer"),
