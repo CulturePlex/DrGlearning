@@ -4,6 +4,7 @@ var Workflow = {
 	toCareer:false,
 	toLevel:false,
 	toMain:false,
+	toSettings:false,
 	toActivity:false,
 	toStarting:false,
     toDialogPrivate:false,
@@ -12,7 +13,6 @@ var Workflow = {
 	 * Updating and Showing next activity when you success one.
 	 */
 	nextActivity: function (prevLevel) {
-		
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId,prevLevel);
 		Dao.levelsStore.get(DrGlearning.levelId,function(level){
 			Workflow.prevLevelString = level.value.name;

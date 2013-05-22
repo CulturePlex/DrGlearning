@@ -23,7 +23,6 @@ var DrGlearning = {
 		el.setAttribute('src', url);
 	},
     startApp: function(context){
-        console.log('holass');
 		var embed = window.location.search.substring(window.location.search.indexOf('embed=') + 6);
 		if (embed.indexOf('&') >= 0) {
 			embed = embed.substring(0, embed.indexOf('&'));
@@ -103,14 +102,27 @@ var DrGlearning = {
 		$(document).on('click', '#startingNewUser',function(e) {
             Loading.createUser(uniqueid);
             $('#dialogText').html(i18n.gettext("New account successfully created!"));
-			//Workflow.toMain = true;
+			Workflow.toMain = true;
+        });
+        $('#syncStartingOK').on('click', function(){
+            console.log($("#inputSyncStarting").val());
+            if($("#inputSyncStarting").val()=="")
+            {
+                $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+		        Workflow.toStarting = true;
+                $.mobile.changePage("#dialog");
+            }else
+            {
+                $("#inputSync").val($("#inputSyncStarting").val());
+                UserSettings.importUser();
+            }
         });
         $('#startingImportUser').click(function(){
-          $("#dialogSyncName").html(i18n.gettext("Import User"));
-          $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
-  		  $("#inputSync").val('');
-		  $("#inputSync").prop('disabled', false);
-		  $('#syncOK').on('click', UserSettings.importUser);
+          $("#dialogSyncStartingName").html(i18n.gettext("Import Account"));
+          $("#dialogSyncStartingDescription").html(i18n.gettext("Paste your code here"));
+  		  $("#inputSyncStarting").val('');
+		  $("#inputSyncStarting").prop('disabled', false);
+		  
         });
         if (uniqueid !== '' && token === '') {
 			$('#dialogStartingText').html(i18n.gettext("This is your first time using Dr. Glearning in this device, do you want to use an existing account or create a new one?"));
@@ -217,6 +229,12 @@ var DrGlearning = {
 				$.mobile.changePage("#dialogStarting");			
 				return false;
 			}
+			if(Workflow.toSettings)
+			{	
+				Workflow.toSettings = false;
+				$.mobile.changePage("#settings");			
+				return false;
+			}
 			if(Workflow.toMain)
 			{	
 				Workflow.toMain = false;
@@ -320,15 +338,25 @@ var DrGlearning = {
             }
             return false;
         });
+        $('#syncOK').on('click', function() {
+            if($("#inputSync").val()=="")
+            {
+                $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
+		        Workflow.toSettings = true;
+                $.mobile.changePage("#dialog");
+            }else
+            {
+                UserSettings.importUser();
+            }
+        });
         $('#importUser').click(function(){
+		  $('#syncOK').show();
           console.log('asdasd');
           $.mobile.changePage("#dialogSync");
           $("#dialogSyncName").html(i18n.gettext("Import Account"));
           $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSync").val('');
 		  $("#inputSync").prop('disabled', false);
-		  $('#syncOK').on('click', UserSettings.importUser);
-
         });
 		$('#exportUser').click(function(){
           $("#dialogSyncName").html(i18n.gettext("Export Account"));
@@ -339,7 +367,7 @@ var DrGlearning = {
           });
   		  $("#inputSync").val(uniqueid);
 		  $("#inputSync").prop('disabled', true);
-		  $('#syncOK').off('click', UserSettings.importUser);
+		  $('#syncOK').hide();
         });
         $('#saveSettings').click(function(){
             UserSettings.saveSettings();
@@ -759,6 +787,7 @@ var DrGlearning = {
             Email: i18n.gettext("Email"),
             Confirm: i18n.gettext("Confirm"),
             Cancel: i18n.gettext("Cancel"),
+            Back: i18n.gettext("Back"),
             Skip: i18n.gettext("Skip"),
             Yes: i18n.gettext("Yes"),
             No: i18n.gettext("No"),

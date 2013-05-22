@@ -328,7 +328,7 @@
           <div id="dialogSyncDescription">Sync Description</div>
           <input type="text" name="name" id="inputSync" value=""/>
           <a href="#" data-role="button" id="syncOK">{{OK}}</a>
-          <a href="#" data-role="button" id="syncCancel">{{Cancel}}</a>
+          <a href="#settings" data-role="button" id="syncCancel">{{Back}}</a>
       </article>
     </div><!-- Page Dialog Sync -->
     <div data-role="page" id="dialogPrivate">
@@ -349,8 +349,19 @@
       <article data-role="content">
           <div id="dialogStartingDescription">This is your first time using Dr. Glearning in this device, do you want to use an existing account or create a new one?</div>
           <a href="#dialog" data-role="button" id="startingNewUser">{{NewUser}}</a>
-          <a href="#dialogSync" data-role="button" id="startingImportUser">{{ImportUser}}</a>
+          <a href="#dialogSyncStarting" data-role="button" id="startingImportUser">{{ImportUser}}</a>
       </article>
-    </div><!-- Page Dialog Private Course -->
+    </div><!-- Page Dialog starting -->
+    <div data-role="page" id="dialogSyncStarting">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="dialogSyncStartingName">Dialog</h1>
+      </header>
+      <article data-role="content">
+          <div id="dialogSyncStartingDescription">Sync Description</div>
+          <input type="text" name="name" id="inputSyncStarting" value=""/>
+          <a href="#" data-role="button" id="syncStartingOK">{{OK}}</a>
+          <a href="#dialogStarting" data-role="button" id="syncStartingCancel">{{Cancel}}</a>
+      </article>
+    </div><!-- Page Dialog Sync Starting-->
     </body>
 </html>
