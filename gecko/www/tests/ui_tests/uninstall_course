@@ -21,7 +21,26 @@
 	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>click</td>
+	<td>css=h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#uninstall &gt; span.ui-btn-inner &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=No careers installed</td>
+	<td>No careers installed</td>
+</tr>
 </tbody></table>
 </body>
 </html>

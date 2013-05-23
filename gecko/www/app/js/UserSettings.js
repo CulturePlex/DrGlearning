@@ -218,7 +218,7 @@ var UserSettings = {
                 console.log(name);
                 if(Workflow.starting)
                 {
-                  $('#dialogText').html(i18n.gettext("Account successfully imported,"+ name +" welcome to Dr. Glearning."));
+                  $('#dialogText').html(i18n.gettext("Account successfully imported, "+ name +" welcome to Dr. Glearning."));
                 }
 			    else
 			    {
