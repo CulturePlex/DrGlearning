@@ -48,11 +48,6 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='dialog']/div/article</td>
-	<td></td>
-</tr>
-<tr>
-	<td>click</td>
 	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
 	<td></td>
 </tr>
@@ -61,7 +56,6 @@
 	<td>link=College ✓</td>
 	<td>College ✓</td>
 </tr>
-
 </tbody></table>
 </body>
 </html>
