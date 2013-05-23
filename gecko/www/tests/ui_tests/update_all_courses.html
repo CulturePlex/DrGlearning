@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>//footer[@id='footermain']/navbar/ul/li[2]/a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=searchcourses</td>
+	<td>museums</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#careertoinstall &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;&nbsp;&nbsp;Dao.careersStore.save({key:4,value : temp.value});Dao.careersStore.get(1,function(me){temp2 = me;}); temp2.value.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;&nbsp;&nbsp;Dao.careersStore.save({key:1,value : temp2.value});<br /></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#updateAll &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

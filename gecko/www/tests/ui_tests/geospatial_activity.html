@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html" />
+<title>Geospatial Activity</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Geospatial Activity</td></tr>
+</thead><tbody>
+<tr>
+	<td>click</td>
+	<td>css=h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#accesslevel &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#accessactivity &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png'); Geospatial.marker = new google.maps.Marker({map: Geospatial.map,position: new google.maps.LatLng(47.44694705960048,0.703125 ),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flat: true,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clickable: false,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon: markerIcon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#confirmGeospatial &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=At the time of the war declaration, the British Empire was fighting another war. Where?✓ Your best score: 50</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
