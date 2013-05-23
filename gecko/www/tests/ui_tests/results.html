@@ -1,0 +1,1020 @@
+<html>
+<head><style type='text/css'>
+body, table {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title {
+    font-style: italic;
+}
+
+.selected {
+    background-color: #ffffcc;
+}
+
+.status_done {
+    background-color: #eeffee;
+}
+
+.status_passed {
+    background-color: #ccffcc;
+}
+
+.status_failed {
+    background-color: #ffcccc;
+}
+
+.breakpoint {
+    background-color: #cccccc;
+    border: 1px solid black;
+}
+</style><title>Test suite results</title></head>
+<body>
+<h1>Test suite results </h1>
+
+<table>
+<tr>
+<td>result:</td>
+<td>passed</td>
+</tr>
+<tr>
+<td>totalTime:</td>
+<td>83</td>
+</tr>
+<tr>
+<td>numTestTotal:</td>
+<td>12</td>
+</tr>
+<tr>
+<td>numTestPasses:</td>
+<td>12</td>
+</tr>
+<tr>
+<td>numTestFailures:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numCommandPasses:</td>
+<td>8</td>
+</tr>
+<tr>
+<td>numCommandFailures:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numCommandErrors:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Selenium Version:</td>
+<td>2.33</td>
+</tr>
+<tr>
+<td>Selenium Revision:</td>
+<td>.0</td>
+</tr>
+<tr>
+<td>
+<table id="suiteTable" class="selenium" border="1" cellpadding="1" cellspacing="1"><tbody>
+<tr class="title status_passed"><td><b>Test Suite</b></td></tr>
+<tr class="  status_passed"><td><a href="#testresult0">change_settings</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult1">exportImportUser</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult2">search_and_install_course</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult3">update_course</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult4">update_all_courses</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult5">geospatial_activity</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult6">quiz_activity</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult7">visual_activity</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult8">temporal_activity</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult9">linguistic_activity</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult10">relational_activity</a></td></tr>
+<tr class="  status_passed"><td><a href="#testresult11">uninstall_course</a></td></tr>
+</tbody></table>
+
+
+</td>
+<td>&nbsp;</td>
+</tr>
+</table><table><tr>
+<td><a name="testresult0">change_settings.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>setSpeed</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>runScript</td>
+	<td> window.localStorage.clear();</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>open</td>
+	<td>http://localhost:8000</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#startingImportUser &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputSyncStarting</td>
+	<td>e6008ba1775822a69687ee783a0b1b6fda94564d</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#syncStartingOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=username</td>
+	<td>pedro</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=email</td>
+	<td>palmagroblanco@gmail.com</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#saveSettings &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyValue</td>
+	<td>id=username</td>
+	<td>pedro</td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyValue</td>
+	<td>id=email</td>
+	<td>palmagroblanco@gmail.com</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult1">exportImportUser.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Export/Import User</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#exportUser &gt; span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#syncCancel &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#importUser &gt; span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>id=inputSync</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputSync</td>
+	<td>e6008ba1775822a69687ee783a0b1b6fda94564d</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#syncOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>//a[@id='backfromsettings']/span/span[2]</td>
+	<td></td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult2">search_and_install_course.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Search and install Course</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>//footer[@id='footermain']/navbar/ul/li[2]/a/span</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=searchcourses</td>
+	<td>presentation</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#careertoinstall &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyText</td>
+	<td>css=h1.ui-li-heading</td>
+	<td>Presentation</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult3">update_course.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Update Course</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>runScript</td>
+	<td>Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp ="2012-01-21T21:04:24.095452";&nbsp;&nbsp;Dao.careersStore.save({key:4,value : temp.value});</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>id=accesscareer</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#update &gt; span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult4">update_all_courses.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>//footer[@id='footermain']/navbar/ul/li[2]/a/span</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=searchcourses</td>
+	<td>museums</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#careertoinstall &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>runScript</td>
+	<td>Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp ="2012-01-21T21:04:24.095452";&nbsp;&nbsp;Dao.careersStore.save({key:4,value : temp.value});Dao.careersStore.get(1,function(me){temp2 = me;}); temp2.value.timestamp ="2012-01-21T21:04:24.095452";&nbsp;&nbsp;Dao.careersStore.save({key:1,value : temp2.value});<br></td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#updateAll &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult5">geospatial_activity.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Geospatial Activity</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#accesslevel &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#accessactivity &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0</td>
+	<td>30000</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>runScript</td>
+	<td>var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png'); Geospatial.marker = new google.maps.Marker({map: Geospatial.map,position: new google.maps.LatLng(47.44694705960048,0.703125 ),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flat: true,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clickable: false,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon: markerIcon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#confirmGeospatial &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForElementPresent</td>
+	<td>link=At the time of the war declaration, the British Empire was fighting another war. Where?&#10003; Your best score: 50</td>
+	<td></td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult6">quiz_activity.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Quiz Activity</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>xpath=(//a[@id='accessactivity']/h1)[2]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#quizSelectAnswer &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>//div[@id='geospatial']/header/a/span/span[2]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>waitForElementPresent</td>
+	<td>link=The Life of Brodsky&#10003; Your best score: 100</td>
+	<td></td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult7">visual_activity.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Visual Activity</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>xpath=(//a[@id='accessactivity']/h1)[3]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#skipButtonVisual &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>xpath=(//a[@id='visualSelectAnswer']/h1)[3]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>//div[@id='geospatial']/header/a/span/span[2]</td>
+	<td></td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyText</td>
+	<td>link=Works of art&#10003; Your best score: 100</td>
+	<td>Works of art&#10003; Your best score: 100</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult8">temporal_activity.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Temporal Activity</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>//div[@id='level']/header/a/span/span[2]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>xpath=(//a[@id='accesslevel']/h1)[2]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#accessactivity &gt; h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#after &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyText</td>
+	<td>link=The Battle of New Orleans, which brought great pride to the Americans was fought before or after the Ghent Treaty was signed?&#10003; Your best score: 100</td>
+	<td>The Battle of New Orleans, which brought great pride to the Americans was fought before or after the Ghent Treaty was signed?&#10003; Your best score: 100</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult9">linguistic_activity.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Linguistic Activity</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>xpath=(//a[@id='accessactivity']/h1)[2]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>t</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>id=inputLinguistic</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>e</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>c</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>s</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>m</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>u</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>type</td>
+	<td>id=inputLinguistic</td>
+	<td>h</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>link=College &#10003;</td>
+	<td></td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyText</td>
+	<td>link=The Shawnee indians fought alongside the British, who was their leader?&#10003; Your best score: 88</td>
+	<td>The Shawnee indians fought alongside the British, who was their leader?&#10003; Your best score: 88</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult10">relational_activity.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Relational Activity</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>xpath=(//a[@id='accessactivity']/h1)[3]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=option[value="The Mennonite Preacher Anslo and his Wife"]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>select</td>
+	<td>id=select-relational</td>
+	<td>label=Painted The Nightwatch</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>select</td>
+	<td>id=select-relational</td>
+	<td>label=Kept in Rijksmuseum</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>select</td>
+	<td>id=select-relational</td>
+	<td>label=Located in Amsterdam</td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=option[value="Amsterdam"]</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyText</td>
+	<td>link=College &#10003;</td>
+	<td>College &#10003;</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult11">uninstall_course.html</a><br/><div>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr class="title status_passed"><td rowspan="1" colspan="3">Uninstall Course</td></tr>
+</thead><tbody>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#uninstall &gt; span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=h1.ui-li-heading</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#uninstall &gt; span.ui-btn-inner &gt; span.ui-btn-text</td>
+	<td></td>
+</tr>
+<tr class="  status_done" style="cursor: pointer;">
+	<td>click</td>
+	<td>css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr class="  status_passed" style="cursor: pointer;">
+	<td>verifyText</td>
+	<td>link=No careers installed</td>
+	<td>No careers installed</td>
+</tr>
+</tbody></table>
+
+
+</div></td>
+<td>&nbsp;</td>
+</tr></table><pre>
+info: Starting test /selenium-server/tests/change_settings.html
+info: Executing: |setSpeed | 500 |  |
+info: Executing: |runScript | window.localStorage.clear(); |  |
+info: Executing: |open | http://localhost:8000 |  |
+info: Executing: |click | css=#startingImportUser &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |type | id=inputSyncStarting | e6008ba1775822a69687ee783a0b1b6fda94564d |
+info: Executing: |click | css=#syncStartingOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=username | pedro |
+info: Executing: |type | id=email | palmagroblanco@gmail.com |
+info: Executing: |click | css=span.ui-btn-inner |  |
+info: Executing: |click | css=#saveSettings &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |verifyValue | id=username | pedro |
+info: Executing: |verifyValue | id=email | palmagroblanco@gmail.com |
+info: Starting test /selenium-server/tests/exportImportUser.html
+info: Executing: |click | css=span.ui-btn-inner |  |
+info: Executing: |click | css=#exportUser &gt; span.ui-btn-inner |  |
+info: Executing: |click | css=#syncCancel &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#importUser &gt; span.ui-btn-inner |  |
+info: Executing: |click | id=inputSync |  |
+info: Executing: |type | id=inputSync | e6008ba1775822a69687ee783a0b1b6fda94564d |
+info: Executing: |click | css=span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#syncOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | //a[@id=&apos;backfromsettings&apos;]/span/span[2] |  |
+info: Starting test /selenium-server/tests/search_and_install_course.html
+info: Executing: |click | //footer[@id=&apos;footermain&apos;]/navbar/ul/li[2]/a/span |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&apos;#addcareerslist li&apos;).length | 30000 |
+info: Executing: |type | id=searchcourses | presentation |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&apos;#addcareerslist li&apos;).length | 30000 |
+info: Executing: |click | css=#careertoinstall &gt; h1.ui-li-heading |  |
+info: Executing: |click | css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |verifyText | css=h1.ui-li-heading | Presentation |
+info: Starting test /selenium-server/tests/update_course.html
+info: Executing: |runScript | Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;  Dao.careersStore.save({key:4,value : temp.value}); |  |
+info: Executing: |click | id=accesscareer |  |
+info: Executing: |click | css=#update &gt; span.ui-btn-inner |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&apos;#addcareerslist li&apos;).length | 30000 |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Starting test /selenium-server/tests/update_all_courses.html
+info: Executing: |click | //footer[@id=&apos;footermain&apos;]/navbar/ul/li[2]/a/span |  |
+info: Executing: |type | id=searchcourses | museums |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&apos;#addcareerslist li&apos;).length | 30000 |
+info: Executing: |click | css=#careertoinstall &gt; h1.ui-li-heading |  |
+info: Executing: |click | css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |runScript | Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;  Dao.careersStore.save({key:4,value : temp.value});Dao.careersStore.get(1,function(me){temp2 = me;}); temp2.value.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;  Dao.careersStore.save({key:1,value : temp2.value}); |  |
+info: Executing: |click | css=span.ui-btn-inner |  |
+info: Executing: |click | css=#updateAll &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&apos;#addcareerslist li&apos;).length | 30000 |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Starting test /selenium-server/tests/geospatial_activity.html
+info: Executing: |click | css=h1.ui-li-heading |  |
+info: Executing: |click | css=#accesslevel &gt; h1.ui-li-heading |  |
+info: Executing: |click | css=#accessactivity &gt; h1.ui-li-heading |  |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0 | 30000 |
+info: Executing: |waitForCondition | selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0 | 30000 |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |runScript | var markerIcon = new google.maps.MarkerImage(&apos;resources/images/temp_marker.png&apos;); Geospatial.marker = new google.maps.Marker({map: Geospatial.map,position: new google.maps.LatLng(47.44694705960048,0.703125 ),                     flat: true,                     clickable: false,                     icon: markerIcon                 }); |  |
+info: Executing: |click | css=#confirmGeospatial &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |waitForElementPresent | link=At the time of the war declaration, the British Empire was fighting another war. Where?&amp;#10003; Your best score: 50 |  |
+info: Starting test /selenium-server/tests/quiz_activity.html
+info: Executing: |click | xpath=(//a[@id=&apos;accessactivity&apos;]/h1)[2] |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |click | css=#quizSelectAnswer &gt; h1.ui-li-heading |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | //div[@id=&apos;geospatial&apos;]/header/a/span/span[2] |  |
+info: Executing: |waitForElementPresent | link=The Life of Brodsky&amp;#10003; Your best score: 100 |  |
+info: Starting test /selenium-server/tests/visual_activity.html
+info: Executing: |click | xpath=(//a[@id=&apos;accessactivity&apos;]/h1)[3] |  |
+info: Executing: |click | css=#skipButtonVisual &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |click | xpath=(//a[@id=&apos;visualSelectAnswer&apos;]/h1)[3] |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |click | //div[@id=&apos;geospatial&apos;]/header/a/span/span[2] |  |
+info: Executing: |verifyText | link=Works of art&amp;#10003; Your best score: 100 | Works of art&amp;#10003; Your best score: 100 |
+info: Starting test /selenium-server/tests/temporal_activity.html
+info: Executing: |click | //div[@id=&apos;level&apos;]/header/a/span/span[2] |  |
+info: Executing: |click | xpath=(//a[@id=&apos;accesslevel&apos;]/h1)[2] |  |
+info: Executing: |click | css=#accessactivity &gt; h1.ui-li-heading |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#after &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |verifyText | link=The Battle of New Orleans, which brought great pride to the Americans was fought before or after the Ghent Treaty was signed?&amp;#10003; Your best score: 100 | The Battle of New Orleans, which brought great pride to the Americans was fought before or after the Ghent Treaty was signed?&amp;#10003; Your best score: 100 |
+info: Starting test /selenium-server/tests/linguistic_activity.html
+info: Executing: |click | xpath=(//a[@id=&apos;accessactivity&apos;]/h1)[2] |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=inputLinguistic | t |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | id=inputLinguistic |  |
+info: Executing: |type | id=inputLinguistic | e |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=inputLinguistic | c |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=inputLinguistic | s |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=inputLinguistic | m |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=inputLinguistic | u |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |type | id=inputLinguistic | h |
+info: Executing: |click | css=#tryLinguistic &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | link=College &amp;#10003; |  |
+info: Executing: |verifyText | link=The Shawnee indians fought alongside the British, who was their leader?&amp;#10003; Your best score: 88 | The Shawnee indians fought alongside the British, who was their leader?&amp;#10003; Your best score: 88 |
+info: Starting test /selenium-server/tests/relational_activity.html
+info: Executing: |click | xpath=(//a[@id=&apos;accessactivity&apos;]/h1)[3] |  |
+info: Executing: |click | css=option[value=&quot;The Mennonite Preacher Anslo and his Wife&quot;] |  |
+info: Executing: |select | id=select-relational | label=Painted The Nightwatch |
+info: Executing: |select | id=select-relational | label=Kept in Rijksmuseum |
+info: Executing: |select | id=select-relational | label=Located in Amsterdam |
+info: Executing: |click | css=option[value=&quot;Amsterdam&quot;] |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |click | css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |verifyText | link=College &amp;#10003; | College &amp;#10003; |
+info: Starting test /selenium-server/tests/uninstall_course.html
+info: Executing: |click | css=#uninstall &gt; span.ui-btn-inner |  |
+info: Executing: |click | css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text |  |
+info: Executing: |click | css=h1.ui-li-heading |  |
+info: Executing: |click | css=#uninstall &gt; span.ui-btn-inner &gt; span.ui-btn-text |  |
+info: Executing: |click | css=#confirmInstall &gt; span.ui-btn-inner.ui-btn-corner-all |  |
+info: Executing: |verifyText | link=No careers installed | No careers installed |
+</pre></body></html>
