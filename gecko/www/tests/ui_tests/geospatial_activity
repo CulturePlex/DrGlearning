@@ -42,21 +42,25 @@
 	<td></td>
 </tr>
 <tr>
-	<td>click</td>
-	<td>//div[@id='map_canvas']/div/div/div/div[2]/div[2]/div/div/div</td>
+	<td>runScript</td>
+	<td>var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png'); Geospatial.marker = new google.maps.Marker({map: Geospatial.map,position: new google.maps.LatLng(47.44694705960048,0.703125 ),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;flat: true,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clickable: false,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon: markerIcon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='map_canvas']/div/div/div/div[2]/div[2]/div/div/div</td>
+	<td>css=#confirmGeospatial &gt; span.ui-btn-inner.ui-btn-corner-all &gt; span.ui-btn-text</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='geospatial']/header/a/span/span[2]</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
 	<td></td>
 </tr>
-
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=At the time of the war declaration, the British Empire was fighting another war. Where?✓ Your best score: 50</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>

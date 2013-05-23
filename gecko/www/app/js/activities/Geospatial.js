@@ -124,6 +124,7 @@ var Geospatial = {
                     Geospatial.marker.setMap(null);
                 }
                 var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png');
+                console.log(e);
                 Geospatial.marker = new google.maps.Marker({
                     map: map,
                     position: e.latLng,
