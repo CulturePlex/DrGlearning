@@ -4,18 +4,49 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html" />
-<title>New Test</title>
+<title>Update Course</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">New Test</td></tr>
+<tr><td rowspan="1" colspan="3">Update Course</td></tr>
 </thead><tbody>
 <tr>
 	<td>runScript</td>
-	<td>Dao.careersStore.get(4,function(career){temp=career.value});temp.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;Dao.careersStore.save({key:4,value:temp});</td>
+	<td>Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp =&quot;2012-01-21T21:04:24.095452&quot;;&nbsp;&nbsp;Dao.careersStore.save({key:4,value : temp.value});</td>
 	<td></td>
 </tr>
+<tr>
+	<td>click</td>
+	<td>id=accesscareer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#update &gt; span.ui-btn-inner</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length != 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$(&quot;.blockUI&quot;).length == 0</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>waitForCondition</td>
+	<td>selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='career']/header/a/span/span[2]</td>
+	<td></td>
+</tr>
+
 </tbody></table>
 </body>
 </html>
