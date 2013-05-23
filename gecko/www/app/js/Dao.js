@@ -649,6 +649,9 @@ var Dao = {
 										}
 									}else
 									{
+										Workflow.toMain = true;
+										$.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
+										$('#dialogText').html(i18n.gettext("Course successfully updated."));
 										$.unblockUI();		
 									}
 								}

@@ -17,6 +17,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>click</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>id=inputLinguistic</td>
 	<td>t</td>

@@ -43,7 +43,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@id='career']/header/a/span/span[2]</td>
+	<td>css=#dialogOK &gt; span.ui-btn-inner.ui-btn-corner-all</td>
 	<td></td>
 </tr>
 
