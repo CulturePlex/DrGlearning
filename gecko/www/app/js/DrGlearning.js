@@ -740,7 +740,7 @@ var DrGlearning = {
 		                  	    activities[i].value.name+
 		                  	    '</h1>'+
 							    '✓ Your best score: '+
-							     activities[i].value.score+
+							     parseInt(activities[i].value.score,10)+
 							    '</a>';
 						    }
 						    else
