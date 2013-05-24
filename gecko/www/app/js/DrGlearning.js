@@ -353,7 +353,7 @@ var DrGlearning = {
         });
         $('#importUser').click(function(){
           Workflow.starting = false;
-		  $('#syncOK').show();
+		  $('#syncOK').css("visibility","visible");
           console.log('asdasd');
           $.mobile.changePage("#dialogSync");
           $("#dialogSyncName").html(i18n.gettext("Import Account"));
@@ -370,7 +370,7 @@ var DrGlearning = {
           });
   		  $("#inputSync").val(uniqueid);
 		  $("#inputSync").prop('disabled', true);
-		  $('#syncOK').hide();
+		  $('#syncOK').css("visibility","hidden");
         });
         $('#saveSettings').click(function(){
             UserSettings.saveSettings();
