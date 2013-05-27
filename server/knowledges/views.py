@@ -1,3 +1,4 @@
+from datetime import datetime
 try:
     import simplejson
 except ImportError:
@@ -58,6 +59,8 @@ def scores_view(request, career_id):
     scores_details = getattr(settings, "SCORES_DETAILS", False)
     page = int(request.GET.get('p', 1))
     q = request.GET.get("q", u"")
+    date_from = request.GET.get("date_from")
+    date_to = request.GET.get("date_to")
     hide_null_emails = int(request.GET.get("hide_null_emails", 1))
     if q:
         q_search = q
@@ -65,12 +68,35 @@ def scores_view(request, career_id):
         q_search = u""
     else:
         q_search = u"@"
-    scores, players = get_scores(
-        career,
-        order_by=("display_name", "email"),
-        details=scores_details,
-        slice=slice((page - 1) * scores_per_page, page * scores_per_page),
-        email__icontains=q_search)
+    query_params = {
+        "order_by": ("display_name", "email"),
+        "details": scores_details,
+        "slice": slice((page - 1) * scores_per_page, page * scores_per_page),
+        "email__icontains": q_search,
+    }
+    if date_from:
+        try:
+            if " " in date_from:
+                date_from = datetime.strptime(date_from, '%Y-%m-%d %H:%M:%S')
+            else:
+                date_from = datetime.strptime(date_from, '%Y-%m-%d')
+            query_params.update({
+                "highscore__activity_timestamp__gte": date_from,
+            })
+        except ValueError:
+            pass
+    if date_to:
+        try:
+            if " " in date_to:
+                date_to = datetime.strptime(date_to, '%Y-%m-%d %H:%M:%S')
+            else:
+                date_to = datetime.strptime(date_to, '%Y-%m-%d')
+            query_params.update({
+                "highscore__activity_timestamp__lte": date_to,
+            })
+        except ValueError:
+            pass
+    scores, players = get_scores(career, **query_params)
     paginator = Paginator(players, scores_per_page)  # Show 25 scores per page
     try:
         pages = paginator.page(page)
