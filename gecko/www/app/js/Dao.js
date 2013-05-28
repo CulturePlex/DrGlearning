@@ -634,8 +634,7 @@ var Dao = {
                                 career.value.update = false;
                                 Dao.careersStore.save({key:career.key,value:career.value});
 								actToRecieve--;
-                                console.log(actToRecieve);
-								if(actToRecieve == 0)
+                         		if(actToRecieve == 0)
 								{
 									if(updateAll)
 									{
