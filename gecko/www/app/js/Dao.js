@@ -153,22 +153,24 @@ var Dao = {
 	},
 	uninstall: function (careerId)
 	{
-        console.log(careerId);
 		Dao.careersStore.get(careerId, function (career){
 			career.value.installed = false;
 			Dao.careersStore.save({key:careerId,value:career.value});
 		});
         Dao.userStore.get('options',function(me) {
 			temp = me;
-		});			
+		});
+        if(!temp)
+		{
+			temp = {value:{}};
+		}
+			
 		if(!temp.value.careers)
 		{
 			temp.value.careers = [];
 		}
         var index = temp.value.careers.indexOf(careerId);
         temp.value.careers.splice(index, 1);
-        console.log(index);
-        console.log(temp);
 		Dao.userStore.save({key:'options',value:temp.value});
 		UserSettings.updateUserSettings();		
     },

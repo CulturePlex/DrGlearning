@@ -9,7 +9,7 @@
   <script type="text/javascript" src="../resources/js/jasmine.js"></script>
   <script type="text/javascript" src="../resources/js/jasmine-html.js"></script>
   <script type="text/javascript" src="../resources/js/jasmine-jquery.js"></script>
-
+  <script type="text/javascript" src="../resources/js/jasmine-console.js"></script>
   <!-- include source files here... -->
   <script type="text/javascript" charset="utf-8" src="../resources/js/jed.js"></script>
   <script type="text/javascript" charset="utf-8" src="../resources/js/locales/en.js"></script>
@@ -25,6 +25,7 @@
   <script type="text/javascript" charset="utf-8" src="../resources/js/sigma.min.js"></script>
   <script type="text/javascript" src="../app/js/DrGlearning.js"></script>
   <script type="text/javascript" src="../app/js/GlobalSettings.js"></script>
+  <script type="text/javascript" src="../app/js/UserSettings.js"></script>
   <script type="text/javascript" src="../app/js/Dao.js"></script>
   <script type="text/javascript" src="../app/js/Loading.js"></script>
   <script type="text/javascript" src="../app/js/Workflow.js"></script>
@@ -51,12 +52,15 @@
   <script type="text/javascript">
     var a = function(response){console.log(response);};
     (function() {
+        
+      
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
 
       var htmlReporter = new jasmine.HtmlReporter();
 
       jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.addReporter(new jasmine.ConsoleReporter());
 
       jasmineEnv.specFilter = function(spec) {
         return htmlReporter.specFilter(spec);
@@ -70,7 +74,11 @@
         }
         execJasmine();
       };
-
+      var oldCallback = jasmineEnv.currentRunner().finishCallback;
+      jasmineEnv.currentRunner().finishCallback = function () {
+        oldCallback.apply(this, arguments);
+        console.log('phantom-exit');	
+      };
       function execJasmine() {
         jasmineEnv.execute();
         $(":jqmData(role=page)") .hide();
