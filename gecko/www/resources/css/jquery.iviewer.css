@@ -10,13 +10,6 @@
     z-index: 5000;
 }
 
-.iviewer_cursor {
-    cursor: url(../images/iviewer/hand.cur) 6 8, pointer;
-}
-
-.iviewer_drag_cursor {
-    cursor: url(../images/iviewer/grab.cur) 6 8, pointer;
-}
 
 .iviewer_button {
     top: 20px;
