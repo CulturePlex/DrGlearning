@@ -31,3 +31,17 @@
 .divCentered{
 	text-align:center;
 }
+
+.viewer
+{
+    width: 50%;
+    height: 500px;
+    border: 1px solid black;
+    position: relative;
+}
+
+.wrapper
+{
+    overflow: hidden;
+}
+        

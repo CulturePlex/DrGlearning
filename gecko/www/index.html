@@ -9,7 +9,6 @@
         <script type="text/javascript" charset="utf-8" src="resources/js/jsapi.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/handlebars-1.0.rc.1.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery-1.8.2.js"></script>
-        <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mobile-1.2.0.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.blockUI.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/lawnchair-0.6.1.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jed.js"></script>
@@ -20,6 +19,12 @@
         <script type="text/javascript" charset="utf-8" src="resources/js/maps.google.polygon.containsLatLng.js"></script>
 		<script type="text/javascript" charset="utf-8" src="resources/js/sigma.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/postmessage.js"></script>
+        <script type="text/javascript" charset="utf-8" src="resources/js/jqueryui.js"></script>
+        <script type="text/javascript" charset="utf-8" src="resources/js/jquery.iviewer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mousewheel.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mobile-1.2.0.js"></script>
+
+
         <script type="text/javascript" charset="utf-8" src="app/js/Dao.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/UserSettings.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/GlobalSettings.js"></script>
@@ -30,6 +35,7 @@
         <script type="text/javascript" charset="utf-8" src="app/js/activities/Linguistic.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/activities/Geospatial.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/activities/Relational.js"></script>
+        <script type="text/javascript" charset="utf-8" src="app/js/activities/ClickImage.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/Workflow.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/DrGlearning.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/Init.js"></script>
@@ -109,6 +115,7 @@
       <header data-role="header" data-position="fixed" >
         <h1 id="levelTitle">{{career_title}}</h1>
         <a href="#career" data-icon="back" data-iconpos="notext">Back to Course</a>
+        <a href="#clickImage" id="accessClickImage">*</a>
       </header>
       <article data-role="content">
           <p id="levelDescription">
@@ -292,6 +299,26 @@
 
 		</div>
     </div><!-- Page Relational -->
+    <div data-role="page" id="clickImage">
+      <header data-role="header" data-position="fixed" >
+        <h1 id="relationalActivityName">Click Image Activity</h1>
+        <a href="#level" data-icon="back" data-iconpos="notext" >Back to Level</a>
+		<a href="#dialog" data-rel="dialog" id="infoClickImage" data-icon="info" data-iconpos="notext">Info</a>
+      </header>
+      <article data-role="content">
+      <div class="wrapper">
+          <span>
+              <a id="in" href="#">+</a>
+              <a id="out" href="#">-</a>
+              <a id="fit" href="#">fit</a>
+              <a id="orig" href="#">orig</a>
+              <a id="update" href="#">update</a>
+           </span>
+          <div id="clickImageImage" style="overflow: hidden;" class="viewer iviewer_cursor">
+          </div>
+      </div>        
+      </article>
+    </div><!-- Page Click Image -->
     <div data-role="page" id="settings">
       <header data-role="header" data-position="fixed">
         <h1>{{Settings}}</h1>

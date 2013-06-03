@@ -306,6 +306,12 @@ var DrGlearning = {
             return false;
         });
 
+        //Prototipo de acceso a la actividad ClickImage
+
+        $(document).on('click', '#accessClickImage',function(e) {
+			ClickImage.setup();
+        });
+
         $(document).on('click', '#accessactivity',function(e) {
             DrGlearning.setActivityId($(this));
             if(DrGlearning.activityType === "quiz")
