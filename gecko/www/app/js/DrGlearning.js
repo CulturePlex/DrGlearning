@@ -557,7 +557,7 @@ var DrGlearning = {
 		      {
               $('#careerslist').append(
                 '<li><a href="#addCourses"><h1>'+
-                i18n.gettext('No careers installed')+
+                i18n.gettext('No courses installed')+
                 '</h1><p>'+
                 '</p></a></li>');
 		      }
