@@ -123,7 +123,7 @@ var DrGlearning = {
           $("#dialogSyncStartingName").html(i18n.gettext("Import Account"));
           $("#dialogSyncStartingDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSyncStarting").val('');
-		  $("#inputSyncStarting").prop('disabled', false);
+		  $("#inputSyncStarting").attr('readonly', false);
 		  
         });
         if (uniqueid !== '' && token === '') {
@@ -359,7 +359,7 @@ var DrGlearning = {
           $("#dialogSyncName").html(i18n.gettext("Import Account"));
           $("#dialogSyncDescription").html(i18n.gettext("Paste your code here"));
   		  $("#inputSync").val('');
-		  $("#inputSync").prop('disabled', false);
+		  $("#inputSync").attr('readonly', false);
         });
 		$('#exportUser').click(function(){
           $("#dialogSyncName").html(i18n.gettext("Export Account"));
@@ -369,7 +369,7 @@ var DrGlearning = {
 			  uniqueid = (me !== null) ? me.value : '';
           });
   		  $("#inputSync").val(uniqueid);
-		  $("#inputSync").prop('disabled', true);
+		  $("#inputSync").attr('readonly', true);
 		  $('#syncOK').css("visibility","hidden");
         });
         $('#saveSettings').click(function(){
@@ -458,7 +458,7 @@ var DrGlearning = {
 				  $("#dialogPrivateName").html(i18n.gettext("Private Course"));
 				  $("#dialogPrivateDescription").html(i18n.gettext("Type here the private code for this course"));
 		  		  $("#inputPrivate").val('');
-				  $("#inputPrivate").prop('disabled', false);
+				  $("#inputPrivate").attr('readonly', false);
 				  //$('#privateOK').on('click', UserSettings.importUser);
 				  $.mobile.changePage("#dialogPrivate");
 				}
