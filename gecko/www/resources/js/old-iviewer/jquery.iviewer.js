@@ -8,7 +8,7 @@
  *  - http://www.gnu.org/copyleft/gpl.html
  *
  * Author: Dmitry Petrov
- * Version: 0.7.7
+ * Version: 0.7.4
  */
 
 ( function( $, undefined ) {
@@ -120,12 +120,7 @@ var ieTransforms = {
             filter: 'progid:DXImageTransform.Microsoft.Matrix(M11=0, M12=1, M21=-1, M22=0, SizingMethod="auto expand")'
         }
     },
-    // this test is the inversion of the css filters test from the modernizr project
-    useIeTransforms = function() {
-        var el = document.createElement('div');
-        el.style.cssText = ['-ms-','' ,''].join('filter:blur(2px); ');
-        return !!el.style.cssText && document.documentMode < 9;
-    }();
+    useIeTransforms = (jQuery.browser.msie && parseInt(jQuery.browser.version, 10) <= 8);
 
 $.widget( "ui.iviewer", $.ui.mouse, {
     widgetEventPrefix: "iviewer",
@@ -214,11 +209,7 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         /**
         * event is fired, when image is loaded and initially positioned
         */
-        onFinishLoad: null,
-        /**
-        * event is fired when image load error occurs
-        */
-        onErrorLoad: null
+        onFinishLoad: null
     },
 
     _create: function() {
@@ -252,16 +243,19 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         //init container
         this.container.css("overflow","hidden");
 
-        if (this.options.update_on_resize == true) {
-            $(window).resize(function() {
-                me.update();
+        if(this.options.update_on_resize == true)
+        {
+            $(window).resize(function()
+            {
+                me._updateContainerInfo();
             });
         }
 
         this.img_object = new $.ui.iviewer.ImageObject(this.options.zoom_animation);
 
         if (this.options.mousewheel) {
-            this.container.bind('mousewheel.iviewer', function(ev, delta)
+            this.img_object.object()
+                .mousewheel(function(ev, delta)
                 {
                     //this event is there instead of containing div, because
                     //at opera it triggers many times on div
@@ -327,23 +321,13 @@ $.widget( "ui.iviewer", $.ui.mouse, {
     },
 
     destroy: function() {
-        $.Widget.prototype.destroy.call( this );
         this._mouseDestroy();
-        this.img_object.object().remove();
-        this.container.off('.iviewer');
-        this.container.css('overflow', ''); //cleanup styles on destroy
     },
 
     _updateContainerInfo: function()
     {
         this.options.height = this.container.height();
         this.options.width = this.container.width();
-    },
-
-    update: function()
-    {
-        this._updateContainerInfo()
-        this.setCoords(this.img_object.x(), this.img_object.y());
     },
 
     loadImage: function( src )
@@ -356,8 +340,6 @@ $.widget( "ui.iviewer", $.ui.mouse, {
         this.container.addClass("iviewer_loading");
         this.img_object.load(src, function() {
             me._imageLoaded(src);
-        }, function() {
-            me._trigger("onErrorLoad", 0, src);
         });
     },
 
@@ -885,7 +867,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
      * @param {string} src Image url.
      * @param {Function=} loaded Function will be called on image load.
      */
-    this.load = function(src, loaded, error) {
+    this.load = function(src, loaded) {
         var self = this;
 
         loaded = loaded || jQuery.noop;
@@ -899,6 +881,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
             self._reset(this.width, this.height);
 
             self._img
+                .removeAttr("src")
                 .removeAttr("width")
                 .removeAttr("height")
                 .removeAttr("style")
@@ -909,14 +892,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
             loaded();
         };
 
-        img.onerror = error;
-
-        //we need this because sometimes internet explorer 8 fires onload event
-        //right after assignment (synchronously)
-        setTimeout(function() {
-            img.src = src;
-        }, 0);
-
+        img.src = src;
         this.angle(0);
     };
 
@@ -954,7 +930,6 @@ $.ui.iviewer.ImageObject = function(do_anim) {
     this.x = setter(function(val, skipCss) { 
             this._x = val;
             if (!skipCss) {
-                this._finishAnimation();
                 this._img.css("left",this._x + (this._swapDimensions ? this.display_diff() / 2 : 0) + "px");
             }
         },
@@ -972,7 +947,6 @@ $.ui.iviewer.ImageObject = function(do_anim) {
     this.y = setter(function(val, skipCss) {
             this._y = val;
             if (!skipCss) {
-                this._finishAnimation();
                 this._img.css("top",this._y - (this._swapDimensions ? this.display_diff() / 2 : 0) + "px");
             }
         },
@@ -990,7 +964,7 @@ $.ui.iviewer.ImageObject = function(do_anim) {
 
             this._angle = deg;
             this._swapDimensions = deg % 180 !== 0;
-
+            
             if (prevSwap !== this._swapDimensions) {
                 var verticalMod = this._swapDimensions ? -1 : 1;
                 this.x(this.x() - verticalMod * this.display_diff() / 2, true);
@@ -1133,11 +1107,6 @@ $.ui.iviewer.ImageObject = function(do_anim) {
             setTimeout(complete, 0); //both if branches should behave equally.
         }
     };
-
-    //if we set image coordinates we need to be sure that no animation is active atm
-    this._finishAnimation = function() {
-      this._img.stop(true, true);
-    }
 
 }).apply($.ui.iviewer.ImageObject.prototype);
 

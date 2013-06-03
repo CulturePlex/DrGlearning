@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="resources/css/jquery.mobile-1.2.0.css" />
         <link rel="stylesheet" href="app/css/DrGlearning.css" />
+        <link rel="stylesheet" href="resources/css/jquery.iviewer.css">
         <script type="text/javascript" charset="utf-8" src="resources/js/jsapi.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/handlebars-1.0.rc.1.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery-1.8.2.js"></script>
@@ -21,7 +22,6 @@
         <script type="text/javascript" charset="utf-8" src="resources/js/postmessage.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jqueryui.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.iviewer.js"></script>
-        <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mousewheel.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mobile-1.2.0.js"></script>
 
 
@@ -306,17 +306,14 @@
 		<a href="#dialog" data-rel="dialog" id="infoClickImage" data-icon="info" data-iconpos="notext">Info</a>
       </header>
       <article data-role="content">
+        <p id="clickiImageActivityQuery">
+          In this course you will learn about six poets. Their work and biographies are explored as well as the relationships between them both poetically and personally. <hr>
+        </p>
       <div class="wrapper">
-          <span>
-              <a id="in" href="#">+</a>
-              <a id="out" href="#">-</a>
-              <a id="fit" href="#">fit</a>
-              <a id="orig" href="#">orig</a>
-              <a id="update" href="#">update</a>
-           </span>
-          <div id="clickImageImage" style="overflow: hidden;" class="viewer iviewer_cursor">
+          <div id="clickImageImage" class="viewer iviewer_cursor" style="overflow: hidden;">
           </div>
       </div>        
+      <a href="#dialog" data-rel="dialog" data-role="button" id="confirmClickImage">{{Confirm}}</a>
       </article>
     </div><!-- Page Click Image -->
     <div data-role="page" id="settings">

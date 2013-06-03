@@ -3,7 +3,7 @@ var ClickImage = {
     setup: function(){
         console.log('asd');
 
-        var iv1 = $("#clickImageImage").iviewer({src:"http://i618.photobucket.com/albums/tt262/royallaser/FrankZappaWereOnlyInItForTheMoneyIn.jpg"});
+        var iv1 = $("#clickImageImage").iviewer({src:"http://i618.photobucket.com/albums/tt262/royallaser/FrankZappaWereOnlyInItForTheMoneyIn.jpg", zoom_base:100});
         $("#in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
         $("#out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
         $("#fit").click(function(){ iv1.iviewer('fit'); }); 
