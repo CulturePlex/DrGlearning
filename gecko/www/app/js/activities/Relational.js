@@ -40,7 +40,6 @@ var Relational = {
     refresh: function(){
 		
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
-            console.log(activity);
             Relational.activity = activity;
 	    	Relational.blankOption = i18n.gettext("Choose");
             Relational.playerPath = [];

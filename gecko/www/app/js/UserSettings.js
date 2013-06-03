@@ -86,7 +86,6 @@ var UserSettings = {
 		{
 			options = (me !== null) ? me.value : undefined;
 		});
-		console.log(options);
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
             url: HOST + '/api/v1/player/?format=json',
@@ -100,7 +99,6 @@ var UserSettings = {
 				options: JSON.stringify(options)
             },
             success: function (response) {
-                console.log('User data sent');
             }
         });
     },
