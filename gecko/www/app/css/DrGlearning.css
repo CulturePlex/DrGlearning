@@ -42,8 +42,8 @@
 #pointer
 {
     background-image: url('../../resources/images/temp_marker.png');
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 68px;
     position: absolute;
     display: none;
 }
