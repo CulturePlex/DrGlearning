@@ -1,16 +1,22 @@
 var ClickImage = {
     activity: null,
     viewer: null,
+    goal_points: [{x:596, y:245, r: 3000}, {x: 302, y: 27, r: 3000}, {x: 465, y: 537, r: 3000}],
     pointers: [],
     coords: [],
     timer: null,
     is_dragging: null,
+    score: null,
     setup: function(){
+        $(document).on('click', '#confirmClickImage',function(e) {
+          ClickImage.confirm();
+        });
         ClickImage.is_dragging = false;     
   
         ClickImage.viewer = $("#clickImageImage").iviewer({
             src:"http://i618.photobucket.com/albums/tt262/royallaser/FrankZappaWereOnlyInItForTheMoneyIn.jpg", 
             zoom_base:100,
+            zoom_animation:false,
             onClick: function(ev, coords) {
                console.log(ClickImage.is_dragging);
                if (!ClickImage.is_dragging)
@@ -80,6 +86,44 @@ var ClickImage = {
         marker.css('display', 'block');
         marker.css('left', (offset.x - 9)+'px');
         marker.css('top', (offset.y - 22)+'px');
+    },
+    confirm: function ()
+    {
+        ClickImage.score = 0;
+        var numOfPoints = ClickImage.goal_points.length;
+        var minDist = 1000000;
+        var tempDist;
+        var candidate;
+        for( var j=0; j< ClickImage.pointers.length; j++)
+        {
+            for (var i=0; i< ClickImage.goal_points.length; i++)
+            {
+                tempDist = Math.sqrt(Math.pow(ClickImage.pointers[j].x - ClickImage.goal_points[i].x, 2) + Math.pow(ClickImage.pointers[j].y - ClickImage.goal_points[i].y, 2)) * 60000;
+                if( tempDist < minDist )
+                {
+                    candidate = i;
+                    minDist = tempDist;
+                }        
+            }
+            ClickImage.score += parseInt(100 - (minDist * 100) / ClickImage.goal_points[candidate].r, 10);
+            ClickImage.goal_points.splice(candidate,1);
+        } 
+        ClickImage.score = ClickImage.score / numOfPoints;
+        if(ClickImage.score < 0)
+        {
+            ClickImage.score = 0;
+        }
+        if (ClickImage.score > 50) {
+
+            $('#dialogText').html(ClickImage.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Geospatial.score);
+			Dao.activityPlayed(ClickImage.activity.value.id, true, ClickImage.score);
+        }
+        else {
+			if(ClickImage.score < 0){ClickImage.score = 0;}
+  	        $('#dialogText').html(ClickImage.activity.value.penalty);
+			Dao.activityPlayed(ClickImage.activity.value.id, false, ClickImage.score);
+			Workflow.toLevel = true;
+        }
     }
 
 
