@@ -91,22 +91,25 @@ var ClickImage = {
     {
         ClickImage.score = 0;
         var numOfPoints = ClickImage.goal_points.length;
-        var minDist = 1000000;
+        var minDist = 1000000000;
         var tempDist;
         var candidate;
         for( var j=0; j< ClickImage.pointers.length; j++)
         {
             for (var i=0; i< ClickImage.goal_points.length; i++)
             {
-                tempDist = Math.sqrt(Math.pow(ClickImage.pointers[j].x - ClickImage.goal_points[i].x, 2) + Math.pow(ClickImage.pointers[j].y - ClickImage.goal_points[i].y, 2)) * 60000;
+                tempDist = Math.sqrt(Math.pow(ClickImage.coords[j].x - ClickImage.goal_points[i].x, 2) + Math.pow(ClickImage.coords[j].y - ClickImage.goal_points[i].y, 2)) * 60000;
+                console.log(tempDist);
                 if( tempDist < minDist )
                 {
+                    console.log("mejor");
                     candidate = i;
                     minDist = tempDist;
                 }        
             }
+            console.log(candidate);
             ClickImage.score += parseInt(100 - (minDist * 100) / ClickImage.goal_points[candidate].r, 10);
-            ClickImage.goal_points.splice(candidate,1);
+            //ClickImage.goal_points.splice(candidate,1);
         } 
         ClickImage.score = ClickImage.score / numOfPoints;
         if(ClickImage.score < 0)
@@ -115,13 +118,13 @@ var ClickImage = {
         }
         if (ClickImage.score > 50) {
 
-            $('#dialogText').html(ClickImage.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": "+Geospatial.score);
-			Dao.activityPlayed(ClickImage.activity.value.id, true, ClickImage.score);
+            $('#dialogText').html("bien"+"<br /><br />"+i18n.gettext('Score')+": "+ClickImage.score);
+			//Dao.activityPlayed(ClickImage.activity.value.id, true, ClickImage.score);
         }
         else {
 			if(ClickImage.score < 0){ClickImage.score = 0;}
-  	        $('#dialogText').html(ClickImage.activity.value.penalty);
-			Dao.activityPlayed(ClickImage.activity.value.id, false, ClickImage.score);
+  	        $('#dialogText').html("mal");
+			//Dao.activityPlayed(ClickImage.activity.value.id, false, ClickImage.score);
 			Workflow.toLevel = true;
         }
     }
