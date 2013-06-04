@@ -1,8 +1,8 @@
 var ClickImage = {
     activity: null,
     viewer: null,
-    pointer: null,
-    coords: null,
+    pointers: [],
+    coords: [],
     timer: null,
     is_dragging: null,
     setup: function(){
@@ -18,20 +18,18 @@ var ClickImage = {
             },
             onAfterZoom: function(ev, new_zoom){
                if(ClickImage.coords != null)
-               ClickImage.replaceMarker(ClickImage.pointer,ClickImage.coords);
+               ClickImage.replaceMarkers();
             },
             onDrag: function (ev, point){
                if(ClickImage.coords != null)
-               ClickImage.replaceMarker(ClickImage.pointer,ClickImage.coords);
+               ClickImage.replaceMarkers();
             },
             onStartDrag: function (ev, point){
                 ClickImage.is_dragging = true;
                 console.log("start Drag");
-                //ClickImage.timer = setTimeout(function(){ClickImage.is_dragging = true},500);
             },
             onStopDrag: function (ev, point){
                 setTimeout(function(){ClickImage.is_dragging = false;},100);
-                //window.clearTimeout(ClickImage.timer);
                 console.log("stop Drag");
             }
         });
@@ -45,25 +43,31 @@ var ClickImage = {
         $('#clickImage').live( 'pageshow',function(event){
            ClickImage.viewer.iviewer('update');
         });
-        ClickImage.pointer = $("<div id='pointer'></div>");
-        $('.wrapper').append(ClickImage.pointer);
+
     },
     refresh: function(){
     
     },
     setMarker: function(coords){
-
+        ClickImage.coords.push(coords);
+        ClickImage.pointers.push($("<div id='pointer'></div>"));
+        $('.wrapper').append(ClickImage.pointers[ClickImage.pointers.length - 1]);
 
         console.log(coords);
-        ClickImage.coords = coords;
         var offset = ClickImage.viewer.iviewer('imageToContainer', coords.x, coords.y);
         var containerOffset = ClickImage.viewer.iviewer('getContainerOffset');
         
         offset.x += containerOffset.left - 20;
         offset.y += containerOffset.top - 40;
-        ClickImage.pointer.css('display', 'block');
-        ClickImage.pointer.css('left', (offset.x - 9) +'px');
-        ClickImage.pointer.css('top', (offset.y - 22) +'px');
+        ClickImage.pointers[ClickImage.pointers.length - 1].css('display', 'block');
+        ClickImage.pointers[ClickImage.pointers.length - 1].css('left', (offset.x - 9) +'px');
+        ClickImage.pointers[ClickImage.pointers.length - 1].css('top', (offset.y - 22) +'px');
+    },
+    replaceMarkers: function(){
+        for (var i=0; i<ClickImage.pointers.length;i++)
+        {
+            ClickImage.replaceMarker(ClickImage.pointers[i],ClickImage.coords[i]);
+        }
     },
     replaceMarker: function(marker,coords){
         console.log(marker);
