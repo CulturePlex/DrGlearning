@@ -15,7 +15,7 @@ var Geospatial = {
         });
 	  },
 	refresh: function(){
-		google.load("maps", "3", {other_params:'format=json&sensor=false', callback: Geospatial.refresh2});
+		google.load("maps", "3", {other_params:'format=json&sensor=false&streetViewControl=false', callback: Geospatial.refresh2});
 	},
 	refresh2: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
@@ -40,6 +40,7 @@ var Geospatial = {
     start: function ()
     {
         Geospatial.map = $('#map_canvas').gMap();
+        Geospatial.map.setOptions({streetViewControl: false});
         //Initializing map variable
         var map = Geospatial.map;
         google.maps.event.clearListeners(map, 'idle');
