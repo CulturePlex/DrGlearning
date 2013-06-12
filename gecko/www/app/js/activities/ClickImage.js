@@ -71,20 +71,21 @@ var ClickImage = {
         {
             ClickImage.replaceMarker(ClickImage.pointers[i],ClickImage.coords[i]);
             var oSource = document.getElementById('clickImageImage');
+            var oQuery = document.getElementById('clickImageActivityQuery');
             var sWidth = parseInt(window.getComputedStyle(oSource, null).width,10);
-            var sHeight = parseInt(window.getComputedStyle(oSource, null).height,10);
+            var QueryHeight = parseInt(window.getComputedStyle(oQuery, null).height,10);
             var oTarget = document.getElementById('clickImageImage');
             var tTop = parseInt(ClickImage.pointers[i].css("top"),10);
             var tLeft = parseInt(ClickImage.pointers[i].css("left"),10);
             console.log(sWidth);
-            console.log(sHeight);
+            console.log(QueryHeight);
             console.log(tTop);
             console.log(tLeft);
-            if(tTop < 65)
+            if(tTop < 25 + QueryHeight)
             {
                 ClickImage.pointers[i].hide();
             }
-            if(tTop > 400)
+            if(tTop > 353  + QueryHeight)
             {
                 ClickImage.pointers[i].hide();
             }
@@ -92,7 +93,7 @@ var ClickImage = {
             {
                 ClickImage.pointers[i].hide();
             }
-            if(tLeft > sWidth -20)
+            if(tLeft > sWidth - 15)
             {
                 ClickImage.pointers[i].hide();
             }
