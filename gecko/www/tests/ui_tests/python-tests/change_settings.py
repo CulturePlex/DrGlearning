@@ -6,18 +6,20 @@ import unittest, time, re
 
 class ChangeSettings(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.PhantomJS(desired_capabilities={'javascriptEnabled': 'true','local-storage-path':'/home/pedro/cultureplex/DrGlearning/gecko/www/tests/'})
-        self.driver.implicitly_wait(30000)
+        self.driver = webdriver.PhantomJS(desired_capabilities={'javascriptEnabled': 'true','local-storage-path':'/home/pedro/cultureplex/DrGlearning/gecko/www/tests/','webStorageEnabled':'true'})
+        self.driver.implicitly_wait(1)
         self.base_url = "http://change-this-to-the-site-you-are-testing/"
         self.verificationErrors = []
         self.accept_next_alert = True
     
     def test_change_settings(self):
         driver = self.driver
+        #print(WebStorage(driver).getLocalStorage())
         # ERROR: Caught exception [ERROR: Unsupported command [setSpeed | 500 | ]]
         # ERROR: Caught exception [ERROR: Unsupported command [runScript |  window.localStorage.clear(); | ]]
-        driver.execute_script("window.localStorage.clear();");
+        #driver.execute_script("window.localStorage.setItem('somekey', falsyValue);");
         driver.get("http://localhost:8000")
+        driver.get_screenshot_as_file('ss.png')
         driver.find_element_by_css_selector("#startingImportUser > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_id("inputSyncStarting").clear()
         driver.find_element_by_id("inputSyncStarting").send_keys("e6008ba1775822a69687ee783a0b1b6fda94564d")
