@@ -47,4 +47,7 @@
     position: absolute;
     display: none;
 }
+
+#navgroup {text-align:center;}
+#navgroup div {display:inline-block;}
         
