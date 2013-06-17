@@ -46,7 +46,6 @@ var ClickImage = {
         $('#clickImage').live( 'pageshow',function(event){
            ClickImage.viewer.iviewer('update');
         });
-
     },
     refresh: function(){
     
@@ -65,6 +64,13 @@ var ClickImage = {
         ClickImage.pointers[ClickImage.pointers.length - 1].css('display', 'block');
         ClickImage.pointers[ClickImage.pointers.length - 1].css('left', (offset.x - 9) +'px');
         ClickImage.pointers[ClickImage.pointers.length - 1].css('top', (offset.y - 22) +'px');
+
+        ClickImage.pointers[ClickImage.pointers.length - 1].on("click",
+                function()
+                {
+                    //console.log(ClickImage.pointers);
+                    $(this).remove();
+                });
     },
     replaceMarkers: function(){
         for (var i=0; i<ClickImage.pointers.length;i++)
