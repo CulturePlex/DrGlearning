@@ -2,23 +2,30 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import unittest, time, re
 
 class ChangeSettings(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.PhantomJS(desired_capabilities={'javascriptEnabled': 'true','local-storage-path':'/home/pedro/cultureplex/DrGlearning/gecko/www/tests/','webStorageEnabled':'true'})
+        dcap = dict(DesiredCapabilities.PHANTOMJS)
+        print dcap  
+        dcap["local-storage-path"]="/home/"
+        print dcap  
+        self.driver = webdriver.PhantomJS(desired_capabilities=dcap)
+        print self.driver.desired_capabilities
         self.driver.implicitly_wait(1)
         self.base_url = "http://change-this-to-the-site-you-are-testing/"
         self.verificationErrors = []
         self.accept_next_alert = True
-    
+     
     def test_change_settings(self):
         driver = self.driver
         #print(WebStorage(driver).getLocalStorage())
         # ERROR: Caught exception [ERROR: Unsupported command [setSpeed | 500 | ]]
         # ERROR: Caught exception [ERROR: Unsupported command [runScript |  window.localStorage.clear(); | ]]
-        #driver.execute_script("window.localStorage.setItem('somekey', falsyValue);");
+        driver.execute_script("window.localStorage.setItem('somekey', falsyValue);");
         driver.get("http://localhost:8000")
+        self.driver.implicitly_wait(1)
         driver.get_screenshot_as_file('ss.png')
         driver.find_element_by_css_selector("#startingImportUser > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_id("inputSyncStarting").clear()
