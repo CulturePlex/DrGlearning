@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="resources/css/jquery.mobile-1.2.0.css" />
         <link rel="stylesheet" href="app/css/DrGlearning.css" />
         <link rel="stylesheet" href="resources/css/jquery.iviewer.css">
+
         <script type="text/javascript" charset="utf-8" src="resources/js/jsapi.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/handlebars-1.0.rc.1.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery-1.8.2.js"></script>
@@ -23,7 +24,17 @@
         <script type="text/javascript" charset="utf-8" src="resources/js/jqueryui.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.iviewer.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mobile-1.2.0.js"></script>
-
+        <script>
+        if(window.localStorage.getItem("testing"))
+        {
+            $(document).bind("pageinit", function(){
+                  $.mobile.defaultPageTransition = 'none';
+                  $.mobile.defaultDialogTransition = 'none';
+                  $.mobile.useFastClick = true;
+                  console.log('asd');
+            });
+        }
+	</script>
 
         <script type="text/javascript" charset="utf-8" src="app/js/Dao.js"></script>
         <script type="text/javascript" charset="utf-8" src="app/js/UserSettings.js"></script>

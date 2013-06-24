@@ -1,4 +1,3 @@
-
 var DrGlearning = {
     careerId: null,
     levelId: null,
