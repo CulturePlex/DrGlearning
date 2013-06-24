@@ -87,7 +87,7 @@ var ClickImage = {
             console.log(QueryHeight);
             console.log(tTop);
             console.log(tLeft);
-            if(tTop < 25 + QueryHeight)
+            if(tTop < 65 + QueryHeight)
             {
                 ClickImage.pointers[i].hide();
             }
@@ -95,11 +95,11 @@ var ClickImage = {
             {
                 ClickImage.pointers[i].hide();
             }
-            if(tLeft < -14)
+            if(tLeft < - 4)
             {
                 ClickImage.pointers[i].hide();
             }
-            if(tLeft > sWidth - 15)
+            if(tLeft > sWidth - 20)
             {
                 ClickImage.pointers[i].hide();
             }
