@@ -72,7 +72,7 @@
         <navbar data-role="navbar"  data-iconpos="top">
             <ul >
                 <li><a href="#settings" data-icon="gear" >{{Settings}}</a></li>
-                <li><a href="#addCourses" data-icon="plus" >{{AddCourse}}</a></li>
+                <li><a id="addCoursesButton" href="#addCourses" data-icon="plus" >{{AddCourse}}</a></li>
             </ul>
         </navbar>
       </footera>
@@ -80,7 +80,7 @@
     <div data-role="page" id="addCourses">
       <header data-role="header"  data-position="fixed">
         <h1>{{AddCourses}}</h1>
-        <a href="#main" data-icon="back" data-iconpos="notext">{{Main}}</a>
+        <a id="backFromAddCourses" href="#main" data-icon="back" data-iconpos="notext">{{Main}}</a>
         <div class="ui-grid-a">
         	<div class="ui-block-a">
             <input type="search" name="search-mini" id="searchcourses" value="" data-mini="true" data-theme="b" />

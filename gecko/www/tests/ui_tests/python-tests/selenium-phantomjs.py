@@ -6,6 +6,7 @@ import time
 import unittest
 from change_settings import ChangeSettings
 from exportImportUser import ExportImportUser
+from search_and_install_course import SearchAndInstallCourse
 
 #suite = unittest.TestSuite()
 #suite.addTest(change_settings)
@@ -17,6 +18,7 @@ loader = TestLoader()
 suite = TestSuite((
     loader.loadTestsFromTestCase(ChangeSettings),
     loader.loadTestsFromTestCase(ExportImportUser),
+    loader.loadTestsFromTestCase(SearchAndInstallCourse),
 ))
 
 runner = TextTestRunner(verbosity = 2)

@@ -18,9 +18,6 @@ class ChangeSettings(unittest.TestCase):
      
     def test_change_settings(self):
         driver = self.driver
-        #print(WebStorage(driver).getLocalStorage())
-        # ERROR: Caught exception [ERROR: Unsupported command [setSpeed | 500 | ]]
-        # ERROR: Caught exception [ERROR: Unsupported command [runScript |  window.localStorage.clear(); | ]]
         driver.get("http://localhost:8000/")
         driver.execute_script("window.localStorage.clear();")
         driver.execute_script("window.localStorage.setItem('testing',true);")
@@ -30,7 +27,7 @@ class ChangeSettings(unittest.TestCase):
         driver.find_element_by_id("inputSyncStarting").clear()
         driver.find_element_by_id("inputSyncStarting").send_keys("e6008ba1775822a69687ee783a0b1b6fda94564d")
         driver.find_element_by_id("syncStartingOK").click()
-        time.sleep(5)
+        time.sleep(10)
         driver.find_element_by_id("dialogOK").click()
         driver.get("http://localhost:8000#settings")
         driver.find_element_by_id("username").clear()

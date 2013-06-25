@@ -3,30 +3,36 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
+from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
+from selenium.webdriver.common.keys import Keys
+
+
 
 class SearchAndInstallCourse(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(30)
-        self.base_url = "file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html"
+        self.base_url = "http://0.0.0.0:8000"
         self.verificationErrors = []
         self.accept_next_alert = True
     
     def test_search_and_install_course(self):
         driver = self.driver
-        driver.find_element_by_xpath("//footer[@id='footermain']/navbar/ul/li[2]/a/span").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0 | 30000]]
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0 | 30000]]
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length | 30000]]
+        driver.get("http://localhost:8000/")
+        driver.find_element_by_id("addCoursesButton").click()
+        elemento = driver.find_element_by_css_selector(".blockUI")
+        element = WebDriverWait(driver, 10).until((EC.staleness_of(elemento)))
         driver.find_element_by_id("searchcourses").clear()
         driver.find_element_by_id("searchcourses").send_keys("presentation")
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0 | 30000]]
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0 | 30000]]
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$('#addcareerslist li').length | 30000]]
+        driver.find_element_by_id("searchcourses").send_keys(Keys.RETURN);
+        elemento = driver.find_element_by_css_selector(".blockUI")
+        element2 = WebDriverWait(driver, 10).until((EC.staleness_of(elemento)))
         driver.find_element_by_css_selector("#careertoinstall > h1.ui-li-heading").click()
-        driver.find_element_by_css_selector("#confirmInstall > span.ui-btn-inner.ui-btn-corner-all").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length != 0 | 30000]]
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0 | 30000]]
+        driver.find_element_by_id("confirmInstall").click()
+        elemento = driver.find_element_by_css_selector(".blockUI")
+        element2 = WebDriverWait(driver, 10).until((EC.staleness_of(elemento)))
         try: self.assertEqual("Presentation", driver.find_element_by_css_selector("h1.ui-li-heading").text)
         except AssertionError as e: self.verificationErrors.append(str(e))
     

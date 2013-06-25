@@ -28,8 +28,8 @@ class ExportImportUser(unittest.TestCase):
         driver.find_element_by_id("inputSync").send_keys("e6008ba1775822a69687ee783a0b1b6fda94564d")
         driver.find_element_by_id("syncOK").click()
         driver.find_element_by_css_selector("#syncOK > span.ui-btn-inner.ui-btn-corner-all").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [waitForCondition | selenium.browserbot.getCurrentWindow().$(".blockUI").length == 0 | 30000]]
-        element = WebDriverWait(driver, 10).until((EC.element_to_be_clickable((By.ID, "dialogOK"))))
+        elemento = driver.find_element_by_css_selector(".blockUI")
+        element2 = WebDriverWait(driver, 10).until((EC.staleness_of(elemento)))
         driver.find_element_by_id("dialogOK").click()
    
     def is_element_present(self, how, what):
