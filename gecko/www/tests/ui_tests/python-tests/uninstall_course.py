@@ -6,20 +6,22 @@ import unittest, time, re
 
 class UninstallCourse(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
-        self.base_url = "file:///home/pedro/cultureplex/DrGlearning/gecko/www/index.html"
+        self.driver = webdriver.PhantomJS()
+        self.driver.implicitly_wait(1)
+        self.base_url = "http://localhost:8000/"
         self.verificationErrors = []
         self.accept_next_alert = True
     
     def test_uninstall_course(self):
         driver = self.driver
+        driver.get("http://localhost:8000/")
+        driver.find_element_by_css_selector("h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#uninstall > span.ui-btn-inner").click()
         driver.find_element_by_css_selector("#confirmInstall > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_css_selector("h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#uninstall > span.ui-btn-inner > span.ui-btn-text").click()
         driver.find_element_by_css_selector("#confirmInstall > span.ui-btn-inner.ui-btn-corner-all").click()
-        try: self.assertEqual("No careers installed", driver.find_element_by_link_text("No careers installed").text)
+        try: self.is_element_present(By.LINK_TEXT, "No careers installed")
         except AssertionError as e: self.verificationErrors.append(str(e))
     
     def is_element_present(self, how, what):

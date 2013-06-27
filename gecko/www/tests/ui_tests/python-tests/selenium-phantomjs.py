@@ -15,20 +15,22 @@ from visual_activity import VisualActivity
 from temporal_activity import TemporalActivity
 from linguistic_activity import LinguisticActivity
 from relational_activity import RelationalActivity
+from uninstall_course import UninstallCourse
 
 loader = TestLoader()
 suite = TestSuite((
-    #loader.loadTestsFromTestCase(ChangeSettings),
-    #loader.loadTestsFromTestCase(ExportImportUser),
-    #loader.loadTestsFromTestCase(SearchAndInstallCourse),
-    #loader.loadTestsFromTestCase(ChangeSettings),
-    #loader.loadTestsFromTestCase(UpdateCourse),
-    #loader.loadTestsFromTestCase(UpdateAllCourses),
-    #loader.loadTestsFromTestCase(GeospatialActivity),
-    #loader.loadTestsFromTestCase(QuizActivity),
-    #loader.loadTestsFromTestCase(VisualActivity),
-    #loader.loadTestsFromTestCase(LinguisticActivity),
+    loader.loadTestsFromTestCase(ChangeSettings),
+    loader.loadTestsFromTestCase(ExportImportUser),
+    loader.loadTestsFromTestCase(SearchAndInstallCourse),
+    loader.loadTestsFromTestCase(ChangeSettings),
+    loader.loadTestsFromTestCase(UpdateCourse),
+    loader.loadTestsFromTestCase(UpdateAllCourses),
+    loader.loadTestsFromTestCase(GeospatialActivity),
+    loader.loadTestsFromTestCase(QuizActivity),
+    loader.loadTestsFromTestCase(VisualActivity),
+    loader.loadTestsFromTestCase(LinguisticActivity),
     loader.loadTestsFromTestCase(RelationalActivity),
+    loader.loadTestsFromTestCase(UninstallCourse),
 ))
 
 runner = TextTestRunner(verbosity = 2)
