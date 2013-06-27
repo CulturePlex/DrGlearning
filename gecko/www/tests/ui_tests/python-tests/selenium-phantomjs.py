@@ -12,6 +12,9 @@ from update_all_courses import UpdateAllCourses
 from geospatial_activity import GeospatialActivity
 from quiz_activity import QuizActivity
 from visual_activity import VisualActivity
+from temporal_activity import TemporalActivity
+from linguistic_activity import LinguisticActivity
+from relational_activity import RelationalActivity
 
 loader = TestLoader()
 suite = TestSuite((
@@ -24,6 +27,8 @@ suite = TestSuite((
     loader.loadTestsFromTestCase(GeospatialActivity),
     loader.loadTestsFromTestCase(QuizActivity),
     loader.loadTestsFromTestCase(VisualActivity),
+    loader.loadTestsFromTestCase(LinguisticActivity),
+    loader.loadTestsFromTestCase(RelationalActivity),
 ))
 
 runner = TextTestRunner(verbosity = 2)

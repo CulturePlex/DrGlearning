@@ -22,6 +22,7 @@ class QuizActivity(unittest.TestCase):
     def test_quiz_activity(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
+        driver.get_screenshot_as_file('3.png')
         driver.find_element_by_css_selector("h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#accesslevel > h1.ui-li-heading").click()
         driver.find_element_by_xpath("(//a[@id='accessactivity']/h1)[2]").click()
