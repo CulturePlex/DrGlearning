@@ -20,8 +20,6 @@ class UpdateCourse(unittest.TestCase):
     def test_update_course(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
-        time.sleep(10)
-        driver.get_screenshot_as_file('1.png')
         driver.execute_script('Dao.careersStore.get(4,function(me){temp = me;}); temp.value.timestamp ="2012-01-21T21:04:24.095452";  Dao.careersStore.save({key:4,value : temp.value});')
         driver.find_element_by_id("accesscareer").click()
         driver.find_element_by_css_selector("#update > span.ui-btn-inner").click()

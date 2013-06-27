@@ -8,6 +8,7 @@ from change_settings import ChangeSettings
 from exportImportUser import ExportImportUser
 from search_and_install_course import SearchAndInstallCourse
 from update_course import UpdateCourse
+from update_all_courses import UpdateAllCourses
 
 loader = TestLoader()
 suite = TestSuite((
@@ -16,6 +17,7 @@ suite = TestSuite((
     loader.loadTestsFromTestCase(SearchAndInstallCourse),
     loader.loadTestsFromTestCase(ChangeSettings),
     loader.loadTestsFromTestCase(UpdateCourse),
+    loader.loadTestsFromTestCase(UpdateAllCourses),
 ))
 
 runner = TextTestRunner(verbosity = 2)
