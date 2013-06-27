@@ -11,6 +11,7 @@ from update_course import UpdateCourse
 from update_all_courses import UpdateAllCourses
 from geospatial_activity import GeospatialActivity
 from quiz_activity import QuizActivity
+from visual_activity import VisualActivity
 
 loader = TestLoader()
 suite = TestSuite((
@@ -22,6 +23,7 @@ suite = TestSuite((
     #loader.loadTestsFromTestCase(UpdateAllCourses),
     loader.loadTestsFromTestCase(GeospatialActivity),
     loader.loadTestsFromTestCase(QuizActivity),
+    loader.loadTestsFromTestCase(VisualActivity),
 ))
 
 runner = TextTestRunner(verbosity = 2)

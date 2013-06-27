@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 class QuizActivity(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.PhantomJS()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(1)
         self.base_url = "http://localhost:8000/"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -22,16 +22,12 @@ class QuizActivity(unittest.TestCase):
     def test_quiz_activity(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
-        driver.get_screenshot_as_file('701.png')
         driver.find_element_by_css_selector("h1.ui-li-heading").click()
-        driver.get_screenshot_as_file('70.png')
         driver.find_element_by_css_selector("#accesslevel > h1.ui-li-heading").click()
-        driver.get_screenshot_as_file('71.png')
         driver.find_element_by_xpath("(//a[@id='accessactivity']/h1)[2]").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_css_selector("#quizSelectAnswer > h1.ui-li-heading").click()
         element2 = WebDriverWait(driver, 30).until((EC.element_to_be_clickable((By.ID, "dialogOK"))))
-        driver.get_screenshot_as_file('72.png')
         driver.find_element_by_id("dialogOK").click()
         try: self.is_element_present(By.LINK_TEXT, "The Life of Brodsky✓ Your best score: 100")
         except AssertionError as e: self.verificationErrors.append(str(e))

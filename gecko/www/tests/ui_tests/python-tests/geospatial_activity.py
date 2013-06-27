@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 class GeospatialActivity(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.PhantomJS()
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(1)
         self.base_url = "http://localhost:8000/"
         self.verificationErrors = []
         self.accept_next_alert = True
@@ -25,15 +25,10 @@ class GeospatialActivity(unittest.TestCase):
         driver.find_element_by_css_selector("h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#accesslevel > h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#accessactivity > h1.ui-li-heading").click()
-        driver.get_screenshot_as_file('62.png')
         element2 = WebDriverWait(driver, 30).until((EC.element_to_be_clickable((By.ID, "dialogOK"))))
-        driver.get_screenshot_as_file('63.png')
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.execute_script("var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png'); Geospatial.marker = new google.maps.Marker({map: Geospatial.map,position: new google.maps.LatLng(47.44694705960048,0.703125 ),                     flat: true,                     clickable: false,                     icon: markerIcon                 });")
-        driver.get_screenshot_as_file('64.png')
-        # ERROR: Caught exception [ERROR: Unsupported command [runScript | var markerIcon = new google.maps.MarkerImage('resources/images/temp_marker.png'); Geospatial.marker = new google.maps.Marker({map: Geospatial.map,position: new google.maps.LatLng(47.44694705960048,0.703125 ),                     flat: true,                     clickable: false,                     icon: markerIcon                 }); | ]]
         driver.find_element_by_css_selector("#confirmGeospatial > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
-        driver.get_screenshot_as_file('65.png')
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
         try: self.is_element_present(By.LINK_TEXT, "At the time of the war declaration, the British Empire was fighting another war. Where?✓ Your best score: 50")
         except AssertionError as e: self.verificationErrors.append(str(e))
