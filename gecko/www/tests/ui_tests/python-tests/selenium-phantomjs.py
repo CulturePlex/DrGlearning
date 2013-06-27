@@ -9,15 +9,19 @@ from exportImportUser import ExportImportUser
 from search_and_install_course import SearchAndInstallCourse
 from update_course import UpdateCourse
 from update_all_courses import UpdateAllCourses
+from geospatial_activity import GeospatialActivity
+from quiz_activity import QuizActivity
 
 loader = TestLoader()
 suite = TestSuite((
-    loader.loadTestsFromTestCase(ChangeSettings),
-    loader.loadTestsFromTestCase(ExportImportUser),
-    loader.loadTestsFromTestCase(SearchAndInstallCourse),
-    loader.loadTestsFromTestCase(ChangeSettings),
-    loader.loadTestsFromTestCase(UpdateCourse),
-    loader.loadTestsFromTestCase(UpdateAllCourses),
+    #loader.loadTestsFromTestCase(ChangeSettings),
+    #loader.loadTestsFromTestCase(ExportImportUser),
+    #loader.loadTestsFromTestCase(SearchAndInstallCourse),
+    #loader.loadTestsFromTestCase(ChangeSettings),
+    #loader.loadTestsFromTestCase(UpdateCourse),
+    #loader.loadTestsFromTestCase(UpdateAllCourses),
+    loader.loadTestsFromTestCase(GeospatialActivity),
+    loader.loadTestsFromTestCase(QuizActivity),
 ))
 
 runner = TextTestRunner(verbosity = 2)
