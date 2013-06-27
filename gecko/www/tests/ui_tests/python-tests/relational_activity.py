@@ -22,15 +22,17 @@ class RelationalActivity(unittest.TestCase):
     def test_relational_activity(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
+        driver.find_element_by_xpath("(//a[@id='accesscareer']/h1)[1]").click()
+        driver.find_element_by_xpath("(//a[@id='accesslevel']/h1)[2]").click()
         driver.find_element_by_xpath("(//a[@id='accessactivity']/h1)[3]").click()
-        driver.find_element_by_css_selector("option[value=\"The Mennonite Preacher Anslo and his Wife\"]").click()
-        # ERROR: Caught exception [ReferenceError: selectLocator is not defined]
-        # ERROR: Caught exception [ReferenceError: selectLocator is not defined]
-        # ERROR: Caught exception [ReferenceError: selectLocator is not defined]
+        driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
+        driver.find_element_by_css_selector("option[value=\"The Nightwatch\"]").click()
+        driver.find_element_by_css_selector("option[value=\"Rijksmuseum\"]").click()
         driver.find_element_by_css_selector("option[value=\"Amsterdam\"]").click()
+        element = WebDriverWait(driver, 30).until((EC.element_to_be_clickable((By.ID, "dialogOK"))))
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
-        try: self.assertEqual("College ✓", driver.find_element_by_link_text("College ✓").text)
+        try: self.is_element_present(By.LINK_TEXT, "College ✓")
         except AssertionError as e: self.verificationErrors.append(str(e))
     
     def is_element_present(self, how, what):

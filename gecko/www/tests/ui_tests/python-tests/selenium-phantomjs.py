@@ -24,10 +24,10 @@ suite = TestSuite((
     #loader.loadTestsFromTestCase(ChangeSettings),
     #loader.loadTestsFromTestCase(UpdateCourse),
     #loader.loadTestsFromTestCase(UpdateAllCourses),
-    loader.loadTestsFromTestCase(GeospatialActivity),
-    loader.loadTestsFromTestCase(QuizActivity),
-    loader.loadTestsFromTestCase(VisualActivity),
-    loader.loadTestsFromTestCase(LinguisticActivity),
+    #loader.loadTestsFromTestCase(GeospatialActivity),
+    #loader.loadTestsFromTestCase(QuizActivity),
+    #loader.loadTestsFromTestCase(VisualActivity),
+    #loader.loadTestsFromTestCase(LinguisticActivity),
     loader.loadTestsFromTestCase(RelationalActivity),
 ))
 
