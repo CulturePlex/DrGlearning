@@ -7,18 +7,15 @@ import unittest
 from change_settings import ChangeSettings
 from exportImportUser import ExportImportUser
 from search_and_install_course import SearchAndInstallCourse
-
-#suite = unittest.TestSuite()
-#suite.addTest(change_settings)
-#unittest.main(module=change_settings)
-#unittest.main(module=exportImportUser)
-#unittest.TextTestRunner().run(suite)
+from update_course import UpdateCourse
 
 loader = TestLoader()
 suite = TestSuite((
     loader.loadTestsFromTestCase(ChangeSettings),
     loader.loadTestsFromTestCase(ExportImportUser),
     loader.loadTestsFromTestCase(SearchAndInstallCourse),
+    loader.loadTestsFromTestCase(ChangeSettings),
+    loader.loadTestsFromTestCase(UpdateCourse),
 ))
 
 runner = TextTestRunner(verbosity = 2)
