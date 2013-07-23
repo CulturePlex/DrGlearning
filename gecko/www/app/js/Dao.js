@@ -1,10 +1,14 @@
+//Data Access Object 
 var Dao = {
 	careersToUpdate: null,
 	numberCareersToUpdate: null,
+    //User Store
 	userStore : new Lawnchair({adapter:'dom',name:'user'}, function(e) {
     }),
+    //Careers Store
     careersStore : new Lawnchair({adapter:'dom',name:'careers'}, function(e) {
     }),
+    //Method to check if a code for a private course is correct
 	checkCode: function (element,code) {
         if(typeof element != "object")
         {
@@ -18,7 +22,6 @@ var Dao = {
 			data: {code: Loading.SHA1(code),callback: 'a'},
             success: function (response, opts) {
 				$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Installing Course...')+'</p>' });	
-				//DrGlearning.careerId=element.attr("data-href");
 				if(DrGlearning.embed)
 				{
 					Loading.getCareer(UserSettings.careerTemp.key,code);
@@ -42,6 +45,16 @@ var Dao = {
             },
         });
     },
+    //Levels Store
+    levelsStore : new Lawnchair({adapter:'dom',name:'levels'}, function(e) {
+    }),
+    //Activties Store
+    activitiesStore : new Lawnchair({adapter:'dom',name:'activities'}, function(e) {
+    }),
+    //Knowledges Store
+    knowledgesStore : new Lawnchair({adapter:'dom',name:'knowledges'}, function(e) {
+    }),
+    //Method to install a career
     installCareer: function (element,code) {
         var careerTemp;
         Dao.careersStore.get(element.attr("data-href"),function(career){ 
@@ -51,8 +64,7 @@ var Dao = {
         Dao.careersStore.save({key:element.attr("data-href"),value:careerTemp.value});
         Loading.getCareer(element.attr("data-href"),code);
     },
-    levelsStore : new Lawnchair({adapter:'dom',name:'levels'}, function(e) {
-    }),
+    //Mehtod to initializate levels in Level Store
     initLevels: function () {
         var dataLevels = [
         {
@@ -120,10 +132,7 @@ var Dao = {
             Dao.levelsStore.save({key:dataLevels[i].customId,value:dataLevels[i]});
         }
     },
-    activitiesStore : new Lawnchair({adapter:'dom',name:'activities'}, function(e) {
-    }),
-    knowledgesStore : new Lawnchair({adapter:'dom',name:'knowledges'}, function(e) {
-    }),
+    //Method to request knowledge fields
     knowledgesRequest: function () {
         var HOST = GlobalSettings.getServerURL();
         jQuery.ajax({
@@ -147,10 +156,12 @@ var Dao = {
             }
         });
     },
+    //Method to mark an activity as played and set the score
 	activityPlayed: function (activityID, successful, score)
 	{
     	Dao.updateScore(activityID, score, successful, new Date().getTime());
 	},
+    //Method to uninstall course
 	uninstall: function (careerId)
 	{
 		Dao.careersStore.get(careerId, function (career){
@@ -174,6 +185,7 @@ var Dao = {
 		Dao.userStore.save({key:'options',value:temp.value});
 		UserSettings.updateUserSettings();		
     },
+    //Method to send score for an activity to server
 	updateScore: function (activityID, score, successful, timestamp) {
 		var uniqueid;
 		Dao.userStore.get('uniqueid',function(me)
@@ -220,11 +232,14 @@ var Dao = {
 		    data: parameters,
 			dataType: "json",
             statusCode: {
+                //If Ajax request fail return a status code
+                //409: Course not available
                 409: function() {
                   Workflow.toLevel = true;
 				  $.mobile.changePage('#dialog', {transition: 'pop', role: 'dialog'});   
 				  $('#dialogText').html(i18n.gettext("This course is not currently available. Your scores have not been sent."));
                 },
+                //403: Course is private
                 403: function() {
                   DrGlearning.careerSelect = careerID;
 				  Workflow.toDialogPrivate = true;
@@ -235,6 +250,7 @@ var Dao = {
 		  		  $("#inputPrivate").val('');
 				  $("#inputPrivate").prop('disabled', false);
                 },
+                //200: Success!!
                 200: function() {
 		            Dao.activitiesStore.get(activityID.toString(),function(activity){ 
 		                if (successful) {
@@ -260,6 +276,7 @@ var Dao = {
               }
 		});
     },
+    //Method to get career information but not the activities
 	preinstallCareer: function (career) {
         Dao.careerPreinstalling = career;
         var activities = career.activities;
@@ -384,6 +401,7 @@ var Dao = {
         }
      
     },
+    //Method to manage message comming from webpage that contain Dr. Glearning embebed
 	manageInMessage: function (message) {
 		if(message.data.action === "postPlayerCode")
 		{
@@ -394,6 +412,7 @@ var Dao = {
 			Dao.checkCode($('<div data-href="' +message.data.params.id  + '">'),message.data.params.courseCode);
 		}
 	},
+    //Method to check all courses for updates
 	checkForAllCareerUpdate: function (career,updateAllFlag)
     {
 		$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
@@ -454,6 +473,7 @@ var Dao = {
 
 	
 	},
+    //Method to check a career for update
 	checkForCareerUpdate: function (career)
     {
        $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Checking for updates...')+'</p>' });
@@ -482,6 +502,7 @@ var Dao = {
             }
         });
     },
+    //Method to update a career
     updateCareer: function (careerID,updateAll) {
            console.log('hola');
             var careersStore = Dao.careersStore;
