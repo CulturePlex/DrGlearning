@@ -1,9 +1,12 @@
+//Global Settings controller
 var GlobalSettings = {
+    //Method to get the server URL
     getServerURL: function () {
       //return 'http://drglearning.testing.cultureplex.ca';
       return 'http://beta.drglearning.com';
       //return 'http://0.0.0.0:8000';
     },
+    //Method to know if we are playing on a device.
     isDevice: function () {
         if (window.device === undefined) {
             return false;
@@ -11,11 +14,13 @@ var GlobalSettings = {
             return true;
         }
     },
+    //Mehtod to show a modal panel for console logs
     showModal: function (){
         $("body").append('<div class="modalWindow"/>');
         $.mobile.showPageLoadingMsg("b", "This is only a test", true);
 
     },
+    //Method to hide the modal panel
     hideModal: function (){
         $(".modalWindow").remove();
         $.mobile.hidePageLoadingMsg();

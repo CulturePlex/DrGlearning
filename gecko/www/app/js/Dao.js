@@ -1,4 +1,4 @@
-//Data Access Object 
+//Data Access Object Controller
 var Dao = {
 	careersToUpdate: null,
 	numberCareersToUpdate: null,
