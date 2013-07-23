@@ -1,11 +1,19 @@
+//Main Controller
 var DrGlearning = {
+    //Variable to keep the current course playing
     careerId: null,
+    //Variable to keep the current level playing
     levelId: null,
+    //Variable to keep the courseselected to be installed
     careerSelect: null,
+    //Variable to keep if Dr Glearning is embebed or not
 	embed:false,
+    //Variable to keep the user code to import
 	embedImport:false,
+    //Variable to keep the course id to be embebed
 	careerToEmbed:null,
 	codeError: false,
+    //Mehtod to embed Dr.Glearning in an external web
 	embedDrGlearning: function(div,career_id, height, width,imp)
 	{
 		var el = document.createElement("iframe");
@@ -21,17 +29,21 @@ var DrGlearning = {
 		}
 		el.setAttribute('src', url);
 	},
+    //Main method to start Dr. Glearning
     startApp: function(context){
+        //Checking if Dr. Glearning is in embebed mode
 		var embed = window.location.search.substring(window.location.search.indexOf('embed=') + 6);
 		if (embed.indexOf('&') >= 0) {
 			embed = embed.substring(0, embed.indexOf('&'));
 		}
 		DrGlearning.embed = embed;
+        //Getting course to embeb
 		var careerToEmbed = window.location.search.substring(window.location.search.indexOf('careerToEmbed=') + 14);
 		if (careerToEmbed.indexOf('&') >= 0) {
 			careerToEmbed = careerToEmbed.substring(0, careerToEmbed.indexOf('&'));
 		}
 		DrGlearning.careerToEmbed = careerToEmbed;
+        //Getting user id to be imported in embebed mode
 		var embedImport = window.location.search.substring(window.location.search.indexOf('import=') + 7);
 		if (embedImport.indexOf('&') >= 0) {
 			embedImport = embedImport.substring(0, careerToEmbed.indexOf('&'));
@@ -61,8 +73,8 @@ var DrGlearning = {
 	        cursor: 'wait'
 	    };
         // Requesting Knowledge fields
-
         Dao.knowledgesRequest();
+        // Translating App
         DrGlearning.translateApp();
 		var uniqueid;
 		Dao.userStore.get('uniqueid',function(me)
@@ -98,11 +110,14 @@ var DrGlearning = {
 		{
 			uniqueid = (me !== null) ? me.value : '';
 		});
+    
+        // Event handler to create a new user
 		$(document).on('click', '#startingNewUser',function(e) {
             Loading.createUser(uniqueid);
             $('#dialogText').html(i18n.gettext("New account successfully created!"));
 			Workflow.toMain = true;
         });
+        // Event handler to ask for id to import an user
         $('#syncStartingOK').on('click', function(){
             console.log($("#inputSyncStarting").val());
             if($("#inputSyncStarting").val()=="")
@@ -117,6 +132,7 @@ var DrGlearning = {
                 UserSettings.importUser($("#inputSyncStarting").val());
             }
         });
+        // Event handler to import an user
         $('#startingImportUser').click(function(){
           Workflow.starting = true;
           $("#dialogSyncStartingName").html(i18n.gettext("Import Account"));
@@ -135,6 +151,7 @@ var DrGlearning = {
         $('#email').val(email);
 
         //Setting up pageinits
+
         $( '#addCourses' ).live( 'pagebeforeshow',function(event){
             DrGlearning.refreshAddCareers();
         });
@@ -177,7 +194,7 @@ var DrGlearning = {
             //Linguistic.refresh();
         });
 
-		//Setting up Activities Info
+        // Event handlers for activities help
 
 		$(document).on('click', '#infoQuiz',function(e) {
 
@@ -211,7 +228,9 @@ var DrGlearning = {
 			Workflow.toActivity = true;
 			Workflow.toLinguistic = true;
         });
-        //Setting up buttons
+
+        //Setting up buttons handlers
+
         $(document).on('click', '#accesscareer',function(e) {
 			DrGlearning.setCareerId($(this));
             $.mobile.changePage("#career");
@@ -305,46 +324,6 @@ var DrGlearning = {
             return false;
         });
 
-        //Prototipo de acceso a la actividad ClickImage
-
-        $(document).on('click', '#accessClickImage',function(e) {
-			ClickImage.setup();
-        });
-
-        $(document).on('click', '#accessactivity',function(e) {
-            DrGlearning.setActivityId($(this));
-            if(DrGlearning.activityType === "quiz")
-            {
-                $.mobile.changePage("#quiz");
-				Quiz.refresh();
-            }
-            if(DrGlearning.activityType === "temporal")
-            {
-                $.mobile.changePage("#temporal");
-				Temporal.refresh();
-            }
-            if(DrGlearning.activityType === "visual")
-            {
-                $.mobile.changePage("#visual");
-				Visual.refresh();
-            }
-            if(DrGlearning.activityType === "linguistic")
-            {
-                $.mobile.changePage("#linguistic");
-	            Linguistic.refresh();
-            }
-            if(DrGlearning.activityType === "geospatial")
-            {
-                $.mobile.changePage("#geospatial");
-				Geospatial.refresh();
-            }
-	        if(DrGlearning.activityType === "relational")
-            {
-                $.mobile.changePage("#relational");
-				Relational.refresh();
-            }
-            return false;
-        });
         $('#syncOK').on('click', function() {
             if($("#inputSync").val()=="")
             {
@@ -499,6 +478,47 @@ var DrGlearning = {
 
 
         });
+
+        $(document).on('click', '#accessactivity',function(e) {
+            DrGlearning.setActivityId($(this));
+            if(DrGlearning.activityType === "quiz")
+            {
+                $.mobile.changePage("#quiz");
+				Quiz.refresh();
+            }
+            if(DrGlearning.activityType === "temporal")
+            {
+                $.mobile.changePage("#temporal");
+				Temporal.refresh();
+            }
+            if(DrGlearning.activityType === "visual")
+            {
+                $.mobile.changePage("#visual");
+				Visual.refresh();
+            }
+            if(DrGlearning.activityType === "linguistic")
+            {
+                $.mobile.changePage("#linguistic");
+	            Linguistic.refresh();
+            }
+            if(DrGlearning.activityType === "geospatial")
+            {
+                $.mobile.changePage("#geospatial");
+				Geospatial.refresh();
+            }
+	        if(DrGlearning.activityType === "relational")
+            {
+                $.mobile.changePage("#relational");
+				Relational.refresh();
+            }
+            return false;
+        });
+
+        //Access Prototype for new activty ClickImage
+
+        $(document).on('click', '#accessClickImage',function(e) {
+			ClickImage.setup();
+        });
         //Initializing levelsStore
         Dao.initLevels();
 
@@ -512,6 +532,8 @@ var DrGlearning = {
         Linguistic.setup();
         Geospatial.setup();
         Relational.setup();
+
+        //If Dr Glearning is in embebed mode start communication with conteiner web
 		if(DrGlearning.embed)
 		{
 			if(!DrGlearning.embedImport)
@@ -535,6 +557,8 @@ var DrGlearning = {
 			}
 		}
     },
+
+    //Method to refresh Main View
     refreshMain: function(){
         $(window).scroll(function(){
         });
@@ -568,7 +592,9 @@ var DrGlearning = {
 		      }
 		      $('#careerslist').listview("refresh");
 	      });
-	  },
+	},
+
+    //Method to refresh Add Careers View  
     refreshAddCareers: function(){
 	    //Setting up knowledges field select
         console.log($("#select-knowledges").val());
@@ -580,6 +606,7 @@ var DrGlearning = {
         $( "#searchcourses" ).bind( "change", function(event, ui) {
            Loading.careersRequest($(this).val(),$("#select-knowledges").val());
         });
+        //Detecting if we have reached the end of Courses to add list, if we have, we ask for more pages of courses to the server
         $(window).scroll(function(){
           if  ($(window).scrollTop() == $(document).height() - $(window).height() && $.mobile.activePage.attr("id") == "addCourses"){
 		          Loading.careersRequest($("#searchcourses").val(),$("#select-knowledges").val());
@@ -624,10 +651,12 @@ var DrGlearning = {
 		      }
 		      $('#addcareerslist').listview("refresh");
 	      });
-	  },
+	},
+    //Method to setting careerId variable equal to the current course clicked
     setCareerId: function(element){
         DrGlearning.careerId = element.attr("data-href");
     },
+    //Method to refresh Career View
     refreshCareer: function(){
 		Dao.careersStore.get(DrGlearning.careerId,function(career){
 			$('#careerTitle').html(career.value.name);
@@ -676,10 +705,12 @@ var DrGlearning = {
 		            $('#levelslist').listview("refresh");
 	          });
 	      });
-	  },
+	},
+    //Method to setting levelId variable equal to the current level clicked
     setLevelId: function(element){
         DrGlearning.levelId = element.attr("data-level");
     },
+    //Method to refresh Level View
     refreshLevel: function(){
 		Dao.careersStore.get(DrGlearning.careerId,function (career){
 			if(career.value.career_type == "exam")
@@ -762,7 +793,8 @@ var DrGlearning = {
 		            $('#activitieslist').listview("refresh");
 	          });
 	      });
-	  },
+    },
+    //Method to setting activitylId variable equal to the current activity clicked
     setActivityId: function(element){
         DrGlearning.activityId = element.attr("data-activity");
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){
