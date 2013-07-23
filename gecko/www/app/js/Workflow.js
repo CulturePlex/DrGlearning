@@ -1,6 +1,9 @@
+//Workflow Controller
 var Workflow = {
+    //Variables to keep the current and previous levels in order to know which message and actions reach when successing an activity 
 	prevLevelString:null,
 	currentLevelString:null,
+    //Variables to know which view to show after click de OK button in workflow dialog
 	toCareer:false,
 	toLevel:false,
 	toMain:false,
@@ -8,11 +11,11 @@ var Workflow = {
 	toActivity:false,
 	toStarting:false,
     toDialogPrivate:false,
+    //Variable to know if we are just showing a message because we are starting the app
     starting:false,
+    //Variable to know if we are showing the dialog because we are uninstalling a course
 	uninstalling:false,
-	/*
-	 * Updating and Showing next activity when you success one.
-	 */
+	//Method Updating and Showing next activity when you success one.
 	nextActivity: function (prevLevel) {
 		var currentLevel = Workflow.getCurrenLevel(DrGlearning.careerId,prevLevel);
 		Dao.levelsStore.get(DrGlearning.levelId,function(level){
@@ -31,12 +34,14 @@ var Workflow = {
 		    Workflow.updateActivity(currentActivity);
 		}
 		else {
+            //If current level is equal to previous level , user has success all levels!
 		    if (parseInt(currentLevel, 10) === parseInt(prevLevel, 10)) {
    				$('#dialogText').html("You have completed the "+prevLevel+" level! It was the last level, you have finished this course!");
 				Workflow.toMain = true;
 			    $.mobile.changePage("#dialog");
 		    }
 		    else {
+                //If current level is equal to previous level , user has success this level!
 		        if (currentLevel !== -1) {
    					$('#dialogText').html("You have completed the %s level! The next one is %s");
 					Workflow.toCareer = true;
@@ -51,6 +56,7 @@ var Workflow = {
 		}
 
 	},
+    //Method to know which is the current level in a course
     getCurrenLevel: function (careerId, level) {
         var levels;
 		Dao.careersStore.get(careerId, function(career){
@@ -71,6 +77,7 @@ var Workflow = {
         }
         return -1;
     },
+    //Method to know which is the current activity given a course and a level
     getCurrenActivity: function (carrerID, level) {
 		var activity = -1;
 		var temp = true;
@@ -80,9 +87,9 @@ var Workflow = {
 				temp = false; 
             }
         });
-//      return activities.items[0];
 		return activity;
     },
+    //Method to refresh activity view
 	updateActivity: function(newActivity){
         DrGlearning.activityId = newActivity.value.id;
             if(newActivity.value.activity_type === "quiz")
@@ -116,6 +123,7 @@ var Workflow = {
 				Relational.refresh();
             }
 	},
+    //Method to know if a level is completed given a course
 	levelIsCompleted: function(levelId,careerId)
 	{
 		var is=true;
@@ -129,6 +137,7 @@ var Workflow = {
 
 		return is;
 	},
+    //Method to get the icons html code for levels in main view, if the level is not successed system shows semi-transparent image
 	getLevelIcons: function(careerId)
 	{
 		var html="";
