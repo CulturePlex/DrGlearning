@@ -1,5 +1,8 @@
+//Loading controller
 var Loading = {
+            //Variable to keep if we are retrieving courses currently or not
             retrieving: null,
+            //Secure Hash Algorithm 1 to crypt some communications with server
             SHA1: function (msg) {
              
                 function rotate_left(n, s) {
@@ -167,6 +170,7 @@ var Loading = {
                 return temp.toLowerCase();
              
             },
+            //Method to request courses from server given a search string and/or knowledge field or course id
             careersRequest: function (searchString, knowledgeValue,id) {
 				var localSearchString;
 				Dao.userStore.get('searchString',function(me)
@@ -301,6 +305,7 @@ var Loading = {
 			        });
                 }
             },
+            //Mehtod to request only one course, only the information, not the activities
 			requestACareer: function (id) {
 		   			$.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Loading Courses...')+'</p>' });
                     var HOST = GlobalSettings.getServerURL();
@@ -349,6 +354,7 @@ var Loading = {
 			            }
 			        });
             },
+            //Method to get the activities from a career requested previously 
             getCareer: function(id) {
 				var params = {
                     deviceWidth: (window.screen.width !== undefined) ? window.screen.width : 200,
@@ -501,6 +507,7 @@ var Loading = {
                   
                 });
             },
+            //Method to create a new user and send the propper information to server
             createUser: function(uniqueid) {
                 jQuery.ajax({
                     url: GlobalSettings.getServerURL() + "/api/v1/player/?format=json" ,
