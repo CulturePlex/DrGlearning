@@ -1,8 +1,13 @@
+//User Settings Controller
 var UserSettings = {
+    //Array Variable to save the careers necessary to preinstall in user import process
 	careersToPreinstall:[],
+    //Index when preinstalling courses
 	preinstallingIndex: 0,
 	importedScores: null,
+    //Temp variable to keep the course model in ebebed mode
 	careerTemp: null,
+    //Method to save seting in user setting view, if something has changed, save it!
     saveSettings : function () {
 		var uniqueid;
 		Dao.userStore.get('uniqueid',function(me)
@@ -60,6 +65,7 @@ var UserSettings = {
             this.updateUserSettings();
         }
     },
+    //Method to set the user setting in settings view with the information kept in user store
     updateUserSettings: function () {
 		var uniqueid;
 		Dao.userStore.get('uniqueid',function(me)
@@ -102,9 +108,12 @@ var UserSettings = {
             }
         });
     },
+    //Method to import an user to the system
 	importUser : function (player_code) {
+        //Showing panel information
         $.blockUI({ message: '<img src="resources/images/ic_launcher.png" /><p>'+i18n.gettext('Importing user data...')+'</p>' });
 		var uniqueid;
+        //Checking if player_code is passed to import in embebed mode or the system should get it from the input
 		if(typeof player_code != "object")
 		{
 			uniqueid = player_code;
@@ -113,10 +122,8 @@ var UserSettings = {
 		{
 			uniqueid = $("#inputSync").val();
 		}
-		console.log(typeof player_code);
-		console.log($("#inputSync").val());
-		console.log(uniqueid);
         var HOST = GlobalSettings.getServerURL();
+        //Getting user information from server in order to be imported to the system
         $.ajax({
             url: HOST + '/api/v1/player/?format=jsonp',
             data: {
@@ -125,9 +132,9 @@ var UserSettings = {
             },
 			dataType:"jsonp",
             success: function (response, opts) {
-                console.log(response);
                 if (response.token == null)
                 {
+                    //Error
                     $('#dialogText').html(i18n.gettext("Unable to import. You Typed an incorrect code!"));
                     Workflow.toStarting = false;
 		       
@@ -137,6 +144,7 @@ var UserSettings = {
                 }
                 else
                 {
+                    //User code correct! Deleting all previous information about user in the system
 					Dao.careersStore.nuke();
 					Dao.activitiesStore.nuke();
 					Dao.userStore.save({key:'imported',value:true});
@@ -164,6 +172,8 @@ var UserSettings = {
             }
        });
     },
+
+    //Method created to manage user data received when importing 
 	userDataReceived: function (response, opts) {
 		Dao.userStore.save({key:'id',value:response.id});
 		Dao.userStore.save({key:'uniqueid',value:response.code});
@@ -181,13 +191,14 @@ var UserSettings = {
         $("#username").val(response.display_name);
         $("#email").val(response.email);
     },
+
+    //Method created to collect the courses asociated with the user who is being imported
  	collectCareers: function (response, objects) {
 		console.log(response);
         this.careersToPreinstall = response.options.careers;
 		console.log(this.careersToPreinstall);
         this.preinstallingIndex = 0;
 		console.log(response.objects);
-//      UserSettings.importedScores = response.objects;
 		if(this.careersToPreinstall)
 		{	
 			if(!DrGlearning.embedImport)
@@ -230,6 +241,7 @@ var UserSettings = {
 			}
 		}
     },
+    //Deprecated method
 	collectCareersFromScores: function (response, objects) {
         UserSettings.careersToPreinstall = [];
         for (var x in response.objects) {
@@ -239,9 +251,9 @@ var UserSettings = {
             }
         }
         UserSettings.preinstallingIndex = 0;
-        //UserSettings.importedScores = response.objects;
         UserSettings.preinstall();
     },
+    //Method to preinstall a course when importing, getting only the information, not the activities
 	preinstall: function () {
       //Downloading career Data:
         if (parseInt(UserSettings.preinstallingIndex, 10) < parseInt(UserSettings.careersToPreinstall.length, 10))
@@ -306,7 +318,6 @@ var UserSettings = {
 			if(DrGlearning.embedImport)
 			{
 				Loading.requestACareer(parseInt(DrGlearning.careerToEmbed,10));
-				console.log(UserSettings.importedScores);
 				
 			}
 			else
