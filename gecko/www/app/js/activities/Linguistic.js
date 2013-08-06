@@ -1,14 +1,25 @@
+//Linguistic Activity Controller
 var Linguistic = {
+    //Var to keep the activity model
     activity: null,
+    //Var to keep score
     score: null,
+    //Var to keep the last letter asked for the user 
     letterAsked: null,
+    //Boolean array var to keep the letter that stay hide 
     squaresBlack: null,
+    //Var to keep the lqued text to be guessed by the user 
     loquedText: null,
     louedTextfinded: null,
+    //Var to keep source of the image
     imageSrc: null,
+    //Var to keep Width of the image
     imageWidth: null,
+    //Var to keep Height of the image
     imageHeight: null,
+    //Flag to know if the user has watched the activity info (it shows autmatically first time)
 	helpViewed: false,
+    //Method to setup linguistic activity (set up button handlers)
     setup: function(){
         $(document).on('click', '#tryLinguistic',function(e) {
           Linguistic.tryIt();
@@ -18,6 +29,7 @@ var Linguistic = {
           Linguistic.solve();
         });
 	  },
+    //Method to refresh linguistic activity (load image)
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Linguistic.activity = activity;
@@ -33,6 +45,7 @@ var Linguistic = {
             bgImage.src = GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc ;
         });
     },
+    //Method to refresh geospatial activity once the image is loaded
     refresh2: function(){
         $('#linguisticActivityQuery').html(Linguistic.activity.value.query);
         $('#linguisticActivityName').html(Linguistic.activity.value.name);
@@ -72,6 +85,7 @@ var Linguistic = {
 			Linguistic.helpViewed = true;
 		}
 	  },
+    //Method to get the table html which hide the image
     getTable: function ()
     {
         var table = '<table BORDER-COLOR="BLACK"style="border-collapse: collapse;border-spacing: 0;border-width: 0px 0px 0px 0px;border: 0px none; background-repeat:no-repeat;background-position:center center;" WIDTH="100%" HEIGHT='+Linguistic.imageHeight+' BACKGROUND="' + GlobalSettings.getServerURL()+"/media/"+Linguistic.imageSrc + '"><tr>';
@@ -98,6 +112,7 @@ var Linguistic = {
         table = table + '</tr></table>';
         return table;
     },
+    //Method for the user to ask for a letter
     tryIt: function ()
     {
         var letter = $("#inputLinguistic").val();
@@ -169,6 +184,7 @@ var Linguistic = {
            $.mobile.changePage("#dialog");
        }
     },
+    //Method t mark a letter asked as valid
     goodLetter: function ()
     {
         var cont;
@@ -204,6 +220,7 @@ var Linguistic = {
         $('#linguisticImage').empty();
         $('#linguisticImage').append(table);
     },
+    //Method to enter the locked text directly
     solve: function ()
     {
       $.mobile.changePage("#dialogLinguistic");
