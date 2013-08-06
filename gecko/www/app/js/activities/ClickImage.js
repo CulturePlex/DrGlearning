@@ -1,12 +1,20 @@
+//Click Image Activity Controller
 var ClickImage = {
+    //Var to keep the activity model
     activity: null,
+    //Var to keep the jquery.iviewer object
     viewer: null,
+    //Var to keep the goal points of the activity
     goal_points: [{x:596, y:245, r: 3000}, {x: 302, y: 27, r: 3000}, {x: 465, y: 537, r: 3000}],
+    //Var to keep the pointers placed by the user
     pointers: [],
+    //Var to keep the coordenates of pointers placed by the user
     coords: [],
-    timer: null,
+    //Var to know if mouse is dragging or not
     is_dragging: null,
+    //Var to keep score
     score: null,
+    //Method to setup click image activity (set up button handlers)
     setup: function(){
         $(document).on('click', '#confirmClickImage',function(e) {
           ClickImage.confirm();
@@ -18,6 +26,7 @@ var ClickImage = {
             zoom_base:100,
             ui_disabled:true,
             zoom_animation:false,
+            //Seting up event handler for iviewer object
             onClick: function(ev, coords) {
                console.log(ClickImage.is_dragging);
                if (!ClickImage.is_dragging)
@@ -40,6 +49,7 @@ var ClickImage = {
                 console.log("stop Drag");
             }
         });
+        //Seting up event handler for control buttons
         $("#in").click(function(){ ClickImage.viewer.iviewer('zoom_by', 1); }); 
         $("#out").click(function(){ ClickImage.viewer.iviewer('zoom_by', -1); }); 
         $("#fit").click(function(){ ClickImage.viewer.iviewer('fit'); }); 
@@ -47,15 +57,16 @@ var ClickImage = {
            ClickImage.viewer.iviewer('update');
         });
     },
+    //Method to refresh click image activity 
     refresh: function(){
     
     },
+    //Method to set a marker hen user click on the image
     setMarker: function(coords){
         ClickImage.coords.push(coords);
         ClickImage.pointers.push($("<div id='pointer'></div>"));
         $('.wrapper').append(ClickImage.pointers[ClickImage.pointers.length - 1]);
 
-        console.log(coords);
         var offset = ClickImage.viewer.iviewer('imageToContainer', coords.x, coords.y);
         var containerOffset = ClickImage.viewer.iviewer('getContainerOffset');
         
@@ -68,10 +79,10 @@ var ClickImage = {
         ClickImage.pointers[ClickImage.pointers.length - 1].on("click",
                 function()
                 {
-                    //console.log(ClickImage.pointers);
                     $(this).remove();
                 });
     },
+    //Method to replace marker positions when dragging image
     replaceMarkers: function(){
         for (var i=0; i<ClickImage.pointers.length;i++)
         {
@@ -83,10 +94,6 @@ var ClickImage = {
             var oTarget = document.getElementById('clickImageImage');
             var tTop = parseInt(ClickImage.pointers[i].css("top"),10);
             var tLeft = parseInt(ClickImage.pointers[i].css("left"),10);
-            console.log(sWidth);
-            console.log(QueryHeight);
-            console.log(tTop);
-            console.log(tLeft);
             if(tTop < 65 + QueryHeight)
             {
                 ClickImage.pointers[i].hide();
@@ -105,9 +112,8 @@ var ClickImage = {
             }
         }
     },
+    //Method to replace a marker position when dragging image
     replaceMarker: function(marker,coords){
-        console.log(marker);
-        console.log(coords);
         var offset = ClickImage.viewer.iviewer('imageToContainer', coords.x, coords.y);
         var containerOffset = ClickImage.viewer.iviewer('getContainerOffset');
         
@@ -117,6 +123,7 @@ var ClickImage = {
         marker.css('left', (offset.x - 9)+'px');
         marker.css('top', (offset.y - 22)+'px');
     },
+    //Method to confirm markers positions
     confirm: function ()
     {
         ClickImage.score = 0;
