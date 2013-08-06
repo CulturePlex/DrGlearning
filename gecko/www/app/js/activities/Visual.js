@@ -1,10 +1,18 @@
+//Visual Activity Controller
 var Visual = {
+    //Var to keep the activity model
     activity: null,
+    //Var to save time for the user to finish
     time: null,
+    //Interval variable
     secondtemp: null,
+    //Score variable
     score: null,
+    //Flag to know if the clock is paused (when user click in info button) 
     isStoped: false,
+    //Flag to know if the user has watched the activity info (it shows autmatically first time)
     helpViewed: false,
+    //Method to setup visual activity (set up button handlers)
     setup: function(){
         $(document).on('click', '#visualSelectAnswer',function(e) {
           Visual.checkAnswer($(this).attr("data-answer"));
@@ -19,7 +27,8 @@ var Visual = {
           }
         });
       },
-    refresh: function(){
+     //Method to refresh visual activity (load activity model)
+     refresh: function(){
         $('#visualAnswersList').empty();
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){
             Visual.activity = activity;
@@ -66,8 +75,9 @@ var Visual = {
 
           });
       },
-    showSeconds: function ()
-    {
+     //Method to refresh seconds
+     showSeconds: function ()
+     {
 
 //        if (Visual.isStopped === false && Visual.loading === false)
 //        {
@@ -84,6 +94,7 @@ var Visual = {
             }
 //        }
     },
+    //Method to skip time
     skip: function ()
     {
         clearInterval(Visual.secondtemp);
@@ -94,6 +105,7 @@ var Visual = {
             Visual.score = 100;
         }
     },
+    //Method to show possible answers
     showAnswers: function ()
     {
         $('#visualAnswersList').show();
@@ -101,8 +113,9 @@ var Visual = {
         $('#skipButtonVisual').hide();
         $('#timeVisual').hide();
 
-    },
-	  checkAnswer: function(answer){
+    },    
+    //Method to check if selected answer is the correct ne
+    checkAnswer: function(answer){
 		if (Visual.score < 50)
 		{
 		    Visual.score = 50;
