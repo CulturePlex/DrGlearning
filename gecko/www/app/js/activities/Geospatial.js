@@ -1,22 +1,34 @@
+//Geospatial Activity Controller
 var Geospatial = {
+    //Var to keep the activity model
     activity: null,
+    //Var to keep score
     score: null,
+    //Var to keep the gMap object
     map: null,
+    //Var to keep the marker placed by the user
     marker: null,
+    //Var to keep the target point that user should marker placed by the user
     target: null,
+    //Var to keep the max radius allowed to success the activity
     radius: null,
+    //Var to keep the activity model
     activity: null,
     zoomFlag: false,
     mouseFlag: false,
+    //Flag to know if the user has watched the activity info (it shows autmatically first time)
 	helpViewed: false,
+    //Method to setup geospatial activity (set up button handlers)
     setup: function(){
         $(document).on('click', '#confirmGeospatial',function(e) {
           Geospatial.confirm();
         });
 	  },
+    //Method to refresh geospatial activity (load map)
 	refresh: function(){
 		google.load("maps", "3", {other_params:'format=json&sensor=false&streetViewControl=false', callback: Geospatial.refresh2});
 	},
+    //Method to refresh geospatial activity once the map is loaded
 	refresh2: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             Geospatial.activity = activity;
@@ -37,6 +49,7 @@ var Geospatial = {
             });
 	      })
 	},
+    //Method to start geospatial activity once the activity model is loaded
     start: function ()
     {
         Geospatial.map = $('#map_canvas').gMap();
@@ -144,6 +157,7 @@ var Geospatial = {
             Geospatial.mouseFlag = true;
         });
     },
+    //Method to confirm marker position
     confirm: function ()
     {
         Geospatial.score = 0;
