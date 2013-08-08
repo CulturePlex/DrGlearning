@@ -1,6 +1,10 @@
+//Temporal Activity Controller
 var Temporal = {
+    //Var to keep the activity model
     activity: null,
+    //Flag to know if the user has watched the activity info (it shows autmatically first time)
 	helpViewed: false,
+    //Method to setup temporal activity (set up button handlers)
     setup: function(){
         $(document).on('click', '#before',function(e) {
           Temporal.checkBefore(e);
@@ -10,6 +14,7 @@ var Temporal = {
         });
 		
 	  },
+    //Method to refresh temporal activity (load question and answers)
     refresh: function(){
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
             if(activity.value.image_url)
@@ -33,6 +38,7 @@ var Temporal = {
 			Temporal.helpViewed = true;
 		}
 	  },
+    //Method invoked when user click on after button
 	checkAfter: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
             $('#dialogText').html(Temporal.activity.value.reward+"<br /><br />"+i18n.gettext('Score')+": 100");
@@ -45,6 +51,7 @@ var Temporal = {
 			Workflow.toLevel = true;
         }
 	  },
+    //Method invoked when user click on before button
 	checkBefore: function(e){
         if (Temporal.activity.value.image_datetime > Temporal.activity.value.query_datetime) {
   	        $('#dialogText').html(Temporal.activity.value.penalty);
