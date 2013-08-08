@@ -114,7 +114,7 @@ var Visual = {
         $('#timeVisual').hide();
 
     },    
-    //Method to check if selected answer is the correct ne
+    //Method to check if selected answer is the correct one
     checkAnswer: function(answer){
 		if (Visual.score < 50)
 		{
