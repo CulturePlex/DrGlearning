@@ -1,3 +1,4 @@
+#Export and Immport User Python Test Case
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -9,13 +10,14 @@ from selenium.webdriver.support import expected_conditions as EC # available sin
 
 
 class ExportImportUser(unittest.TestCase):
+    #Setting up Test Suite (Selecting PhantomJS as driver, setting up base_url and implicit waits)
     def setUp(self):
         self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(30)
         self.base_url = "http://localhost:8000/"
         self.verificationErrors = []
         self.accept_next_alert = True
-    
+    #Export and Immport User Test Case
     def test_export_import_user(self):
         driver = self.driver
         driver.get("http://localhost:8000/")

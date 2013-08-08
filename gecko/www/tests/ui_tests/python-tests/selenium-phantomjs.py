@@ -1,9 +1,13 @@
+#Main Python File to launch UI Tests with phantomJS
+#Before start testing we should run Dr Glearning App in http://localhost:8000 
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from unittest import TestLoader, TextTestRunner, TestSuite
 import time
 import unittest
+
+#Importing test cases
 from change_settings import ChangeSettings
 from exportImportUser import ExportImportUser
 from search_and_install_course import SearchAndInstallCourse
@@ -17,7 +21,10 @@ from linguistic_activity import LinguisticActivity
 from relational_activity import RelationalActivity
 from uninstall_course import UninstallCourse
 
+#Instantiating Testloader
 loader = TestLoader()
+
+#Instantiating TestSuite and adding every test case
 suite = TestSuite((
     loader.loadTestsFromTestCase(ChangeSettings),
     loader.loadTestsFromTestCase(ExportImportUser),
@@ -33,5 +40,8 @@ suite = TestSuite((
     loader.loadTestsFromTestCase(UninstallCourse),
 ))
 
+#Instantiating TextTestRunner 
 runner = TextTestRunner(verbosity = 2)
+
+#Running suite
 runner.run(suite)

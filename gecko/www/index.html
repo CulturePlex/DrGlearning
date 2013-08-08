@@ -25,6 +25,7 @@
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.iviewer.js"></script>
         <script type="text/javascript" charset="utf-8" src="resources/js/jquery.mobile-1.2.0.js"></script>
         <script>
+        //If we are in testing mode (UI_Tests), then avoid the JQuery transitions
         if(window.localStorage.getItem("testing"))
         {
             $(document).bind("pageinit", function(){
