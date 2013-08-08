@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-from selenium import webdriver
+
+#Linguistic Activity Python Test Case
 import os, sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,6 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC # available sin
 from selenium.webdriver.common.keys import Keys
 
 class LinguisticActivity(unittest.TestCase):
+    #Setting up Test Suite (Selecting PhantomJS as driver, setting up base_url and implicit waits)
     def setUp(self):
         self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(1)
@@ -19,14 +22,18 @@ class LinguisticActivity(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
+    #Linguistic Activity Test Case
     def test_linguistic_activity(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
+        #Accessing Linguistic Activity
         driver.find_element_by_xpath("(//a[@id='accesscareer']/h1)[1]").click()
         driver.find_element_by_xpath("(//a[@id='accesslevel']/h1)[2]").click()
         driver.find_element_by_xpath("(//a[@id='accessactivity']/h1)[2]").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
+        #Clearing text input 
         driver.find_element_by_id("inputLinguistic").clear()
+        #Asking for letters 
         driver.find_element_by_id("inputLinguistic").send_keys("t")
         driver.find_element_by_css_selector("#tryLinguistic > span.ui-btn-inner.ui-btn-corner-all").click()
         driver.find_element_by_id("inputLinguistic").click()
@@ -51,6 +58,7 @@ class LinguisticActivity(unittest.TestCase):
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
         driver.find_element_by_link_text("College ✓").click()
+        #Checking that activity is marked as success
         try: self.is_element_present(By.LINK_TEXT, "The Shawnee indians fought alongside the British, who was their leader?✓ Your best score: 88")
         except AssertionError as e: self.verificationErrors.append(str(e))
             

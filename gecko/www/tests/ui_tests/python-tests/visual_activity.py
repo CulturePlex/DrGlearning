@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-from selenium import webdriver
+
+#Temporal Visual Python Test Case
 import os, sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,6 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC # available sin
 from selenium.webdriver.common.keys import Keys
 
 class VisualActivity(unittest.TestCase):
+    #Setting up Test Suite (Selecting PhantomJS as driver, setting up base_url and implicit waits)
     def setUp(self):
         self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(1)
@@ -19,20 +22,25 @@ class VisualActivity(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
+    #Visual Activity Test Case
     def test_visual_activity(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
+        #Accessing Visual Activity
         driver.find_element_by_css_selector("h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#accesslevel > h1.ui-li-heading").click()
         driver.find_element_by_xpath("(//a[@id='accessactivity']/h1)[3]").click()
         time.sleep(1)
         element = WebDriverWait(driver, 30).until((EC.element_to_be_clickable((By.ID, "dialogOK"))))
         driver.find_element_by_id("dialogOK").click()
+        #Skipping time
         driver.find_element_by_id("skipButtonVisual").click()
+        #Selecting correct answer
         driver.find_element_by_xpath("(//a[@id='visualSelectAnswer']/h1)[3]").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_id("dialogOK").click()
         driver.find_element_by_css_selector("#accesslevel > h1.ui-li-heading").click()
+        #Checking that activity is marked as success
         try: self.is_element_present(By.LINK_TEXT, "Works of art✓ Your best score: 100")
         except AssertionError as e: self.verificationErrors.append(str(e))
     

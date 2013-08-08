@@ -1,4 +1,4 @@
-#Export and Immport User Python Test Case
+#Export and Import User Python Test Case
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -17,7 +17,7 @@ class ExportImportUser(unittest.TestCase):
         self.base_url = "http://localhost:8000/"
         self.verificationErrors = []
         self.accept_next_alert = True
-    #Export and Immport User Test Case
+    #Export and Import User Test Case
     def test_export_import_user(self):
         driver = self.driver
         driver.get("http://localhost:8000/")

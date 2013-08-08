@@ -28,6 +28,7 @@ class ChangeSettings(unittest.TestCase):
         #Opening web to test
         driver.get("http://localhost:8000/")
         driver.implicitly_wait(1)
+        #Start importing test user
         driver.find_element_by_css_selector("#startingImportUser > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_id("inputSyncStarting").clear()
         driver.find_element_by_id("inputSyncStarting").send_keys("e6008ba1775822a69687ee783a0b1b6fda94564d")

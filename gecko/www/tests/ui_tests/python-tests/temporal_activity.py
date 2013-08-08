@@ -1,5 +1,7 @@
 #!/usr/local/bin/python
 # -*- coding: utf-8 -*-from selenium import webdriver
+
+#Temporal Activity Python Test Case
 import os, sys
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -12,6 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC # available sin
 from selenium.webdriver.common.keys import Keys
 
 class TemporalActivity(unittest.TestCase):
+    #Setting up Test Suite (Selecting PhantomJS as driver, setting up base_url and implicit waits)
     def setUp(self):
         self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(1)
@@ -19,17 +22,21 @@ class TemporalActivity(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
+    #Temporal Activity Test Case
     def test_temporal_activity(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
+        #Accessing Temporal Activity
         driver.find_element_by_xpath("(//a[@id='accesscareer']/h1)[1]").click()
         driver.find_element_by_xpath("(//a[@id='accesslevel']/h1)[2]").click()
         driver.find_element_by_css_selector("#accessactivity > h1.ui-li-heading").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
+        #Selecting After option
         driver.find_element_by_css_selector("#after > span.ui-btn-inner.ui-btn-corner-all").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all").click()
         driver.find_element_by_css_selector("#dialogOK > span.ui-btn-inner.ui-btn-corner-all > span.ui-btn-text").click()
         driver.find_element_by_xpath("(//a[@id='accesslevel']/h1)[2]").click()
+        #Checking that activity is marked as success
         try: self.is_element_present(By.LINK_TEXT, "The Battle of New Orleans, which brought great pride to the Americans was fought before or after the Ghent Treaty was signed?✓ Your best score: 100")
         except AssertionError as e: self.verificationErrors.append(str(e))
             

@@ -1,3 +1,5 @@
+#Uninstall Course Python Test Case
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
@@ -5,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 import unittest, time, re
 
 class UninstallCourse(unittest.TestCase):
+    #Setting up Test Suite (Selecting PhantomJS as driver, setting up base_url and implicit waits)
     def setUp(self):
         self.driver = webdriver.PhantomJS()
         self.driver.implicitly_wait(1)
@@ -12,6 +15,7 @@ class UninstallCourse(unittest.TestCase):
         self.verificationErrors = []
         self.accept_next_alert = True
     
+    #Uninstall Course Test Case
     def test_uninstall_course(self):
         driver = self.driver
         driver.get("http://localhost:8000/")
