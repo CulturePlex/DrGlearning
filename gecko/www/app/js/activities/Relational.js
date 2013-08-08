@@ -1,25 +1,48 @@
+//Relational Activity Controller
 var Relational = {
+    //Var to keep the activity model
     activity: null,
+    //Var to keep score
     score: null,
+    //Var to keep Graph Nodes
     graphNodes: null,
+    //Var to keep Graph Edges
 	graphEdges: null,
+    //Var to keep Constraints
 	constraints: null,
+    //Var to keep the max length of the path
 	path_limit: null,
+    //Var to keep the starting node
 	pathStart: null,
+    //Var to keep the final node
 	pathGoal: null,
+    //Var to keep the current node
 	pathPosition: null,
+    //Var to keep the current node
 	option: null,
+    //Var to keep the text that is shown in selectfield before choose any option
 	blankOption: null, 
+    //Var to keep the text that is shown in selectfield before choose any option
 	playerPath: null,
+    //Var to keep previous steps in order to allow the undo action
 	undoNodes: [],
+    //Var to keep the edges used
 	playerEdgePath: null,
+    //Boolean var to keep if all constraints were passed or not
 	allConstraintsPassed: null,
+    //Array Var to keep constraints texts
 	constraintsTextNew: [],
+    //Array Var to keep if each contraint is passed or not (in text mode)
 	constraintState: [],
+    //Array Var to keep if each contraint is passed or not
 	constraintBoolean: [],
+    //Var to keep the sigma object
 	sigInst:null,
+    //Var to keep a timer to activate sigma
 	temp: null,
+    //Flag to know if the user has watched the activity info (it shows autmatically first time)
 	helpViewed: false,
+    //Method to setup reltional activity (set up button handlers)
     setup: function(){
         $(document).on('click', '#undoRelational',function(e) {
           Relational.stepBack();
@@ -37,6 +60,7 @@ var Relational = {
 		$("#nodesWalked").hide();
 		$("#finalNode").hide();
     },
+    //Method to refresh relational activity (load activity model)
     refresh: function(){
 		
         Dao.activitiesStore.get(DrGlearning.activityId,function(activity){ 
@@ -62,6 +86,7 @@ var Relational = {
 			Relational.helpViewed = true;
 		}
 	  },
+    //Method to start relational activity (once activity model is loaded)
 	start: function () 
 	{
         //Set the initial step as the initial node and the goal
@@ -96,6 +121,7 @@ var Relational = {
 	
 		
 	},
+    //Method to take an step (choosing an option)
 	takeStep: function (step)
     {
         Relational.pathPosition = step;
@@ -120,6 +146,7 @@ var Relational = {
         }
 		
     },
+    //Method to create selectfield with new options
     createSelectFromNode: function (nodeName)
     {
         var edge;
@@ -205,6 +232,7 @@ var Relational = {
 		}
 		$("#select-relational").selectmenu('refresh');
     },
+    //Method to refresh relational activity after choose an option
 	refreshRel: function (option)
     {
         $('#nodesWalked').empty();
@@ -243,6 +271,7 @@ var Relational = {
 		Relational.temp = setTimeout(Relational.refreshSigma,200);
 
     },
+    //Method to refresh sigma visualization
 	refreshSigma: function ()
 	{
 		//Sigma
@@ -339,10 +368,12 @@ var Relational = {
 		//FIN Sigma
 
 	},
+    //Method to get html code to show current path
 	getNodeHTML: function (nodeName)
 	{
 		return '<p class="relational">' + nodeName + ' (' + Relational.graphNodes[nodeName].type + ')' + '</p>';
 	},
+    //Method to refresh Constraints state
 	refreshConstraints: function() {
 		//console.log(Relational);
 		var icon="plus";
@@ -375,7 +406,7 @@ var Relational = {
 		}
 		$('#relational').trigger('create');  
 	},
-
+    //Method to get html code to show constraints icons
 	getContraintsHTML: function()
     {
         var constraintClass;
@@ -475,6 +506,7 @@ var Relational = {
         
         
     },
+    //Method to check if every constraint is successfull
 	constraintPassed: function (constraint)
     {
         var counted = [];
@@ -505,6 +537,7 @@ var Relational = {
             return false;
         }
     },
+    //Method to take a step back
 	stepBack: function ()
     {
         var previousStep;
@@ -526,6 +559,7 @@ var Relational = {
         }
 		Relational.refreshConstraints();
     },
+    //Method invoked when activity is success
  	successfulGame: function ()
     {
         if (Relational.score > 100)
