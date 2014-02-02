@@ -7,7 +7,6 @@ from base.utils import dehydrate_fields
 
 class ActivityUpdateResource(ModelResource):
     activity = fields
-
     class Meta:
         queryset = Activity.objects.all()
         fields = ['timestamp']

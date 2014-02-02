@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from os import path
 
+API_LIMIT_PER_PAGE = 0
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ugettext = lambda s: s
@@ -129,6 +131,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'base.middleware.XsSharing',
     # 'activities.middleware.Base64ImageSizer',
+    #'corsheaders.middleware.CorsMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
