@@ -7,12 +7,33 @@ from tastypie import fields
 from tastypie.bundle import Bundle
 from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
-from tastypie.authentication import ApiKeyAuthentication
-
 from activities.api import ActivityUpdateResource
 from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
-
+from tastypie.exceptions import NotFound
+from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
+from tastypie.models import ApiKey
+ 
+class ApiTokenResource(ModelResource):
+    class Meta:
+        queryset = ApiKey.objects.all()
+        resource_name = "editor/token"
+        include_resource_uri = False
+        fields = ["key"]
+        list_allowed_methods = []
+        detail_allowed_methods = ["get"]
+        authentication = BasicAuthentication()
+ 
+    def obj_get(self, request=None, **kwargs):
+        if kwargs["pk"] != "auth":
+            raise NotImplementedError("Resource not found")
+ 
+        user = request.user
+        if not user.is_active:
+            raise NotFound("User not active")
+ 
+        api_key = ApiKey.objects.get(user=request.user)
+        return api_key
 
 class KnowledgeResource(ModelResource):
 
@@ -187,6 +208,7 @@ class EditorCareerResource(ModelResource):
         queryset = Career.objects.all()
         list_allowed_methods = ['get']
         detail_allowed_methods = ['get']
+        resource_name = "editor/career"
         # excludes = ["content_url"]
         # for i in xrange(1, 11):
         #     excludes.append("content_level%s_url" % i)
@@ -201,7 +223,7 @@ class EditorCareerResource(ModelResource):
                     'description_level8', 'content_level8_url',
                     'description_level9', 'content_level9_url',
                     'description_level10', 'content_level10_url')
-        authentication = ApiKeyAuthentication()
+        authentication = BasicAuthentication()
         max_limit = None
 
     def get_object_list(self, request):

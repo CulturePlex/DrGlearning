@@ -5,10 +5,9 @@ from django.contrib import admin
 
 from tastypie.api import Api
 
-from knowledges.api import KnowledgeResource, CareerResource, EmbedResource, EditorCareerResource
+from knowledges.api import KnowledgeResource, CareerResource, EmbedResource, EditorCareerResource, ApiTokenResource
 from activities.api import ActivityResource, ActivityUpdateResource
 from players.api import ScoreResource, PlayerResource
-# from django.contrib import admin
 # from admin import admin_site
 admin.autodiscover()
 
@@ -20,9 +19,8 @@ v1_api.register(ActivityResource())
 v1_api.register(ActivityUpdateResource())
 v1_api.register(PlayerResource())
 v1_api.register(ScoreResource())
-
-editor_api = Api(api_name='editor')
 v1_api.register(EditorCareerResource())
+v1_api.register(ApiTokenResource())
 
 urlpatterns = patterns('',
     url(r'^grappelli/', include('grappelli.urls')),
@@ -49,8 +47,6 @@ urlpatterns = patterns('',
 
     # api
     (r'^api/', include(v1_api.urls)),
-
-
 
     # admin_media
     url(r'^admin/', include(admin.site.urls)),

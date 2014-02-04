@@ -10,6 +10,9 @@ from django.utils.translation import gettext as _
 
 from userena.models import UserenaLanguageBaseProfile
 
+from tastypie.models import create_api_key
+
+models.signals.post_save.connect(create_api_key, sender=User)
 
 class Account(models.Model):
     name = models.CharField(_('name'), max_length=255)

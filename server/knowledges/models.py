@@ -8,7 +8,6 @@ from django.utils.translation import gettext as _
 
 from knowledges.templatetags.knowledges_extras import api_url
 
-
 class Knowledge(models.Model):
     name = models.CharField(_('name'), max_length=255)
 
