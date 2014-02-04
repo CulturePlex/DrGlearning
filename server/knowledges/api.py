@@ -13,14 +13,15 @@ from knowledges.models import Knowledge, Career
 from tastypie.exceptions import NotFound
 from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
 from tastypie.models import ApiKey
- 
+
+
 class ApiTokenResource(ModelResource):
     class Meta:
         queryset = ApiKey.objects.all()
         resource_name = "editor/token"
         include_resource_uri = False
         fields = ["key"]
-        list_allowed_methods = []
+        list_allowed_methods = ["get"]
         detail_allowed_methods = ["get"]
         authentication = BasicAuthentication()
  
