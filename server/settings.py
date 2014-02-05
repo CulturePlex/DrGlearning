@@ -144,6 +144,7 @@ CORS_ALLOW_METHODS = (
         'DELETE',
         'OPTIONS'
     )
+    
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (

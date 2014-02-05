@@ -12,6 +12,7 @@ from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
 from tastypie.exceptions import NotFound
 from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
+from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
 
 
@@ -207,8 +208,8 @@ class EditorCareerResource(ModelResource):
             "knowledges": ALL_WITH_RELATIONS,
         }
         queryset = Career.objects.all()
-        list_allowed_methods = ['get']
-        detail_allowed_methods = ['get']
+        list_allowed_methods = ['get','put']
+        detail_allowed_methods = ['get','put']
         resource_name = "editor/career"
         # excludes = ["content_url"]
         # for i in xrange(1, 11):
@@ -225,6 +226,7 @@ class EditorCareerResource(ModelResource):
                     'description_level9', 'content_level9_url',
                     'description_level10', 'content_level10_url')
         authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
         max_limit = None
 
     def get_object_list(self, request):
