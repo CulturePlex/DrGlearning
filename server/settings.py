@@ -18,16 +18,15 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.contrib.gis.db.backends.postgis',
-    'NAME': 'drglearning_palmagro',
-    'HOST': 'vms.cultureplex.ca',
-    'PORT': 5401,
-    'USER': 'db',
-    'PASSWORD': 'HBDbP4ss'
-  }
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.spatialite', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': path.join(PROJECT_ROOT, 'drglearning.sqlite'),          # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+    }
 }
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
