@@ -26,16 +26,17 @@ class ApiTokenResource(ModelResource):
         detail_allowed_methods = ["get"]
         authentication = BasicAuthentication()
  
-    def obj_get(self, request=None, **kwargs):
-        if kwargs["pk"] != "auth":
-            raise NotImplementedError("Resource not found")
- 
-        user = request.user
-        if not user.is_active:
-            raise NotFound("User not active")
- 
-        api_key = ApiKey.objects.get(user=request.user)
-        return api_key
+    def get_list(self, request, **kwargs):
+        #if kwargs["pk"] != "auth":
+        #    raise NotImplementedError("Resource not found")
+        print 'addddd'
+        obj = ApiKey.objects.get(user=request.user)
+        #import ipdb
+        #ipdb.set_trace()
+        bundle = self.build_bundle(obj=obj, request=request)
+        bundle = self.full_dehydrate(bundle)
+        bundle = self.alter_detail_data_to_serialize(request, bundle)
+        return self.create_response(request, bundle) 
 
 class KnowledgeResource(ModelResource):
 
@@ -146,19 +147,6 @@ class CareerResource(ModelResource):
         else:
             return Career.objects.filter(published=True)
 
-    def dispatch(self, request_type, request, **kwargs):
-        # required_fields = ('code', )
-        response = super(CareerResource, self).dispatch(request_type,
-                                                      request,
-                                                      **kwargs)
-        # Carrer protected by code
-        if ("pk" in kwargs and "code" in request.GET and
-                "callback" in request.GET):
-            career = Career.objects.get(pk=kwargs["pk"])
-            if sha1(career.code).hexdigest() != request.GET.get("code", ""):
-                return HttpResponse("Resource protected by code", status=401)
-        return response
-
     def dehydrate(self, bundle):
         # Career creator name
         bundle.data["creator"] = bundle.obj.user.get_full_name() or \
@@ -225,7 +213,7 @@ class EditorCareerResource(ModelResource):
                     'description_level8', 'content_level8_url',
                     'description_level9', 'content_level9_url',
                     'description_level10', 'content_level10_url')
-        authentication = BasicAuthentication()
+        authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
         max_limit = None
 

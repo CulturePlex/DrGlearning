@@ -234,6 +234,11 @@ ACCOUNT_FREE = {
     "storage": 100,
 }
 
+#MISSINGSLASH IN API
+APPEND_SLASH = False
+TASTYPIE_ALLOW_MISSING_SLASH = True
+
+
 # API KEYS
 GOOGLE_API = "http://maps.google.com/maps/api/js?v=3&sensor=false"
 GOOGLE_API_KEY = 'AIzaSyD1ibezws-sdp2Suvn97eSakILyQsY8Wno'
