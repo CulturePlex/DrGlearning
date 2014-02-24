@@ -54,6 +54,13 @@ class Career(models.Model):
                                    verbose_name=_("modality"),
                                    choices=MODE_CHOICES,
                                    default="explore")
+    max_attempts = models.IntegerField(_("Maximun number of total attempts"),
+                                       default=0, blank=True,
+                                       help_text=_("After failing an "
+                                                   "activity this number of "
+                                                   "times, it won't be "
+                                                   "possible to continue "
+                                                   "playing. Zero to disable"))
     timestamp = models.DateTimeField(auto_now=True)
     published = models.BooleanField(_("published"), default=False,
                                     help_text=_("Whether show or not this "

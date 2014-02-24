@@ -65,6 +65,7 @@ class CareerAdmin(GuardedModelAdmin):
         (None, {
             'fields': ('name', 'description', 'knowledge_field',
                        'language_code', 'career_type', 'image', 'code',
+                       'max_attempts',
                        ('published', 'positive_votes', 'negative_votes',
                         'total_downloads'),)
         }),
