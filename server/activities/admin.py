@@ -198,7 +198,7 @@ class LinguisticAdmin(ActivityAdmin):
 
 class QuizAdmin(ActivityAdmin):
     form = QuizAdminForm
-    exclude = ('time', 'image', 'user')
+    exclude = ('time', 'image', 'obfuscated_image', 'user')
 
     def change_view(self, request, object_id, *args, **kwargs):
         if '_saveasnew' in request.POST:
