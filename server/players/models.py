@@ -44,6 +44,7 @@ class HighScore(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     activity_timestamp = models.DateTimeField(null=True, blank=True)
     score = models.FloatField()
+    remaining_attempts = models.IntegerField(null=True, blank=True)
     is_passed = models.NullBooleanField(null=True, blank=True)
 
     def __unicode__(self):

@@ -123,10 +123,13 @@ class ScoreResource(ModelResource):
                     except TypeError:
                         pass
                 is_passed = request.GET.get("is_passed", "false").lower()
+                remaining_attempts = request.GET.get("remaining_attempts",
+                                                     None)
                 hs = HighScore(player=player,
                                activity=activity,
                                score=request.GET["score"],
                                is_passed=json.loads(is_passed),
+                               remaining_attempts=remaining_attempts,
                                activity_timestamp=activity_timestamp)
                 hs.save()
                 kwargs["pk"] = hs.id
