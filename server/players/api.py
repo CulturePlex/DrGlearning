@@ -2,16 +2,20 @@ import json
 from datetime import datetime
 from hashlib import sha1
 
+from django.db.models import Count, Avg, Max
+from django.db.models.query import QuerySet
+
 from tastypie import fields
 from tastypie import http
 from tastypie.exceptions import ImmediateHttpResponse
-from tastypie.resources import ModelResource
+from tastypie.resources import Bundle, ModelResource, Resource
 
 from activities.api import ActivityResource
 from activities.models import Activity
 from base.utils import dehydrate_fields
 from knowledges.models import Career
 from players.models import Player, HighScore
+from players.utils import get_top_players
 
 
 def is_valid_jsonp(request_type, request, required_fields):
@@ -142,3 +146,45 @@ class ScoreResource(ModelResource):
         bundle.data['career_id'] = bundle.obj.activity.career.id
         bundle.data['activity_id'] = bundle.obj.activity.id
         return bundle
+
+
+class HighScoreResource(Resource):
+    code = fields.CharField(attribute='code')
+    display_name = fields.CharField(attribute='display_name')
+    sum_score = fields.FloatField(attribute='sum_score')
+    # career_id = fields.IntegerField(attribute='career_id',blank=False, null=False)
+    # level_id = fields.IntegerField(attribute='level_id', blank=False, null=False)
+    # top = fields.IntegerField(attribute='top', blank=False, null=False)
+
+    class Meta:
+        resource_name = 'top'
+        object_class = Player
+        # authorization = Authorization()
+
+    # The following methods will need overriding regardless of your
+    # data source.
+    def detail_uri_kwargs(self, bundle_or_obj):
+        kwargs = {}
+        return kwargs
+
+    def get_object_list(self, request):
+        career_id = request.GET.get("career", None)
+        if not career_id:
+            return ()
+        else:
+            level_type = request.GET.get("level_type", None)
+            first_n = request.GET.get("first_n", 5)
+            top_players = get_top_players(
+                career=career_id,
+                level_type=level_type,
+                first_n=first_n,
+                exclude_empty_names=True,
+            )
+            return top_players
+
+    def obj_get_list(self, bundle, **kwargs):
+        # Filtering disabled for brevity...
+        return self.get_object_list(bundle.request)
+
+    def obj_get(self, bundle, **kwargs):
+        return Player.objects.get(pk=kwargs['pk'])
