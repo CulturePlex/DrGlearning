@@ -179,7 +179,7 @@ class CareerResource(ModelResource):
         data["objects"] = filtered_careers
         return data
 
-
+'''
 class EditorCareerResource(ModelResource):
     knowledges = fields.ManyToManyField(KnowledgeResource,
                                         'knowledge_field',
@@ -223,19 +223,6 @@ class EditorCareerResource(ModelResource):
         else:
             return Career.objects.filter(published=True)
 
-    def dispatch(self, request_type, request, **kwargs):
-        # required_fields = ('code', )
-        response = super(EditorCareerResource, self).dispatch(request_type,
-                                                      request,
-                                                      **kwargs)
-        # Carrer protected by code
-        if ("pk" in kwargs and "code" in request.GET and
-                "callback" in request.GET):
-            career = Career.objects.get(pk=kwargs["pk"])
-            if sha1(career.code).hexdigest() != request.GET.get("code", ""):
-                return HttpResponse("Resource protected by code", status=401)
-        return response
-
     def dehydrate(self, bundle):
         # Career creator name
         bundle.data["creator"] = bundle.obj.user.get_full_name() or \
@@ -267,3 +254,18 @@ class EditorCareerResource(ModelResource):
                 if c.obj.activity_set.count() > 0]
         data["objects"] = filtered_careers
         return data
+'''
+class EditorCareerResource(ModelResource):
+
+    class Meta:
+        filtering = {
+            "name": ('exact', 'startswith', 'endswith', 'icontains',
+                     'contains'),
+            "knowledges": ALL_WITH_RELATIONS,
+        }
+        queryset = Career.objects.all()
+        list_allowed_methods = ['get', 'put']
+        detail_allowed_methods = ['get', 'put']
+        resource_name = "editor/career"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()
