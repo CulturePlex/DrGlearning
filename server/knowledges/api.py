@@ -29,7 +29,6 @@ class ApiTokenResource(ModelResource):
     def get_list(self, request, **kwargs):
         #if kwargs["pk"] != "auth":
         #    raise NotImplementedError("Resource not found")
-        print 'addddd'
         obj = ApiKey.objects.get(user=request.user)
         #import ipdb
         #ipdb.set_trace()
@@ -179,82 +178,7 @@ class CareerResource(ModelResource):
         data["objects"] = filtered_careers
         return data
 
-'''
-class EditorCareerResource(ModelResource):
-    knowledges = fields.ManyToManyField(KnowledgeResource,
-                                        'knowledge_field',
-                                        full=True)
-    activities = fields.ManyToManyField(ActivityUpdateResource,
-                                        'activity_set',
-                                        full=True)
-    contents = fields.OneToOneField(EmbedResource, 'pk', full=True)
 
-    class Meta:
-        filtering = {
-            "name": ('exact', 'startswith', 'endswith', 'icontains',
-                     'contains'),
-            "knowledges": ALL_WITH_RELATIONS,
-        }
-        queryset = Career.objects.all()
-        list_allowed_methods = ['get','put']
-        detail_allowed_methods = ['get','put']
-        resource_name = "editor/career"
-        # excludes = ["content_url"]
-        # for i in xrange(1, 11):
-        #     excludes.append("content_level%s_url" % i)
-        excludes = ('code', 'content_url',
-                    'description_level1', 'content_level1_url',
-                    'description_level2', 'content_level2_url',
-                    'description_level3', 'content_level3_url',
-                    'description_level4', 'content_level4_url',
-                    'description_level5', 'content_level5_url',
-                    'description_level6', 'content_level6_url',
-                    'description_level7', 'content_level7_url',
-                    'description_level8', 'content_level8_url',
-                    'description_level9', 'content_level9_url',
-                    'description_level10', 'content_level10_url')
-        authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()
-        max_limit = None
-
-    def get_object_list(self, request):
-        if 'testing' in request.GET:
-            return Career.objects.all()
-        else:
-            return Career.objects.filter(published=True)
-
-    def dehydrate(self, bundle):
-        # Career creator name
-        bundle.data["creator"] = bundle.obj.user.get_full_name() or \
-                                                    bundle.obj.user.username
-        # Career size in bytes, and levels
-        size = 0
-        levels = []
-        for activity in bundle.data["activities"]:
-            size += activity.obj.size()
-            if activity.obj.level_type not in levels:
-                levels.append(activity.obj.level_type)
-        fields = [f for f in bundle.obj._meta.fields if not isinstance(f, ImageField)]
-        for field in fields:
-            size += len(unicode(getattr(bundle.obj, field.name)))
-        bundle.data["size"] = size
-        bundle.data["levels"] = sorted(levels)
-        if bundle.obj.code:
-            bundle.data["has_code"] = True
-        else:
-            bundle.data["has_code"] = False
-        bundle.obj.code = None
-        # bundle.data["contents"] = EmbedResource().get_resource_uri(bundle.obj)
-        return dehydrate_fields(bundle)
-
-    def alter_list_data_to_serialize(self, request, data):
-        # Filter careers without activities
-        careers_objects = data["objects"]
-        filtered_careers = [c for c in careers_objects \
-                if c.obj.activity_set.count() > 0]
-        data["objects"] = filtered_careers
-        return data
-'''
 class EditorCareerResource(ModelResource):
 
     class Meta:
