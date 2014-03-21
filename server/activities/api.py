@@ -1,9 +1,12 @@
 from tastypie import fields
-from tastypie.resources import ModelResource
+from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
 from activities.models import Activity
 from base.utils import dehydrate_fields
 
+from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
+from tastypie.authorization import DjangoAuthorization
+from tastypie.models import ApiKey
 
 class ActivityUpdateResource(ModelResource):
     activity = fields
@@ -70,6 +73,11 @@ class ActivityResource(ModelResource):
 class EditorActivityResource(ActivityResource):
     class Meta:
         filtering = {
-            "career": : ALL_WITH_RELATIONS,
+            "career": ALL_WITH_RELATIONS,
             "level_type": ('exact'),
         }
+                list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/career"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()

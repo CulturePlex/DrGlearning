@@ -189,8 +189,8 @@ class EditorCareerResource(ModelResource):
             "knowledges": ALL_WITH_RELATIONS,
         }
         queryset = Career.objects.all()
-        list_allowed_methods = ['get', 'put']
-        detail_allowed_methods = ['get', 'put']
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/career"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
