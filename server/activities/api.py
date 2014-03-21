@@ -66,3 +66,10 @@ class ActivityResource(ModelResource):
             bundle.data["activity_type"] = "unknown"
             return bundle
         return dehydrate_fields(bundle, child_obj)
+        
+class EditorActivityResource(ActivityResource):
+    class Meta:
+        filtering = {
+            "career": : ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
