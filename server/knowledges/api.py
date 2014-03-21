@@ -178,9 +178,10 @@ class CareerResource(ModelResource):
         data["objects"] = filtered_careers
         return data
 
-
 class EditorCareerResource(ModelResource):
-
+    activities = fields.ManyToManyField(ActivityUpdateResource,
+                                        'activity_set',
+                                        full=True)
     class Meta:
         filtering = {
             "name": ('exact', 'startswith', 'endswith', 'icontains',
@@ -193,3 +194,10 @@ class EditorCareerResource(ModelResource):
         resource_name = "editor/career"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
+    def dehydrate(self, bundle):
+        levels = []
+        for activity in bundle.data["activities"]:
+            if activity.obj.level_type not in levels:
+                levels.append(activity.obj.level_type)
+        bundle.data["levels"] = sorted(levels)
+        return dehydrate_fields(bundle)
