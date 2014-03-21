@@ -70,7 +70,7 @@ def get_top_players(career, level_type=None, first_n=5,
     exclude_params = {}
     if exclude_empty_names:
         exclude_params.update({
-            "highscore__player__display_name__iexact": "",
+            "display_name__iexact": "",
         })
     if level_type:
         filter_params.update({
@@ -82,7 +82,9 @@ def get_top_players(career, level_type=None, first_n=5,
     else:
         num_activities = career.activity_set.count()
     # Get max score per activity and player
-    subquery_sql, subquery_params = Player.objects.filter(
+    subquery_sql, subquery_params = Player.objects.exclude(
+        **exclude_params
+    ).filter(
         **filter_params
     ).values(
         "highscore__activity__id"
@@ -95,8 +97,6 @@ def get_top_players(career, level_type=None, first_n=5,
         "highscore__activity__id",
         "max_score",
         "max_timestamp",
-    ).exclude(
-        **exclude_params
     ).query.sql_with_params()
     # Get the sum of the max scores per activity, grouped by career or level
     query, query_params = Player.objects.extra(

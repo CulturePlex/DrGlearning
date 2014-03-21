@@ -173,12 +173,12 @@ class HighScoreResource(Resource):
             return ()
         else:
             level_type = request.GET.get("level_type", None)
-            first_n = request.GET.get("first_n", 5)
+            first_n = max(request.GET.get("first_n", 5), 50)
             top_players = get_top_players(
                 career=career_id,
                 level_type=level_type,
                 first_n=first_n,
-                exclude_empty_names=True,
+                exclude_empty_names=False,
             )
             return top_players
 
@@ -188,3 +188,11 @@ class HighScoreResource(Resource):
 
     def obj_get(self, bundle, **kwargs):
         return Player.objects.get(pk=kwargs['pk'])
+
+    def dehydrate(self, bundle):
+        player_code = bundle.request.GET.get("player_code", None)
+        if player_code is not None:
+            bundle.data['is_player'] = (bundle.obj.code == player_code)
+        else:
+            bundle.data['is_player'] = False
+        return bundle
