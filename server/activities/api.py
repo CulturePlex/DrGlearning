@@ -76,7 +76,7 @@ class EditorActivityResource(ActivityResource):
             "career": ALL_WITH_RELATIONS,
             "level_type": ('exact'),
         }
-                list_allowed_methods = ['get', 'put', 'post']
+        list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/career"
         authentication = ApiKeyAuthentication()
