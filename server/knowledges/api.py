@@ -180,10 +180,25 @@ class CareerResource(ModelResource):
         data["objects"] = filtered_careers
         return data
 
+class EditorKnowledgeResource(ModelResource):
+
+    class Meta:
+        queryset = Knowledge.objects.filter(careers__published=True).distinct()
+        filtering = {
+            "name": ('exact', 'startswith', 'endswith', 'icontains',
+                     'contains'),
+            "id": ('exact', 'in'),
+        }
+        list_allowed_methods = ['get','put','post']
+        detail_allowed_methods = ['get','put','post']
+        resource_name = "editor/knowledge"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()
+        
 class EditorCareerResource(ModelResource):
-    knowledges = fields.ManyToManyField(KnowledgeResource,
+    knowledges = fields.ManyToManyField(EditorKnowledgeResource,
                                         'knowledge_field',
-                                        full=True)
+                                        full=False)
     activities = fields.ManyToManyField("knowledges.api.EditorActivityResource",
                                         'activity_set',
                                         full=True)
@@ -207,7 +222,6 @@ class EditorCareerResource(ModelResource):
                 levels.append(activity.obj.level_type)
         bundle.data["levels"] = sorted(levels)
         return dehydrate_fields(bundle)
-        
         
 class EditorActivityResource(ModelResource):
                                             
