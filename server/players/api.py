@@ -173,12 +173,14 @@ class HighScoreResource(Resource):
             return ()
         else:
             level_type = request.GET.get("level_type", None)
+            normalized = request.GET.get("normalized", False)
             first_n = max(request.GET.get("first_n", 5), 50)
             top_players = get_top_players(
                 career=career_id,
                 level_type=level_type,
                 first_n=first_n,
                 exclude_empty_names=False,
+                normalized=normalized,
             )
             return top_players
 

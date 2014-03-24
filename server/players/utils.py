@@ -59,7 +59,7 @@ def get_scores(career, level_type=None, slice=None, order_by=[], details=False,
 
 
 def get_top_players(career, level_type=None, first_n=5,
-                    exclude_empty_names=True):
+                    exclude_empty_names=True, normalized=False):
     try:
         career.id
     except AttributeError:
@@ -72,14 +72,16 @@ def get_top_players(career, level_type=None, first_n=5,
         exclude_params.update({
             "display_name__iexact": "",
         })
+    num_activities = 1  # Not normalized
     if level_type:
         filter_params.update({
             "highscore__activity__level_type": level_type,
         })
-        num_activities = career.activity_set.filter(
-            level_type=level_type
-        ).count()
-    else:
+        if normalized:
+            num_activities = career.activity_set.filter(
+                level_type=level_type
+            ).count()
+    elif normalized:
         num_activities = career.activity_set.count()
     # Get max score per activity and player
     subquery_sql, subquery_params = Player.objects.exclude(
