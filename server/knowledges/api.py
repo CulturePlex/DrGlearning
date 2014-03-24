@@ -7,7 +7,7 @@ from tastypie import fields
 from tastypie.bundle import Bundle
 from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
-from activities.api import ActivityUpdateResource
+from activities.api import ActivityUpdateResource, EditorActivityResource
 from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
 from tastypie.exceptions import NotFound
@@ -179,6 +179,9 @@ class CareerResource(ModelResource):
         return data
 
 class EditorCareerResource(ModelResource):
+    knowledges = fields.ManyToManyField(KnowledgeResource,
+                                        'knowledge_field',
+                                        full=True)
     activities = fields.ManyToManyField(ActivityUpdateResource,
                                         'activity_set',
                                         full=True)
@@ -189,7 +192,7 @@ class EditorCareerResource(ModelResource):
             "knowledges": ALL_WITH_RELATIONS,
         }
         queryset = Career.objects.all()
-        list_allowed_methods = ['get', 'put', 'post']
+        list_allowed_methods = ['get', 'put', 'post' ]
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/career"
         authentication = ApiKeyAuthentication()

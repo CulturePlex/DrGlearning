@@ -70,14 +70,15 @@ class ActivityResource(ModelResource):
             return bundle
         return dehydrate_fields(bundle, child_obj)
         
-class EditorActivityResource(ActivityResource):
+class EditorActivityResource(ModelResource):
     class Meta:
+        queryset = Activity.objects.all()
         filtering = {
             "career": ALL_WITH_RELATIONS,
             "level_type": ('exact'),
         }
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
-        resource_name = "editor/career"
+        resource_name = "editor/activity"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
