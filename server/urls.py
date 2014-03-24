@@ -5,8 +5,8 @@ from django.contrib import admin
 
 from tastypie.api import Api
 
-from knowledges.api import KnowledgeResource, CareerResource, EmbedResource, EditorCareerResource, ApiTokenResource
-from activities.api import ActivityResource, ActivityUpdateResource, EditorActivityResource
+from knowledges.api import KnowledgeResource, CareerResource, EmbedResource, EditorCareerResource, ApiTokenResource, EditorActivityResource
+from activities.api import ActivityResource, ActivityUpdateResource
 from players.api import ScoreResource, PlayerResource, HighScoreResource
 # from admin import admin_site
 admin.autodiscover()

@@ -7,13 +7,15 @@ from tastypie import fields
 from tastypie.bundle import Bundle
 from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
-from activities.api import ActivityUpdateResource, EditorActivityResource
+from activities.api import ActivityUpdateResource
 from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
 from tastypie.exceptions import NotFound
 from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
+
+from activities.models import Activity
 
 
 class ApiTokenResource(ModelResource):
@@ -182,7 +184,7 @@ class EditorCareerResource(ModelResource):
     knowledges = fields.ManyToManyField(KnowledgeResource,
                                         'knowledge_field',
                                         full=True)
-    activities = fields.ManyToManyField(ActivityUpdateResource,
+    activities = fields.ManyToManyField("knowledges.api.EditorActivityResource",
                                         'activity_set',
                                         full=True)
     class Meta:
@@ -200,7 +202,26 @@ class EditorCareerResource(ModelResource):
     def dehydrate(self, bundle):
         levels = []
         for activity in bundle.data["activities"]:
+            print activity
             if activity.obj.level_type not in levels:
                 levels.append(activity.obj.level_type)
         bundle.data["levels"] = sorted(levels)
         return dehydrate_fields(bundle)
+        
+        
+class EditorActivityResource(ModelResource):
+                                            
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Activity.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/activity"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()        
