@@ -15,7 +15,7 @@ from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
 
-from activities.models import Activity
+from activities.models import Activity, Quiz
 
 
 class ApiTokenResource(ModelResource):
@@ -238,4 +238,46 @@ class EditorActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/activity"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()        
+        authorization = DjangoAuthorization()  
+    def dehydrate(self, bundle):        
+        # Set specific activity information
+        if hasattr(bundle.obj, "relational"):
+            child_obj = bundle.obj.relational
+            bundle.data["activity_type"] = "relational"
+        elif hasattr(bundle.obj, "temporal"):
+            child_obj = bundle.obj.temporal
+            bundle.data["activity_type"] = "temporal"
+        elif hasattr(bundle.obj, "visual"):
+            child_obj = bundle.obj.visual
+            bundle.data["activity_type"] = "visual"
+        elif hasattr(bundle.obj, "linguistic"):
+            child_obj = bundle.obj.linguistic
+            bundle.data["activity_type"] = "linguistic"
+        elif hasattr(bundle.obj, "quiz"):
+            child_obj = bundle.obj.quiz
+            bundle.data["activity_type"] = "quiz"
+        else:
+            bundle.data["activity_type"] = "unknown"
+            return bundle
+        return dehydrate_fields(bundle, child_obj)      
+        
+        
+class EditorQuizActivityResource(ModelResource):
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Quiz.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/quiz"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()  
+
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.quiz
+        return dehydrate_fields(bundle, child_obj)      
