@@ -15,7 +15,7 @@ from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
 
-from activities.models import Activity, Quiz
+from activities.models import Activity, Quiz, Visual, Temporal, Geospatial, Relational
 
 
 class ApiTokenResource(ModelResource):
@@ -280,4 +280,88 @@ class EditorQuizActivityResource(ModelResource):
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.quiz
-        return dehydrate_fields(bundle, child_obj)      
+        return dehydrate_fields(bundle, child_obj)    
+        
+class EditorVisualActivityResource(ModelResource):
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Visual.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/quiz"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()  
+
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.visual
+        return dehydrate_fields(bundle, child_obj)  
+        
+class EditorTemporalActivityResource(ModelResource):
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Temporal.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/quiz"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()  
+
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.temporal
+        return dehydrate_fields(bundle, child_obj)        
+        
+        
+class EditorGeospatialActivityResource(ModelResource):
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Geospatial.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/quiz"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()  
+
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.geospatial
+        return dehydrate_fields(bundle, child_obj)        
+        
+        
+class EditorRelationalActivityResource(ModelResource):
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Relational.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/quiz"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()  
+
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.relational
+        return dehydrate_fields(bundle, child_obj)        
+        
+        
