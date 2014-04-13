@@ -234,8 +234,8 @@ class EditorActivityResource(ModelResource):
             "career": ALL_WITH_RELATIONS,
             "level_type": ('exact'),
         }
-        list_allowed_methods = ['get', 'put', 'post']
-        detail_allowed_methods = ['get', 'put', 'post']
+        list_allowed_methods = ['get', 'put', 'post', 'delete']
+        detail_allowed_methods = ['get', 'put', 'post', 'delete']
         resource_name = "editor/activity"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()  
@@ -294,7 +294,7 @@ class EditorVisualActivityResource(ModelResource):
         }
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
-        resource_name = "editor/quiz"
+        resource_name = "editor/visual"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()  
 
@@ -314,7 +314,7 @@ class EditorTemporalActivityResource(ModelResource):
         }
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
-        resource_name = "editor/quiz"
+        resource_name = "editor/temporal"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()  
 
@@ -335,7 +335,7 @@ class EditorGeospatialActivityResource(ModelResource):
         }
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
-        resource_name = "editor/quiz"
+        resource_name = "editor/geospatial"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()  
 
@@ -356,7 +356,7 @@ class EditorRelationalActivityResource(ModelResource):
         }
         list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
-        resource_name = "editor/quiz"
+        resource_name = "editor/relational"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()  
 

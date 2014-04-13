@@ -3,6 +3,7 @@ import datetime
 import json
 import jsonfield
 import tempfile
+import base64file
 from os import path, remove
 from PIL import Image
 from StringIO import StringIO
@@ -285,7 +286,7 @@ class Geospatial(Activity):
 
 class Temporal(Activity):
     image = models.ImageField(_("image"), upload_to="images",
-                              help_text=_("Image to be recorded"))
+                              help_text=_("Image to be recorded"),max_length=50000)
     image_datetime = models.DateTimeField(_("image date & time"),
                                           help_text=_("This date and time "
                                                       "will compared with the "
