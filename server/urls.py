@@ -5,7 +5,7 @@ from django.contrib import admin
 
 from tastypie.api import Api
 
-from knowledges.api import KnowledgeResource, CareerResource, EmbedResource, EditorCareerResource, ApiTokenResource, EditorActivityResource, EditorKnowledgeResource, EditorQuizActivityResource, EditorTemporalActivityResource
+from knowledges.api import KnowledgeResource, CareerResource, EmbedResource, EditorCareerResource, ApiTokenResource, EditorActivityResource, EditorKnowledgeResource, EditorQuizActivityResource, EditorTemporalActivityResource, EditorVisualActivityResource, EditorLinguisticActivityResource
 from activities.api import ActivityResource, ActivityUpdateResource
 from players.api import ScoreResource, PlayerResource, HighScoreResource
 # from admin import admin_site
@@ -25,6 +25,8 @@ v1_api.register(EditorCareerResource())
 v1_api.register(EditorActivityResource())
 v1_api.register(EditorQuizActivityResource())
 v1_api.register(EditorTemporalActivityResource())
+v1_api.register(EditorVisualActivityResource())
+v1_api.register(EditorLinguisticActivityResource())
 v1_api.register(ApiTokenResource())
 
 urlpatterns = patterns('',

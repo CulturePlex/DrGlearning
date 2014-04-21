@@ -322,6 +322,26 @@ class EditorTemporalActivityResource(ModelResource):
         child_obj = bundle.obj.temporal
         return dehydrate_fields(bundle, child_obj)        
         
+class EditorLinguisticActivityResource(ModelResource):
+    career = fields.ForeignKey(EditorCareerResource,
+                                        'career',
+                                        full=False)
+    class Meta:
+        queryset = Linguistic.objects.all()
+        filtering = {
+            "career": ALL_WITH_RELATIONS,
+            "level_type": ('exact'),
+        }
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
+        resource_name = "editor/linguistic"
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()  
+
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.temporal
+        return dehydrate_fields(bundle, child_obj)        
+                
         
 class EditorGeospatialActivityResource(ModelResource):
     career = fields.ForeignKey(EditorCareerResource,
