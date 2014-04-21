@@ -15,7 +15,7 @@ from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
 
-from activities.models import Activity, Quiz, Visual, Temporal, Geospatial, Relational
+from activities.models import Activity, Quiz, Visual, Temporal, Geospatial, Relational, Linguistic
 
 
 class ApiTokenResource(ModelResource):
@@ -339,7 +339,7 @@ class EditorLinguisticActivityResource(ModelResource):
         authorization = DjangoAuthorization()  
 
     def dehydrate(self, bundle):
-        child_obj = bundle.obj.temporal
+        child_obj = bundle.obj.linguistic
         return dehydrate_fields(bundle, child_obj)        
                 
         
