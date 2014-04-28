@@ -1,6 +1,10 @@
 from hashlib import sha1
+import base64
+import os
 
 from django.db.models.fields.files import ImageField
+from tastypie.fields import FileField
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
 
 from tastypie import fields
@@ -16,6 +20,8 @@ from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
 
 from activities.models import Activity, Quiz, Visual, Temporal, Geospatial, Relational, Linguistic
+
+
 
 
 class ApiTokenResource(ModelResource):
@@ -300,7 +306,13 @@ class EditorVisualActivityResource(ModelResource):
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.visual
-        return dehydrate_fields(bundle, child_obj)  
+        return dehydrate_fields(bundle, child_obj) 
+
+    def hydrate(self, obj):
+        value = super(FileField, self).hydrate(obj)
+        if value:
+            value = SimpleUploadedFile(value["name"], base64.b64decode(value["file"]), getattr(value, "content_type", "application/octet-stream"))
+        return value 
         
 class EditorTemporalActivityResource(ModelResource):
     career = fields.ForeignKey(EditorCareerResource,
