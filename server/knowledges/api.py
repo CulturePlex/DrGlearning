@@ -20,6 +20,27 @@ from activities.models import (
 from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
 
+def base64_hydrate(hydrated_bundle):
+    if hydrated_bundle:
+        image_data = hydrated_bundle.data['image']
+        # In this point, image_data can be string or SimpleUploadedFile
+        if not hasattr(image_data, "name"):
+            base64_match = re.search(r'base64,(.*)', image_data)
+            image_type, xxx = guess_type(image_data)
+            image_ext = guess_extension(image_type).replace("jpe", "jpg")
+            image_str = base64_match.group(1)
+            image_name = "{}{}".format(
+                datetime.now().strftime("%Y%m%d%H%M%S"),
+                image_ext
+            )
+            uploaded_image = SimpleUploadedFile(
+                image_name,
+                base64.b64decode(image_str),
+                image_type or "application/octet-stream"
+            )
+            hydrated_bundle.obj.image = uploaded_image
+            hydrated_bundle.data['image'] = uploaded_image
+    return hydrated_bundle
 
 class ApiTokenResource(ModelResource):
     class Meta:
@@ -307,32 +328,12 @@ class EditorVisualActivityResource(ModelResource):
         resource_name = "editor/visual"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
-        return dehydrate_fields(bundle, child_obj)
 
     def hydrate(self, bundle):
         hydrated_bundle = super(EditorVisualActivityResource,
                                 self).hydrate(bundle)
-        if hydrated_bundle:
-            image_data = hydrated_bundle.data['image']
-            # In this point, image_data can be string or SimpleUploadedFile
-            if not hasattr(image_data, "name"):
-                base64_match = re.search(r'base64,(.*)', image_data)
-                image_type, xxx = guess_type(image_data)
-                image_ext = guess_extension(image_type).replace("jpe", "jpg")
-                image_str = base64_match.group(1)
-                image_name = "{}{}".format(
-                    datetime.now().strftime("%Y%m%d%H%M%S"),
-                    image_ext
-                )
-                uploaded_image = SimpleUploadedFile(
-                    image_name,
-                    base64.b64decode(image_str),
-                    image_type or "application/octet-stream"
-                )
-                hydrated_bundle.obj.image = uploaded_image
-                hydrated_bundle.data['image'] = uploaded_image
-        return hydrated_bundle
-
+        return base64_hydrate(hydrated_bundle)
+        
 
 class EditorTemporalActivityResource(ModelResource):
     career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
@@ -353,6 +354,11 @@ class EditorTemporalActivityResource(ModelResource):
         child_obj = bundle.obj.temporal
         return dehydrate_fields(bundle, child_obj)
 
+    def hydrate(self, bundle):
+        hydrated_bundle = super(EditorTemporalActivityResource,
+                                self).hydrate(bundle)
+        return base64_hydrate(hydrated_bundle)
+
 
 class EditorLinguisticActivityResource(ModelResource):
     career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
@@ -369,9 +375,10 @@ class EditorLinguisticActivityResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
-    def dehydrate(self, bundle):
-        child_obj = bundle.obj.linguistic
-        return dehydrate_fields(bundle, child_obj)
+    def hydrate(self, bundle):
+        hydrated_bundle = super(EditorLinguisticActivityResource,
+                                self).hydrate(bundle)
+        return base64_hydrate(hydrated_bundle)
 
 
 class EditorGeospatialActivityResource(ModelResource):

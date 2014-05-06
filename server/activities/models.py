@@ -285,8 +285,7 @@ class Geospatial(Activity):
 
 
 class Temporal(Activity):
-    image = models.ImageField(_("image"), upload_to="images",
-                              help_text=_("Image to be recorded"),max_length=50000)
+    image = models.ImageField(_("image"), upload_to="images")
     image_datetime = models.DateTimeField(_("image date & time"),
                                           help_text=_("This date and time "
                                                       "will compared with the "
@@ -301,8 +300,7 @@ class Linguistic(Activity):
                                                "the player. It will used as "
                                                "a hint, unless it is equal to "
                                                "the answer for the query"))
-    image = models.ImageField(_("image"), upload_to="images",
-                              help_text=_("Image for tip"))
+    image = models.ImageField(_("image"), upload_to="images")
     answer = models.CharField(_("answer"), max_length=255,
                               help_text=_("Answer to the query. If the answer "
                                           "and the locked text are equal, the "
