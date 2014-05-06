@@ -1,27 +1,24 @@
-from hashlib import sha1
 import base64
-import os
+import re
+from datetime import datetime
+from mimetypes import guess_extension, guess_type
 
 from django.db.models.fields.files import ImageField
-from tastypie.fields import FileField
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.http import HttpResponse
 
 from tastypie import fields
 from tastypie.bundle import Bundle
-from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
-
-from activities.api import ActivityUpdateResource
-from base.utils import dehydrate_fields, get_oembed
-from knowledges.models import Knowledge, Career
-from tastypie.exceptions import NotFound
 from tastypie.authentication import BasicAuthentication, ApiKeyAuthentication
 from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
+from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
-from activities.models import Activity, Quiz, Visual, Temporal, Geospatial, Relational, Linguistic
-
-
+from activities.api import ActivityUpdateResource
+from activities.models import (
+    Activity, Quiz, Visual, Temporal, Geospatial, Relational, Linguistic
+)
+from base.utils import dehydrate_fields, get_oembed
+from knowledges.models import Knowledge, Career
 
 
 class ApiTokenResource(ModelResource):
@@ -33,17 +30,14 @@ class ApiTokenResource(ModelResource):
         list_allowed_methods = ["get"]
         detail_allowed_methods = ["get"]
         authentication = BasicAuthentication()
- 
+
     def get_list(self, request, **kwargs):
-        #if kwargs["pk"] != "auth":
-        #    raise NotImplementedError("Resource not found")
         obj = ApiKey.objects.get(user=request.user)
-        #import ipdb
-        #ipdb.set_trace()
         bundle = self.build_bundle(obj=obj, request=request)
         bundle = self.full_dehydrate(bundle)
         bundle = self.alter_detail_data_to_serialize(request, bundle)
-        return self.create_response(request, bundle) 
+        return self.create_response(request, bundle)
+
 
 class KnowledgeResource(ModelResource):
 
@@ -66,12 +60,12 @@ class EmbedResource(Resource):
 
     def alter_detail_data_to_serialize(self, request, data):
         width = request.GET.get("deviceWidth", 200)
-        height= request.GET.get("deviceHeight", 200)
+        height = request.GET.get("deviceHeight", 200)
         data.data["main_url"] = data.obj.content_url
         if data.obj.content_url:
             data.data["main"] = get_oembed(data.obj.content_url,
-                                              maxwidth=width, maxheight=height,
-                                              format="json")
+                                           maxwidth=width, maxheight=height,
+                                           format="json")
         else:
             data.data["main"] = None
         for i in xrange(1, 11):
@@ -156,8 +150,8 @@ class CareerResource(ModelResource):
 
     def dehydrate(self, bundle):
         # Career creator name
-        bundle.data["creator"] = bundle.obj.user.get_full_name() or \
-                                                    bundle.obj.user.username
+        bundle.data["creator"] = (bundle.obj.user.get_full_name() or
+                                  bundle.obj.user.username)
         # Career size in bytes, and levels
         size = 0
         levels = []
@@ -165,7 +159,8 @@ class CareerResource(ModelResource):
             size += activity.obj.size()
             if activity.obj.level_type not in levels:
                 levels.append(activity.obj.level_type)
-        fields = [f for f in bundle.obj._meta.fields if not isinstance(f, ImageField)]
+        fields = [f for f in bundle.obj._meta.fields
+                  if not isinstance(f, ImageField)]
         for field in fields:
             size += len(unicode(getattr(bundle.obj, field.name)))
         bundle.data["size"] = size
@@ -175,16 +170,17 @@ class CareerResource(ModelResource):
         else:
             bundle.data["has_code"] = False
         bundle.obj.code = None
-        # bundle.data["contents"] = EmbedResource().get_resource_uri(bundle.obj)
+        # bundle.data["contents"]= EmbedResource().get_resource_uri(bundle.obj)
         return dehydrate_fields(bundle)
 
     def alter_list_data_to_serialize(self, request, data):
         # Filter careers without activities
         careers_objects = data["objects"]
-        filtered_careers = [c for c in careers_objects \
-                if c.obj.activity_set.count() > 0]
+        filtered_careers = [c for c in careers_objects
+                            if c.obj.activity_set.count() > 0]
         data["objects"] = filtered_careers
         return data
+
 
 class EditorKnowledgeResource(ModelResource):
 
@@ -195,19 +191,23 @@ class EditorKnowledgeResource(ModelResource):
                      'contains'),
             "id": ('exact', 'in'),
         }
-        list_allowed_methods = ['get','put','post']
-        detail_allowed_methods = ['get','put','post']
+        list_allowed_methods = ['get', 'put', 'post']
+        detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/knowledge"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
-        
+
+
 class EditorCareerResource(ModelResource):
     knowledges = fields.ManyToManyField(EditorKnowledgeResource,
                                         'knowledge_field',
                                         full=False)
-    activities = fields.ManyToManyField("knowledges.api.EditorActivityResource",
-                                        'activity_set',
-                                        full=True)
+    activities = fields.ManyToManyField(
+        "knowledges.api.EditorActivityResource",
+        'activity_set',
+        full=True
+    )
+
     class Meta:
         filtering = {
             "name": ('exact', 'startswith', 'endswith', 'icontains',
@@ -215,11 +215,12 @@ class EditorCareerResource(ModelResource):
             "knowledges": ALL_WITH_RELATIONS,
         }
         queryset = Career.objects.all()
-        list_allowed_methods = ['get', 'put', 'post' ]
+        list_allowed_methods = ['get', 'put', 'post']
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/career"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
+
     def dehydrate(self, bundle):
         levels = []
         for activity in bundle.data["activities"]:
@@ -228,12 +229,12 @@ class EditorCareerResource(ModelResource):
                 levels.append(activity.obj.level_type)
         bundle.data["levels"] = sorted(levels)
         return dehydrate_fields(bundle)
-        
+
+
 class EditorActivityResource(ModelResource):
-                                            
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Activity.objects.all()
         filtering = {
@@ -244,8 +245,9 @@ class EditorActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post', 'delete']
         resource_name = "editor/activity"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
-    def dehydrate(self, bundle):        
+        authorization = DjangoAuthorization()
+
+    def dehydrate(self, bundle):
         # Set specific activity information
         if hasattr(bundle.obj, "relational"):
             child_obj = bundle.obj.relational
@@ -268,13 +270,12 @@ class EditorActivityResource(ModelResource):
         else:
             bundle.data["activity_type"] = "unknown"
             return bundle
-        return dehydrate_fields(bundle, child_obj)      
-        
-        
+        return dehydrate_fields(bundle, child_obj)
+
+
 class EditorQuizActivityResource(ModelResource):
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Quiz.objects.all()
         filtering = {
@@ -285,16 +286,16 @@ class EditorQuizActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/quiz"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.quiz
-        return dehydrate_fields(bundle, child_obj)    
-        
+        return dehydrate_fields(bundle, child_obj)
+
+
 class EditorVisualActivityResource(ModelResource):
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Visual.objects.all()
         filtering = {
@@ -305,22 +306,37 @@ class EditorVisualActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/visual"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
+        authorization = DjangoAuthorization()
+        return dehydrate_fields(bundle, child_obj)
 
-    def dehydrate(self, bundle):
-        child_obj = bundle.obj.visual
-        return dehydrate_fields(bundle, child_obj) 
+    def hydrate(self, bundle):
+        hydrated_bundle = super(EditorVisualActivityResource,
+                                self).hydrate(bundle)
+        if hydrated_bundle:
+            image_data = hydrated_bundle.data['image']
+            # In this point, image_data can be string or SimpleUploadedFile
+            if not hasattr(image_data, "name"):
+                base64_match = re.search(r'base64,(.*)', image_data)
+                image_type, xxx = guess_type(image_data)
+                image_ext = guess_extension(image_type).replace("jpe", "jpg")
+                image_str = base64_match.group(1)
+                image_name = "{}{}".format(
+                    datetime.now().strftime("%Y%m%d%H%M%S"),
+                    image_ext
+                )
+                uploaded_image = SimpleUploadedFile(
+                    image_name,
+                    base64.b64decode(image_str),
+                    image_type or "application/octet-stream"
+                )
+                hydrated_bundle.obj.image = uploaded_image
+                hydrated_bundle.data['image'] = uploaded_image
+        return hydrated_bundle
 
-    def hydrate(self, obj):
-        value = super(FileField, self).hydrate(obj)
-        if value:
-            value = SimpleUploadedFile(value["name"], base64.b64decode(value["file"]), getattr(value, "content_type", "application/octet-stream"))
-        return value 
-        
+
 class EditorTemporalActivityResource(ModelResource):
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Temporal.objects.all()
         filtering = {
@@ -331,16 +347,16 @@ class EditorTemporalActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/temporal"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.temporal
-        return dehydrate_fields(bundle, child_obj)        
-        
+        return dehydrate_fields(bundle, child_obj)
+
+
 class EditorLinguisticActivityResource(ModelResource):
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Linguistic.objects.all()
         filtering = {
@@ -351,17 +367,16 @@ class EditorLinguisticActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/linguistic"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.linguistic
-        return dehydrate_fields(bundle, child_obj)        
-                
-        
+        return dehydrate_fields(bundle, child_obj)
+
+
 class EditorGeospatialActivityResource(ModelResource):
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Geospatial.objects.all()
         filtering = {
@@ -372,17 +387,16 @@ class EditorGeospatialActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/geospatial"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.geospatial
-        return dehydrate_fields(bundle, child_obj)        
-        
-        
+        return dehydrate_fields(bundle, child_obj)
+
+
 class EditorRelationalActivityResource(ModelResource):
-    career = fields.ForeignKey(EditorCareerResource,
-                                        'career',
-                                        full=False)
+    career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
+
     class Meta:
         queryset = Relational.objects.all()
         filtering = {
@@ -393,10 +407,8 @@ class EditorRelationalActivityResource(ModelResource):
         detail_allowed_methods = ['get', 'put', 'post']
         resource_name = "editor/relational"
         authentication = ApiKeyAuthentication()
-        authorization = DjangoAuthorization()  
+        authorization = DjangoAuthorization()
 
     def dehydrate(self, bundle):
         child_obj = bundle.obj.relational
-        return dehydrate_fields(bundle, child_obj)        
-        
-        
+        return dehydrate_fields(bundle, child_obj)
