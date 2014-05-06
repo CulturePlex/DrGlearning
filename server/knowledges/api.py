@@ -262,6 +262,9 @@ class EditorActivityResource(ModelResource):
         elif hasattr(bundle.obj, "quiz"):
             child_obj = bundle.obj.quiz
             bundle.data["activity_type"] = "quiz"
+        elif hasattr(bundle.obj, "geospatial"):
+            child_obj = bundle.obj.geospatial
+            bundle.data["activity_type"] = "geospatial"
         else:
             bundle.data["activity_type"] = "unknown"
             return bundle
@@ -309,7 +312,7 @@ class EditorVisualActivityResource(ModelResource):
         return dehydrate_fields(bundle, child_obj) 
 
     def hydrate(self, obj):
-        value = super(ImageField, self).hydrate(obj)
+        value = super(FileField, self).hydrate(obj)
         if value:
             value = SimpleUploadedFile(value["name"], base64.b64decode(value["file"]), getattr(value, "content_type", "application/octet-stream"))
         return value 
