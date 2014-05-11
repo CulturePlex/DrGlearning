@@ -12,7 +12,11 @@ from userena.models import UserenaLanguageBaseProfile
 
 from tastypie.models import create_api_key
 
-models.signals.post_save.connect(create_api_key, sender=User)
+try:
+    models.signals.post_save.connect(create_api_key, sender=User)
+except Exception, e:
+    pass
+
 
 class Account(models.Model):
     name = models.CharField(_('name'), max_length=255)

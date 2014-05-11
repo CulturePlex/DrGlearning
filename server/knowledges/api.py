@@ -245,7 +245,6 @@ class EditorCareerResource(ModelResource):
     def dehydrate(self, bundle):
         levels = []
         for activity in bundle.data["activities"]:
-            print activity
             if activity.obj.level_type not in levels:
                 levels.append(activity.obj.level_type)
         bundle.data["levels"] = sorted(levels)
