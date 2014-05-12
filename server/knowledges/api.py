@@ -328,6 +328,10 @@ class EditorVisualActivityResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.visual
+        return dehydrate_fields(bundle, child_obj)
+
     def hydrate(self, bundle):
         hydrated_bundle = super(EditorVisualActivityResource,
                                 self).hydrate(bundle)
@@ -374,6 +378,10 @@ class EditorLinguisticActivityResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
+    def dehydrate(self, bundle):
+        child_obj = bundle.obj.linguistic
+        return dehydrate_fields(bundle, child_obj)
+        
     def hydrate(self, bundle):
         hydrated_bundle = super(EditorLinguisticActivityResource,
                                 self).hydrate(bundle)
