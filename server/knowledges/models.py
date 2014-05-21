@@ -162,16 +162,17 @@ class Career(models.Model):
     def __unicode__(self):
         return u"%s" % self.name
 
-#    def save(self, *args, **kwargs):
-#        counter = 0
-#        career = Career.objects.filter(user=self.user, name=self.name)
-#        career = career.exclude(id=self.id)
-#        original_name = self.name
-#        while career:
-#            counter += 1
-#            self.name = u"%s %d" % (original_name, counter)
-#            career = Career.objects.filter(user=self.user, name=self.name)
-#        super(Career, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        counter = 0
+        #en self.user tiene que estar el objeto user correspondiente.
+        career = Career.objects.filter(user=self.user, name=self.name)
+        career = career.exclude(id=self.id)
+        original_name = self.name
+        while career:
+            counter += 1
+            self.name = u"%s %d" % (original_name, counter)
+            career = Career.objects.filter(user=self.user, name=self.name)
+        super(Career, self).save(*args, **kwargs)
 
     def export(self):
         exported_activities = []
