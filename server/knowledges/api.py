@@ -251,6 +251,10 @@ class EditorCareerResource(ModelResource):
         bundle.data["levels"] = sorted(levels)
         return dehydrate_fields(bundle)
 
+    def hydrate(self, bundle):
+        bundle.obj.user = bundle.request.user
+        return bundle
+
 
 class EditorActivityResource(ModelResource):
 
