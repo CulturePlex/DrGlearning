@@ -23,7 +23,6 @@ from knowledges.models import Knowledge, Career
 def base64_hydrate(hydrated_bundle):
     if hydrated_bundle:
         image_data = hydrated_bundle.data['image']
-        print image_data
         # In this point, image_data can be string or SimpleUploadedFile
         if not hasattr(image_data, "name") and image_data[0] != "/":
             base64_match = re.search(r'base64,(.*)', image_data)
