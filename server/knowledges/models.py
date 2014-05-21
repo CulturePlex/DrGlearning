@@ -164,7 +164,6 @@ class Career(models.Model):
 
     def save(self, *args, **kwargs):
         counter = 0
-        #en self.user tiene que estar el objeto user correspondiente.
         career = Career.objects.filter(user=self.user, name=self.name)
         career = career.exclude(id=self.id)
         original_name = self.name
