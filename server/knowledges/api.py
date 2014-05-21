@@ -207,7 +207,7 @@ class CareerResource(ModelResource):
 class EditorKnowledgeResource(ModelResource):
 
     class Meta:
-        queryset = Knowledge.objects.filter(careers__published=True).distinct()
+        queryset = Knowledge.objects.all().distinct()
         filtering = {
             "name": ('exact', 'startswith', 'endswith', 'icontains',
                      'contains'),
@@ -337,7 +337,7 @@ class EditorVisualActivityResource(ModelResource):
         hydrated_bundle = super(EditorVisualActivityResource,
                                 self).hydrate(bundle)
         return base64_hydrate(hydrated_bundle)
-        
+
 
 class EditorTemporalActivityResource(ModelResource):
     career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
@@ -382,7 +382,7 @@ class EditorLinguisticActivityResource(ModelResource):
     def dehydrate(self, bundle):
         child_obj = bundle.obj.linguistic
         return dehydrate_fields(bundle, child_obj)
-        
+
     def hydrate(self, bundle):
         hydrated_bundle = super(EditorLinguisticActivityResource,
                                 self).hydrate(bundle)
