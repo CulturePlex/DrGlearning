@@ -235,6 +235,7 @@ class EditorCareerResource(ModelResource):
                      'contains'),
             "knowledges": ALL_WITH_RELATIONS,
         }
+        always_return_data = True
         queryset = Career.objects.all()
         list_allowed_methods = ['get', 'put', 'post','delete']
         detail_allowed_methods = ['get', 'put', 'post','delete']
