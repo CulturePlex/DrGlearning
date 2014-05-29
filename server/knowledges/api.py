@@ -243,6 +243,9 @@ class EditorCareerResource(ModelResource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
+    def get_object_list(self, request):
+        return super(EditorCareerResource, self).get_object_list(request).filter(user=request.user)
+        
     def dehydrate(self, bundle):
         levels = []
         for activity in bundle.data["activities"]:
@@ -254,8 +257,7 @@ class EditorCareerResource(ModelResource):
     def hydrate(self, bundle):
         bundle.obj.user = bundle.request.user
         return bundle
-
-
+        
 class EditorActivityResource(ModelResource):
 
     career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
