@@ -3,6 +3,9 @@ import re
 from datetime import datetime
 from mimetypes import guess_extension, guess_type
 
+from players.utils import get_top_players
+from django.db import models
+
 from django.db.models.fields.files import ImageField
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -433,3 +436,52 @@ class EditorRelationalActivityResource(ModelResource):
     def dehydrate(self, bundle):
         child_obj = bundle.obj.relational
         return dehydrate_fields(bundle, child_obj)
+
+# We need a generic object to shove data in/get data from.
+# Riak generally just tosses around dictionaries, so we'll lightly
+# wrap that.
+class ScoresObject(object):
+    def __init__(self, initial=None, scores=None):
+        self.__dict__['_data'] = {}
+        self.scores = scores
+        if hasattr(initial, 'items'):
+            self.__dict__['_data'] = initial
+
+    def __getattr__(self, name):
+        return self._data.get(name, None)
+
+    def __setattr__(self, name, value):
+        self.__dict__['_data'][name] = value
+
+    def to_dict(self):
+        return self._data
+
+
+class TopScoresResource(Resource):
+    # Just like a Django ``Form`` or ``Model``, we're defining all the
+    # fields we're going to handle with the API here.
+    scores = fields.ListField(attribute='scores')
+
+    class Meta:
+        resource_name = 'topscores'
+        object_class = ScoresObject
+        #authorization = Authorization()
+
+    # Specific to this resource, just to get the needed Riak bits.
+
+    # The following methods will need overriding regardless of your
+    # data source.
+    def detail_uri_kwargs(self, bundle_or_obj):
+        kwargs = {}
+
+        if isinstance(bundle_or_obj, Bundle):
+            kwargs['pk'] = bundle_or_obj.obj.uuid
+        else:
+            kwargs['pk'] = bundle_or_obj.uuid
+
+        return kwargs
+
+    def obj_get(self, bundle, **kwargs):
+        career_id = bundle.request.path_info.split("/")[4]
+        print get_top_players(career=career_id)
+        return ScoresObject(initial='asd',scores=get_top_players(career=career_id))
