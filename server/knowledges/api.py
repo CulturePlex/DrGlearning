@@ -276,7 +276,10 @@ class EditorActivityResource(ModelResource):
         resource_name = "editor/activity"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
-
+        
+    def get_object_list(self, request):
+        return super(EditorActivityResource, self).get_object_list(request).filter(user=request.user)
+        
     def dehydrate(self, bundle):
         # Set specific activity information
         if hasattr(bundle.obj, "relational"):
@@ -467,8 +470,6 @@ class TopScoresResource(Resource):
         object_class = ScoresObject
         #authorization = Authorization()
 
-    # Specific to this resource, just to get the needed Riak bits.
-
     # The following methods will need overriding regardless of your
     # data source.
     def detail_uri_kwargs(self, bundle_or_obj):
@@ -478,7 +479,6 @@ class TopScoresResource(Resource):
             kwargs['pk'] = bundle_or_obj.obj.uuid
         else:
             kwargs['pk'] = bundle_or_obj.uuid
-
         return kwargs
 
     def obj_get(self, bundle, **kwargs):
