@@ -484,10 +484,17 @@ class TopScoresResource(Resource):
 
     def obj_get(self, bundle, **kwargs):
         career_id = bundle.request.path_info.split("/")[4]
-        print get_top_players(career=career_id)
-        return ScoresObject(initial='asd',scores=get_top_players(career=career_id))
+        scores = scores=get_top_players(career=career_id)
+        scores1=[len(scores)]
+        ind=0
+        print scores
+        for i in scores:
+            scores1[ind] = "{name:'"+str(i.display_name)+"',sum_score:"+str(i.sum_score)+"}"
+            ind = ind + 1
+            print i.sum_score
+
+        return ScoresObject(initial='asd',scores=scores1)
 
     def get_resource_uri(self, bundle_or_obj):
-        print bundle_or_obj
         career_id = bundle_or_obj.request.path_info.split("/")[4]
         return "api/v1/topscores/"+career_id
