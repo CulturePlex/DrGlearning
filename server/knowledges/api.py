@@ -496,5 +496,4 @@ class TopScoresResource(Resource):
         return ScoresObject(initial='asd',scores=scores1)
 
     def get_resource_uri(self, bundle_or_obj):
-        career_id = bundle_or_obj.request.path_info.split("/")[4]
-        return "api/v1/topscores/"+career_id
+        return bundle_or_obj.request.path_info
