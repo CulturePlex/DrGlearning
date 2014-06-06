@@ -468,7 +468,8 @@ class TopScoresResource(Resource):
     class Meta:
         resource_name = 'topscores'
         object_class = ScoresObject
-        #authorization = Authorization()
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()
 
     # The following methods will need overriding regardless of your
     # data source.
@@ -485,3 +486,8 @@ class TopScoresResource(Resource):
         career_id = bundle.request.path_info.split("/")[4]
         print get_top_players(career=career_id)
         return ScoresObject(initial='asd',scores=get_top_players(career=career_id))
+
+    def get_resource_uri(self, bundle_or_obj):
+        print bundle_or_obj
+        career_id = bundle_or_obj.request.path_info.split("/")[4]
+        return "api/v1/topscores/"+career_id
