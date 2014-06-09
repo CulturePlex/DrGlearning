@@ -59,7 +59,8 @@ def get_scores(career, level_type=None, slice=None, order_by=[], details=False,
 
 
 def get_top_players(career, level_type=None, first_n=5,
-                    exclude_empty_names=True, normalized=False):
+                    exclude_empty_names=True, normalized=False,
+                    as_queryset=False):
     try:
         career.id
     except AttributeError:
@@ -70,7 +71,7 @@ def get_top_players(career, level_type=None, first_n=5,
     exclude_params = {}
     if exclude_empty_names:
         exclude_params.update({
-            "display_name__iexact": "",
+            "display_name__exact": "",
         })
     num_activities = 1  # Not normalized
     if level_type:
@@ -120,4 +121,7 @@ def get_top_players(career, level_type=None, first_n=5,
         raw_query=raw_query,
         params=query_params + subquery_params + (first_n, )
     )
-    return tuple(top_players)
+    if as_queryset:
+        return top_players
+    else:
+        return tuple(top_players)

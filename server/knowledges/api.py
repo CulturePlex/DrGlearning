@@ -248,7 +248,7 @@ class EditorCareerResource(ModelResource):
 
     def get_object_list(self, request):
         return super(EditorCareerResource, self).get_object_list(request).filter(user=request.user)
-        
+
     def dehydrate(self, bundle):
         levels = []
         for activity in bundle.data["activities"]:
@@ -260,7 +260,7 @@ class EditorCareerResource(ModelResource):
     def hydrate(self, bundle):
         bundle.obj.user = bundle.request.user
         return bundle
-        
+
 class EditorActivityResource(ModelResource):
 
     career = fields.ForeignKey(EditorCareerResource, 'career', full=False)
@@ -276,10 +276,10 @@ class EditorActivityResource(ModelResource):
         resource_name = "editor/activity"
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
-        
+
     def get_object_list(self, request):
         return super(EditorActivityResource, self).get_object_list(request).filter(user=request.user)
-        
+
     def dehydrate(self, bundle):
         # Set specific activity information
         if hasattr(bundle.obj, "relational"):
@@ -440,29 +440,14 @@ class EditorRelationalActivityResource(ModelResource):
         child_obj = bundle.obj.relational
         return dehydrate_fields(bundle, child_obj)
 
-# We need a generic object to shove data in/get data from.
-# Riak generally just tosses around dictionaries, so we'll lightly
-# wrap that.
+
 class ScoresObject(object):
-    def __init__(self, initial=None, scores=None):
-        self.__dict__['_data'] = {}
+
+    def __init__(self, scores=None):
         self.scores = scores
-        if hasattr(initial, 'items'):
-            self.__dict__['_data'] = initial
-
-    def __getattr__(self, name):
-        return self._data.get(name, None)
-
-    def __setattr__(self, name, value):
-        self.__dict__['_data'][name] = value
-
-    def to_dict(self):
-        return self._data
 
 
 class TopScoresResource(Resource):
-    # Just like a Django ``Form`` or ``Model``, we're defining all the
-    # fields we're going to handle with the API here.
     scores = fields.ListField(attribute='scores')
 
     class Meta:
@@ -471,8 +456,6 @@ class TopScoresResource(Resource):
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
 
-    # The following methods will need overriding regardless of your
-    # data source.
     def detail_uri_kwargs(self, bundle_or_obj):
         kwargs = {}
 
@@ -483,17 +466,20 @@ class TopScoresResource(Resource):
         return kwargs
 
     def obj_get(self, bundle, **kwargs):
+        # TODO: Put the career_id as a GET parameter
         career_id = bundle.request.path_info.split("/")[4]
-        scores = scores=get_top_players(career=career_id)
-        scores1=[len(scores)]
-        ind=0
-        print scores
-        for i in scores:
-            scores1[ind] = "{name:'"+str(i.display_name)+"',sum_score:"+str(i.sum_score)+"}"
-            ind = ind + 1
-            print i.sum_score
-
-        return ScoresObject(initial='asd',scores=scores1)
+        top_players = get_top_players(career=career_id,
+                                      exclude_empty_names=False)
+        scores = []
+        for top_player in top_players:
+            top_player_name = (
+                top_player.display_name or top_player.email or top_player.code
+            )
+            scores.append({
+                "name": top_player_name,
+                "sum_score": top_player.sum_score,
+            })
+        return ScoresObject(scores=scores)
 
     def get_resource_uri(self, bundle_or_obj):
         return bundle_or_obj.request.path_info
