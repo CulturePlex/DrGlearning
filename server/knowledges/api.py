@@ -16,12 +16,18 @@ from tastypie.authorization import DjangoAuthorization
 from tastypie.models import ApiKey
 from tastypie.resources import ModelResource, Resource, ALL_WITH_RELATIONS
 
+from tastypie import http
+from tastypie.exceptions import ImmediateHttpResponse
+
+from tastypie.resources import NOT_AVAILABLE, ObjectDoesNotExist, NotFound
+
 from activities.api import ActivityUpdateResource
 from activities.models import (
     Activity, Quiz, Visual, Temporal, Geospatial, Relational, Linguistic
 )
 from base.utils import dehydrate_fields, get_oembed
 from knowledges.models import Knowledge, Career
+
 
 def base64_hydrate(hydrated_bundle):
     if hydrated_bundle:
