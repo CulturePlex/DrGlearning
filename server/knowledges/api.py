@@ -21,6 +21,8 @@ from tastypie.exceptions import ImmediateHttpResponse
 
 from tastypie.resources import NOT_AVAILABLE, ObjectDoesNotExist, NotFound
 
+from tastypie.paginator import Paginator
+
 from activities.api import ActivityUpdateResource
 from activities.models import (
     Activity, Quiz, Visual, Temporal, Geospatial, Relational, Linguistic
@@ -461,6 +463,7 @@ class TopScoresResource(Resource):
         object_class = ScoresObject
         authentication = ApiKeyAuthentication()
         authorization = DjangoAuthorization()
+        paginator_class = Paginator
 
     def detail_uri_kwargs(self, bundle_or_obj):
         kwargs = {}
@@ -486,6 +489,218 @@ class TopScoresResource(Resource):
                 "sum_score": top_player.sum_score,
             })
         return ScoresObject(scores=scores)
+
+    def get_resource_uri(self, bundle_or_obj):
+        return bundle_or_obj.request.path_info
+        
+class DaysObject(object):
+
+    def __init__(self, days=None):
+        self.days = days
+
+class DaysResource(Resource):
+    days = fields.ListField(attribute='days')
+
+    class Meta:
+        resource_name = 'days'
+        object_class = DaysObject
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()
+        paginator_class = Paginator
+
+    def detail_uri_kwargs(self, bundle_or_obj):
+        kwargs = {}
+
+        if isinstance(bundle_or_obj, Bundle):
+            kwargs['pk'] = bundle_or_obj.obj.uuid
+        else:
+            kwargs['pk'] = bundle_or_obj.uuid
+        return kwargs
+
+    def obj_get(self, bundle, **kwargs):
+        # TODO: Put the career_id as a GET parameter
+        career_id = bundle.request.path_info.split("/")[4]
+        #stats_days = get_top_players(career=career_id,
+        #                              exclude_empty_names=False)
+        days = []
+        #for stats_day in stats_days:
+        #    day_number = stats_day.day_number
+        #    day_attempts = stats_day.day_attempts
+        #    days.append({
+        #        "day": day_number,
+        #        "sum_score": day_attempts,
+        #    })
+        days.append({
+                "day": 0,
+                "num_attempts": 7,
+            })
+        days.append({
+                "day": 1,
+                "num_attempts": 17,
+            })
+        days.append({
+                "day": 2,
+                "num_attempts": 72,
+            })
+        days.append({
+                "day": 3,
+                "num_attempts": 17,
+            })
+        days.append({
+                "day": 4,
+                "num_attempts": 87,
+            })
+        days.append({
+                "day": 5,
+                "num_attempts": 74,
+            })
+        days.append({
+                "day": 6,
+                "num_attempts": 12,
+            })
+        return DaysObject(days=days)
+
+    def get_resource_uri(self, bundle_or_obj):
+        return bundle_or_obj.request.path_info
+        
+class HoursObject(object):
+
+    def __init__(self, hours=None):
+        self.hours = hours
+
+class HoursResource(Resource):
+    hours = fields.ListField(attribute='hours')
+
+    class Meta:
+        resource_name = 'hours'
+        object_class = HoursObject
+        authentication = ApiKeyAuthentication()
+        authorization = DjangoAuthorization()
+        paginator_class = Paginator
+
+    def detail_uri_kwargs(self, bundle_or_obj):
+        kwargs = {}
+
+        if isinstance(bundle_or_obj, Bundle):
+            kwargs['pk'] = bundle_or_obj.obj.uuid
+        else:
+            kwargs['pk'] = bundle_or_obj.uuid
+        return kwargs
+
+    def obj_get(self, bundle, **kwargs):
+        # TODO: Put the career_id as a GET parameter
+        career_id = bundle.request.path_info.split("/")[4]
+        #stats_days = get_top_players(career=career_id,
+        #                              exclude_empty_names=False)
+        hours = []
+        #for stats_hour in stats_hours:
+        #    hour_time = stats_day.day_number
+        #    hour_attempts = stats_day.day_attempts
+        #    hours.append({
+        #        "day": day_number,
+        #        "sum_score": day_attempts,
+        #    })
+        hours.append({
+                "time": "12:01:00",
+                "num_attempts": 7,
+            })
+        hours.append({
+                "time": "12:11:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "12:01:00",
+                "num_attempts": 72,
+            })
+        hours.append({
+                "time": "13:01:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "13:01:00",
+                "num_attempts": 87,
+            })
+        hours.append({
+                "time": "14:01:00",
+                "num_attempts": 74,
+            })
+        hours.append({
+                "time": "14:01:00",
+                "num_attempts": 12,
+            })
+        hours.append({
+                "time": "15:01:00",
+                "num_attempts": 7,
+            })
+        hours.append({
+                "time": "16:11:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "16:01:00",
+                "num_attempts": 72,
+            })
+        hours.append({
+                "time": "17:01:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "17:01:00",
+                "num_attempts": 87,
+            })
+        hours.append({
+                "time": "18:01:00",
+                "num_attempts": 74,
+            })
+        hours.append({
+                "time": "18:01:00",
+                "num_attempts": 12,
+            })
+        hours.append({
+                "time": "20:01:00",
+                "num_attempts": 7,
+            })
+        hours.append({
+                "time": "21:11:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "21:17:00",
+                "num_attempts": 72,
+            })
+        hours.append({
+                "time": "22:01:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "22:01:00",
+                "num_attempts": 87,
+            })
+        hours.append({
+                "time": "22:11:00",
+                "num_attempts": 74,
+            })
+        hours.append({
+                "time": "23:01:00",
+                "num_attempts": 12,
+            })
+        hours.append({
+                "time": "23:01:00",
+                "num_attempts": 7,
+            })
+        hours.append({
+                "time": "23:11:00",
+                "num_attempts": 17,
+            })
+        hours.append({
+                "time": "23:01:00",
+                "num_attempts": 72,
+            })
+        hours.append({
+                "time": "23:01:00",
+                "num_attempts": 17,
+            })
+        return HoursObject(hours=hours)
 
     def get_resource_uri(self, bundle_or_obj):
         return bundle_or_obj.request.path_info
