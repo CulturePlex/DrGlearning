@@ -3,21 +3,16 @@ import datetime
 import json
 import jsonfield
 import tempfile
-import base64file
 from os import path, remove
-from PIL import Image
-from StringIO import StringIO
 
 from django.contrib.gis.db import models
 from django.contrib.gis.db.models import GeometryField
 from django.contrib.gis.geos.geometry import Point, Polygon, MultiPoint
-from django.core.files import File
-from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models import Max, F
 from django.db.models.fields import DateTimeField
 from django.db.models.fields.files import ImageField
 from django.db.models.signals import post_save, pre_delete
-from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
@@ -205,12 +200,26 @@ class Activity(models.Model):
     class Meta:
         verbose_name_plural = _("Activities")
         ordering = ['level_type', 'level_order']
+        get_latest_by = "timestamp"
 
 
-def timestamp_on_delete(sender, instance, signal, *args, **kwargs):
+def timestamp_on_delete(sender, instance, *args, **kwargs):
     instance.career.timestamp = datetime.datetime.now()
     instance.career.save()
 pre_delete.connect(timestamp_on_delete, sender=Activity)
+
+
+def increment_level_order_on_create(sender, instance, created, *args, **kwgs):
+    if created and instance.level_order != 0:
+        activities = Activity.objects.filter(
+            career=instance.career,
+            level_type=instance.level_type,
+        )
+        annoated_activities = activities.annotate(max_level=Max('level_order'))
+        max_order = annoated_activities.filter(level_order=F('max_level'))
+        max_level_order = max_order.latest().max_level
+        instance.level_order = max_level_order + 1
+post_save.connect(increment_level_order_on_create, sender=Activity)
 
 
 class Relational(Activity):
