@@ -210,16 +210,14 @@ pre_delete.connect(timestamp_on_delete, sender=Activity)
 
 
 def increment_level_order_on_create(sender, instance, created, *args, **kwgs):
-    if created and instance.level_order != 0:
+    if created and instance.level_order == 0:
         activities = Activity.objects.filter(
             career=instance.career,
             level_type=instance.level_type,
         )
-        annoated_activities = activities.annotate(max_level=Max('level_order'))
-        max_order = annoated_activities.filter(level_order=F('max_level'))
-        max_level_order = max_order.latest().max_level
+        max_level_order = activities.order_by("-level_order")[0].level_order
         instance.level_order = max_level_order + 1
-post_save.connect(increment_level_order_on_create, sender=Activity)
+        instance.save()
 
 
 class Relational(Activity):
@@ -235,6 +233,8 @@ class Relational(Activity):
                                                  "path to reach "
                                                  "the ending node from the "
                                                  "starting node"))
+
+post_save.connect(increment_level_order_on_create, sender=Relational)
 
 
 class Visual(Activity):
@@ -253,6 +253,8 @@ class Visual(Activity):
     correct_answer = models.CharField(_("right answer"), max_length=80)
     time = models.CharField(_("countdown time"), max_length=10,
                             help_text=_("Expresed in seconds"))
+
+post_save.connect(increment_level_order_on_create, sender=Visual)
 
 
 class Quiz(Activity):
@@ -279,6 +281,8 @@ class Quiz(Activity):
     class Meta:
         verbose_name_plural = _("quizes")
 
+post_save.connect(increment_level_order_on_create, sender=Quiz)
+
 
 class Geospatial(Activity):
     points = models.MultiPointField(_("points"),
@@ -292,6 +296,8 @@ class Geospatial(Activity):
     #overriding the default manager
     objects = models.GeoManager()
 
+post_save.connect(increment_level_order_on_create, sender=Geospatial)
+
 
 class Temporal(Activity):
     image = models.ImageField(_("image"), upload_to="images")
@@ -300,6 +306,8 @@ class Temporal(Activity):
                                                       "will compared with the "
                                                       "query date and time"))
     query_datetime = models.DateTimeField(_("query date & time"),)
+
+post_save.connect(increment_level_order_on_create, sender=Temporal)
 
 
 class Linguistic(Activity):
@@ -321,3 +329,5 @@ class Linguistic(Activity):
         self.locked_text = self.locked_text.strip()
         self.answer = self.answer.strip()
         super(Linguistic, self).save(*args, **kwargs)
+
+post_save.connect(increment_level_order_on_create, sender=Linguistic)
