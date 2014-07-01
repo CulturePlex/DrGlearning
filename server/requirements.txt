@@ -8,7 +8,7 @@ django-grappelli==2.4.3
 -e git://github.com/lukaszb/django-guardian.git@c9a7301fb8f0bc014d7ee60a5979443a51b9d904#egg=django_guardian-dev
 django-jsonfield==0.8.12
 django-olwidget==0.60.3
-django-tastypie==0.9.11
+django-tastypie==0.9.12
 -e git://github.com/bread-and-pepper/django-userena.git@95532778e49ff1cbe4d1cb87ddbf71ce10981bbf#egg=django_userena-dev
 easy-thumbnails==1.1
 ipdb==0.7
